@@ -1,0 +1,6 @@
+flutter_native_splash:
+  image_mode: "scaleToFill"  # Image mode (options: "scaleToFill", "scaleAspectFit", "scaleAspectFill")
+  android: true
+  background_image: "assets/images/splash.png"
+  android_disable_fullScreen: false
+  # Add any other configurations you need
