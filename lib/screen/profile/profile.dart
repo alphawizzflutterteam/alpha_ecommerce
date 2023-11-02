@@ -1,6 +1,7 @@
 import 'package:alpha_ecommerce_18oct/helper/images.dart';
 import 'package:alpha_ecommerce_18oct/helper/routes.dart';
 import 'package:alpha_ecommerce_18oct/model/profile.dart';
+import 'package:alpha_ecommerce_18oct/screen/profile/logOut/logOut.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../helper/color.dart';
@@ -330,10 +331,9 @@ class _ProfileState extends State<Profile> {
                       for (int i = 0; i < profile.length; i++)
                         InkWell(
                           onTap: () {
-                            if (profile[i].navigationScreen ==
-                                const SizedBox()) {
-                              print("hello4");
-                              showLogoutDialog(context);
+                            if (profile[i].navigationScreen.runtimeType ==
+                                String) {
+                              logOut(context);
                             } else {
                               Navigator.push(
                                 context,
@@ -380,73 +380,6 @@ class _ProfileState extends State<Profile> {
           ),
         )
       ],
-    );
-  }
-
-  Future<void> showLogoutDialog(context) async {
-    print("hello");
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-            backgroundColor: Colors.transparent,
-            content: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                color: const Color(0xFF2D3438),
-              ),
-              height: 300,
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/rate_us.png', // Replace with your image path
-                    width: 80,
-                    height: 80,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    'Rate Us!',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    'How would you love this app?',
-                    style: TextStyle(color: Color(0xFF767680)),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: 150,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: colors.buttonColor,
-                        onPrimary: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-                      onPressed: () {
-                        Routes.navigateToPreviousScreen(context);
-                      },
-                      child: const Text('RATE US'),
-                    ),
-                  ),
-                ],
-              ),
-            ));
-      },
     );
   }
 }

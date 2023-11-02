@@ -16,7 +16,7 @@ import '../screen/profile/subscribe/subscribe.dart';
 class ProfileList {
   IconData profileIcon;
   String profileText;
-  Widget navigationScreen;
+  dynamic navigationScreen;
   ProfileList(
       {required this.profileIcon,
       required this.profileText,
@@ -75,5 +75,5 @@ List<ProfileList> profile = [
   ProfileList(
       profileIcon: Icons.logout,
       profileText: 'Logout',
-      navigationScreen: const SizedBox()),
+      navigationScreen: "functionOpen"),
 ];

@@ -116,7 +116,7 @@ class _EditProfileState extends State<EditProfile> {
                           decoration: commonInputDecoration(
                             labelText: 'Gender',
                           ),
-                          style: const TextStyle(color: Color(0xFF767680)),
+                          style: const TextStyle(color: colors.greyText),
                         ),
                       ),
                       Container(

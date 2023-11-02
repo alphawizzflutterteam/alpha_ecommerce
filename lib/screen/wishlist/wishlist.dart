@@ -98,7 +98,7 @@ class _WishlistState extends State<Wishlist> {
                                             child: Text(
                                               wishlist[i].productDiscount,
                                               style: const TextStyle(
-                                                  color: Color(0xff767680),
+                                                  color: colors.greyText,
                                                   fontSize: 14),
                                             ),
                                           ),
@@ -110,7 +110,7 @@ class _WishlistState extends State<Wishlist> {
                                       Text(
                                         wishlist[i].productWeight,
                                         style: const TextStyle(
-                                            color: Color(0xff767680),
+                                            color: colors.greyText,
                                             fontSize: 12),
                                       ),
                                       const SizedBox(

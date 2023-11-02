@@ -179,7 +179,7 @@ class _SearchState extends State<Search> {
                   const Text(
                     'Lorem Ipsum is simply dummy text',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Color(0xFF767680), fontSize: 14),
+                    style: TextStyle(color: colors.greyText, fontSize: 14),
                   ),
                   const SizedBox(
                     height: 20,

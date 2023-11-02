@@ -136,7 +136,7 @@ class _VendorState extends State<Vendor> {
                                           Text(
                                             "Follower",
                                             style: TextStyle(
-                                                color: Color(0xff767680),
+                                                color: colors.greyText,
                                                 fontSize: 14),
                                           ),
                                         ],

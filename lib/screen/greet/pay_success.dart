@@ -16,14 +16,6 @@ class _PaySuccessState extends State<PaySuccess> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      // Container(
-      //   width: double.infinity,
-      //   color: const Color(0xff0A9494),
-      //   child: Image(
-      //       height: MediaQuery.of(context).size.height,
-      //       fit: BoxFit.fill,
-      //       image: const AssetImage("assets/images/bg-with-pattern.png")),
-      // ),
       const CommonBackgroundPatternAuthWidget(),
       Scaffold(
           resizeToAvoidBottomInset: false,

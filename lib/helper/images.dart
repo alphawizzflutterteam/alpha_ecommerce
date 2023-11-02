@@ -15,6 +15,7 @@ class Images {
   static const phonePay = 'assets/images/phonepay.png';
   static const upi = "assets/images/youtube.png";
   static const delete = 'assets/images/delete.png';
+  static const logout = 'assets/images/logout.png';
   static const iconBG = 'assets/images/bg-icon.png';
   static const trusted = "assets/images/trusted.png";
   static const offer = "assets/images/offer.png";
@@ -39,6 +40,8 @@ class Images {
   static const happy = "assets/images/happy.png";
   static const tickSquare = "assets/images/tick-square.png";
 
+  static const bgTab = 'assets/images/tabbar-bg.png';
+
   //temporary Images
   static const powder = 'assets/images/temporaryImages/powder.png';
   static const dettol = "assets/images/temporaryImages/dettol.png";
@@ -48,4 +51,5 @@ class Images {
   static const maggie = "assets/images/temporaryImages/maggie.png";
   static const profile = "assets/images/temporaryImages/profileImage.png";
   static const human = 'assets/images/temporaryImages/human.png';
+
 }

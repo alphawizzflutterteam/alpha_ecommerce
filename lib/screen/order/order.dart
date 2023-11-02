@@ -1,4 +1,4 @@
-import 'package:alpha_ecommerce_18oct/widgets/filter.dart';
+import 'package:alpha_ecommerce_18oct/screen/order/filter.dart';
 import 'package:flutter/material.dart';
 import '../../helper/color.dart';
 import '../../helper/images.dart';
@@ -230,7 +230,7 @@ class _OrderState extends State<Order> {
                                         child: Text(
                                           orderItems[i]['subText'],
                                           style: const TextStyle(
-                                              color: Color(0xff767680),
+                                              color: colors.greyText,
                                               fontSize: 12),
                                         ),
                                       ),

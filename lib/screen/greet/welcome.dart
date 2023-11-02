@@ -2,7 +2,7 @@ import 'package:alpha_ecommerce_18oct/helper/images.dart';
 import 'package:alpha_ecommerce_18oct/helper/routes.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgets/commonBackground.dart';
+import '../../helper/color.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class _WelcomeState extends State<Welcome> {
     return Stack(children: [
       Container(
         width: double.infinity,
-        color: const Color(0xff0A9494),
+        color: colors.buttonColor,
         child: Image(
             height: MediaQuery.of(context).size.height,
             fit: BoxFit.fill,

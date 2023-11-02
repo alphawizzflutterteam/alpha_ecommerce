@@ -107,7 +107,7 @@ class _CartState extends State<Cart> {
                                                 style: const TextStyle(
                                                     decoration: TextDecoration
                                                         .lineThrough,
-                                                    color: Color(0xff767680),
+                                                    color: colors.greyText,
                                                     fontSize: 14),
                                               ),
                                             ),
@@ -119,7 +119,7 @@ class _CartState extends State<Cart> {
                                         Text(
                                           cartList[i].productWeight,
                                           style: const TextStyle(
-                                              color: Color(0xff767680),
+                                              color: colors.greyText,
                                               fontSize: 12),
                                         ),
                                         const SizedBox(
@@ -240,7 +240,7 @@ class _CartState extends State<Cart> {
                             child: Theme(
                               data: ThemeData(
                                   unselectedWidgetColor:
-                                      const Color(0xff767680)),
+                                      colors.greyText),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
@@ -448,15 +448,15 @@ class _CartState extends State<Cart> {
                                         vertical: 10, horizontal: 10),
                                     hintText: 'Voucher Number',
                                     hintStyle: const TextStyle(
-                                        color: Color(0xFF767680)),
+                                        color: colors.greyText),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide:  BorderSide(
                                         color: colors.textFieldColor,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide:  BorderSide(
                                         color: colors.textFieldColor,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
@@ -547,7 +547,7 @@ class _CartState extends State<Cart> {
                                                 style: const TextStyle(
                                                     decoration: TextDecoration
                                                         .lineThrough,
-                                                    color: Color(0xff767680),
+                                                    color: colors.greyText,
                                                     fontSize: 14),
                                               ),
                                             ),
@@ -559,7 +559,7 @@ class _CartState extends State<Cart> {
                                         Text(
                                           cartList[i].productWeight,
                                           style: const TextStyle(
-                                              color: Color(0xff767680),
+                                              color: colors.greyText,
                                               fontSize: 12),
                                         ),
                                         const SizedBox(

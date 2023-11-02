@@ -45,7 +45,7 @@ class _RateUsState extends State<RateUs> {
           ),
           const Text(
             'How would you love this app?',
-            style: TextStyle(color: Color(0xFF767680)),
+            style: TextStyle(color: colors.greyText),
           ),
           SizedBox(
             height: 20,

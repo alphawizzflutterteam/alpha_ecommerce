@@ -155,12 +155,12 @@ class _IntroSliderState extends State<IntroSlider> {
                       return Container(
                         width: 10.0,
                         height: 10.0,
-                        margin: const EdgeInsets.symmetric(
+                        margin:  const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 2.0),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: currentIndex.value == index
-                              ? const Color(0xff03DAC6)
+                              ? colors.lightButton
                               : Colors.grey,
                         ),
                       );

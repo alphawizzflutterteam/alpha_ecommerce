@@ -1,3 +1,6 @@
+import 'package:alpha_ecommerce_18oct/widgets/categoryShuffle.dart';
+import 'package:alpha_ecommerce_18oct/widgets/filterShuffle.dart';
+import 'package:alpha_ecommerce_18oct/widgets/sortShuffle.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
@@ -265,7 +268,9 @@ class _HomeState extends State<Home> {
                           width: MediaQuery.of(context).size.width * 0.33,
                           color: const Color(0xFF414141),
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              homeFilter(context);
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -293,12 +298,14 @@ class _HomeState extends State<Home> {
                             color: Color(0xFF414141),
                             border: Border(
                               left: BorderSide(
-                                color: Color(0xFF444647),
+                                color: colors.midBorder,
                               ),
                             ),
                           ),
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              homeCategory(context);
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -326,12 +333,14 @@ class _HomeState extends State<Home> {
                             color: Color(0xFF414141),
                             border: Border(
                               left: BorderSide(
-                                color: Color(0xFF444647),
+                                color: colors.midBorder,
                               ),
                             ),
                           ),
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              homeSort(context);
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -354,12 +363,10 @@ class _HomeState extends State<Home> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      height: MediaQuery.of(context).size.height * 0.3,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      height: MediaQuery.of(context).size.height * 0.33,
                       child: GridView.builder(
                         shrinkWrap: true,
                         physics: const AlwaysScrollableScrollPhysics(),
@@ -371,140 +378,135 @@ class _HomeState extends State<Home> {
                         ),
                         itemCount: 6,
                         itemBuilder: (context, j) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Routes.navigateToProductDetailPageScreen(
-                                        context);
-                                  },
-                                  child: Container(
-                                    height: 200,
-                                    width: 150,
-                                    decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10)),
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            const Color(0xFF4E5255)
-                                                .withOpacity(1),
-                                            Colors.transparent,
-                                          ],
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
+                          return Column(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Routes.navigateToProductDetailPageScreen(
+                                      context);
+                                },
+                                child: Container(
+                                  height: 200,
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)),
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          colors.boxGradient1
+                                              .withOpacity(1),
+                                          Colors.transparent,
+                                        ],
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                      ),
+                                      border: Border.all(
+                                          color: const Color(0xFF414141))),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        Images.onBoarding2,
+                                        width: 80,
+                                        height: 80,
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 5,
                                         ),
-                                        border: Border.all(
-                                            color: const Color(0xFF414141))),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Image.asset(
-                                          Images.onBoarding2,
-                                          width: 80,
-                                          height: 80,
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                            vertical: 5,
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text(
-                                                '35% Off',
-                                                style: TextStyle(
-                                                  color: Colors.orange,
-                                                  fontSize: 12,
-                                                ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const Text(
+                                              '35% Off',
+                                              style: TextStyle(
+                                                color: Colors.orange,
+                                                fontSize: 12,
                                               ),
-                                              LikeButton(
-                                                size: 20,
-                                                circleColor: const CircleColor(
-                                                    start: Colors.red,
-                                                    end: Colors.red),
-                                                bubblesColor:
-                                                    const BubblesColor(
-                                                  dotPrimaryColor: Colors.red,
-                                                  dotSecondaryColor: Colors.red,
-                                                ),
-                                                likeBuilder: (bool isLiked) {
-                                                  return Icon(
-                                                    Icons.favorite,
-                                                    color: isLiked
-                                                        ? Colors.pink
-                                                        : Colors.grey,
-                                                    size: 20,
-                                                  );
-                                                },
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                            vertical: 5,
-                                          ),
-                                          child: Text(
-                                            'Dettol refresh longi...',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12,
                                             ),
+                                            LikeButton(
+                                              size: 20,
+                                              circleColor: const CircleColor(
+                                                  start: Colors.red,
+                                                  end: Colors.red),
+                                              bubblesColor: const BubblesColor(
+                                                dotPrimaryColor: Colors.red,
+                                                dotSecondaryColor: Colors.red,
+                                              ),
+                                              likeBuilder: (bool isLiked) {
+                                                return Icon(
+                                                  Icons.favorite,
+                                                  color: isLiked
+                                                      ? Colors.pink
+                                                      : Colors.grey,
+                                                  size: 20,
+                                                );
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 5,
+                                        ),
+                                        child: Text(
+                                          'Dettol refresh longi...',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                            vertical: 5,
-                                          ),
-                                          child: Row(
-                                            children: const [
-                                              Text(
-                                                '120.00',
-                                                style: TextStyle(
-                                                  color: Colors.cyan,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                "\$200",
-                                                style: TextStyle(
-                                                  color: colors.lightTextColor,
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 5,
                                         ),
-                                      ],
-                                    ),
+                                        child: Row(
+                                          children: const [
+                                            Text(
+                                              '120.00',
+                                              style: TextStyle(
+                                                color: Colors.cyan,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              "\$200",
+                                              style: TextStyle(
+                                                color: colors.lightTextColor,
+                                                decoration:
+                                                    TextDecoration.lineThrough,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
                           );
                         },
                       ),
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                     Container(
                       height: 250,
@@ -520,46 +522,88 @@ class _HomeState extends State<Home> {
                       ),
                       child: Column(
                         children: [
+                          const SizedBox(
+                            height: 20,
+                          ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: const [
-                              Divider(
-                                height: 1,
-                                color: Color(0xFFFF9934),
-                                thickness: 3,
-                                indent: 10,
-                                endIndent: 10,
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 60),
+                                  child: Divider(
+                                    height: 1,
+                                    color: Color(0xFFFF9934),
+                                    thickness: 3,
+                                  ),
+                                ),
                               ),
-                              Text("Special Offer"),
-                              Divider(
-                                height: 1,
-                                color: Color(0xFFFF9934),
-                                thickness: 3,
-                                indent: 10,
-                                endIndent: 10,
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                child: Text(
+                                  "Special Offer",
+                                  style: TextStyle(
+                                      color: colors.textColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: 60),
+                                  child: Divider(
+                                    height: 1,
+                                    color: Color(0xFFFF9934),
+                                    thickness: 3,
+                                    indent: 3,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.3,
+                            height: MediaQuery.of(context).size.height * 0.25,
                             child: ListView(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
+                                  horizontal: 10, vertical: 0),
                               scrollDirection: Axis.horizontal,
                               children: List.generate(3, (index) {
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 2, vertical: 5),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Image.asset(
-                                        "assets/images/priceBg.png",
-                                        height: 130,
-                                        width: 130,
+                                      Stack(
+                                        children: [
+                                          Image.asset(
+                                            "assets/images/priceBg.png",
+                                            height: 130,
+                                            width: 130,
+                                          ),
+                                          const Positioned(
+                                            top: 45,
+                                            left: 40,
+                                            child: Text(
+                                              "Under\n\$399",
+                                              style: TextStyle(
+                                                  color: colors.buttonColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )
+                                        ],
                                       ),
                                       SizedBox(
                                         height: 30,
-                                        width: MediaQuery.of(context).size.width*0.25,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.25,
                                         child: ElevatedButton(
                                           onPressed: () {},
                                           style: ElevatedButton.styleFrom(
@@ -583,77 +627,493 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                    // Column(
-                    //   children: [
-                    //     Container(
-                    //         decoration: const BoxDecoration(
-                    //           image: DecorationImage(
-                    //             image: AssetImage(
-                    //                 'assets/images/home_bg.png'), // Replace with your image path
-                    //             fit: BoxFit.cover, // Adjust the fit as needed
-                    //           ),
-                    //         ),
-                    //         width: MediaQuery.of(context).size.width,
-                    //         height: MediaQuery.of(context).size.height * 0.35,
-                    //         child: Column(
-                    //           children: [
-                    //             Row(
-                    //               mainAxisAlignment: MainAxisAlignment.center,
-                    //               children: [
-                    //                 Image.asset(
-                    //                   "assets/images/refer.png",
-                    //                   height: 120,
-                    //                   width: 100,
-                    //                 ),
-                    //                 SizedBox(
-                    //                   width: 30,
-                    //                 ),
-                    //                 SizedBox(
-                    //                     width:
-                    //                         MediaQuery.of(context).size.width *
-                    //                             0.5,
-                    //                     child: const Text(
-                    //                       "LET THEM PICK THE PERFECT GIFT",
-                    //                       style: TextStyle(
-                    //                           color: colors.textColor,
-                    //                           fontSize: 25,
-                    //                           fontWeight: FontWeight.bold),
-                    //                     ))
-                    //               ],
-                    //             ),
-                    //             const SizedBox(
-                    //               height: 20,
-                    //             ),
-                    //             Row(
-                    //               mainAxisAlignment: MainAxisAlignment.center,
-                    //               children: [
-                    //                 Image.asset(
-                    //                   "assets/images/temporaryImages/book1.png",
-                    //                   height: 120,
-                    //                   width: 100,
-                    //                 ),
-                    //                 const SizedBox(
-                    //                   width: 10,
-                    //                 ),
-                    //                 Image.asset(
-                    //                   "assets/images/temporaryImages/book2.png",
-                    //                   height: 120,
-                    //                   width: 100,
-                    //                 ),
-                    //                 const SizedBox(
-                    //                   width: 10,
-                    //                 ),
-                    //                 Image.asset(
-                    //                   "assets/images/temporaryImages/book3.png",
-                    //                   height: 120,
-                    //                   width: 100,
-                    //                 )
-                    //               ],
-                    //             )
-                    //           ],
-                    //         )),
-                    //   ],
-                    // ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: SizedBox(
+                        height: 270,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Text(
+                                    "Your wishlist items",
+                                    style: TextStyle(color: colors.textColor),
+                                  ),
+                                  Text(
+                                    "VIEW ALL",
+                                    style: TextStyle(color: colors.buttonColor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: List.generate(10, (index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            Routes
+                                                .navigateToProductDetailPageScreen(
+                                                    context);
+                                          },
+                                          child: Container(
+                                            height: 200,
+                                            width: 160,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(10)),
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    colors.boxGradient1
+                                                        .withOpacity(1),
+                                                    Colors.transparent,
+                                                  ],
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                ),
+                                                border: Border.all(
+                                                    color: const Color(
+                                                        0xFF414141))),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Image.asset(
+                                                  Images.onBoarding2,
+                                                  width: 80,
+                                                  height: 80,
+                                                ),
+                                                const SizedBox(height: 8),
+                                                const Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal: 10,
+                                                    vertical: 5,
+                                                  ),
+                                                  child: Text(
+                                                    '35% Off',
+                                                    style: TextStyle(
+                                                      color: Colors.orange,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                ),
+                                                const Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal: 10,
+                                                    vertical: 5,
+                                                  ),
+                                                  child: Text(
+                                                    'Dettol refresh longi...',
+                                                    style: TextStyle(
+                                                      color: colors.textColor,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                    horizontal: 10,
+                                                    vertical: 5,
+                                                  ),
+                                                  child: Row(
+                                                    children: const [
+                                                      Text(
+                                                        '120.00',
+                                                        style: TextStyle(
+                                                          color: Colors.cyan,
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Text(
+                                                        "\$200",
+                                                        style: TextStyle(
+                                                          color: colors
+                                                              .lightTextColor,
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 170,
+                      child: Image.asset(
+                        "assets/images/summerSale.png",
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      height: 85,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            const Color(0xFFFFDC98).withOpacity(1),
+                            const Color(0xFFFFBC39).withOpacity(1),
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20, top: 10),
+                                child:
+                                    Image.asset("assets/images/starDeal.png"),
+                              )),
+                          const Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Prime Time Deals",
+                              style: TextStyle(
+                                  color: Color(0xFF965C04),
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Align(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 20, bottom: 10),
+                                child:
+                                    Image.asset("assets/images/starDeal.png"),
+                              )),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      height: 200,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            const Color(0xFFE89825).withOpacity(0.7),
+                            const Color(0xFF00214A).withOpacity(0.4),
+                            const Color(0xFFE89825).withOpacity(0.7),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.centerRight,
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: const [
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 60),
+                                  child: Divider(
+                                    height: 1,
+                                    color: Color(0xFFFF9934),
+                                    thickness: 3,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                child: Text(
+                                  "Daily Deals",
+                                  style: TextStyle(
+                                      color: colors.textColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: 60),
+                                  child: Divider(
+                                    height: 1,
+                                    color: Color(0xFFFF9934),
+                                    thickness: 3,
+                                    indent: 3,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            child: ListView(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 0),
+                              scrollDirection: Axis.horizontal,
+                              children: List.generate(3, (index) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 5),
+                                  child: Image.asset(
+                                    "assets/images/bestOffer.png",
+                                    height: 130,
+                                    width: 130,
+                                  ),
+                                );
+                              }),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/topDeal.jpg'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 30),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: const Text(
+                                "Top Deals of electronic appliances",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              )),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            width: MediaQuery.of(context).size.width * 0.95,
+                            child: GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 15,
+                                childAspectRatio: 0.55,
+                              ),
+                              itemCount: 6,
+                              itemBuilder: (context, j) {
+                                return Column(
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Routes
+                                            .navigateToProductDetailPageScreen(
+                                                context);
+                                      },
+                                      child: SizedBox(
+                                        height: 160,
+                                        width: 100,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.all(5),
+                                              decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(10),
+                                                    topLeft:
+                                                        Radius.circular(10)),
+                                              ),
+                                              width: double.infinity,
+                                              child: Image.asset(
+                                                Images.onBoarding2,
+                                                width: 70,
+                                                height: 70,
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.bottomCenter,
+                                              child: Container(
+                                                width: double.infinity,
+                                                height: 50,
+                                                decoration: const BoxDecoration(
+                                                  color: colors.buttonColor,
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  10),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  10)),
+                                                ),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: const [
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 10),
+                                                      child: Text(
+                                                        'Electric Stove',
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 10),
+                                                      child: Text(
+                                                        '\$699',
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(
+                                    'assets/images/home_bg.png'), // Replace with your image path
+                                fit: BoxFit.cover, // Adjust the fit as needed
+                              ),
+                            ),
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.35,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/refer.png",
+                                      height: 120,
+                                      width: 100,
+                                    ),
+                                    SizedBox(
+                                      width: 30,
+                                    ),
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
+                                        child: const Text(
+                                          "LET THEM PICK THE PERFECT GIFT",
+                                          style: TextStyle(
+                                              color: colors.textColor,
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold),
+                                        ))
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/temporaryImages/book1.png",
+                                      height: 120,
+                                      width: 100,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Image.asset(
+                                      "assets/images/temporaryImages/book2.png",
+                                      height: 120,
+                                      width: 100,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Image.asset(
+                                      "assets/images/temporaryImages/book3.png",
+                                      height: 120,
+                                      width: 100,
+                                    )
+                                  ],
+                                )
+                              ],
+                            )),
+                      ],
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -703,7 +1163,7 @@ class _HomeState extends State<Home> {
                                                         Radius.circular(10)),
                                                 gradient: LinearGradient(
                                                   colors: [
-                                                    const Color(0xFF4E5255)
+                                                    colors.boxGradient1
                                                         .withOpacity(1),
                                                     Colors.transparent,
                                                   ],

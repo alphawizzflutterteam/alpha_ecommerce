@@ -1,15 +1,16 @@
-import 'package:alpha_ecommerce_18oct/screen/cart/cart.dart';
-import 'package:alpha_ecommerce_18oct/screen/category/category.dart';
-import 'package:alpha_ecommerce_18oct/screen/home/home.dart';
-import 'package:alpha_ecommerce_18oct/screen/profile/profile.dart';
-import 'package:alpha_ecommerce_18oct/screen/vendor/vendor.dart';
 import 'package:flutter/material.dart';
-
 import '../../helper/color.dart';
+import '../../helper/images.dart';
+import '../cart/cart.dart';
+import '../category/category.dart';
+import '../home/home.dart';
+import '../profile/profile.dart';
+import '../vendor/vendor.dart';
 
 class BottomNavPage extends StatefulWidget {
   final int? index;
   const BottomNavPage({Key? key, this.index}) : super(key: key);
+
   @override
   _BottomNavPageState createState() => _BottomNavPageState();
 }
@@ -20,9 +21,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
   final List<Widget> _pages = [
     const Cart(),
     const AllCategory(),
-    Home(),
-    Vendor(),
-    Profile(),
+    const Home(),
+    const Vendor(),
+    const Profile(),
   ];
 
   @override
@@ -39,46 +40,54 @@ class _BottomNavPageState extends State<BottomNavPage> {
       backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: false,
       body: _pages[_currentIndex],
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-            canvasColor: colors.textFieldBG,
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(Images.bgTab),
+            fit: BoxFit.cover,
+          ),
         ),
-        child: BottomNavigationBar(
-          elevation: 0.0,
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          selectedLabelStyle: const TextStyle(fontSize: 12),
-          selectedItemColor: colors.textColor,
-          unselectedItemColor: Colors.grey,
-          showSelectedLabels: true,
-          showUnselectedLabels: false,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_sharp),
-              label: 'Cart',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.category),
-              label: 'Categories',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            // Add items for your new tabs
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shop),
-              label: 'Vendor',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_2_outlined),
-              label: 'Profile',
-            ),
-          ],
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: Colors.transparent,
+          ),
+          child: BottomNavigationBar(
+            elevation: 0.0,
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            selectedLabelStyle: const TextStyle(fontSize: 12),
+            selectedItemColor: colors.textColor,
+            unselectedItemColor: Colors.grey,
+            showSelectedLabels: true,
+            showUnselectedLabels: false,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart_sharp),
+                label: 'Cart',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.category),
+                label: 'Categories',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              // Add items for your new tabs
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shop),
+                label: 'Vendor',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person_2_outlined),
+                label: 'Profile',
+              ),
+            ],
+          ),
         ),
       ),
     );

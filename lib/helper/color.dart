@@ -27,6 +27,11 @@ extension colors on ColorScheme {
   static const Color textFieldBG = Color(0xff040D12);
   static const Color greyText = Color(0xFFA3A3A3);
 
+  static const Color boxGradient1 = Color(0xFF4E5255);
+  static const Color boxBorder = Color(0xFF363D41);
+  static const Color midBorder = Color(0xFF444647);
+  static const Color lightButton = Color(0xff03DAC6);
+
   Color get btnColor => brightness == Brightness.dark ? whiteTemp : primary;
 
   Color get changeablePrimary => brightness == Brightness.dark

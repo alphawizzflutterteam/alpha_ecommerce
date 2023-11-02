@@ -4,6 +4,8 @@ import '../../helper/color.dart';
 import '../../helper/images.dart';
 import '../../helper/routes.dart';
 import '../../widgets/commonBackground.dart';
+import '../../widgets/filterShuffle.dart';
+import '../../widgets/sortShuffle.dart';
 import '../profile/common_header.dart';
 
 class CategoryDetail extends StatefulWidget {
@@ -110,15 +112,14 @@ class _CategoryDetailState extends State<CategoryDetail> {
                                           Radius.circular(10)),
                                       gradient: LinearGradient(
                                         colors: [
-                                          const Color(0xFF4E5255)
-                                              .withOpacity(1),
+                                          colors.boxGradient1.withOpacity(1),
                                           Colors.transparent,
                                         ],
                                         begin: Alignment.topCenter,
                                         end: Alignment.bottomCenter,
                                       ),
-                                      border: Border.all(
-                                          color: const Color(0xFF363D41))),
+                                      border:
+                                          Border.all(color: colors.boxBorder)),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
@@ -220,10 +221,90 @@ class _CategoryDetailState extends State<CategoryDetail> {
                     ],
                   ),
                 ),
-              )
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: colors.textFieldBG,
+                    image: DecorationImage(
+                      image: AssetImage(Images.bgTab),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: InkWell(
+                            onTap: () {
+                              homeFilter(context);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                Icon(
+                                  Icons.filter_list_outlined,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  'Filter',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              left: BorderSide(
+                                color: colors.midBorder,
+                              ),
+                            ),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              homeSort(context);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                Icon(
+                                  Icons.filter_list_outlined,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  'Sort',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

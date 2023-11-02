@@ -85,7 +85,7 @@ class _ContactUsState extends State<ContactUs> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 15, vertical: 10),
                               decoration: BoxDecoration(
-                                color: const Color(0xFF363D41),
+                                color: colors.boxBorder,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Column(
@@ -150,7 +150,7 @@ class _ContactUsState extends State<ContactUs> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 15, vertical: 10),
                               decoration: BoxDecoration(
-                                color: const Color(0xFF363D41),
+                                color: colors.boxBorder,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Row(

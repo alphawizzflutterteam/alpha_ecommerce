@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import '../../../helper/color.dart';
 import '../../../helper/images.dart';
 import '../../../widgets/commonBackground.dart';
 import '../../../widgets/common_header.dart';
@@ -132,7 +133,7 @@ class _CouponState extends State<Coupon> {
                                             Text(
                                               'Expires',
                                               style: TextStyle(
-                                                  color: Color(0xFF767680),
+                                                  color: colors.greyText,
                                                   fontSize: 12),
                                             ),
                                             SizedBox(
@@ -147,7 +148,7 @@ class _CouponState extends State<Coupon> {
                                           ],
                                         ),
                                         DottedBorder(
-                                          color: const Color(0xFF767680),
+                                          color: colors.greyText,
                                           strokeWidth: 1,
                                           child: Container(
                                             padding: EdgeInsets.all(10),

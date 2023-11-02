@@ -104,7 +104,7 @@ class _OrderDetailState extends State<OrderDetail> {
                                   width: 75,
                                   height: 75,
                                   decoration: const BoxDecoration(
-                                      color: Color(0xff363D41),
+                                      color: colors.boxBorder,
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   child: Image.asset(
@@ -390,14 +390,14 @@ class _OrderDetailState extends State<OrderDetail> {
                                         Radius.circular(10)),
                                     gradient: LinearGradient(
                                       colors: [
-                                        const Color(0xFF4E5255).withOpacity(1),
+                                        colors.boxGradient1.withOpacity(1),
                                         Colors.transparent,
                                       ],
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
                                     ),
                                     border: Border.all(
-                                        color: const Color(0xFF363D41))),
+                                        color: colors.boxBorder)),
                                 width: MediaQuery.of(context).size.width * 0.42,
                                 height: 200,
                                 child: Center(
@@ -535,7 +535,7 @@ class _OrderDetailState extends State<OrderDetail> {
   //               //         children: [
   //               //           Theme(
   //               //             data: ThemeData(
-  //               //                 unselectedWidgetColor: const Color(0xff767680)),
+  //               //                 unselectedWidgetColor: const colors.greyText),
   //               //             child: Radio<int>(
   //               //               value: i,
   //               //               groupValue: selectedReason,

@@ -116,10 +116,10 @@ class _SelectLanguageWidgetState extends State<SelectionCurrencyWidget> {
                           vertical: 5, horizontal: 10),
                       hintText: 'Search',
                       hintStyle: const TextStyle(
-                          color: Color(0xFFC3C5DD), fontSize: 16),
+                          color: colors.lightTextColor, fontSize: 16),
                       prefixIcon: const Icon(
                         Icons.search,
-                        color: Color(0xFFC3C5DD),
+                        color: colors.lightTextColor,
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -169,7 +169,7 @@ class _SelectLanguageWidgetState extends State<SelectionCurrencyWidget> {
                               trailing: selected.value[index] == selectedValue
                                   ? const Icon(
                                       Icons.check,
-                                      color: Color(0xff03DAC6),
+                                      color: colors.lightButton,
                                     )
                                   : Container(
                                       width: 0,

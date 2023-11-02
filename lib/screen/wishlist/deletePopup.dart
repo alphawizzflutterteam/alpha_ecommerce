@@ -55,7 +55,7 @@ class _DeletePopupState extends State<DeletePopup> {
           const Text(
             'Do you want to remove this from your cart?',
             textAlign: TextAlign.center,
-            style: TextStyle(color: Color(0xFF767680), fontSize: 14),
+            style: TextStyle(color: colors.greyText, fontSize: 14),
           ),
           const SizedBox(
             height: 20,

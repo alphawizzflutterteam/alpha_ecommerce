@@ -127,8 +127,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                               obscureText
                                   ? Icons.visibility_off
                                   : Icons.visibility,
-                              color: const Color(
-                                  0xFFA8AAC1), // Change the color of the icon
+                              color: colors.labelColor,
                             ),
                           ),
                           labelStyle: const TextStyle(
@@ -190,8 +189,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                               obscureText2
                                   ? Icons.visibility_off
                                   : Icons.visibility,
-                              color: const Color(
-                                  0xFFA8AAC1), // Change the color of the icon
+                              color: colors.labelColor, // Change the color of the icon
                             ),
                           ),
                           labelStyle: const TextStyle(

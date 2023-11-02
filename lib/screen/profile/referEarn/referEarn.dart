@@ -74,7 +74,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                   children: [
                     Container(
                       width: double.infinity,
-                      color: const Color(0xFF363D41),
+                      color: colors.boxBorder,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,

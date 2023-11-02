@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../helper/color.dart';
-import '../helper/routes.dart';
+import '../../helper/color.dart';
+import '../../helper/routes.dart';
 
 List<Map<dynamic, dynamic>> status = [
   {'text': 'On the way'},

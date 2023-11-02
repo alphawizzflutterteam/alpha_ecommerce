@@ -123,7 +123,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                         child: Text(
                                           "\$200",
                                           style: TextStyle(
-                                              color: Color(0xff767680),
+                                              color: colors.greyText,
                                               fontSize: 14),
                                         ),
                                       ),
@@ -135,7 +135,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                   const Text(
                                     "190ml",
                                     style: TextStyle(
-                                        color: Color(0xff767680), fontSize: 12),
+                                        color: colors.greyText, fontSize: 12),
                                   ),
                                   const SizedBox(
                                     height: 10,
@@ -217,7 +217,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
                             child: Theme(
                               data: ThemeData(
                                   unselectedWidgetColor:
-                                      const Color(0xff767680)),
+                                  colors.greyText),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
@@ -445,7 +445,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                                   vertical: 10, horizontal: 10),
                                           hintText: 'Voucher Number',
                                           hintStyle: const TextStyle(
-                                              color: Color(0xFF767680)),
+                                              color: colors.greyText),
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: const BorderSide(
                                               color: colors.textFieldColor,

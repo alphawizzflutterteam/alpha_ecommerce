@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../helper/color.dart';
 import '../helper/routes.dart';
 import '../helper/images.dart';
 
@@ -183,7 +184,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                             child: Text(
                                               notifications[i]['subText'],
                                               style: const TextStyle(
-                                                color: Color(0xff767680),
+                                                color: colors.greyText,
                                                 fontSize: 12,
                                               ),
                                             ),
@@ -202,7 +203,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                         Text(
                                           notifications[i]['date'],
                                           style: const TextStyle(
-                                            color: Color(0xff767680),
+                                            color: colors.greyText,
                                             fontSize: 12,
                                           ),
                                         ),

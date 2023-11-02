@@ -153,7 +153,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                       const Text(
                                         "Rating",
                                         style:
-                                            TextStyle(color: Color(0xff767680)),
+                                            TextStyle(color: colors.greyText),
                                       )
                                     ],
                                   ),
@@ -170,7 +170,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                       Text(
                                         "Follower",
                                         style: TextStyle(
-                                            color: Color(0xff767680),
+                                            color: colors.greyText,
                                             fontSize: 14),
                                       ),
                                     ],

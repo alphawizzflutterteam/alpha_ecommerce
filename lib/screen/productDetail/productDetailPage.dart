@@ -60,7 +60,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                const Color(0xFF4E5255).withOpacity(0.5),
+                                colors.boxGradient1.withOpacity(0.5),
                                 Colors.transparent,
                               ],
                               begin: Alignment.topCenter,
@@ -304,16 +304,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           children: const [
                             Text(
                               "Description",
-                              style:
-                                  TextStyle(color: colors.textColor, fontSize: 14),
+                              style: TextStyle(
+                                  color: colors.textColor, fontSize: 14),
                             ),
                             SizedBox(
                               height: 10,
                             ),
                             Text(
                               "Lorem Ipsum is simply dummy text of the printing and typesetting industry. LOrem Ipsum has been the industry's standard dummy text since the 1500s",
-                              style:
-                                  TextStyle(color: colors.textColor, fontSize: 12),
+                              style: TextStyle(
+                                  color: colors.textColor, fontSize: 12),
                             ),
                           ],
                         ),
@@ -347,7 +347,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                 vertical: 10, horizontal: 15),
                                         hintText: 'Enter pincode',
                                         hintStyle: const TextStyle(
-                                            color: colors.textColor, fontSize: 12),
+                                            color: colors.textColor,
+                                            fontSize: 12),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
                                             color: colors.textFieldColor,
@@ -396,13 +397,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 const BorderRadius.all(Radius.circular(10)),
                             gradient: LinearGradient(
                               colors: [
-                                const Color(0xFF4E5255).withOpacity(0.4),
-                                const Color(0xFF363D41).withOpacity(0.4),
+                                colors.boxGradient1.withOpacity(0.4),
+                                colors.boxBorder.withOpacity(0.4),
                               ],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                             ),
-                            border: Border.all(color: const Color(0xFF363D41))),
+                            border: Border.all(color: colors.boxBorder)),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 15),
                         margin: const EdgeInsets.symmetric(
@@ -431,7 +432,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       const Text(
                                         "Oats Fitness",
                                         style: TextStyle(
-                                            color: colors.textColor, fontSize: 12),
+                                            color: colors.textColor,
+                                            fontSize: 12),
                                       ),
                                       const SizedBox(height: 5),
                                       Row(
@@ -877,14 +879,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                         Radius.circular(10)),
                                     gradient: const LinearGradient(
                                       colors: [
-                                        Color(0xFF4E5255),
-                                        Color(0xFF363D41),
+                                        colors.boxGradient1,
+                                        colors.boxBorder,
                                       ],
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
                                     ),
                                     border: Border.all(
-                                        color: const Color(0xFF363D41))),
+                                        color: colors.boxBorder)),
                                 width: MediaQuery.of(context).size.width * 0.42,
                                 height: 200,
                                 child: Center(

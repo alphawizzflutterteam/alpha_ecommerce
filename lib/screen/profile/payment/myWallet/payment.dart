@@ -78,7 +78,7 @@ class _PaymentState extends State<Payment> {
                             trailing: Theme(
                               data: ThemeData(
                                   unselectedWidgetColor:
-                                      const Color(0xff767680)),
+                                       colors.greyText),
                               child: Radio<int>(
                                 value: i,
                                 groupValue: selectedPaymentMethod,

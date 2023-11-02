@@ -102,7 +102,7 @@ class _ManageAddressState extends State<ManageAddress> {
                             ),
                             child: Theme(
                               data: ThemeData(
-                                  unselectedWidgetColor: Color(0xff767680)),
+                                  unselectedWidgetColor: colors.greyText),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -258,7 +258,7 @@ class _ManageAddressState extends State<ManageAddress> {
                           decoration: commonInputDecoration(
                             labelText: 'Alternate Mobile Number',
                           ),
-                          style: const TextStyle(color: Color(0xFF767680)),
+                          style: const TextStyle(color: colors.greyText),
                         ),
                       ),
                       Container(
