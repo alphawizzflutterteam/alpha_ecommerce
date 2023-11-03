@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../../../helper/color.dart';
 import '../../../../helper/routes.dart';
-import '../../../../widgets/commonBackground.dart';
-import '../../../../widgets/common_header.dart';
-import '../../../../widgets/common_textfield.dart';
-import '../../../../widgets/textfield_validation.dart';
+import '../../../widget_common/commonBackground.dart';
+import '../../../widget_common/common_button.dart';
+import '../../../widget_common/common_header.dart';
+import '../../../widget_common/common_textfield.dart';
+import '../../../widget_common/textfield_validation.dart';
 import '../../common_header.dart';
 
 class AddMoney extends StatefulWidget {
@@ -77,25 +78,16 @@ class _AddMoneyState extends State<AddMoney> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 50,
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  Routes.navigateToPaymentScreen(context);
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: colors.buttonColor,
-                                onPrimary: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                              child: const Text('CONTINUE',
-                                  style: TextStyle(fontSize: 15)),
-                            ),
-                          ),
+                              height: 50,
+                              width: double.infinity,
+                              child: CommonButton(
+                                  text: "CONTINUE",
+                                  fontSize: 14,
+                                  onClick: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      Routes.navigateToPaymentScreen(context);
+                                    }
+                                  })),
                         ],
                       ),
                     ),

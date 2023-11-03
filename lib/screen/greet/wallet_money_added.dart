@@ -1,6 +1,6 @@
 import 'package:alpha_ecommerce_18oct/helper/images.dart';
 import 'package:flutter/material.dart';
-import '../../widgets/commonBackground.dart';
+import '../widget_common/commonBackground.dart';
 
 class WalletSuccess extends StatefulWidget {
   const WalletSuccess({Key? key}) : super(key: key);

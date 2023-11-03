@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../helper/color.dart';
+import '../../helper/color.dart';
 
 class HeaderText extends StatelessWidget {
   final String text;

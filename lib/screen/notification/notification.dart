@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../helper/color.dart';
-import '../helper/routes.dart';
-import '../helper/images.dart';
+import '../../helper/color.dart';
+import '../../helper/routes.dart';
+import '../../helper/images.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);

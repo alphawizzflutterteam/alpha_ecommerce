@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../../helper/color.dart';
 import '../../helper/images.dart';
 import '../../helper/routes.dart';
-import '../../widgets/commonBackground.dart';
-import '../../widgets/textfield_validation.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_button.dart';
+import '../widget_common/textfield_validation.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -173,7 +174,12 @@ class _ResetPasswordState extends State<ResetPassword> {
                       child: TextFormField(
                         controller: confirmPasswordController,
                         obscureText: obscureText2,
-                        validator: validatePassword,
+                        validator: (value) {
+                          if (value != passwordController.text) {
+                            return 'Passwords do not match';
+                          }
+                          return null;
+                        },
                         decoration: InputDecoration(
                           labelText: 'Confirm Password',
                           filled: true,
@@ -181,16 +187,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                           suffixIcon: GestureDetector(
                             onTap: () {
                               setState(() {
-                                obscureText2 =
-                                    !obscureText2; // Toggle the password visibility
+                                obscureText2 = !obscureText2;
                               });
                             },
                             child: Icon(
                               obscureText2
                                   ? Icons.visibility_off
                                   : Icons.visibility,
-                              color: colors
-                                  .labelColor, // Change the color of the icon
+                              color: colors.labelColor,
                             ),
                           ),
                           labelStyle: const TextStyle(
@@ -238,25 +242,17 @@ class _ResetPasswordState extends State<ResetPassword> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 50,
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  Routes.navigateToSignInScreen(context);
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: colors.buttonColor,
-                                onPrimary: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                              child: const Text('Reset Password',
-                                  style: TextStyle(fontSize: 18)),
-                            ),
-                          ),
+                              height: 50,
+                              width: double.infinity,
+                              child: CommonButton(
+                                text: "Reset Password",
+                                fontSize: 18,
+                                onClick: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    Routes.navigateToSignInScreen(context);
+                                  }
+                                },
+                              )),
                         ],
                       ),
                     )
@@ -264,7 +260,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
               ),
               Align(
-                alignment: Alignment.bottomCenter,
+                  alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20, bottom: 20),
                     child: Row(

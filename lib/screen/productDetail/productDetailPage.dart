@@ -5,9 +5,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../helper/color.dart';
 import '../../helper/images.dart';
-import '../../widgets/commonBackground.dart';
-import '../../widgets/common_header.dart';
-import '../../widgets/toast_message.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_button.dart';
+import '../widget_common/common_header.dart';
+import '../widget_common/toast_message.dart';
 import '../profile/common_header.dart';
 
 class ProductDetailPage extends StatefulWidget {
@@ -371,20 +372,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   width: 10,
                                 ),
                                 SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: colors.buttonColor,
-                                      onPrimary: colors.textColor,
-                                      padding: EdgeInsets.zero,
-                                    ),
-                                    onPressed: () {
-                                      // Add your button action here
-                                    },
-                                    child: const Text('Submit'),
-                                  ),
-                                ),
+                                    height: 40,
+                                    width: 100,
+                                    child: CommonButton(
+                                        text: "Submit",
+                                        fontSize: 14,
+                                        onClick: () {})),
                               ],
                             ),
                           ],
@@ -885,8 +878,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
                                     ),
-                                    border: Border.all(
-                                        color: colors.boxBorder)),
+                                    border:
+                                        Border.all(color: colors.boxBorder)),
                                 width: MediaQuery.of(context).size.width * 0.42,
                                 height: 200,
                                 child: Center(

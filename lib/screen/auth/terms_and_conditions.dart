@@ -1,8 +1,7 @@
-import 'package:alpha_ecommerce_18oct/helper/routes.dart';
 import 'package:flutter/material.dart';
 import '../../helper/color.dart';
 import '../../helper/constant.dart';
-import '../../widgets/commonBackground.dart';
+import '../widget_common/commonBackground.dart';
 import '../profile/common_header.dart';
 
 class TermAndCondition extends StatefulWidget {
@@ -60,7 +59,8 @@ class _TermAndConditionState extends State<TermAndCondition> {
                         children: const [
                           Text(
                             term1,
-                            style: TextStyle(color: colors.textColor, fontSize: 14),
+                            style: TextStyle(
+                                color: colors.textColor, fontSize: 14),
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 15, bottom: 30),
@@ -73,7 +73,8 @@ class _TermAndConditionState extends State<TermAndCondition> {
                           ),
                           Text(
                             term3,
-                            style: TextStyle(color: colors.textColor, fontSize: 14),
+                            style: TextStyle(
+                                color: colors.textColor, fontSize: 14),
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 15, bottom: 30),
@@ -86,7 +87,8 @@ class _TermAndConditionState extends State<TermAndCondition> {
                           ),
                           Text(
                             term3,
-                            style: TextStyle(color: colors.textColor, fontSize: 14),
+                            style: TextStyle(
+                                color: colors.textColor, fontSize: 14),
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 15, bottom: 30),
@@ -101,41 +103,6 @@ class _TermAndConditionState extends State<TermAndCondition> {
                       ),
                     ),
                   ],
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 80,
-                color: colors.textFieldBG,
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 50,
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Routes.navigateToPreviousScreen(context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: colors.buttonColor,
-                              onPrimary: colors.textColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
-                            child: const Text('AGREE',
-                                style: TextStyle(fontSize: 18)),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
               ),
             ),

@@ -2,9 +2,11 @@ import 'package:alpha_ecommerce_18oct/helper/images.dart';
 import 'package:alpha_ecommerce_18oct/helper/routes.dart';
 import 'package:flutter/material.dart';
 import '../../helper/color.dart';
-import '../../widgets/commonBackground.dart';
-import '../../widgets/common_header.dart';
-import '../../widgets/toast_message.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_button.dart';
+import '../widget_common/common_header.dart';
+import '../widget_common/common_radioButton.dart';
+import '../widget_common/toast_message.dart';
 import '../profile/common_header.dart';
 
 class PlaceOrder extends StatefulWidget {
@@ -216,57 +218,20 @@ class _PlaceOrderState extends State<PlaceOrder> {
                             ),
                             child: Theme(
                               data: ThemeData(
-                                  unselectedWidgetColor:
-                                  colors.greyText),
+                                  unselectedWidgetColor: colors.greyText),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
-                                  Expanded(
-                                    child: RadioListTile(
-                                      title: const Text(
-                                        'Normal Delivery',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                        ),
-                                        softWrap: false, // Add this line
-                                      ),
-                                      activeColor: colors.buttonColor,
-                                      value: 'Normal Delivery',
-                                      groupValue: selectedOption,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedOption = value.toString();
-                                        });
-                                      },
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 0),
-                                    ),
+                                  CommonRadioTile(
+                                    options: selectedOption,
+                                    name: 'Normal Delivery',
+                                    onChanged: handleOptionChange,
                                   ),
-                                  Expanded(
-                                    child: RadioListTile(
-                                      title: const Text(
-                                        'Alpha Delivery',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                        ),
-                                        softWrap: false, // Add this line
-                                      ),
-                                      value: 'Alpha Delivery',
-                                      activeColor: colors.buttonColor,
-                                      groupValue: selectedOption,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedOption = value.toString();
-                                        });
-                                      },
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 0),
-                                    ),
-                                  ),
+                                  CommonRadioTile(
+                                    options: selectedOption,
+                                    name: 'Alpha Delivery',
+                                    onChanged: handleOptionChange,
+                                  )
                                 ],
                               ),
                             ),
@@ -468,20 +433,12 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                     width: 10,
                                   ),
                                   SizedBox(
-                                    height: 40,
-                                    width: 100,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        primary: colors.buttonColor,
-                                        onPrimary: Colors.white,
-                                        padding: EdgeInsets.zero,
-                                      ),
-                                      onPressed: () {
-                                        // Add your button action here
-                                      },
-                                      child: const Text('APPLY'),
-                                    ),
-                                  ),
+                                      height: 40,
+                                      width: 100,
+                                      child: CommonButton(
+                                          text: "APPLY",
+                                          fontSize: 14,
+                                          onClick: () {})),
                                 ],
                               ),
                             ),
@@ -550,20 +507,14 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                     color: Colors.white),
                               ),
                               SizedBox(
-                                height: 40,
-                                width: 150,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: colors.buttonColor,
-                                    onPrimary: Colors.white,
-                                    padding: EdgeInsets.zero,
-                                  ),
-                                  onPressed: () {
-                                    Routes.navigateToPaymentScreen(context);
-                                  },
-                                  child: const Text('PLACE ORDER'),
-                                ),
-                              ),
+                                  height: 40,
+                                  width: 150,
+                                  child: CommonButton(
+                                      text: "PLACE ORDER",
+                                      fontSize: 14,
+                                      onClick: () {
+                                        Routes.navigateToPaymentScreen(context);
+                                      })),
                             ],
                           ),
                         ),
@@ -577,5 +528,11 @@ class _PlaceOrderState extends State<PlaceOrder> {
         ),
       ],
     );
+  }
+
+  void handleOptionChange(String value) {
+    setState(() {
+      selectedOption = value;
+    });
   }
 }

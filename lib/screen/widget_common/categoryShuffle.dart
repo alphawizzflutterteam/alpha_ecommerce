@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../helper/color.dart';
-import '../helper/routes.dart';
-import '../model/category.dart';
+import '../../helper/color.dart';
+import '../../helper/routes.dart';
+import '../../model/category.dart';
 
 Future<void> homeCategory(context) async {
   return showModalBottomSheet(

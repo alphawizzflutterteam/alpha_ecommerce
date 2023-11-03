@@ -1,11 +1,13 @@
 import 'package:alpha_ecommerce_18oct/helper/constant.dart';
 import 'package:alpha_ecommerce_18oct/helper/routes.dart';
+import 'package:alpha_ecommerce_18oct/screen/widget_common/toast_message.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../helper/color.dart';
 import '../../helper/images.dart';
-import '../../widgets/commonBackground.dart';
-import 'otp_verification.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_button.dart';
 
 class VerifyNumber extends StatefulWidget {
   final bool signIn;
@@ -19,19 +21,6 @@ class _VerifyNumberState extends State<VerifyNumber> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isCheckboxChecked = false;
-
-  String? validateMobileOrEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter a mobile number.';
-    }
-    if (int.tryParse(value) == null) {
-      return 'Invalid mobile number format.';
-    }
-    if (value.length != 10) {
-      return 'Invalid mobile number format.';
-    }
-    return null;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -166,8 +155,11 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                   ),
                                 ),
                                 style: const TextStyle(color: colors.textColor),
-                                initialCountryCode:
-                                    'IN', // Set the initial country code here
+                                initialCountryCode: 'IN',
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'[0-9]')),
+                                ],
                               ),
                             ),
                           ],
@@ -256,30 +248,23 @@ class _VerifyNumberState extends State<VerifyNumber> {
                         padding: const EdgeInsets.only(
                             top: 20, bottom: 60, left: 20, right: 20),
                         child: SizedBox(
-                          height: 50,
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => OTPVerification(
-                                          signIn: widget.signIn)),
-                                );
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: colors.buttonColor,
-                              onPrimary: colors.textColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
-                            child: const Text('Send',
-                                style: TextStyle(fontSize: 18)),
-                          ),
-                        ),
+                            height: 50,
+                            width: double.infinity,
+                            child: CommonButton(
+                              text: "Send",
+                              fontSize: 18,
+                              onClick: () {
+                                widget.signIn
+                                    ? isCheckboxChecked
+                                        ? Routes
+                                            .navigateToOTPVerificationScreen(
+                                                context, widget.signIn)
+                                        : showToastMessage(
+                                            "Please agree on terms and privacy")
+                                    : Routes.navigateToOTPVerificationScreen(
+                                        context, widget.signIn);
+                              },
+                            )),
                       ),
                       Align(
                         alignment: Alignment.bottomCenter,

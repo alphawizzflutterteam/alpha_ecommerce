@@ -3,8 +3,9 @@ import 'package:order_tracker/order_tracker.dart';
 import '../../helper/color.dart';
 import '../../helper/images.dart';
 import '../../helper/routes.dart';
-import '../../widgets/commonBackground.dart';
-import '../../widgets/common_header.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_button.dart';
+import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
 
 class OrderDetail extends StatefulWidget {
@@ -396,8 +397,8 @@ class _OrderDetailState extends State<OrderDetail> {
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
                                     ),
-                                    border: Border.all(
-                                        color: colors.boxBorder)),
+                                    border:
+                                        Border.all(color: colors.boxBorder)),
                                 width: MediaQuery.of(context).size.width * 0.42,
                                 height: 200,
                                 child: Center(
@@ -462,23 +463,16 @@ class _OrderDetailState extends State<OrderDetail> {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   height: 80,
-                  color:colors.textFieldBG,
+                  color: colors.textFieldBG,
                   child: Center(
                     child: SizedBox(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: colors.buttonColor,
-                          onPrimary: Colors.white,
-                          padding: EdgeInsets.zero,
-                        ),
-                        onPressed: () {
-                          // showCancelDialog(context);
-                        },
-                        child: const Text('CANCEL ORDER'),
-                      ),
-                    ),
+                        height: 40,
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child: CommonButton(
+                          text: "CANCEL ORDER",
+                          fontSize: 14,
+                          onClick: () {},
+                        )),
                   ),
                 ),
               ),

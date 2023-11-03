@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../helper/color.dart';
 import '../../../helper/constant.dart';
 import '../../../helper/routes.dart';
-import '../../../widgets/commonBackground.dart';
+import '../../widget_common/commonBackground.dart';
 import '../common_header.dart';
 
 class ShippingPolicy extends StatefulWidget {

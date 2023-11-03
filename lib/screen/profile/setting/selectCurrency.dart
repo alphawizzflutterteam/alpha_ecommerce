@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../helper/color.dart';
-import 'languageSelection.dart';
+import 'currencySelection.dart';
 
-Future<void> language(context) async {
+Future<void> currency(context) async {
   return showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
@@ -16,7 +16,7 @@ Future<void> language(context) async {
           child: const SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: LanguageWidget(label: 'Select Language',),
+              child: CurrencyWidget(),
             ),
           ),
         ),

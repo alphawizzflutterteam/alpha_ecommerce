@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../helper/color.dart';
 import '../../../helper/routes.dart';
-import '../../../widgets/commonBackground.dart';
-import '../../../widgets/common_header.dart';
+import '../../widget_common/commonBackground.dart';
+import '../../widget_common/common_header.dart';
 import '../common_header.dart';
 
 class Subscribe extends StatefulWidget {

@@ -3,9 +3,9 @@ import 'package:like_button/like_button.dart';
 import '../../helper/color.dart';
 import '../../helper/images.dart';
 import '../../helper/routes.dart';
-import '../../widgets/commonBackground.dart';
-import '../../widgets/filterShuffle.dart';
-import '../../widgets/sortShuffle.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/filterShuffle.dart';
+import '../widget_common/sortShuffle.dart';
 import '../profile/common_header.dart';
 
 class CategoryDetail extends StatefulWidget {

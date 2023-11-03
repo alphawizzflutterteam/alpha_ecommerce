@@ -6,8 +6,9 @@ import '../../helper/images.dart';
 import '../../provider/currency_provider.dart';
 
 class SelectionCurrencyWidget extends StatefulWidget {
+  final String? label;
   final bool signIn;
-  const SelectionCurrencyWidget({super.key, required this.signIn});
+  const SelectionCurrencyWidget({super.key, required this.signIn, this.label});
 
   @override
   State<SelectionCurrencyWidget> createState() => _SelectLanguageWidgetState();
@@ -57,7 +58,7 @@ class _SelectLanguageWidgetState extends State<SelectionCurrencyWidget> {
                 onPressed: () {
                   widget.signIn
                       ? Routes.navigateToSignInScreen(context)
-                      : Routes.navigateToSettingScreen(context);
+                      : Routes.navigateToPreviousScreen(context);
                 },
                 icon: const Icon(
                   Icons.close,
@@ -68,7 +69,7 @@ class _SelectLanguageWidgetState extends State<SelectionCurrencyWidget> {
                   onPressed: () {
                     widget.signIn
                         ? Routes.navigateToSignInScreen(context)
-                        : Routes.navigateToSettingScreen(context);
+                        : Routes.navigateToPreviousScreen(context);
                   },
                   icon: const Icon(
                     Icons.check,
@@ -85,9 +86,9 @@ class _SelectLanguageWidgetState extends State<SelectionCurrencyWidget> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    'Choose your Currency ',
-                    style: TextStyle(
+                  Text(
+                    widget.label ?? 'Choose your Currency ',
+                    style: const TextStyle(
                         fontSize: 24,
                         color: colors.textColor,
                         fontWeight: FontWeight.bold),

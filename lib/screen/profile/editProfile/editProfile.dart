@@ -1,9 +1,10 @@
 import 'package:alpha_ecommerce_18oct/helper/images.dart';
 import 'package:flutter/material.dart';
 import '../../../helper/color.dart';
-import '../../../widgets/commonBackground.dart';
-import '../../../widgets/common_header.dart';
-import '../../../widgets/common_textfield.dart';
+import '../../widget_common/commonBackground.dart';
+import '../../widget_common/common_button.dart';
+import '../../widget_common/common_header.dart';
+import '../../widget_common/common_textfield.dart';
 import '../common_header.dart';
 
 class EditProfile extends StatefulWidget {
@@ -199,21 +200,12 @@ class _EditProfileState extends State<EditProfile> {
                         vertical: 15,
                       ),
                       child: SizedBox(
-                        height: 50,
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            primary: colors.buttonColor,
-                            onPrimary: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
-                          child: const Text('SAVE CHANGES',
-                              style: TextStyle(fontSize: 15)),
-                        ),
-                      ),
+                          height: 50,
+                          width: double.infinity,
+                          child: CommonButton(
+                              text: "SAVE CHANGES",
+                              fontSize: 14,
+                              onClick: () {})),
                     ),
                   ),
                 ),
