@@ -3,8 +3,8 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import '../../../helper/color.dart';
 import '../../../helper/routes.dart';
-import '../../../widgets/commonBackground.dart';
-import '../../../widgets/shareApp.dart';
+import '../../widget_common/commonBackground.dart';
+import '../../widget_common/shareApp.dart';
 import '../common_header.dart';
 
 class ReferAndEarn extends StatefulWidget {

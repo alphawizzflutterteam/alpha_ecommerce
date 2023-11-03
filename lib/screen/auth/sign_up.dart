@@ -3,9 +3,10 @@ import 'package:alpha_ecommerce_18oct/helper/routes.dart';
 import 'package:flutter/material.dart';
 import '../../helper/color.dart';
 import '../../helper/images.dart';
-import '../../widgets/commonBackground.dart';
-import '../../widgets/common_textfield.dart';
-import '../../widgets/textfield_validation.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_button.dart';
+import '../widget_common/common_textfield.dart';
+import '../widget_common/textfield_validation.dart';
 
 class SignUP extends StatefulWidget {
   const SignUP({Key? key}) : super(key: key);
@@ -170,7 +171,12 @@ class _SignUPState extends State<SignUP> {
                             child: TextFormField(
                               controller: confirmPasswordController,
                               obscureText: obscureText2,
-                              validator: validatePassword,
+                              validator: (value) {
+                                if (value != passwordController.text) {
+                                  return 'Passwords do not match';
+                                }
+                                return null;
+                              },
                               decoration: InputDecoration(
                                 labelText: 'Confirm Password',
                                 filled: true,
@@ -229,83 +235,6 @@ class _SignUPState extends State<SignUP> {
                               style: const TextStyle(color: colors.textColor),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 0,
-                            ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Theme(
-                                      data: ThemeData(
-                                          unselectedWidgetColor:
-                                              colors.textColor),
-                                      child: Checkbox(
-                                        value: isCheckboxChecked,
-                                        checkColor: colors.textColor,
-                                        activeColor: colors.buttonColor,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            isCheckboxChecked = value!;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    const Text(
-                                      validateNumber3,
-                                      style: TextStyle(
-                                          color: colors.lightTextColor),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 45, bottom: 20),
-                                  child: Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          Routes.navigateToTermsConditionScreen(
-                                              context, const SignUP());
-                                        },
-                                        child: const Text(
-                                          'Terms of Service',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: colors.buttonColor,
-                                            decoration:
-                                                TextDecoration.underline,
-                                          ),
-                                        ),
-                                      ),
-                                      const Text(
-                                        ' and ',
-                                        style:
-                                            TextStyle(color: colors.textColor),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          Routes.navigateToPrivacyPolicyScreen(
-                                              context);
-                                        },
-                                        child: const Text(
-                                          'Privacy Policy',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: colors.buttonColor,
-                                            decoration:
-                                                TextDecoration.underline,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -325,25 +254,16 @@ class _SignUPState extends State<SignUP> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 50,
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                Routes.navigateToWelcomeScreen(context);
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: colors.buttonColor,
-                              onPrimary: colors.textColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
-                            child: const Text('CREATE ACCOUNT',
-                                style: TextStyle(fontSize: 18)),
-                          ),
-                        ),
+                            height: 50,
+                            width: double.infinity,
+                            child: CommonButton(
+                                text: "CREATE ACCOUNT",
+                                fontSize: 18,
+                                onClick: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    Routes.navigateToWelcomeScreen(context);
+                                  }
+                                })),
                       ],
                     ),
                   ),

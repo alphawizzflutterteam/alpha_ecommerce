@@ -1,12 +1,13 @@
 import 'package:alpha_ecommerce_18oct/helper/routes.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:alpha_ecommerce_18oct/screen/cart/savedItems.dart';
 import 'package:flutter/material.dart';
 import '../../helper/color.dart';
-import '../../model/CartList.dart';
-import '../../widgets/commonBackground.dart';
-import '../../widgets/common_header.dart';
-import '../../widgets/toast_message.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_button.dart';
+import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
+import '../widget_common/common_radioButton.dart';
+import 'cartList.dart';
 
 class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
@@ -19,12 +20,6 @@ class _CartState extends State<Cart> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   String selectedOption = 'Alpha Delivery';
-  final List<String> genderItems = [
-    'Qty 1',
-    'Qty 2',
-    'Qty 3',
-  ];
-  String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -61,217 +56,7 @@ class _CartState extends State<Cart> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      for (int i = 0; i < 4; i++)
-                        Container(
-                          height: cartList[i].productCount > 0 ? 190 : 0,
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: colors.boxBorder)),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Routes.navigateToProductDetailPageScreen(
-                                          context);
-                                    },
-                                    child: Image.asset(
-                                      cartList[i].productImage,
-                                      width: 110,
-                                      height: 140,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 30),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          Routes
-                                              .navigateToProductDetailPageScreen(
-                                                  context);
-                                        },
-                                        child: Text(
-                                          cartList[i].productName,
-                                          style: const TextStyle(
-                                              color: colors.textColor,
-                                              fontSize: 14),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            cartList[i].productPrice,
-                                            style: const TextStyle(
-                                                color: colors.buttonColor,
-                                                fontSize: 16),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 10),
-                                            child: Text(
-                                              cartList[i].productDiscount,
-                                              style: const TextStyle(
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
-                                                  color: colors.greyText,
-                                                  fontSize: 14),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        cartList[i].productWeight,
-                                        style: const TextStyle(
-                                            color: colors.greyText,
-                                            fontSize: 12),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        height: 50,
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(15)),
-                                            border: Border.all(
-                                                color: colors.boxBorder)),
-                                        child: DropdownButtonFormField2<String>(
-                                          isExpanded: true,
-                                          decoration: const InputDecoration(
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                                    vertical: 15),
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.zero,
-                                                borderSide: BorderSide.none),
-                                          ),
-                                          hint: const Text(
-                                            'Qty 1',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: colors.textColor),
-                                          ),
-                                          items: genderItems
-                                              .map((item) =>
-                                                  DropdownMenuItem<String>(
-                                                    value: item,
-                                                    child: Text(
-                                                      item,
-                                                      style: const TextStyle(
-                                                          fontSize: 12,
-                                                          color:
-                                                              colors.textColor),
-                                                    ),
-                                                  ))
-                                              .toList(),
-                                          validator: (value) {
-                                            if (value == null) {
-                                              return 'Select Quantity.';
-                                            }
-                                            return null;
-                                          },
-                                          onChanged: (value) {},
-                                          onSaved: (value) {
-                                            selectedValue = value.toString();
-                                          },
-                                          buttonStyleData:
-                                              const ButtonStyleData(
-                                            padding: EdgeInsets.only(right: 8),
-                                          ),
-                                          iconStyleData: const IconStyleData(
-                                            icon: Icon(
-                                              Icons.arrow_drop_down,
-                                              color: colors.textColor,
-                                            ),
-                                            iconSize: 18,
-                                          ),
-                                          dropdownStyleData: DropdownStyleData(
-                                              elevation: 8,
-                                              decoration: BoxDecoration(
-                                                color: colors.textFieldBG,
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                border: Border.all(
-                                                    color: colors.boxBorder),
-                                              )),
-                                          menuItemStyleData:
-                                              const MenuItemStyleData(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 16),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 0),
-                                    height: 35,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.3,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(5)),
-                                        border: Border.all(
-                                            color: colors.boxBorder)),
-                                    child: const Text(
-                                      "Save for later",
-                                      style: TextStyle(
-                                          color: colors.textColor,
-                                          fontSize: 12),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 0),
-                                    height: 35,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.35,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(5)),
-                                        border: Border.all(
-                                            color: colors.boxBorder)),
-                                    child: InkWell(
-                                      onTap: () {
-                                        showToastMessage(
-                                            "Item remove from cart");
-                                      },
-                                      child: const Text(
-                                        "Remove from cart",
-                                        style: TextStyle(
-                                            color: colors.textColor,
-                                            fontSize: 12),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+                      for (int i = 0; i < 4; i++) CartListWidget(i: i),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -295,51 +80,15 @@ class _CartState extends State<Cart> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
-                                  Expanded(
-                                    child: RadioListTile(
-                                      title: const Text(
-                                        'Normal Delivery',
-                                        style: TextStyle(
-                                          color: colors.textColor,
-                                          fontSize: 14,
-                                        ),
-                                        softWrap: false,
-                                      ),
-                                      activeColor: colors.buttonColor,
-                                      value: 'Normal Delivery',
-                                      groupValue: selectedOption,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedOption = value.toString();
-                                        });
-                                      },
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 0),
-                                    ),
+                                  CommonRadioTile(
+                                    options: selectedOption,
+                                    name: 'Normal Delivery',
+                                    onChanged: handleOptionChange,
                                   ),
-                                  Expanded(
-                                    child: RadioListTile(
-                                      title: const Text(
-                                        'Alpha Delivery',
-                                        style: TextStyle(
-                                          color: colors.textColor,
-                                          fontSize: 14,
-                                        ),
-                                        softWrap: false,
-                                      ),
-                                      value: 'Alpha Delivery',
-                                      activeColor: colors.buttonColor,
-                                      groupValue: selectedOption,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedOption = value.toString();
-                                        });
-                                      },
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 0),
-                                    ),
+                                  CommonRadioTile(
+                                    options: selectedOption,
+                                    name: 'Alpha Delivery',
+                                    onChanged: handleOptionChange,
                                   ),
                                 ],
                               ),
@@ -470,13 +219,18 @@ class _CartState extends State<Cart> {
                                   color: colors.textColor, fontSize: 14),
                             ),
                             Row(
-                              children: const [
-                                Icon(Icons.local_offer_outlined),
-                                SizedBox(width: 10),
-                                Text(
-                                  "View Offer",
-                                  style: TextStyle(
-                                      color: colors.textColor, fontSize: 14),
+                              children: [
+                                const Icon(Icons.local_offer_outlined),
+                                const SizedBox(width: 10),
+                                InkWell(
+                                  onTap: () {
+                                    Routes.navigateToOffersScreen(context);
+                                  },
+                                  child: const Text(
+                                    "View Offer",
+                                    style: TextStyle(
+                                        color: colors.textColor, fontSize: 14),
+                                  ),
                                 )
                               ],
                             )
@@ -520,18 +274,12 @@ class _CartState extends State<Cart> {
                               width: 10,
                             ),
                             SizedBox(
-                              height: 40,
-                              width: 110,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: colors.buttonColor,
-                                  onPrimary: colors.textColor,
-                                  padding: EdgeInsets.zero,
-                                ),
-                                onPressed: () {},
-                                child: const Text('APPLY'),
-                              ),
-                            ),
+                                height: 40,
+                                width: 110,
+                                child: CommonButton(
+                                    text: "APPLY",
+                                    fontSize: 14,
+                                    onClick: () {})),
                           ],
                         ),
                       ),
@@ -544,191 +292,7 @@ class _CartState extends State<Cart> {
                               TextStyle(color: colors.textColor, fontSize: 14),
                         ),
                       ),
-                      for (int i = 0; i < 2; i++)
-                        Container(
-                          height: 190,
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: colors.boxBorder)),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Routes.navigateToProductDetailPageScreen(
-                                          context);
-                                    },
-                                    child: Image.asset(
-                                      cartList[i].productImage,
-                                      width: 110,
-                                      height: 140,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 30),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          Routes
-                                              .navigateToProductDetailPageScreen(
-                                                  context);
-                                        },
-                                        child: Text(
-                                          cartList[i].productName,
-                                          style: const TextStyle(
-                                              color: colors.textColor,
-                                              fontSize: 14),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            cartList[i].productPrice,
-                                            style: const TextStyle(
-                                                color: colors.buttonColor,
-                                                fontSize: 16),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 10),
-                                            child: Text(
-                                              cartList[i].productDiscount,
-                                              style: const TextStyle(
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
-                                                  color: colors.greyText,
-                                                  fontSize: 14),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        cartList[i].productWeight,
-                                        style: const TextStyle(
-                                            color: colors.greyText,
-                                            fontSize: 12),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        height: 50,
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(15)),
-                                            border: Border.all(
-                                                color: colors.boxBorder)),
-                                        child: DropdownButtonFormField2<String>(
-                                          isExpanded: true,
-                                          decoration: const InputDecoration(
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                                    vertical: 15),
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.zero,
-                                                borderSide: BorderSide.none),
-                                          ),
-                                          hint: const Text(
-                                            'Qty 1',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: colors.textColor),
-                                          ),
-                                          items: genderItems
-                                              .map((item) =>
-                                                  DropdownMenuItem<String>(
-                                                    value: item,
-                                                    child: Text(
-                                                      item,
-                                                      style: const TextStyle(
-                                                          fontSize: 12,
-                                                          color:
-                                                              colors.textColor),
-                                                    ),
-                                                  ))
-                                              .toList(),
-                                          validator: (value) {
-                                            if (value == null) {
-                                              return 'Select Quantity.';
-                                            }
-                                            return null;
-                                          },
-                                          onChanged: (value) {},
-                                          onSaved: (value) {
-                                            selectedValue = value.toString();
-                                          },
-                                          buttonStyleData:
-                                              const ButtonStyleData(
-                                            padding: EdgeInsets.only(right: 8),
-                                          ),
-                                          iconStyleData: const IconStyleData(
-                                            icon: Icon(
-                                              Icons.arrow_drop_down,
-                                              color: colors.textColor,
-                                            ),
-                                            iconSize: 18,
-                                          ),
-                                          dropdownStyleData: DropdownStyleData(
-                                              elevation: 8,
-                                              decoration: BoxDecoration(
-                                                color: colors.textFieldBG,
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                border: Border.all(
-                                                    color: colors.boxBorder),
-                                              )),
-                                          menuItemStyleData:
-                                              const MenuItemStyleData(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 16),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 0),
-                                    height: 35,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.5,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(5)),
-                                        border: Border.all(
-                                            color: colors.boxBorder)),
-                                    child: const Text(
-                                      "Remove from Saved Items",
-                                      style: TextStyle(
-                                          color: colors.textColor,
-                                          fontSize: 12),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        )
+                      for (int i = 0; i < 2; i++) SavedItemsWidget(i: i)
                     ],
                   ),
                 ),
@@ -792,20 +356,15 @@ class _CartState extends State<Cart> {
                                     color: colors.textColor),
                               ),
                               SizedBox(
-                                height: 40,
-                                width: 150,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: colors.buttonColor,
-                                    onPrimary: colors.textColor,
-                                    padding: EdgeInsets.zero,
-                                  ),
-                                  onPressed: () {
-                                    Routes.navigateToPaymentScreen(context);
-                                  },
-                                  child: const Text('PLACE ORDER'),
-                                ),
-                              ),
+                                  height: 40,
+                                  width: 150,
+                                  child: CommonButton(
+                                    text: "PLACE ORDER",
+                                    fontSize: 14,
+                                    onClick: () {
+                                      Routes.navigateToPaymentScreen(context);
+                                    },
+                                  )),
                             ],
                           ),
                         ),
@@ -819,5 +378,11 @@ class _CartState extends State<Cart> {
         ),
       ],
     );
+  }
+
+  void handleOptionChange(String value) {
+    setState(() {
+      selectedOption = value;
+    });
   }
 }

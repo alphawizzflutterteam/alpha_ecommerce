@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../helper/color.dart';
-import '../helper/images.dart';
+import '../../helper/color.dart';
+import '../../helper/images.dart';
 
 Future<void> accessMicrophone(context) async {
   return showModalBottomSheet(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../helper/color.dart';
+import '../../helper/color.dart';
 
 List<Map<dynamic, dynamic>> sort = [
   {'text': 'Top Rated'},

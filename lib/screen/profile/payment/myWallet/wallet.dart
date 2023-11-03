@@ -2,8 +2,9 @@ import 'package:alpha_ecommerce_18oct/helper/images.dart';
 import 'package:flutter/material.dart';
 import '../../../../helper/color.dart';
 import '../../../../helper/routes.dart';
-import '../../../../widgets/commonBackground.dart';
-import '../../../../widgets/common_header.dart';
+import '../../../widget_common/commonBackground.dart';
+import '../../../widget_common/common_button.dart';
+import '../../../widget_common/common_header.dart';
 import '../../common_header.dart';
 
 class Wallet extends StatefulWidget {
@@ -77,23 +78,14 @@ class _WalletState extends State<Wallet> {
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: SizedBox(
-                      height: 40,
-                      width: 150,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Routes.navigateToAddMoneyScreen(context);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: colors.buttonColor,
-                          onPrimary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        child: const Text('ADD MONEY',
-                            style: TextStyle(fontSize: 15)),
-                      ),
-                    ),
+                        height: 40,
+                        width: 150,
+                        child: CommonButton(
+                            text: "ADD MONEY",
+                            fontSize: 14,
+                            onClick: () {
+                              Routes.navigateToAddMoneyScreen(context);
+                            })),
                   )
                 ],
               ),

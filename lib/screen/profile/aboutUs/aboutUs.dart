@@ -3,7 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../helper/color.dart';
 import '../../../helper/constant.dart';
 import '../../../helper/routes.dart';
-import '../../../widgets/commonBackground.dart';
+import '../../widget_common/commonBackground.dart';
 import '../common_header.dart';
 
 class AboutUs extends StatefulWidget {

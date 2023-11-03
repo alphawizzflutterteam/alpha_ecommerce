@@ -1,10 +1,11 @@
-import 'package:alpha_ecommerce_18oct/widgets/textfield_validation.dart';
+import 'package:alpha_ecommerce_18oct/screen/widget_common/textfield_validation.dart';
 import 'package:flutter/material.dart';
 import '../../../helper/color.dart';
 import '../../../helper/routes.dart';
-import '../../../widgets/commonBackground.dart';
-import '../../../widgets/common_header.dart';
-import '../../../widgets/common_textfield.dart';
+import '../../widget_common/commonBackground.dart';
+import '../../widget_common/common_button.dart';
+import '../../widget_common/common_header.dart';
+import '../../widget_common/common_textfield.dart';
 import '../common_header.dart';
 
 class CustomerSupport extends StatefulWidget {
@@ -62,8 +63,7 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                 decoration: commonInputDecoration(
                                   labelText: 'Select Type',
                                 ),
-                                style:
-                                    const TextStyle(color: colors.textColor),
+                                style: const TextStyle(color: colors.textColor),
                               ),
                             ),
                             Padding(
@@ -75,8 +75,7 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                 decoration: commonInputDecoration(
                                   labelText: 'Email',
                                 ),
-                                style:
-                                    const TextStyle(color: colors.textColor),
+                                style: const TextStyle(color: colors.textColor),
                               ),
                             ),
                             Padding(
@@ -88,8 +87,7 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                 decoration: commonInputDecoration(
                                   labelText: 'Subject',
                                 ),
-                                style:
-                                    const TextStyle(color: colors.textColor),
+                                style: const TextStyle(color: colors.textColor),
                               ),
                             ),
                             Padding(
@@ -101,8 +99,7 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                 decoration: commonInputDecoration(
                                   labelText: 'Description',
                                 ),
-                                style:
-                                    const TextStyle(color: colors.textColor),
+                                style: const TextStyle(color: colors.textColor),
                               ),
                             ),
                             Align(
@@ -113,28 +110,19 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      height: 50,
-                                      width: 120,
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            Routes.navigateToDashboardScreen(
-                                                context);
-                                          }
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          primary: colors.buttonColor,
-                                          onPrimary: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                          ),
-                                        ),
-                                        child: Text('Send',
-                                            style: TextStyle(fontSize: 18)),
-                                      ),
-                                    ),
+                                        height: 50,
+                                        width: 120,
+                                        child: CommonButton(
+                                            text: "SEND",
+                                            fontSize: 18,
+                                            onClick: () {
+                                              if (_formKey.currentState!
+                                                  .validate()) {
+                                                Routes
+                                                    .navigateToDashboardScreen(
+                                                        context);
+                                              }
+                                            })),
                                   ],
                                 ),
                               ),

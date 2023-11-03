@@ -5,8 +5,8 @@ import 'package:alpha_ecommerce_18oct/screen/profile/logOut/logOut.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../helper/color.dart';
-import '../../widgets/commonBackground.dart';
-import '../../widgets/common_header.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_header.dart';
 import 'common_header.dart';
 
 class Profile extends StatefulWidget {

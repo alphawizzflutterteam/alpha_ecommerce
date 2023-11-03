@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../helper/color.dart';
+import '../../helper/color.dart';
 
 Future<Future<bool?>> showToastMessage(text) async {
   return Fluttertoast.showToast(

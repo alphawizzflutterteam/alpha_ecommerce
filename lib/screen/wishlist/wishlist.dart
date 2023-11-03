@@ -4,9 +4,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../../helper/color.dart';
 import '../../helper/routes.dart';
 import '../../model/wishlist.dart';
-import '../../widgets/commonBackground.dart';
-import '../../widgets/common_header.dart';
-import '../../widgets/toast_message.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_button.dart';
+import '../widget_common/common_header.dart';
+import '../widget_common/toast_message.dart';
 import '../profile/common_header.dart';
 
 class Wishlist extends StatefulWidget {
@@ -136,25 +137,16 @@ class _WishlistState extends State<Wishlist> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 25,
-                                              width: 100,
-                                              child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  primary: colors.buttonColor,
-                                                  onPrimary: Colors.white,
-                                                  padding: EdgeInsets.zero,
-                                                ),
-                                                onPressed: () {
-                                                  showToastMessage(
-                                                      "Added to Cart");
-                                                },
-                                                child: const Text(
-                                                  'ADD TO CART',
-                                                  style:
-                                                      TextStyle(fontSize: 12),
-                                                ),
-                                              ),
-                                            )
+                                                height: 25,
+                                                width: 100,
+                                                child: CommonButton(
+                                                  text: "Added to Cart",
+                                                  fontSize: 12,
+                                                  onClick: () {
+                                                    showToastMessage(
+                                                        "Added to Cart");
+                                                  },
+                                                ))
                                           ],
                                         ),
                                       )

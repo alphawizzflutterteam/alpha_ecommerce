@@ -33,7 +33,7 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
             backgroundColor: Colors.transparent,
             leading: IconButton(
                 onPressed: () {
-                  Routes.navigateToPreviousScreen(context);
+                  Routes.navigateToCurrencyScreen(context, true);
                 },
                 icon: const Icon(
                   Icons.close,

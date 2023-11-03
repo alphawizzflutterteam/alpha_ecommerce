@@ -1,7 +1,7 @@
 import 'package:alpha_ecommerce_18oct/helper/routes.dart';
 import 'package:flutter/material.dart';
-import '../helper/color.dart';
-import '../helper/images.dart';
+import '../../helper/color.dart';
+import '../../helper/images.dart';
 
 import 'access_microphone.dart';
 

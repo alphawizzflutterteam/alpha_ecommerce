@@ -3,9 +3,9 @@ import 'package:alpha_ecommerce_18oct/helper/routes.dart';
 import 'package:flutter/material.dart';
 import '../../helper/color.dart';
 import '../../helper/images.dart';
-import '../../widgets/commonBackground.dart';
-import '../../widgets/common_textfield.dart';
-import '../../widgets/textfield_validation.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_textfield.dart';
+import '../widget_common/textfield_validation.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -25,7 +25,9 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
+      //background with pattern
       const CommonBackgroundPatternAuthWidget(),
+      //background with colour
       const CommonBackgroundAuthWidget(),
       Scaffold(
         key: _scaffoldKey,
@@ -95,16 +97,14 @@ class _SignInState extends State<SignIn> {
                           suffixIcon: GestureDetector(
                             onTap: () {
                               setState(() {
-                                obscureText =
-                                    !obscureText;
+                                obscureText = !obscureText;
                               });
                             },
                             child: Icon(
                               obscureText
                                   ? Icons.visibility_off
                                   : Icons.visibility,
-                              color: colors
-                                  .labelColor,
+                              color: colors.labelColor,
                             ),
                           ),
                           labelStyle: const TextStyle(

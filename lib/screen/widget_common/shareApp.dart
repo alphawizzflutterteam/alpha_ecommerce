@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../helper/color.dart';
-import '../helper/routes.dart';
-import '../model/sharingApp.dart';
+import '../../helper/color.dart';
+import '../../helper/routes.dart';
+import '../../model/sharingApp.dart';
 
 Future<void> share(context) async {
   return showModalBottomSheet(
@@ -39,7 +39,12 @@ Future<void> share(context) async {
                                     onTap: () {
                                       Routes.navigateToPreviousScreen(context);
                                     },
-                                    child: Image.asset(sharingApp[i].appImage)),
+                                    child: Image.asset(
+                                      sharingApp[i].appImage,
+                                      height: 50,
+                                      width: 50,
+                                      fit: BoxFit.fill,
+                                    )),
                                 const SizedBox(
                                   height: 5,
                                 ),

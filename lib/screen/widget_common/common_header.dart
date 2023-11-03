@@ -1,8 +1,8 @@
 import 'package:alpha_ecommerce_18oct/helper/images.dart';
 import 'package:flutter/material.dart';
 
-import '../helper/color.dart';
-import '../helper/routes.dart';
+import '../../helper/color.dart';
+import '../../helper/routes.dart';
 import 'commonTextStyle.dart';
 
 class DashboardHeader extends StatelessWidget {

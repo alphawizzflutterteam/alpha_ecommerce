@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../../../helper/color.dart';
 import '../../../../helper/routes.dart';
-import '../../../../widgets/commonBackground.dart';
-import '../../../../widgets/common_header.dart';
-import '../../../../widgets/common_textfield.dart';
+import '../../../widget_common/commonBackground.dart';
+import '../../../widget_common/common_button.dart';
+import '../../../widget_common/common_header.dart';
+import '../../../widget_common/common_textfield.dart';
 import '../../common_header.dart';
 
 class PaymentForm extends StatefulWidget {
@@ -36,7 +37,9 @@ class _PaymentFormState extends State<PaymentForm> {
               Stack(
                 children: const [
                   ProfileHeader(),
-                  InternalPageHeader(text: "Add Money",)
+                  InternalPageHeader(
+                    text: "Add Money",
+                  )
                 ],
               ),
               Expanded(
@@ -51,7 +54,8 @@ class _PaymentFormState extends State<PaymentForm> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -66,7 +70,8 @@ class _PaymentFormState extends State<PaymentForm> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -120,7 +125,8 @@ class _PaymentFormState extends State<PaymentForm> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -135,7 +141,8 @@ class _PaymentFormState extends State<PaymentForm> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -164,23 +171,15 @@ class _PaymentFormState extends State<PaymentForm> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 50,
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Routes.navigateToWalletScreen(context);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: colors.buttonColor,
-                                onPrimary: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                              child: const Text('PAY NOW',
-                                  style: TextStyle(fontSize: 15)),
-                            ),
-                          ),
+                              height: 50,
+                              width: double.infinity,
+                              child: CommonButton(
+                                text: "PAY NOW",
+                                fontSize: 15,
+                                onClick: () {
+                                  Routes.navigateToWalletScreen(context);
+                                },
+                              )),
                         ],
                       ),
                     ),

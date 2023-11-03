@@ -47,8 +47,8 @@ import '../screen/order/order.dart';
 import '../screen/placeOrder/placeOrder.dart';
 import '../screen/profile/subscribe/currentPlan.dart';
 import '../screen/wishlist/wishlist.dart';
-import '../widgets/notification.dart';
-import '../widgets/search.dart';
+import '../screen/notification/notification.dart';
+import '../screen/widget_common/search.dart';
 
 GlobalKey<DashboardState>? dashboardPageState;
 
@@ -77,10 +77,13 @@ class Routes {
   }
 
   static navigateToSignInScreen(BuildContext context) {
+    Navigator.of(context).pushAndRemoveUntil(
+        CupertinoPageRoute(builder: (context) => SignIn()),
+        (Route<dynamic> route) => false);
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const SignIn(),
+        pageBuilder: (context, animation1, animation2) => SignIn(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -156,11 +159,13 @@ class Routes {
   }
 
   static navigateToCountrySelectionScreen(BuildContext context) {
+    Navigator.of(context).pushAndRemoveUntil(
+        CupertinoPageRoute(builder: (context) => CountrySelection()),
+        (Route<dynamic> route) => false);
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) =>
-            const CountrySelection(),
+        pageBuilder: (context, animation1, animation2) => CountrySelection(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -168,10 +173,13 @@ class Routes {
   }
 
   static navigateToDashboardScreen(BuildContext context) {
+    Navigator.of(context).pushAndRemoveUntil(
+        CupertinoPageRoute(builder: (context) => Dashboard()),
+        (Route<dynamic> route) => false);
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const Dashboard(),
+        pageBuilder: (context, animation1, animation2) => Dashboard(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -179,7 +187,13 @@ class Routes {
   }
 
   static navigateToCurrencyScreen(BuildContext context, condition) {
-    Navigator.pushReplacement(
+    Navigator.of(context).pushAndRemoveUntil(
+        CupertinoPageRoute(
+            builder: (context) => SelectionCurrencyWidget(
+                  signIn: condition,
+                )),
+        (Route<dynamic> route) => false);
+    Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) =>
@@ -226,10 +240,13 @@ class Routes {
   }
 
   static navigateToWelcomeScreen(BuildContext context) {
+    Navigator.of(context).pushAndRemoveUntil(
+        CupertinoPageRoute(builder: (context) => Welcome()),
+        (Route<dynamic> route) => false);
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const Welcome(),
+        pageBuilder: (context, animation1, animation2) => Welcome(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

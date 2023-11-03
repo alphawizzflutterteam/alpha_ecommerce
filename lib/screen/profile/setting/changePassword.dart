@@ -1,8 +1,9 @@
 import 'package:alpha_ecommerce_18oct/helper/routes.dart';
 import 'package:flutter/material.dart';
 import '../../../helper/color.dart';
-import '../../../widgets/commonBackground.dart';
-import '../../../widgets/textfield_validation.dart';
+import '../../widget_common/commonBackground.dart';
+import '../../widget_common/common_button.dart';
+import '../../widget_common/textfield_validation.dart';
 import '../common_header.dart';
 
 class ChangePassword extends StatefulWidget {
@@ -300,25 +301,16 @@ class _ChangePasswordState extends State<ChangePassword> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 50,
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                Routes.navigateToPreviousScreen(context);
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: colors.buttonColor,
-                              onPrimary: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
-                            child: const Text('CHANGE PASSWORD',
-                                style: TextStyle(fontSize: 18)),
-                          ),
-                        ),
+                            height: 50,
+                            width: double.infinity,
+                            child: CommonButton(
+                                text: "CHANGE PASSWORD",
+                                fontSize: 18,
+                                onClick: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    Routes.navigateToPreviousScreen(context);
+                                  }
+                                })),
                       ],
                     ),
                   ),

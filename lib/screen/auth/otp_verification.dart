@@ -4,8 +4,9 @@ import 'package:flutter/services.dart';
 import '../../helper/color.dart';
 import '../../helper/images.dart';
 import '../../helper/routes.dart';
-import '../../widgets/commonBackground.dart';
-import '../../widgets/toast_message.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_button.dart';
+import '../widget_common/toast_message.dart';
 
 class OTPVerification extends StatefulWidget {
   final bool signIn;
@@ -151,22 +152,13 @@ class _OTPVerificationState extends State<OTPVerification> {
                             horizontal: 20, vertical: 15),
                         child: Column(
                           children: [
-                            // CommonButton(
-                            //   text: "Verify",
-                            //   onClick: () {
-                            //     if (_formKey.currentState!.validate()) {
-                            //       widget.signIn
-                            //           ? Routes.navigateToSignUpScreen(context)
-                            //           : Routes.navigateToResetPasswordScreen(
-                            //               context);
-                            //     }
-                            //   },
-                            // ),
                             SizedBox(
                               height: 50,
                               width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: () {
+                              child: CommonButton(
+                                text: "Verify",
+                                fontSize: 18,
+                                onClick: () {
                                   if (_formKey.currentState!.validate()) {
                                     widget.signIn
                                         ? Routes.navigateToSignUpScreen(context)
@@ -174,15 +166,6 @@ class _OTPVerificationState extends State<OTPVerification> {
                                             context);
                                   }
                                 },
-                                style: ElevatedButton.styleFrom(
-                                  primary: colors.buttonColor,
-                                  onPrimary: colors.textColor,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                                child: const Text('Verify',
-                                    style: TextStyle(fontSize: 18)),
                               ),
                             ),
                             Padding(

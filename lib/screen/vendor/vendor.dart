@@ -2,8 +2,8 @@ import 'package:alpha_ecommerce_18oct/helper/images.dart';
 import 'package:alpha_ecommerce_18oct/helper/routes.dart';
 import 'package:flutter/material.dart';
 import '../../helper/color.dart';
-import '../../widgets/commonBackground.dart';
-import '../../widgets/common_header.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
 
 class Vendor extends StatefulWidget {

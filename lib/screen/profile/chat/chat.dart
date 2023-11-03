@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../helper/color.dart';
 import '../../../model/chatMessage.dart';
-import '../../../widgets/commonBackground.dart';
+import '../../widget_common/commonBackground.dart';
 import '../common_header.dart';
 
 class Chat extends StatefulWidget {

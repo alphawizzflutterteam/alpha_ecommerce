@@ -1,44 +1,37 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../helper/color.dart';
-import '../../../provider/language_provider.dart';
+import '../../../provider/currency_provider.dart';
 
-class LanguageWidget extends StatefulWidget {
-  final String label;
-  const LanguageWidget({super.key, required this.label});
+class CurrencyWidget extends StatefulWidget {
+  const CurrencyWidget({super.key});
 
   @override
-  State<LanguageWidget> createState() => _LanguageWidgetState();
+  State<CurrencyWidget> createState() => _CurrencyWidgetState();
 }
 
-class _LanguageWidgetState extends State<LanguageWidget> {
-  List<String> languageList = [
-    'English',
-    'Germane',
-    'Italian',
-    'Chanzies',
-    'Bangla',
-    'Spanish',
-    'French',
-    'Portuguese',
-    'Arabic',
-    'Russian',
-    'Japanese'
+class _CurrencyWidgetState extends State<CurrencyWidget> {
+  List<String> currencyList = [
+    '€ Euro',
+    '£ Pounds',
+    '¥ Yen',
+    '¥ Chinese Yuan',
+    '₹ Russian Ruble',
+    'Rp Indonesian Rupiah'
   ];
-  String selectedValue = 'English';
+  String selectedValue = '¥ Yen';
   final ValueNotifier<List<String>> selected = ValueNotifier<List<String>>([]);
 
   @override
   void initState() {
-    selected.value.addAll(languageList);
+    selected.value.addAll(currencyList);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final languageProvider =
-        Provider.of<LanguageProvider>(context, listen: false);
+    final currencyProvider =
+        Provider.of<CurrencyProvider>(context, listen: false);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,13 +39,12 @@ class _LanguageWidgetState extends State<LanguageWidget> {
         const SizedBox(
           height: 10,
         ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            widget.label,
-            style: const TextStyle(
-                fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
-          ),
+        const Text(
+          'Select Currency ',
+          style: TextStyle(
+              fontSize: 24,
+              color: colors.textColor,
+              fontWeight: FontWeight.bold),
         ),
         const SizedBox(
           height: 20,
@@ -61,14 +53,14 @@ class _LanguageWidgetState extends State<LanguageWidget> {
           onChanged: (value) {
             if (value == '') {
               selected.value = [];
-              selected.value.addAll(languageList);
+              selected.value.addAll(currencyList);
             } else {
               selected.value = [];
-              for (var i = 0; i < languageList.length; i++) {
-                if (languageList[i]
+              for (var i = 0; i < currencyList.length; i++) {
+                if (currencyList[i]
                     .toLowerCase()
                     .contains(value.toLowerCase())) {
-                  selected.value.add(languageList[i]);
+                  selected.value.add(currencyList[i]);
                 }
               }
             }
@@ -100,7 +92,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                 borderSide:
                     const BorderSide(color: colors.textFieldColor, width: 1)),
           ),
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: colors.textColor),
         ),
         const SizedBox(
           height: 20,
@@ -119,13 +111,13 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                     onTap: () {
                       setState(() {
                         selectedValue = selected.value[index];
-                        languageProvider.setLanguage(selected.value[index]);
-                        // Routes.navigateToPreviousScreen(context);
+                        currencyProvider.setCurrency(selected.value[index]);
                       });
                     },
                     title: Text(
                       selected.value[index],
-                      style: const TextStyle(fontSize: 14, color: Colors.white),
+                      style: const TextStyle(
+                          fontSize: 14, color: colors.textColor),
                     ),
                     trailing: selected.value[index] == selectedValue
                         ? const Icon(

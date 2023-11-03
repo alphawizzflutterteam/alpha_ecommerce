@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../helper/color.dart';
+import '../../helper/color.dart';
 
 InputDecoration commonInputDecoration(
     {String labelText = '', String hintText = '', Color? color}) {
@@ -48,3 +48,5 @@ InputDecoration commonInputDecoration(
     ),
   );
 }
+
+

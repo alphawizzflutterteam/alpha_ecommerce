@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../../helper/color.dart';
 import '../../../helper/routes.dart';
-import '../../../widgets/commonBackground.dart';
-import '../../../widgets/common_header.dart';
-import '../../../widgets/common_textfield.dart';
+import '../../widget_common/commonBackground.dart';
+import '../../widget_common/common_button.dart';
+import '../../widget_common/common_header.dart';
+import '../../widget_common/common_textfield.dart';
 import '../common_header.dart';
 
 class ManageAddress extends StatefulWidget {
@@ -217,7 +218,8 @@ class _ManageAddressState extends State<ManageAddress> {
                       Container(
                         margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -232,7 +234,8 @@ class _ManageAddressState extends State<ManageAddress> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -247,7 +250,8 @@ class _ManageAddressState extends State<ManageAddress> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -262,7 +266,8 @@ class _ManageAddressState extends State<ManageAddress> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -277,7 +282,8 @@ class _ManageAddressState extends State<ManageAddress> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -292,7 +298,8 @@ class _ManageAddressState extends State<ManageAddress> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -307,7 +314,8 @@ class _ManageAddressState extends State<ManageAddress> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -322,7 +330,8 @@ class _ManageAddressState extends State<ManageAddress> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -337,7 +346,8 @@ class _ManageAddressState extends State<ManageAddress> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -364,23 +374,14 @@ class _ManageAddressState extends State<ManageAddress> {
                         vertical: 15,
                       ),
                       child: SizedBox(
-                        height: 50,
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Routes.navigateToPreviousScreen(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: colors.buttonColor,
-                            onPrimary: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
-                          child: const Text('SAVE ADDRESS',
-                              style: TextStyle(fontSize: 15)),
-                        ),
-                      ),
+                          height: 50,
+                          width: double.infinity,
+                          child: CommonButton(
+                              text: "SAVE ADDRESS",
+                              fontSize: 14,
+                              onClick: () {
+                                Routes.navigateToPreviousScreen(context);
+                              })),
                     ),
                   ),
                 ),

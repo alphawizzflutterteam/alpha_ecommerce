@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import '../../../../helper/color.dart';
 import '../../../../helper/routes.dart';
 import '../../../../model/paymentMethod.dart';
-import '../../../../widgets/commonBackground.dart';
-import '../../../../widgets/common_header.dart';
+import '../../../widget_common/commonBackground.dart';
+import '../../../widget_common/common_button.dart';
+import '../../../widget_common/common_header.dart';
 import '../../common_header.dart';
 
 class Payment extends StatefulWidget {
@@ -77,8 +78,7 @@ class _PaymentState extends State<Payment> {
                             ),
                             trailing: Theme(
                               data: ThemeData(
-                                  unselectedWidgetColor:
-                                       colors.greyText),
+                                  unselectedWidgetColor: colors.greyText),
                               child: Radio<int>(
                                 value: i,
                                 groupValue: selectedPaymentMethod,
@@ -112,33 +112,26 @@ class _PaymentState extends State<Payment> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 50,
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (selectedPaymentMethod != null) {
-                                  Routes.navigateToPaymentFormScreen(context);
-                                } else {
-                                  print('Please select a payment method.');
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                          'Please select a payment method.'),
-                                    ),
-                                  );
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: colors.buttonColor,
-                                onPrimary: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                              child: const Text('CONTINUE',
-                                  style: TextStyle(fontSize: 15)),
-                            ),
-                          ),
+                              height: 50,
+                              width: double.infinity,
+                              child: CommonButton(
+                                  text: "CONTINUE",
+                                  fontSize: 14,
+                                  onClick: () {
+                                    if (selectedPaymentMethod != null) {
+                                      Routes.navigateToPaymentFormScreen(
+                                          context);
+                                    } else {
+                                      print('Please select a payment method.');
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                              'Please select a payment method.'),
+                                        ),
+                                      );
+                                    }
+                                  })),
                         ],
                       ),
                     ),

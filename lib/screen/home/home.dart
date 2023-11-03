@@ -1,14 +1,15 @@
-import 'package:alpha_ecommerce_18oct/widgets/categoryShuffle.dart';
-import 'package:alpha_ecommerce_18oct/widgets/filterShuffle.dart';
-import 'package:alpha_ecommerce_18oct/widgets/sortShuffle.dart';
+import 'package:alpha_ecommerce_18oct/screen/widget_common/categoryShuffle.dart';
+import 'package:alpha_ecommerce_18oct/screen/widget_common/filterShuffle.dart';
+import 'package:alpha_ecommerce_18oct/screen/widget_common/sortShuffle.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import '../../helper/color.dart';
 import '../../helper/images.dart';
 import '../../helper/routes.dart';
-import '../../widgets/commonBackground.dart';
-import '../../widgets/common_header.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_button.dart';
+import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
 
 class Home extends StatefulWidget {
@@ -599,24 +600,16 @@ class _HomeState extends State<Home> {
                                         ],
                                       ),
                                       SizedBox(
-                                        height: 30,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.25,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            primary: colors.textColor,
-                                            onPrimary: colors.buttonColor,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                          ),
-                                          child: const Text('Shop now',
-                                              style: TextStyle(fontSize: 12)),
-                                        ),
-                                      ),
+                                          height: 30,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.25,
+                                          child: CommonButton(
+                                              text: "Shop now",
+                                              fontSize: 12,
+                                              whitePrimary: true,
+                                              onClick: () {})),
                                     ],
                                   ),
                                 );

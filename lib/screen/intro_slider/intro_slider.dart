@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../../helper/color.dart';
 import '../../helper/images.dart';
-import '../../widgets/commonBackground.dart';
+import '../widget_common/commonBackground.dart';
 
 class IntroSlider extends StatefulWidget {
   const IntroSlider({Key? key}) : super(key: key);

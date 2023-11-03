@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../../helper/color.dart';
 import '../../helper/routes.dart';
 import '../../model/category.dart';
-import '../../widgets/commonBackground.dart';
-import '../../widgets/common_header.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_button.dart';
+import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
 
 class VendorDetails extends StatefulWidget {
@@ -95,23 +96,16 @@ class _VendorDetailsState extends State<VendorDetails> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 30,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.2,
-                                              child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  primary: colors.buttonColor,
-                                                  onPrimary: Colors.white,
-                                                  padding: EdgeInsets.zero,
-                                                ),
-                                                onPressed: () {
-                                                  // Add your button action here
-                                                },
-                                                child: const Text('Follow'),
-                                              ),
-                                            ),
+                                                height: 30,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.2,
+                                                child: CommonButton(
+                                                  text: "Follow",
+                                                  fontSize: 14,
+                                                  onClick: () {},
+                                                )),
                                           ],
                                         ),
                                       ],
@@ -276,19 +270,23 @@ class _VendorDetailsState extends State<VendorDetails> {
                                     focusedErrorBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
                                         borderSide: const BorderSide(
-                                            color: colors.textFieldColor, width: 1)),
+                                            color: colors.textFieldColor,
+                                            width: 1)),
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
                                         borderSide: const BorderSide(
-                                            color: colors.textFieldColor, width: 1)),
+                                            color: colors.textFieldColor,
+                                            width: 1)),
                                     errorBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
                                         borderSide: const BorderSide(
-                                            color: colors.textFieldColor, width: 1)),
+                                            color: colors.textFieldColor,
+                                            width: 1)),
                                     focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
                                         borderSide: const BorderSide(
-                                            color: colors.textFieldColor, width: 1)),
+                                            color: colors.textFieldColor,
+                                            width: 1)),
                                   ),
                                   style: const TextStyle(color: Colors.white),
                                 ),
@@ -395,7 +393,7 @@ class _VendorDetailsState extends State<VendorDetails> {
 
   Widget buildTabButton(String label, bool isSelected, VoidCallback onPressed) {
     return Container(
-      color:colors.textFieldBG,
+      color: colors.textFieldBG,
       width: MediaQuery.of(context).size.width * 0.3,
       height: 55,
       child: ElevatedButton(

@@ -1,13 +1,13 @@
 import 'package:alpha_ecommerce_18oct/screen/profile/setting/changeTheme.dart';
+import 'package:alpha_ecommerce_18oct/screen/profile/setting/selectCurrency.dart';
 import 'package:alpha_ecommerce_18oct/screen/profile/setting/selectLanguage.dart';
 import 'package:alpha_ecommerce_18oct/screen/profile/setting/showRateUs.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../model/setting.dart';
-import '../../../widgets/commonBackground.dart';
-import '../../../widgets/common_header.dart';
-import '../../../widgets/shareApp.dart';
-import '../../currency_selection/currency_selection.dart';
+import '../../widget_common/commonBackground.dart';
+import '../../widget_common/common_header.dart';
+import '../../widget_common/shareApp.dart';
 import '../common_header.dart';
 import 'changePassword.dart';
 
@@ -31,8 +31,8 @@ class _SettingState extends State<Setting> {
       SettingList(
           settingIcon: Icons.currency_exchange,
           settingName: 'Currency',
-          nextNavigation: true,
-          navigationPage: const SelectionCurrencyWidget(signIn: false)),
+          nextNavigation: false,
+          navigationPage: () => currency(context)),
       SettingList(
           settingIcon: Icons.star,
           settingName: 'Rate Us',

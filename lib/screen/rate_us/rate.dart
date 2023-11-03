@@ -3,6 +3,7 @@ import 'package:alpha_ecommerce_18oct/helper/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../helper/color.dart';
+import '../widget_common/common_button.dart';
 
 class RateUs extends StatefulWidget {
   @override
@@ -56,7 +57,7 @@ class _RateUsState extends State<RateUs> {
             direction: Axis.horizontal,
             allowHalfRating: false,
             itemCount: 5,
-            itemSize: 35,
+            itemSize: 30,
             itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
             itemBuilder: (context, _) => const Icon(
               Icons.star,
@@ -73,19 +74,12 @@ class _RateUsState extends State<RateUs> {
           ),
           Container(
             width: 150,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: colors.buttonColor,
-                onPrimary: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              onPressed: () {
-                Routes.navigateToPreviousScreen(context);
-              },
-              child: const Text('RATE US'),
-            ),
+            child: CommonButton(
+                text: "RATE US",
+                fontSize: 14,
+                onClick: () {
+                  Routes.navigateToPreviousScreen(context);
+                }),
           ),
         ],
       ),
