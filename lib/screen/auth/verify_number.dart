@@ -169,8 +169,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                     ),
                                   ),
                                 ),
-                                style:
-                                    const TextStyle(color: colors.textColor),
+                                style: const TextStyle(color: colors.textColor),
                                 initialCountryCode:
                                     'IN', // Set the initial country code here
                               ),
@@ -305,7 +304,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                   widget.signIn
                                       ? Routes.navigateToSignInScreen(context)
                                       : Routes.navigateToVerifyNumberScreen(
-                                          context, false);
+                                          context, true);
                                 },
                                 child: Text(
                                   widget.signIn ? 'Sign In' : 'Sign Up',

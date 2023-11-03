@@ -90,8 +90,7 @@ class _OffersState extends State<Offers> {
                                     bottomRight: Radius.circular(15),
                                   ),
                                   border: Border.all(
-                                    color: const Color(
-                                        0xFF767680), // Change the border color to 0xFF292929
+                                    color: colors.boxBorder,
                                   ),
                                   color: Colors.transparent,
                                 ),

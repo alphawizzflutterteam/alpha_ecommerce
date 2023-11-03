@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../helper/color.dart';
 import '../helper/images.dart';
 
 class CommonBackgroundAuthWidget extends StatelessWidget {
@@ -37,7 +38,7 @@ class DarkBackGround extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: const Color(0xFF1D2429),
+        color: colors.darkBG,
         child: Image.asset(
           Images.bgDark,
           fit: BoxFit.fitHeight,
@@ -57,7 +58,7 @@ class LightBackGround extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: const Color(0xFF1D2429),
+        color: colors.darkBG,
         child: Image.asset(
           Images.bgGreenBottom,
           fit: BoxFit.fitHeight,

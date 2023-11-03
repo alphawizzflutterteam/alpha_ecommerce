@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../helper/color.dart';
 import 'languageSelection.dart';
 
 Future<void> language(context) async {
@@ -11,7 +12,7 @@ Future<void> language(context) async {
       return ClipRRect(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
         child: Container(
-          color: const Color(0xff2D3438),
+          color: colors.overlayBG,
           height: MediaQuery.of(context).size.height * 0.85,
           child: const SingleChildScrollView(
             child: Padding(

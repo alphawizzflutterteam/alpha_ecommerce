@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../helper/color.dart';
 import '../helper/routes.dart';
 import '../model/sharingApp.dart';
 
@@ -10,7 +11,7 @@ Future<void> share(context) async {
       return ClipRRect(
           borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
           child: Container(
-            color: const Color(0xff2D3438),
+            color: colors.overlayBG,
             height: 200,
             child: Column(
               children: [

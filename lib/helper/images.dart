@@ -26,7 +26,6 @@ class Images {
   static const arrow = "assets/images/next-arrow.png";
   static const freeDelivery = "assets/images/free-delivery.png";
   static const mic = 'assets/images/mic.png';
-  static const chat = "assets/icons/chat.png";
   static const commonHeader = "assets/images/header-bg.png";
   static const wallet = "assets/images/wallet.png";
   static const refer = "assets/images/refer.png";
@@ -39,8 +38,19 @@ class Images {
   static const success = "assets/images/success.png";
   static const happy = "assets/images/happy.png";
   static const tickSquare = "assets/images/tick-square.png";
-
   static const bgTab = 'assets/images/tabbar-bg.png';
+  static const homeSale = 'assets/images/sale.png';
+  static const product = "assets/images/product.png";
+  static const priceBG = "assets/images/priceBg.png";
+  static const summerSale = "assets/images/summerSale.png";
+  static const starDeal = "assets/images/starDeal.png";
+  static const bestOffer = "assets/images/bestOffer.png";
+  static const homeBG = 'assets/images/home_bg.png';
+
+  //icons
+  static const camera = "assets/icons/camera.png";
+  static const gallery = "assets/icons/gallery.png";
+  static const chat = "assets/icons/chat.png";
 
   //temporary Images
   static const powder = 'assets/images/temporaryImages/powder.png';
@@ -51,5 +61,14 @@ class Images {
   static const maggie = "assets/images/temporaryImages/maggie.png";
   static const profile = "assets/images/temporaryImages/profileImage.png";
   static const human = 'assets/images/temporaryImages/human.png';
-
+  static const puma = "assets/images/temporaryImages/puma.png";
+  static const book1 = "assets/images/temporaryImages/book1.png";
+  static const book2 = "assets/images/temporaryImages/book2.png";
+  static const book3 = "assets/images/temporaryImages/book3.png";
+  static const tv = "assets/images/temporaryImages/tv.png";
+  static const phone = "assets/images/temporaryImages/phone.png";
+  static const fridge = "assets/images/temporaryImages/fridge.png";
+  static const headphone = "assets/images/temporaryImages/headphone.png";
+  static const cameraTemporary = "assets/images/temporaryImages/camera.png";
+  static const jeans = "assets/images/temporaryImages/jeans.png";
 }

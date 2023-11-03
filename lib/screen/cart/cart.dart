@@ -18,6 +18,7 @@ class _CartState extends State<Cart> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   String selectedOption = 'Alpha Delivery';
+  // late String dropdown = "FC Barcelona";
 
   @override
   Widget build(BuildContext context) {
@@ -125,42 +126,74 @@ class _CartState extends State<Cart> {
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        Row(
-                                          children: [
-                                            buildCustomButton("-", () {
-                                              if (cartList[i].productCount >
-                                                  0) {
-                                                setState(() {
-                                                  cartList[i].productCount--;
-                                                });
-                                              }
-                                            }),
-                                            Container(
-                                              height: 25,
-                                              width: 35,
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color:
-                                                        colors.textFieldColor),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  cartList[i]
-                                                      .productCount
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      color: colors.textColor,
-                                                      fontSize: 14),
-                                                ),
-                                              ),
-                                            ),
-                                            buildCustomButton("+", () {
-                                              setState(() {
-                                                cartList[i].productCount++;
-                                              });
-                                            }),
-                                          ],
-                                        )
+                                        // Container(
+                                        //   height: 50,
+                                        //   width: 100,
+                                        //   child: DropdownButtonHideUnderline(
+                                        //     child: GFDropdown(
+                                        //       borderRadius:
+                                        //           BorderRadius.circular(5),
+                                        //       border: const BorderSide(
+                                        //           color: Colors.black12,
+                                        //           width: 1),
+                                        //       dropdownButtonColor: Colors.white,
+                                        //       value: dropdown,
+                                        //       onChanged: (newValue) {
+                                        //         setState(() {
+                                        //           dropdown = newValue!;
+                                        //         });
+                                        //       },
+                                        //       items: [
+                                        //         'FC Barcelona',
+                                        //         'Real Madrid',
+                                        //         'Villareal',
+                                        //         'Manchester City'
+                                        //       ]
+                                        //           .map((value) =>
+                                        //               DropdownMenuItem(
+                                        //                 value: value,
+                                        //                 child: Text(value),
+                                        //               ))
+                                        //           .toList(),
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                        // Row(
+                                        //   children: [
+                                        //     buildCustomButton("-", () {
+                                        //       if (cartList[i].productCount >
+                                        //           0) {
+                                        //         setState(() {
+                                        //           cartList[i].productCount--;
+                                        //         });
+                                        //       }
+                                        //     }),
+                                        //     Container(
+                                        //       height: 25,
+                                        //       width: 35,
+                                        //       decoration: BoxDecoration(
+                                        //         border: Border.all(
+                                        //             color:
+                                        //                 colors.textFieldColor),
+                                        //       ),
+                                        //       child: Center(
+                                        //         child: Text(
+                                        //           cartList[i]
+                                        //               .productCount
+                                        //               .toString(),
+                                        //           style: const TextStyle(
+                                        //               color: colors.textColor,
+                                        //               fontSize: 14),
+                                        //         ),
+                                        //       ),
+                                        //     ),
+                                        //     buildCustomButton("+", () {
+                                        //       setState(() {
+                                        //         cartList[i].productCount++;
+                                        //       });
+                                        //     }),
+                                        //   ],
+                                        // )
                                       ],
                                     ),
                                   ],
@@ -183,7 +216,8 @@ class _CartState extends State<Cart> {
                                       child: const Text(
                                         "Save for later",
                                         style: TextStyle(
-                                            color: colors.textColor, fontSize: 12),
+                                            color: colors.textColor,
+                                            fontSize: 12),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
@@ -239,8 +273,7 @@ class _CartState extends State<Cart> {
                             ),
                             child: Theme(
                               data: ThemeData(
-                                  unselectedWidgetColor:
-                                      colors.greyText),
+                                  unselectedWidgetColor: colors.greyText),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
@@ -415,8 +448,8 @@ class _CartState extends State<Cart> {
                           children: [
                             const Text(
                               "Offer & Benefits",
-                              style:
-                                  TextStyle(color: colors.textColor, fontSize: 14),
+                              style: TextStyle(
+                                  color: colors.textColor, fontSize: 14),
                             ),
                             Row(
                               children: const [
@@ -447,16 +480,16 @@ class _CartState extends State<Cart> {
                                     contentPadding: const EdgeInsets.symmetric(
                                         vertical: 10, horizontal: 10),
                                     hintText: 'Voucher Number',
-                                    hintStyle: const TextStyle(
-                                        color: colors.greyText),
+                                    hintStyle:
+                                        const TextStyle(color: colors.greyText),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide:  BorderSide(
+                                      borderSide: const BorderSide(
                                         color: colors.textFieldColor,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide:  BorderSide(
+                                      borderSide: const BorderSide(
                                         color: colors.textFieldColor,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
@@ -491,13 +524,14 @@ class _CartState extends State<Cart> {
                             horizontal: 20, vertical: 10),
                         child: const Text(
                           "Saved Items",
-                          style: TextStyle(color: colors.textColor, fontSize: 14),
+                          style:
+                              TextStyle(color: colors.textColor, fontSize: 14),
                         ),
                       ),
                       for (int i = 0; i < 2; i++)
                         InkWell(
                           onTap: () {
-                            Routes.navigateToProductDetailPageScreen(context);
+                            // Routes.navigateToProductDetailPageScreen(context);
                           },
                           child: Container(
                             height: 190,
@@ -565,42 +599,42 @@ class _CartState extends State<Cart> {
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        Row(
-                                          children: [
-                                            buildCustomButton("-", () {
-                                              if (cartList[i].productCount >
-                                                  0) {
-                                                setState(() {
-                                                  cartList[i].productCount--;
-                                                });
-                                              }
-                                            }),
-                                            Container(
-                                              height: 25,
-                                              width: 35,
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color:
-                                                        colors.textFieldColor),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  cartList[i]
-                                                      .productCount
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      color: colors.textColor,
-                                                      fontSize: 14),
-                                                ),
-                                              ),
-                                            ),
-                                            buildCustomButton("+", () {
-                                              setState(() {
-                                                cartList[i].productCount++;
-                                              });
-                                            }),
-                                          ],
-                                        )
+                                        // Row(
+                                        //   children: [
+                                        //     buildCustomButton("-", () {
+                                        //       if (cartList[i].productCount >
+                                        //           0) {
+                                        //         setState(() {
+                                        //           cartList[i].productCount--;
+                                        //         });
+                                        //       }
+                                        //     }),
+                                        //     Container(
+                                        //       height: 25,
+                                        //       width: 35,
+                                        //       decoration: BoxDecoration(
+                                        //         border: Border.all(
+                                        //             color:
+                                        //                 colors.textFieldColor),
+                                        //       ),
+                                        //       child: Center(
+                                        //         child: Text(
+                                        //           cartList[i]
+                                        //               .productCount
+                                        //               .toString(),
+                                        //           style: const TextStyle(
+                                        //               color: colors.textColor,
+                                        //               fontSize: 14),
+                                        //         ),
+                                        //       ),
+                                        //     ),
+                                        //     buildCustomButton("+", () {
+                                        //       setState(() {
+                                        //         cartList[i].productCount++;
+                                        //       });
+                                        //     }),
+                                        //   ],
+                                        // )
                                       ],
                                     ),
                                   ],
@@ -623,7 +657,8 @@ class _CartState extends State<Cart> {
                                       child: const Text(
                                         "Remove from Saved Items",
                                         style: TextStyle(
-                                            color: colors.textColor, fontSize: 12),
+                                            color: colors.textColor,
+                                            fontSize: 12),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
@@ -667,7 +702,8 @@ class _CartState extends State<Cart> {
                                     Text(
                                       "Add Address",
                                       style: TextStyle(
-                                          color: colors.textColor, fontSize: 16),
+                                          color: colors.textColor,
+                                          fontSize: 16),
                                     ),
                                   ],
                                 ),

@@ -20,10 +20,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final List<String> imageList = [
-    'assets/images/sale.png',
-    'assets/images/sale.png',
-    'assets/images/sale.png',
-    'assets/images/sale.png',
+    Images.homeSale,
+    Images.homeSale,
+    Images.homeSale,
+    Images.homeSale,
   ];
   int _currentIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
                 Routes.navigateToChatScreen(context);
               },
               backgroundColor: colors.buttonColor,
-              child: Image.asset("assets/icons/chat.png")),
+              child: Image.asset(Images.chat)),
           body: Column(
             children: [
               Stack(
@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
                   children: [
                     Container(
                       height: 50,
-                      color: const Color(0xFF123C3F),
+                      color: colors.homeContainer1BG,
                       child: ListView(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 5),
@@ -106,7 +106,7 @@ class _HomeState extends State<Home> {
                                       ),
                                     ),
                                     Image.asset(
-                                      "assets/images/temporaryImages/phone.png",
+                                      Images.phone,
                                       height: 70,
                                       width: 70,
                                     ),
@@ -171,7 +171,7 @@ class _HomeState extends State<Home> {
                                   shape: BoxShape.circle,
                                   color: _currentIndex == entry.key
                                       ? colors.buttonColor
-                                      : const Color(0xFF113C41),
+                                      : colors.secondary,
                                 ),
                               ),
                             );
@@ -191,7 +191,7 @@ class _HomeState extends State<Home> {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Image.asset(
-                              "assets/images/temporaryImages/puma.png",
+                              Images.puma,
                               height: 70,
                               width: 70,
                             ),
@@ -204,8 +204,8 @@ class _HomeState extends State<Home> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            const Color(0xFFFFDC98).withOpacity(1),
-                            const Color(0xFFFFDC98).withOpacity(0.8),
+                            colors.homeBG.withOpacity(1),
+                            colors.homeBG.withOpacity(0.8),
                           ],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -223,7 +223,7 @@ class _HomeState extends State<Home> {
                             child: Row(
                               children: [
                                 Image.asset(
-                                  "assets/images/product.png",
+                                  Images.product,
                                   height: 50,
                                   width: 50,
                                 ),
@@ -266,7 +266,7 @@ class _HomeState extends State<Home> {
                         Container(
                           height: 50,
                           width: MediaQuery.of(context).size.width * 0.33,
-                          color: const Color(0xFF414141),
+                          color: colors.midBorder,
                           child: InkWell(
                             onTap: () {
                               homeFilter(context);
@@ -294,8 +294,8 @@ class _HomeState extends State<Home> {
                         Container(
                           height: 50,
                           width: MediaQuery.of(context).size.width * 0.34,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFF414141),
+                          decoration: BoxDecoration(
+                            color: colors.midBorder,
                             border: Border(
                               left: BorderSide(
                                 color: colors.midBorder,
@@ -329,8 +329,8 @@ class _HomeState extends State<Home> {
                         Container(
                           height: 50,
                           width: MediaQuery.of(context).size.width * 0.33,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFF414141),
+                          decoration: BoxDecoration(
+                            color: colors.midBorder,
                             border: Border(
                               left: BorderSide(
                                 color: colors.midBorder,
@@ -393,15 +393,14 @@ class _HomeState extends State<Home> {
                                           Radius.circular(10)),
                                       gradient: LinearGradient(
                                         colors: [
-                                          colors.boxGradient1
-                                              .withOpacity(1),
+                                          colors.boxGradient1.withOpacity(1),
                                           Colors.transparent,
                                         ],
                                         begin: Alignment.topCenter,
                                         end: Alignment.bottomCenter,
                                       ),
-                                      border: Border.all(
-                                          color: const Color(0xFF414141))),
+                                      border:
+                                          Border.all(color: colors.boxBorder)),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
@@ -513,8 +512,8 @@ class _HomeState extends State<Home> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            const Color(0xFF007F78).withOpacity(1),
-                            const Color(0xFF006B65).withOpacity(0.8),
+                            colors.homeBGGradient1.withOpacity(1),
+                            colors.homeBGGradient2.withOpacity(0.8),
                           ],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -534,7 +533,7 @@ class _HomeState extends State<Home> {
                                   padding: EdgeInsets.only(left: 60),
                                   child: Divider(
                                     height: 1,
-                                    color: Color(0xFFFF9934),
+                                    color: colors.homeDivider,
                                     thickness: 3,
                                   ),
                                 ),
@@ -554,7 +553,7 @@ class _HomeState extends State<Home> {
                                   padding: EdgeInsets.only(right: 60),
                                   child: Divider(
                                     height: 1,
-                                    color: Color(0xFFFF9934),
+                                    color: colors.homeDivider,
                                     thickness: 3,
                                     indent: 3,
                                   ),
@@ -582,7 +581,7 @@ class _HomeState extends State<Home> {
                                       Stack(
                                         children: [
                                           Image.asset(
-                                            "assets/images/priceBg.png",
+                                            Images.priceBG,
                                             height: 130,
                                             width: 130,
                                           ),
@@ -684,8 +683,7 @@ class _HomeState extends State<Home> {
                                                   end: Alignment.bottomCenter,
                                                 ),
                                                 border: Border.all(
-                                                    color: const Color(
-                                                        0xFF414141))),
+                                                    color: colors.boxBorder)),
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -770,7 +768,7 @@ class _HomeState extends State<Home> {
                     SizedBox(
                       height: 170,
                       child: Image.asset(
-                        "assets/images/summerSale.png",
+                        Images.summerSale,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -783,8 +781,8 @@ class _HomeState extends State<Home> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            const Color(0xFFFFDC98).withOpacity(1),
-                            const Color(0xFFFFBC39).withOpacity(1),
+                            colors.homeBG.withOpacity(1),
+                            colors.homeBGGradiant.withOpacity(1),
                           ],
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
@@ -797,15 +795,14 @@ class _HomeState extends State<Home> {
                               child: Padding(
                                 padding:
                                     const EdgeInsets.only(left: 20, top: 10),
-                                child:
-                                    Image.asset("assets/images/starDeal.png"),
+                                child: Image.asset(Images.starDeal),
                               )),
                           const Align(
                             alignment: Alignment.center,
                             child: Text(
                               "Prime Time Deals",
                               style: TextStyle(
-                                  color: Color(0xFF965C04),
+                                  color: colors.homePrimeDeals,
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -815,8 +812,7 @@ class _HomeState extends State<Home> {
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                     right: 20, bottom: 10),
-                                child:
-                                    Image.asset("assets/images/starDeal.png"),
+                                child: Image.asset(Images.starDeal),
                               )),
                         ],
                       ),
@@ -829,9 +825,9 @@ class _HomeState extends State<Home> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            const Color(0xFFE89825).withOpacity(0.7),
-                            const Color(0xFF00214A).withOpacity(0.4),
-                            const Color(0xFFE89825).withOpacity(0.7),
+                            colors.homeGradient3.withOpacity(0.7),
+                            colors.homeGradient4.withOpacity(0.4),
+                            colors.homeGradient3.withOpacity(0.7),
                           ],
                           begin: Alignment.topLeft,
                           end: Alignment.centerRight,
@@ -851,7 +847,7 @@ class _HomeState extends State<Home> {
                                   padding: EdgeInsets.only(left: 60),
                                   child: Divider(
                                     height: 1,
-                                    color: Color(0xFFFF9934),
+                                    color: colors.homeDivider,
                                     thickness: 3,
                                   ),
                                 ),
@@ -871,7 +867,7 @@ class _HomeState extends State<Home> {
                                   padding: EdgeInsets.only(right: 60),
                                   child: Divider(
                                     height: 1,
-                                    color: Color(0xFFFF9934),
+                                    color: colors.homeDivider,
                                     thickness: 3,
                                     indent: 3,
                                   ),
@@ -893,7 +889,7 @@ class _HomeState extends State<Home> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 5),
                                   child: Image.asset(
-                                    "assets/images/bestOffer.png",
+                                    Images.bestOffer,
                                     height: 130,
                                     width: 130,
                                   ),
@@ -1048,8 +1044,8 @@ class _HomeState extends State<Home> {
                         Container(
                             decoration: const BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/images/home_bg.png'), // Replace with your image path
+                                image: AssetImage(Images
+                                    .homeBG), // Replace with your image path
                                 fit: BoxFit.cover, // Adjust the fit as needed
                               ),
                             ),
@@ -1061,7 +1057,7 @@ class _HomeState extends State<Home> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Image.asset(
-                                      "assets/images/refer.png",
+                                      Images.refer,
                                       height: 120,
                                       width: 100,
                                     ),
@@ -1088,7 +1084,7 @@ class _HomeState extends State<Home> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Image.asset(
-                                      "assets/images/temporaryImages/book1.png",
+                                      Images.book1,
                                       height: 120,
                                       width: 100,
                                     ),
@@ -1096,7 +1092,7 @@ class _HomeState extends State<Home> {
                                       width: 10,
                                     ),
                                     Image.asset(
-                                      "assets/images/temporaryImages/book2.png",
+                                      Images.book2,
                                       height: 120,
                                       width: 100,
                                     ),
@@ -1104,7 +1100,7 @@ class _HomeState extends State<Home> {
                                       width: 10,
                                     ),
                                     Image.asset(
-                                      "assets/images/temporaryImages/book3.png",
+                                      Images.book3,
                                       height: 120,
                                       width: 100,
                                     )
@@ -1171,8 +1167,7 @@ class _HomeState extends State<Home> {
                                                   end: Alignment.bottomCenter,
                                                 ),
                                                 border: Border.all(
-                                                    color: const Color(
-                                                        0xFF414141))),
+                                                    color: colors.boxBorder)),
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,

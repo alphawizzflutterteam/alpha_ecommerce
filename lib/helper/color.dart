@@ -17,6 +17,7 @@ extension colors on ColorScheme {
     },
   );
 
+  //new
   static const Color primary = Color(0xFFD9D9D9);
   static const Color secondary = Color(0xC7183D3D);
   static const Color buttonColor = Color(0xFF0A9494);
@@ -26,17 +27,37 @@ extension colors on ColorScheme {
   static const Color textFieldColor = Color(0xff5B5B5B);
   static const Color textFieldBG = Color(0xff040D12);
   static const Color greyText = Color(0xFFA3A3A3);
-
   static const Color boxGradient1 = Color(0xFF4E5255);
   static const Color boxBorder = Color(0xFF363D41);
   static const Color midBorder = Color(0xFF444647);
   static const Color lightButton = Color(0xff03DAC6);
+  static const Color overlayBG = Color(0xFF2D3438);
+  static const Color darkBG = Color(0xFF040D12);
+  static const Color dividerGrey = Color(0xff4A5054);
+  static const Color subscribeYellow = Color(0xFF987808);
 
-  Color get btnColor => brightness == Brightness.dark ? whiteTemp : primary;
+  //home
+  static const Color homeBG = Color(0xFFFFDC98);
+  static const Color homeBGGradient1 = Color(0xFF007F78);
+  static const Color homeBGGradient2 = Color(0xFF006B65);
+  static const Color homeDivider = Color(0xFFFF9934);
+  static const Color homeBGGradiant = Color(0xFFFFBC39);
+  static const Color homePrimeDeals = Color(0xFF965C04);
+  static const Color homeGradient3 = Color(0xFFE89825);
+  static const Color homeGradient4 = Color(0xFF00214A);
+  static const Color homeContainer1BG = Color(0xFF123C3F);
 
-  Color get changeablePrimary => brightness == Brightness.dark
-      ? const Color(0xFFD9D9D9)
-      : const Color(0xC7183D3D);
+  //order
+  static const Color onTheWayLight = Color(0xffF9ECAC);
+  static const Color onTheWayDark = Color(0xffD89C01);
+  static const Color orderCancelledLight = Color(0xffFFB8C5);
+  static const Color orderCancelledDark = Color(0xffB8163D);
+  static const Color deliveredLight = Color(0xffB8FFD0);
+  static const Color deliveredDark = Color(0xff2B6F1B);
+  static const Color returnedLight = Color(0xffB8C7FF);
+  static const Color returnedDark = Color(0xff4A16DD);
+
+  // previous
 
   Color get lightWhite =>
       brightness == Brightness.dark ? darkColor : const Color(0xffEEF2F9);
@@ -48,31 +69,12 @@ extension colors on ColorScheme {
   Color get fontColor =>
       brightness == Brightness.dark ? whiteTemp : const Color(0xff222222);
 
-  Color get gray =>
-      brightness == Brightness.dark ? darkColor3 : const Color(0xfff0f0f0);
-
-  Color get simmerBase =>
-      brightness == Brightness.dark ? darkColor2 : Colors.grey[300]!;
-
-  Color get simmerHigh =>
-      brightness == Brightness.dark ? darkColor : Colors.grey[100]!;
-
   static Color darkIcon = const Color(0xff9B9B9B);
 
   static const Color grad1Color = Color(0xffEEF2F3);
   static const Color grad2Color = Color(0xC7183D3D);
 
-  static const Color yellow = Color(0xfffdd901);
-
   static const Color red = Colors.red;
-
-  Color get lightBlack => brightness == Brightness.dark
-      ? whiteTemp.withOpacity(0.60)
-      : const Color(0xff52575C);
-
-  Color get lightBlack2 => brightness == Brightness.dark
-      ? whiteTemp.withOpacity(0.38)
-      : const Color(0xff999999);
 
   static const Color darkColor = Color(0xff181616);
   static const Color darkColor2 = Color(0xff252525);
@@ -86,15 +88,4 @@ extension colors on ColorScheme {
       brightness == Brightness.dark ? whiteTemp : const Color(0xff000000);
 
   static const Color white10 = Colors.white10;
-  static const Color white30 = Colors.white30;
-  static const Color white70 = Colors.white70;
-
-  static const Color black54 = Colors.black54;
-  static const Color black12 = Colors.black12;
-  static const Color disableColor = Color(0xffEEF2F9);
-
-  static const Color blackTemp = Color(0xff000000);
-
-  Color get black26 => brightness == Brightness.dark ? white30 : Colors.black54;
-  static const Color cardColor = Color(0xffFFFFFF);
 }

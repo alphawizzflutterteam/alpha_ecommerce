@@ -37,7 +37,7 @@ Future<void> homeFilter(context) async {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
           child: SingleChildScrollView(
             child: Container(
-              color: const Color(0xff2D3438),
+              color: colors.overlayBG,
               // height: MediaQuery.of(context).size.height * 0.9,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

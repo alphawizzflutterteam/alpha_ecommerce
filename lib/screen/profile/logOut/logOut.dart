@@ -15,7 +15,7 @@ Future<void> logOut(context) async {
           child: SingleChildScrollView(
             child: Container(
               decoration: const BoxDecoration(
-                color: Color(0xFF2D3438),
+                color: colors.overlayBG,
               ),
               height: 250,
               padding: const EdgeInsets.all(20.0),

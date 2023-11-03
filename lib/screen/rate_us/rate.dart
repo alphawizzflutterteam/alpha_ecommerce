@@ -16,7 +16,7 @@ class _RateUsState extends State<RateUs> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
-        color: const Color(0xFF2D3438),
+        color: colors.overlayBG,
       ),
       height: 300,
       width: MediaQuery.of(context).size.width,

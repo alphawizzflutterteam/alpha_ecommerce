@@ -17,7 +17,7 @@ class _DeletePopupState extends State<DeletePopup> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
-        color: const Color(0xFF2D3438),
+        color: colors.overlayBG,
       ),
       height: 280,
       padding: const EdgeInsets.all(20.0),

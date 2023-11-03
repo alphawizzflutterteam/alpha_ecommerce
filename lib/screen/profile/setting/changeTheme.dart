@@ -10,7 +10,7 @@ Future<void> changeTheme(context) async {
       return ClipRRect(
           borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
           child: Container(
-            color: const Color(0xff2D3438),
+            color: colors.overlayBG,
             height: 130,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -29,7 +29,7 @@ Future<void> changeTheme(context) async {
                   ],
                 ),
                 const Divider(
-                  color: Color(0xff4A5054),
+                  color: colors.dividerGrey,
                   height: 1,
                 ),
                 Row(

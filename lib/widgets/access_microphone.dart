@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../helper/color.dart';
+import '../helper/images.dart';
+
 Future<void> accessMicrophone(context) async {
   return showModalBottomSheet(
     context: context,
@@ -8,7 +11,7 @@ Future<void> accessMicrophone(context) async {
       return ClipRRect(
           borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
           child: Container(
-            color: const Color(0xff2D3438),
+            color: colors.overlayBG,
             height: 130,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -16,7 +19,7 @@ Future<void> accessMicrophone(context) async {
               children: [
                 Row(
                   children: [
-                    Image.asset("assets/icons/camera.png"),
+                    Image.asset(Images.camera),
                     const SizedBox(
                       width: 20,
                     ),
@@ -27,16 +30,16 @@ Future<void> accessMicrophone(context) async {
                   ],
                 ),
                 const Divider(
-                  color: Color(0xff4A5054),
+                  color: colors.dividerGrey,
                   height: 1,
                 ),
                 Row(
                   children: [
-                    Image.asset("assets/icons/gallery.png"),
-                    SizedBox(
+                    Image.asset(Images.gallery),
+                    const SizedBox(
                       width: 20,
                     ),
-                    Text("Gallery",
+                    const Text("Gallery",
                         style: TextStyle(color: Colors.white, fontSize: 18))
                   ],
                 )

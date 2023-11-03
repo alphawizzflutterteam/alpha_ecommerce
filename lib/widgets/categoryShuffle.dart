@@ -11,7 +11,7 @@ Future<void> homeCategory(context) async {
       return ClipRRect(
           borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
           child: Container(
-              color: const Color(0xFF2D3438), child: const CategoryFilter()));
+              color: colors.overlayBG, child: const CategoryFilter()));
     },
   );
 }

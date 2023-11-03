@@ -90,7 +90,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            color: const Color(0xFF1D2429),
+            color: colors.darkBG,
             child: Image.asset(
               Images.bgGreenBottom,
               fit: BoxFit.fitHeight,

@@ -1,3 +1,5 @@
+import '../helper/images.dart';
+
 class MainCategory {
   final String name;
   final List<CategoryList> categoryList;
@@ -18,253 +20,209 @@ List<MainCategory> categories = [
     "Electronics",
     [
       CategoryList(
-          categoryName: "Computers & Accessories",
-          categoryImage: "assets/images/temporaryImages/tv.png"),
+          categoryName: "Computers & Accessories", categoryImage: Images.tv),
       CategoryList(
           categoryName: "Smartphones & Accessories",
-          categoryImage: "assets/images/temporaryImages/phone.png"),
+          categoryImage: Images.phone),
       CategoryList(
-          categoryName: "Home Appliances",
-          categoryImage: "assets/images/temporaryImages/fridge.png"),
+          categoryName: "Home Appliances", categoryImage: Images.fridge),
       CategoryList(
-          categoryName: "Audio & Headphones",
-          categoryImage: "assets/images/temporaryImages/headphone.png"),
+          categoryName: "Audio & Headphones", categoryImage: Images.headphone),
       CategoryList(
           categoryName: "Camera & Photography",
-          categoryImage: "assets/images/temporaryImages/camera.png"),
+          categoryImage: Images.cameraTemporary),
       CategoryList(
-          categoryName: "Clothing & Fashion",
-          categoryImage: "assets/images/temporaryImages/jeans.png"),
+          categoryName: "Clothing & Fashion", categoryImage: Images.jeans),
     ],
   ),
   MainCategory(
     "Clothing & Clothing",
     [
       CategoryList(
-          categoryName: "Computers & Accessories",
-          categoryImage: "assets/images/temporaryImages/tv.png"),
+          categoryName: "Computers & Accessories", categoryImage: Images.tv),
       CategoryList(
           categoryName: "Smartphones & Accessories",
-          categoryImage: "assets/images/temporaryImages/phone.png"),
+          categoryImage: Images.phone),
       CategoryList(
-          categoryName: "Home Appliances",
-          categoryImage: "assets/images/temporaryImages/fridge.png"),
+          categoryName: "Home Appliances", categoryImage: Images.fridge),
       CategoryList(
-          categoryName: "Audio & Headphones",
-          categoryImage: "assets/images/temporaryImages/headphone.png"),
+          categoryName: "Audio & Headphones", categoryImage: Images.headphone),
       CategoryList(
           categoryName: "Camera & Photography",
-          categoryImage: "assets/images/temporaryImages/camera.png"),
+          categoryImage: Images.cameraTemporary),
       CategoryList(
-          categoryName: "Clothing & Fashion",
-          categoryImage: "assets/images/temporaryImages/jeans.png"),
+          categoryName: "Clothing & Fashion", categoryImage: Images.jeans),
     ],
   ),
   MainCategory(
     "Beauty & Beauty",
     [
       CategoryList(
-          categoryName: "Computers & Accessories",
-          categoryImage: "assets/images/temporaryImages/tv.png"),
+          categoryName: "Computers & Accessories", categoryImage: Images.tv),
       CategoryList(
           categoryName: "Smartphones & Accessories",
-          categoryImage: "assets/images/temporaryImages/phone.png"),
+          categoryImage: Images.phone),
       CategoryList(
-          categoryName: "Home Appliances",
-          categoryImage: "assets/images/temporaryImages/fridge.png"),
+          categoryName: "Home Appliances", categoryImage: Images.fridge),
       CategoryList(
-          categoryName: "Audio & Headphones",
-          categoryImage: "assets/images/temporaryImages/headphone.png"),
+          categoryName: "Audio & Headphones", categoryImage: Images.headphone),
       CategoryList(
           categoryName: "Camera & Photography",
-          categoryImage: "assets/images/temporaryImages/camera.png"),
+          categoryImage: Images.cameraTemporary),
       CategoryList(
-          categoryName: "Clothing & Fashion",
-          categoryImage: "assets/images/temporaryImages/jeans.png"),
+          categoryName: "Clothing & Fashion", categoryImage: Images.jeans),
     ],
   ),
   MainCategory(
     "Home & Living",
     [
       CategoryList(
-          categoryName: "Computers & Accessories",
-          categoryImage: "assets/images/temporaryImages/tv.png"),
+          categoryName: "Computers & Accessories", categoryImage: Images.tv),
       CategoryList(
           categoryName: "Smartphones & Accessories",
-          categoryImage: "assets/images/temporaryImages/phone.png"),
+          categoryImage: Images.phone),
       CategoryList(
-          categoryName: "Home Appliances",
-          categoryImage: "assets/images/temporaryImages/fridge.png"),
+          categoryName: "Home Appliances", categoryImage: Images.fridge),
       CategoryList(
-          categoryName: "Audio & Headphones",
-          categoryImage: "assets/images/temporaryImages/headphone.png"),
+          categoryName: "Audio & Headphones", categoryImage: Images.headphone),
       CategoryList(
           categoryName: "Camera & Photography",
-          categoryImage: "assets/images/temporaryImages/camera.png"),
+          categoryImage: Images.cameraTemporary),
       CategoryList(
-          categoryName: "Clothing & Fashion",
-          categoryImage: "assets/images/temporaryImages/jeans.png"),
+          categoryName: "Clothing & Fashion", categoryImage: Images.jeans),
     ],
   ),
   MainCategory(
     "Health & Wealth",
     [
       CategoryList(
-          categoryName: "Computers & Accessories",
-          categoryImage: "assets/images/temporaryImages/tv.png"),
+          categoryName: "Computers & Accessories", categoryImage: Images.tv),
       CategoryList(
           categoryName: "Smartphones & Accessories",
-          categoryImage: "assets/images/temporaryImages/phone.png"),
+          categoryImage: Images.phone),
       CategoryList(
-          categoryName: "Home Appliances",
-          categoryImage: "assets/images/temporaryImages/fridge.png"),
+          categoryName: "Home Appliances", categoryImage: Images.fridge),
       CategoryList(
-          categoryName: "Audio & Headphones",
-          categoryImage: "assets/images/temporaryImages/headphone.png"),
+          categoryName: "Audio & Headphones", categoryImage: Images.headphone),
       CategoryList(
           categoryName: "Camera & Photography",
-          categoryImage: "assets/images/temporaryImages/camera.png"),
+          categoryImage: Images.cameraTemporary),
       CategoryList(
-          categoryName: "Clothing & Fashion",
-          categoryImage: "assets/images/temporaryImages/jeans.png"),
+          categoryName: "Clothing & Fashion", categoryImage: Images.jeans),
     ],
   ),
   MainCategory(
     "Toys & Games",
     [
       CategoryList(
-          categoryName: "Computers & Accessories",
-          categoryImage: "assets/images/temporaryImages/tv.png"),
+          categoryName: "Computers & Accessories", categoryImage: Images.tv),
       CategoryList(
           categoryName: "Smartphones & Accessories",
-          categoryImage: "assets/images/temporaryImages/phone.png"),
+          categoryImage: Images.phone),
       CategoryList(
-          categoryName: "Home Appliances",
-          categoryImage: "assets/images/temporaryImages/fridge.png"),
+          categoryName: "Home Appliances", categoryImage: Images.fridge),
       CategoryList(
-          categoryName: "Audio & Headphones",
-          categoryImage: "assets/images/temporaryImages/headphone.png"),
+          categoryName: "Audio & Headphones", categoryImage: Images.headphone),
       CategoryList(
           categoryName: "Camera & Photography",
-          categoryImage: "assets/images/temporaryImages/camera.png"),
+          categoryImage: Images.cameraTemporary),
       CategoryList(
-          categoryName: "Clothing & Fashion",
-          categoryImage: "assets/images/temporaryImages/jeans.png"),
+          categoryName: "Clothing & Fashion", categoryImage: Images.jeans),
     ],
   ),
   MainCategory(
     "Books & Stationary",
     [
       CategoryList(
-          categoryName: "Computers & Accessories",
-          categoryImage: "assets/images/temporaryImages/tv.png"),
+          categoryName: "Computers & Accessories", categoryImage: Images.tv),
       CategoryList(
           categoryName: "Smartphones & Accessories",
-          categoryImage: "assets/images/temporaryImages/phone.png"),
+          categoryImage: Images.phone),
       CategoryList(
-          categoryName: "Home Appliances",
-          categoryImage: "assets/images/temporaryImages/fridge.png"),
+          categoryName: "Home Appliances", categoryImage: Images.fridge),
       CategoryList(
-          categoryName: "Audio & Headphones",
-          categoryImage: "assets/images/temporaryImages/headphone.png"),
+          categoryName: "Audio & Headphones", categoryImage: Images.headphone),
       CategoryList(
           categoryName: "Camera & Photography",
-          categoryImage: "assets/images/temporaryImages/camera.png"),
+          categoryImage: Images.cameraTemporary),
       CategoryList(
-          categoryName: "Clothing & Fashion",
-          categoryImage: "assets/images/temporaryImages/jeans.png"),
+          categoryName: "Clothing & Fashion", categoryImage: Images.jeans),
     ],
   ),
   MainCategory(
     "Sports & Sports",
     [
       CategoryList(
-          categoryName: "Computers & Accessories",
-          categoryImage: "assets/images/temporaryImages/tv.png"),
+          categoryName: "Computers & Accessories", categoryImage: Images.tv),
       CategoryList(
           categoryName: "Smartphones & Accessories",
-          categoryImage: "assets/images/temporaryImages/phone.png"),
+          categoryImage: Images.phone),
       CategoryList(
-          categoryName: "Home Appliances",
-          categoryImage: "assets/images/temporaryImages/fridge.png"),
+          categoryName: "Home Appliances", categoryImage: Images.fridge),
       CategoryList(
-          categoryName: "Audio & Headphones",
-          categoryImage: "assets/images/temporaryImages/headphone.png"),
+          categoryName: "Audio & Headphones", categoryImage: Images.headphone),
       CategoryList(
           categoryName: "Camera & Photography",
-          categoryImage: "assets/images/temporaryImages/camera.png"),
+          categoryImage: Images.cameraTemporary),
       CategoryList(
-          categoryName: "Clothing & Fashion",
-          categoryImage: "assets/images/temporaryImages/jeans.png"),
+          categoryName: "Clothing & Fashion", categoryImage: Images.jeans),
     ],
   ),
   MainCategory(
     "Automotive",
     [
       CategoryList(
-          categoryName: "Computers & Accessories",
-          categoryImage: "assets/images/temporaryImages/tv.png"),
+          categoryName: "Computers & Accessories", categoryImage: Images.tv),
       CategoryList(
           categoryName: "Smartphones & Accessories",
-          categoryImage: "assets/images/temporaryImages/phone.png"),
+          categoryImage: Images.phone),
       CategoryList(
-          categoryName: "Home Appliances",
-          categoryImage: "assets/images/temporaryImages/fridge.png"),
+          categoryName: "Home Appliances", categoryImage: Images.fridge),
       CategoryList(
-          categoryName: "Audio & Headphones",
-          categoryImage: "assets/images/temporaryImages/headphone.png"),
+          categoryName: "Audio & Headphones", categoryImage: Images.headphone),
       CategoryList(
           categoryName: "Camera & Photography",
-          categoryImage: "assets/images/temporaryImages/camera.png"),
+          categoryImage: Images.cameraTemporary),
       CategoryList(
-          categoryName: "Clothing & Fashion",
-          categoryImage: "assets/images/temporaryImages/jeans.png"),
+          categoryName: "Clothing & Fashion", categoryImage: Images.jeans),
     ],
   ),
   MainCategory(
     "Food & Beverages",
     [
       CategoryList(
-          categoryName: "Computers & Accessories",
-          categoryImage: "assets/images/temporaryImages/tv.png"),
+          categoryName: "Computers & Accessories", categoryImage: Images.tv),
       CategoryList(
           categoryName: "Smartphones & Accessories",
-          categoryImage: "assets/images/temporaryImages/phone.png"),
+          categoryImage: Images.phone),
       CategoryList(
-          categoryName: "Home Appliances",
-          categoryImage: "assets/images/temporaryImages/fridge.png"),
+          categoryName: "Home Appliances", categoryImage: Images.fridge),
       CategoryList(
-          categoryName: "Audio & Headphones",
-          categoryImage: "assets/images/temporaryImages/headphone.png"),
+          categoryName: "Audio & Headphones", categoryImage: Images.headphone),
       CategoryList(
           categoryName: "Camera & Photography",
-          categoryImage: "assets/images/temporaryImages/camera.png"),
+          categoryImage: Images.cameraTemporary),
       CategoryList(
-          categoryName: "Clothing & Fashion",
-          categoryImage: "assets/images/temporaryImages/jeans.png"),
+          categoryName: "Clothing & Fashion", categoryImage: Images.jeans),
     ],
   ),
   MainCategory(
     "Industrial & Industrial",
     [
       CategoryList(
-          categoryName: "Computers & Accessories",
-          categoryImage: "assets/images/temporaryImages/tv.png"),
+          categoryName: "Computers & Accessories", categoryImage: Images.tv),
       CategoryList(
           categoryName: "Smartphones & Accessories",
-          categoryImage: "assets/images/temporaryImages/phone.png"),
+          categoryImage: Images.phone),
       CategoryList(
-          categoryName: "Home Appliances",
-          categoryImage: "assets/images/temporaryImages/fridge.png"),
+          categoryName: "Home Appliances", categoryImage: Images.fridge),
       CategoryList(
-          categoryName: "Audio & Headphones",
-          categoryImage: "assets/images/temporaryImages/headphone.png"),
+          categoryName: "Audio & Headphones", categoryImage: Images.headphone),
       CategoryList(
           categoryName: "Camera & Photography",
-          categoryImage: "assets/images/temporaryImages/camera.png"),
+          categoryImage: Images.cameraTemporary),
       CategoryList(
-          categoryName: "Clothing & Fashion",
-          categoryImage: "assets/images/temporaryImages/jeans.png"),
+          categoryName: "Clothing & Fashion", categoryImage: Images.jeans),
     ],
   ),
 ];

@@ -25,7 +25,7 @@ class _SearchState extends State<Search> {
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            color: const Color(0xFF1D2429),
+            color: colors.darkBG,
             child: Image.asset(
               Images.bgGreenBottom,
               fit: BoxFit.fitHeight,
@@ -139,7 +139,7 @@ class _SearchState extends State<Search> {
             content: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
-                color: const Color(0xFF2D3438),
+                color: colors.overlayBG,
               ),
               height: 260,
               width: MediaQuery.of(context).size.width,

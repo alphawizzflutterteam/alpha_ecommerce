@@ -225,8 +225,8 @@ class _SubscribeState extends State<Subscribe> {
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
                                     colors: [
-                                      const Color(0xFF987808),
-                                      const Color(0xFF987808).withOpacity(0.1),
+                                      colors.subscribeYellow,
+                                      colors.subscribeYellow.withOpacity(0.1),
                                     ],
                                     begin: Alignment.centerRight,
                                     end: Alignment.centerLeft,
@@ -412,7 +412,7 @@ class _SubscribeState extends State<Subscribe> {
                                 decoration: BoxDecoration(
                                   gradient: const LinearGradient(
                                     colors: [
-                                      Color(0xFF0A9494),
+                                      colors.buttonColor,
                                       Colors.transparent,
                                     ],
                                     begin: Alignment.centerRight,

@@ -26,7 +26,7 @@ Future<void> filter(context) async {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
           child: SingleChildScrollView(
             child: Container(
-              color: const Color(0xff2D3438),
+              color: colors.overlayBG,
               height: 400,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

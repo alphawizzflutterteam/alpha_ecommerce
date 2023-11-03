@@ -31,7 +31,9 @@ class _CouponState extends State<Coupon> {
               Stack(
                 children: const [
                   ProfileHeader(),
-                  InternalPageHeader(text: 'Coupon',)
+                  InternalPageHeader(
+                    text: 'Coupon',
+                  )
                 ],
               ),
               Expanded(
@@ -73,8 +75,7 @@ class _CouponState extends State<Coupon> {
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    Image.asset(
-                                        Images.offer)
+                                    Image.asset(Images.offer)
                                   ],
                                 ),
                               ),
@@ -86,8 +87,7 @@ class _CouponState extends State<Coupon> {
                                     bottomRight: Radius.circular(15),
                                   ),
                                   border: Border.all(
-                                    color: const Color(
-                                        0xFF767680), // Change the border color to 0xFF292929
+                                    color: colors.boxBorder,
                                   ),
                                   color: Colors.transparent,
                                 ),

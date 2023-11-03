@@ -22,7 +22,7 @@ class _FAQsState extends State<FAQs> {
         alignment: Alignment.topRight,
         child: Container(
           width: MediaQuery.of(context).size.width,
-          color: const Color(0xFF1D2429),
+          color: colors.darkBG,
         ),
       ),
       Scaffold(

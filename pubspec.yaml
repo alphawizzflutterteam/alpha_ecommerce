@@ -49,6 +49,7 @@ dependencies:
   order_tracker: ^0.0.2
   like_button: ^2.0.5
   google_fonts: ^4.0.4
+  getwidget: ^4.0.0
 
 dev_dependencies:
   flutter_test:

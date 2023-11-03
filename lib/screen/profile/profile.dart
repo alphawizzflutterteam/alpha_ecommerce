@@ -202,7 +202,7 @@ class _ProfileState extends State<Profile> {
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: 100,
-                              color: const Color(0xFF2D3438),
+                              color: colors.overlayBG,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
@@ -266,7 +266,7 @@ class _ProfileState extends State<Profile> {
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: 100,
-                              color: const Color(0xFF2D3438),
+                              color: colors.overlayBG,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(

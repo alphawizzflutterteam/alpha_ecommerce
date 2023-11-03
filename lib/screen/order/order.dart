@@ -52,13 +52,13 @@ class _OrderState extends State<Order> {
   Color getTextColor(String status) {
     switch (status) {
       case 'On the way':
-        return const Color(0xffD89C01);
+        return colors.onTheWayDark;
       case 'Order Cancelled':
-        return const Color(0xffB8163D);
+        return colors.orderCancelledDark;
       case 'Delivered':
-        return const Color(0xff2B6F1B);
+        return colors.deliveredDark;
       case 'Returned':
-        return const Color(0xff4A16DD);
+        return colors.returnedDark;
       default:
         return Colors.transparent;
     }
@@ -67,13 +67,13 @@ class _OrderState extends State<Order> {
   Color getBackgroundColor(String status) {
     switch (status) {
       case 'On the way':
-        return const Color(0xffF9ECAC);
+        return colors.onTheWayLight;
       case 'Order Cancelled':
-        return const Color(0xffFFB8C5);
+        return colors.orderCancelledLight;
       case 'Delivered':
-        return const Color(0xffB8FFD0);
+        return colors.deliveredLight;
       case 'Returned':
-        return const Color(0xffB8C7FF);
+        return colors.returnedLight;
       default:
         return Colors.transparent;
     }
@@ -187,7 +187,7 @@ class _OrderState extends State<Order> {
                             Routes.navigateToOrderDetailScreen(context);
                           },
                           child: Container(
-                            height: MediaQuery.of(context).size.height*0.17,
+                            height: MediaQuery.of(context).size.height * 0.17,
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
                             decoration: BoxDecoration(
@@ -215,18 +215,23 @@ class _OrderState extends State<Order> {
                                         height: 10,
                                       ),
                                       SizedBox(
-                                        width: MediaQuery.of(context).size.width*0.5,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
                                         child: Text(
                                           orderItems[i]['text'],
                                           style: const TextStyle(
-                                              color: Colors.white, fontSize: 14),
+                                              color: Colors.white,
+                                              fontSize: 14),
                                         ),
                                       ),
                                       const SizedBox(
                                         height: 5,
                                       ),
                                       SizedBox(
-                                        width: MediaQuery.of(context).size.width*0.5,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
                                         child: Text(
                                           orderItems[i]['subText'],
                                           style: const TextStyle(

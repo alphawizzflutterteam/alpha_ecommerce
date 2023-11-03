@@ -501,7 +501,7 @@ class _OrderDetailState extends State<OrderDetail> {
   //           width: 700,
   //           decoration: BoxDecoration(
   //             borderRadius: BorderRadius.circular(15.0),
-  //             color: const Color(0xFF2D3438),
+  //             color: colors.overlayBG,
   //           ),
   //           padding: const EdgeInsets.all(20.0),
   //           child: Column(

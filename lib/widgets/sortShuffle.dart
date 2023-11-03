@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../helper/color.dart';
+
 List<Map<dynamic, dynamic>> sort = [
   {'text': 'Top Rated'},
   {'text': 'New Arrival'},
@@ -17,7 +19,7 @@ Future<void> homeSort(context) async {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
           child: SingleChildScrollView(
             child: Container(
-              color: const Color(0xff2D3438),
+              color: colors.overlayBG,
               height: 300,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
