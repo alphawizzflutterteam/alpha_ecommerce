@@ -32,7 +32,9 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             leading: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Routes.navigateToPreviousScreen(context);
+                },
                 icon: const Icon(
                   Icons.close,
                   color: colors.textColor,

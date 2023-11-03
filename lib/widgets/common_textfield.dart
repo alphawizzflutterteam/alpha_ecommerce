@@ -7,6 +7,8 @@ InputDecoration commonInputDecoration(
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),
     ),
+    filled: true,
+    fillColor: colors.textFieldBG,
     labelText: labelText,
     hintText: hintText,
     labelStyle: const TextStyle(

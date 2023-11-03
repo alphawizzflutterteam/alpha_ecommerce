@@ -56,8 +56,11 @@ class Routes {
   static navigateToOTPVerificationScreen(BuildContext context, page) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => OTPVerification(signIn: page),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            OTPVerification(signIn: page),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -65,8 +68,10 @@ class Routes {
   static navigateToResetPasswordScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const ResetPassword(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const ResetPassword(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -74,8 +79,10 @@ class Routes {
   static navigateToSignInScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const SignIn(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const SignIn(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -83,8 +90,10 @@ class Routes {
   static navigateToSignUpScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const SignUP(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const SignUP(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -92,8 +101,11 @@ class Routes {
   static navigateToTermsConditionScreen(BuildContext context, page) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const TermAndCondition(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const TermAndCondition(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -101,8 +113,10 @@ class Routes {
   static navigateToPrivacyPolicyScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const PrivacyPolicy(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const PrivacyPolicy(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -110,8 +124,11 @@ class Routes {
   static navigateToVerifyNumberScreen(BuildContext context, signIn) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => VerifyNumber(signIn: signIn),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            VerifyNumber(signIn: signIn),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -119,8 +136,10 @@ class Routes {
   static navigateToCartScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Cart(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Cart(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -128,8 +147,10 @@ class Routes {
   static navigateToCategoryScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const AllCategory(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const AllCategory(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -137,8 +158,11 @@ class Routes {
   static navigateToCountrySelectionScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const CountrySelection(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const CountrySelection(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -146,19 +170,24 @@ class Routes {
   static navigateToDashboardScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Dashboard(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Dashboard(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
 
   static navigateToCurrencyScreen(BuildContext context, condition) {
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
-      CupertinoPageRoute(
-        builder: (context) => SelectionCurrencyWidget(
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            SelectionCurrencyWidget(
           signIn: condition,
         ),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -166,8 +195,10 @@ class Routes {
   static navigateToBottomNavScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const BottomNavPage(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const BottomNavPage(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -175,8 +206,10 @@ class Routes {
   static navigateToPaySuccessScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const PaySuccess(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const PaySuccess(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -184,8 +217,10 @@ class Routes {
   static navigateToWalletSuccessScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const WalletSuccess(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const WalletSuccess(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -193,8 +228,10 @@ class Routes {
   static navigateToWelcomeScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Welcome(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Welcome(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -202,8 +239,10 @@ class Routes {
   static navigateToHomeScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Home(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Home(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -211,8 +250,10 @@ class Routes {
   static navigateToIntroSliderScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const IntroSlider(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const IntroSlider(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -220,8 +261,11 @@ class Routes {
   static navigateToLanguageScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const SelectLanguageWidget(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const SelectLanguageWidget(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -229,8 +273,10 @@ class Routes {
   static navigateToVendorScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Vendor(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Vendor(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -238,8 +284,10 @@ class Routes {
   static navigateToAboutUsScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const AboutUs(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const AboutUs(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -247,8 +295,10 @@ class Routes {
   static navigateToManageAddressScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const ManageAddress(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const ManageAddress(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -256,8 +306,10 @@ class Routes {
   static navigateToContactUsScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const ContactUs(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const ContactUs(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -265,8 +317,10 @@ class Routes {
   static navigateToCouponScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Coupon(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Coupon(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -274,8 +328,10 @@ class Routes {
   static navigateToFAQsScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const FAQs(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const FAQs(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -283,8 +339,11 @@ class Routes {
   static navigateToTransactionHistoryScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const TransactionHistory(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const TransactionHistory(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -292,8 +351,10 @@ class Routes {
   static navigateToAddMoneyScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const AddMoney(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const AddMoney(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -301,8 +362,10 @@ class Routes {
   static navigateToPaymentScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Payment(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Payment(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -310,8 +373,10 @@ class Routes {
   static navigateToPaymentFormScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const PaymentForm(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const PaymentForm(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -319,8 +384,10 @@ class Routes {
   static navigateToWalletScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Wallet(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Wallet(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -328,8 +395,10 @@ class Routes {
   static navigateToOrderDetailScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const OrderDetail(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const OrderDetail(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -337,8 +406,10 @@ class Routes {
   static navigateToRefundHistoryScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const RefundHistory(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const RefundHistory(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -346,8 +417,11 @@ class Routes {
   static navigateToProfilePaymentScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const ProfilePayment(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const ProfilePayment(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -355,17 +429,21 @@ class Routes {
   static navigateToReferAndEarnScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const ReferAndEarn(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const ReferAndEarn(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
 
   static navigateToSettingScreen(BuildContext context) {
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Setting(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Setting(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -373,8 +451,11 @@ class Routes {
   static navigateToShippingPolicyScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const ShippingPolicy(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const ShippingPolicy(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -382,10 +463,12 @@ class Routes {
   static navigateToSubscribeScreen(BuildContext context, bool signUp) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => Subscribe(
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => Subscribe(
           signUp: signUp,
         ),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -393,8 +476,10 @@ class Routes {
   static navigateToProfileScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Profile(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Profile(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -402,8 +487,10 @@ class Routes {
   static navigateToCurrentPlanScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const CurrentPlan(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const CurrentPlan(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -411,8 +498,10 @@ class Routes {
   static navigateToWishlistScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Wishlist(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Wishlist(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -420,8 +509,10 @@ class Routes {
   static navigateToOrderScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Order(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Order(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -429,8 +520,11 @@ class Routes {
   static navigateToNotificationScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const NotificationScreen(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const NotificationScreen(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -438,8 +532,10 @@ class Routes {
   static navigateToSearchScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Search(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Search(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -447,8 +543,10 @@ class Routes {
   static navigateToEditProfileScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const EditProfile(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const EditProfile(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -456,8 +554,10 @@ class Routes {
   static navigateToChatScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Chat(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Chat(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -465,8 +565,11 @@ class Routes {
   static navigateToProductDetailPageScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const ProductDetailPage(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const ProductDetailPage(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -474,8 +577,10 @@ class Routes {
   static navigateToPlaceOrderScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const PlaceOrder(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const PlaceOrder(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -483,8 +588,10 @@ class Routes {
   static navigateToOffersScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const Offers(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const Offers(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -492,8 +599,10 @@ class Routes {
   static navigateToVendorDetailsScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const VendorDetails(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const VendorDetails(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
@@ -501,8 +610,11 @@ class Routes {
   static navigateToCategoryDetailScreen(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const CategoryDetail(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const CategoryDetail(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }
