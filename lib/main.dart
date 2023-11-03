@@ -53,15 +53,14 @@ void main() async {
         create: (context) => LanguageProvider()),
     ChangeNotifierProvider<CurrencyProvider>(
         create: (context) => CurrencyProvider()),
-  ], child: MyApp(sharedPreferences: prefs)));
+  ], child: MyApp()));
 }
 
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
 
 class MyApp extends StatefulWidget {
-  late SharedPreferences sharedPreferences;
-  MyApp({Key? key, required this.sharedPreferences}) : super(key: key);
+  MyApp({Key? key,}) : super(key: key);
 
   static void setLocale(BuildContext context, Locale newLocale) {
     _MyAppState state = context.findAncestorStateOfType<_MyAppState>()!;
