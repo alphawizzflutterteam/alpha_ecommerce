@@ -88,17 +88,13 @@ class _VerifyNumberState extends State<VerifyNumber> {
                 const SizedBox(
                   height: 30,
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                  child: Image.asset(
-                    Images.greenTopLogo,
-                    height: 90,
-                    width: 110,
-                  ),
+                Image.asset(
+                  Images.greenTopLogo,
+                  height: 90,
+                  width: 110,
                 ),
                 const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   child: Text(
                     validateNumber1,
                     style: TextStyle(
@@ -285,10 +281,8 @@ class _VerifyNumberState extends State<VerifyNumber> {
                           ),
                         ),
                       ),
-                      Positioned(
-                        bottom: 30,
-                        left: 0,
-                        right: 0,
+                      Align(
+                        alignment: Alignment.bottomCenter,
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Row(

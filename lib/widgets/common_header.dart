@@ -15,6 +15,7 @@ class DashboardHeader extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(top: 35),
         height: 110,
+        width: MediaQuery.of(context).size.width,
         child: Center(
             child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,6 +75,7 @@ class InternalPageHeader extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(top: 35),
         height: 110,
+        width: MediaQuery.of(context).size.width,
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -110,6 +112,7 @@ class InternalDetailPageHeader extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
+        width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(top: 35),
         height: 100,
         child: Center(

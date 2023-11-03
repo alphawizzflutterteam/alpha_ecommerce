@@ -39,13 +39,10 @@ class _SignInState extends State<SignIn> {
               const SizedBox(
                 height: 100,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                child: Image.asset(
-                  Images.logoWithoutText,
-                  height: 90,
-                  width: 110,
-                ),
+              Image.asset(
+                Images.logoWithoutText,
+                height: 90,
+                width: 110,
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -92,12 +89,14 @@ class _SignInState extends State<SignIn> {
                         obscureText: obscureText,
                         validator: validatePassword,
                         decoration: InputDecoration(
+                          filled: true,
+                          fillColor: colors.textFieldBG,
                           labelText: 'Password',
                           suffixIcon: GestureDetector(
                             onTap: () {
                               setState(() {
                                 obscureText =
-                                    !obscureText; // Toggle the password visibility
+                                    !obscureText;
                               });
                             },
                             child: Icon(
@@ -105,7 +104,7 @@ class _SignInState extends State<SignIn> {
                                   ? Icons.visibility_off
                                   : Icons.visibility,
                               color: colors
-                                  .labelColor, // Change the color of the icon
+                                  .labelColor,
                             ),
                           ),
                           labelStyle: const TextStyle(
@@ -185,7 +184,8 @@ class _SignInState extends State<SignIn> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    Routes.navigateToVerifyNumberScreen(context, false);
+                                    Routes.navigateToVerifyNumberScreen(
+                                        context, false);
                                   },
                                   child: const Text(
                                     'Forgot Password?',
@@ -266,7 +266,8 @@ class _SignInState extends State<SignIn> {
                                   },
                                   child: const Text(signIn3,
                                       style: TextStyle(
-                                          fontSize: 14, color: colors.textColor)),
+                                          fontSize: 14,
+                                          color: colors.textColor)),
                                 ),
                               ],
                             ),
@@ -282,13 +283,15 @@ class _SignInState extends State<SignIn> {
                                         color: colors.lightTextColor)),
                                 InkWell(
                                   onTap: () {
-                                    Routes.navigateToVerifyNumberScreen(context, true);
+                                    Routes.navigateToVerifyNumberScreen(
+                                        context, true);
                                   },
                                   child: const Text('Sign up',
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: colors.buttonColor,
-                                          decoration: TextDecoration.underline)),
+                                          decoration:
+                                              TextDecoration.underline)),
                                 ),
                               ],
                             ),

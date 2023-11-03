@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/helper/routes.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import '../../helper/color.dart';
 import '../../model/CartList.dart';
@@ -18,7 +19,12 @@ class _CartState extends State<Cart> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   String selectedOption = 'Alpha Delivery';
-  // late String dropdown = "FC Barcelona";
+  final List<String> genderItems = [
+    'Qty 1',
+    'Qty 2',
+    'Qty 3',
+  ];
+  String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -56,202 +62,214 @@ class _CartState extends State<Cart> {
                       ),
                       const SizedBox(height: 10),
                       for (int i = 0; i < 4; i++)
-                        InkWell(
-                          onTap: () {
-                            Routes.navigateToProductDetailPageScreen(context);
-                          },
-                          child: Container(
-                            height: cartList[i].productCount > 0 ? 190 : 0,
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    color: const Color(0x14E9E9E9), width: 2)),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Image.asset(
+                        Container(
+                          height: cartList[i].productCount > 0 ? 190 : 0,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: colors.boxBorder)),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Routes.navigateToProductDetailPageScreen(
+                                          context);
+                                    },
+                                    child: Image.asset(
                                       cartList[i].productImage,
                                       width: 110,
                                       height: 140,
                                     ),
-                                    const SizedBox(width: 30),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
+                                  ),
+                                  const SizedBox(width: 30),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          Routes
+                                              .navigateToProductDetailPageScreen(
+                                                  context);
+                                        },
+                                        child: Text(
                                           cartList[i].productName,
                                           style: const TextStyle(
                                               color: colors.textColor,
                                               fontSize: 14),
                                         ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              cartList[i].productPrice,
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            cartList[i].productPrice,
+                                            style: const TextStyle(
+                                                color: colors.buttonColor,
+                                                fontSize: 16),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 10),
+                                            child: Text(
+                                              cartList[i].productDiscount,
                                               style: const TextStyle(
-                                                  color: colors.buttonColor,
-                                                  fontSize: 16),
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                  color: colors.greyText,
+                                                  fontSize: 14),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10),
-                                              child: Text(
-                                                cartList[i].productDiscount,
-                                                style: const TextStyle(
-                                                    decoration: TextDecoration
-                                                        .lineThrough,
-                                                    color: colors.greyText,
-                                                    fontSize: 14),
-                                              ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        cartList[i].productWeight,
+                                        style: const TextStyle(
+                                            color: colors.greyText,
+                                            fontSize: 12),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        height: 50,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(15)),
+                                            border: Border.all(
+                                                color: colors.boxBorder)),
+                                        child: DropdownButtonFormField2<String>(
+                                          isExpanded: true,
+                                          decoration: const InputDecoration(
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    vertical: 15),
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.zero,
+                                                borderSide: BorderSide.none),
+                                          ),
+                                          hint: const Text(
+                                            'Qty 1',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: colors.textColor),
+                                          ),
+                                          items: genderItems
+                                              .map((item) =>
+                                                  DropdownMenuItem<String>(
+                                                    value: item,
+                                                    child: Text(
+                                                      item,
+                                                      style: const TextStyle(
+                                                          fontSize: 12,
+                                                          color:
+                                                              colors.textColor),
+                                                    ),
+                                                  ))
+                                              .toList(),
+                                          validator: (value) {
+                                            if (value == null) {
+                                              return 'Select Quantity.';
+                                            }
+                                            return null;
+                                          },
+                                          onChanged: (value) {},
+                                          onSaved: (value) {
+                                            selectedValue = value.toString();
+                                          },
+                                          buttonStyleData:
+                                              const ButtonStyleData(
+                                            padding: EdgeInsets.only(right: 8),
+                                          ),
+                                          iconStyleData: const IconStyleData(
+                                            icon: Icon(
+                                              Icons.arrow_drop_down,
+                                              color: colors.textColor,
                                             ),
-                                          ],
+                                            iconSize: 18,
+                                          ),
+                                          dropdownStyleData: DropdownStyleData(
+                                              elevation: 8,
+                                              decoration: BoxDecoration(
+                                                color: colors.textFieldBG,
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                border: Border.all(
+                                                    color: colors.boxBorder),
+                                              )),
+                                          menuItemStyleData:
+                                              const MenuItemStyleData(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 16),
+                                          ),
                                         ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          cartList[i].productWeight,
-                                          style: const TextStyle(
-                                              color: colors.greyText,
-                                              fontSize: 12),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        // Container(
-                                        //   height: 50,
-                                        //   width: 100,
-                                        //   child: DropdownButtonHideUnderline(
-                                        //     child: GFDropdown(
-                                        //       borderRadius:
-                                        //           BorderRadius.circular(5),
-                                        //       border: const BorderSide(
-                                        //           color: Colors.black12,
-                                        //           width: 1),
-                                        //       dropdownButtonColor: Colors.white,
-                                        //       value: dropdown,
-                                        //       onChanged: (newValue) {
-                                        //         setState(() {
-                                        //           dropdown = newValue!;
-                                        //         });
-                                        //       },
-                                        //       items: [
-                                        //         'FC Barcelona',
-                                        //         'Real Madrid',
-                                        //         'Villareal',
-                                        //         'Manchester City'
-                                        //       ]
-                                        //           .map((value) =>
-                                        //               DropdownMenuItem(
-                                        //                 value: value,
-                                        //                 child: Text(value),
-                                        //               ))
-                                        //           .toList(),
-                                        //     ),
-                                        //   ),
-                                        // ),
-                                        // Row(
-                                        //   children: [
-                                        //     buildCustomButton("-", () {
-                                        //       if (cartList[i].productCount >
-                                        //           0) {
-                                        //         setState(() {
-                                        //           cartList[i].productCount--;
-                                        //         });
-                                        //       }
-                                        //     }),
-                                        //     Container(
-                                        //       height: 25,
-                                        //       width: 35,
-                                        //       decoration: BoxDecoration(
-                                        //         border: Border.all(
-                                        //             color:
-                                        //                 colors.textFieldColor),
-                                        //       ),
-                                        //       child: Center(
-                                        //         child: Text(
-                                        //           cartList[i]
-                                        //               .productCount
-                                        //               .toString(),
-                                        //           style: const TextStyle(
-                                        //               color: colors.textColor,
-                                        //               fontSize: 14),
-                                        //         ),
-                                        //       ),
-                                        //     ),
-                                        //     buildCustomButton("+", () {
-                                        //       setState(() {
-                                        //         cartList[i].productCount++;
-                                        //       });
-                                        //     }),
-                                        //   ],
-                                        // )
-                                      ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 0),
+                                    height: 35,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.3,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(5)),
+                                        border: Border.all(
+                                            color: colors.boxBorder)),
+                                    child: const Text(
+                                      "Save for later",
+                                      style: TextStyle(
+                                          color: colors.textColor,
+                                          fontSize: 12),
+                                      textAlign: TextAlign.center,
                                     ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 0),
-                                      height: 35,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.3,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(5)),
-                                          border: Border.all(
-                                              color: const Color(0x14E9E9E9),
-                                              width: 3)),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 0),
+                                    height: 35,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.35,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(5)),
+                                        border: Border.all(
+                                            color: colors.boxBorder)),
+                                    child: InkWell(
+                                      onTap: () {
+                                        showToastMessage(
+                                            "Item remove from cart");
+                                      },
                                       child: const Text(
-                                        "Save for later",
+                                        "Remove from cart",
                                         style: TextStyle(
                                             color: colors.textColor,
                                             fontSize: 12),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 0),
-                                      height: 35,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.35,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(5)),
-                                          border: Border.all(
-                                              color: const Color(0x14E9E9E9),
-                                              width: 3)),
-                                      child: InkWell(
-                                        onTap: () {
-                                          showToastMessage(
-                                              "Item remove from cart");
-                                        },
-                                        child: const Text(
-                                          "Remove from cart",
-                                          style: TextStyle(
-                                              color: colors.textColor,
-                                              fontSize: 12),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                       Column(
@@ -285,7 +303,7 @@ class _CartState extends State<Cart> {
                                           color: colors.textColor,
                                           fontSize: 14,
                                         ),
-                                        softWrap: false, // Add this line
+                                        softWrap: false,
                                       ),
                                       activeColor: colors.buttonColor,
                                       value: 'Normal Delivery',
@@ -308,7 +326,7 @@ class _CartState extends State<Cart> {
                                           color: colors.textColor,
                                           fontSize: 14,
                                         ),
-                                        softWrap: false, // Add this line
+                                        softWrap: false,
                                       ),
                                       value: 'Alpha Delivery',
                                       activeColor: colors.buttonColor,
@@ -510,9 +528,7 @@ class _CartState extends State<Cart> {
                                   onPrimary: colors.textColor,
                                   padding: EdgeInsets.zero,
                                 ),
-                                onPressed: () {
-                                  // Add your button action here
-                                },
+                                onPressed: () {},
                                 child: const Text('APPLY'),
                               ),
                             ),
@@ -529,143 +545,188 @@ class _CartState extends State<Cart> {
                         ),
                       ),
                       for (int i = 0; i < 2; i++)
-                        InkWell(
-                          onTap: () {
-                            // Routes.navigateToProductDetailPageScreen(context);
-                          },
-                          child: Container(
-                            height: 190,
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            decoration: BoxDecoration(
-                              color: const Color(0x14E9E9E9),
+                        Container(
+                          height: 190,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Image.asset(
+                              border: Border.all(color: colors.boxBorder)),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Routes.navigateToProductDetailPageScreen(
+                                          context);
+                                    },
+                                    child: Image.asset(
                                       cartList[i].productImage,
                                       width: 110,
                                       height: 140,
                                     ),
-                                    const SizedBox(width: 30),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
+                                  ),
+                                  const SizedBox(width: 30),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          Routes
+                                              .navigateToProductDetailPageScreen(
+                                                  context);
+                                        },
+                                        child: Text(
                                           cartList[i].productName,
                                           style: const TextStyle(
                                               color: colors.textColor,
                                               fontSize: 14),
                                         ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              cartList[i].productPrice,
-                                              style: const TextStyle(
-                                                  color: colors.buttonColor,
-                                                  fontSize: 16),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10),
-                                              child: Text(
-                                                cartList[i].productDiscount,
-                                                style: const TextStyle(
-                                                    decoration: TextDecoration
-                                                        .lineThrough,
-                                                    color: colors.greyText,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          cartList[i].productWeight,
-                                          style: const TextStyle(
-                                              color: colors.greyText,
-                                              fontSize: 12),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        // Row(
-                                        //   children: [
-                                        //     buildCustomButton("-", () {
-                                        //       if (cartList[i].productCount >
-                                        //           0) {
-                                        //         setState(() {
-                                        //           cartList[i].productCount--;
-                                        //         });
-                                        //       }
-                                        //     }),
-                                        //     Container(
-                                        //       height: 25,
-                                        //       width: 35,
-                                        //       decoration: BoxDecoration(
-                                        //         border: Border.all(
-                                        //             color:
-                                        //                 colors.textFieldColor),
-                                        //       ),
-                                        //       child: Center(
-                                        //         child: Text(
-                                        //           cartList[i]
-                                        //               .productCount
-                                        //               .toString(),
-                                        //           style: const TextStyle(
-                                        //               color: colors.textColor,
-                                        //               fontSize: 14),
-                                        //         ),
-                                        //       ),
-                                        //     ),
-                                        //     buildCustomButton("+", () {
-                                        //       setState(() {
-                                        //         cartList[i].productCount++;
-                                        //       });
-                                        //     }),
-                                        //   ],
-                                        // )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 0),
-                                      height: 35,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.5,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(5)),
-                                          border: Border.all(
-                                              color: const Color(0x14E9E9E9),
-                                              width: 3)),
-                                      child: const Text(
-                                        "Remove from Saved Items",
-                                        style: TextStyle(
-                                            color: colors.textColor,
-                                            fontSize: 12),
-                                        textAlign: TextAlign.center,
                                       ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            cartList[i].productPrice,
+                                            style: const TextStyle(
+                                                color: colors.buttonColor,
+                                                fontSize: 16),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 10),
+                                            child: Text(
+                                              cartList[i].productDiscount,
+                                              style: const TextStyle(
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                  color: colors.greyText,
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        cartList[i].productWeight,
+                                        style: const TextStyle(
+                                            color: colors.greyText,
+                                            fontSize: 12),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        height: 50,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(15)),
+                                            border: Border.all(
+                                                color: colors.boxBorder)),
+                                        child: DropdownButtonFormField2<String>(
+                                          isExpanded: true,
+                                          decoration: const InputDecoration(
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    vertical: 15),
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.zero,
+                                                borderSide: BorderSide.none),
+                                          ),
+                                          hint: const Text(
+                                            'Qty 1',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: colors.textColor),
+                                          ),
+                                          items: genderItems
+                                              .map((item) =>
+                                                  DropdownMenuItem<String>(
+                                                    value: item,
+                                                    child: Text(
+                                                      item,
+                                                      style: const TextStyle(
+                                                          fontSize: 12,
+                                                          color:
+                                                              colors.textColor),
+                                                    ),
+                                                  ))
+                                              .toList(),
+                                          validator: (value) {
+                                            if (value == null) {
+                                              return 'Select Quantity.';
+                                            }
+                                            return null;
+                                          },
+                                          onChanged: (value) {},
+                                          onSaved: (value) {
+                                            selectedValue = value.toString();
+                                          },
+                                          buttonStyleData:
+                                              const ButtonStyleData(
+                                            padding: EdgeInsets.only(right: 8),
+                                          ),
+                                          iconStyleData: const IconStyleData(
+                                            icon: Icon(
+                                              Icons.arrow_drop_down,
+                                              color: colors.textColor,
+                                            ),
+                                            iconSize: 18,
+                                          ),
+                                          dropdownStyleData: DropdownStyleData(
+                                              elevation: 8,
+                                              decoration: BoxDecoration(
+                                                color: colors.textFieldBG,
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                border: Border.all(
+                                                    color: colors.boxBorder),
+                                              )),
+                                          menuItemStyleData:
+                                              const MenuItemStyleData(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 16),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 0),
+                                    height: 35,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.5,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(5)),
+                                        border: Border.all(
+                                            color: colors.boxBorder)),
+                                    child: const Text(
+                                      "Remove from Saved Items",
+                                      style: TextStyle(
+                                          color: colors.textColor,
+                                          fontSize: 12),
+                                      textAlign: TextAlign.center,
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         )
                     ],
@@ -757,34 +818,6 @@ class _CartState extends State<Cart> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget buildCustomButton(String label, void Function() onPressed) {
-    return Container(
-      height: 25,
-      width: 35,
-      decoration: BoxDecoration(
-        border: Border.all(color: colors.textFieldColor),
-        borderRadius: BorderRadius.only(
-          topLeft: label == "-" ? const Radius.circular(5) : Radius.zero,
-          bottomLeft: label == "-" ? const Radius.circular(5) : Radius.zero,
-          topRight: label == "+" ? const Radius.circular(5) : Radius.zero,
-          bottomRight: label == "+" ? const Radius.circular(5) : Radius.zero,
-        ),
-      ),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          primary: const Color(0x14E9E9E9),
-          onPrimary: Colors.white,
-          padding: EdgeInsets.zero,
-        ),
-        child: Text(
-          label,
-          style: const TextStyle(fontSize: 16),
-        ),
-      ),
     );
   }
 }

@@ -46,14 +46,10 @@ class _SignUPState extends State<SignUP> {
                     const SizedBox(
                       height: 100,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 10),
-                      child: Image.asset(
-                        Images.logoWithoutText,
-                        height: 90,
-                        width: 110,
-                      ),
+                    Image.asset(
+                      Images.logoWithoutText,
+                      height: 90,
+                      width: 110,
                     ),
                     const Padding(
                       padding:
@@ -112,6 +108,8 @@ class _SignUPState extends State<SignUP> {
                               obscureText: obscureText,
                               validator: validatePassword,
                               decoration: InputDecoration(
+                                filled: true,
+                                fillColor: colors.textFieldBG,
                                 labelText: 'Password',
                                 suffixIcon: GestureDetector(
                                   onTap: () {
@@ -124,8 +122,7 @@ class _SignUPState extends State<SignUP> {
                                     obscureText
                                         ? Icons.visibility_off
                                         : Icons.visibility,
-                                    color: colors
-                                        .labelColor,
+                                    color: colors.labelColor,
                                   ),
                                 ),
                                 labelStyle: const TextStyle(
@@ -176,6 +173,8 @@ class _SignUPState extends State<SignUP> {
                               validator: validatePassword,
                               decoration: InputDecoration(
                                 labelText: 'Confirm Password',
+                                filled: true,
+                                fillColor: colors.textFieldBG,
                                 suffixIcon: GestureDetector(
                                   onTap: () {
                                     setState(() {
@@ -241,7 +240,8 @@ class _SignUPState extends State<SignUP> {
                                   children: [
                                     Theme(
                                       data: ThemeData(
-                                          unselectedWidgetColor: colors.textColor),
+                                          unselectedWidgetColor:
+                                              colors.textColor),
                                       child: Checkbox(
                                         value: isCheckboxChecked,
                                         checkColor: colors.textColor,
@@ -261,7 +261,8 @@ class _SignUPState extends State<SignUP> {
                                   ],
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 45,bottom: 20),
+                                  padding: const EdgeInsets.only(
+                                      left: 45, bottom: 20),
                                   child: Row(
                                     children: [
                                       InkWell(
@@ -281,7 +282,8 @@ class _SignUPState extends State<SignUP> {
                                       ),
                                       const Text(
                                         ' and ',
-                                        style: TextStyle(color: colors.textColor),
+                                        style:
+                                            TextStyle(color: colors.textColor),
                                       ),
                                       InkWell(
                                         onTap: () {

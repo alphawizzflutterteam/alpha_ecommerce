@@ -75,7 +75,8 @@ class _EditProfileState extends State<EditProfile> {
                       Container(
                         margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -90,7 +91,8 @@ class _EditProfileState extends State<EditProfile> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -105,7 +107,8 @@ class _EditProfileState extends State<EditProfile> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -120,7 +123,8 @@ class _EditProfileState extends State<EditProfile> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -135,7 +139,8 @@ class _EditProfileState extends State<EditProfile> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -150,7 +155,8 @@ class _EditProfileState extends State<EditProfile> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
@@ -165,7 +171,8 @@ class _EditProfileState extends State<EditProfile> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG, // Change this color to your desired background color
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(

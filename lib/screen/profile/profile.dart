@@ -47,142 +47,150 @@ class _ProfileState extends State<Profile> {
               ),
               Stack(
                 children: [
-                  Container(
-                    color: colors.buttonColor,
-                    padding: const EdgeInsets.only(left: 5),
-                    height: 100,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 100,
-                          height: 100,
-                          child: ClipOval(
-                            child: Image.asset(
-                              Images.human,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.65,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: 10,
+                  Column(
+                    children: [
+                      Container(
+                        color: colors.buttonColor,
+                        padding: const EdgeInsets.only(left: 5),
+                        height: 100,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 100,
+                              height: 100,
+                              child: ClipOval(
+                                child: Image.asset(
+                                  Images.human,
+                                  fit: BoxFit.cover,
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.65,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
-                                      "Cameron Williamson",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
+                                    const SizedBox(
+                                      height: 10,
                                     ),
-                                    Container(
-                                      width: 25,
-                                      height: 25,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Center(
-                                        child: InkWell(
-                                          onTap: () {
-                                            Routes.navigateToEditProfileScreen(
-                                                context);
-                                          },
-                                          child: const Icon(
-                                            Icons.edit,
-                                            color: colors.buttonColor,
-                                            size: 20,
-                                          ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text(
+                                          "Cameron Williamson",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Row(
-                                  children: const [
-                                    Icon(
-                                      Icons.email_outlined,
-                                      color: colors.lightTextColor,
-                                      size: 18,
+                                        Container(
+                                          width: 25,
+                                          height: 25,
+                                          decoration: const BoxDecoration(
+                                            color: Colors.white,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Center(
+                                            child: InkWell(
+                                              onTap: () {
+                                                Routes
+                                                    .navigateToEditProfileScreen(
+                                                        context);
+                                              },
+                                              child: const Icon(
+                                                Icons.edit,
+                                                color: colors.buttonColor,
+                                                size: 20,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                    SizedBox(width: 5),
-                                    Text(
-                                      "cameronwilliamson@example.com",
-                                      style: TextStyle(
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Row(
+                                      children: const [
+                                        Icon(
+                                          Icons.email_outlined,
                                           color: colors.lightTextColor,
-                                          fontSize: 12),
+                                          size: 18,
+                                        ),
+                                        SizedBox(width: 5),
+                                        Text(
+                                          "cameronwilliamson@example.com",
+                                          style: TextStyle(
+                                              color: colors.lightTextColor,
+                                              fontSize: 12),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                const SizedBox(height: 5),
-                                Row(
-                                  children: const [
-                                    Icon(
-                                      Icons.phone_enabled_outlined,
-                                      color: colors.lightTextColor,
-                                      size: 18,
-                                    ),
-                                    SizedBox(width: 5),
-                                    Text(
-                                      "9685762333",
-                                      style: TextStyle(
+                                    const SizedBox(height: 5),
+                                    Row(
+                                      children: const [
+                                        Icon(
+                                          Icons.phone_enabled_outlined,
                                           color: colors.lightTextColor,
-                                          fontSize: 12),
+                                          size: 18,
+                                        ),
+                                        SizedBox(width: 5),
+                                        Text(
+                                          "9685762333",
+                                          style: TextStyle(
+                                              color: colors.lightTextColor,
+                                              fontSize: 12),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
+                      Container(
+                        height: 15,
+                      )
+                    ],
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: MediaQuery.of(context).size.width * 0.3,
+                    child: Container(
+                      width: 150,
+                      height: 25,
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.sort_by_alpha_outlined,
+                            color: Colors.black,
+                            size: 18,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "ALPHA Membership",
+                            style: TextStyle(color: Colors.black, fontSize: 12),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                  // Positioned(
-                  //   bottom: 0,
-                  //   child: Container(
-                  //     width: 150,
-                  //     height: 25,
-                  //     color: colors.buttonColor,
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       crossAxisAlignment: CrossAxisAlignment.center,
-                  //       children: const [
-                  //         Icon(
-                  //           Icons.sort_by_alpha_outlined,
-                  //           color: Colors.white,
-                  //           size: 18,
-                  //         ),
-                  //         SizedBox(
-                  //           width: 5,
-                  //         ),
-                  //         Text(
-                  //           "ALPHA Membership",
-                  //           style: TextStyle(color: Colors.white, fontSize: 12),
-                  //         )
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
                 ],
-              ),
-              const SizedBox(
-                height: 20,
               ),
               Expanded(
                 child: SingleChildScrollView(

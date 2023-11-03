@@ -74,17 +74,13 @@ class _OTPVerificationState extends State<OTPVerification> {
                 const SizedBox(
                   height: 30,
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                  child: Image.asset(
-                    Images.greenTopLogo,
-                    height: 90,
-                    width: 110,
-                  ),
+                Image.asset(
+                  Images.greenTopLogo,
+                  height: 90,
+                  width: 110,
                 ),
                 const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   child: Text(
                     otp1,
                     style: TextStyle(
@@ -223,17 +219,15 @@ class _OTPVerificationState extends State<OTPVerification> {
                     ],
                   ),
                 ),
-                Positioned(
-                  bottom: 30,
-                  left: 0,
-                  right: 0,
+                Align(
+                  alignment: Alignment.bottomCenter,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         widget.signIn ? signIn5 : signIn4,
-                        style:
-                            const TextStyle(fontSize: 14, color: colors.textColor),
+                        style: const TextStyle(
+                            fontSize: 14, color: colors.textColor),
                       ),
                       InkWell(
                         onTap: () {

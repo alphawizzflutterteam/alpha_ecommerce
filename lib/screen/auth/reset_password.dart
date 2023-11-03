@@ -74,16 +74,13 @@ class _ResetPasswordState extends State<ResetPassword> {
               const SizedBox(
                 height: 30,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                child: Image.asset(
-                  Images.greenTopLogo,
-                  height: 90,
-                  width: 110,
-                ),
+              Image.asset(
+                Images.greenTopLogo,
+                height: 90,
+                width: 110,
               ),
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                 child: Text(
                   changePassword1,
                   style: TextStyle(
@@ -116,11 +113,12 @@ class _ResetPasswordState extends State<ResetPassword> {
                         validator: validatePassword,
                         decoration: InputDecoration(
                           labelText: 'Create New Password',
+                          filled: true,
+                          fillColor: colors.textFieldBG,
                           suffixIcon: GestureDetector(
                             onTap: () {
                               setState(() {
-                                obscureText =
-                                    !obscureText; // Toggle the password visibility
+                                obscureText = !obscureText;
                               });
                             },
                             child: Icon(
@@ -178,6 +176,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                         validator: validatePassword,
                         decoration: InputDecoration(
                           labelText: 'Confirm Password',
+                          filled: true,
+                          fillColor: colors.textFieldBG,
                           suffixIcon: GestureDetector(
                             onTap: () {
                               setState(() {
@@ -189,7 +189,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                               obscureText2
                                   ? Icons.visibility_off
                                   : Icons.visibility,
-                              color: colors.labelColor, // Change the color of the icon
+                              color: colors
+                                  .labelColor, // Change the color of the icon
                             ),
                           ),
                           labelStyle: const TextStyle(
@@ -262,10 +263,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                   ],
                 ),
               ),
-              Positioned(
-                  bottom: 30,
-                  left: 0,
-                  right: 0,
+              Align(
+                alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20, bottom: 20),
                     child: Row(
