@@ -48,7 +48,7 @@ import '../view/placeOrder/placeOrder.dart';
 import '../view/profile/subscribe/currentPlan.dart';
 import '../view/wishlist/wishlist.dart';
 import '../view/notification/notificationScreen.dart';
-import '../view/widget_common/search.dart';
+import '../view/search/search.dart';
 
 GlobalKey<DashboardState>? dashboardPageState;
 

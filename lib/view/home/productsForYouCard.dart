@@ -14,8 +14,8 @@ productForYouCard(context) {
           Routes.navigateToProductDetailPageScreen(context);
         },
         child: Container(
-          height: 200,
-          width: 150,
+          height: MediaQuery.of(context).size.height * 0.28,
+          width: MediaQuery.of(context).size.width * 0.40,
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(10)),
               gradient: LinearGradient(

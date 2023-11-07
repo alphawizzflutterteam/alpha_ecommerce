@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 specialOfferCard(BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+    padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
