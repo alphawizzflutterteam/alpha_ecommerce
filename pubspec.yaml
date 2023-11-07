@@ -53,6 +53,7 @@ dependencies:
   another_flushbar: ^1.12.30
   http: ^1.1.0
   permission_handler: ^9.1.0
+  speech_to_text: ^5.1.0
 
 dev_dependencies:
   flutter_test:

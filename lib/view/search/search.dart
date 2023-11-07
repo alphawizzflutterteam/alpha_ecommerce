@@ -5,6 +5,7 @@ import '../../utils/color.dart';
 import '../../utils/images.dart';
 
 import '../widget_common/access_microphone.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -16,13 +17,72 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController searchController = TextEditingController();
+  stt.SpeechToText speech = stt.SpeechToText();
+  bool isListening = false;
+  String text = 'Press the button and start speaking';
 
-  Future<void> getMicrophonePermission() async {
+  @override
+  void initState() {
+    super.initState();
+    getMicrophonePermission(true);
+  }
+
+  Future<void> initSpeechState() async {
+    bool available = await speech.initialize(
+      onStatus: (status) {
+        print('Speech recognition status: $status');
+      },
+      onError: (error) => print('Error: $error'),
+    );
+
+    if (available) {
+      print('Speech recognition is available');
+    } else {
+      print('Speech recognition is not available');
+    }
+  }
+
+  Future<void> startListening() async {
+    if (!isListening) {
+      bool listening = await speech.listen(
+        onResult: (result) {
+          setState(() {
+            text = result.recognizedWords;
+
+            searchController.text = result.recognizedWords;
+          });
+        },
+      );
+
+      if (listening) {
+        setState(() {
+          isListening = true;
+        });
+      }
+    }
+  }
+
+  Future<void> stopListening() async {
+    if (isListening) {
+      await speech.stop();
+      setState(() {
+        isListening = false;
+      });
+    }
+  }
+
+  Future<void> getMicrophonePermission(bool isCallingForFirstTime) async {
     PermissionStatus status = await Permission.microphone.status;
 
     // If permission is granted, return early
+
+    print(status.toString());
     if (status.isGranted) {
-      return;
+      if (isCallingForFirstTime) {
+        initSpeechState();
+      } else {
+        isListening ? stopListening() : startListening();
+      }
     }
 
     // If permission is not granted, request the microphone permission
@@ -32,8 +92,16 @@ class _SearchState extends State<Search> {
 
     // If permission is denied, show a dialog or handle it accordingly
     if (status.isDenied) {
+      showMicrophone(context);
+
+      print(status.toString());
+
       // You can show a dialog or message here to inform the user
       // that the permission is necessary for the app to function.
+    }
+    if (status.isPermanentlyDenied) {
+      status = await Permission.microphone.request();
+      print(status.toString());
     }
   }
 
@@ -125,7 +193,7 @@ class _SearchState extends State<Search> {
                       ),
                       InkWell(
                         onTap: () {
-                          showMicrophone(context);
+                          getMicrophonePermission(false);
                         },
                         child: const Icon(
                           Icons.mic,
@@ -255,8 +323,11 @@ class _SearchState extends State<Search> {
                               ),
                             ),
                           ),
-                          onPressed: () {
-                            getMicrophonePermission();
+                          onPressed: () async {
+                            await Permission.microphone.request();
+                            Routes.navigateToPreviousScreen(context);
+
+                            getMicrophonePermission(false);
                           },
                           child: const Text(
                             'ALLOW',
