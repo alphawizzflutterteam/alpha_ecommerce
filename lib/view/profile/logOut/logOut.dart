@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/color.dart';
@@ -110,7 +111,15 @@ Future<void> logOut(context) async {
                               ),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                                SharedPref.shared.pref
+                                ?.setString(PrefKeys.mobile, "");
+                            SharedPref.shared.pref
+                                ?.setString(PrefKeys.isLoggedIn, "0");
+
+                              Routes.navigateToSignInScreen(context);
+                            
+                          },
                           child: const Text(
                             'LOGOUT',
                             style: TextStyle(fontSize: 12),
