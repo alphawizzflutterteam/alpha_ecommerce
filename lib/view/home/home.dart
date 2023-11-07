@@ -2,20 +2,24 @@ import 'package:alpha_ecommerce_18oct/view/home/brandsCard.dart';
 import 'package:alpha_ecommerce_18oct/view/home/categoryCardTop.dart';
 import 'package:alpha_ecommerce_18oct/view/home/homeTexts&Spaces.dart';
 import 'package:alpha_ecommerce_18oct/view/home/productQualityCard.dart';
+import 'package:alpha_ecommerce_18oct/view/home/productsForYouCard.dart';
+import 'package:alpha_ecommerce_18oct/view/home/savedCard.dart';
 import 'package:alpha_ecommerce_18oct/view/home/secondCategory.dart';
 import 'package:alpha_ecommerce_18oct/view/home/specialOfferCard.dart';
+import 'package:alpha_ecommerce_18oct/view/home/topDealCard.dart';
+import 'package:alpha_ecommerce_18oct/view/home/wishlistCard.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/categoryShuffle.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/filterShuffle.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/sortShuffle.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:like_button/like_button.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 import '../../utils/routes.dart';
 import '../widget_common/commonBackground.dart';
 import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
+import 'dailyDealsCard.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -58,22 +62,22 @@ class _HomeState extends State<Home> {
                   DashboardHeader(),
                 ],
               ),
+              Container(
+                height: 50,
+                color: colors.homeContainer1BG,
+                child: ListView(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(5, (index) {
+                    return categoryCardTop();
+                  }),
+                ),
+              ),
               Expanded(
                   child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      height: 50,
-                      color: colors.homeContainer1BG,
-                      child: ListView(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        scrollDirection: Axis.horizontal,
-                        children: List.generate(5, (index) {
-                          return categoryCardTop();
-                        }),
-                      ),
-                    ),
                     Container(
                       height: 140,
                       color: colors.textColor,
@@ -137,7 +141,7 @@ class _HomeState extends State<Home> {
                         ),
                       ],
                     ),
-                    spaceOf10Height(),
+                    spaceOfHeight(height: 20),
                     Container(
                       color: colors.textColor,
                       height: 70,
@@ -161,9 +165,9 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                         child: productQualityCard()),
-                    spaceOf10Height(),
+                    spaceOfHeight(height: 20),
                     productForUText(),
-                    spaceOf10Height(),
+                    spaceOfHeight(height: 20),
                     Row(
                       children: [
                         Container(
@@ -268,143 +272,25 @@ class _HomeState extends State<Home> {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
-                      height: MediaQuery.of(context).size.height * 0.33,
+                          horizontal: 10, vertical: 20),
+                      height: MediaQuery.of(context).size.height * 0.36,
                       child: GridView.builder(
                         shrinkWrap: true,
+                        padding: EdgeInsets.zero,
                         physics: const AlwaysScrollableScrollPhysics(),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          mainAxisSpacing: 2,
-                          childAspectRatio: 0.7,
+                          childAspectRatio: 0.85,
                         ),
                         itemCount: 6,
                         itemBuilder: (context, j) {
-                          return Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Routes.navigateToProductDetailPageScreen(
-                                      context);
-                                },
-                                child: Container(
-                                  height: 200,
-                                  width: 150,
-                                  decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(10)),
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          colors.boxGradient1.withOpacity(1),
-                                          Colors.transparent,
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                      ),
-                                      border:
-                                          Border.all(color: colors.boxBorder)),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Image.asset(
-                                        Images.onBoarding2,
-                                        width: 80,
-                                        height: 80,
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 5,
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            const Text(
-                                              '35% Off',
-                                              style: TextStyle(
-                                                color: Colors.orange,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                            LikeButton(
-                                              size: 20,
-                                              circleColor: const CircleColor(
-                                                  start: Colors.red,
-                                                  end: Colors.red),
-                                              bubblesColor: const BubblesColor(
-                                                dotPrimaryColor: Colors.red,
-                                                dotSecondaryColor: Colors.red,
-                                              ),
-                                              likeBuilder: (bool isLiked) {
-                                                return Icon(
-                                                  Icons.favorite,
-                                                  color: isLiked
-                                                      ? Colors.pink
-                                                      : Colors.grey,
-                                                  size: 20,
-                                                );
-                                              },
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 5,
-                                        ),
-                                        child: Text(
-                                          'Dettol refresh longi...',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 5,
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            const Text(
-                                              '120.00',
-                                              style: TextStyle(
-                                                color: Colors.cyan,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                            spaceOf10Height(),
-                                            const Text(
-                                              "\$200",
-                                              style: TextStyle(
-                                                color: colors.lightTextColor,
-                                                decoration:
-                                                    TextDecoration.lineThrough,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              spaceOf10Height(),
-                            ],
-                          );
+                          return productForYouCard(context);
                         },
                       ),
                     ),
-                    spaceOf10Height(),
-                    spaceOf10Height(),
+                    spaceOfHeight(),
+                    spaceOfHeight(),
                     Container(
                       height: 250,
                       decoration: BoxDecoration(
@@ -463,7 +349,7 @@ class _HomeState extends State<Home> {
                             height: 10,
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.20,
+                            height: MediaQuery.of(context).size.height * 0.25,
                             child: ListView(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 0),
@@ -506,107 +392,7 @@ class _HomeState extends State<Home> {
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: List.generate(10, (index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            Routes
-                                                .navigateToProductDetailPageScreen(
-                                                    context);
-                                          },
-                                          child: Container(
-                                            height: 200,
-                                            width: 160,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(10)),
-                                                gradient: LinearGradient(
-                                                  colors: [
-                                                    colors.boxGradient1
-                                                        .withOpacity(1),
-                                                    Colors.transparent,
-                                                  ],
-                                                  begin: Alignment.topCenter,
-                                                  end: Alignment.bottomCenter,
-                                                ),
-                                                border: Border.all(
-                                                    color: colors.boxBorder)),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Image.asset(
-                                                  Images.onBoarding2,
-                                                  width: 80,
-                                                  height: 80,
-                                                ),
-                                                const SizedBox(height: 8),
-                                                const Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal: 10,
-                                                    vertical: 5,
-                                                  ),
-                                                  child: Text(
-                                                    '35% Off',
-                                                    style: TextStyle(
-                                                      color: Colors.orange,
-                                                      fontSize: 12,
-                                                    ),
-                                                  ),
-                                                ),
-                                                const Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal: 10,
-                                                    vertical: 5,
-                                                  ),
-                                                  child: Text(
-                                                    'Dettol refresh longi...',
-                                                    style: TextStyle(
-                                                      color: colors.textColor,
-                                                      fontSize: 12,
-                                                    ),
-                                                  ),
-                                                ),
-                                                const Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal: 10,
-                                                    vertical: 5,
-                                                  ),
-                                                  child: Row(
-                                                    children: [
-                                                      Text(
-                                                        '120.00',
-                                                        style: TextStyle(
-                                                          color: Colors.cyan,
-                                                          fontSize: 12,
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      Text(
-                                                        "\$200",
-                                                        style: TextStyle(
-                                                          color: colors
-                                                              .lightTextColor,
-                                                          fontSize: 12,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
+                                  return wishlistCard(context);
                                 }),
                               ),
                             ),
@@ -616,6 +402,7 @@ class _HomeState extends State<Home> {
                     ),
                     SizedBox(
                       height: 170,
+                      width: MediaQuery.of(context).size.width,
                       child: Image.asset(
                         Images.summerSale,
                         fit: BoxFit.cover,
@@ -684,8 +471,8 @@ class _HomeState extends State<Home> {
                       ),
                       child: Column(
                         children: [
-                          spaceOf10Height(),
-                          spaceOf10Height(),
+                          spaceOfHeight(),
+                          spaceOfHeight(),
                           const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -723,7 +510,7 @@ class _HomeState extends State<Home> {
                               ),
                             ],
                           ),
-                          spaceOf10Height(),
+                          spaceOfHeight(),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.15,
                             child: ListView(
@@ -731,15 +518,7 @@ class _HomeState extends State<Home> {
                                   horizontal: 10, vertical: 0),
                               scrollDirection: Axis.horizontal,
                               children: List.generate(3, (index) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
-                                  child: Image.asset(
-                                    Images.bestOffer,
-                                    height: 130,
-                                    width: 130,
-                                  ),
-                                );
+                                return dailyDealCard();
                               }),
                             ),
                           ),
@@ -768,119 +547,28 @@ class _HomeState extends State<Home> {
                                     fontSize: 18),
                               )),
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
                             width: MediaQuery.of(context).size.width * 0.95,
                             child: GridView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
+                              padding: const EdgeInsets.symmetric(vertical: 10),
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
-                                crossAxisSpacing: 15,
-                                childAspectRatio: 0.55,
+                                crossAxisSpacing: 10,
+                                childAspectRatio: 0.65,
                               ),
                               itemCount: 6,
                               itemBuilder: (context, j) {
-                                return Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        Routes
-                                            .navigateToProductDetailPageScreen(
-                                                context);
-                                      },
-                                      child: SizedBox(
-                                        height: 160,
-                                        width: 100,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              padding: const EdgeInsets.all(5),
-                                              decoration: const BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.only(
-                                                    topRight:
-                                                        Radius.circular(10),
-                                                    topLeft:
-                                                        Radius.circular(10)),
-                                              ),
-                                              width: double.infinity,
-                                              child: Image.asset(
-                                                Images.onBoarding2,
-                                                width: 70,
-                                                height: 70,
-                                              ),
-                                            ),
-                                            Align(
-                                              alignment: Alignment.bottomCenter,
-                                              child: Container(
-                                                width: double.infinity,
-                                                height: 50,
-                                                decoration: const BoxDecoration(
-                                                  color: colors.buttonColor,
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  10),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  10)),
-                                                ),
-                                                child: const Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 10),
-                                                      child: Text(
-                                                        'Electric Stove',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 12,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 10),
-                                                      child: Text(
-                                                        '\$699',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 18,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    spaceOf10Height(),
-                                  ],
-                                );
+                                return topDealCard(context);
                               },
                             ),
                           ),
                         ],
                       ),
                     ),
-                    spaceOf10Height(),
+                    spaceOfHeight(),
                     Column(
                       children: [
                         Container(
@@ -919,8 +607,8 @@ class _HomeState extends State<Home> {
                                         ))
                                   ],
                                 ),
-                                spaceOf10Height(),
-                                spaceOf10Height(),
+                                spaceOfHeight(),
+                                spaceOfHeight(),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -951,7 +639,7 @@ class _HomeState extends State<Home> {
                             )),
                       ],
                     ),
-                    spaceOf10Height(),
+                    spaceOfHeight(),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: SizedBox(
@@ -979,111 +667,7 @@ class _HomeState extends State<Home> {
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: List.generate(10, (index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            Routes
-                                                .navigateToProductDetailPageScreen(
-                                                    context);
-                                          },
-                                          child: Container(
-                                            height: 200,
-                                            width: 160,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(10)),
-                                                gradient: LinearGradient(
-                                                  colors: [
-                                                    colors.boxGradient1
-                                                        .withOpacity(1),
-                                                    Colors.transparent,
-                                                  ],
-                                                  begin: Alignment.topCenter,
-                                                  end: Alignment.bottomCenter,
-                                                ),
-                                                border: Border.all(
-                                                    color: colors.boxBorder)),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Image.asset(
-                                                  Images.onBoarding2,
-                                                  width: 80,
-                                                  height: 80,
-                                                ),
-                                                const SizedBox(height: 8),
-                                                const Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal: 10,
-                                                    vertical: 5,
-                                                  ),
-                                                  child: Text(
-                                                    '35% Off',
-                                                    style: TextStyle(
-                                                      color: Colors.orange,
-                                                      fontSize: 12,
-                                                    ),
-                                                  ),
-                                                ),
-                                                const Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal: 10,
-                                                    vertical: 5,
-                                                  ),
-                                                  child: Text(
-                                                    'Dettol refresh longi...',
-                                                    style: TextStyle(
-                                                      color: colors.textColor,
-                                                      fontSize: 12,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: 10,
-                                                    vertical: 5,
-                                                  ),
-                                                  child: Row(
-                                                    children: const [
-                                                      Text(
-                                                        '120.00',
-                                                        style: TextStyle(
-                                                          color: Colors.cyan,
-                                                          fontSize: 12,
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      Text(
-                                                        "\$200",
-                                                        style: TextStyle(
-                                                          color: colors
-                                                              .lightTextColor,
-                                                          fontSize: 12,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                      ],
-                                    ),
-                                  );
+                                  return savedCard(context);
                                 }),
                               ),
                             ),

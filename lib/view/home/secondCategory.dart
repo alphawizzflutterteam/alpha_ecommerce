@@ -17,7 +17,7 @@ secondCategoryCard() {
               ),
             ),
             Image.asset(
-              Images.homeBG,
+              Images.phone,
               height: 70,
               width: 70,
             ),

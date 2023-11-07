@@ -12,8 +12,8 @@ productForUText() {
   );
 }
 
-spaceOf10Height() {
-  return const SizedBox(
-    height: 10,
+spaceOfHeight({double? height}) {
+  return SizedBox(
+    height: height ?? 10,
   );
 }

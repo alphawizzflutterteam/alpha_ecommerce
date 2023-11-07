@@ -163,7 +163,7 @@ class _MyAppState extends State<MyApp> {
               : "/home",
       routes: {
         '/': (context) => const IntroSlider(),
-        '/home': (context) => const NotificationScreen(),
+        '/home': (context) => const Dashboard(),
       },
       darkTheme: ThemeData(
         canvasColor: colors.darkColor,
