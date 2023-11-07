@@ -7,7 +7,6 @@ import 'package:alpha_ecommerce_18oct/provider/theme_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/user_provider.dart';
 import 'package:alpha_ecommerce_18oct/view/dashboard/dashboard.dart';
 import 'package:alpha_ecommerce_18oct/view/intro_slider/intro_slider.dart';
-import 'package:alpha_ecommerce_18oct/view/notification/notificationScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';

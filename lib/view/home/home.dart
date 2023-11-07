@@ -273,7 +273,7 @@ class _HomeState extends State<Home> {
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 20),
-                      height: MediaQuery.of(context).size.height * 0.36,
+                      height: MediaQuery.of(context).size.height * 0.34,
                       child: GridView.builder(
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
@@ -292,7 +292,7 @@ class _HomeState extends State<Home> {
                     spaceOfHeight(),
                     spaceOfHeight(),
                     Container(
-                      height: 250,
+                      height: MediaQuery.of(context).size.height * 0.35,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
@@ -345,11 +345,8 @@ class _HomeState extends State<Home> {
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.25,
+                            height: MediaQuery.of(context).size.height * 0.28,
                             child: ListView(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 0),
@@ -457,7 +454,7 @@ class _HomeState extends State<Home> {
                       height: 20,
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.23,
+                      height: MediaQuery.of(context).size.height * 0.25,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
@@ -557,7 +554,7 @@ class _HomeState extends State<Home> {
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                                 crossAxisSpacing: 10,
-                                childAspectRatio: 0.65,
+                                childAspectRatio: 0.6,
                               ),
                               itemCount: 6,
                               itemBuilder: (context, j) {
@@ -580,7 +577,7 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                             width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.35,
+                            height: MediaQuery.of(context).size.height * 0.40,
                             child: Column(
                               children: [
                                 Row(

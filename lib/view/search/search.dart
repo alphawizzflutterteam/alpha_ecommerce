@@ -1,9 +1,10 @@
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 
-import 'access_microphone.dart';
+import '../widget_common/access_microphone.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -15,6 +16,26 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController searchController = TextEditingController();
+
+  Future<void> getMicrophonePermission() async {
+    PermissionStatus status = await Permission.microphone.status;
+
+    // If permission is granted, return early
+    if (status.isGranted) {
+      return;
+    }
+
+    // If permission is not granted, request the microphone permission
+    if (status.isRestricted) {
+      status = await Permission.microphone.request();
+    }
+
+    // If permission is denied, show a dialog or handle it accordingly
+    if (status.isDenied) {
+      // You can show a dialog or message here to inform the user
+      // that the permission is necessary for the app to function.
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +255,9 @@ class _SearchState extends State<Search> {
                               ),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            getMicrophonePermission();
+                          },
                           child: const Text(
                             'ALLOW',
                             style: TextStyle(fontSize: 12),
