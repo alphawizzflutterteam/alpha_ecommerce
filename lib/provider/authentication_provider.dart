@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import '../utils/routes.dart';
 
 class AuthenticationProvider extends ChangeNotifier {
   String? mobileNumber, password;
@@ -69,4 +71,14 @@ class AuthenticationProvider extends ChangeNotifier {
           ),
         ),
       );
+
+  Future<void> loginFn(
+      GlobalKey<FormState> _formKey, BuildContext context, String phone) async {
+    SharedPref.shared.pref?.setString(PrefKeys.mobile, phone);
+    SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "1");
+
+    if (_formKey.currentState!.validate()) {
+      Routes.navigateToDashboardScreen(context);
+    }
+  }
 }

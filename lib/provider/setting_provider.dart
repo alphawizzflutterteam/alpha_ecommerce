@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../helper/string.dart';
+import '../utils/string.dart';
 
 class SettingProvider {
   late SharedPreferences _sharedPreferences;

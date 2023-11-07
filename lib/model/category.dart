@@ -1,4 +1,4 @@
-import '../helper/images.dart';
+import '../utils/images.dart';
 
 class MainCategory {
   final String name;

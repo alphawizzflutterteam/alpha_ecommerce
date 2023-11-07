@@ -50,6 +50,8 @@ dependencies:
   like_button: ^2.0.5
   google_fonts: ^4.0.4
   dropdown_button2: ^2.1.4
+  another_flushbar: ^1.12.30
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:

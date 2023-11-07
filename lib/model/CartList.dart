@@ -1,4 +1,4 @@
-import '../helper/images.dart';
+import '../utils/images.dart';
 
 class CartList {
   String productImage;
@@ -19,35 +19,35 @@ class CartList {
 List<CartList> cartList = [
   CartList(
       productCount: 1,
-      productImage: Images.powder,
+      productImage: Images.homeSale,
       productName: 'Oats Fitness',
       productPrice: '\$120.00',
       productWeight: '100 ml',
       productDiscount: '\$200'),
   CartList(
       productCount: 1,
-      productImage: Images.powder,
+      productImage: Images.homeSale,
       productName: 'Maggie Masala',
       productPrice: '\$120.00',
       productWeight: '100 ml',
       productDiscount: '\$200'),
   CartList(
       productCount: 1,
-      productImage: Images.powder,
+      productImage: Images.homeSale,
       productName: 'Oats Fitness',
       productPrice: '\$120.00',
       productWeight: '100 ml',
       productDiscount: '\$200'),
   CartList(
       productCount: 1,
-      productImage: Images.powder,
+      productImage: Images.homeSale,
       productName: 'Maggie Masala',
       productPrice: '\$120.00',
       productWeight: '100 ml',
       productDiscount: '\$200'),
   CartList(
       productCount: 1,
-      productImage: Images.powder,
+      productImage: Images.homeSale,
       productName: 'Oats Fitness',
       productPrice: '\$120.00',
       productWeight: '100 ml',

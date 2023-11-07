@@ -3,8 +3,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../helper/string.dart';
-import '../screen/language/language_settings.dart';
+import '../utils/string.dart';
+import '../view/language/language_settings.dart';
 
 class ThemeProvider extends ChangeNotifier {
   int activeThemeIndex = 0;

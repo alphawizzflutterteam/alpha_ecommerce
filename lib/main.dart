@@ -1,30 +1,31 @@
+import 'package:alpha_ecommerce_18oct/provider/authentication_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/currency_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/home_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/language_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/setting_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/theme_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/user_provider.dart';
-import 'package:alpha_ecommerce_18oct/screen/dashboard/dashboard.dart';
-import 'package:alpha_ecommerce_18oct/screen/intro_slider/intro_slider.dart';
+import 'package:alpha_ecommerce_18oct/view/dashboard/dashboard.dart';
+import 'package:alpha_ecommerce_18oct/view/intro_slider/intro_slider.dart';
+import 'package:alpha_ecommerce_18oct/view/notification/notificationScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'helper/color.dart';
-import 'helper/constant.dart';
-import 'helper/routes.dart';
-import 'helper/string.dart';
+import 'utils/color.dart';
+import 'utils/constant.dart';
+import 'utils/routes.dart';
+import 'utils/shared_pref..dart';
+import 'utils/string.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-
+  await SharedPref.shared.getPref();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<ThemeNotifier>(
       create: (BuildContext context) {
-        String? theme = prefs.getString(APP_THEME);
+        String? theme = SharedPref.shared.pref?.getString(PrefKeys.appTheme);
 
         if (theme == DARK) {
           ISDARK = 'true';
@@ -33,7 +34,7 @@ void main() async {
         }
 
         if (theme == null || theme == '' || theme == DEFAULT_SYSTEM) {
-          prefs.setString(APP_THEME, DEFAULT_SYSTEM);
+          SharedPref.shared.pref?.setString(APP_THEME, DEFAULT_SYSTEM);
           var brightness =
               SchedulerBinding.instance.platformDispatcher.platformBrightness;
           ISDARK = (brightness == Brightness.dark).toString();
@@ -45,9 +46,11 @@ void main() async {
       },
     ),
     Provider<SettingProvider>(
-      create: (context) => SettingProvider(prefs),
+      create: (context) => SettingProvider(SharedPref.shared.pref!),
     ),
     ChangeNotifierProvider<UserProvider>(create: (context) => UserProvider()),
+    ChangeNotifierProvider<AuthenticationProvider>(
+        create: (context) => AuthenticationProvider()),
     ChangeNotifierProvider<HomeProvider>(create: (context) => HomeProvider()),
     ChangeNotifierProvider<LanguageProvider>(
         create: (context) => LanguageProvider()),
@@ -60,7 +63,9 @@ final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
 
 class MyApp extends StatefulWidget {
-  MyApp({Key? key,}) : super(key: key);
+  const MyApp({
+    Key? key,
+  }) : super(key: key);
 
   static void setLocale(BuildContext context, Locale newLocale) {
     _MyAppState state = context.findAncestorStateOfType<_MyAppState>()!;
@@ -152,10 +157,13 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute:
+          SharedPref.shared.pref?.getString(PrefKeys.isLoggedIn) == "0"
+              ? '/'
+              : "/home",
       routes: {
         '/': (context) => const IntroSlider(),
-        '/home': (context) => const Dashboard(),
+        '/home': (context) => const NotificationScreen(),
       },
       darkTheme: ThemeData(
         canvasColor: colors.darkColor,

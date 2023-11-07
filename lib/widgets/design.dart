@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../helper/color.dart';
-import '../helper/constant.dart';
-import '../screen/language/language_settings.dart';
+import '../utils/color.dart';
+import '../utils/constant.dart';
+import '../view/language/language_settings.dart';
 
 class DesignConfiguration {
   static setSvgPath(String name) {
@@ -145,8 +145,8 @@ class DesignConfiguration {
 }
 
 class GetDiscountLabel extends StatelessWidget {
-  double discount;
-  GetDiscountLabel({Key? key, required this.discount}) : super(key: key);
+ final double discount;
+ const GetDiscountLabel({Key? key, required this.discount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

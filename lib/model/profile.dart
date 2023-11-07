@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../screen/profile/aboutUs/aboutUs.dart';
-import '../screen/profile/address/manage_address.dart';
-import '../screen/profile/contactUs/contactUs.dart';
-import '../screen/profile/coupon/coupon.dart';
-import '../screen/profile/customerSupport/customerSupport.dart';
-import '../screen/profile/faqs/faqs.dart';
-import '../screen/profile/payment/profile_payment.dart';
-import '../screen/profile/privacyPolicy/privacyPolicy.dart';
-import '../screen/profile/referEarn/referEarn.dart';
-import '../screen/profile/setting/setting.dart';
-import '../screen/profile/shippingPolicy/shippingPolicy.dart';
-import '../screen/profile/subscribe/subscribe.dart';
+import '../view/profile/aboutUs/aboutUs.dart';
+import '../view/profile/address/manage_address.dart';
+import '../view/profile/contactUs/contactUs.dart';
+import '../view/profile/coupon/coupon.dart';
+import '../view/profile/customerSupport/customerSupport.dart';
+import '../view/profile/faqs/faqs.dart';
+import '../view/profile/payment/profile_payment.dart';
+import '../view/profile/privacyPolicy/privacyPolicy.dart';
+import '../view/profile/referEarn/referEarn.dart';
+import '../view/profile/setting/setting.dart';
+import '../view/profile/shippingPolicy/shippingPolicy.dart';
+import '../view/profile/subscribe/subscribe.dart';
 
 class ProfileList {
   IconData profileIcon;

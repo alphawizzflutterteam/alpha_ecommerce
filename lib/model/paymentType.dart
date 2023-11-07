@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../screen/profile/payment/myTransaction/transactionHistory.dart';
-import '../screen/profile/payment/myWallet/wallet.dart';
-import '../screen/profile/payment/refund/refundHistory.dart';
+import '../view/profile/payment/myTransaction/transactionHistory.dart';
+import '../view/profile/payment/myWallet/wallet.dart';
+import '../view/profile/payment/refund/refundHistory.dart';
 
 class PaymentTypeList {
   IconData paymentTypeIcon;
