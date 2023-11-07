@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
-import '../../utils/routes.dart';
 import '../../model/category.dart';
 import '../widget_common/commonBackground.dart';
 import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
+import 'categoryCard.dart';
 
 class AllCategory extends StatefulWidget {
   const AllCategory({Key? key}) : super(key: key);
@@ -15,7 +15,8 @@ class AllCategory extends StatefulWidget {
 
 class _AllCategoryState extends State<AllCategory> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  List<bool> isTabSelectedList = List.generate(11, (index) => index == 0);
+  List<bool> isTabSelectedList =
+      List.generate(categories.length, (index) => index == 0);
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +30,8 @@ class _AllCategoryState extends State<AllCategory> {
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
-              Stack(
-                children: const [
+              const Stack(
+                children: [
                   ProfileHeader(),
                   DashboardHeader(),
                 ],
@@ -157,6 +158,8 @@ class _AllCategoryState extends State<AllCategory> {
                                               0.55,
                                           child: GridView.builder(
                                             shrinkWrap: true,
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 20),
                                             physics:
                                                 const AlwaysScrollableScrollPhysics(),
                                             gridDelegate:
@@ -169,44 +172,10 @@ class _AllCategoryState extends State<AllCategory> {
                                                 .categoryList
                                                 .length,
                                             itemBuilder: (context, j) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  Routes
-                                                      .navigateToCategoryDetailScreen(
-                                                          context);
-                                                },
-                                                child: SizedBox(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.45,
-                                                  child: Column(
-                                                    children: [
-                                                      Image.asset(
-                                                        categories[i]
-                                                            .categoryList[j]
-                                                            .categoryImage,
-                                                        height: 70,
-                                                        width: 90,
-                                                        fit: BoxFit.fitHeight,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Text(
-                                                        categories[i]
-                                                            .categoryList[j]
-                                                            .categoryName,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: const TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 12),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
+                                              return categoryCard(
+                                                  context: context,
+                                                  categoryIndex: i,
+                                                  categoryListIndex: j);
                                             },
                                           ),
                                         )
