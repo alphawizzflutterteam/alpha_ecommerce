@@ -7,7 +7,7 @@ import '../widget_common/common_button.dart';
 import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
 import '../widget_common/common_radioButton.dart';
-import 'cartList.dart';
+import 'cartListCard.dart';
 
 class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
@@ -33,8 +33,8 @@ class _CartState extends State<Cart> {
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
-              Stack(
-                children: const [
+              const Stack(
+                children: [
                   ProfileHeader(),
                   DashboardHeader(),
                 ],
@@ -104,10 +104,10 @@ class _CartState extends State<Cart> {
                           color: const Color(0x14E9E9E9),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Column(
+                        child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 10),
                               child: Text(
@@ -117,12 +117,12 @@ class _CartState extends State<Cart> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
+                              padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: const [
+                                children: [
                                   Text(
                                     "MRP (4 items)",
                                     style: TextStyle(
@@ -137,12 +137,12 @@ class _CartState extends State<Cart> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
+                              padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: const [
+                                children: [
                                   Text(
                                     "Delivery free",
                                     style: TextStyle(
@@ -157,12 +157,12 @@ class _CartState extends State<Cart> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
+                              padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: const [
+                                children: [
                                   Text(
                                     "Discount",
                                     style: TextStyle(
@@ -176,7 +176,7 @@ class _CartState extends State<Cart> {
                                 ],
                               ),
                             ),
-                            const Divider(
+                            Divider(
                               height: 5,
                               color: colors.greyText,
                               thickness: 1,
@@ -184,12 +184,12 @@ class _CartState extends State<Cart> {
                               endIndent: 10,
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
+                              padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: const [
+                                children: [
                                   Text(
                                     "Total Amount",
                                     style: TextStyle(
@@ -312,11 +312,11 @@ class _CartState extends State<Cart> {
                             onTap: () {
                               Routes.navigateToManageAddressScreen(context);
                             },
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
-                                  children: const [
+                                  children: [
                                     Icon(
                                       Icons.location_on,
                                       color: Colors.red,
@@ -332,7 +332,7 @@ class _CartState extends State<Cart> {
                                     ),
                                   ],
                                 ),
-                                const Icon(Icons.arrow_forward_ios_rounded)
+                                Icon(Icons.arrow_forward_ios_rounded)
                               ],
                             ),
                           ),

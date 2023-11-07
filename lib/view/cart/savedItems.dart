@@ -2,7 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../utils/routes.dart';
-import '../../model/CartList.dart';
+import '../../model/cartList.dart';
 
 class SavedItemsWidget extends StatefulWidget {
   final int i;
