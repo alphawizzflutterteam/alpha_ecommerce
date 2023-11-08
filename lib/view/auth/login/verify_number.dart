@@ -80,7 +80,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                 Image.asset(
                   Images.greenTopLogo,
                   height: 90,
-                  width: 110,
+                  width: 120,
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),

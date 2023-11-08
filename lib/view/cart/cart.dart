@@ -2,6 +2,7 @@ import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/cart/savedItems.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
+import '../../utils/images.dart';
 import '../widget_common/commonBackground.dart';
 import '../widget_common/common_button.dart';
 import '../widget_common/common_header.dart';
@@ -220,7 +221,11 @@ class _CartState extends State<Cart> {
                             ),
                             Row(
                               children: [
-                                const Icon(Icons.local_offer_outlined),
+                                Image.asset(
+                                  Images.cartOffer,
+                                  height: 20,
+                                  width: 20,
+                                ),
                                 const SizedBox(width: 10),
                                 InkWell(
                                   onTap: () {

@@ -29,10 +29,13 @@ Future<void> logOut(context) async {
                         width: 80,
                         height: 80,
                       ),
-                      Image.asset(
-                        Images.logout,
-                        width: 80,
-                        height: 80,
+                      Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Image.asset(
+                          Images.logOutSystem,
+                          width: 60,
+                          height: 60,
+                        ),
                       ),
                     ],
                   ),

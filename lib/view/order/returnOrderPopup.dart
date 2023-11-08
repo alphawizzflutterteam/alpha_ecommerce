@@ -32,10 +32,13 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
                 width: 80,
                 height: 80,
               ),
-              Image.asset(
-                Images.cancelOrder,
-                width: 80,
-                height: 80,
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Image.asset(
+                  Images.cancelOrder,
+                  width: 60,
+                  height: 60,
+                ),
               ),
             ],
           ),
@@ -65,7 +68,7 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.25,
+                width: MediaQuery.of(context).size.width * 0.22,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:
@@ -94,7 +97,7 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.32,
+                width: MediaQuery.of(context).size.width * 0.34,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:

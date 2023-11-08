@@ -177,7 +177,7 @@ class _PaymentFormState extends State<PaymentForm> {
                                 text: "PAY NOW",
                                 fontSize: 15,
                                 onClick: () {
-                                  Routes.navigateToWalletScreen(context);
+                                  Routes.navigateToWalletSuccessScreen(context);
                                 },
                               )),
                         ],

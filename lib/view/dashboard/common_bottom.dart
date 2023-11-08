@@ -64,26 +64,71 @@ class _BottomNavPageState extends State<BottomNavPage> {
             unselectedItemColor: Colors.grey,
             showSelectedLabels: true,
             showUnselectedLabels: false,
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart_sharp),
+                activeIcon: Image.asset(
+                  Images.buyWhite,
+                  height: 20,
+                  width: 20,
+                ),
+                icon: Image.asset(
+                  Images.buy,
+                  height: 20,
+                  width: 20,
+                ),
                 label: 'Cart',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.category),
+                activeIcon: Image.asset(
+                  Images.categoryWhite,
+                  height: 20,
+                  width: 20,
+                ),
+                icon: Image.asset(
+                  Images.category,
+                  height: 20,
+                  width: 20,
+                ),
                 label: 'Categories',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                activeIcon: Image.asset(
+                  Images.homeWhite,
+                  height: 20,
+                  width: 20,
+                ),
+                icon: Image.asset(
+                  Images.home,
+                  height: 20,
+                  width: 20,
+                ),
                 label: 'Home',
               ),
               // Add items for your new tabs
               BottomNavigationBarItem(
-                icon: Icon(Icons.shop),
+                activeIcon: Image.asset(
+                  Images.dashboardVendorWhite,
+                  height: 20,
+                  width: 20,
+                ),
+                icon: Image.asset(
+                  Images.dashboardVendor,
+                  height: 20,
+                  width: 20,
+                ),
                 label: 'Vendor',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person_2_outlined),
+                activeIcon: Image.asset(
+                  Images.dashboardProfileWhite,
+                  height: 20,
+                  width: 20,
+                ),
+                icon: Image.asset(
+                  Images.dashboardProfile,
+                  height: 20,
+                  width: 20,
+                ),
                 label: 'Profile',
               ),
             ],

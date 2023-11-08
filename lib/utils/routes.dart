@@ -49,6 +49,9 @@ import '../view/intro_slider/intro_slider.dart';
 import '../view/order/order.dart';
 import '../view/order/orderDetailDelivered.dart';
 import '../view/placeOrder/placeOrder.dart';
+import '../view/profile/payment/myTransaction/singleTransaction.dart';
+import '../view/profile/payment/refund/singleRefund.dart';
+import '../view/profile/referEarn/viewAllReferall.dart';
 import '../view/profile/subscribe/currentPlan.dart';
 import '../view/wishlist/wishlist.dart';
 import '../view/notification/notificationScreen.dart';
@@ -670,6 +673,41 @@ class Routes {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) => const OrderReturned(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
+  static navigateToViewAllReferallScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const ViewAllReferall(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
+  static navigateToSingleTransactionScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const SingleTransaction(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
+  static navigateToSingleRefundScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const SingleRefund(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

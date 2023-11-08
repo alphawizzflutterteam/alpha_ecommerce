@@ -367,20 +367,24 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                 onTap: () {
                                   Routes.navigateToOffersScreen(context);
                                 },
-                                child: const Row(
+                                child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Offer & Benefits",
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 14),
                                     ),
                                     Row(
                                       children: [
-                                        Icon(Icons.local_offer_outlined),
-                                        SizedBox(width: 10),
-                                        Text(
+                                        Image.asset(
+                                          Images.cartOffer,
+                                          height: 20,
+                                          width: 20,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        const Text(
                                           "View Offer",
                                           style: TextStyle(
                                               color: Colors.white,
@@ -499,12 +503,27 @@ class _PlaceOrderState extends State<PlaceOrder> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
-                                "\$480.00",
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    "\$120 - 10",
+                                    style: TextStyle(
+                                      color: colors.textColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 28,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Image.asset(
+                                    Images.rupees,
+                                    height: 25,
+                                    width: 25,
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                   height: 40,

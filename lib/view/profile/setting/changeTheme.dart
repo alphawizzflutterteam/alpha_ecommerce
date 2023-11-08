@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/color.dart';
@@ -13,12 +14,16 @@ Future<void> changeTheme(context) async {
             color: colors.overlayBG,
             height: 130,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: const Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Row(
                   children: [
-                    Icon(Icons.dark_mode),
+                    Image.asset(
+                      Images.darkTheme,
+                      height: 25,
+                      width: 25,
+                    ),
                     SizedBox(
                       width: 20,
                     ),
@@ -34,7 +39,11 @@ Future<void> changeTheme(context) async {
                 ),
                 Row(
                   children: [
-                    Icon(Icons.light_mode),
+                    Image.asset(
+                      Images.lightTheme,
+                      height: 25,
+                      width: 25,
+                    ),
                     SizedBox(
                       width: 20,
                     ),

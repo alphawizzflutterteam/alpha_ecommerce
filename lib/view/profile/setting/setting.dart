@@ -1,9 +1,9 @@
+import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/setting/changeTheme.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/setting/selectCurrency.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/setting/selectLanguage.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/setting/showRateUs.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../model/setting.dart';
 import '../../widget_common/commonBackground.dart';
 import '../../widget_common/common_header.dart';
@@ -29,32 +29,32 @@ class _SettingState extends State<Setting> {
     super.initState();
     settings = [
       SettingList(
-          settingIcon: Icons.currency_exchange,
+          settingIcon: Images.currency,
           settingName: 'Currency',
           nextNavigation: false,
           navigationPage: () => currency(context)),
       SettingList(
-          settingIcon: Icons.star,
+          settingIcon: Images.star,
           settingName: 'Rate Us',
           nextNavigation: false,
           navigationPage: () => showAlertDialog(context)),
       SettingList(
-          settingIcon: FontAwesomeIcons.share,
+          settingIcon: Images.shareApp,
           settingName: 'Share',
           nextNavigation: false,
           navigationPage: () => share(context)),
       SettingList(
-          settingIcon: FontAwesomeIcons.lock,
+          settingIcon: Images.changePassword,
           settingName: 'Change Password',
           nextNavigation: true,
           navigationPage: const ChangePassword()),
       SettingList(
-          settingIcon: FontAwesomeIcons.language,
+          settingIcon: Images.changeLanguage,
           settingName: 'Change Language',
           nextNavigation: false,
           navigationPage: () => language(context)),
       SettingList(
-          settingIcon: FontAwesomeIcons.themeco,
+          settingIcon: Images.changeTheme,
           settingName: 'Change Theme',
           nextNavigation: false,
           navigationPage: () => changeTheme(context)),
@@ -105,9 +105,10 @@ class _SettingState extends State<Setting> {
                                       : settings[i].navigationPage();
                                 },
                                 child: ListTile(
-                                  leading: Icon(
+                                  leading: Image.asset(
                                     settings[i].settingIcon,
-                                    color: Colors.white,
+                                    height: 30,
+                                    width: 30,
                                   ),
                                   title: Text(
                                     settings[i].settingName,

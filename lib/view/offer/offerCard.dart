@@ -7,8 +7,7 @@ offerCard(context) {
   return Container(
     height: 180,
     width: MediaQuery.of(context).size.width * 0.95,
-    padding: const EdgeInsets.symmetric(
-        horizontal: 10, vertical: 10),
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     child: Row(
       children: [
         Container(
@@ -36,7 +35,11 @@ offerCard(context) {
               const SizedBox(
                 height: 10,
               ),
-              Image.asset(Images.offer)
+              Image.asset(
+                Images.offer,
+                height: 25,
+                width: 25,
+              )
             ],
           ),
         ),
@@ -52,23 +55,20 @@ offerCard(context) {
             ),
             color: Colors.transparent,
           ),
-          padding: const EdgeInsets.symmetric(
-              horizontal: 20, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 'Everyday Savings, Fresh Delights:',
-                style: TextStyle(
-                    color: Colors.white, fontSize: 14),
+                style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               const SizedBox(
                 height: 5,
               ),
               const Text(
                 'Your One-Stop Grocery Destination!',
-                style: TextStyle(
-                    color: Colors.white, fontSize: 14),
+                style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               const SizedBox(
                 height: 10,
@@ -84,27 +84,21 @@ offerCard(context) {
                 height: 15,
               ),
               Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Column(
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Expires',
-                        style: TextStyle(
-                            color: colors.greyText,
-                            fontSize: 12),
+                        style: TextStyle(color: colors.greyText, fontSize: 12),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
                         '30 Jul 2019',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14),
+                        style: TextStyle(color: Colors.white, fontSize: 14),
                       ),
                     ],
                   ),
@@ -121,9 +115,7 @@ offerCard(context) {
                                   .white), // Replace with your desired icon
                           Text(
                             'CP16533',
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white),
+                            style: TextStyle(fontSize: 16, color: Colors.white),
                           ),
                         ],
                       ),

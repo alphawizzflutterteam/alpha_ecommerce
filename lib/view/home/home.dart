@@ -53,7 +53,11 @@ class _HomeState extends State<Home> {
                 Routes.navigateToChatScreen(context);
               },
               backgroundColor: colors.buttonColor,
-              child: Image.asset(Images.chat)),
+              child: Image.asset(
+                Images.chat,
+                height: 40,
+                width: 40,
+              )),
           body: Column(
             children: [
               const Stack(
@@ -178,18 +182,19 @@ class _HomeState extends State<Home> {
                             onTap: () {
                               homeFilter(context);
                             },
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.filter_list_outlined,
-                                  color: Colors.white,
+                                Image.asset(
+                                  Images.filter,
+                                  height: 20,
+                                  width: 20,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
-                                Text(
+                                const Text(
                                   'Filter',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 16),
@@ -213,18 +218,19 @@ class _HomeState extends State<Home> {
                             onTap: () {
                               homeCategory(context);
                             },
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.filter_list_outlined,
-                                  color: Colors.white,
+                                Image.asset(
+                                  Images.categoryWhite,
+                                  height: 20,
+                                  width: 20,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
-                                Text(
+                                const Text(
                                   'Category',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 16),
@@ -248,18 +254,19 @@ class _HomeState extends State<Home> {
                             onTap: () {
                               homeSort(context);
                             },
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.filter_list_outlined,
-                                  color: Colors.white,
+                                Image.asset(
+                                  Images.sort,
+                                  height: 20,
+                                  width: 20,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
-                                Text(
+                                const Text(
                                   'Sort',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 16),
@@ -292,7 +299,7 @@ class _HomeState extends State<Home> {
                     spaceOfHeight(),
                     spaceOfHeight(),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.35,
+                      height: MediaQuery.of(context).size.height * 0.38,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
@@ -345,6 +352,9 @@ class _HomeState extends State<Home> {
                               ),
                             ],
                           ),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.28,
                             child: ListView(
@@ -368,19 +378,37 @@ class _HomeState extends State<Home> {
                         height: 270,
                         child: Column(
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Your wishlist items",
                                     style: TextStyle(color: colors.textColor),
                                   ),
-                                  Text(
-                                    "VIEW ALL",
-                                    style: TextStyle(color: colors.buttonColor),
+                                  InkWell(
+                                    onTap: () {
+                                      Routes.navigateToWishlistScreen(context);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        const Text(
+                                          "VIEW ALL",
+                                          style: TextStyle(
+                                              color: colors.buttonColor),
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        Image.asset(
+                                          Images.doubleArrow,
+                                          height: 15,
+                                          width: 15,
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -409,7 +437,7 @@ class _HomeState extends State<Home> {
                       height: 20,
                     ),
                     Container(
-                      height: 85,
+                      height: MediaQuery.of(context).size.height * 0.13,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -428,7 +456,11 @@ class _HomeState extends State<Home> {
                               child: Padding(
                                 padding:
                                     const EdgeInsets.only(left: 20, top: 10),
-                                child: Image.asset(Images.starDeal),
+                                child: Image.asset(
+                                  Images.starDeal,
+                                  height: 20,
+                                  width: 20,
+                                ),
                               )),
                           const Align(
                             alignment: Alignment.center,
@@ -445,7 +477,11 @@ class _HomeState extends State<Home> {
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                     right: 20, bottom: 10),
-                                child: Image.asset(Images.starDeal),
+                                child: Image.asset(
+                                  Images.starDeal,
+                                  height: 20,
+                                  width: 20,
+                                ),
                               )),
                         ],
                       ),
@@ -554,7 +590,7 @@ class _HomeState extends State<Home> {
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                                 crossAxisSpacing: 10,
-                                childAspectRatio: 0.6,
+                                childAspectRatio: 0.55,
                               ),
                               itemCount: 6,
                               itemBuilder: (context, j) {
@@ -643,21 +679,27 @@ class _HomeState extends State<Home> {
                         height: 300,
                         child: Column(
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "View your cart Items",
-                                    style: TextStyle(color: colors.textColor),
-                                  ),
-                                  Text(
-                                    "VIEW ALL",
-                                    style: TextStyle(color: colors.buttonColor),
-                                  ),
-                                ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: InkWell(
+                                onTap: () {
+                                  Routes.navigateToCartScreen(context);
+                                },
+                                child: const Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "View your cart Items",
+                                      style: TextStyle(color: colors.textColor),
+                                    ),
+                                    Text(
+                                      "VIEW ALL",
+                                      style:
+                                          TextStyle(color: colors.buttonColor),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             Expanded(

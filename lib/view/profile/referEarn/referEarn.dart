@@ -131,8 +131,8 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                     // ),
                                   ),
                                   child: const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 20),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -204,24 +204,31 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 20,),
+                          const SizedBox(
+                            height: 20,
+                          ),
                         ],
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
                           vertical: 20, horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             "Referall Member & Amount",
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
-                          Text(
-                            "View all",
-                            style: TextStyle(
-                                color: colors.buttonColor, fontSize: 12),
+                          InkWell(
+                            onTap: () {
+                              Routes.navigateToViewAllReferallScreen(context);
+                            },
+                            child: const Text(
+                              "View all",
+                              style: TextStyle(
+                                  color: colors.buttonColor, fontSize: 12),
+                            ),
                           )
                         ],
                       ),

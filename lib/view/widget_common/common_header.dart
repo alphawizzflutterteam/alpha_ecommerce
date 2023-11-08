@@ -1,6 +1,5 @@
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:flutter/material.dart';
-
 import '../../utils/color.dart';
 import '../../utils/routes.dart';
 import 'commonTextStyle.dart';
@@ -30,30 +29,30 @@ class DashboardHeader extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
               child: Row(
                 children: [
                   InkWell(
-                    onTap: () {
-                      Routes.navigateToSearchScreen(context);
-                    },
-                    child: const Icon(
-                      Icons.search_outlined,
-                      size: 25,
-                    ),
-                  ),
+                      onTap: () {
+                        Routes.navigateToSearchScreen(context);
+                      },
+                      child: Image.asset(
+                        Images.search,
+                        height: 25,
+                        width: 25,
+                      )),
                   const SizedBox(
-                    width: 10,
+                    width: 5,
                   ),
                   InkWell(
-                    onTap: () {
-                      Routes.navigateToNotificationScreen(context);
-                    },
-                    child: const Icon(
-                      Icons.notifications_on_sharp,
-                      size: 25,
-                    ),
-                  ),
+                      onTap: () {
+                        Routes.navigateToNotificationScreen(context);
+                      },
+                      child: Image.asset(
+                        Images.notification,
+                        height: 30,
+                        width: 30,
+                      )),
                 ],
               ),
             )
@@ -142,29 +141,31 @@ class InternalDetailPageHeader extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 )),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
               child: Row(
                 children: [
                   InkWell(
                     onTap: () {
                       Routes.navigateToSearchScreen(context);
                     },
-                    child: const Icon(
-                      Icons.search_outlined,
-                      size: 25,
+                    child: Image.asset(
+                      Images.search,
+                      height: 25,
+                      width: 25,
                     ),
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 5,
                   ),
                   InkWell(
                     onTap: () {
                       Routes.navigateToCartScreen(context);
                       // const BottomNavPage(index: 0);
                     },
-                    child: const Icon(
-                      Icons.shopping_cart_sharp,
-                      size: 25,
+                    child: Image.asset(
+                      Images.headerCart,
+                      height: 30,
+                      width: 30,
                     ),
                   ),
                 ],

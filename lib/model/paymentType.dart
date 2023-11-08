@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../utils/images.dart';
 import '../view/profile/payment/myTransaction/transactionHistory.dart';
 import '../view/profile/payment/myWallet/wallet.dart';
 import '../view/profile/payment/refund/refundHistory.dart';
 
 class PaymentTypeList {
-  IconData paymentTypeIcon;
+  String paymentTypeIcon;
   String paymentTypeName;
   Widget navigationScreen;
   PaymentTypeList(
@@ -16,15 +17,15 @@ class PaymentTypeList {
 
 List<PaymentTypeList> paymentType = [
   PaymentTypeList(
-      paymentTypeIcon: FontAwesomeIcons.wallet,
+      paymentTypeIcon: Images.walletProfile,
       paymentTypeName: 'My Wallet',
       navigationScreen: const Wallet()),
   PaymentTypeList(
-      paymentTypeIcon: FontAwesomeIcons.file,
+      paymentTypeIcon: Images.transaction,
       paymentTypeName: 'My Transaction',
       navigationScreen: const TransactionHistory()),
   PaymentTypeList(
-      paymentTypeIcon: FontAwesomeIcons.moneyBill,
+      paymentTypeIcon: Images.refund,
       paymentTypeName: 'Refund',
       navigationScreen: const RefundHistory()),
 ];

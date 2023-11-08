@@ -115,21 +115,22 @@ class _SearchState extends State<Search> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          accessCamera(context);
-                        },
-                        child: const Icon(
-                          Icons.camera_alt_outlined,
-                          color: Colors.white,
-                        ),
-                      ),
+                          onTap: () {
+                            accessCamera(context);
+                          },
+                          child: Image.asset(
+                            Images.camera,
+                            height: 25,
+                            width: 25,
+                          )),
                       InkWell(
                         onTap: () {
                           showMicrophone(context);
                         },
-                        child: const Icon(
-                          Icons.mic,
-                          color: Colors.white,
+                        child: Image.asset(
+                          Images.smallMic,
+                          height: 25,
+                          width: 25,
                         ),
                       )
                     ],
@@ -169,19 +170,10 @@ class _SearchState extends State<Search> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Stack(
-                    children: [
-                      Image.asset(
-                        Images.iconBG,
-                        width: 80,
-                        height: 80,
-                      ),
-                      Image.asset(
-                        Images.mic,
-                        width: 80,
-                        height: 80,
-                      ),
-                    ],
+                  Image.asset(
+                    Images.mic,
+                    width: 80,
+                    height: 80,
                   ),
                   const SizedBox(
                     height: 10,

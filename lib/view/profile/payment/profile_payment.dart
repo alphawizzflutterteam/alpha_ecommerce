@@ -52,9 +52,10 @@ class _ProfilePaymentState extends State<ProfilePayment> {
                               );
                             },
                             child: ListTile(
-                              leading: Icon(
+                              leading: Image.asset(
                                 paymentType[i].paymentTypeIcon,
-                                color: Colors.white60,
+                                height: 30,
+                                width: 30,
                               ),
                               title: Text(
                                 paymentType[i].paymentTypeName,

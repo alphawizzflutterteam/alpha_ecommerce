@@ -35,7 +35,11 @@ couponCard({required context}) {
               const SizedBox(
                 height: 10,
               ),
-              Image.asset(Images.offer)
+              Image.asset(
+                Images.offer,
+                height: 25,
+                width: 25,
+              )
             ],
           ),
         ),

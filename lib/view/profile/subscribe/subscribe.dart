@@ -51,8 +51,8 @@ class _SubscribeState extends State<Subscribe> {
                             size: 30,
                           )),
                     )
-                  : Stack(
-                      children: const [
+                  : const Stack(
+                      children: [
                         ProfileHeader(),
                         InternalPageHeader(
                           text: "Alpha Subscription",
@@ -69,10 +69,10 @@ class _SubscribeState extends State<Subscribe> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         showHeader
-                            ? Column(
+                            ? const Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                children: const [
+                                children: [
                                   SizedBox(
                                     height: 10,
                                   ),
@@ -137,12 +137,12 @@ class _SubscribeState extends State<Subscribe> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Column(
+                                    const Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      children: const [
+                                      children: [
                                         Text(
                                           "ALPHA PREMIUM",
                                           style: TextStyle(
@@ -258,12 +258,12 @@ class _SubscribeState extends State<Subscribe> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Column(
+                                                const Column(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.start,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
-                                                  children: const [
+                                                  children: [
                                                     Text(
                                                       "ALPHA GOLD",
                                                       style: TextStyle(
@@ -321,14 +321,11 @@ class _SubscribeState extends State<Subscribe> {
                                                   ],
                                                 ),
                                                 const SizedBox(
-                                                  width: 30,
+                                                  width: 20,
                                                 ),
                                                 Container(
                                                     alignment:
                                                         Alignment.centerRight,
-                                                    height: 30,
-                                                    width:
-                                                        showHeader ? 110 : 120,
                                                     child: showHeader
                                                         ? const Text(
                                                             'SUBSCRIBE NOW',
@@ -337,30 +334,48 @@ class _SubscribeState extends State<Subscribe> {
                                                                 color: Colors
                                                                     .white),
                                                           )
-                                                        : Row(
+                                                        : Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .end,
                                                             children: [
-                                                              const Icon(
-                                                                Icons
-                                                                    .check_circle_outline,
-                                                                size: 18,
+                                                              Row(
+                                                                children: [
+                                                                  const Icon(
+                                                                    Icons
+                                                                        .check_circle_outline,
+                                                                    size: 18,
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    width: 3,
+                                                                  ),
+                                                                  InkWell(
+                                                                    onTap: () {
+                                                                      Routes.navigateToCurrentPlanScreen(
+                                                                          context);
+                                                                    },
+                                                                    child:
+                                                                        const Text(
+                                                                      'CURRENT PLAN',
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              12,
+                                                                          color:
+                                                                              Colors.white),
+                                                                    ),
+                                                                  ),
+                                                                ],
                                                               ),
                                                               const SizedBox(
-                                                                width: 3,
+                                                                height: 4,
                                                               ),
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  Routes.navigateToCurrentPlanScreen(
-                                                                      context);
-                                                                },
-                                                                child:
-                                                                    const Text(
-                                                                  'CURRENT PLAN',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          12,
-                                                                      color: Colors
-                                                                          .white),
-                                                                ),
+                                                              const Text(
+                                                                'Expiring by 02 Feb, 2023',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    color: Colors
+                                                                        .white),
                                                               ),
                                                             ],
                                                           )),
@@ -376,11 +391,11 @@ class _SubscribeState extends State<Subscribe> {
                                           ),
                                           const SizedBox(height: 15),
                                           for (int i = 0; i < 4; i++)
-                                            Padding(
-                                              padding: const EdgeInsets.only(
+                                            const Padding(
+                                              padding: EdgeInsets.only(
                                                   bottom: 5, top: 5),
                                               child: Row(
-                                                children: const [
+                                                children: [
                                                   SizedBox(width: 20),
                                                   Icon(
                                                     Icons.check_circle_outline,
@@ -424,7 +439,7 @@ class _SubscribeState extends State<Subscribe> {
                                         .white, // Set the border color here
                                   ),
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
@@ -433,7 +448,7 @@ class _SubscribeState extends State<Subscribe> {
                                           MainAxisAlignment.start,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      children: const [
+                                      children: [
                                         Text(
                                           "ALPHA BASIC",
                                           style: TextStyle(
@@ -490,7 +505,7 @@ class _SubscribeState extends State<Subscribe> {
                           )
                         else
                           Container(
-                            child: Text(""),
+                            child: const Text(""),
                           ),
                       ],
                     ),

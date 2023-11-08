@@ -128,12 +128,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           ),
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               "25% Off",
                               style: TextStyle(
                                   color: Colors.orange,
@@ -142,14 +142,15 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             ),
                             Row(
                               children: [
-                                Icon(
-                                  FontAwesomeIcons.share,
-                                  size: 18,
+                                Image.asset(
+                                  Images.share,
+                                  height: 20,
+                                  width: 20,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
-                                Icon(
+                                const Icon(
                                   FontAwesomeIcons.heart,
                                   size: 18,
                                 )
@@ -194,27 +195,47 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               "\$200",
                               style: TextStyle(
                                 color: colors.lightTextColor,
                                 fontSize: 18,
                               ),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "\$120.00",
-                              style: TextStyle(
-                                color: colors.buttonColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
+                            Row(
+                              children: [
+                                const Text(
+                                  "or Pay \$100 + ",
+                                  style: TextStyle(
+                                    color: colors.textColor,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      Images.rupees,
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    const Text(
+                                      "20",
+                                      style: TextStyle(
+                                        color: colors.textColor,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ],
                         ),

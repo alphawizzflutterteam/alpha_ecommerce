@@ -271,6 +271,38 @@ class _ManageAddressState extends State<ManageAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
+                          controller: houseController,
+                          decoration: commonInputDecoration(
+                            labelText: 'House no, Building Name',
+                          ),
+                          style: const TextStyle(color: colors.textColor),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: TextFormField(
+                          controller: roadController,
+                          decoration: commonInputDecoration(
+                            labelText: 'Road name, Area Colony',
+                          ),
+                          style: const TextStyle(color: colors.textColor),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: TextFormField(
                           controller: countryController,
                           decoration: commonInputDecoration(
                             labelText: 'Country',
@@ -306,38 +338,6 @@ class _ManageAddressState extends State<ManageAddress> {
                           controller: cityController,
                           decoration: commonInputDecoration(
                             labelText: 'City',
-                          ),
-                          style: const TextStyle(color: colors.textColor),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          controller: houseController,
-                          decoration: commonInputDecoration(
-                            labelText: 'House no, Building Name',
-                          ),
-                          style: const TextStyle(color: colors.textColor),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          controller: roadController,
-                          decoration: commonInputDecoration(
-                            labelText: 'Road name, Area Colony',
                           ),
                           style: const TextStyle(color: colors.textColor),
                         ),

@@ -4,9 +4,7 @@ import '../../utils/color.dart';
 import '../../utils/routes.dart';
 import '../../model/wishlist.dart';
 import '../widget_common/commonBackground.dart';
-import '../widget_common/common_button.dart';
 import '../widget_common/common_header.dart';
-import '../widget_common/toast_message.dart';
 import '../profile/common_header.dart';
 
 class Wishlist extends StatefulWidget {
@@ -119,7 +117,7 @@ class _WishlistState extends State<Wishlist> {
                                       SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.47,
+                                                0.43,
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -129,7 +127,7 @@ class _WishlistState extends State<Wishlist> {
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  0.2,
+                                                  0.17,
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
                                                   borderRadius:
@@ -141,7 +139,7 @@ class _WishlistState extends State<Wishlist> {
                                                 "DELETE",
                                                 style: TextStyle(
                                                     color: colors.textColor,
-                                                    fontSize: 12),
+                                                    fontSize: 10),
                                                 textAlign: TextAlign.center,
                                               ),
                                             ),
@@ -150,7 +148,7 @@ class _WishlistState extends State<Wishlist> {
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  0.25,
+                                                  0.23,
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
                                                   borderRadius:
@@ -162,7 +160,7 @@ class _WishlistState extends State<Wishlist> {
                                                 "ADD TO CART",
                                                 style: TextStyle(
                                                     color: colors.textColor,
-                                                    fontSize: 12),
+                                                    fontSize: 10),
                                                 textAlign: TextAlign.center,
                                               ),
                                             ),

@@ -1,7 +1,6 @@
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
-import '../widget_common/commonBackground.dart';
 
 class PaySuccess extends StatefulWidget {
   const PaySuccess({Key? key}) : super(key: key);
@@ -16,17 +15,24 @@ class _PaySuccessState extends State<PaySuccess> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      const CommonBackgroundPatternAuthWidget(),
+      Container(
+        width: double.infinity,
+        color: colors.buttonColor,
+        child: Image(
+            height: MediaQuery.of(context).size.height,
+            fit: BoxFit.fill,
+            image: const AssetImage(Images.success)),
+      ),
       Scaffold(
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
           backgroundColor: Colors.transparent,
-          body: Center(
+          body: const Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
+              children: [
                 Padding(
                   padding: EdgeInsets.all(5.0),
                   child: Image(

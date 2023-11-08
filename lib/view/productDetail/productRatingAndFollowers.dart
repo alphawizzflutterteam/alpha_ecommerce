@@ -15,15 +15,25 @@ productRatingAndFollowersCard() {
     child: Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(Images.vendor),
-            const SizedBox(
-              width: 10,
+            Row(
+              children: [
+                Image.asset(Images.vendor),
+                const SizedBox(
+                  width: 10,
+                ),
+                const Text(
+                  "Best Mart",
+                  style: TextStyle(color: Colors.white),
+                )
+              ],
             ),
-            const Text(
-              "Best Mart",
-              style: TextStyle(color: Colors.white),
-            )
+            Image.asset(
+              Images.trusted,
+              height: 40,
+              width: 60,
+            ),
           ],
         ),
         const SizedBox(
@@ -92,11 +102,17 @@ productRatingAndFollowersCard() {
                 ),
               ],
             ),
-            Image.asset(
-              Images.arrow,
-              width: 30,
-              height: 30,
-            )
+            Container(
+                height: 40,
+                width: 40,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(5),
+                decoration: const BoxDecoration(
+                    color: colors.buttonColor, shape: BoxShape.circle),
+                child: const Icon(
+                  Icons.arrow_forward_ios_outlined,
+                  color: colors.textColor,
+                )),
           ],
         )
       ],

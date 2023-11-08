@@ -51,7 +51,7 @@ class _CategoryDetailState extends State<CategoryDetail> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 10),
                         child: Wrap(
-                          spacing: 20,
+                          spacing: 10,
                           runSpacing: 20,
                           children: [
                             for (int i = 0; i < 10; i++)
@@ -84,18 +84,19 @@ class _CategoryDetailState extends State<CategoryDetail> {
                             onTap: () {
                               homeFilter(context);
                             },
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.filter_list_outlined,
-                                  color: Colors.white,
+                                Image.asset(
+                                  Images.filter,
+                                  width: 20,
+                                  height: 20,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
-                                Text(
+                                const Text(
                                   'Filter',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 16),
@@ -118,18 +119,19 @@ class _CategoryDetailState extends State<CategoryDetail> {
                             onTap: () {
                               homeSort(context);
                             },
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.filter_list_outlined,
-                                  color: Colors.white,
+                                Image.asset(
+                                  Images.sort,
+                                  width: 20,
+                                  height: 20,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
-                                Text(
+                                const Text(
                                   'Sort',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 16),

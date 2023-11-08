@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SettingList {
-  IconData settingIcon;
+  String settingIcon;
   String settingName;
   bool nextNavigation;
   dynamic navigationPage;

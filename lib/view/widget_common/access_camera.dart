@@ -19,7 +19,11 @@ Future<void> accessCamera(context) async {
               children: [
                 Row(
                   children: [
-                    Image.asset(Images.camera),
+                    Image.asset(
+                      Images.camera,
+                      height: 30,
+                      width: 30,
+                    ),
                     const SizedBox(
                       width: 20,
                     ),
@@ -35,7 +39,11 @@ Future<void> accessCamera(context) async {
                 ),
                 Row(
                   children: [
-                    Image.asset(Images.gallery),
+                    Image.asset(
+                      Images.gallery,
+                      height: 30,
+                      width: 30,
+                    ),
                     const SizedBox(
                       width: 20,
                     ),

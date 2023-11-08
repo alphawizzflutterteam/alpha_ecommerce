@@ -47,7 +47,7 @@ class _WalletState extends State<Wallet> {
                     child: Image(
                         height: 100,
                         width: 150,
-                        image: AssetImage(Images.wallet)),
+                        image: AssetImage(Images.myWallet)),
                   ),
                   const Padding(
                     padding: EdgeInsets.all(5),

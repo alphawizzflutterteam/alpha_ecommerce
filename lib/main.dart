@@ -157,9 +157,12 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       initialRoute:
-          SharedPref.shared.pref?.getString(PrefKeys.isLoggedIn) == "0"
-              ? '/'
-              : "/home",
+          // SharedPref.shared.pref?.getString(PrefKeys.isLoggedIn) == "0"
+          //     ?
+          '/'
+      //     :
+      // "/home"
+      ,
       routes: {
         '/': (context) => const IntroSlider(),
         '/home': (context) => const Dashboard(),

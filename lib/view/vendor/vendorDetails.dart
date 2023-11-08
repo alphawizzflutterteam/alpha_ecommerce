@@ -101,7 +101,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.2,
+                                                    0.22,
                                                 child: CommonButton(
                                                   text: "Follow",
                                                   fontSize: 14,

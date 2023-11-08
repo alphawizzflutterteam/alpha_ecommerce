@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../utils/images.dart';
 import '../view/profile/aboutUs/aboutUs.dart';
 import '../view/profile/address/manage_address.dart';
 import '../view/profile/contactUs/contactUs.dart';
@@ -14,7 +15,7 @@ import '../view/profile/shippingPolicy/shippingPolicy.dart';
 import '../view/profile/subscribe/subscribe.dart';
 
 class ProfileList {
-  IconData profileIcon;
+  String profileIcon;
   String profileText;
   dynamic navigationScreen;
   ProfileList(
@@ -25,55 +26,55 @@ class ProfileList {
 
 List<ProfileList> profile = [
   ProfileList(
-      profileIcon: Icons.location_on_outlined,
+      profileIcon: Images.locationProfile,
       profileText: 'Manage Address',
       navigationScreen: const ManageAddress()),
   ProfileList(
-      profileIcon: Icons.payment,
+      profileIcon: Images.walletProfile,
       profileText: 'Payment',
       navigationScreen: const ProfilePayment()),
   ProfileList(
-      profileIcon: Icons.discount,
+      profileIcon: Images.discountProfile,
       profileText: 'Coupons',
       navigationScreen: const Coupon()),
   ProfileList(
-      profileIcon: Icons.settings,
+      profileIcon: Images.setting,
       profileText: 'Setting',
       navigationScreen: const Setting()),
   ProfileList(
-      profileIcon: Icons.subscriptions,
+      profileIcon: Images.subscribe,
       profileText: 'Subscribe',
       navigationScreen: const Subscribe()),
   ProfileList(
-      profileIcon: FontAwesomeIcons.share,
+      profileIcon: Images.referAndEarn,
       profileText: 'Refer and Earn',
       navigationScreen: const ReferAndEarn()),
   ProfileList(
-      profileIcon: Icons.support_agent_outlined,
+      profileIcon: Images.support,
       profileText: 'Customer Support',
       navigationScreen: const CustomerSupport()),
   ProfileList(
-      profileIcon: Icons.phone_in_talk_outlined,
+      profileIcon: Images.calling,
       profileText: 'Contact Us',
       navigationScreen: const ContactUs()),
   ProfileList(
-      profileIcon: Icons.help_outline,
+      profileIcon: Images.faq,
       profileText: 'Faqs',
       navigationScreen: const FAQs()),
   ProfileList(
-      profileIcon: Icons.lock,
+      profileIcon: Images.privacyPolicy,
       profileText: 'Privacy Policy',
       navigationScreen: const PrivacyPolicy()),
   ProfileList(
-      profileIcon: Icons.local_shipping,
+      profileIcon: Images.shipping,
       profileText: 'Shipping & Delivery policy',
       navigationScreen: const ShippingPolicy()),
   ProfileList(
-      profileIcon: Icons.info,
+      profileIcon: Images.aboutUs,
       profileText: 'About Us',
       navigationScreen: const AboutUs()),
   ProfileList(
-      profileIcon: Icons.logout,
+      profileIcon: Images.logOut,
       profileText: 'Logout',
       navigationScreen: "functionOpen"),
 ];

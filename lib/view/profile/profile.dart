@@ -3,7 +3,6 @@ import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/model/profile.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/logOut/logOut.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../utils/color.dart';
 import '../widget_common/commonBackground.dart';
 import '../widget_common/common_header.dart';
@@ -34,7 +33,11 @@ class _ProfileState extends State<Profile> {
               Routes.navigateToChatScreen(context);
             },
             backgroundColor: colors.buttonColor,
-            child: Image.asset(Images.chat),
+            child: Image.asset(
+              Images.chat,
+              height: 40,
+              width: 40,
+            ),
           ),
           body: Column(
             children: [
@@ -135,7 +138,7 @@ class _ProfileState extends State<Profile> {
                                     const Row(
                                       children: [
                                         Icon(
-                                          Icons.phone_enabled_outlined,
+                                          Icons.phone_outlined,
                                           color: colors.lightTextColor,
                                           size: 18,
                                         ),
@@ -169,19 +172,19 @@ class _ProfileState extends State<Profile> {
                       decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(5))),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(
-                            Icons.sort_by_alpha_outlined,
-                            color: Colors.black,
-                            size: 18,
+                          Image.asset(
+                            Images.alphaProfile,
+                            height: 20,
+                            width: 20,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
-                          Text(
+                          const Text(
                             "ALPHA Membership",
                             style: TextStyle(color: Colors.black, fontSize: 12),
                           )
@@ -240,18 +243,18 @@ class _ProfileState extends State<Profile> {
                                     const SizedBox(
                                       width: 20,
                                     ),
-                                    const Center(
+                                    Center(
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Icon(
-                                            FontAwesomeIcons.basketShopping,
-                                            color: Colors.white,
-                                            size: 30,
+                                          Image.asset(
+                                            Images.order,
+                                            height: 50,
+                                            width: 50,
                                           ),
-                                          SizedBox(height: 8),
-                                          Text(
+                                          const SizedBox(height: 8),
+                                          const Text(
                                             "My Order",
                                             style: TextStyle(
                                               color: Colors.white,
@@ -304,18 +307,18 @@ class _ProfileState extends State<Profile> {
                                     const SizedBox(
                                       width: 20,
                                     ),
-                                    const Center(
+                                    Center(
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Icon(
-                                            FontAwesomeIcons.heart,
-                                            color: Colors.white,
-                                            size: 30,
+                                          Image.asset(
+                                            Images.heart,
+                                            height: 50,
+                                            width: 50,
                                           ),
-                                          SizedBox(height: 8),
-                                          Text(
+                                          const SizedBox(height: 8),
+                                          const Text(
                                             "My Wishlist",
                                             style: TextStyle(
                                               color: Colors.white,
@@ -356,9 +359,10 @@ class _ProfileState extends State<Profile> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: ListTile(
-                                  leading: Icon(
+                                  leading: Image.asset(
                                     profile[i].profileIcon,
-                                    color: Colors.white,
+                                    height: 30,
+                                    width: 30,
                                   ),
                                   title: Text(
                                     profile[i].profileText,
