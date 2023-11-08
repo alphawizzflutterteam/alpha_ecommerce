@@ -84,11 +84,11 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             height: 100,
                             width: 100,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 15),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 15),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Icon(Icons.monetization_on,
                                     color: Colors.yellow),
                                 SizedBox(
@@ -130,8 +130,8 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                     //   width: 1, // Border width
                                     // ),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(
                                         horizontal: 20),
                                     child: Row(
                                       mainAxisAlignment:
@@ -140,7 +140,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Column(
-                                          children: const [
+                                          children: [
                                             Text(
                                               "You referral code",
                                               style: TextStyle(
@@ -159,14 +159,14 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                             ),
                                           ],
                                         ),
-                                        const VerticalDivider(
+                                        VerticalDivider(
                                           width: 1,
                                           color: Colors.grey,
                                           thickness: 3,
                                           indent: 10,
                                           endIndent: 10,
                                         ),
-                                        const Text(
+                                        Text(
                                           "Copy\nCode",
                                           style: TextStyle(
                                               fontSize: 12,
@@ -184,10 +184,10 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             onTap: () {
                               share(context);
                             },
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Icon(
                                   Icons.ios_share_outlined,
                                   color: Colors.orange,
@@ -204,16 +204,16 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 20,),
+                          const SizedBox(height: 20,),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
                           vertical: 20, horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           Text(
                             "Referall Member & Amount",
                             style: TextStyle(color: Colors.white, fontSize: 18),
@@ -247,7 +247,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                         color: Color(
                                             0x6B969696), // Set the background color
                                       ),
-                                      child: Center(
+                                      child: const Center(
                                         child: Text(
                                           "AS",
                                           style: TextStyle(
@@ -261,7 +261,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                       ),
                                     ),
                                     const SizedBox(width: 15),
-                                    Column(
+                                    const Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       mainAxisAlignment:

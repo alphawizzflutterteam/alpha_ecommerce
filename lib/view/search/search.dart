@@ -4,7 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 
-import '../widget_common/access_microphone.dart';
+import '../widget_common/access_camera.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -116,7 +116,7 @@ class _SearchState extends State<Search> {
                       ),
                       InkWell(
                         onTap: () {
-                          accessMicrophone(context);
+                          accessCamera(context);
                         },
                         child: const Icon(
                           Icons.camera_alt_outlined,

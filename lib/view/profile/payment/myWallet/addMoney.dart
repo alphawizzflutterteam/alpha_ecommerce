@@ -32,8 +32,8 @@ class _AddMoneyState extends State<AddMoney> {
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
-              Stack(
-                children: const [
+              const Stack(
+                children: [
                   ProfileHeader(),
                   InternalPageHeader(text: "Add Money")
                 ],

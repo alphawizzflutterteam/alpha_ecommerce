@@ -29,7 +29,9 @@ class _ProfilePaymentState extends State<ProfilePayment> {
               Stack(
                 children: const [
                   ProfileHeader(),
-                  InternalPageHeader(text: "Payment",)
+                  InternalPageHeader(
+                    text: "Payment",
+                  )
                 ],
               ),
               Expanded(

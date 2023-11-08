@@ -46,6 +46,7 @@ class Images {
   static const starDeal = "assets/images/starDeal.png";
   static const bestOffer = "assets/images/bestOffer.png";
   static const homeBG = 'assets/images/home_bg.png';
+  static const cancelOrder = 'assets/images/cancelOrder.png';
 
   //icons
   static const camera = "assets/icons/camera.png";

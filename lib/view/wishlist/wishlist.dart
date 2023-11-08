@@ -32,8 +32,8 @@ class _WishlistState extends State<Wishlist> {
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
-            const  Stack(
-                children:  [
+              const Stack(
+                children: [
                   ProfileHeader(),
                   InternalPageHeader(
                     text: "My Wishlist",
@@ -119,33 +119,53 @@ class _WishlistState extends State<Wishlist> {
                                       SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.4,
+                                                0.47,
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  showAlertDialog(i);
-                                                });
-                                              },
-                                              child: const Icon(
-                                                Icons.delete_outline,
-                                                color: Colors.white,
+                                            Container(
+                                              height: 30,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.2,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(5)),
+                                                  border: Border.all(
+                                                      color: colors.boxBorder)),
+                                              child: const Text(
+                                                "DELETE",
+                                                style: TextStyle(
+                                                    color: colors.textColor,
+                                                    fontSize: 12),
+                                                textAlign: TextAlign.center,
                                               ),
                                             ),
-                                            SizedBox(
-                                                height: 25,
-                                                width: 100,
-                                                child: CommonButton(
-                                                  text: "Added to Cart",
-                                                  fontSize: 12,
-                                                  onClick: () {
-                                                    showToastMessage(
-                                                        "Added to Cart");
-                                                  },
-                                                ))
+                                            Container(
+                                              height: 30,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.25,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(5)),
+                                                  border: Border.all(
+                                                      color: colors.boxBorder)),
+                                              child: const Text(
+                                                "ADD TO CART",
+                                                style: TextStyle(
+                                                    color: colors.textColor,
+                                                    fontSize: 12),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       )
@@ -187,7 +207,6 @@ class _WishlistState extends State<Wishlist> {
             },
           ),
         );
-        
       },
     );
   }

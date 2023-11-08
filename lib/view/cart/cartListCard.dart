@@ -14,7 +14,7 @@ class CartListWidget extends StatefulWidget {
 }
 
 class _CartListWidgetState extends State<CartListWidget> {
-  final List<String> genderItems = [
+  final List<String> quantity = [
     'Qty 1',
     'Qty 2',
     'Qty 3',
@@ -95,7 +95,7 @@ class _CartListWidgetState extends State<CartListWidget> {
                     width: 100,
                     decoration: BoxDecoration(
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(15)),
+                            const BorderRadius.all(Radius.circular(5)),
                         border: Border.all(color: colors.boxBorder)),
                     child: DropdownButtonFormField2<String>(
                       isExpanded: true,
@@ -109,7 +109,7 @@ class _CartListWidgetState extends State<CartListWidget> {
                         'Qty 1',
                         style: TextStyle(fontSize: 14, color: colors.textColor),
                       ),
-                      items: genderItems
+                      items: quantity
                           .map((item) => DropdownMenuItem<String>(
                                 value: item,
                                 child: Text(

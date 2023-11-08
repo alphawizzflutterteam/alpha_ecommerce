@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/view/vendor/vendorDetailCard.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../utils/routes.dart';
@@ -31,8 +32,8 @@ class _VendorDetailsState extends State<VendorDetails> {
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
-              Stack(
-                children: const [
+              const Stack(
+                children: [
                   ProfileHeader(),
                   InternalDetailPageHeader(
                     text: "Vendor Details",
@@ -123,10 +124,10 @@ class _VendorDetailsState extends State<VendorDetails> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Column(
+                                  const Column(
                                     children: [
                                       Row(
-                                        children: const [
+                                        children: [
                                           Icon(
                                             Icons.star,
                                             color: Colors.orange,
@@ -144,7 +145,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                           ),
                                         ],
                                       ),
-                                      const Text(
+                                      Text(
                                         "Rating",
                                         style:
                                             TextStyle(color: colors.greyText),
@@ -154,8 +155,8 @@ class _VendorDetailsState extends State<VendorDetails> {
                                   const SizedBox(
                                     width: 40,
                                   ),
-                                  Column(
-                                    children: const [
+                                  const Column(
+                                    children: [
                                       Text(
                                         "167 ",
                                         style: TextStyle(
@@ -322,6 +323,8 @@ class _VendorDetailsState extends State<VendorDetails> {
                                             shrinkWrap: true,
                                             physics:
                                                 const AlwaysScrollableScrollPhysics(),
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 20),
                                             gridDelegate:
                                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                               crossAxisCount: 2,
@@ -332,44 +335,10 @@ class _VendorDetailsState extends State<VendorDetails> {
                                                 .categoryList
                                                 .length,
                                             itemBuilder: (context, j) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  Routes
-                                                      .navigateToCategoryDetailScreen(
-                                                          context);
-                                                },
-                                                child: SizedBox(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.45,
-                                                  child: Column(
-                                                    children: [
-                                                      Image.asset(
-                                                        categories[i]
-                                                            .categoryList[j]
-                                                            .categoryImage,
-                                                        height: 70,
-                                                        width: 90,
-                                                        fit: BoxFit.fitHeight,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Text(
-                                                        categories[i]
-                                                            .categoryList[j]
-                                                            .categoryName,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: const TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 12),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
+                                              return vendorDetailCard(
+                                                  context: context,
+                                                  categoryIndex: i,
+                                                  categoryListIndex: j);
                                             },
                                           ),
                                         )

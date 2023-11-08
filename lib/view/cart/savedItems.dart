@@ -13,7 +13,7 @@ class SavedItemsWidget extends StatefulWidget {
 }
 
 class _SavedItemsWidgetState extends State<SavedItemsWidget> {
-  final List<String> genderItems = [
+  final List<String> quantity = [
     'Qty 1',
     'Qty 2',
     'Qty 3',
@@ -23,8 +23,7 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
   Widget build(BuildContext context) {
     return Container(
       height: 190,
-      margin: const EdgeInsets.symmetric(
-          horizontal: 20, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: colors.boxBorder)),
@@ -35,8 +34,7 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
             children: [
               InkWell(
                 onTap: () {
-                  Routes.navigateToProductDetailPageScreen(
-                      context);
+                  Routes.navigateToProductDetailPageScreen(context);
                 },
                 child: Image.asset(
                   cartList[widget.i].productImage,
@@ -46,20 +44,16 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
               ),
               const SizedBox(width: 30),
               Column(
-                crossAxisAlignment:
-                CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
                     onTap: () {
-                      Routes
-                          .navigateToProductDetailPageScreen(
-                          context);
+                      Routes.navigateToProductDetailPageScreen(context);
                     },
                     child: Text(
                       cartList[widget.i].productName,
                       style: const TextStyle(
-                          color: colors.textColor,
-                          fontSize: 14),
+                          color: colors.textColor, fontSize: 14),
                     ),
                   ),
                   const SizedBox(
@@ -70,17 +64,14 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                       Text(
                         cartList[widget.i].productPrice,
                         style: const TextStyle(
-                            color: colors.buttonColor,
-                            fontSize: 16),
+                            color: colors.buttonColor, fontSize: 16),
                       ),
                       Padding(
-                        padding:
-                        const EdgeInsets.only(left: 10),
+                        padding: const EdgeInsets.only(left: 10),
                         child: Text(
                           cartList[widget.i].productDiscount,
                           style: const TextStyle(
-                              decoration: TextDecoration
-                                  .lineThrough,
+                              decoration: TextDecoration.lineThrough,
                               color: colors.greyText,
                               fontSize: 14),
                         ),
@@ -92,9 +83,8 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                   ),
                   Text(
                     cartList[widget.i].productWeight,
-                    style: const TextStyle(
-                        color: colors.greyText,
-                        fontSize: 12),
+                    style:
+                        const TextStyle(color: colors.greyText, fontSize: 12),
                   ),
                   const SizedBox(
                     height: 10,
@@ -104,38 +94,29 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                     width: 100,
                     decoration: BoxDecoration(
                         borderRadius:
-                        const BorderRadius.all(
-                            Radius.circular(15)),
-                        border: Border.all(
-                            color: colors.boxBorder)),
+                            const BorderRadius.all(Radius.circular(5)),
+                        border: Border.all(color: colors.boxBorder)),
                     child: DropdownButtonFormField2<String>(
                       isExpanded: true,
                       decoration: const InputDecoration(
-                        contentPadding:
-                        EdgeInsets.symmetric(
-                            vertical: 15),
+                        contentPadding: EdgeInsets.symmetric(vertical: 15),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.zero,
                             borderSide: BorderSide.none),
                       ),
                       hint: const Text(
                         'Qty 1',
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: colors.textColor),
+                        style: TextStyle(fontSize: 14, color: colors.textColor),
                       ),
-                      items: genderItems
-                          .map((item) =>
-                          DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(
-                              item,
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  color:
-                                  colors.textColor),
-                            ),
-                          ))
+                      items: quantity
+                          .map((item) => DropdownMenuItem<String>(
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: const TextStyle(
+                                      fontSize: 12, color: colors.textColor),
+                                ),
+                              ))
                           .toList(),
                       validator: (value) {
                         if (value == null) {
@@ -147,8 +128,7 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                       onSaved: (value) {
                         selectedValue = value.toString();
                       },
-                      buttonStyleData:
-                      const ButtonStyleData(
+                      buttonStyleData: const ButtonStyleData(
                         padding: EdgeInsets.only(right: 8),
                       ),
                       iconStyleData: const IconStyleData(
@@ -162,15 +142,11 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                           elevation: 8,
                           decoration: BoxDecoration(
                             color: colors.textFieldBG,
-                            borderRadius:
-                            BorderRadius.circular(15),
-                            border: Border.all(
-                                color: colors.boxBorder),
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: colors.boxBorder),
                           )),
-                      menuItemStyleData:
-                      const MenuItemStyleData(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 16),
+                      menuItemStyleData: const MenuItemStyleData(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
                       ),
                     ),
                   ),
@@ -181,22 +157,16 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
           Row(
             children: [
               Container(
-                margin: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 0),
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                 height: 35,
-                width:
-                MediaQuery.of(context).size.width * 0.5,
+                width: MediaQuery.of(context).size.width * 0.5,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(
-                        Radius.circular(5)),
-                    border: Border.all(
-                        color: colors.boxBorder)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                    border: Border.all(color: colors.boxBorder)),
                 child: const Text(
                   "Remove from Saved Items",
-                  style: TextStyle(
-                      color: colors.textColor,
-                      fontSize: 12),
+                  style: TextStyle(color: colors.textColor, fontSize: 12),
                   textAlign: TextAlign.center,
                 ),
               ),

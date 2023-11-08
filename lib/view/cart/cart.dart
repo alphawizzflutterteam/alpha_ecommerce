@@ -51,7 +51,7 @@ class _CartState extends State<Cart> {
                           "Cart List",
                           style: TextStyle(
                               color: colors.textColor,
-                              fontSize: 18,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold),
                         ),
                       ),

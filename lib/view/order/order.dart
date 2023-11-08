@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_const
+
 import 'package:alpha_ecommerce_18oct/view/order/filter.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
@@ -92,7 +94,7 @@ class _OrderState extends State<Order> {
           body: Column(
             children: [
               const Stack(
-                children: const [
+                children: [
                   ProfileHeader(),
                   InternalPageHeader(
                     text: "My Orders",
@@ -158,10 +160,10 @@ class _OrderState extends State<Order> {
                                 onTap: () {
                                   filter(context);
                                 },
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     Icon(
                                       Icons.filter_list_outlined,
                                       color: Colors.white,
@@ -184,10 +186,18 @@ class _OrderState extends State<Order> {
                       for (int i = 0; i < 5; i++)
                         InkWell(
                           onTap: () {
-                            Routes.navigateToOrderDetailScreen(context);
+                            if (orderItems[i]['status'] == "Order Cancelled") {
+                              Routes.navigateToOrderCancelledScreen(context);
+                            } else if (orderItems[i]['status'] == "Delivered") {
+                              Routes.navigateToOrderDetailDeliveredDetailScreen(
+                                  context);
+                            } else {
+                              Routes.navigateToOrderOnTheWayDetailScreen(
+                                  context);
+                            }
                           },
                           child: Container(
-                            height: MediaQuery.of(context).size.height * 0.17,
+                            height: MediaQuery.of(context).size.height * 0.12,
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
                             decoration: BoxDecoration(
@@ -199,7 +209,7 @@ class _OrderState extends State<Order> {
                             ),
                             child: ListTile(
                               title: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Image.asset(
                                     orderItems[i]['image'],

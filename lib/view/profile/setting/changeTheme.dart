@@ -13,11 +13,11 @@ Future<void> changeTheme(context) async {
             color: colors.overlayBG,
             height: 130,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Row(
-                  children: const [
+                  children: [
                     Icon(Icons.dark_mode),
                     SizedBox(
                       width: 20,
@@ -28,12 +28,12 @@ Future<void> changeTheme(context) async {
                     )
                   ],
                 ),
-                const Divider(
+                Divider(
                   color: colors.dividerGrey,
                   height: 1,
                 ),
                 Row(
-                  children: const [
+                  children: [
                     Icon(Icons.light_mode),
                     SizedBox(
                       width: 20,

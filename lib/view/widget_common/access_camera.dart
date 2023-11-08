@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 
-Future<void> accessMicrophone(context) async {
+Future<void> accessCamera(context) async {
   return showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,

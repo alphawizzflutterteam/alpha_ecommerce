@@ -98,20 +98,18 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Column(
+                                      const Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        children: const [
+                                        children: [
                                           Text(
                                             "PREMIUM",
                                             style: TextStyle(
-                                              fontSize:
-                                                  20, // Adjust the size as needed
+                                              fontSize: 20,
                                               fontWeight: FontWeight.bold,
-                                              color: Colors
-                                                  .white, // Customize the color
+                                              color: Colors.white,
                                             ),
                                           ),
                                           SizedBox(
@@ -193,11 +191,10 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                 ),
                                 const SizedBox(height: 15),
                                 for (int i = 0; i < 21; i++)
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        bottom: 5, top: 5),
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 5, top: 5),
                                     child: Row(
-                                      children: const [
+                                      children: [
                                         SizedBox(width: 20),
                                         Icon(
                                           Icons.check_circle_outline,

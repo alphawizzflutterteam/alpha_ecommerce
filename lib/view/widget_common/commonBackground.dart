@@ -38,11 +38,7 @@ class DarkBackGround extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: colors.darkBG,
-        child: Image.asset(
-          Images.bgDark,
-          fit: BoxFit.fitHeight,
-        ),
+        color: colors.bodyBackgroundDark,
       ),
     );
   }
@@ -58,11 +54,7 @@ class LightBackGround extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: colors.darkBG,
-        child: Image.asset(
-          Images.bgGreenBottom,
-          fit: BoxFit.fitHeight,
-        ),
+        color: colors.bodyBackgroundDark,
       ),
     );
   }

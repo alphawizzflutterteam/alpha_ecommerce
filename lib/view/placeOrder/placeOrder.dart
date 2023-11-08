@@ -32,8 +32,8 @@ class _PlaceOrderState extends State<PlaceOrder> {
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
-              Stack(
-                children: const [
+              const Stack(
+                children: [
                   ProfileHeader(),
                   InternalDetailPageHeader(
                     text: 'Place Order',
@@ -58,8 +58,8 @@ class _PlaceOrderState extends State<PlaceOrder> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(10)),
                           ),
-                          child: Row(
-                            children: const [
+                          child: const Row(
+                            children: [
                               SizedBox(
                                 width: 10,
                               ),
@@ -98,22 +98,22 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                 height: 100,
                               ),
                               const SizedBox(width: 20),
-                              Column(
+                              const Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(
+                                  SizedBox(
                                     height: 10,
                                   ),
-                                  const Text(
+                                  Text(
                                     "Maggie Masala",
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 14),
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                     height: 5,
                                   ),
                                   Row(
-                                    children: const [
+                                    children: [
                                       Text(
                                         "\$120.00",
                                         style: TextStyle(
@@ -131,15 +131,15 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                     height: 5,
                                   ),
-                                  const Text(
+                                  Text(
                                     "190ml",
                                     style: TextStyle(
                                         color: colors.greyText, fontSize: 12),
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                     height: 10,
                                   ),
                                 ],
@@ -253,13 +253,13 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                     color: Colors.white, fontSize: 14),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 10),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: const [
+                                children: [
                                   Text(
                                     "MRP (4 items)",
                                     style: TextStyle(
@@ -273,13 +273,13 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 10),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: const [
+                                children: [
                                   Text(
                                     "Delivery free",
                                     style: TextStyle(
@@ -293,13 +293,13 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 10),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: const [
+                                children: [
                                   Text(
                                     "Discount",
                                     style: TextStyle(
@@ -320,13 +320,13 @@ class _PlaceOrderState extends State<PlaceOrder> {
                               indent: 10,
                               endIndent: 10,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 10),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: const [
+                                children: [
                                   Text(
                                     "Total Amount",
                                     style: TextStyle(
@@ -367,17 +367,17 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                 onTap: () {
                                   Routes.navigateToOffersScreen(context);
                                 },
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "Offer & Benefits",
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 14),
                                     ),
                                     Row(
-                                      children: const [
+                                      children: [
                                         Icon(Icons.local_offer_outlined),
                                         SizedBox(width: 10),
                                         Text(
@@ -464,11 +464,11 @@ class _PlaceOrderState extends State<PlaceOrder> {
                             onTap: () {
                               Routes.navigateToManageAddressScreen(context);
                             },
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
-                                  children: const [
+                                  children: [
                                     Icon(
                                       Icons.location_on,
                                       color: Colors.red,
@@ -483,7 +483,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                     ),
                                   ],
                                 ),
-                                const Icon(Icons.arrow_forward_ios_rounded)
+                                Icon(Icons.arrow_forward_ios_rounded)
                               ],
                             ),
                           ),

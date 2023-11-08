@@ -35,6 +35,7 @@ extension colors on ColorScheme {
   static const Color darkBG = Color(0xFF040D12);
   static const Color dividerGrey = Color(0xff4A5054);
   static const Color subscribeYellow = Color(0xFF987808);
+  static const Color bodyBackgroundDark = Color(0xFF1D2429);
 
   //home
   static const Color homeBG = Color(0xFFFFDC98);

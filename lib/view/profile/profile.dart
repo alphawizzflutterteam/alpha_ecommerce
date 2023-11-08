@@ -33,14 +33,13 @@ class _ProfileState extends State<Profile> {
             onPressed: () {
               Routes.navigateToChatScreen(context);
             },
-            backgroundColor: colors
-                .buttonColor, // Background color of the circular container
+            backgroundColor: colors.buttonColor,
             child: Image.asset(Images.chat),
           ),
           body: Column(
             children: [
-              Stack(
-                children: const [
+              const Stack(
+                children: [
                   ProfileHeader(),
                   DashboardHeader(),
                 ],
@@ -116,8 +115,8 @@ class _ProfileState extends State<Profile> {
                                     const SizedBox(
                                       height: 8,
                                     ),
-                                    Row(
-                                      children: const [
+                                    const Row(
+                                      children: [
                                         Icon(
                                           Icons.email_outlined,
                                           color: colors.lightTextColor,
@@ -133,8 +132,8 @@ class _ProfileState extends State<Profile> {
                                       ],
                                     ),
                                     const SizedBox(height: 5),
-                                    Row(
-                                      children: const [
+                                    const Row(
+                                      children: [
                                         Icon(
                                           Icons.phone_enabled_outlined,
                                           color: colors.lightTextColor,
@@ -170,10 +169,10 @@ class _ProfileState extends State<Profile> {
                       decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(5))),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
+                        children: [
                           Icon(
                             Icons.sort_by_alpha_outlined,
                             color: Colors.black,
@@ -241,11 +240,11 @@ class _ProfileState extends State<Profile> {
                                     const SizedBox(
                                       width: 20,
                                     ),
-                                    Center(
+                                    const Center(
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
-                                        children: const [
+                                        children: [
                                           Icon(
                                             FontAwesomeIcons.basketShopping,
                                             color: Colors.white,
@@ -305,11 +304,11 @@ class _ProfileState extends State<Profile> {
                                     const SizedBox(
                                       width: 20,
                                     ),
-                                    Center(
+                                    const Center(
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
-                                        children: const [
+                                        children: [
                                           Icon(
                                             FontAwesomeIcons.heart,
                                             color: Colors.white,
