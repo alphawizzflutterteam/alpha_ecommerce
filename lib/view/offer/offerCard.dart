@@ -9,6 +9,8 @@ offerCard(context) {
     width: MediaQuery.of(context).size.width * 0.95,
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           width: MediaQuery.of(context).size.width * 0.1,
@@ -27,7 +29,7 @@ offerCard(context) {
                 child: Text(
                   'DISCOUNT',
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -37,8 +39,8 @@ offerCard(context) {
               ),
               Image.asset(
                 Images.offer,
-                height: 25,
-                width: 25,
+                height: 20,
+                width: 20,
               )
             ],
           ),

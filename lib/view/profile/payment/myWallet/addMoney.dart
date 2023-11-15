@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../../../utils/color.dart';
 import '../../../../utils/routes.dart';
 import '../../../widget_common/commonBackground.dart';
@@ -52,6 +53,7 @@ class _AddMoneyState extends State<AddMoney> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         child: TextFormField(
+                          keyboardType: TextInputType.number,
                           controller: amountController,
                           validator: validateName,
                           decoration: commonInputDecoration(

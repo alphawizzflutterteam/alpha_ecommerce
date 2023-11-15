@@ -8,6 +8,7 @@ Future<void> showAlertDialog(context) async {
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
+          contentPadding: EdgeInsets.zero,
           backgroundColor: Colors.transparent, content: RateUs());
     },
   );

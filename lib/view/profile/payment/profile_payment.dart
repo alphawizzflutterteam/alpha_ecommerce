@@ -26,8 +26,8 @@ class _ProfilePaymentState extends State<ProfilePayment> {
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
-              Stack(
-                children: const [
+              const Stack(
+                children: [
                   ProfileHeader(),
                   InternalPageHeader(
                     text: "Payment",
@@ -39,37 +39,48 @@ class _ProfilePaymentState extends State<ProfilePayment> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      for (int i = 0; i < 3; i++)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        paymentType[i].navigationScreen),
-                              );
-                            },
-                            child: ListTile(
-                              leading: Image.asset(
-                                paymentType[i].paymentTypeIcon,
-                                height: 30,
-                                width: 30,
+                      SizedBox(
+                        height: 50 * paymentType.length.toDouble(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: paymentType.length,
+                          itemBuilder: (context, i) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            paymentType[i].navigationScreen),
+                                  );
+                                },
+                                child: ListTile(
+                                  leading: Image.asset(
+                                    paymentType[i].paymentTypeIcon,
+                                    height: 30,
+                                    width: 30,
+                                  ),
+                                  title: Text(
+                                    paymentType[i].paymentTypeName,
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  ),
+                                  trailing: const Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
+                                ),
                               ),
-                              title: Text(
-                                paymentType[i].paymentTypeName,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 14),
-                              ),
-                              trailing: const Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            ),
-                          ),
+                            );
+                          },
                         ),
+                      ),
                     ],
                   ),
                 ),

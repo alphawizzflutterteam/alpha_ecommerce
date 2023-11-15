@@ -338,51 +338,61 @@ class _ProfileState extends State<Profile> {
                       const SizedBox(
                         height: 40,
                       ),
-                      for (int i = 0; i < profile.length; i++)
-                        InkWell(
-                          onTap: () {
-                            if (profile[i].navigationScreen.runtimeType ==
-                                String) {
-                              logOut(context);
-                            } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        profile[i].navigationScreen),
-                              );
-                            }
-                          },
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: ListTile(
-                                  leading: Image.asset(
-                                    profile[i].profileIcon,
-                                    height: 30,
-                                    width: 30,
+                      SizedBox(
+                        height: 57 * profile.length.toDouble(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: profile.length,
+                          itemBuilder: (context, i) {
+                            return InkWell(
+                              onTap: () {
+                                if (profile[i].navigationScreen.runtimeType ==
+                                    String) {
+                                  logOut(context);
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            profile[i].navigationScreen),
+                                  );
+                                }
+                              },
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                    child: ListTile(
+                                      leading: Image.asset(
+                                        profile[i].profileIcon,
+                                        height: 30,
+                                        width: 30,
+                                      ),
+                                      title: Text(
+                                        profile[i].profileText,
+                                        style: const TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      ),
+                                      trailing: const Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
+                                    ),
                                   ),
-                                  title: Text(
-                                    profile[i].profileText,
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                  ),
-                                  trailing: const Icon(
-                                    Icons.arrow_forward_ios_rounded,
+                                  const Divider(
                                     color: Colors.white,
-                                    size: 20,
+                                    height: 1,
                                   ),
-                                ),
+                                ],
                               ),
-                              const Divider(
-                                color: Colors.white,
-                                height: 1,
-                              ),
-                            ],
-                          ),
+                            );
+                          },
                         ),
+                      ),
                     ],
                   ),
                 ),

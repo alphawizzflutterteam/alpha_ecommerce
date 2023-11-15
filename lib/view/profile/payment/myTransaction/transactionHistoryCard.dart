@@ -9,7 +9,7 @@ transactionHistoryCard({required context, required transactionIndex}) {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: InkWell(
-          onTap: (){
+          onTap: () {
             Routes.navigateToSingleTransactionScreen(context);
           },
           child: SizedBox(
@@ -34,12 +34,12 @@ transactionHistoryCard({required context, required transactionIndex}) {
                         ),
                         Text(
                           transaction[transactionIndex].transactionAmount,
-                          style:
-                              const TextStyle(color: Colors.white, fontSize: 20),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 20),
                         )
                       ],
                     ),
-                    buildCustomButton(
+                    buildCustom(
                         transaction[transactionIndex].transactionStatus),
                   ],
                 ),
@@ -54,15 +54,16 @@ transactionHistoryCard({required context, required transactionIndex}) {
                       children: [
                         const Text(
                           "Order ID",
-                          style: TextStyle(color: colors.textColor, fontSize: 12),
+                          style:
+                              TextStyle(color: colors.textColor, fontSize: 12),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
                           transaction[transactionIndex].orderId,
-                          style:
-                              const TextStyle(color: Colors.white, fontSize: 14),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 14),
                         )
                       ],
                     ),
@@ -71,7 +72,8 @@ transactionHistoryCard({required context, required transactionIndex}) {
                       children: [
                         const Text(
                           "Transaction ID",
-                          style: TextStyle(color: colors.textColor, fontSize: 12),
+                          style:
+                              TextStyle(color: colors.textColor, fontSize: 12),
                         ),
                         const SizedBox(
                           height: 5,
@@ -84,8 +86,8 @@ transactionHistoryCard({required context, required transactionIndex}) {
                               )
                             : const Text(
                                 "-",
-                                style:
-                                    TextStyle(color: Colors.white, fontSize: 14),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 14),
                               )
                       ],
                     ),
@@ -116,16 +118,19 @@ transactionHistoryCard({required context, required transactionIndex}) {
   );
 }
 
-Widget buildCustomButton(bool isSuccess) {
+Widget buildCustom(bool isSuccess) {
   Color buttonColor = isSuccess ? Colors.green : Colors.red;
   Color textColor = isSuccess ? Colors.green : Colors.red;
 
-  return ElevatedButton(
-    style: ElevatedButton.styleFrom(
-      primary: buttonColor.withOpacity(0.2),
-      onPrimary: textColor,
+  return Container(
+    padding: const EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      borderRadius: const BorderRadius.all(Radius.circular(5)),
+      color: buttonColor.withOpacity(0.2),
     ),
-    onPressed: () {},
-    child: Text(isSuccess ? "SUCCESS" : "unsuccessful"),
+    child: Text(
+      isSuccess ? "SUCCESS" : "unsuccessful",
+      style: TextStyle(color: textColor),
+    ),
   );
 }

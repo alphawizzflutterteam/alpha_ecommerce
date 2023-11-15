@@ -157,6 +157,7 @@ class _SearchState extends State<Search> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+            contentPadding: EdgeInsets.zero,
             backgroundColor: Colors.transparent,
             content: Container(
               decoration: BoxDecoration(

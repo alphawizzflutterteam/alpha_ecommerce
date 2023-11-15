@@ -144,8 +144,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      for (int i = 0; i < notifications.length; i++)
-                        notificationCard(notifications[i])
+                      SizedBox(
+                        height: 87 * notifications.length.toDouble(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: notifications.length,
+                          itemBuilder: (context, i) {
+                            return notificationCard(notifications[i]);
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),

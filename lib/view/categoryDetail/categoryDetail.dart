@@ -46,19 +46,27 @@ class _CategoryDetailState extends State<CategoryDetail> {
                     children: [
                       const SizedBox(height: 20),
                       Container(
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width * 0.95,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        child: Wrap(
-                          spacing: 10,
-                          runSpacing: 20,
-                          children: [
-                            for (int i = 0; i < 10; i++)
-                              categoryDetailCard(context: context)
-                          ],
-                        ),
-                      )
+                          alignment: Alignment.center,
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          height: MediaQuery.of(context).size.height * 0.35 * 5,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: GridView.builder(
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 20,
+                              childAspectRatio: 0.7,
+                            ),
+                            itemCount: 10,
+                            itemBuilder: (context, j) {
+                              return categoryDetailCard(context: context);
+                            },
+                          ))
                     ],
                   ),
                 ),

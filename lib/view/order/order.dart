@@ -183,105 +183,125 @@ class _OrderState extends State<Order> {
                           ],
                         ),
                       ),
-                      for (int i = 0; i < 5; i++)
-                        InkWell(
-                          onTap: () {
-                            if (orderItems[i]['status'] == "Order Cancelled") {
-                              Routes.navigateToOrderCancelledScreen(context);
-                            } else if (orderItems[i]['status'] == "Delivered") {
-                              Routes.navigateToOrderDetailDeliveredDetailScreen(
-                                  context);
-                            } else {
-                              Routes.navigateToOrderOnTheWayDetailScreen(
-                                  context);
-                            }
-                          },
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.12,
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: const Color(0x14E9E9E9),
-                                width: 2,
-                              ),
-                            ),
-                            child: ListTile(
-                              title: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    orderItems[i]['image'],
-                                    width: 50,
-                                    height: 170,
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height *
+                            0.15 *
+                            orderItems.length.toDouble(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: orderItems.length,
+                          itemBuilder: (context, i) {
+                            return InkWell(
+                              onTap: () {
+                                if (orderItems[i]['status'] ==
+                                    "Order Cancelled") {
+                                  Routes.navigateToOrderCancelledScreen(
+                                      context);
+                                } else if (orderItems[i]['status'] ==
+                                    "Delivered") {
+                                  Routes
+                                      .navigateToOrderDetailDeliveredDetailScreen(
+                                          context);
+                                } else {
+                                  Routes.navigateToOrderOnTheWayDetailScreen(
+                                      context);
+                                }
+                              },
+                              child: Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.12,
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: const Color(0x14E9E9E9),
+                                    width: 2,
                                   ),
-                                  const SizedBox(width: 30),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                ),
+                                child: ListTile(
+                                  title: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const SizedBox(
-                                        height: 10,
+                                      Image.asset(
+                                        orderItems[i]['image'],
+                                        width: 50,
+                                        height: 170,
                                       ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
-                                        child: Text(
-                                          orderItems[i]['text'],
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
-                                        child: Text(
-                                          orderItems[i]['subText'],
-                                          style: const TextStyle(
-                                              color: colors.greyText,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        height: 20,
-                                        alignment: Alignment.center,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 2),
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(3)),
-                                          border: Border.all(
-                                            color: const Color(0x14E9E9E9),
-                                            width: 2,
+                                      const SizedBox(width: 30),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(
+                                            height: 10,
                                           ),
-                                          color: getBackgroundColor(
-                                              orderItems[i]['status']),
-                                        ),
-                                        child: Text(
-                                          orderItems[i]['status'],
-                                          style: TextStyle(
-                                              color: getTextColor(
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.5,
+                                            child: Text(
+                                              orderItems[i]['text'],
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.5,
+                                            child: Text(
+                                              orderItems[i]['subText'],
+                                              style: const TextStyle(
+                                                  color: colors.greyText,
+                                                  fontSize: 12),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Container(
+                                            height: 20,
+                                            alignment: Alignment.center,
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(3)),
+                                              border: Border.all(
+                                                color: const Color(0x14E9E9E9),
+                                                width: 2,
+                                              ),
+                                              color: getBackgroundColor(
                                                   orderItems[i]['status']),
-                                              fontSize: 10),
-                                        ),
+                                            ),
+                                            child: Text(
+                                              orderItems[i]['status'],
+                                              style: TextStyle(
+                                                  color: getTextColor(
+                                                      orderItems[i]['status']),
+                                                  fontSize: 10),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         ),
+                      ),
                     ],
                   ),
                 ),

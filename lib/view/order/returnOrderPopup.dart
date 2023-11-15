@@ -19,7 +19,7 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
         borderRadius: BorderRadius.circular(15.0),
         color: colors.overlayBG,
       ),
-      height: 270,
+      height: 260,
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
       child: Column(
@@ -68,7 +68,7 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.22,
+                width: MediaQuery.of(context).size.width * 0.30,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:
@@ -97,7 +97,7 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.34,
+                width: MediaQuery.of(context).size.width * 0.35,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:

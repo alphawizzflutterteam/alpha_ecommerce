@@ -37,10 +37,22 @@ class _OffersState extends State<Offers> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(height: 10),
-                      for (int i = 0; i < 6; i++) offerCard(context),
+                      SizedBox(
+                        height: 181 * 6,
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 6,
+                          itemBuilder: (context, i) {
+                            return offerCard(context);
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),

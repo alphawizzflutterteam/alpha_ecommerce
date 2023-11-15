@@ -5,10 +5,12 @@ import '../../../utils/images.dart';
 
 couponCard({required context}) {
   return Container(
-    height: 180,
-    width: MediaQuery.of(context).size.width * 0.95,
+    height: 160,
+    width: MediaQuery.of(context).size.width * 0.98,
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           width: MediaQuery.of(context).size.width * 0.1,
@@ -27,7 +29,7 @@ couponCard({required context}) {
                 child: Text(
                   'DISCOUNT',
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -37,8 +39,8 @@ couponCard({required context}) {
               ),
               Image.asset(
                 Images.offer,
-                height: 25,
-                width: 25,
+                height: 20,
+                width: 20,
               )
             ],
           ),
@@ -61,14 +63,14 @@ couponCard({required context}) {
             children: [
               const Text(
                 'Everyday Savings, Fresh Delights:',
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style: TextStyle(color: Colors.white, fontSize: 12),
               ),
               const SizedBox(
                 height: 5,
               ),
               const Text(
                 'Your One-Stop Grocery Destination!',
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style: TextStyle(color: Colors.white, fontSize: 12),
               ),
               const SizedBox(
                 height: 10,
@@ -77,7 +79,7 @@ couponCard({required context}) {
                 '50% off',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(

@@ -44,136 +44,157 @@ class _WishlistState extends State<Wishlist> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 30),
-                      for (int i = 0; i < wishlist.length; i++)
-                        InkWell(
-                          onTap: () {
-                            Routes.navigateToProductDetailPageScreen(context);
-                          },
-                          child: Container(
-                            height: wishlist[i].productCount > 0 ? 120 : 0,
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            decoration: BoxDecoration(
-                              color: const Color(0x14E9E9E9).withOpacity(0.05),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: ListTile(
-                              title: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Image.asset(
-                                    wishlist[i].productImage,
-                                    width: 100,
-                                    height: 170,
-                                  ),
-                                  const SizedBox(width: 30),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                      SizedBox(
+                        height: 142 * wishlist.length.toDouble(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: wishlist.length,
+                          itemBuilder: (context, i) {
+                            return InkWell(
+                              onTap: () {
+                                Routes.navigateToProductDetailPageScreen(
+                                    context);
+                              },
+                              child: Container(
+                                height: wishlist[i].productCount > 0 ? 120 : 0,
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color(0x14E9E9E9).withOpacity(0.05),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: ListTile(
+                                  title: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      const SizedBox(
-                                        height: 10,
+                                      Image.asset(
+                                        wishlist[i].productImage,
+                                        width: 100,
+                                        height: 170,
                                       ),
-                                      Text(
-                                        wishlist[i].productName,
-                                        style: const TextStyle(
-                                            color: Colors.white, fontSize: 14),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
+                                      const SizedBox(width: 30),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
                                           Text(
-                                            wishlist[i].productPrice,
+                                            wishlist[i].productName,
                                             style: const TextStyle(
-                                                color: colors.buttonColor,
-                                                fontSize: 16),
+                                                color: Colors.white,
+                                                fontSize: 14),
                                           ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 10),
-                                            child: Text(
-                                              wishlist[i].productDiscount,
-                                              style: const TextStyle(
-                                                  color: colors.greyText,
-                                                  fontSize: 14),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                wishlist[i].productPrice,
+                                                style: const TextStyle(
+                                                    color: colors.buttonColor,
+                                                    fontSize: 16),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10),
+                                                child: Text(
+                                                  wishlist[i].productDiscount,
+                                                  style: const TextStyle(
+                                                      color: colors.greyText,
+                                                      fontSize: 14),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            wishlist[i].productWeight,
+                                            style: const TextStyle(
+                                                color: colors.greyText,
+                                                fontSize: 12),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.43,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Container(
+                                                  height: 30,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.17,
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .all(
+                                                              Radius.circular(
+                                                                  5)),
+                                                      border: Border.all(
+                                                          color: colors
+                                                              .boxBorder)),
+                                                  child: const Text(
+                                                    "DELETE",
+                                                    style: TextStyle(
+                                                        color: colors.textColor,
+                                                        fontSize: 10),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                                Container(
+                                                  height: 30,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.23,
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .all(
+                                                              Radius.circular(
+                                                                  5)),
+                                                      border: Border.all(
+                                                          color: colors
+                                                              .boxBorder)),
+                                                  child: const Text(
+                                                    "ADD TO CART",
+                                                    style: TextStyle(
+                                                        color: colors.textColor,
+                                                        fontSize: 10),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
+                                          )
                                         ],
                                       ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        wishlist[i].productWeight,
-                                        style: const TextStyle(
-                                            color: colors.greyText,
-                                            fontSize: 12),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.43,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              height: 30,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.17,
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(5)),
-                                                  border: Border.all(
-                                                      color: colors.boxBorder)),
-                                              child: const Text(
-                                                "DELETE",
-                                                style: TextStyle(
-                                                    color: colors.textColor,
-                                                    fontSize: 10),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                            Container(
-                                              height: 30,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.23,
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(5)),
-                                                  border: Border.all(
-                                                      color: colors.boxBorder)),
-                                              child: const Text(
-                                                "ADD TO CART",
-                                                style: TextStyle(
-                                                    color: colors.textColor,
-                                                    fontSize: 10),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
                                     ],
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         ),
+                      ),
                     ],
                   ),
                 ),
@@ -198,6 +219,7 @@ class _WishlistState extends State<Wishlist> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          contentPadding: EdgeInsets.zero,
           backgroundColor: Colors.transparent,
           content: DeletePopup(
             delete: () {

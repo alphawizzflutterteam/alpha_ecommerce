@@ -73,8 +73,8 @@ class _SettingState extends State<Setting> {
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
-              Stack(
-                children: const [
+              const Stack(
+                children: [
                   ProfileHeader(),
                   InternalPageHeader(
                     text: "Setting",
@@ -87,48 +87,59 @@ class _SettingState extends State<Setting> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 10),
-                      for (int i = 0; i < 6; i++)
-                        Column(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: InkWell(
-                                onTap: () {
-                                  settings[i].nextNavigation
-                                      ? Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  settings[i].navigationPage),
-                                        )
-                                      : settings[i].navigationPage();
-                                },
-                                child: ListTile(
-                                  leading: Image.asset(
-                                    settings[i].settingIcon,
-                                    height: 30,
-                                    width: 30,
-                                  ),
-                                  title: Text(
-                                    settings[i].settingName,
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                  ),
-                                  trailing: const Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    color: Colors.white,
-                                    size: 20,
+                      SizedBox(
+                        height: 65 * settings.length.toDouble(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: settings.length,
+                          itemBuilder: (context, i) {
+                            return Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: InkWell(
+                                    onTap: () {
+                                      settings[i].nextNavigation
+                                          ? Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      settings[i]
+                                                          .navigationPage),
+                                            )
+                                          : settings[i].navigationPage();
+                                    },
+                                    child: ListTile(
+                                      leading: Image.asset(
+                                        settings[i].settingIcon,
+                                        height: 30,
+                                        width: 30,
+                                      ),
+                                      title: Text(
+                                        settings[i].settingName,
+                                        style: const TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      ),
+                                      trailing: const Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            const Divider(
-                              color: Colors.white,
-                              height: 1,
-                            ),
-                          ],
+                                const Divider(
+                                  color: Colors.white,
+                                  height: 1,
+                                ),
+                              ],
+                            );
+                          },
                         ),
+                      ),
                     ],
                   ),
                 ),

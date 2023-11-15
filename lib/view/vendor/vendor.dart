@@ -49,7 +49,18 @@ class _VendorState extends State<Vendor> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      for (int i = 0; i < 10; i++) vendorCard(context),
+                      SizedBox(
+                        height: 120 * 10,
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 10,
+                          itemBuilder: (context, i) {
+                            return vendorCard(context);
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),

@@ -245,23 +245,35 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             horizontal: 20, vertical: 15),
                         child: Row(
                           children: [
-                            for (int i = 0; i < 3; i++)
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                margin: const EdgeInsets.only(right: 10),
-                                decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                        color: const Color(0x14E9E9E9),
-                                        width: 2)),
-                                child: const Text(
-                                  "250gm",
-                                  style: TextStyle(
-                                      color: colors.textColor, fontSize: 12),
-                                ),
+                            SizedBox(
+                              height: 40,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: 3,
+                                itemBuilder: (context, i) {
+                                  return Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    margin: const EdgeInsets.only(right: 10),
+                                    decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                            color: const Color(0x14E9E9E9),
+                                            width: 2)),
+                                    child: const Text(
+                                      "250gm",
+                                      style: TextStyle(
+                                          color: colors.textColor,
+                                          fontSize: 12),
+                                    ),
+                                  );
+                                },
                               ),
+                            ),
                           ],
                         ),
                       ),
@@ -516,6 +528,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+            contentPadding: EdgeInsets.zero,
             backgroundColor: Colors.transparent,
             content: Container(
               decoration: BoxDecoration(

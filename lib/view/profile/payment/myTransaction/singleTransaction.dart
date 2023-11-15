@@ -98,14 +98,15 @@ class _SingleTransactionState extends State<SingleTransaction> {
                             height: 20,
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.54,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary:
+                              width: MediaQuery.of(context).size.width * 0.54,
+                              child: Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5)),
+                                  color:
                                       const Color(0xff2568EE).withOpacity(0.2),
-                                  onPrimary: colors.textColor,
                                 ),
-                                onPressed: () {},
                                 child: const Row(
                                   children: [
                                     Icon(
@@ -117,11 +118,13 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                     ),
                                     Text(
                                       "Transaction Successful",
-                                      style: TextStyle(fontSize: 12),
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: colors.textColor),
                                     ),
                                   ],
-                                )),
-                          ),
+                                ),
+                              )),
                           const SizedBox(
                             height: 20,
                           ),
@@ -170,7 +173,7 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                           fontWeight: FontWeight.bold))
                                 ],
                               ),
-                              buildCustomButton(true)
+                              buildCustom(true)
                             ],
                           ),
                           const SizedBox(height: 20),
@@ -265,17 +268,20 @@ class _SingleTransactionState extends State<SingleTransaction> {
     ]);
   }
 
-  Widget buildCustomButton(bool isSuccess) {
+  Widget buildCustom(bool isSuccess) {
     Color buttonColor = isSuccess ? Colors.green : Colors.red;
     Color textColor = isSuccess ? Colors.green : Colors.red;
 
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        primary: buttonColor.withOpacity(0.2),
-        onPrimary: textColor,
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(5)),
+        color: buttonColor.withOpacity(0.2),
       ),
-      onPressed: () {},
-      child: Text(isSuccess ? "SUCCESS" : "unsuccessful"),
+      child: Text(
+        isSuccess ? "SUCCESS" : "unsuccessful",
+        style: TextStyle(color: textColor),
+      ),
     );
   }
 }

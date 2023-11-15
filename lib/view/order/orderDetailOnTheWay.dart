@@ -493,9 +493,10 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          contentPadding: EdgeInsets.zero,
           backgroundColor: Colors.transparent,
           content: Container(
-            height: 450,
+            height: 83 * reasons.length.toDouble(),
             width: 700,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
@@ -513,14 +514,24 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                for (int i = 0; i < reasons.length; i++)
-                  Theme(
+                SizedBox(
+                  height: 59 * reasons.length.toDouble(),
+                  child: Theme(
                     data: ThemeData(unselectedWidgetColor: colors.greyText),
-                    child: CommonRadioTile(
-                        options: selectedReason,
-                        name: reasons[i],
-                        onChanged: handleOptionChange),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: reasons.length,
+                      itemBuilder: (context, i) {
+                        return CommonRadioTile(
+                            options: selectedReason,
+                            name: reasons[i],
+                            onChanged: handleOptionChange);
+                      },
+                    ),
                   ),
+                ),
                 SizedBox(
                   width: 200,
                   child: ElevatedButton(
@@ -558,7 +569,9 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return const AlertDialog(
-            backgroundColor: Colors.transparent, content: CancelOrderPopup());
+            contentPadding: EdgeInsets.zero,
+            backgroundColor: Colors.transparent,
+            content: CancelOrderPopup());
       },
     );
   }

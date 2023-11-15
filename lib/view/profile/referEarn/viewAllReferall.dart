@@ -73,81 +73,91 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    for (int i = 0; i < 20; i++)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 20),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    SizedBox(
+                      height: 80 * 20,
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 20,
+                        itemBuilder: (context, i) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            child: Column(
                               children: [
                                 Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(
-                                      width:
-                                          40, // Set the width and height to create a circular shape
-                                      height: 40,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape
-                                            .circle, // Make the container circular
-                                        color: Color(
-                                            0x6B969696), // Set the background color
-                                      ),
-                                      child: const Center(
-                                        child: Text(
-                                          "AS",
-                                          style: TextStyle(
-                                            color: Colors
-                                                .white, // Set the text color
-                                            fontSize: 14, // Set the text size
-                                            fontWeight: FontWeight
-                                                .bold, // Set the text weight
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 40,
+                                          height: 40,
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Color(0x6B969696),
+                                          ),
+                                          child: const Center(
+                                            child: Text(
+                                              "AS",
+                                              style: TextStyle(
+                                                color: Colors
+                                                    .white, // Set the text color
+                                                fontSize:
+                                                    14, // Set the text size
+                                                fontWeight: FontWeight
+                                                    .bold, // Set the text weight
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 15),
-                                    const Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Anshul Sharma",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14),
+                                        const SizedBox(width: 15),
+                                        const Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Anshul Sharma",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14),
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text("02 oct 2022",
+                                                style: TextStyle(
+                                                    color:
+                                                        colors.lightTextColor,
+                                                    fontSize: 12))
+                                          ],
                                         ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text("02 oct 2022",
-                                            style: TextStyle(
-                                                color: colors.lightTextColor,
-                                                fontSize: 12))
                                       ],
                                     ),
+                                    const Text(
+                                      "200",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
+                                    )
                                   ],
                                 ),
-                                const Text(
-                                  "200",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                )
+                                const SizedBox(height: 20),
+                                const Divider(
+                                  color: Colors.white,
+                                  height: 1,
+                                ),
                               ],
                             ),
-                            const SizedBox(height: 20),
-                            const Divider(
-                              color: Colors.white,
-                              height: 1,
-                            ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
+                    ),
                   ],
                 ),
               ),

@@ -38,9 +38,21 @@ class _CouponState extends State<Coupon> {
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(height: 10),
-                      for (int i = 0; i < 6; i++) couponCard(context: context),
+                      SizedBox(
+                        height: 182 * 6.toDouble(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 6,
+                          itemBuilder: (context, i) {
+                            return couponCard(context: context);
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),
