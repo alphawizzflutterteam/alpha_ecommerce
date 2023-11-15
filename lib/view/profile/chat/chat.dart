@@ -20,7 +20,6 @@ class _ChatState extends State<Chat> {
       children: [
         const LightBackGround(),
         Scaffold(
-          resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
           backgroundColor: Colors.transparent,
@@ -36,7 +35,6 @@ class _ChatState extends State<Chat> {
                         padding: const EdgeInsets.only(right: 16),
                         child: Column(
                           children: [
-                            const SizedBox(height: 20,),
                             Row(
                               children: <Widget>[
                                 IconButton(

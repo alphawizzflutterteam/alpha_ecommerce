@@ -77,10 +77,10 @@ class _FAQsState extends State<FAQs> {
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 25, vertical: 30),
-                      child: Column(
+                      child: const Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             term1,
                             style: TextStyle(color: Colors.white, fontSize: 14),

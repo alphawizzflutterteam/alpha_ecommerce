@@ -1,7 +1,9 @@
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/cart/savedItems.dart';
 import 'package:flutter/material.dart';
+import '../../model/cartList.dart';
 import '../../utils/color.dart';
+import '../../utils/images.dart';
 import '../widget_common/commonBackground.dart';
 import '../widget_common/common_button.dart';
 import '../widget_common/common_header.dart';
@@ -51,12 +53,23 @@ class _CartState extends State<Cart> {
                           "Cart List",
                           style: TextStyle(
                               color: colors.textColor,
-                              fontSize: 18,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
                       const SizedBox(height: 10),
-                      for (int i = 0; i < 4; i++) CartListWidget(i: i),
+                      SizedBox(
+                        height: 210 * (cartList.length).toDouble(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: cartList.length,
+                          itemBuilder: (context, i) {
+                            return CartListWidget(i: i);
+                          },
+                        ),
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -220,7 +233,11 @@ class _CartState extends State<Cart> {
                             ),
                             Row(
                               children: [
-                                const Icon(Icons.local_offer_outlined),
+                                Image.asset(
+                                  Images.cartOffer,
+                                  height: 20,
+                                  width: 20,
+                                ),
                                 const SizedBox(width: 10),
                                 InkWell(
                                   onTap: () {
@@ -292,7 +309,18 @@ class _CartState extends State<Cart> {
                               TextStyle(color: colors.textColor, fontSize: 14),
                         ),
                       ),
-                      for (int i = 0; i < 2; i++) SavedItemsWidget(i: i)
+                      SizedBox(
+                        height: 210 * 2.toDouble(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 2,
+                          itemBuilder: (context, i) {
+                            return SavedItemsWidget(i: i);
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),

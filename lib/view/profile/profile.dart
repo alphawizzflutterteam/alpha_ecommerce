@@ -3,7 +3,6 @@ import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/model/profile.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/logOut/logOut.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../utils/color.dart';
 import '../widget_common/commonBackground.dart';
 import '../widget_common/common_header.dart';
@@ -33,14 +32,17 @@ class _ProfileState extends State<Profile> {
             onPressed: () {
               Routes.navigateToChatScreen(context);
             },
-            backgroundColor: colors
-                .buttonColor, // Background color of the circular container
-            child: Image.asset(Images.chat),
+            backgroundColor: colors.buttonColor,
+            child: Image.asset(
+              Images.chat,
+              height: 40,
+              width: 40,
+            ),
           ),
           body: Column(
             children: [
-              Stack(
-                children: const [
+              const Stack(
+                children: [
                   ProfileHeader(),
                   DashboardHeader(),
                 ],
@@ -116,8 +118,8 @@ class _ProfileState extends State<Profile> {
                                     const SizedBox(
                                       height: 8,
                                     ),
-                                    Row(
-                                      children: const [
+                                    const Row(
+                                      children: [
                                         Icon(
                                           Icons.email_outlined,
                                           color: colors.lightTextColor,
@@ -133,10 +135,10 @@ class _ProfileState extends State<Profile> {
                                       ],
                                     ),
                                     const SizedBox(height: 5),
-                                    Row(
-                                      children: const [
+                                    const Row(
+                                      children: [
                                         Icon(
-                                          Icons.phone_enabled_outlined,
+                                          Icons.phone_outlined,
                                           color: colors.lightTextColor,
                                           size: 18,
                                         ),
@@ -173,16 +175,16 @@ class _ProfileState extends State<Profile> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.sort_by_alpha_outlined,
-                            color: Colors.black,
-                            size: 18,
+                        children: [
+                          Image.asset(
+                            Images.alphaProfile,
+                            height: 20,
+                            width: 20,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
-                          Text(
+                          const Text(
                             "ALPHA Membership",
                             style: TextStyle(color: Colors.black, fontSize: 12),
                           )
@@ -245,14 +247,14 @@ class _ProfileState extends State<Profile> {
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
-                                        children: const [
-                                          Icon(
-                                            FontAwesomeIcons.basketShopping,
-                                            color: Colors.white,
-                                            size: 30,
+                                        children: [
+                                          Image.asset(
+                                            Images.order,
+                                            height: 50,
+                                            width: 50,
                                           ),
-                                          SizedBox(height: 8),
-                                          Text(
+                                          const SizedBox(height: 8),
+                                          const Text(
                                             "My Order",
                                             style: TextStyle(
                                               color: Colors.white,
@@ -309,14 +311,14 @@ class _ProfileState extends State<Profile> {
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
-                                        children: const [
-                                          Icon(
-                                            FontAwesomeIcons.heart,
-                                            color: Colors.white,
-                                            size: 30,
+                                        children: [
+                                          Image.asset(
+                                            Images.heart,
+                                            height: 50,
+                                            width: 50,
                                           ),
-                                          SizedBox(height: 8),
-                                          Text(
+                                          const SizedBox(height: 8),
+                                          const Text(
                                             "My Wishlist",
                                             style: TextStyle(
                                               color: Colors.white,
@@ -336,50 +338,61 @@ class _ProfileState extends State<Profile> {
                       const SizedBox(
                         height: 40,
                       ),
-                      for (int i = 0; i < profile.length; i++)
-                        InkWell(
-                          onTap: () {
-                            if (profile[i].navigationScreen.runtimeType ==
-                                String) {
-                              logOut(context);
-                            } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        profile[i].navigationScreen),
-                              );
-                            }
+                      SizedBox(
+                        height: 57 * profile.length.toDouble(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: profile.length,
+                          itemBuilder: (context, i) {
+                            return InkWell(
+                              onTap: () {
+                                if (profile[i].navigationScreen.runtimeType ==
+                                    String) {
+                                  logOut(context);
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            profile[i].navigationScreen),
+                                  );
+                                }
+                              },
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                    child: ListTile(
+                                      leading: Image.asset(
+                                        profile[i].profileIcon,
+                                        height: 30,
+                                        width: 30,
+                                      ),
+                                      title: Text(
+                                        profile[i].profileText,
+                                        style: const TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      ),
+                                      trailing: const Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
+                                    ),
+                                  ),
+                                  const Divider(
+                                    color: Colors.white,
+                                    height: 1,
+                                  ),
+                                ],
+                              ),
+                            );
                           },
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: ListTile(
-                                  leading: Icon(
-                                    profile[i].profileIcon,
-                                    color: Colors.white,
-                                  ),
-                                  title: Text(
-                                    profile[i].profileText,
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                  ),
-                                  trailing: const Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    color: Colors.white,
-                                    size: 20,
-                                  ),
-                                ),
-                              ),
-                              const Divider(
-                                color: Colors.white,
-                                height: 1,
-                              ),
-                            ],
-                          ),
                         ),
+                      ),
                     ],
                   ),
                 ),

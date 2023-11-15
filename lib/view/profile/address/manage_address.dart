@@ -39,8 +39,8 @@ class _ManageAddressState extends State<ManageAddress> {
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
-              Stack(
-                children: const [
+              const Stack(
+                children: [
                   ProfileHeader(),
                   InternalPageHeader(
                     text: "Address",
@@ -69,9 +69,9 @@ class _ManageAddressState extends State<ManageAddress> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Icon(
                                   Icons.location_disabled_outlined,
                                   size: 18,
@@ -183,9 +183,9 @@ class _ManageAddressState extends State<ManageAddress> {
                           ),
                         ],
                       ),
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.symmetric(
@@ -271,6 +271,38 @@ class _ManageAddressState extends State<ManageAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
+                          controller: houseController,
+                          decoration: commonInputDecoration(
+                            labelText: 'House no, Building Name',
+                          ),
+                          style: const TextStyle(color: colors.textColor),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: TextFormField(
+                          controller: roadController,
+                          decoration: commonInputDecoration(
+                            labelText: 'Road name, Area Colony',
+                          ),
+                          style: const TextStyle(color: colors.textColor),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: colors
+                              .textFieldBG, // Change this color to your desired background color
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: TextFormField(
                           controller: countryController,
                           decoration: commonInputDecoration(
                             labelText: 'Country',
@@ -314,40 +346,7 @@ class _ManageAddressState extends State<ManageAddress> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          controller: houseController,
-                          decoration: commonInputDecoration(
-                            labelText: 'House no, Building Name',
-                          ),
-                          style: const TextStyle(color: colors.textColor),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          controller: roadController,
-                          decoration: commonInputDecoration(
-                            labelText: 'Road name, Area Colony',
-                          ),
-                          style: const TextStyle(color: colors.textColor),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
+                          color: colors.textFieldBG,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(

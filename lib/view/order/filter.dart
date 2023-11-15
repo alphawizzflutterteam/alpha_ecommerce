@@ -37,11 +37,11 @@ Future<void> filter(context) async {
                   Column(
                     children: [
                       const Padding(
-                        padding:  EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children:  [
+                          children: [
                             Text(
                               "Filter",
                               style:
@@ -104,12 +104,12 @@ Future<void> filter(context) async {
                       const SizedBox(
                         height: 10,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
+                      const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children: [
                             Text(
                               "Category",
                               style:

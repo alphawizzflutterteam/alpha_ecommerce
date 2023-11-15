@@ -12,13 +12,16 @@ notificationCard(Map<String, dynamic> notifications) {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const SizedBox(
+            width: 10,
+          ),
           Image.asset(
             notifications['image'],
-            width: 80,
-            height: 170,
+            width: 60,
+            height: 150,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15),
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
             child: Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

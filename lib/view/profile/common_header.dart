@@ -8,9 +8,18 @@ class ProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
         height: 110,
-        child: Image.asset(
-          Images.commonHeader,
-          fit: BoxFit.contain,
+        width: MediaQuery.of(context).size.width,
+        child: Stack(
+          children: [
+            Image.asset(
+              Images.headerBGLine,
+              fit: BoxFit.contain,
+            ),
+            Image.asset(
+              Images.commonHeader,
+              fit: BoxFit.contain,
+            ),
+          ],
         ));
   }
 }

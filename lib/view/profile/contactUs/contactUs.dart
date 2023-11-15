@@ -49,11 +49,10 @@ class _ContactUsState extends State<ContactUs> {
                           ),
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsets.only(
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.1),
-                              child: const HeaderText(text: "Contact Us")
-                            ),
+                                padding: EdgeInsets.only(
+                                    right: MediaQuery.of(context).size.width *
+                                        0.1),
+                                child: const HeaderText(text: "Contact Us")),
                           ),
                         ],
                       ),
@@ -88,12 +87,12 @@ class _ContactUsState extends State<ContactUs> {
                                 color: colors.boxBorder,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Column(
+                              child: const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Row(
-                                    children: const [
+                                    children: [
                                       Icon(
                                         Icons.phone,
                                         color: Colors.white,
@@ -109,11 +108,11 @@ class _ContactUsState extends State<ContactUs> {
                                       )
                                     ],
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                     height: 10,
                                   ),
                                   Row(
-                                    children: const [
+                                    children: [
                                       Icon(
                                         Icons.mail,
                                         color: Colors.white,
@@ -153,7 +152,7 @@ class _ContactUsState extends State<ContactUs> {
                                 color: colors.boxBorder,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Row(
+                              child: const Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Column(
@@ -161,7 +160,7 @@ class _ContactUsState extends State<ContactUs> {
                                         MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: const [
+                                    children: [
                                       Text(
                                         "Delivery Timings",
                                         style: TextStyle(
@@ -196,15 +195,14 @@ class _ContactUsState extends State<ContactUs> {
                 ),
               ),
             ),
-            Align(
+            const Align(
               alignment: Alignment.bottomCenter,
               child: SizedBox(
                 height: 80,
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Column(
-                    children: const [
+                    children: [
                       SizedBox(
                         height: 50,
                         width: double.infinity,

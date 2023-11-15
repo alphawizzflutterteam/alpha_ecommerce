@@ -81,9 +81,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - assets/images/3x/
     - assets/images/temporaryImages/
-    - assets/images/2x/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

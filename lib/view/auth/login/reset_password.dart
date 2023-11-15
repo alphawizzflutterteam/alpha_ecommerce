@@ -78,7 +78,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               Image.asset(
                 Images.greenTopLogo,
                 height: 90,
-                width: 110,
+                width: 120,
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -271,7 +271,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 fontSize: 14, color: colors.lightTextColor)),
                         InkWell(
                           onTap: () {
-                            Routes.navigateToVerifyNumberScreen(context, false);
+                            Routes.navigateToVerifyNumberScreen(context, true);
                           },
                           child: const Text('Sign up',
                               style: TextStyle(

@@ -1,7 +1,11 @@
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/view/productDetail/productRatingAndFollowers.dart';
+import 'package:alpha_ecommerce_18oct/view/productDetail/recommendedAccessoryCard.dart';
+import 'package:alpha_ecommerce_18oct/view/productDetail/recommendedProductCard.dart';
+import 'package:alpha_ecommerce_18oct/view/productDetail/reviewCard.dart';
+import 'package:alpha_ecommerce_18oct/view/productDetail/specificationCard.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
@@ -10,6 +14,7 @@ import '../widget_common/common_button.dart';
 import '../widget_common/common_header.dart';
 import '../widget_common/toast_message.dart';
 import '../profile/common_header.dart';
+import 'freeDeliveryCard.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({Key? key}) : super(key: key);
@@ -42,8 +47,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
-              Stack(
-                children: const [
+              const Stack(
+                children: [
                   ProfileHeader(),
                   InternalDetailPageHeader(
                     text: 'Oats Fitness',
@@ -136,15 +141,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   fontWeight: FontWeight.bold),
                             ),
                             Row(
-                              children: const [
-                                Icon(
-                                  FontAwesomeIcons.share,
-                                  size: 18,
+                              children: [
+                                Image.asset(
+                                  Images.share,
+                                  height: 20,
+                                  width: 20,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
-                                Icon(
+                                const Icon(
                                   FontAwesomeIcons.heart,
                                   size: 18,
                                 )
@@ -154,12 +160,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
+                            Text(
                               "Oats Fitness",
                               style: TextStyle(
                                   color: colors.textColor,
@@ -167,7 +173,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   fontWeight: FontWeight.bold),
                             ),
                             Row(
-                              children: const [
+                              children: [
                                 Icon(
                                   Icons.star,
                                   color: Colors.yellow,
@@ -192,24 +198,44 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
-                          children: const [
-                            Text(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
                               "\$200",
                               style: TextStyle(
                                 color: colors.lightTextColor,
                                 fontSize: 18,
                               ),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "\$120.00",
-                              style: TextStyle(
-                                color: colors.buttonColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
+                            Row(
+                              children: [
+                                const Text(
+                                  "or Pay \$100 + ",
+                                  style: TextStyle(
+                                    color: colors.textColor,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      Images.rupees,
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    const Text(
+                                      "20",
+                                      style: TextStyle(
+                                        color: colors.textColor,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -219,23 +245,35 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             horizontal: 20, vertical: 15),
                         child: Row(
                           children: [
-                            for (int i = 0; i < 3; i++)
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                margin: const EdgeInsets.only(right: 10),
-                                decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                        color: const Color(0x14E9E9E9),
-                                        width: 2)),
-                                child: const Text(
-                                  "250gm",
-                                  style: TextStyle(
-                                      color: colors.textColor, fontSize: 12),
-                                ),
+                            SizedBox(
+                              height: 40,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: 3,
+                                itemBuilder: (context, i) {
+                                  return Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    margin: const EdgeInsets.only(right: 10),
+                                    decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                            color: const Color(0x14E9E9E9),
+                                            width: 2)),
+                                    child: const Text(
+                                      "250gm",
+                                      style: TextStyle(
+                                          color: colors.textColor,
+                                          fontSize: 12),
+                                    ),
+                                  );
+                                },
                               ),
+                            ),
                           ],
                         ),
                       ),
@@ -297,12 +335,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         color: colors.textColor,
                         height: 1,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15),
+                      const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               "Description",
                               style: TextStyle(
@@ -383,470 +421,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           ],
                         ),
                       ),
-                      Container(
-                        height: 300,
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            gradient: LinearGradient(
-                              colors: [
-                                colors.boxGradient1.withOpacity(0.4),
-                                colors.boxBorder.withOpacity(0.4),
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                            border: Border.all(color: colors.boxBorder)),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15),
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: List.generate(3, (index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 15),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                height: 200,
-                                child: Center(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        Images.powder,
-                                        height: 120,
-                                      ),
-                                      const SizedBox(height: 5),
-                                      const Text(
-                                        "Oats Fitness",
-                                        style: TextStyle(
-                                            color: colors.textColor,
-                                            fontSize: 12),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Row(
-                                        children: const [
-                                          Text(
-                                            "\$200",
-                                            style: TextStyle(
-                                              color: colors.lightTextColor,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            "\$120.00",
-                                            style: TextStyle(
-                                              color: colors.buttonColor,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Row(
-                                        children: const [
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.orange,
-                                            size: 16,
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            "4.3",
-                                            style: TextStyle(
-                                              color: Colors.orange,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        height: 30,
-                                        width: 70,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(10)),
-                                            border: Border.all(
-                                                color: colors.textColor)),
-                                        child: const Text(
-                                          "ADD",
-                                          style: TextStyle(
-                                              color: colors.textColor,
-                                              fontSize: 12),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          }),
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 0, vertical: 15),
-                        decoration: BoxDecoration(
-                          color: const Color(0x14E9E9E9),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        alignment: Alignment.center,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: 50,
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    Images.freeDelivery,
-                                    height: 50,
-                                    width: 50,
-                                  ),
-                                  const Text(
-                                    "Free Delivery",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: colors.textColor),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: 80,
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    Images.nonRefundable,
-                                    height: 50,
-                                    width: 50,
-                                  ),
-                                  const Text(
-                                    "Non-\nRefundable",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: colors.textColor),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: 50,
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    Images.topBrand,
-                                    height: 50,
-                                    width: 50,
-                                  ),
-                                  const Text(
-                                    "Top Brand",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: 50,
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    Images.warranty,
-                                    height: 50,
-                                    width: 50,
-                                  ),
-                                  const Text(
-                                    "Pay on Delivery",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: const Color(0x14E9E9E9),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Specification",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text(
-                                  "Weight",
-                                  style: TextStyle(
-                                      color: colors.greyText, fontSize: 12),
-                                ),
-                                Text(
-                                  "190 MI",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text(
-                                  "Made IN",
-                                  style: TextStyle(
-                                      color: colors.greyText, fontSize: 12),
-                                ),
-                                Text(
-                                  "India",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text(
-                                  "Warranty",
-                                  style: TextStyle(
-                                      color: colors.greyText, fontSize: 12),
-                                ),
-                                Text(
-                                  "1 year",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text(
-                                  "Guarantee",
-                                  style: TextStyle(
-                                      color: colors.greyText, fontSize: 12),
-                                ),
-                                Text(
-                                  "1 year",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text(
-                                  "Refundable",
-                                  style: TextStyle(
-                                      color: colors.greyText, fontSize: 12),
-                                ),
-                                Text(
-                                  "1 Days",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text(
-                                  "Warranty",
-                                  style: TextStyle(
-                                      color: colors.greyText, fontSize: 12),
-                                ),
-                                Text(
-                                  "1 year",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text(
-                                  "Cancellable",
-                                  style: TextStyle(
-                                      color: colors.greyText, fontSize: 12),
-                                ),
-                                Text(
-                                  "Till received",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 15),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: const Color(0x14E9E9E9),
-                            )),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Image.asset(Images.vendor),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                const Text(
-                                  "Best Mart",
-                                  style: TextStyle(color: Colors.white),
-                                )
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Row(
-                                          children: const [
-                                            Icon(
-                                              Icons.star,
-                                              color: Colors.orange,
-                                              size: 16,
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              "4.3",
-                                              style: TextStyle(
-                                                color: Colors.orange,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        const Text(
-                                          "Rating",
-                                          style: TextStyle(
-                                              color: colors.lightTextColor),
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      width: 30,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: const [
-                                            Text(
-                                              "167",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        const Text(
-                                          "Followers",
-                                          style: TextStyle(
-                                              color: colors.lightTextColor),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Image.asset(
-                                  Images.arrow,
-                                  width: 30,
-                                  height: 30,
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
+                      recommendedAccessoryCard(context: context),
+                      deliveryCard(context: context),
+                      specificationCard(context: context),
+                      productRatingAndFollowersCard(),
                       const Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -855,202 +433,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                      Container(
-                        height: 230,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15),
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: List.generate(3, (index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 15),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10)),
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        colors.boxGradient1,
-                                        colors.boxBorder,
-                                      ],
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                    ),
-                                    border:
-                                        Border.all(color: colors.boxBorder)),
-                                width: MediaQuery.of(context).size.width * 0.42,
-                                height: 200,
-                                child: Center(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Image.asset(
-                                          Images.powder,
-                                          height: 120,
-                                        ),
-                                      ),
-                                      const Text(
-                                        "25% Off",
-                                        style: TextStyle(
-                                            color: Colors.orange, fontSize: 12),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      const Text(
-                                        "Oats Fitness",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 12),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Row(
-                                        children: const [
-                                          Text(
-                                            "\$200",
-                                            style: TextStyle(
-                                              color: colors.lightTextColor,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            "\$120.00",
-                                            style: TextStyle(
-                                              color: colors.buttonColor,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          }),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Review",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset(Images.profile),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      "Customer Name",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    RatingBar.builder(
-                                      initialRating: rating,
-                                      minRating: 1,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: false,
-                                      itemCount: 5,
-                                      itemSize: 15,
-                                      itemPadding:
-                                          const EdgeInsets.only(right: 5),
-                                      itemBuilder: (context, _) => const Icon(
-                                        Icons.star,
-                                        color: Colors.orange,
-                                      ),
-                                      onRatingUpdate: (newRating) {
-                                        setState(() {
-                                          rating = newRating;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const Text(
-                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. LOrem Ipsum has been the industry's standard dummy text since the 1500s",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            const Divider(
-                              color: Colors.white,
-                              height: 1,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset(Images.profile),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      "Customer Name",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    RatingBar.builder(
-                                      initialRating: rating,
-                                      minRating: 1,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: false,
-                                      itemCount: 5,
-                                      itemSize: 15,
-                                      itemPadding:
-                                          const EdgeInsets.only(right: 5),
-                                      itemBuilder: (context, _) => const Icon(
-                                        Icons.star,
-                                        color: Colors.orange,
-                                      ),
-                                      onRatingUpdate: (newRating) {
-                                        setState(() {
-                                          rating = newRating;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const Text(
-                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. LOrem Ipsum has been the industry's standard dummy text since the 1500s",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
-                            ),
-                          ],
-                        ),
+                      recommendedProductCard(context: context),
+                      reviewCard(
+                        rating: rating,
                       )
                     ],
                   ),
@@ -1143,6 +528,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+            contentPadding: EdgeInsets.zero,
             backgroundColor: Colors.transparent,
             content: Container(
               decoration: BoxDecoration(

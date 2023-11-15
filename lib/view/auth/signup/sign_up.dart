@@ -50,7 +50,7 @@ class _SignUPState extends State<SignUP> {
                     Image.asset(
                       Images.logoWithoutText,
                       height: 90,
-                      width: 110,
+                      width: 120,
                     ),
                     const Padding(
                       padding:

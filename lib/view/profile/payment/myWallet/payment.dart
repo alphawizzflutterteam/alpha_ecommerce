@@ -54,7 +54,7 @@ class _PaymentState extends State<Payment> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      for (int i = 0; i < 4; i++)
+                      for (int i = 0; i < paymentMethods.length; i++)
                         Container(
                           margin: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),

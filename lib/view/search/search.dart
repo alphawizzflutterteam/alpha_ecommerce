@@ -4,7 +4,6 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 
-import '../widget_common/access_microphone.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class Search extends StatefulWidget {
@@ -183,21 +182,22 @@ class _SearchState extends State<Search> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          accessMicrophone(context);
-                        },
-                        child: const Icon(
-                          Icons.camera_alt_outlined,
-                          color: Colors.white,
-                        ),
-                      ),
+                          onTap: () {
+                            //accessCamera(context);
+                          },
+                          child: Image.asset(
+                            Images.camera,
+                            height: 25,
+                            width: 25,
+                          )),
                       InkWell(
                         onTap: () {
                           getMicrophonePermission(false);
                         },
-                        child: const Icon(
-                          Icons.mic,
-                          color: Colors.white,
+                        child: Image.asset(
+                          Images.smallMic,
+                          height: 25,
+                          width: 25,
                         ),
                       )
                     ],
@@ -224,6 +224,7 @@ class _SearchState extends State<Search> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+            contentPadding: EdgeInsets.zero,
             backgroundColor: Colors.transparent,
             content: Container(
               decoration: BoxDecoration(
@@ -237,19 +238,10 @@ class _SearchState extends State<Search> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Stack(
-                    children: [
-                      Image.asset(
-                        Images.iconBG,
-                        width: 80,
-                        height: 80,
-                      ),
-                      Image.asset(
-                        Images.mic,
-                        width: 80,
-                        height: 80,
-                      ),
-                    ],
+                  Image.asset(
+                    Images.mic,
+                    width: 80,
+                    height: 80,
                   ),
                   const SizedBox(
                     height: 10,

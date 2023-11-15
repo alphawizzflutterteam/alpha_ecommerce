@@ -12,7 +12,10 @@ import 'package:alpha_ecommerce_18oct/view/greet/welcome.dart';
 import 'package:alpha_ecommerce_18oct/view/home/home.dart';
 import 'package:alpha_ecommerce_18oct/view/language_selection/language_selection.dart';
 import 'package:alpha_ecommerce_18oct/view/offer/offer.dart';
-import 'package:alpha_ecommerce_18oct/view/order/orderDetail.dart';
+import 'package:alpha_ecommerce_18oct/view/order/cancelOrderPopup.dart';
+import 'package:alpha_ecommerce_18oct/view/order/orderCancelled.dart';
+import 'package:alpha_ecommerce_18oct/view/order/orderDetailOnTheWay.dart';
+import 'package:alpha_ecommerce_18oct/view/order/orderReturned.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/productDetailPage.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/aboutUs/aboutUs.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/address/manage_address.dart';
@@ -44,7 +47,11 @@ import '../view/dashboard/common_bottom.dart';
 import '../view/dashboard/dashboard.dart';
 import '../view/intro_slider/intro_slider.dart';
 import '../view/order/order.dart';
+import '../view/order/orderDetailDelivered.dart';
 import '../view/placeOrder/placeOrder.dart';
+import '../view/profile/payment/myTransaction/singleTransaction.dart';
+import '../view/profile/payment/refund/singleRefund.dart';
+import '../view/profile/referEarn/viewAllReferall.dart';
 import '../view/profile/subscribe/currentPlan.dart';
 import '../view/wishlist/wishlist.dart';
 import '../view/notification/notificationScreen.dart';
@@ -409,11 +416,12 @@ class Routes {
     );
   }
 
-  static navigateToOrderDetailScreen(BuildContext context) {
+  static navigateToOrderOnTheWayDetailScreen(BuildContext context) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const OrderDetail(),
+        pageBuilder: (context, animation1, animation2) =>
+            const OrderDetailOnTheWay(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -630,6 +638,76 @@ class Routes {
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) =>
             const CategoryDetail(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
+  static navigateToOrderCancelledScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const OrderCancelled(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
+  static navigateToOrderDetailDeliveredDetailScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const OrderDetailDelivered(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
+  static navigateToOrderReturnedDetailScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const OrderReturned(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
+  static navigateToViewAllReferallScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const ViewAllReferall(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
+  static navigateToSingleTransactionScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const SingleTransaction(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
+  static navigateToSingleRefundScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => const SingleRefund(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

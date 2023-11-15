@@ -1,8 +1,10 @@
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/view/vendor/vendorDetailCard.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../utils/routes.dart';
 import '../../model/category.dart';
+import '../category/categoryCard.dart';
 import '../widget_common/commonBackground.dart';
 import '../widget_common/common_button.dart';
 import '../widget_common/common_header.dart';
@@ -31,8 +33,8 @@ class _VendorDetailsState extends State<VendorDetails> {
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
-              Stack(
-                children: const [
+              const Stack(
+                children: [
                   ProfileHeader(),
                   InternalDetailPageHeader(
                     text: "Vendor Details",
@@ -100,7 +102,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.2,
+                                                    0.22,
                                                 child: CommonButton(
                                                   text: "Follow",
                                                   fontSize: 14,
@@ -123,10 +125,10 @@ class _VendorDetailsState extends State<VendorDetails> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Column(
+                                  const Column(
                                     children: [
                                       Row(
-                                        children: const [
+                                        children: [
                                           Icon(
                                             Icons.star,
                                             color: Colors.orange,
@@ -144,7 +146,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                           ),
                                         ],
                                       ),
-                                      const Text(
+                                      Text(
                                         "Rating",
                                         style:
                                             TextStyle(color: colors.greyText),
@@ -154,8 +156,8 @@ class _VendorDetailsState extends State<VendorDetails> {
                                   const SizedBox(
                                     width: 40,
                                   ),
-                                  Column(
-                                    children: const [
+                                  const Column(
+                                    children: [
                                       Text(
                                         "167 ",
                                         style: TextStyle(
@@ -294,88 +296,73 @@ class _VendorDetailsState extends State<VendorDetails> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              for (int i = 0; i < categories.length; i++)
-                                if (isTabSelectedList[i])
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.6,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          categories[i].name,
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                        const SizedBox(height: 10),
-                                        SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.45,
-                                          child: GridView.builder(
-                                            shrinkWrap: true,
-                                            physics:
-                                                const AlwaysScrollableScrollPhysics(),
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2,
-                                              mainAxisSpacing: 2,
-                                              childAspectRatio: 0.7,
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.6,
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: categories.length,
+                                  itemBuilder: (context, i) {
+                                    if (isTabSelectedList[i]) {
+                                      return SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.6,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              categories[i].name,
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18),
                                             ),
-                                            itemCount: categories[i]
-                                                .categoryList
-                                                .length,
-                                            itemBuilder: (context, j) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  Routes
-                                                      .navigateToCategoryDetailScreen(
-                                                          context);
-                                                },
-                                                child: SizedBox(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.45,
-                                                  child: Column(
-                                                    children: [
-                                                      Image.asset(
-                                                        categories[i]
-                                                            .categoryList[j]
-                                                            .categoryImage,
-                                                        height: 70,
-                                                        width: 90,
-                                                        fit: BoxFit.fitHeight,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Text(
-                                                        categories[i]
-                                                            .categoryList[j]
-                                                            .categoryName,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: const TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 12),
-                                                      ),
-                                                    ],
-                                                  ),
+                                            const SizedBox(height: 10),
+                                            SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.55,
+                                              child: GridView.builder(
+                                                shrinkWrap: true,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 20),
+                                                physics:
+                                                    const AlwaysScrollableScrollPhysics(),
+                                                gridDelegate:
+                                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 2,
+                                                  mainAxisSpacing: 2,
+                                                  childAspectRatio: 0.7,
                                                 ),
-                                              );
-                                            },
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
+                                                itemCount: categories[i]
+                                                    .categoryList
+                                                    .length,
+                                                itemBuilder: (context, j) {
+                                                  return categoryCard(
+                                                      context: context,
+                                                      categoryIndex: i,
+                                                      categoryListIndex: j);
+                                                },
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    } else {
+                                      return const SizedBox();
+                                    }
+                                  },
+                                ),
+                              )
                             ],
                           ),
                         ],

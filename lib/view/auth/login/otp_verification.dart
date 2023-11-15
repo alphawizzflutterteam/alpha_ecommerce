@@ -78,7 +78,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                 Image.asset(
                   Images.greenTopLogo,
                   height: 90,
-                  width: 110,
+                  width: 120,
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -217,7 +217,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                           widget.signIn
                               ? Routes.navigateToSignInScreen(context)
                               : Routes.navigateToVerifyNumberScreen(
-                                  context, false);
+                                  context, true);
                         },
                         child: Text(
                           widget.signIn ? 'Sign In' : 'Sign Up',

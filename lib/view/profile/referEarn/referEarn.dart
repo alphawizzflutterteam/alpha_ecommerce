@@ -84,11 +84,11 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             height: 100,
                             width: 100,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 15),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 15),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Icon(Icons.monetization_on,
                                     color: Colors.yellow),
                                 SizedBox(
@@ -130,9 +130,9 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                     //   width: 1, // Border width
                                     // ),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
+                                  child: const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -140,7 +140,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Column(
-                                          children: const [
+                                          children: [
                                             Text(
                                               "You referral code",
                                               style: TextStyle(
@@ -159,14 +159,14 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                             ),
                                           ],
                                         ),
-                                        const VerticalDivider(
+                                        VerticalDivider(
                                           width: 1,
                                           color: Colors.grey,
                                           thickness: 3,
                                           indent: 10,
                                           endIndent: 10,
                                         ),
-                                        const Text(
+                                        Text(
                                           "Copy\nCode",
                                           style: TextStyle(
                                               fontSize: 12,
@@ -184,10 +184,10 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             onTap: () {
                               share(context);
                             },
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Icon(
                                   Icons.ios_share_outlined,
                                   color: Colors.orange,
@@ -204,7 +204,9 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 20,),
+                          const SizedBox(
+                            height: 20,
+                          ),
                         ],
                       ),
                     ),
@@ -213,94 +215,112 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                           vertical: 20, horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             "Referall Member & Amount",
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
-                          Text(
-                            "View all",
-                            style: TextStyle(
-                                color: colors.buttonColor, fontSize: 12),
+                          InkWell(
+                            onTap: () {
+                              Routes.navigateToViewAllReferallScreen(context);
+                            },
+                            child: const Text(
+                              "View all",
+                              style: TextStyle(
+                                  color: colors.buttonColor, fontSize: 12),
+                            ),
                           )
                         ],
                       ),
                     ),
-                    for (int i = 0; i < 3; i++)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 20),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    SizedBox(
+                      height: 85 * 3,
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 3,
+                        itemBuilder: (context, i) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            child: Column(
                               children: [
                                 Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(
-                                      width:
-                                          40, // Set the width and height to create a circular shape
-                                      height: 40,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape
-                                            .circle, // Make the container circular
-                                        color: Color(
-                                            0x6B969696), // Set the background color
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          "AS",
-                                          style: TextStyle(
-                                            color: Colors
-                                                .white, // Set the text color
-                                            fontSize: 14, // Set the text size
-                                            fontWeight: FontWeight
-                                                .bold, // Set the text weight
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width:
+                                              40, // Set the width and height to create a circular shape
+                                          height: 40,
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape
+                                                .circle, // Make the container circular
+                                            color: Color(
+                                                0x6B969696), // Set the background color
+                                          ),
+                                          child: const Center(
+                                            child: Text(
+                                              "AS",
+                                              style: TextStyle(
+                                                color: Colors
+                                                    .white, // Set the text color
+                                                fontSize:
+                                                    14, // Set the text size
+                                                fontWeight: FontWeight
+                                                    .bold, // Set the text weight
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 15),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Anshul Sharma",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14),
+                                        const SizedBox(width: 15),
+                                        const Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Anshul Sharma",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14),
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text("02 oct 2022",
+                                                style: TextStyle(
+                                                    color:
+                                                        colors.lightTextColor,
+                                                    fontSize: 12))
+                                          ],
                                         ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text("02 oct 2022",
-                                            style: TextStyle(
-                                                color: colors.lightTextColor,
-                                                fontSize: 12))
                                       ],
                                     ),
+                                    const Text(
+                                      "200",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
+                                    )
                                   ],
                                 ),
-                                const Text(
-                                  "200",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                )
+                                const SizedBox(height: 20),
+                                const Divider(
+                                  color: Colors.white,
+                                  height: 1,
+                                ),
                               ],
                             ),
-                            const SizedBox(height: 20),
-                            const Divider(
-                              color: Colors.white,
-                              height: 1,
-                            ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
+                    ),
                   ],
                 ),
               ),

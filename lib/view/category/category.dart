@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../model/category.dart';
+import '../cart/savedItems.dart';
 import '../widget_common/commonBackground.dart';
 import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
@@ -132,56 +133,73 @@ class _AllCategoryState extends State<AllCategory> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              for (int i = 0; i < categories.length; i++)
-                                if (isTabSelectedList[i])
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.6,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          categories[i].name,
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                        const SizedBox(height: 10),
-                                        SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.55,
-                                          child: GridView.builder(
-                                            shrinkWrap: true,
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 20),
-                                            physics:
-                                                const AlwaysScrollableScrollPhysics(),
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2,
-                                              mainAxisSpacing: 2,
-                                              childAspectRatio: 0.7,
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.6,
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: categories.length,
+                                  itemBuilder: (context, i) {
+                                    if (isTabSelectedList[i]) {
+                                      return SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.6,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              categories[i].name,
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18),
                                             ),
-                                            itemCount: categories[i]
-                                                .categoryList
-                                                .length,
-                                            itemBuilder: (context, j) {
-                                              return categoryCard(
-                                                  context: context,
-                                                  categoryIndex: i,
-                                                  categoryListIndex: j);
-                                            },
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
+                                            const SizedBox(height: 10),
+                                            SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.55,
+                                              child: GridView.builder(
+                                                shrinkWrap: true,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 20),
+                                                physics:
+                                                    const AlwaysScrollableScrollPhysics(),
+                                                gridDelegate:
+                                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 2,
+                                                  mainAxisSpacing: 2,
+                                                  childAspectRatio: 0.7,
+                                                ),
+                                                itemCount: categories[i]
+                                                    .categoryList
+                                                    .length,
+                                                itemBuilder: (context, j) {
+                                                  return categoryCard(
+                                                      context: context,
+                                                      categoryIndex: i,
+                                                      categoryListIndex: j);
+                                                },
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    } else {
+                                      return const SizedBox();
+                                    }
+                                  },
+                                ),
+                              ),
                             ],
                           ),
                         ],

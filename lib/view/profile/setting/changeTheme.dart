@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/color.dart';
@@ -17,8 +18,12 @@ Future<void> changeTheme(context) async {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Row(
-                  children: const [
-                    Icon(Icons.dark_mode),
+                  children: [
+                    Image.asset(
+                      Images.darkTheme,
+                      height: 25,
+                      width: 25,
+                    ),
                     SizedBox(
                       width: 20,
                     ),
@@ -28,13 +33,17 @@ Future<void> changeTheme(context) async {
                     )
                   ],
                 ),
-                const Divider(
+                Divider(
                   color: colors.dividerGrey,
                   height: 1,
                 ),
                 Row(
-                  children: const [
-                    Icon(Icons.light_mode),
+                  children: [
+                    Image.asset(
+                      Images.lightTheme,
+                      height: 25,
+                      width: 25,
+                    ),
                     SizedBox(
                       width: 20,
                     ),

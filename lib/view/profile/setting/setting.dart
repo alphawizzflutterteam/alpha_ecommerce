@@ -1,9 +1,9 @@
+import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/setting/changeTheme.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/setting/selectCurrency.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/setting/selectLanguage.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/setting/showRateUs.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../model/setting.dart';
 import '../../widget_common/commonBackground.dart';
 import '../../widget_common/common_header.dart';
@@ -29,32 +29,32 @@ class _SettingState extends State<Setting> {
     super.initState();
     settings = [
       SettingList(
-          settingIcon: Icons.currency_exchange,
+          settingIcon: Images.currency,
           settingName: 'Currency',
           nextNavigation: false,
           navigationPage: () => currency(context)),
       SettingList(
-          settingIcon: Icons.star,
+          settingIcon: Images.star,
           settingName: 'Rate Us',
           nextNavigation: false,
           navigationPage: () => showAlertDialog(context)),
       SettingList(
-          settingIcon: FontAwesomeIcons.share,
+          settingIcon: Images.shareApp,
           settingName: 'Share',
           nextNavigation: false,
           navigationPage: () => share(context)),
       SettingList(
-          settingIcon: FontAwesomeIcons.lock,
+          settingIcon: Images.changePassword,
           settingName: 'Change Password',
           nextNavigation: true,
           navigationPage: const ChangePassword()),
       SettingList(
-          settingIcon: FontAwesomeIcons.language,
+          settingIcon: Images.changeLanguage,
           settingName: 'Change Language',
           nextNavigation: false,
           navigationPage: () => language(context)),
       SettingList(
-          settingIcon: FontAwesomeIcons.themeco,
+          settingIcon: Images.changeTheme,
           settingName: 'Change Theme',
           nextNavigation: false,
           navigationPage: () => changeTheme(context)),
@@ -73,8 +73,8 @@ class _SettingState extends State<Setting> {
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
-              Stack(
-                children: const [
+              const Stack(
+                children: [
                   ProfileHeader(),
                   InternalPageHeader(
                     text: "Setting",
@@ -87,47 +87,59 @@ class _SettingState extends State<Setting> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 10),
-                      for (int i = 0; i < 6; i++)
-                        Column(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: InkWell(
-                                onTap: () {
-                                  settings[i].nextNavigation
-                                      ? Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  settings[i].navigationPage),
-                                        )
-                                      : settings[i].navigationPage();
-                                },
-                                child: ListTile(
-                                  leading: Icon(
-                                    settings[i].settingIcon,
-                                    color: Colors.white,
-                                  ),
-                                  title: Text(
-                                    settings[i].settingName,
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                  ),
-                                  trailing: const Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    color: Colors.white,
-                                    size: 20,
+                      SizedBox(
+                        height: 65 * settings.length.toDouble(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: settings.length,
+                          itemBuilder: (context, i) {
+                            return Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: InkWell(
+                                    onTap: () {
+                                      settings[i].nextNavigation
+                                          ? Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      settings[i]
+                                                          .navigationPage),
+                                            )
+                                          : settings[i].navigationPage();
+                                    },
+                                    child: ListTile(
+                                      leading: Image.asset(
+                                        settings[i].settingIcon,
+                                        height: 30,
+                                        width: 30,
+                                      ),
+                                      title: Text(
+                                        settings[i].settingName,
+                                        style: const TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      ),
+                                      trailing: const Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            const Divider(
-                              color: Colors.white,
-                              height: 1,
-                            ),
-                          ],
+                                const Divider(
+                                  color: Colors.white,
+                                  height: 1,
+                                ),
+                              ],
+                            );
+                          },
                         ),
+                      ),
                     ],
                   ),
                 ),

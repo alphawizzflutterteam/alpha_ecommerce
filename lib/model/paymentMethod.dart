@@ -16,4 +16,6 @@ List<PaymentMethodList> paymentMethods = [
       paymentMethodName: 'UPI Payment', paymentMethodImage: Images.upi),
   PaymentMethodList(
       paymentMethodName: 'Google Pay', paymentMethodImage: Images.google),
+  PaymentMethodList(
+      paymentMethodName: 'Cash On Delivery', paymentMethodImage: Images.cod),
 ];

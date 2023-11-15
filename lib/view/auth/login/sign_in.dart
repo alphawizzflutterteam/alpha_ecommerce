@@ -46,7 +46,7 @@ class _SignInState extends State<SignIn> {
               Image.asset(
                 Images.logoWithoutText,
                 height: 90,
-                width: 110,
+                width: 120,
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -174,7 +174,7 @@ class _SignInState extends State<SignIn> {
                               ),
                               child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children:  [
+                                children: [
                                   Text('Login', style: TextStyle(fontSize: 18)),
                                   SizedBox(width: 10),
                                   Icon(Icons.arrow_forward, size: 23),
@@ -204,9 +204,9 @@ class _SignInState extends State<SignIn> {
                               ],
                             ),
                           ),
-                         const Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children:  [
+                            children: [
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsets.all(8.0),
@@ -249,11 +249,6 @@ class _SignInState extends State<SignIn> {
                                   height: 50,
                                   width: 60,
                                 ),
-                                Image.asset(
-                                  Images.twitter,
-                                  height: 50,
-                                  width: 60,
-                                ),
                               ],
                             ),
                           ),
@@ -262,9 +257,12 @@ class _SignInState extends State<SignIn> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(Icons.person_2_outlined,
-                                    color: colors.textColor),
-                                const SizedBox(width: 8),
+                                Image.asset(
+                                  Images.guestUser,
+                                  height: 25,
+                                  width: 25,
+                                ),
+                                const SizedBox(width: 5),
                                 InkWell(
                                   onTap: () {
                                     Routes.navigateToDashboardScreen(context);
