@@ -1,10 +1,12 @@
 import 'package:alpha_ecommerce_18oct/utils/constant.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/images.dart';
-import '../../../provider/authentication_provider.dart';
 import '../../widget_common/commonBackground.dart';
 import '../../widget_common/common_textfield.dart';
 import '../../widget_common/textfield_validation.dart';
@@ -26,6 +28,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
     return Stack(children: [
       //background with pattern
       const CommonBackgroundPatternAuthWidget(),
@@ -69,6 +72,60 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
               const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      authViewModel.setLoggingViaPhone(true);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(12.0),
+                      decoration: BoxDecoration(
+                        color: Colors.green.withOpacity(
+                            authViewModel.isLoggingViaPhone
+                                ? 0.2
+                                : 0.0), // Adjust the opacity as needed
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Text(
+                        'Login via Phone',
+                        style: TextStyle(
+                          color: authViewModel.isLoggingViaPhone
+                              ? colors.buttonColor
+                              : Colors.white,
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      authViewModel.setLoggingViaPhone(false);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(12.0),
+                      decoration: BoxDecoration(
+                        color: colors.buttonColor.withOpacity(!authViewModel
+                                .isLoggingViaPhone
+                            ? 0.2
+                            : 0.0), // Adjus), // Adjust the opacity as needed
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Text(
+                        'Login via Email',
+                        style: TextStyle(
+                          color: !authViewModel.isLoggingViaPhone
+                              ? colors.buttonColor
+                              : Colors.white,
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
               Form(
                 key: _formKey,
                 child: Column(
@@ -80,108 +137,114 @@ class _SignInState extends State<SignIn> {
                         controller: mobileOrEmailController,
                         validator: validateMobileOrEmail,
                         decoration: commonInputDecoration(
-                          labelText: 'Mobile no. or Email Id',
+                          labelText: authViewModel.isLoggingViaPhone
+                              ? 'Mobile no.'
+                              : 'Email Id',
                         ),
                         style: const TextStyle(color: colors.textColor),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
-                      child: TextFormField(
-                        controller: passwordController,
-                        obscureText: obscureText,
-                        validator: validatePassword,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: colors.textFieldBG,
-                          labelText: 'Password',
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                obscureText = !obscureText;
-                              });
-                            },
-                            child: Icon(
-                              obscureText
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: colors.labelColor,
+                    authViewModel.isLoggingViaPhone
+                        ? const SizedBox()
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: TextFormField(
+                              controller: passwordController,
+                              obscureText: obscureText,
+                              validator: validatePassword,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: colors.textFieldBG,
+                                labelText: 'Password',
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      obscureText = !obscureText;
+                                    });
+                                  },
+                                  child: Icon(
+                                    obscureText
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: colors.labelColor,
+                                  ),
+                                ),
+                                labelStyle: const TextStyle(
+                                  color: colors.labelColor,
+                                  fontSize: 14,
+                                ),
+                                hintStyle: const TextStyle(
+                                  color: colors.labelColor,
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: const BorderSide(
+                                    color: colors.textFieldColor,
+                                    width: 1,
+                                  ),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: const BorderSide(
+                                    color: colors.textFieldColor,
+                                    width: 1,
+                                  ),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: const BorderSide(
+                                    color: colors.textFieldColor,
+                                    width: 1,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: const BorderSide(
+                                    color: colors.textFieldColor,
+                                    width: 1,
+                                  ),
+                                ),
+                              ),
+                              style: const TextStyle(color: colors.textColor),
                             ),
                           ),
-                          labelStyle: const TextStyle(
-                            color: colors.labelColor,
-                            fontSize: 14,
-                          ),
-                          hintStyle: const TextStyle(
-                            color: colors.labelColor,
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                              color: colors.textFieldColor,
-                              width: 1,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                              color: colors.textFieldColor,
-                              width: 1,
-                            ),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                              color: colors.textFieldColor,
-                              width: 1,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                              color: colors.textFieldColor,
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                        style: const TextStyle(color: colors.textColor),
-                      ),
-                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 15),
                       child: Column(
                         children: [
-                          SizedBox(
-                            height: 50,
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                AuthenticationProvider authProvider =
-                                    Provider.of<AuthenticationProvider>(
-                                        this.context,
-                                        listen: false);
-                                authProvider.loginFn(_formKey, context,
-                                    mobileOrEmailController.text);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: colors.buttonColor,
-                                onPrimary: colors.textColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
+                          authViewModel.isLoading
+                              ? appLoader()
+                              : SizedBox(
+                                  height: 50,
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Map data = {'mobile': '9212716009'};
+                                      authViewModel.loginFn(_formKey, context,
+                                          mobileOrEmailController.text, data);
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      primary: colors.buttonColor,
+                                      onPrimary: colors.textColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                    child: const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text('Login',
+                                            style: TextStyle(fontSize: 18)),
+                                        SizedBox(width: 10),
+                                        Icon(Icons.arrow_forward, size: 23),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('Login', style: TextStyle(fontSize: 18)),
-                                  SizedBox(width: 10),
-                                  Icon(Icons.arrow_forward, size: 23),
-                                ],
-                              ),
-                            ),
-                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 20),
                             child: Row(

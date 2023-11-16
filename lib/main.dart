@@ -1,4 +1,3 @@
-import 'package:alpha_ecommerce_18oct/provider/authentication_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/currency_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/home_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/language_provider.dart';
@@ -7,6 +6,9 @@ import 'package:alpha_ecommerce_18oct/provider/theme_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/user_provider.dart';
 import 'package:alpha_ecommerce_18oct/view/dashboard/dashboard.dart';
 import 'package:alpha_ecommerce_18oct/view/intro_slider/intro_slider.dart';
+import 'package:alpha_ecommerce_18oct/view/splash/splashScreen.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/splashViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -48,8 +50,8 @@ void main() async {
       create: (context) => SettingProvider(SharedPref.shared.pref!),
     ),
     ChangeNotifierProvider<UserProvider>(create: (context) => UserProvider()),
-    ChangeNotifierProvider<AuthenticationProvider>(
-        create: (context) => AuthenticationProvider()),
+    ChangeNotifierProvider<AuthViewModel>(create: (context) => AuthViewModel()),
+    ChangeNotifierProvider<SplashViewModel>(create: (context) => SplashViewModel()),
     ChangeNotifierProvider<HomeProvider>(create: (context) => HomeProvider()),
     ChangeNotifierProvider<LanguageProvider>(
         create: (context) => LanguageProvider()),
@@ -156,15 +158,9 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute:
-          // SharedPref.shared.pref?.getString(PrefKeys.isLoggedIn) == "0"
-          //     ?
-          '/'
-      //     :
-      // "/home"
-      ,
+      initialRoute: '/',
       routes: {
-        '/': (context) => const IntroSlider(),
+        '/': (context) => const SplashScreen(),
         '/home': (context) => const Dashboard(),
       },
       darkTheme: ThemeData(

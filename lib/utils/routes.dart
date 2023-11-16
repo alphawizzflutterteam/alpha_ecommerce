@@ -97,6 +97,21 @@ class Routes {
     // );
   }
 
+
+  static navigateToIntroScreen(BuildContext context) {
+    Navigator.of(context).pushAndRemoveUntil(
+        CupertinoPageRoute(builder: (context) => IntroSlider()),
+        (Route<dynamic> route) => false);
+    // Navigator.push(
+    //   context,
+    //   PageRouteBuilder(
+    //     pageBuilder: (context, animation1, animation2) => SignIn(),
+    //     transitionDuration: Duration.zero,
+    //     reverseTransitionDuration: Duration.zero,
+    //   ),
+    // );
+  }
+
   static navigateToSignUpScreen(BuildContext context) {
     Navigator.push(
       context,

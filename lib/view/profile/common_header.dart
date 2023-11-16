@@ -7,17 +7,17 @@ class ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 110,
         width: MediaQuery.of(context).size.width,
         child: Stack(
           children: [
             Image.asset(
               Images.headerBGLine,
-              fit: BoxFit.contain,
+              width: MediaQuery.of(context).size.width,
             ),
             Image.asset(
               Images.commonHeader,
               fit: BoxFit.contain,
+              width: MediaQuery.of(context).size.width,
             ),
           ],
         ));

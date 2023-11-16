@@ -38,11 +38,11 @@ class DashboardHeader extends StatelessWidget {
                       },
                       child: Image.asset(
                         Images.search,
-                        height: 25,
-                        width: 25,
+                        height: 28,
+                        width: 28,
                       )),
                   const SizedBox(
-                    width: 5,
+                    width: 12,
                   ),
                   InkWell(
                       onTap: () {
