@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/utils/constant.dart';
+import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/color.dart';
 import '../../../utils/images.dart';
@@ -59,11 +60,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                           child: Padding(
                             padding: EdgeInsets.only(
                                 right: MediaQuery.of(context).size.width * 0.1),
-                            child: const Text(
-                              "Reset Password",
+                            child: Text(
+                              translation(context).changepassword,
                               textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 20),
                             ),
                           ),
                         ),
@@ -113,7 +114,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         obscureText: obscureText,
                         validator: validatePassword,
                         decoration: InputDecoration(
-                          labelText: 'Create New Password',
+                          labelText: translation(context).createpassword,
                           filled: true,
                           fillColor: colors.textFieldBG,
                           suffixIcon: GestureDetector(

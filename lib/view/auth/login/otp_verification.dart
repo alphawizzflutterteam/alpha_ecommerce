@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/utils/constant.dart';
+import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../utils/color.dart';
@@ -59,10 +60,10 @@ class _OTPVerificationState extends State<OTPVerification> {
                               padding: EdgeInsets.only(
                                   right:
                                       MediaQuery.of(context).size.width * 0.1),
-                              child: const Text(
-                                "OTP Verification",
+                              child: Text(
+                                translation(context).otpverification,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: colors.textColor, fontSize: 20),
                               ),
                             ),
@@ -80,21 +81,23 @@ class _OTPVerificationState extends State<OTPVerification> {
                   height: 90,
                   width: 120,
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   child: Text(
-                    otp1,
-                    style: TextStyle(
+                    translation(context).enterverificationcode,
+                    style: const TextStyle(
                         color: colors.textColor,
                         fontSize: 28,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Text(
-                    otp2,
-                    style: TextStyle(
+                    "${translation(context).entertheotpsentto} 9212716009",
+                    style: const TextStyle(
                       color: colors.lightTextColor,
                       fontSize: 16,
                     ),
@@ -156,7 +159,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                               height: 50,
                               width: double.infinity,
                               child: CommonButton(
-                                text: "Verify",
+                                text: translation(context).verify,
                                 fontSize: 18,
                                 onClick: () {
                                   if (_formKey.currentState!.validate()) {
@@ -174,9 +177,9 @@ class _OTPVerificationState extends State<OTPVerification> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Text(
-                                    otp3,
-                                    style: TextStyle(
+                                  Text(
+                                    translation(context).didntReceivedOTP,
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         color: colors.lightTextColor),
                                   ),
@@ -185,9 +188,9 @@ class _OTPVerificationState extends State<OTPVerification> {
                                       showToastMessage(
                                           "Verification code was sent successfully");
                                     },
-                                    child: const Text(
-                                      "Resend OTP",
-                                      style: TextStyle(
+                                    child: Text(
+                                      translation(context).resendOTP,
+                                      style: const TextStyle(
                                           fontSize: 14,
                                           color: colors.buttonColor,
                                           fontWeight: FontWeight.bold),
@@ -208,7 +211,9 @@ class _OTPVerificationState extends State<OTPVerification> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        widget.signIn ? signIn5 : signIn4,
+                        widget.signIn
+                            ? translation(context).alreadyhaveanaccount
+                            : translation(context).dontHaveanaccount,
                         style: const TextStyle(
                             fontSize: 14, color: colors.textColor),
                       ),
@@ -220,7 +225,9 @@ class _OTPVerificationState extends State<OTPVerification> {
                                   context, true);
                         },
                         child: Text(
-                          widget.signIn ? 'Sign In' : 'Sign Up',
+                          widget.signIn
+                              ? translation(context).signIn
+                              : translation(context).signUp,
                           style: const TextStyle(
                             fontSize: 14,
                             color: colors.buttonColor,

@@ -18,23 +18,14 @@ typedef OnUploadProgressCallback = void Function(int sentBytes, int totalBytes);
 class HTTPClient {
   static Future<Map<String, dynamic>> postRequest(String api, Map params,
       {String type = "raw"}) async {
-    var userid = SharedPref.shared.pref?.getInt(PrefKeys.mobile);
-    var sCode = SharedPref.shared.pref?.getString(PrefKeys.mobile);
+  
     final url = Uri.parse(api);
     final http.Response res;
 
-    res = await http
-        .post(url, body: type == "raw" ? jsonEncode(params) : params, headers: {
-      // 'apiusername': APIs.apiUserName,
-      // 'apipassword': APIs.apipassword,
-      'Content-type': type == "raw"
-          ? 'application/json'
-          : "application/x-www-form-urlencoded",
-      // "Content-Type": ,
-      'uid': userid != null ? userid.toString() : '0',
-      'scode': sCode != null ? sCode.toString() : '0',
-      // 'Content-type': 'application/json',
-    });
+    res = await http.post(
+      url,
+      body: type == "raw" ? jsonEncode(params) : params,
+    );
 
     final Map<String, dynamic> json = await jsonDecode(res.body);
     return json;

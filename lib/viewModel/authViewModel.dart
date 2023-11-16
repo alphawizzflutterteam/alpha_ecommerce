@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:alpha_ecommerce_18oct/utils/appUrls.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/responseModel/loginOtpResponseModel.dart';
 import 'package:crypto/crypto.dart';
 
 import 'package:alpha_ecommerce_18oct/repository/authRepository.dart';
@@ -101,19 +103,19 @@ class AuthViewModel with ChangeNotifier {
     SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "1");
 
     if (_formKey.currentState!.validate()) {
-      !loggingViaPhone
-          ? Routes.navigateToDashboardScreen(context)
-          : Routes.navigateToOTPVerificationScreen(context, true);
+      // !loggingViaPhone
+      //     ? Routes.navigateToDashboardScreen(context)
+      //     : Routes.navigateToOTPVerificationScreen(context, true);
       print("VALID");
 
-      _myRepo.loginApiRequest(data).then((value) {
+      _myRepo.loginApiReqzuest(AppUrl.sendLoginOtp, data).then((value) {
         setLoading(false);
 
-        print("Success " + value.toString());
+        print("Response ${value.message}");
       }).onError((error, stackTrace) {
         setLoading(false);
 
-        print("ERROR "+error.toString());
+        print("ERROR $error");
       });
     } else {
       setLoading(false);

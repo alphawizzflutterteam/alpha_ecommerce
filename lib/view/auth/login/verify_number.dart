@@ -1,5 +1,6 @@
 import 'package:alpha_ecommerce_18oct/utils/constant.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -61,8 +62,8 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                       MediaQuery.of(context).size.width * 0.1),
                               child: Text(
                                 widget.signIn
-                                    ? "Verify Number"
-                                    : "Forgot Password",
+                                    ? translation(context).verifyNumber
+                                    : translation(context).forgotPassword,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                     color: colors.textColor, fontSize: 20),
@@ -82,22 +83,24 @@ class _VerifyNumberState extends State<VerifyNumber> {
                   height: 90,
                   width: 120,
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   child: Text(
-                    validateNumber1,
-                    style: TextStyle(
+                    translation(context).enteryourmobilenumber,
+                    style: const TextStyle(
                         color: colors.textColor,
                         fontSize: 25,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Text(
-                    validateNumber2,
-                    style:
-                        TextStyle(color: colors.lightTextColor, fontSize: 15),
+                    translation(context).wehavesentthe4digitverificationcode,
+                    style: const TextStyle(
+                        color: colors.lightTextColor, fontSize: 15),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -115,7 +118,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                             Expanded(
                               child: IntlPhoneField(
                                 decoration: InputDecoration(
-                                  labelText: 'Mobile Number',
+                                  labelText: translation(context).mobileNumber,
                                   border: const OutlineInputBorder(
                                     borderSide: BorderSide(),
                                   ),
@@ -190,9 +193,10 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                           },
                                         ),
                                       ),
-                                      const Text(
-                                        validateNumber3,
-                                        style: TextStyle(
+                                      Text(
+                                        translation(context)
+                                            .bycontinuingyouagreetoour,
+                                        style: const TextStyle(
                                             color: colors.lightTextColor),
                                       ),
                                     ],
@@ -207,18 +211,18 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                                 .navigateToTermsConditionScreen(
                                                     context, false);
                                           },
-                                          child: const Text(
-                                            'Terms of Service',
-                                            style: TextStyle(
+                                          child: Text(
+                                            translation(context).termsofservice,
+                                            style: const TextStyle(
                                               color: colors.buttonColor,
                                               decoration:
                                                   TextDecoration.underline,
                                             ),
                                           ),
                                         ),
-                                        const Text(
-                                          ' and ',
-                                          style: TextStyle(
+                                        Text(
+                                          translation(context).and,
+                                          style: const TextStyle(
                                               color: colors.lightTextColor),
                                         ),
                                         InkWell(
@@ -227,9 +231,9 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                                 .navigateToPrivacyPolicyScreen(
                                                     context);
                                           },
-                                          child: const Text(
-                                            'Privacy Policy',
-                                            style: TextStyle(
+                                          child: Text(
+                                            translation(context).privacypolicy,
+                                            style: const TextStyle(
                                               color: colors
                                                   .buttonColor, // Change the color to your preferred color
                                               decoration:
@@ -251,7 +255,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                             height: 50,
                             width: double.infinity,
                             child: CommonButton(
-                              text: "Send",
+                              text: translation(context).send,
                               fontSize: 18,
                               onClick: () {
                                 widget.signIn
@@ -274,7 +278,9 @@ class _VerifyNumberState extends State<VerifyNumber> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                widget.signIn ? signIn5 : signIn4,
+                                widget.signIn
+                                    ? translation(context).alreadyhaveanaccount
+                                    : translation(context).dontHaveanaccount,
                                 style: const TextStyle(
                                     fontSize: 14, color: colors.textColor),
                               ),
@@ -286,7 +292,9 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                           context, true);
                                 },
                                 child: Text(
-                                  widget.signIn ? 'Sign In' : 'Sign Up',
+                                  widget.signIn
+                                      ? translation(context).signIn
+                                      : translation(context).signUp,
                                   style: const TextStyle(
                                     fontSize: 14,
                                     color: colors.buttonColor,

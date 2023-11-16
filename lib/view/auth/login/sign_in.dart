@@ -1,15 +1,16 @@
 import 'package:alpha_ecommerce_18oct/utils/constant.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/images.dart';
 import '../../widget_common/commonBackground.dart';
 import '../../widget_common/common_textfield.dart';
 import '../../widget_common/textfield_validation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -51,11 +52,12 @@ class _SignInState extends State<SignIn> {
                 height: 90,
                 width: 120,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                 child: Text(
-                  signIn1,
-                  style: TextStyle(
+                  translation(context).signInToYourAccount,
+                  style: const TextStyle(
                       color: colors.textColor,
                       fontSize: 25,
                       fontWeight: FontWeight.w500),
@@ -89,7 +91,7 @@ class _SignInState extends State<SignIn> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Text(
-                        'Login via Phone',
+                        translation(context).loginViaPhone,
                         style: TextStyle(
                           color: authViewModel.isLoggingViaPhone
                               ? colors.buttonColor
@@ -113,7 +115,7 @@ class _SignInState extends State<SignIn> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Text(
-                        'Login via Email',
+                        translation(context).loginviaEmail,
                         style: TextStyle(
                           color: !authViewModel.isLoggingViaPhone
                               ? colors.buttonColor
@@ -138,8 +140,8 @@ class _SignInState extends State<SignIn> {
                         validator: validateMobileOrEmail,
                         decoration: commonInputDecoration(
                           labelText: authViewModel.isLoggingViaPhone
-                              ? 'Mobile no.'
-                              : 'Email Id',
+                              ? translation(context).mobileno
+                              : translation(context).emailid,
                         ),
                         style: const TextStyle(color: colors.textColor),
                       ),
@@ -156,7 +158,7 @@ class _SignInState extends State<SignIn> {
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: colors.textFieldBG,
-                                labelText: 'Password',
+                                labelText: translation(context).password,
                                 suffixIcon: GestureDetector(
                                   onTap: () {
                                     setState(() {
@@ -221,7 +223,11 @@ class _SignInState extends State<SignIn> {
                                   width: double.infinity,
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      Map data = {'mobile': '9212716009'};
+                                      Map data = {
+                                        'phone': mobileOrEmailController.text,
+                                        'fcm_id': ""
+                                      };
+
                                       authViewModel.loginFn(_formKey, context,
                                           mobileOrEmailController.text, data);
                                     },
@@ -233,14 +239,16 @@ class _SignInState extends State<SignIn> {
                                             BorderRadius.circular(10.0),
                                       ),
                                     ),
-                                    child: const Row(
+                                    child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text('Login',
-                                            style: TextStyle(fontSize: 18)),
-                                        SizedBox(width: 10),
-                                        Icon(Icons.arrow_forward, size: 23),
+                                        Text(translation(context).login,
+                                            style:
+                                                const TextStyle(fontSize: 18)),
+                                        const SizedBox(width: 10),
+                                        const Icon(Icons.arrow_forward,
+                                            size: 23),
                                       ],
                                     ),
                                   ),
@@ -255,9 +263,9 @@ class _SignInState extends State<SignIn> {
                                     Routes.navigateToVerifyNumberScreen(
                                         context, false);
                                   },
-                                  child: const Text(
-                                    'Forgot Password?',
-                                    style: TextStyle(
+                                  child: Text(
+                                    translation(context).forgotPassword,
+                                    style: const TextStyle(
                                       fontSize: 14,
                                       color: colors.lightTextColor,
                                       decoration: TextDecoration.underline,
@@ -267,10 +275,10 @@ class _SignInState extends State<SignIn> {
                               ],
                             ),
                           ),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Expanded(
+                              const Expanded(
                                 child: Padding(
                                   padding: EdgeInsets.all(8.0),
                                   child: Divider(
@@ -280,13 +288,13 @@ class _SignInState extends State<SignIn> {
                                 ),
                               ),
                               Text(
-                                'OR',
-                                style: TextStyle(
+                                translation(context).or,
+                                style: const TextStyle(
                                   fontSize: 16,
                                   color: colors.textColor,
                                 ),
                               ),
-                              Expanded(
+                              const Expanded(
                                 child: Padding(
                                   padding: EdgeInsets.all(8.0),
                                   child: Divider(
@@ -330,8 +338,8 @@ class _SignInState extends State<SignIn> {
                                   onTap: () {
                                     Routes.navigateToDashboardScreen(context);
                                   },
-                                  child: const Text(signIn3,
-                                      style: TextStyle(
+                                  child: Text(translation(context).guestUser,
+                                      style: const TextStyle(
                                           fontSize: 14,
                                           color: colors.textColor)),
                                 ),
@@ -343,8 +351,8 @@ class _SignInState extends State<SignIn> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text(signIn4,
-                                    style: TextStyle(
+                                Text(translation(context).dontHaveanaccount,
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         color: colors.lightTextColor)),
                                 InkWell(
@@ -352,8 +360,8 @@ class _SignInState extends State<SignIn> {
                                     Routes.navigateToVerifyNumberScreen(
                                         context, true);
                                   },
-                                  child: const Text('Sign up',
-                                      style: TextStyle(
+                                  child: Text(translation(context).signUp,
+                                      style: const TextStyle(
                                           fontSize: 14,
                                           color: colors.buttonColor,
                                           decoration:

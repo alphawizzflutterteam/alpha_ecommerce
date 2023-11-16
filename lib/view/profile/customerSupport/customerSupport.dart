@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/textfield_validation.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/color.dart';
@@ -113,7 +114,7 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                         height: 50,
                                         width: 120,
                                         child: CommonButton(
-                                            text: "SEND",
+                                            text: translation(context).send,
                                             fontSize: 18,
                                             onClick: () {
                                               if (_formKey.currentState!

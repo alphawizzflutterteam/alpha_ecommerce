@@ -1,19 +1,17 @@
-import 'package:alpha_ecommerce_18oct/data/network/baseApiServices.dart';
-import 'package:alpha_ecommerce_18oct/data/network/networkApiService.dart';
-import 'package:alpha_ecommerce_18oct/utils/appUrls.dart';
 
-class AuthRepository{
+import 'package:alpha_ecommerce_18oct/viewModel/responseModel/loginOtpResponseModel.dart';
+import 'package:http/http.dart' as http;
 
+class AuthRepository {
 
-  BaseApiServices _apiServices = NetworkApiService();
+   Future<LoginOtpResponseModel> loginApiReqzuest(
+      String api, dynamic data) async {
+    final url = Uri.parse(api);
 
-  Future<dynamic> loginApiRequest(dynamic data)async{
-    try{
-      dynamic response = await _apiServices.getPostApiResponse(AppUrl.baseURL+AppUrl.test, data);
-      
-      return response;
-    }catch(e){
+    final http.Response res;
+    res = await http.post(url, body: data);
 
-    }
+    return loginOtpResponseModelFromJson(res.body);
   }
+
 }

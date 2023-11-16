@@ -119,7 +119,8 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                     onTap: () {
                       setState(() {
                         selectedValue = selected.value[index];
-                        languageProvider.setLanguage(selected.value[index]);
+                        languageProvider.setLanguage(
+                            selected.value[index], context, Locale("hi", ""));
                         // Routes.navigateToPreviousScreen(context);
                       });
                     },
