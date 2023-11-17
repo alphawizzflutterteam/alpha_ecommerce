@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
-import '../../../provider/currency_provider.dart';
+import '../../../viewModel/currencyViewModel.dart';
 
 class CurrencyWidget extends StatefulWidget {
   const CurrencyWidget({super.key});
@@ -31,7 +31,7 @@ class _CurrencyWidgetState extends State<CurrencyWidget> {
   @override
   Widget build(BuildContext context) {
     final currencyProvider =
-        Provider.of<CurrencyProvider>(context, listen: false);
+        Provider.of<CurrencyViewModel>(context, listen: false);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

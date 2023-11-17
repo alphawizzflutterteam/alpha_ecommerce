@@ -136,8 +136,13 @@ class _SignInState extends State<SignIn> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
                       child: TextFormField(
+                        keyboardType: authViewModel.isLoggingViaPhone
+                            ? TextInputType.phone
+                            : TextInputType.emailAddress,
                         controller: mobileOrEmailController,
-                        validator: validateMobileOrEmail,
+                        validator: authViewModel.isLoggingViaPhone
+                            ? validateMobile
+                            : validateEmail,
                         decoration: commonInputDecoration(
                           labelText: authViewModel.isLoggingViaPhone
                               ? translation(context).mobileno
@@ -223,10 +228,19 @@ class _SignInState extends State<SignIn> {
                                   width: double.infinity,
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      Map data = {
-                                        'phone': mobileOrEmailController.text,
-                                        'fcm_id': ""
-                                      };
+                                      Map data = {};
+                                      if (authViewModel.isLoggingViaPhone) {
+                                        data = {
+                                          'phone': mobileOrEmailController.text,
+                                          'fcm_id': ""
+                                        };
+                                      } else {
+                                        data = {
+                                          'email': mobileOrEmailController.text,
+                                          'password': passwordController.text,
+                                          'fcm_id': ""
+                                        };
+                                      }
 
                                       authViewModel.loginFn(_formKey, context,
                                           mobileOrEmailController.text, data);

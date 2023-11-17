@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:alpha_ecommerce_18oct/utils/appUrls.dart';
-import 'package:alpha_ecommerce_18oct/viewModel/responseModel/loginOtpResponseModel.dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:crypto/crypto.dart';
 
 import 'package:alpha_ecommerce_18oct/repository/authRepository.dart';
@@ -96,30 +96,211 @@ class AuthViewModel with ChangeNotifier {
         ),
       );
 
-  Future<void> loginFn(GlobalKey<FormState> _formKey, BuildContext context,
+  Future<void> loginFn(GlobalKey<FormState> formKey, BuildContext context,
       String phone, dynamic data) async {
     setLoading(true);
-    SharedPref.shared.pref?.setString(PrefKeys.mobile, phone);
-    SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "1");
 
-    if (_formKey.currentState!.validate()) {
-      // !loggingViaPhone
-      //     ? Routes.navigateToDashboardScreen(context)
-      //     : Routes.navigateToOTPVerificationScreen(context, true);
-      print("VALID");
+    if (formKey.currentState!.validate()) {
+      if (isLoggingViaPhone) {
+        _myRepo.loginApiReqzuest(AppUrl.sendLoginOtp, data).then((value) {
+          setLoading(false);
 
-      _myRepo.loginApiReqzuest(AppUrl.sendLoginOtp, data).then((value) {
-        setLoading(false);
+          if (value.message == "OTP sent success") {
+            Utils.showFlushBarWithMessage(
+                "Alert", "OTP sent successfully.", context);
+            SharedPref.shared.pref?.setString(PrefKeys.mobile, phone);
+            SharedPref.shared.pref?.setString(PrefKeys.jwtToken, value.token);
 
-        print("Response ${value.message}");
-      }).onError((error, stackTrace) {
-        setLoading(false);
+            Utils.showFlushBarWithMessage(
+                "Alert", "OTP sent successfully.", context);
+            SharedPref.shared.pref?.setString(PrefKeys.otp, value.data[0].otp);
 
-        print("ERROR $error");
-      });
+            Utils.showFlushBarWithMessage("OTP", value.data[0].otp, context);
+            Routes.navigateToOTPVerificationScreen(context, true, false);
+          } else {
+            Utils.showFlushBarWithMessage("Alert", value.message, context);
+          }
+        }).onError((error, stackTrace) {
+          setLoading(false);
+        });
+      } else {
+        _myRepo
+            .loginApiReqzuest(AppUrl.loginWithEmailPassword, data)
+            .then((value) {
+          setLoading(false);
+
+          if (value.message == "User logged in success") {
+            Utils.showFlushBarWithMessage(
+                "Alert", "Logged in successfully", context);
+
+            SharedPref.shared.pref?.setString(PrefKeys.jwtToken, value.token);
+            SharedPref.shared.pref?.setString(PrefKeys.mobile, phone);
+            SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "1");
+            Routes.navigateToDashboardScreen(context);
+          } else {
+            Utils.showFlushBarWithMessage("Alert", value.message, context);
+          }
+        }).onError((error, stackTrace) {
+          setLoading(false);
+        });
+      }
     } else {
       setLoading(false);
-      print("INVALID");
     }
+  }
+
+  Future<void> resendOTP(dynamic data, BuildContext context) async {
+    setLoading(true);
+
+    _myRepo.loginApiReqzuest(AppUrl.sendLoginOtp, data).then((value) {
+      setLoading(false);
+
+      if (value.message == "OTP sent success") {
+        Utils.showFlushBarWithMessage(
+            "Alert", "OTP sent successfully.", context);
+        SharedPref.shared.pref?.setString(PrefKeys.jwtToken, value.token);
+
+        Utils.showFlushBarWithMessage(
+            "Alert", "OTP sent successfully.", context);
+        SharedPref.shared.pref?.setString(PrefKeys.otp, value.data[0].otp);
+
+        Utils.showFlushBarWithMessage("OTP", value.data[0].otp, context);
+      } else {
+        Utils.showFlushBarWithMessage("Alert", value.message, context);
+      }
+    }).onError((error, stackTrace) {
+      setLoading(false);
+    });
+  }
+
+  Future<void> sendOtpforForgotScreen(
+      dynamic data, BuildContext context) async {
+    setLoading(true);
+
+    _myRepo.loginApiReqzuest(AppUrl.sendLoginOtp, data).then((value) {
+      setLoading(false);
+
+      if (value.message == "OTP sent success") {
+        Utils.showFlushBarWithMessage(
+            "Alert", "OTP sent successfully.", context);
+        SharedPref.shared.pref?.setString(PrefKeys.jwtToken, value.token);
+
+        Utils.showFlushBarWithMessage(
+            "Alert", "OTP sent successfully.", context);
+        SharedPref.shared.pref?.setString(PrefKeys.otp, value.data[0].otp);
+
+        Utils.showFlushBarWithMessage("OTP", value.data[0].otp, context);
+        Routes.navigateToOTPVerificationScreen(context, true, true);
+      } else {
+        Utils.showFlushBarWithMessage("Alert", value.message, context);
+      }
+    }).onError((error, stackTrace) {
+      setLoading(false);
+    });
+  }
+
+  String retrieveStringFromControllers(
+      List<TextEditingController> otpControllers) {
+    List<String> otpValues = [];
+    for (TextEditingController controller in otpControllers) {
+      otpValues.add(controller.text);
+    }
+
+    // Use the otpValues list as needed
+    print("OTP String: ${otpValues.join()}");
+
+    return otpValues.join();
+  }
+
+  void verifyOTP(bool isComingForLogin, BuildContext context, String enteredOTP,
+      bool iscomingForChangePassword) {
+    var otp = SharedPref.shared.pref!.getString(PrefKeys.otp);
+
+    if (enteredOTP == otp) {
+      iscomingForChangePassword
+          ? Routes.navigateToResetPasswordScreen(context)
+          : !isComingForLogin
+              ? Routes.navigateToSignUpScreen(context)
+              : Routes.navigateToDashboardScreen(context);
+    } else {
+      Utils.showFlushBarWithMessage("Alert", "OTP not matched", context);
+    }
+  }
+
+  Future<void> sendRegisterOtp(dynamic data, BuildContext context) async {
+    setLoading(true);
+
+    _myRepo.loginApiReqzuest(AppUrl.sendRegisterOtp, data).then((value) {
+      setLoading(false);
+
+      if (value.message == "OTP sent success") {
+        Utils.showFlushBarWithMessage(
+            "Alert", "OTP sent successfully.", context);
+        SharedPref.shared.pref?.setString(PrefKeys.jwtToken, value.token);
+
+        Utils.showFlushBarWithMessage(
+            "Alert", "OTP sent successfully.", context);
+        SharedPref.shared.pref?.setString(PrefKeys.otp, value.data[0].otp);
+        SharedPref.shared.pref
+            ?.setString(PrefKeys.mobile, value.data[0].mobile);
+
+        Utils.showFlushBarWithMessage("OTP", value.data[0].otp, context);
+        Routes.navigateToOTPVerificationScreen(context, false, false);
+      } else {
+        Utils.showFlushBarWithMessage("Alert", value.message, context);
+      }
+    }).onError((error, stackTrace) {
+      setLoading(false);
+    });
+  }
+
+  Future<void> createAccountApi(dynamic data, BuildContext context) async {
+    setLoading(true);
+
+    print(data);
+    _myRepo.loginApiReqzuest(AppUrl.register, data).then((value) {
+      setLoading(false);
+
+      if (value.message == "User registered success") {
+        Utils.showFlushBarWithMessage(
+            "Alert", "User registered successfully.", context);
+        SharedPref.shared.pref?.setString(PrefKeys.jwtToken, value.token);
+
+        Routes.navigateToWelcomeScreen(context);
+      } else {
+        Utils.showFlushBarWithMessage("Alert", value.message, context);
+      }
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+    });
+  }
+
+  Future<void> resetPasswordApi(dynamic data, BuildContext context) async {
+    setLoading(true);
+
+    print(data);
+    _myRepo.restPasswordAPI(AppUrl.updatePassword, data).then((value) {
+      setLoading(false);
+
+      if (value.message != "Old password not matched!") {
+        Utils.showFlushBarWithMessage(
+            "Alert", "Password changed successfully.", context);
+
+        Routes.navigateToSignInScreen(context);
+      } else {
+        Utils.showFlushBarWithMessage("Alert", value.message, context);
+      }
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+    });
+  }
+
+  bool matchPassword(String firstPassword, String secondPassword) {
+    if (firstPassword == secondPassword) {
+      return true;
+    }
+    return false;
   }
 }

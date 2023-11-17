@@ -1,13 +1,19 @@
-String? validateMobileOrEmail(String? value) {
+String? validateMobile(String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter a mobile number or email.';
-  }
-  if (int.tryParse(value) == null) {
-    if (!value.contains('@') || !value.contains('.com')) {
-      return 'Invalid email format.';
-    }
+    return 'Please enter a valid mobile number';
   } else if (value.length != 10) {
     return 'Invalid mobile number format.';
+  }
+  return null; // Validation passed
+}
+
+String? validateEmail(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter valid email.';
+  }
+
+  if (!value.contains('@') || !value.contains('.com')) {
+    return 'Invalid email format.';
   }
   return null; // Validation passed
 }
@@ -32,18 +38,6 @@ String? validatePassword(String? value) {
     return 'Password must contain at least one special character.';
   }
   return null;
-}
-
-String? validateEmail(String? value) {
-  if (value == null || value.isEmpty) {
-    return 'Please enter a email.';
-  }
-  if (int.tryParse(value) == null) {
-    if (!value.contains('@') || !value.contains('.com')) {
-      return 'Invalid email format.';
-    }
-  }
-  return null; // Validation passed
 }
 
 String? validateName(String? value) {

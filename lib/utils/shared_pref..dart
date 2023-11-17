@@ -30,4 +30,8 @@ class PrefKeys {
   static const name = "name";
   static const isLoggedIn = "isLoggedIn";
   static const appTheme = 'appTheme';
+  static const jwtToken = 'jwtToken';
+  static const otp = 'otp';
+  static const selectedLanguageID = 'selectedLanguageID';
+  static const currencyID = 'currencyID';
 }

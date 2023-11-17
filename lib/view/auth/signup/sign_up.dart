@@ -1,6 +1,9 @@
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/images.dart';
 import '../../widget_common/commonBackground.dart';
@@ -22,6 +25,8 @@ class _SignUPState extends State<SignUP> {
   bool obscureText = true;
   bool obscureText2 = true;
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController referralController = TextEditingController();
+
   final TextEditingController confirmPasswordController =
       TextEditingController();
   final TextEditingController nameController = TextEditingController();
@@ -29,6 +34,8 @@ class _SignUPState extends State<SignUP> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
+
     return Stack(children: [
       const CommonBackgroundPatternAuthWidget(),
       const CommonBackgroundAuthWidget(),
@@ -82,6 +89,7 @@ class _SignUPState extends State<SignUP> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
                             child: TextFormField(
+                              keyboardType: TextInputType.name,
                               controller: nameController,
                               validator: validateName,
                               decoration: commonInputDecoration(
@@ -94,6 +102,7 @@ class _SignUPState extends State<SignUP> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
                             child: TextFormField(
+                              keyboardType: TextInputType.emailAddress,
                               controller: emailController,
                               validator: validateEmail,
                               decoration: commonInputDecoration(
@@ -239,6 +248,19 @@ class _SignUPState extends State<SignUP> {
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: TextFormField(
+                        keyboardType: TextInputType.text,
+                        controller: referralController,
+                        validator: validateEmail,
+                        decoration: commonInputDecoration(
+                          labelText: translation(context).referralcode,
+                        ),
+                        style: const TextStyle(color: colors.textColor),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -262,7 +284,29 @@ class _SignUPState extends State<SignUP> {
                                 fontSize: 18,
                                 onClick: () {
                                   if (_formKey.currentState!.validate()) {
-                                    Routes.navigateToWelcomeScreen(context);
+                                    var mobile = SharedPref.shared.pref!
+                                        .getString(PrefKeys.mobile);
+                                    var languageID = SharedPref.shared.pref!
+                                            .getString(
+                                                PrefKeys.selectedLanguageID) ??
+                                        "";
+                                    var currencyID = SharedPref.shared.pref!
+                                            .getString(PrefKeys.currencyID) ??
+                                        "";
+
+                                    Map data = {
+                                      "f_name": nameController.text,
+                                      'email': emailController.text,
+                                      'phone': mobile,
+                                      'password': passwordController.text,
+                                      'referral_code': referralController.text,
+                                      'language_id': languageID,
+                                      "currency_id": currencyID,
+                                      "fcm_id": ""
+                                    };
+
+                                    authViewModel.createAccountApi(
+                                        data, context);
                                   }
                                 })),
                       ],

@@ -1,18 +1,19 @@
-import 'package:alpha_ecommerce_18oct/utils/constant.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/toast_message.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/images.dart';
 import '../../widget_common/commonBackground.dart';
 import '../../widget_common/common_button.dart';
 
 class VerifyNumber extends StatefulWidget {
-  final bool signIn;
-  const VerifyNumber({Key? key, required this.signIn}) : super(key: key);
+  final bool forSignUp;
+  const VerifyNumber({Key? key, required this.forSignUp}) : super(key: key);
 
   @override
   State<VerifyNumber> createState() => _VerifyNumberState();
@@ -22,9 +23,12 @@ class _VerifyNumberState extends State<VerifyNumber> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isCheckboxChecked = false;
+  final TextEditingController mobileController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
+
     return Scaffold(
       key: _scaffoldKey,
       extendBody: true,
@@ -61,12 +65,13 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                   right:
                                       MediaQuery.of(context).size.width * 0.1),
                               child: Text(
-                                widget.signIn
+                                widget.forSignUp
                                     ? translation(context).verifyNumber
                                     : translation(context).forgotPassword,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    color: colors.textColor, fontSize: 20),
+                                    color: Color.fromARGB(255, 32, 30, 41),
+                                    fontSize: 20),
                               ),
                             ),
                           ),
@@ -94,15 +99,6 @@ class _VerifyNumberState extends State<VerifyNumber> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Text(
-                    translation(context).wehavesentthe4digitverificationcode,
-                    style: const TextStyle(
-                        color: colors.lightTextColor, fontSize: 15),
-                  ),
-                ),
                 const SizedBox(height: 10),
                 Form(
                   key: _formKey,
@@ -117,6 +113,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                           children: [
                             Expanded(
                               child: IntlPhoneField(
+                                controller: mobileController,
                                 decoration: InputDecoration(
                                   labelText: translation(context).mobileNumber,
                                   border: const OutlineInputBorder(
@@ -168,7 +165,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                           ],
                         ),
                       ),
-                      widget.signIn
+                      widget.forSignUp
                           ? Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 10,
@@ -258,15 +255,15 @@ class _VerifyNumberState extends State<VerifyNumber> {
                               text: translation(context).send,
                               fontSize: 18,
                               onClick: () {
-                                widget.signIn
+                                Map data = {'phone': mobileController.text};
+                                widget.forSignUp
                                     ? isCheckboxChecked
-                                        ? Routes
-                                            .navigateToOTPVerificationScreen(
-                                                context, widget.signIn)
+                                        ? authViewModel.sendRegisterOtp(
+                                            data, context)
                                         : showToastMessage(
                                             "Please agree on terms and privacy")
-                                    : Routes.navigateToOTPVerificationScreen(
-                                        context, widget.signIn);
+                                    : authViewModel.sendOtpforForgotScreen(
+                                        data, context);
                               },
                             )),
                       ),
@@ -278,7 +275,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                widget.signIn
+                                widget.forSignUp
                                     ? translation(context).alreadyhaveanaccount
                                     : translation(context).dontHaveanaccount,
                                 style: const TextStyle(
@@ -286,13 +283,13 @@ class _VerifyNumberState extends State<VerifyNumber> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  widget.signIn
+                                  widget.forSignUp
                                       ? Routes.navigateToSignInScreen(context)
                                       : Routes.navigateToVerifyNumberScreen(
                                           context, true);
                                 },
                                 child: Text(
-                                  widget.signIn
+                                  widget.forSignUp
                                       ? translation(context).signIn
                                       : translation(context).signUp,
                                   style: const TextStyle(

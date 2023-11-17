@@ -1,6 +1,8 @@
 import 'package:alpha_ecommerce_18oct/utils/constant.dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/images.dart';
 import '../../../utils/routes.dart';
@@ -27,6 +29,8 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
+
     return Scaffold(
       key: _scaffoldKey,
       extendBody: true,
@@ -250,7 +254,19 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 fontSize: 18,
                                 onClick: () {
                                   if (_formKey.currentState!.validate()) {
-                                    Routes.navigateToSignInScreen(context);
+                                    if (authViewModel.matchPassword(
+                                        passwordController.text,
+                                        confirmPasswordController.text)) {
+                                      Map data = {
+                                        "old_password": "",
+                                        'password': "",
+                                        "confirm_password": ""
+                                      };
+
+                                      authViewModel.resetPasswordApi(
+                                          data, context);
+                                    }
+                                    // Routes.navigateToSignInScreen(context);
                                   }
                                 },
                               )),

@@ -1,4 +1,4 @@
-import 'package:alpha_ecommerce_18oct/provider/currency_provider.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/currencyViewModel.dart';
 import 'package:alpha_ecommerce_18oct/provider/home_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/language_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/setting_provider.dart';
@@ -8,6 +8,7 @@ import 'package:alpha_ecommerce_18oct/view/dashboard/dashboard.dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/splash/splashScreen.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/languageViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/splashViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -51,13 +52,15 @@ void main() async {
     ),
     ChangeNotifierProvider<UserProvider>(create: (context) => UserProvider()),
     ChangeNotifierProvider<AuthViewModel>(create: (context) => AuthViewModel()),
+    ChangeNotifierProvider<LanguageViewModel>(
+        create: (context) => LanguageViewModel()),
     ChangeNotifierProvider<SplashViewModel>(
         create: (context) => SplashViewModel()),
     ChangeNotifierProvider<HomeProvider>(create: (context) => HomeProvider()),
     ChangeNotifierProvider<LanguageProvider>(
         create: (context) => LanguageProvider()),
-    ChangeNotifierProvider<CurrencyProvider>(
-        create: (context) => CurrencyProvider()),
+    ChangeNotifierProvider<CurrencyViewModel>(
+        create: (context) => CurrencyViewModel()),
   ], child: const MyApp()));
 }
 

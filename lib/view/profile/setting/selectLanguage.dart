@@ -1,8 +1,12 @@
+import 'package:alpha_ecommerce_18oct/viewModel/languageViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import 'languageSelection.dart';
 
 Future<void> language(context) async {
+  final languageModel = Provider.of<LanguageViewModel>(context);
+
   return showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
@@ -13,10 +17,13 @@ Future<void> language(context) async {
         child: Container(
           color: colors.overlayBG,
           height: MediaQuery.of(context).size.height * 0.85,
-          child: const SingleChildScrollView(
+          child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: LanguageWidget(label: 'Select Language',),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: LanguageWidget(
+                label: 'Select Language',
+                model: languageModel.model,
+              ),
             ),
           ),
         ),

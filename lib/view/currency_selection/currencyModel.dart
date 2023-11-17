@@ -1,27 +1,27 @@
 // To parse this JSON data, do
 //
-//     final languageModel = languageModelFromJson(jsonString);
+//     final currencyModel = currencyModelFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-LanguageModel languageModelFromJson(String str) =>
-    LanguageModel.fromJson(json.decode(str));
+CurrencyModel currencyModelFromJson(String str) =>
+    CurrencyModel.fromJson(json.decode(str));
 
-String languageModelToJson(LanguageModel data) => json.encode(data.toJson());
+String currencyModelToJson(CurrencyModel data) => json.encode(data.toJson());
 
-class LanguageModel {
+class CurrencyModel {
   bool status;
   String message;
   List<Datum> data;
 
-  LanguageModel({
+  CurrencyModel({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory LanguageModel.fromJson(Map<String, dynamic> json) => LanguageModel(
+  factory CurrencyModel.fromJson(Map<String, dynamic> json) => CurrencyModel(
         status: json["status"],
         message: json["message"],
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
@@ -35,37 +35,45 @@ class LanguageModel {
 }
 
 class Datum {
-  dynamic id;
+  int id;
   String name;
-  String direction;
+  String symbol;
   String code;
+  double exchangeRate;
   int status;
-  bool datumDefault;
+  DateTime createdAt;
+  DateTime updatedAt;
 
   Datum({
     required this.id,
     required this.name,
-    required this.direction,
+    required this.symbol,
     required this.code,
+    required this.exchangeRate,
     required this.status,
-    required this.datumDefault,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         name: json["name"],
-        direction: json["direction"],
+        symbol: json["symbol"],
         code: json["code"],
+        exchangeRate: json["exchange_rate"]?.toDouble(),
         status: json["status"],
-        datumDefault: json["default"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "direction": direction,
+        "symbol": symbol,
         "code": code,
+        "exchange_rate": exchangeRate,
         "status": status,
-        "default": datumDefault,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
       };
 }
