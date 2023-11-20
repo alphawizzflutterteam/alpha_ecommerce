@@ -4,6 +4,7 @@ import 'package:alpha_ecommerce_18oct/viewModel/responseModel/resetPasswordRespo
 import 'package:http/http.dart' as http;
 
 class AuthRepository {
+  
   Future<LoginOtpResponseModel> loginApiReqzuest(
       String api, dynamic data) async {
     final url = Uri.parse(api);
@@ -15,13 +16,17 @@ class AuthRepository {
   }
 
   Future<ResetPasswordModel> restPasswordAPI(
-      String api, String bearerToken) async {
+      String api, String bearerToken, dynamic data) async {
     final url = Uri.parse(api);
 
+    print(api);
     final http.Response res;
-    res = await http.put(url, headers: {
+    res = await http.put(url, body: data, headers: {
       'Authorization': 'Bearer $bearerToken',
+      "Accept": "application/x-www-form-urlencoded"
     });
+
+    print(res.body);
 
     return resetPasswordModelFromJson(res.body);
   }

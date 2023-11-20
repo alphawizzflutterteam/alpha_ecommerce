@@ -84,14 +84,14 @@ productForYouCard(context) {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
+              const Padding(
+                padding:  EdgeInsets.symmetric(
                   horizontal: 10,
                   vertical: 5,
                 ),
                 child: Row(
                   children: [
-                    const Text(
+                     Text(
                       '120.00',
                       style: TextStyle(
                         color: Colors.cyan,
@@ -101,7 +101,7 @@ productForYouCard(context) {
                     SizedBox(
                       width: 10,
                     ),
-                    const Text(
+                     Text(
                       "\$200",
                       style: TextStyle(
                         color: colors.lightTextColor,

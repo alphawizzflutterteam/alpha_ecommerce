@@ -258,9 +258,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                                         passwordController.text,
                                         confirmPasswordController.text)) {
                                       Map data = {
-                                        "old_password": "",
-                                        'password': "",
-                                        "confirm_password": ""
+                                        'password': passwordController.text,
+                                        "confirm_password":
+                                            confirmPasswordController.text
                                       };
 
                                       authViewModel.resetPasswordApi(

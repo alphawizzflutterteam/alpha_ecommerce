@@ -222,6 +222,8 @@ class AuthViewModel with ChangeNotifier {
           : !isComingForLogin
               ? Routes.navigateToSignUpScreen(context)
               : Routes.navigateToDashboardScreen(context);
+
+      SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "1");
     } else {
       Utils.showFlushBarWithMessage("Alert", "OTP not matched", context);
     }
@@ -278,12 +280,12 @@ class AuthViewModel with ChangeNotifier {
 
   Future<void> resetPasswordApi(dynamic data, BuildContext context) async {
     setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
-    print(data);
-    _myRepo.restPasswordAPI(AppUrl.updatePassword, data).then((value) {
+    _myRepo.restPasswordAPI(AppUrl.resetPassword, token, data).then((value) {
       setLoading(false);
 
-      if (value.message != "Old password not matched!") {
+      if (value.message != "Password and confirm password not matched!") {
         Utils.showFlushBarWithMessage(
             "Alert", "Password changed successfully.", context);
 
@@ -293,6 +295,8 @@ class AuthViewModel with ChangeNotifier {
       }
     }).onError((error, stackTrace) {
       setLoading(false);
+      print(error.toString());
+
       Utils.showFlushBarWithMessage("Alert", error.toString(), context);
     });
   }

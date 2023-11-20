@@ -11,8 +11,10 @@ import 'package:alpha_ecommerce_18oct/view/home/wishlistCard.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/categoryShuffle.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/filterShuffle.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/sortShuffle.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 import '../../utils/routes.dart';
@@ -37,9 +39,23 @@ class _HomeState extends State<Home> {
   ];
   int _currentIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late HomeViewModel homeProvider;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    homeProvider = Provider.of<HomeViewModel>(context, listen: false);
+    homeProvider.getBrandsList(context);
+    homeProvider.getSpecialOffersList(context);
+    homeProvider.getDailyDealsList(context);
+    homeProvider.getProductsList(context, '25', "1");
+  }
 
   @override
   Widget build(BuildContext context) {
+    homeProvider = Provider.of<HomeViewModel>(context);
+
     return Stack(
       children: [
         const LightBackGround(),
@@ -146,15 +162,22 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                     spaceOfHeight(height: 20),
+
+                    //Brands Listing
                     Container(
-                      color: colors.textColor,
-                      height: 70,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: List.generate(10, (index) {
-                          return brandCard();
-                        }),
-                      ),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: const BoxDecoration(color: Colors.white),
+                      child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Container(
+                            decoration:
+                                const BoxDecoration(color: Colors.white),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 2.0),
+                              child: brandsCard(
+                                  context, homeProvider.brandsModel.data),
+                            ),
+                          )),
                     ),
                     Container(
                         height: 100,
@@ -297,9 +320,9 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     spaceOfHeight(),
-                    spaceOfHeight(),
+
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.38,
+                      height: MediaQuery.of(context).size.height * 0.28,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
@@ -353,19 +376,17 @@ class _HomeState extends State<Home> {
                             ],
                           ),
                           const SizedBox(
-                            height: 20,
+                            height: 10,
                           ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.28,
-                            child: ListView(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 0),
+                          SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
-                              children: List.generate(3, (index) {
-                                return specialOfferCard(context);
-                              }),
-                            ),
-                          ),
+                              child: Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 2.0),
+                                  child: specialOfferList(context,
+                                      homeProvider.specialOffersModel.data),
+                                ),
+                              )),
                         ],
                       ),
                     ),
@@ -544,17 +565,26 @@ class _HomeState extends State<Home> {
                             ],
                           ),
                           spaceOfHeight(),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.15,
-                            child: ListView(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 0),
+                          SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
-                              children: List.generate(3, (index) {
-                                return dailyDealCard();
-                              }),
-                            ),
-                          ),
+                              child: Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 2.0),
+                                  child: dailyDealListCard(context,
+                                      homeProvider.dailyDealsModel.data),
+                                ),
+                              )),
+                          // SizedBox(
+                          //   height: MediaQuery.of(context).size.height * 0.15,
+                          //   child: ListView(
+                          //     padding: const EdgeInsets.symmetric(
+                          //         horizontal: 10, vertical: 0),
+                          //     scrollDirection: Axis.horizontal,
+                          //     children: List.generate(3, (index) {
+                          //       return dailyDealCard();
+                          //     }),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

@@ -199,7 +199,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                                     onTap: () {
                                       Map data = {
                                         'phone': mobile,
-                                        'fcm_id': ""
+                                        'fcm_id': "",
                                       };
                                       authViewModel.resendOTP(data, context);
                                     },
