@@ -1,5 +1,6 @@
 import 'package:alpha_ecommerce_18oct/model/productDetails.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/brandsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/categoryModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/dailyDealsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModels.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/specialOffersModel.dart';
@@ -31,7 +32,6 @@ class HomeRepository {
   Future<DailyDealsModel> dailyDealsListApi(String api) async {
     final url = Uri.parse(api);
 
-    print(api);
     final http.Response res;
     res = await http.get(
       url,
@@ -43,12 +43,23 @@ class HomeRepository {
   Future<ProductsModel> productsListApi(String api) async {
     final url = Uri.parse(api);
 
-    print(api);
     final http.Response res;
     res = await http.get(
       url,
     );
 
     return productsModelFromJson(res.body);
+  }
+
+  Future<CategoriesModel> categoryListRequest(String api) async {
+    final url = Uri.parse(api);
+
+    final http.Response res;
+    res = await http.get(
+      url,
+    );
+
+
+    return categoriesModelFromJson(res.body);
   }
 }

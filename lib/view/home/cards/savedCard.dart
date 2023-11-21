@@ -1,7 +1,7 @@
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:flutter/material.dart';
-import '../../utils/routes.dart';
+import '../../../utils/routes.dart';
 
 savedCard(BuildContext context) {
   return Padding(

@@ -15,7 +15,7 @@ class DailyDealsModel {
   bool status;
   String title;
   String message;
-  List<Datum> data;
+  List<DailyDealsModelList> data;
 
   DailyDealsModel({
     required this.status,
@@ -29,7 +29,8 @@ class DailyDealsModel {
         status: json["status"],
         title: json["title"],
         message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<DailyDealsModelList>.from(
+            json["data"].map((x) => DailyDealsModelList.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,7 +41,7 @@ class DailyDealsModel {
       };
 }
 
-class Datum {
+class DailyDealsModelList {
   int id;
   String title;
   String description;
@@ -52,7 +53,7 @@ class Datum {
   String updatedAt;
   List<dynamic> translations;
 
-  Datum({
+  DailyDealsModelList({
     required this.id,
     required this.title,
     required this.description,
@@ -65,7 +66,8 @@ class Datum {
     required this.translations,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory DailyDealsModelList.fromJson(Map<String, dynamic> json) =>
+      DailyDealsModelList(
         id: json["id"],
         title: json["title"],
         description: json["description"],

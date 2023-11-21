@@ -5,7 +5,7 @@ import 'package:alpha_ecommerce_18oct/view/home/models/specialOffersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/common_button.dart';
 import 'package:flutter/material.dart';
 
-specialOfferCard(Datum model, BuildContext context) {
+specialOfferCard(SpecialOffersList model, BuildContext context) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
     child: Column(
@@ -46,7 +46,7 @@ specialOfferCard(Datum model, BuildContext context) {
 
 Row specialOfferList(
   BuildContext context,
-  List<Datum> model,
+  List<SpecialOffersList> model,
 ) =>
     Row(
       mainAxisAlignment: MainAxisAlignment.start,

@@ -2,7 +2,7 @@ import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/brandsModel.dart';
 import 'package:flutter/material.dart';
 
-brandCard(Datum model, BuildContext context) {
+brandCard(BrandsList model, BuildContext context) {
   return Padding(
       padding: const EdgeInsets.only(left: 10.0, top: 8, right: 10, bottom: 8),
       child: Column(
@@ -24,7 +24,7 @@ brandCard(Datum model, BuildContext context) {
 
 Row brandsCard(
   BuildContext context,
-  List<Datum> model,
+  List<BrandsList> model,
 ) =>
     Row(
       mainAxisAlignment: MainAxisAlignment.start,

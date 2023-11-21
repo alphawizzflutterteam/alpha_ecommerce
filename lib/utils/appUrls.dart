@@ -16,4 +16,5 @@ class AppUrl {
   static String specialOffers = "${baseURL}offers/special-offers";
   static String dailyDeals = "${baseURL}deal-of-the-day";
   static String productsList = "${baseURL}products";
+  static String categories = "${baseURL}categories";
 }

@@ -15,7 +15,7 @@ class SpecialOffersModel {
   bool status;
   String title;
   String message;
-  List<Datum> data;
+  List<SpecialOffersList> data;
 
   SpecialOffersModel({
     required this.status,
@@ -29,7 +29,7 @@ class SpecialOffersModel {
         status: json["status"],
         title: json["title"],
         message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<SpecialOffersList>.from(json["data"].map((x) => SpecialOffersList.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,7 +40,7 @@ class SpecialOffersModel {
       };
 }
 
-class Datum {
+class SpecialOffersList {
   int id;
   String title;
   DateTime startDate;
@@ -54,7 +54,7 @@ class Datum {
   String dealType;
   List<dynamic> translations;
 
-  Datum({
+  SpecialOffersList({
     required this.id,
     required this.title,
     required this.startDate,
@@ -69,7 +69,7 @@ class Datum {
     required this.translations,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory SpecialOffersList.fromJson(Map<String, dynamic> json) => SpecialOffersList(
         id: json["id"],
         title: json["title"],
         startDate: DateTime.parse(json["start_date"]),

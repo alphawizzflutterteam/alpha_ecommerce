@@ -13,7 +13,7 @@ String brandsModelToJson(BrandsModel data) => json.encode(data.toJson());
 class BrandsModel {
   bool status;
   String message;
-  List<Datum> data;
+  List<BrandsList> data;
 
   BrandsModel({
     required this.status,
@@ -24,7 +24,7 @@ class BrandsModel {
   factory BrandsModel.fromJson(Map<String, dynamic> json) => BrandsModel(
         status: json["status"],
         message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<BrandsList>.from(json["data"].map((x) => BrandsList.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,7 +34,7 @@ class BrandsModel {
       };
 }
 
-class Datum {
+class BrandsList {
   int id;
   String name;
   String image;
@@ -44,7 +44,7 @@ class Datum {
   int brandProductsCount;
   List<dynamic> translations;
 
-  Datum({
+  BrandsList({
     required this.id,
     required this.name,
     required this.image,
@@ -55,7 +55,7 @@ class Datum {
     required this.translations,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory BrandsList.fromJson(Map<String, dynamic> json) => BrandsList(
         id: json["id"],
         name: json["name"],
         image: json["image"],

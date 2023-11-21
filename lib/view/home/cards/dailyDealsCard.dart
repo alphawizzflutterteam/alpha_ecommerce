@@ -3,7 +3,7 @@ import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/dailyDealsModel.dart';
 import 'package:flutter/material.dart';
 
-dailyDealCard(Datum model, BuildContext context) {
+dailyDealCard(DailyDealsModelList model, BuildContext context) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     child: Stack(
@@ -46,7 +46,7 @@ dailyDealCard(Datum model, BuildContext context) {
 
 Row dailyDealListCard(
   BuildContext context,
-  List<Datum> model,
+  List<DailyDealsModelList> model,
 ) =>
     Row(
       mainAxisAlignment: MainAxisAlignment.start,

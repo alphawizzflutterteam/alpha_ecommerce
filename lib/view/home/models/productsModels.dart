@@ -60,10 +60,10 @@ class Product {
   String unitPrice;
   String purchasePrice;
   int tax;
-  Type taxType;
+  String taxType;
   String taxModel;
   int discount;
-  Type discountType;
+  String discountType;
   int currentStock;
   int minimumOrderQty;
   int freeShipping;

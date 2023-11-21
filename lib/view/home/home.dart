@@ -1,10 +1,11 @@
-import 'package:alpha_ecommerce_18oct/view/home/brandsCard.dart';
-import 'package:alpha_ecommerce_18oct/view/home/categoryCardTop.dart';
+import 'package:alpha_ecommerce_18oct/view/home/cards/brandsCard.dart';
+import 'package:alpha_ecommerce_18oct/view/home/cards/categoryCardTop.dart';
+import 'package:alpha_ecommerce_18oct/view/home/cards/dailyDealsCard.dart';
+import 'package:alpha_ecommerce_18oct/view/home/cards/productsForYouCard.dart';
+import 'package:alpha_ecommerce_18oct/view/home/cards/savedCard.dart';
+import 'package:alpha_ecommerce_18oct/view/home/cards/secondCategory.dart';
 import 'package:alpha_ecommerce_18oct/view/home/homeTexts&Spaces.dart';
 import 'package:alpha_ecommerce_18oct/view/home/productQualityCard.dart';
-import 'package:alpha_ecommerce_18oct/view/home/productsForYouCard.dart';
-import 'package:alpha_ecommerce_18oct/view/home/savedCard.dart';
-import 'package:alpha_ecommerce_18oct/view/home/secondCategory.dart';
 import 'package:alpha_ecommerce_18oct/view/home/specialOfferCard.dart';
 import 'package:alpha_ecommerce_18oct/view/home/topDealCard.dart';
 import 'package:alpha_ecommerce_18oct/view/home/wishlistCard.dart';
@@ -21,7 +22,6 @@ import '../../utils/routes.dart';
 import '../widget_common/commonBackground.dart';
 import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
-import 'dailyDealsCard.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -50,6 +50,7 @@ class _HomeState extends State<Home> {
     homeProvider.getSpecialOffersList(context);
     homeProvider.getDailyDealsList(context);
     homeProvider.getProductsList(context, '25', "1");
+    homeProvider.getCategoriesList(context);
   }
 
   @override
@@ -82,32 +83,34 @@ class _HomeState extends State<Home> {
                   DashboardHeader(),
                 ],
               ),
-              Container(
-                height: 50,
-                color: colors.homeContainer1BG,
-                child: ListView(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  scrollDirection: Axis.horizontal,
-                  children: List.generate(5, (index) {
-                    return categoryCardTop();
-                  }),
-                ),
-              ),
+              // Container(
+              //   height: 50,
+              //   color: colors.homeContainer1BG,
+              //   child: ListView(
+              //     padding:
+              //         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              //     scrollDirection: Axis.horizontal,
+              //     children: List.generate(5, (index) {
+              //       return categoryCardTop();
+              //     }),
+              //   ),
+              // ),
               Expanded(
                   child: SingleChildScrollView(
                 child: Column(
                   children: [
                     Container(
-                      height: 140,
-                      color: colors.textColor,
-                      alignment: Alignment.center,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: List.generate(10, (index) {
-                          return secondCategoryCard();
-                        }),
-                      ),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: const BoxDecoration(color: Colors.white),
+                      child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Container(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 2.0),
+                              child: secondCategoryListCard(
+                                  context, homeProvider.categoriesModel),
+                            ),
+                          )),
                     ),
                     Column(
                       children: [
@@ -174,8 +177,8 @@ class _HomeState extends State<Home> {
                                 const BoxDecoration(color: Colors.white),
                             child: Padding(
                               padding: const EdgeInsets.only(top: 2.0),
-                              child: brandsCard(
-                                  context, homeProvider.brandsModel.data),
+                              child:
+                                  brandsCard(context, homeProvider.brandsModel),
                             ),
                           )),
                     ),
@@ -313,9 +316,10 @@ class _HomeState extends State<Home> {
                           crossAxisCount: 2,
                           childAspectRatio: 0.75,
                         ),
-                        itemCount: 6,
+                        itemCount: homeProvider.productsModel.length,
                         itemBuilder: (context, j) {
-                          return productForYouCard(context);
+                          return productForYouCard(
+                              homeProvider.productsModel[j], context);
                         },
                       ),
                     ),
@@ -383,8 +387,8 @@ class _HomeState extends State<Home> {
                               child: Container(
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 2.0),
-                                  child: specialOfferList(context,
-                                      homeProvider.specialOffersModel.data),
+                                  child: specialOfferList(
+                                      context, homeProvider.specialOffersModel),
                                 ),
                               )),
                         ],
@@ -570,8 +574,8 @@ class _HomeState extends State<Home> {
                               child: Container(
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 2.0),
-                                  child: dailyDealListCard(context,
-                                      homeProvider.dailyDealsModel.data),
+                                  child: dailyDealListCard(
+                                      context, homeProvider.dailyDealsModel),
                                 ),
                               )),
                           // SizedBox(

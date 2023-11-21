@@ -1,8 +1,9 @@
+import 'package:alpha_ecommerce_18oct/view/home/models/categoryModel.dart';
 import 'package:http/http.dart' as http;
 
 class CategoryRepository {
 
-  Future<Cate> categoryListRequest(String api) async {
+  Future<CategoriesModel> categoryListRequest(String api) async {
     final url = Uri.parse(api);
 
     final http.Response res;
@@ -10,6 +11,6 @@ class CategoryRepository {
       url,
     );
 
-    return languageModelFromJson(res.body);
+    return categoriesModelFromJson(res.body);
   }
 }

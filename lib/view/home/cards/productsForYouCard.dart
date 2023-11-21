@@ -1,12 +1,14 @@
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/productsModels.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 
-import '../../utils/color.dart';
-import '../../utils/routes.dart';
-import 'homeTexts&Spaces.dart';
+import '../../../utils/color.dart';
+import '../../../utils/routes.dart';
+import '../homeTexts&Spaces.dart';
 
-productForYouCard(context) {
+productForYouCard(Product model, BuildContext context) {
   return Column(
     children: [
       InkWell(
@@ -14,8 +16,8 @@ productForYouCard(context) {
           Routes.navigateToProductDetailPageScreen(context);
         },
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.28,
-          width: MediaQuery.of(context).size.width * 0.40,
+          height: MediaQuery.of(context).size.height * 0.25,
+          width: MediaQuery.of(context).size.width * 0.44,
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(10)),
               gradient: LinearGradient(
@@ -31,11 +33,10 @@ productForYouCard(context) {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
-                Images.onBoarding2,
-                width: 80,
-                height: 80,
-              ),
+              Image.network(model.images.first,
+                  height: MediaQuery.of(context).size.height * 0.14,
+                  fit: BoxFit.fitHeight,
+                  width: MediaQuery.of(context).size.width * 0.44),
               const SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -45,9 +46,9 @@ productForYouCard(context) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      '35% Off',
-                      style: TextStyle(
+                    Text(
+                      "${model.discount}% Off",
+                      style: const TextStyle(
                         color: Colors.orange,
                         fontSize: 12,
                       ),
@@ -71,39 +72,39 @@ productForYouCard(context) {
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(
+              Padding(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 10,
                   vertical: 5,
                 ),
                 child: Text(
-                  'Dettol refresh longi...',
-                  style: TextStyle(
+                  model.name,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
                   ),
                 ),
               ),
-              const Padding(
-                padding:  EdgeInsets.symmetric(
+              Padding(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 10,
                   vertical: 5,
                 ),
                 child: Row(
                   children: [
-                     Text(
-                      '120.00',
-                      style: TextStyle(
+                    Text(
+                      model.unitPrice,
+                      style: const TextStyle(
                         color: Colors.cyan,
                         fontSize: 12,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
-                     Text(
-                      "\$200",
-                      style: TextStyle(
+                    Text(
+                      model.purchasePrice,
+                      style: const TextStyle(
                         color: colors.lightTextColor,
                         decoration: TextDecoration.lineThrough,
                         fontSize: 12,
@@ -120,3 +121,25 @@ productForYouCard(context) {
     ],
   );
 }
+
+
+// GridView.builder(
+//   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//     crossAxisCount: 3, // number of items in each row
+//     mainAxisSpacing: 8.0, // spacing between rows
+//     crossAxisSpacing: 8.0, // spacing between columns
+//   ),
+//   padding: EdgeInsets.all(8.0), // padding around the grid
+//   itemCount: items.length, // total number of items
+//   itemBuilder: (context, index) {
+//     return Container(
+//       color: Colors.blue, // color of grid items
+//       child: Center(
+//         child: Text(
+//           items[index],
+//           style: TextStyle(fontSize: 18.0, color: Colors.white),
+//         ),
+//       ),
+//     );
+//   },
+// )
