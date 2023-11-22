@@ -306,7 +306,7 @@ class _HomeState extends State<Home> {
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 20),
-                      height: MediaQuery.of(context).size.height * 0.6,
+                      height: MediaQuery.of(context).size.height * 0.70,
                       child: GridView.builder(
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,

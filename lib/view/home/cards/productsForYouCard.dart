@@ -16,7 +16,7 @@ productForYouCard(Product model, BuildContext context) {
           Routes.navigateToProductDetailPageScreen(context);
         },
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.25,
+          height: MediaQuery.of(context).size.height * 0.28,
           width: MediaQuery.of(context).size.width * 0.44,
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -34,7 +34,7 @@ productForYouCard(Product model, BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.network(model.images.first,
-                  height: MediaQuery.of(context).size.height * 0.14,
+                  height: MediaQuery.of(context).size.height * 0.12,
                   fit: BoxFit.fitHeight,
                   width: MediaQuery.of(context).size.width * 0.44),
               const SizedBox(height: 8),
@@ -54,7 +54,8 @@ productForYouCard(Product model, BuildContext context) {
                       ),
                     ),
                     LikeButton(
-                      size: 20,
+                      size: size_20,
+                      isLiked: model.isFavorite,
                       circleColor:
                           const CircleColor(start: Colors.red, end: Colors.red),
                       bubblesColor: const BubblesColor(
@@ -113,11 +114,28 @@ productForYouCard(Product model, BuildContext context) {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 30,
+                  width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(5)),
+                      border: Border.all(color: colors.boxBorder)),
+                  child: Text(
+                    model.isCart ? "Remove From Cart" : "Add to Cart",
+                    style: const TextStyle(
+                        color: colors.textColor, fontSize: size_12),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       ),
-      spaceOfHeight(),
+      //  spaceOfHeight(),
     ],
   );
 }
