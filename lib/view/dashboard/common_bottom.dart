@@ -1,4 +1,6 @@
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 import '../cart/cart.dart';
@@ -16,6 +18,8 @@ class BottomNavPage extends StatefulWidget {
 }
 
 class _BottomNavPageState extends State<BottomNavPage> {
+  late HomeViewModel homeProvider;
+
   int _currentIndex = 2;
 
   final List<Widget> _pages = [
@@ -32,106 +36,113 @@ class _BottomNavPageState extends State<BottomNavPage> {
     if (widget.index != null) {
       _currentIndex = widget.index!;
     }
+    homeProvider = Provider.of<HomeViewModel>(context, listen: false);
   }
 
   @override
   Widget build(BuildContext context) {
+    homeProvider = Provider.of<HomeViewModel>(context);
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: false,
       body: _pages[_currentIndex],
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(Images.bgTab),
-            fit: BoxFit.cover,
+      bottomNavigationBar: AnimatedContainer(
+        duration: const Duration(milliseconds: 0),
+        height: homeProvider.isScrolled ? kBottomNavigationBarHeight : 0.0,
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(Images.bgTab),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Theme(
-          data: Theme.of(context).copyWith(
-            canvasColor: Colors.transparent,
-          ),
-          child: BottomNavigationBar(
-            elevation: 0.0,
-            currentIndex: _currentIndex,
-            onTap: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-            selectedLabelStyle: const TextStyle(fontSize: 12),
-            selectedItemColor: colors.textColor,
-            unselectedItemColor: Colors.grey,
-            showSelectedLabels: true,
-            showUnselectedLabels: false,
-            items: [
-              BottomNavigationBarItem(
-                activeIcon: Image.asset(
-                  Images.buyWhite,
-                  height: 20,
-                  width: 20,
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              canvasColor: Colors.transparent,
+            ),
+            child: BottomNavigationBar(
+              elevation: 0.0,
+              currentIndex: _currentIndex,
+              onTap: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+              selectedLabelStyle: const TextStyle(fontSize: 12),
+              selectedItemColor: colors.textColor,
+              unselectedItemColor: Colors.grey,
+              showSelectedLabels: true,
+              showUnselectedLabels: false,
+              items: [
+                BottomNavigationBarItem(
+                  activeIcon: Image.asset(
+                    Images.buyWhite,
+                    height: homeProvider.isScrolled ? 25 : 0,
+                    width: homeProvider.isScrolled ? 25 : 0,
+                  ),
+                  icon: Image.asset(
+                    Images.buy,
+                    height: homeProvider.isScrolled ? 25 : 0,
+                    width: homeProvider.isScrolled ? 25 : 0,
+                  ),
+                  label: 'Cart',
                 ),
-                icon: Image.asset(
-                  Images.buy,
-                  height: 20,
-                  width: 20,
+                BottomNavigationBarItem(
+                  activeIcon: Image.asset(
+                    Images.categoryWhite,
+                    height: homeProvider.isScrolled ? 25 : 0,
+                    width: homeProvider.isScrolled ? 25 : 0,
+                  ),
+                  icon: Image.asset(
+                    Images.category,
+                    height: homeProvider.isScrolled ? 25 : 0,
+                    width: homeProvider.isScrolled ? 25 : 0,
+                  ),
+                  label: 'Categories',
                 ),
-                label: 'Cart',
-              ),
-              BottomNavigationBarItem(
-                activeIcon: Image.asset(
-                  Images.categoryWhite,
-                  height: 20,
-                  width: 20,
+                BottomNavigationBarItem(
+                  activeIcon: Image.asset(
+                    Images.homeWhite,
+                    height: homeProvider.isScrolled ? 25 : 0,
+                    width: homeProvider.isScrolled ? 25 : 0,
+                  ),
+                  icon: Image.asset(
+                    Images.home,
+                    height: homeProvider.isScrolled ? 25 : 0,
+                    width: homeProvider.isScrolled ? 25 : 0,
+                  ),
+                  label: 'Home',
                 ),
-                icon: Image.asset(
-                  Images.category,
-                  height: 20,
-                  width: 20,
+                // Add items for your new tabs
+                BottomNavigationBarItem(
+                  activeIcon: Image.asset(
+                    Images.dashboardVendorWhite,
+                    height: homeProvider.isScrolled ? 25 : 0,
+                    width: homeProvider.isScrolled ? 25 : 0,
+                  ),
+                  icon: Image.asset(
+                    Images.dashboardVendor,
+                    height: homeProvider.isScrolled ? 25 : 0,
+                    width: homeProvider.isScrolled ? 25 : 0,
+                  ),
+                  label: 'Vendor',
                 ),
-                label: 'Categories',
-              ),
-              BottomNavigationBarItem(
-                activeIcon: Image.asset(
-                  Images.homeWhite,
-                  height: 20,
-                  width: 20,
+                BottomNavigationBarItem(
+                  activeIcon: Image.asset(
+                    Images.dashboardProfileWhite,
+                    height: homeProvider.isScrolled ? 25 : 0,
+                    width: homeProvider.isScrolled ? 25 : 0,
+                  ),
+                  icon: Image.asset(
+                    Images.dashboardProfile,
+                    height: homeProvider.isScrolled ? 25 : 0,
+                    width: homeProvider.isScrolled ? 25 : 0,
+                  ),
+                  label: 'Profile',
                 ),
-                icon: Image.asset(
-                  Images.home,
-                  height: 20,
-                  width: 20,
-                ),
-                label: 'Home',
-              ),
-              // Add items for your new tabs
-              BottomNavigationBarItem(
-                activeIcon: Image.asset(
-                  Images.dashboardVendorWhite,
-                  height: 20,
-                  width: 20,
-                ),
-                icon: Image.asset(
-                  Images.dashboardVendor,
-                  height: 20,
-                  width: 20,
-                ),
-                label: 'Vendor',
-              ),
-              BottomNavigationBarItem(
-                activeIcon: Image.asset(
-                  Images.dashboardProfileWhite,
-                  height: 20,
-                  width: 20,
-                ),
-                icon: Image.asset(
-                  Images.dashboardProfile,
-                  height: 20,
-                  width: 20,
-                ),
-                label: 'Profile',
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

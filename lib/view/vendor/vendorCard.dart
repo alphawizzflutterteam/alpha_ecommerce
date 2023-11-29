@@ -1,9 +1,10 @@
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/view/vendor/model/vendorModel.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../utils/routes.dart';
 
-vendorCard(context) {
+vendorCard(context, VendorDatum model) {
   return InkWell(
     onTap: () {
       Routes.navigateToVendorDetailsScreen(context);
@@ -22,8 +23,8 @@ vendorCard(context) {
             padding: const EdgeInsets.only(left: 5),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(25),
-              child: Image.asset(
-                Images.vendor,
+              child: Image.network(
+                model.image,
                 width: 80,
                 height: 80,
               ),
@@ -32,35 +33,35 @@ vendorCard(context) {
           const SizedBox(width: 30),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.55,
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Best Mart",
-                      style: TextStyle(
+                      model.name,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 15,
                       ),
                     ),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: Colors.yellow,
                           size: 16,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(
-                          "4.3",
-                          style: TextStyle(
+                          model.rating,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 14,
                           ),
@@ -69,28 +70,28 @@ vendorCard(context) {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
                   children: [
                     Text(
-                      "167 ",
-                      style: TextStyle(color: Colors.white, fontSize: 15),
+                      model.followers,
+                      style: const TextStyle(color: Colors.white, fontSize: 15),
                     ),
-                    Text(
+                    const Text(
                       "Follower",
                       style: TextStyle(color: colors.greyText, fontSize: 14),
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(""),
+                    const Text(""),
                     Padding(
                       padding: EdgeInsets.only(left: 20),
                       child: Text(
@@ -101,7 +102,7 @@ vendorCard(context) {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
               ],

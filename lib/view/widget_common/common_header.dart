@@ -38,8 +38,8 @@ class DashboardHeader extends StatelessWidget {
                       },
                       child: Image.asset(
                         Images.search,
-                        height: 28,
-                        width: 28,
+                        height: 25,
+                        width: 25,
                       )),
                   const SizedBox(
                     width: 12,
@@ -50,8 +50,8 @@ class DashboardHeader extends StatelessWidget {
                       },
                       child: Image.asset(
                         Images.notification,
-                        height: 30,
-                        width: 30,
+                        height: 25,
+                        width: 25,
                       )),
                 ],
               ),

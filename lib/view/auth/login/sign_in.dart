@@ -10,7 +10,6 @@ import '../../../utils/images.dart';
 import '../../widget_common/commonBackground.dart';
 import '../../widget_common/common_textfield.dart';
 import '../../widget_common/textfield_validation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);

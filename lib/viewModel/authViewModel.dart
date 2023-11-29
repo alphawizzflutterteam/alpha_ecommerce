@@ -212,18 +212,23 @@ class AuthViewModel with ChangeNotifier {
     return otpValues.join();
   }
 
-  void verifyOTP(bool isComingForLogin, BuildContext context, String enteredOTP,
-      bool iscomingForChangePassword) {
+  Future<void> verifyOTP(bool isComingForLogin, BuildContext context,
+      String enteredOTP, bool iscomingForChangePassword) async {
     var otp = SharedPref.shared.pref!.getString(PrefKeys.otp);
+    var phone = SharedPref.shared.pref!.getString(PrefKeys.mobile);
 
     if (enteredOTP == otp) {
+      if (isComingForLogin) {
+        SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "1");
+
+        Map data = {'phone': phone};
+        await getProfileAPI(data, context);
+      }
       iscomingForChangePassword
           ? Routes.navigateToResetPasswordScreen(context)
           : !isComingForLogin
               ? Routes.navigateToSignUpScreen(context)
               : Routes.navigateToDashboardScreen(context);
-
-      SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "1");
     } else {
       Utils.showFlushBarWithMessage("Alert", "OTP not matched", context);
     }
@@ -293,6 +298,27 @@ class AuthViewModel with ChangeNotifier {
       } else {
         Utils.showFlushBarWithMessage("Alert", value.message, context);
       }
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(error.toString());
+
+      Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+    });
+  }
+
+  Future<void> getProfileAPI(dynamic data, BuildContext context) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+
+    _myRepo.getProfileAPI(AppUrl.getProfile, token, data).then((value) {
+      setLoading(false);
+
+      SharedPref.shared.pref
+          ?.setString(PrefKeys.userId, value.data[0].id.toString());
+      SharedPref.shared.pref
+          ?.setString(PrefKeys.name, value.data[0].name.toString());
+      SharedPref.shared.pref
+          ?.setString(PrefKeys.email, value.data[0].email.toString());
     }).onError((error, stackTrace) {
       setLoading(false);
       print(error.toString());

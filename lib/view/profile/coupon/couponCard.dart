@@ -1,11 +1,19 @@
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/coupon/model/couponListModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/toast_message.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import '../../../utils/color.dart';
 import '../../../utils/images.dart';
 
-couponCard({required context}) {
+couponCard({required context, required CouponList coupon}) {
+  DateTime parseDate =
+      DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(coupon.expireDate);
+
   return Container(
-    height: 160,
+    height: 170,
     width: MediaQuery.of(context).size.width * 0.98,
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     child: Row(
@@ -24,11 +32,11 @@ couponCard({required context}) {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const RotatedBox(
+              RotatedBox(
                 quarterTurns: -1,
                 child: Text(
-                  'DISCOUNT',
-                  style: TextStyle(
+                  coupon.title,
+                  style: const TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
@@ -61,23 +69,23 @@ couponCard({required context}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Everyday Savings, Fresh Delights:',
-                style: TextStyle(color: Colors.white, fontSize: 12),
+              Text(
+                coupon.title,
+                style: const TextStyle(color: Colors.white, fontSize: 12),
               ),
-              const SizedBox(
-                height: 5,
-              ),
-              const Text(
-                'Your One-Stop Grocery Destination!',
-                style: TextStyle(color: Colors.white, fontSize: 12),
-              ),
+              // const SizedBox(
+              //   height: 5,
+              // ),
+              // const Text(
+              //   'Your One-Stop Grocery Destination!',
+              //   style: TextStyle(color: Colors.white, fontSize: 12),
+              // ),
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                '50% off',
-                style: TextStyle(
+              Text(
+                "${coupon.discount}%",
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold),
@@ -88,38 +96,49 @@ couponCard({required context}) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Expires',
                         style: TextStyle(color: colors.greyText, fontSize: 12),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(
-                        '30 Jul 2019',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        "${parseDate.day} ${getMonth(parseDate.month.toString())} ${parseDate.year}",
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 14),
                       ),
                     ],
                   ),
-                  DottedBorder(
-                    color: colors.greyText,
-                    strokeWidth: 1,
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(),
-                      child: const Row(
-                        children: <Widget>[
-                          Icon(Icons.file_copy,
-                              color: Colors
-                                  .white), // Replace with your desired icon
-                          Text(
-                            'CP16533',
-                            style: TextStyle(fontSize: 16, color: Colors.white),
-                          ),
-                        ],
+                  InkWell(
+                    onTap: () async {
+                      await Clipboard.setData(ClipboardData(text: coupon.code));
+                      Utils.showFlushBarWithMessage(
+                          "Alert", "Coupon Copied", context);
+
+                      // showToastMessage("Coupon Copied");
+                    },
+                    child: DottedBorder(
+                      color: colors.greyText,
+                      strokeWidth: 1,
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: const BoxDecoration(),
+                        child: Row(
+                          children: <Widget>[
+                            const Icon(Icons.file_copy,
+                                color: Colors
+                                    .white), // Replace with your desired icon
+                            Text(
+                              coupon.code,
+                              style: const TextStyle(
+                                  fontSize: 16, color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   )
@@ -131,4 +150,34 @@ couponCard({required context}) {
       ],
     ),
   );
+}
+
+String getMonth(String day) {
+  switch (day) {
+    case "1":
+      return "Jan";
+    case "2":
+      return "Feb";
+    case "3":
+      return "March";
+    case "4":
+      return "April";
+    case "5":
+      return "May";
+    case "6":
+      return "June";
+    case "7":
+      return "July";
+    case "8":
+      return "Aug";
+    case "9":
+      return "Sep";
+    case "10":
+      return "Oct";
+    case "11":
+      return "Nov";
+    case "12":
+      return "Dec";
+  }
+  return "";
 }

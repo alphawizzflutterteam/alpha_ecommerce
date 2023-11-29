@@ -1,6 +1,8 @@
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/languageViewModel.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 import '../widget_common/commonBackground.dart';
@@ -16,6 +18,11 @@ class _IntroSliderState extends State<IntroSlider> {
   CarouselController carouselController = CarouselController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ValueNotifier<int> currentIndex = ValueNotifier<int>(0);
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   List<String> list = [
     'Discover New Local Product',

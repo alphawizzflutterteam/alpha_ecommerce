@@ -1,14 +1,15 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
-import 'package:alpha_ecommerce_18oct/utils/images.dart';
-import 'package:alpha_ecommerce_18oct/view/home/models/productsModels.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 
 import '../../../utils/color.dart';
 import '../../../utils/routes.dart';
-import '../homeTexts&Spaces.dart';
 
-productForYouCard(Product model, BuildContext context) {
+productForYouCard(
+    ProductList model, BuildContext context, HomeViewModel homeProvider) {
   return Column(
     children: [
       InkWell(
@@ -16,9 +17,10 @@ productForYouCard(Product model, BuildContext context) {
           Routes.navigateToProductDetailPageScreen(context);
         },
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.28,
+          height: MediaQuery.of(context).size.height * 0.31,
           width: MediaQuery.of(context).size.width * 0.44,
           decoration: BoxDecoration(
+              // image: DecorationImage(image: NetworkImage(model.images.first)),
               borderRadius: const BorderRadius.all(Radius.circular(10)),
               gradient: LinearGradient(
                 colors: [
@@ -33,11 +35,17 @@ productForYouCard(Product model, BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(model.images.first,
-                  height: MediaQuery.of(context).size.height * 0.12,
-                  fit: BoxFit.fitHeight,
-                  width: MediaQuery.of(context).size.width * 0.44),
-              const SizedBox(height: 8),
+              Container(
+                  height: MediaQuery.of(context).size.height * 0.14,
+                  width: MediaQuery.of(context).size.width * 0.44,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl: model.images.first,
+                    fit: BoxFit.fitWidth,
+                  )),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.0005),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10,
@@ -54,6 +62,14 @@ productForYouCard(Product model, BuildContext context) {
                       ),
                     ),
                     LikeButton(
+                      onTap: (isLiked) {
+                        Map data = {'product_id': model.id.toString()};
+                        if (isLiked) {
+                          return homeProvider.removeFromWishlist(data, context);
+                        } else {
+                          return homeProvider.addToWishlist(data, context);
+                        }
+                      },
                       size: size_20,
                       isLiked: model.isFavorite,
                       circleColor:
@@ -116,18 +132,44 @@ productForYouCard(Product model, BuildContext context) {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 30,
-                  width: MediaQuery.of(context).size.width,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(5)),
-                      border: Border.all(color: colors.boxBorder)),
-                  child: Text(
-                    model.isCart ? "Remove From Cart" : "Add to Cart",
-                    style: const TextStyle(
-                        color: colors.textColor, fontSize: size_12),
-                    textAlign: TextAlign.center,
+                child: InkWell(
+                  onTap: () {
+                    Map data;
+                    if (!model.isCart) {
+                      data = {
+                        'id': model.id.toString(),
+                        'quantity': "1",
+                        'color': model.colorImage.isNotEmpty
+                            ? "#" + model.colorImage[0].color
+                            : "",
+                        'choice_2': model.choiceOptions.isNotEmpty
+                            ? model.choiceOptions[0].options[0]
+                            : ""
+                      };
+                    } else {
+                      data = {
+                        'key': model.cart_id.toString(),
+                      };
+                    }
+                    print(data);
+                    model.isCart
+                        ? homeProvider.removeFromCart(data, context)
+                        : homeProvider.addToCart(data, context);
+                  },
+                  child: Container(
+                    height: 30,
+                    width: MediaQuery.of(context).size.width,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
+                        border: Border.all(color: colors.boxBorder)),
+                    child: Text(
+                      model.isCart ? "Remove From Cart" : "Add to Cart",
+                      style: const TextStyle(
+                          color: colors.textColor, fontSize: size_12),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),

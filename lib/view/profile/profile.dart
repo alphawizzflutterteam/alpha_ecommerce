@@ -1,6 +1,7 @@
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/model/profile.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/profile/logOut/logOut.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
@@ -20,6 +21,13 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    var name = SharedPref.shared.pref!.getString(PrefKeys.name) ??
+        "Cameron Wiiliamson";
+    var mobile =
+        SharedPref.shared.pref!.getString(PrefKeys.mobile) ?? "9212716009";
+    var mail = SharedPref.shared.pref!.getString(PrefKeys.email) ??
+        "cameronwiiliamson@yyopmail.com";
+
     return Stack(
       children: [
         const LightBackGround(),
@@ -84,9 +92,9 @@ class _ProfileState extends State<Profile> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        const Text(
-                                          "Cameron Williamson",
-                                          style: TextStyle(
+                                        Text(
+                                          name,
+                                          style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold),
@@ -118,34 +126,34 @@ class _ProfileState extends State<Profile> {
                                     const SizedBox(
                                       height: 8,
                                     ),
-                                    const Row(
+                                    Row(
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Icons.email_outlined,
                                           color: colors.lightTextColor,
                                           size: 18,
                                         ),
-                                        SizedBox(width: 5),
+                                        const SizedBox(width: 5),
                                         Text(
-                                          "cameronwilliamson@example.com",
-                                          style: TextStyle(
+                                          mail,
+                                          style: const TextStyle(
                                               color: colors.lightTextColor,
                                               fontSize: 12),
                                         ),
                                       ],
                                     ),
                                     const SizedBox(height: 5),
-                                    const Row(
+                                    Row(
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Icons.phone_outlined,
                                           color: colors.lightTextColor,
                                           size: 18,
                                         ),
-                                        SizedBox(width: 5),
+                                        const SizedBox(width: 5),
                                         Text(
-                                          "9685762333",
-                                          style: TextStyle(
+                                          mobile,
+                                          style: const TextStyle(
                                               color: colors.lightTextColor,
                                               fontSize: 12),
                                         ),

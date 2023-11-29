@@ -20,7 +20,7 @@ import 'package:alpha_ecommerce_18oct/view/profile/aboutUs/aboutUs.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/address/manage_address.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/chat/chat.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/contactUs/contactUs.dart';
-import 'package:alpha_ecommerce_18oct/view/profile/coupon/coupon.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/coupon/couponScreen.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/editProfile/editProfile.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/faqs/faqs.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/transactionHistory.dart';
@@ -303,7 +303,7 @@ class Routes {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) =>
-            const SelectLanguageWidget(),
+            SelectLanguageWidget(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -358,7 +358,7 @@ class Routes {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const Coupon(),
+        pageBuilder: (context, animation1, animation2) => const CouponScreen(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

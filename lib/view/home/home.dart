@@ -1,20 +1,24 @@
 import 'package:alpha_ecommerce_18oct/view/home/cards/brandsCard.dart';
+import 'package:alpha_ecommerce_18oct/view/home/cards/cartCard.dart.dart';
 import 'package:alpha_ecommerce_18oct/view/home/cards/categoryCardTop.dart';
 import 'package:alpha_ecommerce_18oct/view/home/cards/dailyDealsCard.dart';
 import 'package:alpha_ecommerce_18oct/view/home/cards/productsForYouCard.dart';
 import 'package:alpha_ecommerce_18oct/view/home/cards/savedCard.dart';
 import 'package:alpha_ecommerce_18oct/view/home/cards/secondCategory.dart';
+import 'package:alpha_ecommerce_18oct/view/home/cards/wishlistCard.dart';
 import 'package:alpha_ecommerce_18oct/view/home/homeTexts&Spaces.dart';
 import 'package:alpha_ecommerce_18oct/view/home/productQualityCard.dart';
 import 'package:alpha_ecommerce_18oct/view/home/specialOfferCard.dart';
 import 'package:alpha_ecommerce_18oct/view/home/topDealCard.dart';
-import 'package:alpha_ecommerce_18oct/view/home/wishlistCard.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/categoryShuffle.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/filterShuffle.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/sortShuffle.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
@@ -31,19 +35,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final List<String> imageList = [
-    Images.homeSale,
-    Images.homeSale,
-    Images.homeSale,
-    Images.homeSale,
-  ];
   int _currentIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late HomeViewModel homeProvider;
-
+  ScrollController _scrollController = ScrollController();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     homeProvider = Provider.of<HomeViewModel>(context, listen: false);
     homeProvider.getBrandsList(context);
@@ -51,6 +48,24 @@ class _HomeState extends State<Home> {
     homeProvider.getDailyDealsList(context);
     homeProvider.getProductsList(context, '25', "1");
     homeProvider.getCategoriesList(context);
+    homeProvider.getBannersList(context);
+    homeProvider.getWishlistItem(context);
+    homeProvider.getCartListItem(context);
+    _scrollController.addListener(() {
+      setState(() {
+        // homeProvider.isScrolled = _scrollController.offset > 0;
+
+        homeProvider.setScrolling(
+            _scrollController.position.userScrollDirection ==
+                ScrollDirection.forward);
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -72,8 +87,8 @@ class _HomeState extends State<Home> {
               backgroundColor: colors.buttonColor,
               child: Image.asset(
                 Images.chat,
-                height: 40,
-                width: 40,
+                height: 35,
+                width: 35,
               )),
           body: Column(
             children: [
@@ -97,6 +112,7 @@ class _HomeState extends State<Home> {
               // ),
               Expanded(
                   child: SingleChildScrollView(
+                controller: _scrollController,
                 child: Column(
                   children: [
                     Container(
@@ -106,7 +122,7 @@ class _HomeState extends State<Home> {
                           scrollDirection: Axis.horizontal,
                           child: Container(
                             child: Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
+                              padding: const EdgeInsets.only(top: 0.0),
                               child: secondCategoryListCard(
                                   context, homeProvider.categoriesModel),
                             ),
@@ -117,12 +133,15 @@ class _HomeState extends State<Home> {
                         SizedBox(
                           height: 250,
                           child: CarouselSlider(
-                            items: imageList.map((item) {
+                            items: homeProvider.imageList.map((item) {
                               return SizedBox(
                                 width: double.infinity,
-                                child: Image.asset(
-                                  item,
+                                child: CachedNetworkImage(
+                                  imageUrl: item,
                                   fit: BoxFit.fill,
+                                  placeholder: (context, url) => appLoader(),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
                                 ),
                               );
                             }).toList(),
@@ -140,7 +159,10 @@ class _HomeState extends State<Home> {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: imageList.asMap().entries.map((entry) {
+                          children: homeProvider.imageList
+                              .asMap()
+                              .entries
+                              .map((entry) {
                             return GestureDetector(
                               onTap: () {
                                 setState(() {
@@ -196,134 +218,57 @@ class _HomeState extends State<Home> {
                         ),
                         child: productQualityCard()),
                     spaceOfHeight(height: 20),
-                    productForUText(),
-                    spaceOfHeight(height: 20),
-                    Row(
-                      children: [
-                        Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width * 0.33,
-                          color: colors.midBorder,
-                          child: InkWell(
-                            onTap: () {
-                              homeFilter(context);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  Images.filter,
-                                  height: 20,
-                                  width: 20,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Text(
-                                  'Filter',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width * 0.34,
-                          decoration: const BoxDecoration(
-                            color: colors.midBorder,
-                            border: Border(
-                              left: BorderSide(
-                                color: colors.midBorder,
+
+                    homeProvider.cartModel.isEmpty
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: SizedBox(
+                              height: 300,
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Routes.navigateToCartScreen(context);
+                                      },
+                                      child: const Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "View your cart Items",
+                                            style: TextStyle(
+                                                color: colors.textColor),
+                                          ),
+                                          Text(
+                                            "VIEW ALL",
+                                            style: TextStyle(
+                                                color: colors.buttonColor),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Container(
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 2.0),
+                                            child: cartCardRowHome(context,
+                                                homeProvider.cartModel),
+                                          ),
+                                        )),
+                                  ),
+                                  const SizedBox(height: 20)
+                                ],
                               ),
                             ),
                           ),
-                          child: InkWell(
-                            onTap: () {
-                              homeCategory(context);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  Images.categoryWhite,
-                                  height: 20,
-                                  width: 20,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Text(
-                                  'Category',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width * 0.33,
-                          decoration: const BoxDecoration(
-                            color: colors.midBorder,
-                            border: Border(
-                              left: BorderSide(
-                                color: colors.midBorder,
-                              ),
-                            ),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              homeSort(context);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  Images.sort,
-                                  height: 20,
-                                  width: 20,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Text(
-                                  'Sort',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 20),
-                      height: MediaQuery.of(context).size.height * 0.70,
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.zero,
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.75,
-                        ),
-                        itemCount: homeProvider.productsModel.length,
-                        itemBuilder: (context, j) {
-                          return productForYouCard(
-                              homeProvider.productsModel[j], context);
-                        },
-                      ),
-                    ),
-                    spaceOfHeight(),
 
                     Container(
                       height: MediaQuery.of(context).size.height * 0.28,
@@ -397,59 +342,68 @@ class _HomeState extends State<Home> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: SizedBox(
-                        height: 270,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                    homeProvider.wishlistModel.isEmpty
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: SizedBox(
+                              height: 270,
+                              child: Column(
                                 children: [
-                                  const Text(
-                                    "Your wishlist items",
-                                    style: TextStyle(color: colors.textColor),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Routes.navigateToWishlistScreen(context);
-                                    },
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         const Text(
-                                          "VIEW ALL",
+                                          "Your wishlist items",
                                           style: TextStyle(
-                                              color: colors.buttonColor),
+                                              color: colors.textColor),
                                         ),
-                                        const SizedBox(
-                                          width: 5,
+                                        InkWell(
+                                          onTap: () {
+                                            Routes.navigateToWishlistScreen(
+                                                context);
+                                          },
+                                          child: Row(
+                                            children: [
+                                              const Text(
+                                                "VIEW ALL",
+                                                style: TextStyle(
+                                                    color: colors.buttonColor),
+                                              ),
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Image.asset(
+                                                Images.doubleArrow,
+                                                height: 15,
+                                                width: 15,
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                        Image.asset(
-                                          Images.doubleArrow,
-                                          height: 15,
-                                          width: 15,
-                                        )
                                       ],
                                     ),
+                                  ),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Container(
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 2.0),
+                                            child: wishlistCardsRow(context,
+                                                homeProvider.wishlistModel),
+                                          ),
+                                        )),
                                   ),
                                 ],
                               ),
                             ),
-                            Expanded(
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                children: List.generate(10, (index) {
-                                  return wishlistCard(context);
-                                }),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                          ),
                     SizedBox(
                       height: 170,
                       width: MediaQuery.of(context).size.width,
@@ -707,52 +661,147 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                     spaceOfHeight(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: SizedBox(
-                        height: 300,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: InkWell(
-                                onTap: () {
-                                  Routes.navigateToCartScreen(context);
-                                },
-                                child: const Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "View your cart Items",
-                                      style: TextStyle(color: colors.textColor),
-                                    ),
-                                    Text(
-                                      "VIEW ALL",
-                                      style:
-                                          TextStyle(color: colors.buttonColor),
-                                    ),
-                                  ],
+                    productForUText(),
+                    spaceOfHeight(height: 20),
+
+                    Row(
+                      children: [
+                        Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width * 0.33,
+                          color: colors.midBorder,
+                          child: InkWell(
+                            onTap: () {
+                              homeFilter(context);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  Images.filter,
+                                  height: 20,
+                                  width: 20,
                                 ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                const Text(
+                                  'Filter',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width * 0.34,
+                          decoration: const BoxDecoration(
+                            color: colors.midBorder,
+                            border: Border(
+                              left: BorderSide(
+                                color: colors.midBorder,
                               ),
                             ),
-                            Expanded(
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                children: List.generate(10, (index) {
-                                  return savedCard(context);
-                                }),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              homeCategory(context);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  Images.categoryWhite,
+                                  height: 20,
+                                  width: 20,
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                const Text(
+                                  'Category',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width * 0.33,
+                          decoration: const BoxDecoration(
+                            color: colors.midBorder,
+                            border: Border(
+                              left: BorderSide(
+                                color: colors.midBorder,
                               ),
                             ),
-                            const Text(
-                              "Alpha Product: All rights reserved",
-                              style: TextStyle(color: colors.textColor),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              homeSort(context);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  Images.sort,
+                                  height: 20,
+                                  width: 20,
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                const Text(
+                                  'Sort',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                )
+                              ],
                             ),
-                            const SizedBox(height: 20)
-                          ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SingleChildScrollView(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 20),
+                        height: MediaQuery.of(context).size.height *
+                            0.1 *
+                            homeProvider.productsModel.length /
+                            2,
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.70,
+                          ),
+                          itemCount: homeProvider.productsModel.length,
+                          itemBuilder: (context, j) {
+                            return productForYouCard(
+                                homeProvider.productsModel[j],
+                                context,
+                                homeProvider);
+                          },
                         ),
                       ),
                     ),
+                    spaceOfHeight(),
+                    const Text(
+                      "Alpha Product: All rights reserved",
+                      style: TextStyle(color: colors.textColor),
+                    ),
+                    spaceOfHeight(),
                   ],
                 ),
               )),

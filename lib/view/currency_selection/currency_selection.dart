@@ -30,7 +30,6 @@ class _SelectLanguageWidgetState extends State<SelectionCurrencyWidget> {
     currencyProvider.getCurrencies(context);
     currencyList = currencyProvider.currencyModel.data;
     selected.value.addAll(currencyProvider.currencyModel.data);
-    setState(() {});
     print(selected.value.length.toString());
     super.initState();
   }

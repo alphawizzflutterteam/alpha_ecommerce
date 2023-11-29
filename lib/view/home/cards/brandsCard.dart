@@ -1,5 +1,7 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/brandsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 brandCard(BrandsList model, BuildContext context) {
@@ -9,15 +11,21 @@ brandCard(BrandsList model, BuildContext context) {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
-            child: Image.network(
-              model.image,
-              height: size_60,
+            child: CachedNetworkImage(
+              imageUrl: model.image,
+              height: size_50,
+              fit: BoxFit.fill,
+              placeholder: (context, url) => appLoader(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
           const SizedBox(
             height: size_5,
           ),
-          Text(model.name)
+          Text(
+            model.name,
+            style: const TextStyle(color: Colors.black, fontSize: size_10),
+          )
         ],
       ));
 }

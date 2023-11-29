@@ -1,3 +1,6 @@
+import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/couponViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/currencyViewModel.dart';
 import 'package:alpha_ecommerce_18oct/provider/home_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/language_provider.dart';
@@ -11,6 +14,7 @@ import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/languageViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/splashViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/vendorViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -54,6 +58,11 @@ void main() async {
     ChangeNotifierProvider<UserProvider>(create: (context) => UserProvider()),
     ChangeNotifierProvider<AuthViewModel>(create: (context) => AuthViewModel()),
     ChangeNotifierProvider<HomeViewModel>(create: (context) => HomeViewModel()),
+    ChangeNotifierProvider<VendorViewModel>(
+        create: (context) => VendorViewModel()),
+    ChangeNotifierProvider<CartViewModel>(create: (context) => CartViewModel()),
+    ChangeNotifierProvider<CouponViewModel>(
+        create: (context) => CouponViewModel()),
     ChangeNotifierProvider<LanguageViewModel>(
         create: (context) => LanguageViewModel()),
     ChangeNotifierProvider<SplashViewModel>(
@@ -63,6 +72,10 @@ void main() async {
         create: (context) => LanguageProvider()),
     ChangeNotifierProvider<CurrencyViewModel>(
         create: (context) => CurrencyViewModel()),
+    ChangeNotifierProvider<LocationProvider>(
+        create: (context) => LocationProvider()),
+    ChangeNotifierProvider<AddressViewModel>(
+        create: (context) => AddressViewModel()),
   ], child: const MyApp()));
 }
 
@@ -113,7 +126,7 @@ class _MyAppState extends State<MyApp> {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     return MaterialApp(
       locale: _locale,
-      localizationsDelegates: const [
+      localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

@@ -1,8 +1,10 @@
 import 'package:alpha_ecommerce_18oct/view/wishlist/deletePopup.dart';
+import 'package:alpha_ecommerce_18oct/view/wishlist/wishlistCard.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/routes.dart';
-import '../../model/wishlist.dart';
 import '../widget_common/commonBackground.dart';
 import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
@@ -16,10 +18,21 @@ class Wishlist extends StatefulWidget {
 
 class _WishlistState extends State<Wishlist> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  String selectedOption = 'Alpha Delivery';
+  String selectedOption = 'Normal Delivery';
+
+  late HomeViewModel homeProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    homeProvider = Provider.of<HomeViewModel>(context, listen: false);
+    homeProvider.getWishlistItem(context);
+  }
 
   @override
   Widget build(BuildContext context) {
+    homeProvider = Provider.of<HomeViewModel>(context);
+
     return Stack(
       children: [
         const LightBackGround(),
@@ -45,153 +58,17 @@ class _WishlistState extends State<Wishlist> {
                     children: [
                       const SizedBox(height: 30),
                       SizedBox(
-                        height: 142 * wishlist.length.toDouble(),
+                        height:
+                            142 * homeProvider.wishlistModel.length.toDouble(),
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: wishlist.length,
+                          itemCount: homeProvider.wishlistModel.length,
                           itemBuilder: (context, i) {
-                            return InkWell(
-                              onTap: () {
-                                Routes.navigateToProductDetailPageScreen(
-                                    context);
-                              },
-                              child: Container(
-                                height: wishlist[i].productCount > 0 ? 120 : 0,
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color(0x14E9E9E9).withOpacity(0.05),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: ListTile(
-                                  title: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Image.asset(
-                                        wishlist[i].productImage,
-                                        width: 100,
-                                        height: 170,
-                                      ),
-                                      const SizedBox(width: 30),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            wishlist[i].productName,
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 14),
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                wishlist[i].productPrice,
-                                                style: const TextStyle(
-                                                    color: colors.buttonColor,
-                                                    fontSize: 16),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 10),
-                                                child: Text(
-                                                  wishlist[i].productDiscount,
-                                                  style: const TextStyle(
-                                                      color: colors.greyText,
-                                                      fontSize: 14),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            wishlist[i].productWeight,
-                                            style: const TextStyle(
-                                                color: colors.greyText,
-                                                fontSize: 12),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.43,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(
-                                                  height: 30,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.17,
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .all(
-                                                              Radius.circular(
-                                                                  5)),
-                                                      border: Border.all(
-                                                          color: colors
-                                                              .boxBorder)),
-                                                  child: const Text(
-                                                    "DELETE",
-                                                    style: TextStyle(
-                                                        color: colors.textColor,
-                                                        fontSize: 10),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ),
-                                                Container(
-                                                  height: 30,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.23,
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .all(
-                                                              Radius.circular(
-                                                                  5)),
-                                                      border: Border.all(
-                                                          color: colors
-                                                              .boxBorder)),
-                                                  child: const Text(
-                                                    "ADD TO CART",
-                                                    style: TextStyle(
-                                                        color: colors.textColor,
-                                                        fontSize: 10),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
+                            var model = homeProvider.wishlistModel[i];
+                            return wishlistCard(
+                                context, model.product, homeProvider);
                           },
                         ),
                       ),
@@ -208,7 +85,7 @@ class _WishlistState extends State<Wishlist> {
 
   void deleteItem(int index) {
     setState(() {
-      wishlist.removeAt(index);
+      // wishlist.removeAt(index);
       Navigator.of(context).pop(); // Close the DeletePopup
     });
   }

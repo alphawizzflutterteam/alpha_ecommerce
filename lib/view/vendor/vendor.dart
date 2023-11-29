@@ -1,5 +1,8 @@
 import 'package:alpha_ecommerce_18oct/view/vendor/vendorCard.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/vendorViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../widget_common/commonBackground.dart';
 import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
@@ -13,9 +16,19 @@ class Vendor extends StatefulWidget {
 
 class _VendorState extends State<Vendor> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late VendorViewModel vendorProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    vendorProvider = Provider.of<VendorViewModel>(context, listen: false);
+    vendorProvider.getVendorListItem(context);
+  }
 
   @override
   Widget build(BuildContext context) {
+    vendorProvider = Provider.of<VendorViewModel>(context);
+
     return Stack(
       children: [
         const LightBackGround(),
@@ -49,18 +62,21 @@ class _VendorState extends State<Vendor> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      SizedBox(
-                        height: 120 * 10,
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 10,
-                          itemBuilder: (context, i) {
-                            return vendorCard(context);
-                          },
-                        ),
-                      ),
+                      vendorProvider.isLoading
+                          ? appLoader()
+                          : SizedBox(
+                              height: 120 * 10,
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: vendorProvider.vendorModel.length,
+                                itemBuilder: (context, i) {
+                                  var model = vendorProvider.vendorModel[i];
+                                  return vendorCard(context, model);
+                                },
+                              ),
+                            ),
                     ],
                   ),
                 ),

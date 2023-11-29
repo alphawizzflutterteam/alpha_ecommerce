@@ -4,7 +4,7 @@ import '../utils/images.dart';
 import '../view/profile/aboutUs/aboutUs.dart';
 import '../view/profile/address/manage_address.dart';
 import '../view/profile/contactUs/contactUs.dart';
-import '../view/profile/coupon/coupon.dart';
+import '../view/profile/coupon/couponScreen.dart';
 import '../view/profile/customerSupport/customerSupport.dart';
 import '../view/profile/faqs/faqs.dart';
 import '../view/profile/payment/profile_payment.dart';
@@ -36,7 +36,7 @@ List<ProfileList> profile = [
   ProfileList(
       profileIcon: Images.discountProfile,
       profileText: 'Coupons',
-      navigationScreen: const Coupon()),
+      navigationScreen: const CouponScreen()),
   ProfileList(
       profileIcon: Images.setting,
       profileText: 'Setting',

@@ -4,7 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 
-import 'package:speech_to_text/speech_to_text.dart' as stt;
+// import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController searchController = TextEditingController();
-  stt.SpeechToText speech = stt.SpeechToText();
+  // stt.SpeechToText speech = stt.SpeechToText();
   bool isListening = false;
   String text = 'Press the button and start speaking';
 
@@ -26,49 +26,49 @@ class _SearchState extends State<Search> {
     getMicrophonePermission(true);
   }
 
-  Future<void> initSpeechState() async {
-    bool available = await speech.initialize(
-      onStatus: (status) {
-        print('Speech recognition status: $status');
-      },
-      onError: (error) => print('Error: $error'),
-    );
+  // Future<void> initSpeechState() async {
+  //   bool available = await speech.initialize(
+  //     onStatus: (status) {
+  //       print('Speech recognition status: $status');
+  //     },
+  //     onError: (error) => print('Error: $error'),
+  //   );
 
-    if (available) {
-      print('Speech recognition is available');
-    } else {
-      print('Speech recognition is not available');
-    }
-  }
+  //   if (available) {
+  //     print('Speech recognition is available');
+  //   } else {
+  //     print('Speech recognition is not available');
+  //   }
+  // }
 
-  Future<void> startListening() async {
-    if (!isListening) {
-      bool listening = await speech.listen(
-        onResult: (result) {
-          setState(() {
-            text = result.recognizedWords;
+  // Future<void> startListening() async {
+  //   if (!isListening) {
+  //     bool listening = await speech.listen(
+  //       onResult: (result) {
+  //         setState(() {
+  //           text = result.recognizedWords;
 
-            searchController.text = result.recognizedWords;
-          });
-        },
-      );
+  //           searchController.text = result.recognizedWords;
+  //         });
+  //       },
+  //     );
 
-      if (listening) {
-        setState(() {
-          isListening = true;
-        });
-      }
-    }
-  }
+  //     if (listening) {
+  //       setState(() {
+  //         isListening = true;
+  //       });
+  //     }
+  //   }
+  // }
 
-  Future<void> stopListening() async {
-    if (isListening) {
-      await speech.stop();
-      setState(() {
-        isListening = false;
-      });
-    }
-  }
+  // Future<void> stopListening() async {
+  //   if (isListening) {
+  //     await speech.stop();
+  //     setState(() {
+  //       isListening = false;
+  //     });
+  //   }
+  // }
 
   Future<void> getMicrophonePermission(bool isCallingForFirstTime) async {
     PermissionStatus status = await Permission.microphone.status;
@@ -78,9 +78,9 @@ class _SearchState extends State<Search> {
     print(status.toString());
     if (status.isGranted) {
       if (isCallingForFirstTime) {
-        initSpeechState();
+        //   initSpeechState();
       } else {
-        isListening ? stopListening() : startListening();
+        //   isListening ? stopListening() : startListening();
       }
     }
 
