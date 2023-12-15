@@ -118,10 +118,17 @@ class AuthViewModel with ChangeNotifier {
             Utils.showFlushBarWithMessage("OTP", value.data[0].otp, context);
             Routes.navigateToOTPVerificationScreen(context, true, false);
           } else {
-            Utils.showFlushBarWithMessage("Alert", value.message, context);
+            value.errors.isEmpty
+                ? Utils.showFlushBarWithMessage("Alert", value.message, context)
+                : Utils.showFlushBarWithMessage(
+                    "Alert", value.errors[0].message, context);
           }
         }).onError((error, stackTrace) {
           setLoading(false);
+          print(error.toString());
+          print(stackTrace.toString());
+          Utils.showFlushBarWithMessage(
+              "Alert", stackTrace.toString(), context);
         });
       } else {
         _myRepo
@@ -136,9 +143,12 @@ class AuthViewModel with ChangeNotifier {
             SharedPref.shared.pref?.setString(PrefKeys.jwtToken, value.token);
             SharedPref.shared.pref?.setString(PrefKeys.mobile, phone);
             SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "1");
-            Routes.navigateToDashboardScreen(context);
+            Routes.navigateToDashboardScreen(context, 2);
           } else {
-            Utils.showFlushBarWithMessage("Alert", value.message, context);
+            value.errors.isEmpty
+                ? Utils.showFlushBarWithMessage("Alert", value.message, context)
+                : Utils.showFlushBarWithMessage(
+                    "Alert", value.errors[0].message, context);
           }
         }).onError((error, stackTrace) {
           setLoading(false);
@@ -166,7 +176,10 @@ class AuthViewModel with ChangeNotifier {
 
         Utils.showFlushBarWithMessage("OTP", value.data[0].otp, context);
       } else {
-        Utils.showFlushBarWithMessage("Alert", value.message, context);
+        value.errors.isEmpty
+            ? Utils.showFlushBarWithMessage("Alert", value.message, context)
+            : Utils.showFlushBarWithMessage(
+                "Alert", value.errors[0].message, context);
       }
     }).onError((error, stackTrace) {
       setLoading(false);
@@ -192,7 +205,10 @@ class AuthViewModel with ChangeNotifier {
         Utils.showFlushBarWithMessage("OTP", value.data[0].otp, context);
         Routes.navigateToOTPVerificationScreen(context, true, true);
       } else {
-        Utils.showFlushBarWithMessage("Alert", value.message, context);
+        value.errors.isEmpty
+            ? Utils.showFlushBarWithMessage("Alert", value.message, context)
+            : Utils.showFlushBarWithMessage(
+                "Alert", value.errors[0].message, context);
       }
     }).onError((error, stackTrace) {
       setLoading(false);
@@ -223,12 +239,16 @@ class AuthViewModel with ChangeNotifier {
 
         Map data = {'phone': phone};
         await getProfileAPI(data, context);
+        iscomingForChangePassword
+            ? Routes.navigateToResetPasswordScreen(context)
+            : !isComingForLogin
+                ? Routes.navigateToSignUpScreen(context)
+                : Routes.navigateToDashboardScreen(context, 2);
+      } else {
+        SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "0");
+
+        Routes.navigateToSignUpScreen(context);
       }
-      iscomingForChangePassword
-          ? Routes.navigateToResetPasswordScreen(context)
-          : !isComingForLogin
-              ? Routes.navigateToSignUpScreen(context)
-              : Routes.navigateToDashboardScreen(context);
     } else {
       Utils.showFlushBarWithMessage("Alert", "OTP not matched", context);
     }
@@ -240,24 +260,30 @@ class AuthViewModel with ChangeNotifier {
     _myRepo.loginApiReqzuest(AppUrl.sendRegisterOtp, data).then((value) {
       setLoading(false);
 
+      print(value.message);
       if (value.message == "OTP sent success") {
-        Utils.showFlushBarWithMessage(
-            "Alert", "OTP sent successfully.", context);
+        // Utils.showFlushBarWithMessage(
+        //     "Alert", "OTP sent successfully.", context);
         SharedPref.shared.pref?.setString(PrefKeys.jwtToken, value.token);
 
-        Utils.showFlushBarWithMessage(
-            "Alert", "OTP sent successfully.", context);
+        // Utils.showFlushBarWithMessage(
+        //     "Alert", "OTP sent successfully.", context);
         SharedPref.shared.pref?.setString(PrefKeys.otp, value.data[0].otp);
         SharedPref.shared.pref
             ?.setString(PrefKeys.mobile, value.data[0].mobile);
 
-        Utils.showFlushBarWithMessage("OTP", value.data[0].otp, context);
+        // Utils.showFlushBarWithMessage("OTP", value.data[0].otp, context);
         Routes.navigateToOTPVerificationScreen(context, false, false);
       } else {
-        Utils.showFlushBarWithMessage("Alert", value.message, context);
+        value.errors.isEmpty
+            ? Utils.showFlushBarWithMessage("Alert", value.message, context)
+            : Utils.showFlushBarWithMessage(
+                "Alert", value.errors[0].message, context);
       }
     }).onError((error, stackTrace) {
       setLoading(false);
+      print(stackTrace.toString());
+      Utils.showFlushBarWithMessage("Alert", stackTrace.toString(), context);
     });
   }
 
@@ -265,21 +291,31 @@ class AuthViewModel with ChangeNotifier {
     setLoading(true);
 
     print(data);
-    _myRepo.loginApiReqzuest(AppUrl.register, data).then((value) {
+    _myRepo.loginApiReqzuest(AppUrl.register, data).then((value) async {
       setLoading(false);
 
       if (value.message == "User registered success") {
-        Utils.showFlushBarWithMessage(
-            "Alert", "User registered successfully.", context);
+        // Utils.showFlushBarWithMessage(
+        //     "Alert", "User registered successfully.", context);
         SharedPref.shared.pref?.setString(PrefKeys.jwtToken, value.token);
+        SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "1");
+        var phone = SharedPref.shared.pref!.getString(PrefKeys.mobile);
 
+        Map data = {'phone': phone};
+        await getProfileAPI(data, context);
         Routes.navigateToWelcomeScreen(context);
       } else {
-        Utils.showFlushBarWithMessage("Alert", value.message, context);
+        value.errors.isEmpty
+            ? Utils.showFlushBarWithMessage("Alert", value.message, context)
+            : Utils.showFlushBarWithMessage(
+                "Alert", value.errors[0].message, context);
       }
     }).onError((error, stackTrace) {
       setLoading(false);
-      Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+      print(stackTrace.toString());
+      Utils.showFlushBarWithMessage(
+          "Alert", "Email or phone has already been taken.", context);
+      //  Utils.showFlushBarWithMessage("Alert", error.toString(), context);
     });
   }
 
@@ -291,8 +327,8 @@ class AuthViewModel with ChangeNotifier {
       setLoading(false);
 
       if (value.message != "Password and confirm password not matched!") {
-        Utils.showFlushBarWithMessage(
-            "Alert", "Password changed successfully.", context);
+        // Utils.showFlushBarWithMessage(
+        //     "Alert", "Password changed successfully.", context);
 
         Routes.navigateToSignInScreen(context);
       } else {
@@ -313,15 +349,21 @@ class AuthViewModel with ChangeNotifier {
     _myRepo.getProfileAPI(AppUrl.getProfile, token, data).then((value) {
       setLoading(false);
 
+      print(value.data[0].id.toString());
+
       SharedPref.shared.pref
           ?.setString(PrefKeys.userId, value.data[0].id.toString());
       SharedPref.shared.pref
           ?.setString(PrefKeys.name, value.data[0].name.toString());
       SharedPref.shared.pref
           ?.setString(PrefKeys.email, value.data[0].email.toString());
+
+      SharedPref.shared.pref
+          ?.setString(PrefKeys.userDetails, jsonEncode(value));
     }).onError((error, stackTrace) {
       setLoading(false);
       print(error.toString());
+      print(stackTrace.toString());
 
       Utils.showFlushBarWithMessage("Alert", error.toString(), context);
     });

@@ -1,6 +1,7 @@
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -265,59 +266,71 @@ class _SignUPState extends State<SignUP> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 80,
-                color: colors.textFieldBG,
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                            height: 50,
-                            width: double.infinity,
-                            child: CommonButton(
-                                text: translation(context).createaccount,
-                                fontSize: 18,
-                                onClick: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    var mobile = SharedPref.shared.pref!
-                                        .getString(PrefKeys.mobile);
-                                    var languageID = SharedPref.shared.pref!
-                                            .getString(
-                                                PrefKeys.selectedLanguageID) ??
-                                        "";
-                                    var currencyID = SharedPref.shared.pref!
-                                            .getString(PrefKeys.currencyID) ??
-                                        "";
+            authViewModel.isLoading
+                ? Align(
+                    child: appLoader(),
+                  )
+                : Container(),
+            authViewModel.isLoading
+                ? Align(
+                    child: appLoader(),
+                  )
+                : Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      height: 80,
+                      color: colors.textFieldBG,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 15),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                  height: 50,
+                                  width: double.infinity,
+                                  child: CommonButton(
+                                      text: translation(context).createaccount,
+                                      fontSize: 18,
+                                      onClick: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          var mobile = SharedPref.shared.pref!
+                                              .getString(PrefKeys.mobile);
+                                          var languageID = SharedPref
+                                                  .shared.pref!
+                                                  .getString(PrefKeys
+                                                      .selectedLanguageID) ??
+                                              "1";
+                                          var currencyID =
+                                              SharedPref.shared.pref!.getString(
+                                                      PrefKeys.currencyID) ??
+                                                  "3";
 
-                                    Map data = {
-                                      "f_name": nameController.text,
-                                      'email': emailController.text,
-                                      'phone': mobile,
-                                      'password': passwordController.text,
-                                      'referral_code': referralController.text,
-                                      'language_id': languageID,
-                                      "currency_id": currencyID,
-                                      "fcm_id": ""
-                                    };
+                                          Map data = {
+                                            "f_name": nameController.text,
+                                            'email': emailController.text,
+                                            'phone': mobile,
+                                            'password': passwordController.text,
+                                            'referral_code':
+                                                referralController.text,
+                                            'language_id': languageID,
+                                            "currency_id": currencyID,
+                                            "fcm_id": ""
+                                          };
 
-                                    authViewModel.createAccountApi(
-                                        data, context);
-                                  }
-                                })),
-                      ],
+                                          authViewModel.createAccountApi(
+                                              data, context);
+                                        }
+                                      })),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
           ],
         ),
-      )
+      ),
     ]);
   }
 }

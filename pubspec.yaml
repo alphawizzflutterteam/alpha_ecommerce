@@ -52,13 +52,15 @@ dependencies:
   another_flushbar: ^1.12.30
   http: ^1.1.0
   permission_handler: ^9.1.0
-  speech_to_text: ^5.1.0
+  #speech_to_text: ^5.1.0
   loading_animation_widget: ^1.2.0+4
   intl: ^0.18.1
   flutter_localization: ^0.1.14
   cached_network_image: ^3.2.3
   geolocator: ^10.1.0
   geocoding: ^2.1.1
+  visibility_detector: ^0.4.0+2
+  speech_to_text: ^5.0.0
 
   flutter_localizations:
     sdk: flutter

@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 import 'common_bottom.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  final int index;
+  const Dashboard({Key? key, required this.index}) : super(key: key);
 
   @override
   State<Dashboard> createState() => DashboardState();
@@ -22,6 +23,8 @@ class DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     homeProvider = Provider.of<HomeViewModel>(context);
 
-    return const BottomNavPage();
+    return BottomNavPage(
+      index: widget.index,
+    );
   }
 }

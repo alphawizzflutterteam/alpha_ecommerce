@@ -15,7 +15,10 @@ import '../../widget_common/toast_message.dart';
 class OTPVerification extends StatefulWidget {
   final bool isComingForLogin;
   final bool isComingFromForgotPassword;
-  const OTPVerification({Key? key, required this.isComingForLogin, required this.isComingFromForgotPassword})
+  const OTPVerification(
+      {Key? key,
+      required this.isComingForLogin,
+      required this.isComingFromForgotPassword})
       : super(key: key);
 
   @override
@@ -75,7 +78,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                                 translation(context).otpverification,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    color: colors.textColor, fontSize: 20),
+                                    color: Colors.white, fontSize: 20),
                               ),
                             ),
                           ),
@@ -178,7 +181,10 @@ class _OTPVerificationState extends State<OTPVerification> {
                                         .retrieveStringFromControllers(
                                             otpControllers);
                                     authViewModel.verifyOTP(
-                                        widget.isComingForLogin, context,enterdOTp,widget.isComingFromForgotPassword);
+                                        widget.isComingForLogin,
+                                        context,
+                                        enterdOTp,
+                                        widget.isComingFromForgotPassword);
                                   }
                                 },
                               ),

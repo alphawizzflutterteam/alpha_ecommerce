@@ -63,7 +63,7 @@ class Datum {
   String temporaryToken;
   int isEmailVerified;
   int walletBalance;
-  int loyaltyPoint;
+  String loyaltyPoint;
   int loginHitCount;
   int isTempBlocked;
   String tempBlockTime;

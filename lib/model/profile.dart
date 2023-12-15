@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/view/profile/address/addressList.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../utils/images.dart';
@@ -28,7 +29,7 @@ List<ProfileList> profile = [
   ProfileList(
       profileIcon: Images.locationProfile,
       profileText: 'Manage Address',
-      navigationScreen: const ManageAddress()),
+      navigationScreen: const AddressListScreen()),
   ProfileList(
       profileIcon: Images.walletProfile,
       profileText: 'Payment',

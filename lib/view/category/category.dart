@@ -1,4 +1,8 @@
+import 'package:alpha_ecommerce_18oct/view/home/models/categoryModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/categoryViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../model/category.dart';
 import '../cart/savedItems.dart';
@@ -16,11 +20,43 @@ class AllCategory extends StatefulWidget {
 
 class _AllCategoryState extends State<AllCategory> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  List<bool> isTabSelectedList =
-      List.generate(categories.length, (index) => index == 0);
+
+  int selectedIndex = 0;
+  late CategoryViewModel categoryProvider;
+  List<Childes> listItem = [];
+
+  @override
+  void initState() {
+    super.initState();
+    categoryProvider = Provider.of<CategoryViewModel>(context, listen: false);
+
+    categoryProvider.getCategories(context);
+    listItem = categoryProvider.data[0].childes!;
+  }
+
+  void searchText(String text) {
+    listItem.clear();
+    for (int i = 0;
+        i < categoryProvider.data[selectedIndex].childes!.length;
+        i++) {
+      print(
+          categoryProvider.data[selectedIndex].childes![i].name!.toLowerCase());
+      if (text == "") {
+        listItem.add(categoryProvider.data[selectedIndex].childes![i]);
+      } else {
+        if (categoryProvider.data[selectedIndex].childes![i].name!
+            .toLowerCase()
+            .contains(text.toLowerCase())) {
+          listItem.add(categoryProvider.data[selectedIndex].childes![i]);
+        }
+      }
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
+    categoryProvider = Provider.of<CategoryViewModel>(context);
     return Stack(
       children: [
         const LightBackGround(),
@@ -55,155 +91,175 @@ class _AllCategoryState extends State<AllCategory> {
                         ),
                       ),
                       const SizedBox(height: 30),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.7,
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                child: ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  physics:
-                                      const AlwaysScrollableScrollPhysics(),
-                                  itemCount: categories.length,
-                                  itemBuilder: (context, i) {
-                                    return buildTabButton(categories[i].name,
-                                        isTabSelectedList[i], () {
-                                      setState(() {
-                                        for (int j = 0;
-                                            j < isTabSelectedList.length;
-                                            j++) {
-                                          isTabSelectedList[j] = (i == j);
-                                        }
-                                      });
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 40,
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                child: TextFormField(
-                                  onChanged: (value) {},
-                                  decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 5, horizontal: 10),
-                                    fillColor: colors.textFieldBG,
-                                    filled: true,
-                                    hintText: 'Search',
-                                    hintStyle:
-                                        const TextStyle(color: Colors.white),
-                                    prefixIcon: const Icon(
-                                      Icons.search,
-                                      color: Colors.white,
+                      categoryProvider.isLoading
+                          ? appLoader()
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.7,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.3,
+                                      child: ListView.builder(
+                                        padding: EdgeInsets.zero,
+                                        physics:
+                                            const AlwaysScrollableScrollPhysics(),
+                                        itemCount: categoryProvider.data.length,
+                                        itemBuilder: (context, i) {
+                                          return buildTabButton(
+                                              categoryProvider.data[i].name!,
+                                              selectedIndex == i, () {
+                                            selectedIndex = i;
+                                            setState(() {
+                                              searchText("");
+                                            });
+                                          });
+                                        },
+                                      ),
                                     ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: const BorderSide(
-                                            color: Colors.grey, width: 1)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: const BorderSide(
-                                            color: Colors.grey, width: 1)),
-                                    errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: const BorderSide(
-                                            color: Colors.grey, width: 1)),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: const BorderSide(
-                                            color: Colors.grey, width: 1)),
-                                  ),
-                                  style: const TextStyle(color: Colors.white),
+                                  ],
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.6,
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                child: ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: categories.length,
-                                  itemBuilder: (context, i) {
-                                    if (isTabSelectedList[i]) {
-                                      return SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.6,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              categories[i].name,
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.55,
-                                              child: GridView.builder(
-                                                shrinkWrap: true,
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 20),
-                                                physics:
-                                                    const AlwaysScrollableScrollPhysics(),
-                                                gridDelegate:
-                                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                                  crossAxisCount: 2,
-                                                  mainAxisSpacing: 2,
-                                                  childAspectRatio: 0.7,
-                                                ),
-                                                itemCount: categories[i]
-                                                    .categoryList
-                                                    .length,
-                                                itemBuilder: (context, j) {
-                                                  return categoryCard(
-                                                      context: context,
-                                                      categoryIndex: i,
-                                                      categoryListIndex: j);
-                                                },
-                                              ),
-                                            )
-                                          ],
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 40,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.6,
+                                      child: TextFormField(
+                                        onChanged: (value) {
+                                          searchText(value);
+                                        },
+                                        decoration: InputDecoration(
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                  vertical: 5, horizontal: 10),
+                                          fillColor: colors.textFieldBG,
+                                          filled: true,
+                                          hintText: 'Search',
+                                          hintStyle: const TextStyle(
+                                              color: Colors.white),
+                                          prefixIcon: const Icon(
+                                            Icons.search,
+                                            color: Colors.white,
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  borderSide: const BorderSide(
+                                                      color: Colors.grey,
+                                                      width: 1)),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: const BorderSide(
+                                                  color: Colors.grey,
+                                                  width: 1)),
+                                          errorBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: const BorderSide(
+                                                  color: Colors.grey,
+                                                  width: 1)),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: const BorderSide(
+                                                  color: Colors.grey,
+                                                  width: 1)),
                                         ),
-                                      );
-                                    } else {
-                                      return const SizedBox();
-                                    }
-                                  },
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.9,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.6,
+                                      child: ListView.builder(
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: 1,
+                                        itemBuilder: (context, i) {
+                                          return SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.6,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  categoryProvider
+                                                      .data[selectedIndex]
+                                                      .name!,
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 18),
+                                                ),
+                                                const SizedBox(height: 10),
+                                                SizedBox(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.55,
+                                                  child: GridView.builder(
+                                                    shrinkWrap: true,
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        vertical: 20),
+                                                    physics:
+                                                        const AlwaysScrollableScrollPhysics(),
+                                                    gridDelegate:
+                                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 2,
+                                                      mainAxisSpacing: 2,
+                                                      childAspectRatio: 0.7,
+                                                    ),
+                                                    itemCount: listItem.length,
+                                                    itemBuilder: (context, j) {
+                                                      print(listItem.length);
+                                                      return categoryCard(
+                                                          context: context,
+                                                          categoryIndex:
+                                                              selectedIndex,
+                                                          categoryListIndex: j,
+                                                          model: listItem[j]);
+                                                    },
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      )
+                              ],
+                            )
                     ],
                   ),
                 ),

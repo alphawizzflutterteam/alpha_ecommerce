@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/model/profile.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/profile/logOut/logOut.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../widget_common/commonBackground.dart';
@@ -21,12 +24,10 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    var name = SharedPref.shared.pref!.getString(PrefKeys.name) ??
-        "Cameron Wiiliamson";
-    var mobile =
-        SharedPref.shared.pref!.getString(PrefKeys.mobile) ?? "9212716009";
-    var mail = SharedPref.shared.pref!.getString(PrefKeys.email) ??
-        "cameronwiiliamson@yyopmail.com";
+    var model =
+        jsonDecode(SharedPref.shared.pref!.getString(PrefKeys.userDetails)!);
+
+    ProfileModel user = ProfileModel.fromJson(model);
 
     return Stack(
       children: [
@@ -93,7 +94,7 @@ class _ProfileState extends State<Profile> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          name,
+                                          user.data[0].fName,
                                           style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 18,
@@ -135,7 +136,7 @@ class _ProfileState extends State<Profile> {
                                         ),
                                         const SizedBox(width: 5),
                                         Text(
-                                          mail,
+                                          user.data[0].email,
                                           style: const TextStyle(
                                               color: colors.lightTextColor,
                                               fontSize: 12),
@@ -152,7 +153,7 @@ class _ProfileState extends State<Profile> {
                                         ),
                                         const SizedBox(width: 5),
                                         Text(
-                                          mobile,
+                                          user.data[0].phone,
                                           style: const TextStyle(
                                               color: colors.lightTextColor,
                                               fontSize: 12),

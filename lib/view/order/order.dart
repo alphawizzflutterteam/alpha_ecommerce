@@ -1,7 +1,9 @@
 // ignore_for_file: unnecessary_const
 
 import 'package:alpha_ecommerce_18oct/view/order/filter.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 import '../../utils/routes.dart';
@@ -52,37 +54,47 @@ class _OrderState extends State<Order> {
   ];
 
   Color getTextColor(String status) {
-    switch (status) {
-      case 'On the way':
+    switch (status.toLowerCase()) {
+      case 'processing':
         return colors.onTheWayDark;
-      case 'Order Cancelled':
+      case 'canceled':
         return colors.orderCancelledDark;
-      case 'Delivered':
+      case 'delivered':
         return colors.deliveredDark;
-      case 'Returned':
+      case 'pending':
         return colors.returnedDark;
       default:
-        return Colors.transparent;
+        return Colors.white;
     }
   }
 
   Color getBackgroundColor(String status) {
-    switch (status) {
-      case 'On the way':
+    switch (status.toLowerCase()) {
+      case 'processing':
         return colors.onTheWayLight;
-      case 'Order Cancelled':
+      case 'canceled':
         return colors.orderCancelledLight;
-      case 'Delivered':
+      case 'delivered':
         return colors.deliveredLight;
-      case 'Returned':
+      case 'pending':
         return colors.returnedLight;
       default:
         return Colors.transparent;
     }
   }
 
+  late OrderViewModel orderProvider;
+  @override
+  void initState() {
+    super.initState();
+    orderProvider = Provider.of<OrderViewModel>(context, listen: false);
+    orderProvider.getOrderList(context);
+  }
+
   @override
   Widget build(BuildContext context) {
+    orderProvider = Provider.of<OrderViewModel>(context);
+
     return Stack(
       children: [
         const LightBackGround(),
@@ -186,25 +198,29 @@ class _OrderState extends State<Order> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height *
                             0.15 *
-                            orderItems.length.toDouble(),
+                            orderProvider.orderList.length.toDouble(),
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: orderItems.length,
+                          itemCount: orderProvider.orderList.length,
                           itemBuilder: (context, i) {
+                            var data = orderProvider.orderList[i];
                             return InkWell(
                               onTap: () {
-                                if (orderItems[i]['status'] ==
-                                    "Order Cancelled") {
+                                print(data.orderStatus!.toLowerCase());
+                                if (data.orderStatus!.toLowerCase() ==
+                                    "canceled") {
                                   Routes.navigateToOrderCancelledScreen(
                                       context);
-                                } else if (orderItems[i]['status'] ==
-                                    "Delivered") {
+                                } else if (data.orderStatus!.toLowerCase() ==
+                                    "delivered") {
                                   Routes
                                       .navigateToOrderDetailDeliveredDetailScreen(
                                           context);
                                 } else {
+                                  print("here");
+
                                   Routes.navigateToOrderOnTheWayDetailScreen(
                                       context);
                                 }
@@ -225,10 +241,10 @@ class _OrderState extends State<Order> {
                                   title: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Image.asset(
-                                        orderItems[i]['image'],
-                                        width: 50,
-                                        height: 170,
+                                      Image.network(
+                                        data.product!.images!.first,
+                                        width: 80,
+                                        height: 200,
                                       ),
                                       const SizedBox(width: 30),
                                       Column(
@@ -244,7 +260,7 @@ class _OrderState extends State<Order> {
                                                     .width *
                                                 0.5,
                                             child: Text(
-                                              orderItems[i]['text'],
+                                              data.product!.name!,
                                               style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14),
@@ -259,7 +275,7 @@ class _OrderState extends State<Order> {
                                                     .width *
                                                 0.5,
                                             child: Text(
-                                              orderItems[i]['subText'],
+                                              data.product!.shop!.name!,
                                               style: const TextStyle(
                                                   color: colors.greyText,
                                                   fontSize: 12),
@@ -282,13 +298,13 @@ class _OrderState extends State<Order> {
                                                 width: 2,
                                               ),
                                               color: getBackgroundColor(
-                                                  orderItems[i]['status']),
+                                                  data.deliveryStatus!),
                                             ),
                                             child: Text(
-                                              orderItems[i]['status'],
+                                              data.deliveryStatus!,
                                               style: TextStyle(
                                                   color: getTextColor(
-                                                      orderItems[i]['status']),
+                                                      data.deliveryStatus!),
                                                   fontSize: 10),
                                             ),
                                           ),

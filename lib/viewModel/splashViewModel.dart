@@ -6,7 +6,7 @@ class SplashViewModel with ChangeNotifier {
   changeScreen(BuildContext context) {
     Future.delayed(const Duration(seconds: 3), () {
       if (SharedPref.shared.pref!.getString(PrefKeys.isLoggedIn) == "1") {
-        Routes.navigateToDashboardScreen(context);
+        Routes.navigateToDashboardScreen(context, 2);
       } else {
         Routes.navigateToIntroScreen(context);
       }

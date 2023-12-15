@@ -245,6 +245,8 @@ class _ManageAddressState extends State<ManageAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
+                          keyboardType: TextInputType.phone,
+                          maxLength: 10,
                           controller: addressProvider.mobileController,
                           decoration: commonInputDecoration(
                             labelText: 'Mobile Number',
@@ -261,6 +263,8 @@ class _ManageAddressState extends State<ManageAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
+                          maxLength: 10,
+                          keyboardType: TextInputType.phone,
                           controller: addressProvider.alternateMobileController,
                           decoration: commonInputDecoration(
                             labelText: 'Alternate Mobile Number',

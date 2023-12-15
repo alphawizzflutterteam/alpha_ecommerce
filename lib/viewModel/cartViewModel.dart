@@ -5,15 +5,29 @@ import 'package:alpha_ecommerce_18oct/utils/appUrls.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/cart/model/cartModel.dart';
-import 'package:alpha_ecommerce_18oct/view/cart/model/savedItemsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/wishlist/model/wishlistModel.dart';
 import 'package:flutter/material.dart';
 
 class CartViewModel with ChangeNotifier {
   List<CartProduct> cartModel = [];
   List<WishlistItem> savedModel = [];
+  String selectedOption = 'Normal Delivery';
+
   bool isLoading = false;
-  late CartModel model;
+  CartModel model = CartModel(
+      status: true,
+      message: "",
+      data: Data(
+          deliveryType: "0",
+          discountText: "",
+          totalItems: "",
+          subtotal: "",
+          discount: "",
+          mrp: "",
+          deliveryCharge: "",
+          tax: "",
+          total: "",
+          products: []));
   bool get loading => isLoading;
   TextEditingController couponController = TextEditingController();
   final _myRepo = CartRepository();
@@ -23,19 +37,27 @@ class CartViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getCartListItem(BuildContext context) async {
+  setDeliveryType(String value) {
+    selectedOption = value;
+    notifyListeners();
+  }
+
+  Future<void> getCartListItem(BuildContext context, String coupon,
+      String dType, String isCoinsUsed, String coins) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
     print(token);
 
-    await _myRepo.cartListRequest(AppUrl.cartList, token).then((value) {
-      cartModel = value.data.products;
+//?coupan=FIRST99&delivery_type=0&is_coin_used&coins
+    await _myRepo
+        .cartListRequest(
+            "${AppUrl.cartList}$coupon&delivery_type=$dType&is_coin_used=$isCoinsUsed&coins=",
+            token)
+        .then((value) {
       model = value;
-      print(cartModel.length.toString() + "Cart LIst");
 
-      notifyListeners();
-
-      setLoading(false);
+      cartModel = value.data.products;
+      getSavedListItem(context);
     }).onError((error, stackTrace) {
       setLoading(false);
       print(stackTrace.toString());
@@ -43,16 +65,13 @@ class CartViewModel with ChangeNotifier {
   }
 
   Future<void> getSavedListItem(BuildContext context) async {
-    setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
     print(token);
 
     await _myRepo.savedListRequest(AppUrl.savedList, token).then((value) {
       savedModel = value.data;
 
-      print(cartModel.length.toString() + "Cart LIst");
-
-      notifyListeners();
+      //   print(cartModel.length.toString() + "Cart LIst");
 
       setLoading(false);
     }).onError((error, stackTrace) {
@@ -74,7 +93,12 @@ class CartViewModel with ChangeNotifier {
         Utils.showFlushBarWithMessage("Alert", value.message, context);
       }
 
-      getCartListItem(context);
+      if (selectedOption == "Alpha Delivery") {
+        print(value);
+        getCartListItem(context, couponController.text, "1", "0", "");
+      } else {
+        getCartListItem(context, couponController.text, "0", "0", "");
+      }
       getSavedListItem(context);
       return true;
     }).onError((error, stackTrace) {
@@ -101,7 +125,12 @@ class CartViewModel with ChangeNotifier {
         Utils.showFlushBarWithMessage("Alert", value.message, context);
       }
 
-      getCartListItem(context);
+      if (selectedOption == "Alpha Delivery") {
+        print(value);
+        getCartListItem(context, couponController.text, "1", "0", "");
+      } else {
+        getCartListItem(context, couponController.text, "0", "0", "");
+      }
       getSavedListItem(context);
       return true;
     }).onError((error, stackTrace) {
@@ -122,7 +151,12 @@ class CartViewModel with ChangeNotifier {
       setLoading(false);
       Utils.showFlushBarWithMessage("Alert", value.message, context);
 
-      getCartListItem(context);
+      if (selectedOption == "Alpha Delivery") {
+        print(value);
+        getCartListItem(context, couponController.text, "1", "0", "");
+      } else {
+        getCartListItem(context, couponController.text, "0", "0", "");
+      }
 
       print(value.message);
 
@@ -145,7 +179,15 @@ class CartViewModel with ChangeNotifier {
       setLoading(false);
       Utils.showFlushBarWithMessage("Alert", value.message, context);
 
-      getCartListItem(context);
+      if (value.message == "Invalid coupon") {
+      } else {
+        if (selectedOption == "Alpha Delivery") {
+          print(value);
+          getCartListItem(context, couponController.text, "1", "0", "");
+        } else {
+          getCartListItem(context, couponController.text, "0", "0", "");
+        }
+      }
 
       print(value.message);
 
@@ -167,9 +209,22 @@ class CartViewModel with ChangeNotifier {
       setLoading(false);
 
       Utils.showFlushBarWithMessage("Alert", value.message, context);
+      if (value.status) {
+        if (selectedOption == "Alpha Delivery") {
+          print(value);
+          getCartListItem(context, couponController.text, "1", "0", "");
+        } else {
+          getCartListItem(context, couponController.text, "0", "0", "");
+        }
+        if (selectedOption == "Alpha Delivery") {
+          print(value);
+          getCartListItem(context, couponController.text, "1", "0", "");
+        } else {
+          getCartListItem(context, couponController.text, "0", "0", "");
+        }
+        getSavedListItem(context);
+      }
 
-      getCartListItem(context);
-      getSavedListItem(context);
       return true;
     }).onError((error, stackTrace) {
       setLoading(false);
@@ -187,16 +242,17 @@ class CartViewModel with ChangeNotifier {
     _myRepo.applyCoupon(AppUrl.applyCoupon + data, token, data).then((value) {
       setLoading(false);
 
-      Utils.showFlushBarWithMessage("Alert", value.message, context);
+      // Utils.showFlushBarWithMessage("Alert", value.message, context);
 
-      getCartListItem(context);
+      if (value.status) {
+        getCartListItem(context, "", "0", "", "");
+      }
       return true;
     }).onError((error, stackTrace) {
       setLoading(false);
       print(stackTrace.toString());
       Utils.showFlushBarWithMessage("Alert", "Invaid Coupon", context);
 
-      // Utils.showFlushBarWithMessage("Alert", error.toString(), context);
       return false;
     });
     return false;
@@ -217,7 +273,14 @@ class CartViewModel with ChangeNotifier {
 
       Utils.showFlushBarWithMessage("Alert", value.message, context);
 
-      getCartListItem(context);
+      if (value.status) {
+        if (selectedOption == "Alpha Delivery") {
+          print(value);
+          getCartListItem(context, couponController.text, "1", "0", "");
+        } else {
+          getCartListItem(context, couponController.text, "0", "0", "");
+        }
+      }
       return true;
     }).onError((error, stackTrace) {
       setLoading(false);

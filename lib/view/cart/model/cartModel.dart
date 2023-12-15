@@ -34,7 +34,7 @@ class CartModel {
 }
 
 class Data {
-  int deliveryType;
+  String deliveryType;
   String discountText;
   String totalItems;
   String subtotal;

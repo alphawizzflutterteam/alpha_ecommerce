@@ -3,17 +3,19 @@ import 'package:alpha_ecommerce_18oct/view/home/models/categoryModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-secondCategoryCard(CategoriesList model, BuildContext context) {
+secondCategoryCard(CategoryList model, BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 6),
     child: Column(
       children: [
         Stack(
           children: [
-            CachedNetworkImage(
-              imageUrl: model.icon,
-              height: 45,
-              width: 45,
+            CircleAvatar(
+              child: CachedNetworkImage(
+                imageUrl: model.icon!,
+                height: 50,
+                width: 50,
+              ),
             )
           ],
         ),
@@ -21,9 +23,11 @@ secondCategoryCard(CategoriesList model, BuildContext context) {
           height: 10,
         ),
         SizedBox(
-          width: size_90,
+          width: size_70,
           child: Text(
-            model.name,
+            model.name!,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: const TextStyle(color: Colors.black, fontSize: size_10),
           ),
@@ -35,7 +39,7 @@ secondCategoryCard(CategoriesList model, BuildContext context) {
 
 Row secondCategoryListCard(
   BuildContext context,
-  List<CategoriesList> model,
+  List<CategoryList> model,
 ) =>
     Row(
       mainAxisAlignment: MainAxisAlignment.start,

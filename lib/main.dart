@@ -1,5 +1,6 @@
 import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/categoryViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/couponViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/currencyViewModel.dart';
 import 'package:alpha_ecommerce_18oct/provider/home_provider.dart';
@@ -13,10 +14,15 @@ import 'package:alpha_ecommerce_18oct/view/splash/splashScreen.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/languageViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/productViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/splashViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/vendorViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'utils/color.dart';
@@ -27,56 +33,76 @@ import 'utils/string.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
-  await WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await SharedPref.shared.getPref();
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider<ThemeNotifier>(
-      create: (BuildContext context) {
-        String? theme = SharedPref.shared.pref?.getString(PrefKeys.appTheme);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((value) => runApp(MultiProvider(providers: [
+        ChangeNotifierProvider<ThemeNotifier>(
+          create: (BuildContext context) {
+            String? theme =
+                SharedPref.shared.pref?.getString(PrefKeys.appTheme);
 
-        if (theme == DARK) {
-          ISDARK = 'true';
-        } else if (theme == LIGHT) {
-          ISDARK = 'false';
-        }
+            if (theme == DARK) {
+              ISDARK = 'true';
+            } else if (theme == LIGHT) {
+              ISDARK = 'false';
+            }
 
-        if (theme == null || theme == '' || theme == DEFAULT_SYSTEM) {
-          SharedPref.shared.pref?.setString(APP_THEME, DEFAULT_SYSTEM);
-          var brightness =
-              SchedulerBinding.instance.platformDispatcher.platformBrightness;
-          ISDARK = (brightness == Brightness.dark).toString();
+            if (theme == null || theme == '' || theme == DEFAULT_SYSTEM) {
+              SharedPref.shared.pref?.setString(APP_THEME, DEFAULT_SYSTEM);
+              var brightness = SchedulerBinding
+                  .instance.platformDispatcher.platformBrightness;
+              ISDARK = (brightness == Brightness.dark).toString();
 
-          return ThemeNotifier(ThemeMode.system);
-        }
+              return ThemeNotifier(ThemeMode.system);
+            }
 
-        return ThemeNotifier(theme == LIGHT ? ThemeMode.light : ThemeMode.dark);
-      },
-    ),
-    Provider<SettingProvider>(
-      create: (context) => SettingProvider(SharedPref.shared.pref!),
-    ),
-    ChangeNotifierProvider<UserProvider>(create: (context) => UserProvider()),
-    ChangeNotifierProvider<AuthViewModel>(create: (context) => AuthViewModel()),
-    ChangeNotifierProvider<HomeViewModel>(create: (context) => HomeViewModel()),
-    ChangeNotifierProvider<VendorViewModel>(
-        create: (context) => VendorViewModel()),
-    ChangeNotifierProvider<CartViewModel>(create: (context) => CartViewModel()),
-    ChangeNotifierProvider<CouponViewModel>(
-        create: (context) => CouponViewModel()),
-    ChangeNotifierProvider<LanguageViewModel>(
-        create: (context) => LanguageViewModel()),
-    ChangeNotifierProvider<SplashViewModel>(
-        create: (context) => SplashViewModel()),
-    ChangeNotifierProvider<HomeProvider>(create: (context) => HomeProvider()),
-    ChangeNotifierProvider<LanguageProvider>(
-        create: (context) => LanguageProvider()),
-    ChangeNotifierProvider<CurrencyViewModel>(
-        create: (context) => CurrencyViewModel()),
-    ChangeNotifierProvider<LocationProvider>(
-        create: (context) => LocationProvider()),
-    ChangeNotifierProvider<AddressViewModel>(
-        create: (context) => AddressViewModel()),
-  ], child: const MyApp()));
+            return ThemeNotifier(
+                theme == LIGHT ? ThemeMode.light : ThemeMode.dark);
+          },
+        ),
+        Provider<SettingProvider>(
+          create: (context) => SettingProvider(SharedPref.shared.pref!),
+        ),
+        ChangeNotifierProvider<UserProvider>(
+            create: (context) => UserProvider()),
+        ChangeNotifierProvider<AuthViewModel>(
+            create: (context) => AuthViewModel()),
+        ChangeNotifierProvider<HomeViewModel>(
+            create: (context) => HomeViewModel()),
+        ChangeNotifierProvider<VendorViewModel>(
+            create: (context) => VendorViewModel()),
+        ChangeNotifierProvider<ProductDetailViewModel>(
+            create: (context) => ProductDetailViewModel()),
+        ChangeNotifierProvider<CategoryViewModel>(
+            create: (context) => CategoryViewModel()),
+        ChangeNotifierProvider<SearchViewModel>(
+            create: (context) => SearchViewModel()),
+        ChangeNotifierProvider<CartViewModel>(
+            create: (context) => CartViewModel()),
+        ChangeNotifierProvider<CouponViewModel>(
+            create: (context) => CouponViewModel()),
+        ChangeNotifierProvider<LanguageViewModel>(
+            create: (context) => LanguageViewModel()),
+        ChangeNotifierProvider<SplashViewModel>(
+            create: (context) => SplashViewModel()),
+        ChangeNotifierProvider<HomeProvider>(
+            create: (context) => HomeProvider()),
+        ChangeNotifierProvider<LanguageProvider>(
+            create: (context) => LanguageProvider()),
+        ChangeNotifierProvider<ProfileViewModel>(
+            create: (context) => ProfileViewModel()),
+        ChangeNotifierProvider<CurrencyViewModel>(
+            create: (context) => CurrencyViewModel()),
+        ChangeNotifierProvider<OrderViewModel>(
+            create: (context) => OrderViewModel()),
+        ChangeNotifierProvider<LocationProvider>(
+            create: (context) => LocationProvider()),
+        ChangeNotifierProvider<AddressViewModel>(
+            create: (context) => AddressViewModel()),
+      ], child: const MyApp())));
 }
 
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
@@ -178,7 +204,9 @@ class _MyAppState extends State<MyApp> {
       initialRoute: '/',
       routes: {
         '/': (context) => const SplashScreen(),
-        '/home': (context) => const Dashboard(),
+        '/home': (context) => const Dashboard(
+              index: 2,
+            ),
       },
       darkTheme: ThemeData(
         canvasColor: colors.darkColor,

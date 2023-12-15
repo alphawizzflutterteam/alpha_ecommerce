@@ -11,7 +11,7 @@ wishlistCard(WishlistItemProduct model, BuildContext context) {
       children: [
         InkWell(
           onTap: () {
-            Routes.navigateToProductDetailPageScreen(context);
+            //  Routes.navigateToProductDetailPageScreen(context);
           },
           child: Container(
             height: 200,

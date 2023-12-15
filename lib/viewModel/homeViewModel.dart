@@ -8,6 +8,7 @@ import 'package:alpha_ecommerce_18oct/view/home/models/brandsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/cartHomeNew.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/categoryModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/dailyDealsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/filtersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/specialOffersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/wishlist/model/wishlistModel.dart';
@@ -23,9 +24,10 @@ class HomeViewModel with ChangeNotifier {
   List<SpecialOffersList> specialOffersModel = [];
   List<BannersList> bannersListTop = [];
   List<DailyDealsModelList> dailyDealsModel = [];
-  List<CategoriesList> categoriesModel = [];
+  List<CategoryList> categoriesModel = [];
   List<WishlistItem> wishlistModel = [];
   List<HomeProduct> cartModel = [];
+  List<Filters> filterModel = [];
   List<BrandsList> brandsModel = [];
   bool get loading => isLoading;
 
@@ -80,7 +82,7 @@ class HomeViewModel with ChangeNotifier {
   Future<void> getProductsList(
       BuildContext context, String limit, String offset) async {
     setLoading(true);
-    var userID = SharedPref.shared.pref!.getString(PrefKeys.userId);
+    var userID = SharedPref.shared.pref!.getString(PrefKeys.userId) ?? "";
     await _myRepo
         .productsListApi(
             "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID")
@@ -102,7 +104,7 @@ class HomeViewModel with ChangeNotifier {
     setLoading(true);
 
     await _myRepo.categoryListRequest(AppUrl.categories).then((value) {
-      categoriesModel = value.data;
+      categoriesModel = value.data!;
       notifyListeners();
       print(categoriesModel.length.toString());
       setLoading(false);
@@ -116,7 +118,7 @@ class HomeViewModel with ChangeNotifier {
     setLoading(true);
 
     await _myRepo.categoryListRequest(AppUrl.categories).then((value) {
-      categoriesModel = value.data;
+      categoriesModel = value.data!;
       notifyListeners();
 
       setLoading(false);
@@ -185,6 +187,11 @@ class HomeViewModel with ChangeNotifier {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
+    if (token == null || token == "") {
+      Utils.showFlushBarWithMessage("Alert", "Please login first.", context);
+
+      return false;
+    }
     _myRepo.addToWishlist(AppUrl.addToWishlist, token, data).then((value) {
       setLoading(false);
 
@@ -209,6 +216,11 @@ class HomeViewModel with ChangeNotifier {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
+    if (token == null || token == "") {
+      Utils.showFlushBarWithMessage("Alert", "Please login first.", context);
+
+      return false;
+    }
     _myRepo
         .removeFromWishlist(AppUrl.removeFromWishlist, token, data)
         .then((value) {
@@ -234,6 +246,11 @@ class HomeViewModel with ChangeNotifier {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
+    if (token == null || token == "") {
+      Utils.showFlushBarWithMessage("Alert", "Please login first.", context);
+
+      return false;
+    }
     _myRepo.addToCart(AppUrl.addToCart, token, data).then((value) {
       setLoading(false);
 
@@ -280,5 +297,24 @@ class HomeViewModel with ChangeNotifier {
       return false;
     });
     return false;
+  }
+
+  Future<void> getProductFilters(BuildContext context) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    print(token);
+
+    await _myRepo.filterListRequest(AppUrl.filtersList, token).then((value) {
+      filterModel = value.data!;
+
+      notifyListeners();
+
+      setLoading(false);
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(errorMessage);
+      print(error.toString() + "product filter error");
+      print(stackTrace.toString() + "product filter error");
+    });
   }
 }

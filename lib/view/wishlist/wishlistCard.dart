@@ -8,11 +8,11 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
     HomeViewModel homeProvider) {
   return InkWell(
     onTap: () {
-      Routes.navigateToProductDetailPageScreen(context);
+      //  Routes.navigateToProductDetailPageScreen(context);
     },
     child: Container(
       height: 120,
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
         color: const Color(0x14E9E9E9).withOpacity(0.05),
         borderRadius: BorderRadius.circular(10),

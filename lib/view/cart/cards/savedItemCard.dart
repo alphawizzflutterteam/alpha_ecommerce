@@ -1,6 +1,7 @@
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/wishlist/model/wishlistModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -31,7 +32,8 @@ savedItemCard(
                 padding: const EdgeInsets.all(12.0),
                 child: InkWell(
                   onTap: () {
-                    Routes.navigateToProductDetailPageScreen(context);
+                    Routes.navigateToProductDetailPageScreen(
+                        context, model as ProductList);
                   },
                   child: Image.network(
                     model.images[0],
@@ -46,7 +48,8 @@ savedItemCard(
                 children: [
                   InkWell(
                     onTap: () {
-                      Routes.navigateToProductDetailPageScreen(context);
+                      Routes.navigateToProductDetailPageScreen(
+                          context, model as ProductList);
                     },
                     child: Text(
                       model.name,

@@ -55,30 +55,29 @@ class _CustomerSupportState extends State<CustomerSupport> {
                         key: _formKey,
                         child: Column(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              child: TextFormField(
-                                controller: typeController,
-                                validator: validateName,
-                                decoration: commonInputDecoration(
-                                  labelText: 'Select Type',
-                                ),
-                                style: const TextStyle(color: colors.textColor),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              child: TextFormField(
-                                controller: emailController,
-                                validator: validateEmail,
-                                decoration: commonInputDecoration(
-                                  labelText: 'Email',
-                                ),
-                                style: const TextStyle(color: colors.textColor),
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.symmetric(
+                            //       horizontal: 20, vertical: 10),
+                            //   child: TextFormField(
+                            //     controller: typeController,
+                            //     validator: validateName,
+                            //     decoration: commonInputDecoration(
+                            //       labelText: 'Select Type',
+                            //     style: const TextStyle(color: colors.textColor),
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.symmetric(
+                            //       horizontal: 20, vertical: 10),
+                            //   child: TextFormField(
+                            //     controller: emailController,
+                            //     validator: validateEmail,
+                            //     decoration: commonInputDecoration(
+                            //       labelText: 'Email',
+                            //     ),
+                            //     style: const TextStyle(color: colors.textColor),
+                            //   ),
+                            // ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
@@ -94,13 +93,18 @@ class _CustomerSupportState extends State<CustomerSupport> {
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
-                              child: TextFormField(
-                                controller: descriptionController,
-                                validator: validateName,
-                                decoration: commonInputDecoration(
-                                  labelText: 'Description',
+                              child: SizedBox(
+                                height: 150,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: null,
+                                  controller: descriptionController,
+                                  validator: validateName,
+                                  decoration: commonInputDecoration(
+                                      labelText: 'Description', hintText: '\n'),
+                                  style:
+                                      const TextStyle(color: colors.textColor),
                                 ),
-                                style: const TextStyle(color: colors.textColor),
                               ),
                             ),
                             Align(
@@ -121,7 +125,7 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                                   .validate()) {
                                                 Routes
                                                     .navigateToDashboardScreen(
-                                                        context);
+                                                        context, 2);
                                               }
                                             })),
                                   ],

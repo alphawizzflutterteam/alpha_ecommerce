@@ -50,4 +50,21 @@ class AddressRepository with ChangeNotifier {
 
     return successModelFromJson(res.body);
   }
+
+  Future<SuccessModel> deleteAddress(
+    String api,
+    String bearerToken,
+  ) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.delete(url, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return successModelFromJson(res.body);
+  }
 }

@@ -16,12 +16,14 @@ class LoginOtpResponseModel {
   bool status;
   String message;
   List<Datum> data;
+  List<Error> errors;
 
   LoginOtpResponseModel({
     required this.token,
     required this.status,
     required this.message,
     required this.data,
+    required this.errors,
   });
 
   factory LoginOtpResponseModel.fromJson(Map<String, dynamic> json) =>
@@ -30,6 +32,7 @@ class LoginOtpResponseModel {
         status: json["status"],
         message: json["message"],
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        errors: List<Error>.from(json["errors"].map((x) => Error.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,6 +40,7 @@ class LoginOtpResponseModel {
         "status": status,
         "message": message,
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "errors": List<dynamic>.from(errors.map((x) => x.toJson())),
       };
 }
 
@@ -57,5 +61,25 @@ class Datum {
   Map<String, dynamic> toJson() => {
         "otp": otp,
         "mobile": mobile,
+      };
+}
+
+class Error {
+  String code;
+  String message;
+
+  Error({
+    required this.code,
+    required this.message,
+  });
+
+  factory Error.fromJson(Map<String, dynamic> json) => Error(
+        code: json["code"],
+        message: json["message"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "code": code,
+        "message": message,
       };
 }

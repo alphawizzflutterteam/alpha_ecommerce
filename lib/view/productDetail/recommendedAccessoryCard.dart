@@ -5,9 +5,7 @@ import '../../utils/images.dart';
 
 recommendedAccessoryCard({required context}) {
   return InkWell(
-    onTap: () {
-      Routes.navigateToProductDetailPageScreen(context);
-    },
+    onTap: () {},
     child: Container(
       height: 300,
       decoration: BoxDecoration(

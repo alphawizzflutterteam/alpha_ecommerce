@@ -21,7 +21,7 @@ specialOfferCard(SpecialOffersList model, BuildContext context) {
             Text(
               model.title,
               style: const TextStyle(
-                  fontSize: size_16,
+                  fontSize: size_13,
                   color: colors.buttonColor,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,

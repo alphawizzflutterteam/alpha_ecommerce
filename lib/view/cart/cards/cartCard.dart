@@ -1,6 +1,7 @@
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/cart/model/cartModel.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/toast_message.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -17,7 +18,6 @@ cartCard(
   for (int i = 1; i < model.currentStock + 1; i++) {
     quantity.add("$i");
   }
-  print("here");
 
   return Padding(
       padding: const EdgeInsets.only(left: 10.0, top: 8, right: 10, bottom: 8),
@@ -42,7 +42,8 @@ cartCard(
                 children: [
                   InkWell(
                     onTap: () {
-                      Routes.navigateToProductDetailPageScreen(context);
+                      Routes.navigateToProductDetailPageScreen(
+                          context, model as ProductList);
                     },
                     child: Image.network(
                       model.images[0],
@@ -56,7 +57,8 @@ cartCard(
                     children: [
                       InkWell(
                         onTap: () {
-                          Routes.navigateToProductDetailPageScreen(context);
+                          Routes.navigateToProductDetailPageScreen(
+                              context, model as ProductList);
                         },
                         child: Text(
                           model.name,
@@ -112,9 +114,9 @@ cartCard(
                                 borderRadius: BorderRadius.zero,
                                 borderSide: BorderSide.none),
                           ),
-                          hint: const Text(
-                            'Qty 1',
-                            style: TextStyle(
+                          hint: Text(
+                            'Qty ${model.selectedQuantity}',
+                            style: const TextStyle(
                                 fontSize: 14, color: colors.textColor),
                           ),
                           items: quantity

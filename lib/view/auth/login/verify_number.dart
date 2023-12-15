@@ -1,5 +1,6 @@
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/toast_message.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:flutter/material.dart';
@@ -70,8 +71,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                     : translation(context).forgotPassword,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    color: Color.fromARGB(255, 32, 30, 41),
-                                    fontSize: 20),
+                                    color: Colors.white, fontSize: 20),
                               ),
                             ),
                           ),

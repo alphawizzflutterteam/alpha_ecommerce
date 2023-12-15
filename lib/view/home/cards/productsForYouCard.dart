@@ -14,7 +14,7 @@ productForYouCard(
     children: [
       InkWell(
         onTap: () {
-          Routes.navigateToProductDetailPageScreen(context);
+          Routes.navigateToProductDetailPageScreen(context, model);
         },
         child: Container(
           height: MediaQuery.of(context).size.height * 0.31,
@@ -38,8 +38,8 @@ productForYouCard(
               Container(
                   height: MediaQuery.of(context).size.height * 0.14,
                   width: MediaQuery.of(context).size.width * 0.44,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: CachedNetworkImage(
                     imageUrl: model.images.first,
@@ -96,6 +96,8 @@ productForYouCard(
                 ),
                 child: Text(
                   model.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,

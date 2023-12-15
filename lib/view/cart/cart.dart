@@ -34,22 +34,21 @@ class _CartState extends State<Cart> {
   late CartViewModel cartProvider;
   late AddressViewModel addressProvider;
 
-  String selectedOption = 'Normal Delivery';
-
   @override
   void initState() {
     super.initState();
     cartProvider = Provider.of<CartViewModel>(context, listen: false);
     addressProvider = Provider.of<AddressViewModel>(context, listen: false);
-    cartProvider.getCartListItem(context);
+    cartProvider.getCartListItem(context, "", "0", "", "");
     addressProvider.getAddressList(context);
 
-    cartProvider.getSavedListItem(context);
+    //cartProvider.getSavedListItem(context);
   }
 
   @override
   Widget build(BuildContext context) {
     cartProvider = Provider.of<CartViewModel>(context);
+    addressProvider = Provider.of<AddressViewModel>(context);
 
     return Stack(
       children: [
@@ -138,12 +137,14 @@ class _CartState extends State<Cart> {
                                                 MainAxisAlignment.start,
                                             children: <Widget>[
                                               CommonRadioTile(
-                                                options: selectedOption,
+                                                options:
+                                                    cartProvider.selectedOption,
                                                 name: 'Normal Delivery',
                                                 onChanged: handleOptionChange,
                                               ),
                                               CommonRadioTile(
-                                                options: selectedOption,
+                                                options:
+                                                    cartProvider.selectedOption,
                                                 name: 'Alpha Delivery',
                                                 onChanged: handleOptionChange,
                                               ),
@@ -459,8 +460,7 @@ class _CartState extends State<Cart> {
                                                       Icons.location_on,
                                                       color: Colors.red,
                                                     )
-                                                  : const Icon(Icons
-                                                      .radio_button_checked),
+                                                  : const Icon(Icons.pin_drop),
                                               const SizedBox(
                                                 width: 5,
                                               ),
@@ -485,13 +485,14 @@ class _CartState extends State<Cart> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .width *
-                                                              0.68,
+                                                              0.63,
                                                       child: Text(
-                                                        "${addressProvider.addressList[0].address}, ${addressProvider.addressList[0].address1}",
+                                                        addressProvider
+                                                            .selectedAddress,
                                                         style: const TextStyle(
                                                             color: colors
                                                                 .textColor,
-                                                            fontSize: 15),
+                                                            fontSize: size_12),
                                                         maxLines: 1,
                                                         overflow: TextOverflow
                                                             .ellipsis,
@@ -503,17 +504,24 @@ class _CartState extends State<Cart> {
                                                           .addressList.isEmpty
                                                       ? const Icon(Icons
                                                           .arrow_forward_ios_rounded)
-                                                      : const SizedBox(
-                                                          child: Text(
-                                                            "(Change)",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .green,
-                                                                fontSize: 15),
-                                                            maxLines: 1,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
+                                                      : InkWell(
+                                                          onTap: () {
+                                                            Routes
+                                                                .navigateToAddressListScreen(
+                                                                    context);
+                                                          },
+                                                          child: const SizedBox(
+                                                            child: Text(
+                                                              "(Change)",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .green,
+                                                                  fontSize: 15),
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ),
                                                           ),
                                                         ),
                                             ],
@@ -532,7 +540,7 @@ class _CartState extends State<Cart> {
                                         : Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20, vertical: 10),
-                                            height: 70,
+                                            height: 50,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -541,14 +549,14 @@ class _CartState extends State<Cart> {
                                                 Text(
                                                   cartProvider.model.data.total,
                                                   style: const TextStyle(
-                                                      fontSize: 28,
+                                                      fontSize: size_20,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: colors.textColor),
                                                 ),
                                                 SizedBox(
-                                                    height: 40,
-                                                    width: 150,
+                                                    height: 35,
+                                                    width: 130,
                                                     child: CommonButton(
                                                       text: "PLACE ORDER",
                                                       fontSize: 14,
@@ -557,7 +565,9 @@ class _CartState extends State<Cart> {
                                                                 .shared.pref!
                                                                 .getString(PrefKeys
                                                                     .billingAddressID) ??
-                                                            "";
+                                                            addressProvider
+                                                                .addressList[0]
+                                                                .id;
                                                         var paymentMethod =
                                                             "cash_on_delivery";
                                                         String couponCode =
@@ -595,7 +605,15 @@ class _CartState extends State<Cart> {
 
   void handleOptionChange(String value) {
     setState(() {
-      selectedOption = value;
+      cartProvider.selectedOption = value;
+      if (value == "Alpha Delivery") {
+        print(value);
+        cartProvider.getCartListItem(
+            context, cartProvider.couponController.text, "1", "0", "");
+      } else {
+        cartProvider.getCartListItem(
+            context, cartProvider.couponController.text, "0", "0", "");
+      }
     });
   }
 }

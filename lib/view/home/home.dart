@@ -20,6 +20,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 import '../../utils/routes.dart';
@@ -36,6 +37,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
+  bool isWidgetVisible = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late HomeViewModel homeProvider;
   ScrollController _scrollController = ScrollController();
@@ -51,6 +53,7 @@ class _HomeState extends State<Home> {
     homeProvider.getBannersList(context);
     homeProvider.getWishlistItem(context);
     homeProvider.getCartListItem(context);
+    homeProvider.getProductFilters(context);
     _scrollController.addListener(() {
       setState(() {
         // homeProvider.isScrolled = _scrollController.offset > 0;
@@ -92,7 +95,7 @@ class _HomeState extends State<Home> {
               )),
           body: Column(
             children: [
-              const Stack(
+              Stack(
                 children: [
                   ProfileHeader(),
                   DashboardHeader(),
@@ -110,6 +113,114 @@ class _HomeState extends State<Home> {
               //     }),
               //   ),
               // ),
+              !isWidgetVisible
+                  ? Container()
+                  : Row(
+                      children: [
+                        Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width * 0.33,
+                          color: colors.midBorder,
+                          child: InkWell(
+                            onTap: () {
+                              homeFilter(context, homeProvider.filterModel);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  Images.filter,
+                                  height: 20,
+                                  width: 20,
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                const Text(
+                                  'Filter',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width * 0.34,
+                          decoration: const BoxDecoration(
+                            color: colors.midBorder,
+                            border: Border(
+                              left: BorderSide(
+                                color: colors.midBorder,
+                              ),
+                            ),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              homeCategory(context);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  Images.categoryWhite,
+                                  height: 20,
+                                  width: 20,
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                const Text(
+                                  'Category',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width * 0.33,
+                          decoration: const BoxDecoration(
+                            color: colors.midBorder,
+                            border: Border(
+                              left: BorderSide(
+                                color: colors.midBorder,
+                              ),
+                            ),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              homeSort(context);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  Images.sort,
+                                  height: 20,
+                                  width: 20,
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                const Text(
+                                  'Sort',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
               Expanded(
                   child: SingleChildScrollView(
                 controller: _scrollController,
@@ -233,20 +344,26 @@ class _HomeState extends State<Home> {
                                       onTap: () {
                                         Routes.navigateToCartScreen(context);
                                       },
-                                      child: const Row(
+                                      child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
+                                          const Text(
                                             "View your cart Items",
                                             style: TextStyle(
                                                 color: colors.textColor),
                                           ),
-                                          Text(
-                                            "VIEW ALL",
-                                            style: TextStyle(
-                                                color: colors.buttonColor),
-                                          ),
+                                          // InkWell(
+                                          //   onTap: () {
+                                          //     Routes.navigateToDashboardScreen(
+                                          //         context, 0);
+                                          //   },
+                                          //   child: const Text(
+                                          //     "VIEW ALL",
+                                          //     style: TextStyle(
+                                          //         color: colors.buttonColor),
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     ),
@@ -264,84 +381,92 @@ class _HomeState extends State<Home> {
                                           ),
                                         )),
                                   ),
-                                  const SizedBox(height: 20)
+                                  homeProvider.specialOffersModel.isEmpty
+                                      ? Container()
+                                      : const SizedBox(height: 20)
                                 ],
                               ),
                             ),
                           ),
 
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.28,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            colors.homeBGGradient1.withOpacity(1),
-                            colors.homeBGGradient2.withOpacity(0.8),
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                      ),
-                      child: Column(
-                        children: [
-                          const SizedBox(
+                    homeProvider.specialOffersModel.isEmpty
+                        ? Container()
+                        : Container(
+                            height: MediaQuery.of(context).size.height * 0.28,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  colors.homeBGGradient1.withOpacity(1),
+                                  colors.homeBGGradient2.withOpacity(0.8),
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 60),
+                                        child: Divider(
+                                          height: 1,
+                                          color: colors.homeDivider,
+                                          thickness: 3,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 15),
+                                      child: Text(
+                                        "Special Offer",
+                                        style: TextStyle(
+                                            color: colors.textColor,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(right: 60),
+                                        child: Divider(
+                                          height: 1,
+                                          color: colors.homeDivider,
+                                          thickness: 3,
+                                          indent: 3,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Container(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 2.0),
+                                        child: specialOfferList(context,
+                                            homeProvider.specialOffersModel),
+                                      ),
+                                    )),
+                              ],
+                            ),
+                          ),
+                    homeProvider.specialOffersModel.isEmpty
+                        ? Container()
+                        : const SizedBox(
                             height: 20,
                           ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 60),
-                                  child: Divider(
-                                    height: 1,
-                                    color: colors.homeDivider,
-                                    thickness: 3,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
-                                child: Text(
-                                  "Special Offer",
-                                  style: TextStyle(
-                                      color: colors.textColor,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.only(right: 60),
-                                  child: Divider(
-                                    height: 1,
-                                    color: colors.homeDivider,
-                                    thickness: 3,
-                                    indent: 3,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
-                                  child: specialOfferList(
-                                      context, homeProvider.specialOffersModel),
-                                ),
-                              )),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
                     homeProvider.wishlistModel.isEmpty
                         ? Container()
                         : Padding(
@@ -660,131 +785,144 @@ class _HomeState extends State<Home> {
                             )),
                       ],
                     ),
-                    spaceOfHeight(),
-                    productForUText(),
-                    spaceOfHeight(height: 20),
+                    isWidgetVisible ? Container() : spaceOfHeight(),
+                    isWidgetVisible ? Container() : productForUText(),
+                    isWidgetVisible ? Container() : spaceOfHeight(height: 20),
+//Product for you section
 
-                    Row(
-                      children: [
-                        Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width * 0.33,
-                          color: colors.midBorder,
-                          child: InkWell(
-                            onTap: () {
-                              homeFilter(context);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  Images.filter,
-                                  height: 20,
-                                  width: 20,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Text(
-                                  'Filter',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width * 0.34,
-                          decoration: const BoxDecoration(
-                            color: colors.midBorder,
-                            border: Border(
-                              left: BorderSide(
+                    isWidgetVisible
+                        ? Container()
+                        : Row(
+                            children: [
+                              Container(
+                                height: 50,
+                                width: MediaQuery.of(context).size.width * 0.33,
                                 color: colors.midBorder,
+                                child: InkWell(
+                                  onTap: () {
+                                    homeFilter(
+                                        context, homeProvider.filterModel);
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        Images.filter,
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      const Text(
+                                        'Filter',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 16),
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              homeCategory(context);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  Images.categoryWhite,
-                                  height: 20,
-                                  width: 20,
+                              Container(
+                                height: 50,
+                                width: MediaQuery.of(context).size.width * 0.34,
+                                decoration: const BoxDecoration(
+                                  color: colors.midBorder,
+                                  border: Border(
+                                    left: BorderSide(
+                                      color: colors.midBorder,
+                                    ),
+                                  ),
                                 ),
-                                const SizedBox(
-                                  width: 5,
+                                child: InkWell(
+                                  onTap: () {
+                                    homeCategory(context);
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        Images.categoryWhite,
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      const Text(
+                                        'Category',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 16),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                const Text(
-                                  'Category',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width * 0.33,
-                          decoration: const BoxDecoration(
-                            color: colors.midBorder,
-                            border: Border(
-                              left: BorderSide(
-                                color: colors.midBorder,
                               ),
-                            ),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              homeSort(context);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  Images.sort,
-                                  height: 20,
-                                  width: 20,
+                              Container(
+                                height: 50,
+                                width: MediaQuery.of(context).size.width * 0.33,
+                                decoration: const BoxDecoration(
+                                  color: colors.midBorder,
+                                  border: Border(
+                                    left: BorderSide(
+                                      color: colors.midBorder,
+                                    ),
+                                  ),
                                 ),
-                                const SizedBox(
-                                  width: 5,
+                                child: InkWell(
+                                  onTap: () {
+                                    homeSort(context);
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        Images.sort,
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      const Text(
+                                        'Sort',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 16),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                const Text(
-                                  'Sort',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                )
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    SingleChildScrollView(
+                    VisibilityDetector(
+                      key: Key("unique key"),
+                      onVisibilityChanged: (VisibilityInfo info) {
+                        isWidgetVisible = info.visibleFraction > 0.182;
+                        debugPrint(
+                            "${info.visibleFraction} of my widget is visible");
+                      },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 20),
                         height: MediaQuery.of(context).size.height *
-                            0.1 *
+                            0.35 *
                             homeProvider.productsModel.length /
                             2,
                         child: GridView.builder(
                           shrinkWrap: true,
                           padding: EdgeInsets.zero,
-                          physics: const AlwaysScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            childAspectRatio: 0.70,
+                            childAspectRatio: 0.66,
                           ),
                           itemCount: homeProvider.productsModel.length,
                           itemBuilder: (context, j) {

@@ -7,7 +7,7 @@ import '../../utils/routes.dart';
 vendorCard(context, VendorDatum model) {
   return InkWell(
     onTap: () {
-      Routes.navigateToVendorDetailsScreen(context);
+      Routes.navigateToVendorDetailsScreen(context, model);
     },
     child: Container(
       height: 100,

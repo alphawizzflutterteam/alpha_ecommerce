@@ -79,6 +79,7 @@ class _SignInState extends State<SignIn> {
                   InkWell(
                     onTap: () {
                       authViewModel.setLoggingViaPhone(true);
+                      FocusManager.instance.primaryFocus?.unfocus();
                     },
                     child: Container(
                       padding: const EdgeInsets.all(12.0),
@@ -103,6 +104,7 @@ class _SignInState extends State<SignIn> {
                   InkWell(
                     onTap: () {
                       authViewModel.setLoggingViaPhone(false);
+                      FocusManager.instance.primaryFocus?.unfocus();
                     },
                     child: Container(
                       padding: const EdgeInsets.all(12.0),
@@ -349,12 +351,14 @@ class _SignInState extends State<SignIn> {
                                 const SizedBox(width: 5),
                                 InkWell(
                                   onTap: () {
-                                    Routes.navigateToDashboardScreen(context);
+                                    Routes.navigateToDashboardScreen(
+                                        context, 2);
                                   },
                                   child: Text(translation(context).guestUser,
                                       style: const TextStyle(
-                                          fontSize: 14,
-                                          color: colors.textColor)),
+                                        fontSize: 14,
+                                        color: Colors.white,
+                                      )),
                                 ),
                               ],
                             ),

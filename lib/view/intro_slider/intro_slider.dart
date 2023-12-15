@@ -184,7 +184,8 @@ class _IntroSliderState extends State<IntroSlider> {
     return InkWell(
       onTap: () {
         if (currentIndex.value == 2) {
-          Routes.navigateToLanguageScreen(context);
+          //Routes.navigateToLanguageScreen(context);
+          Routes.navigateToSignInScreen(context);
         } else {
           carouselController.nextPage();
         }

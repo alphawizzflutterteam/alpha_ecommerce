@@ -1,8 +1,17 @@
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/view/home/cards/productsForYouCard.dart';
+import 'package:alpha_ecommerce_18oct/view/search/productsForYouCardSearch.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/categoryShuffle.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/filterShuffle.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/sortShuffle.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 // import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -15,97 +24,64 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  TextEditingController searchController = TextEditingController();
-  // stt.SpeechToText speech = stt.SpeechToText();
-  bool isListening = false;
-  String text = 'Press the button and start speaking';
+  late SearchViewModel searchProvider;
+  late HomeViewModel homeProvider;
+  late stt.SpeechToText _speech;
+  bool _isListening = false;
+  String _text = 'Press the button and start speaking';
 
   @override
   void initState() {
     super.initState();
-    getMicrophonePermission(true);
+    searchProvider = Provider.of<SearchViewModel>(context, listen: false);
+    homeProvider = Provider.of<HomeViewModel>(context, listen: false);
+    _speech = stt.SpeechToText();
   }
 
-  // Future<void> initSpeechState() async {
-  //   bool available = await speech.initialize(
-  //     onStatus: (status) {
-  //       print('Speech recognition status: $status');
-  //     },
-  //     onError: (error) => print('Error: $error'),
-  //   );
+  void _listen() async {
+    if (!_isListening) {
+      bool available = await _speech.initialize(
+        onStatus: (status) {
+          print('Status: $status');
+        },
+        onError: (error) {
+          print('Error: $error');
+        },
+      );
 
-  //   if (available) {
-  //     print('Speech recognition is available');
-  //   } else {
-  //     print('Speech recognition is not available');
-  //   }
-  // }
-
-  // Future<void> startListening() async {
-  //   if (!isListening) {
-  //     bool listening = await speech.listen(
-  //       onResult: (result) {
-  //         setState(() {
-  //           text = result.recognizedWords;
-
-  //           searchController.text = result.recognizedWords;
-  //         });
-  //       },
-  //     );
-
-  //     if (listening) {
-  //       setState(() {
-  //         isListening = true;
-  //       });
-  //     }
-  //   }
-  // }
-
-  // Future<void> stopListening() async {
-  //   if (isListening) {
-  //     await speech.stop();
-  //     setState(() {
-  //       isListening = false;
-  //     });
-  //   }
-  // }
-
-  Future<void> getMicrophonePermission(bool isCallingForFirstTime) async {
-    PermissionStatus status = await Permission.microphone.status;
-
-    // If permission is granted, return early
-
-    print(status.toString());
-    if (status.isGranted) {
-      if (isCallingForFirstTime) {
-        //   initSpeechState();
-      } else {
-        //   isListening ? stopListening() : startListening();
+      if (available) {
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Started Listening"),
+        ));
+        _speech.listen(
+          listenFor: const Duration(seconds: 10),
+          onResult: (result) {
+            setState(() {
+              _text = result.recognizedWords;
+              searchProvider.searchController.text = _text;
+              searchProvider.getProductsList(
+                  context, "25", "1", searchProvider.searchController.text);
+              print(_text);
+            });
+          },
+        );
       }
+    } else {
+      _speech.stop();
+      _isListening = !_isListening;
     }
 
-    // If permission is not granted, request the microphone permission
-    if (status.isRestricted) {
-      status = await Permission.microphone.request();
-    }
-
-    // If permission is denied, show a dialog or handle it accordingly
-    if (status.isDenied) {
-      showMicrophone(context);
-
-      print(status.toString());
-
-      // You can show a dialog or message here to inform the user
-      // that the permission is necessary for the app to function.
-    }
-    if (status.isPermanentlyDenied) {
-      status = await Permission.microphone.request();
-      print(status.toString());
-    }
+    setState(() {
+      _isListening = !_isListening;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    searchProvider = Provider.of<SearchViewModel>(context);
+    homeProvider = Provider.of<HomeViewModel>(context);
+
     return Stack(
       children: [
         Align(
@@ -124,14 +100,123 @@ class _SearchState extends State<Search> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
+          bottomNavigationBar: searchProvider.searchResults.isEmpty
+              ? Container()
+              : Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 50,
+                        width: MediaQuery.of(context).size.width * 0.33,
+                        color: colors.midBorder,
+                        child: InkWell(
+                          onTap: () {
+                            homeFilter(context, homeProvider.filterModel);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                Images.filter,
+                                height: 20,
+                                width: 20,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              const Text(
+                                'Filter',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 50,
+                        width: MediaQuery.of(context).size.width * 0.34,
+                        decoration: const BoxDecoration(
+                          color: colors.midBorder,
+                          border: Border(
+                            left: BorderSide(
+                              color: colors.midBorder,
+                            ),
+                          ),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            homeCategory(context);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                Images.categoryWhite,
+                                height: 20,
+                                width: 20,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              const Text(
+                                'Category',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 50,
+                        width: MediaQuery.of(context).size.width * 0.33,
+                        decoration: const BoxDecoration(
+                          color: colors.midBorder,
+                          border: Border(
+                            left: BorderSide(
+                              color: colors.midBorder,
+                            ),
+                          ),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            homeSort(context);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                Images.sort,
+                                height: 20,
+                                width: 20,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              const Text(
+                                'Sort',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+                  margin: const EdgeInsets.fromLTRB(20, 70, 20, 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -139,8 +224,11 @@ class _SearchState extends State<Search> {
                         height: 40,
                         width: MediaQuery.of(context).size.width * 0.7,
                         child: TextFormField(
-                          onChanged: (value) {},
-                          controller: searchController,
+                          onChanged: (value) {
+                            searchProvider.getProductsList(context, "25", "1",
+                                searchProvider.searchController.text);
+                          },
+                          controller: searchProvider.searchController,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 10),
@@ -154,7 +242,12 @@ class _SearchState extends State<Search> {
                             ),
                             suffixIcon: InkWell(
                               onTap: () {
-                                Routes.navigateToPreviousScreen(context);
+                                if (searchProvider.searchController.text ==
+                                    "") {
+                                  Routes.navigateToPreviousScreen(context);
+                                } else {
+                                  searchProvider.searchController.text = "";
+                                }
                               },
                               child: const Icon(
                                 Icons.clear,
@@ -192,13 +285,19 @@ class _SearchState extends State<Search> {
                           )),
                       InkWell(
                         onTap: () {
-                          getMicrophonePermission(false);
+                          _listen();
                         },
-                        child: Image.asset(
-                          Images.smallMic,
-                          height: 25,
-                          width: 25,
-                        ),
+                        child: _isListening
+                            ? Image.asset(
+                                "assets/images/microphone_gif.gif",
+                                height: 25,
+                                width: 25,
+                              )
+                            : Image.asset(
+                                Images.smallMic,
+                                height: 25,
+                                width: 25,
+                              ),
                       )
                     ],
                   ),
@@ -207,10 +306,39 @@ class _SearchState extends State<Search> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
-                    children: [],
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 20),
+                        // height: MediaQuery.of(context).size.height *
+                        //     0.5 *
+                        //     searchProvider.searchResults.length /
+                        //     2,
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.70,
+                          ),
+                          itemCount: searchProvider.searchResults.length,
+                          itemBuilder: (context, j) {
+                            return productForYouCardSearch(
+                                searchProvider.searchResults[j],
+                                context,
+                                homeProvider);
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
+              SizedBox(
+                height: 50,
+              )
             ],
           ),
         ),
@@ -318,8 +446,6 @@ class _SearchState extends State<Search> {
                           onPressed: () async {
                             await Permission.microphone.request();
                             Routes.navigateToPreviousScreen(context);
-
-                            getMicrophonePermission(false);
                           },
                           child: const Text(
                             'ALLOW',

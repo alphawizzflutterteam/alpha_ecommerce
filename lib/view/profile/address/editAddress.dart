@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/view/profile/address/model/addressModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,8 @@ import '../../widget_common/common_textfield.dart';
 import '../common_header.dart';
 
 class EditAddress extends StatefulWidget {
-  const EditAddress({Key? key}) : super(key: key);
+  final AddressList addressList;
+  const EditAddress({Key? key, required this.addressList}) : super(key: key);
 
   @override
   State<EditAddress> createState() => _EditAddressState();
@@ -24,8 +26,20 @@ class _EditAddressState extends State<EditAddress> {
   void initState() {
     super.initState();
     addressProvider = Provider.of<AddressViewModel>(context, listen: false);
-    addressProvider.getAddressList(context);
-    addressProvider.setText();
+    addressProvider.nameController.text = widget.addressList.contactPersonName;
+    addressProvider.id = widget.addressList.id.toString();
+    addressProvider.mobileController.text = widget.addressList.phone;
+    addressProvider.alternateMobileController.text =
+        widget.addressList.altPhone;
+    addressProvider.houseController.text = widget.addressList.address;
+    addressProvider.roadController.text = widget.addressList.address1;
+    addressProvider.countryController.text = widget.addressList.country;
+    addressProvider.stateController.text = widget.addressList.state;
+    addressProvider.cityController.text = widget.addressList.city;
+    addressProvider.pinCodeController.text = widget.addressList.zip;
+    selectedOption = widget.addressList.addressType.toLowerCase();
+    addressProvider.latitude = widget.addressList.latitude.toString();
+    addressProvider.longitude = widget.addressList.longitude.toString();
   }
 
   @override
@@ -45,7 +59,7 @@ class _EditAddressState extends State<EditAddress> {
                 children: [
                   ProfileHeader(),
                   InternalPageHeader(
-                    text: "Address",
+                    text: "Edit Address",
                   )
                 ],
               ),
@@ -54,40 +68,6 @@ class _EditAddressState extends State<EditAddress> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 10,
-                        ),
-                        child: SizedBox(
-                          height: 45,
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              addressProvider.getCurrentLoc(context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: colors.buttonColor,
-                              onPrimary: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.location_disabled_outlined,
-                                  size: 18,
-                                ),
-                                SizedBox(width: 5),
-                                Text('Use my location',
-                                    style: TextStyle(fontSize: 14)),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -123,7 +103,7 @@ class _EditAddressState extends State<EditAddress> {
                                         ),
                                         softWrap: false, // Add this line
                                       ),
-                                      value: 'Home',
+                                      value: 'home',
                                       groupValue: selectedOption,
                                       onChanged: (value) {
                                         setState(() {
@@ -146,7 +126,7 @@ class _EditAddressState extends State<EditAddress> {
                                         softWrap: false, // Add this line
                                       ),
                                       activeColor: colors.buttonColor,
-                                      value: 'Office',
+                                      value: 'office',
                                       groupValue: selectedOption,
                                       onChanged: (value) {
                                         setState(() {
@@ -168,7 +148,7 @@ class _EditAddressState extends State<EditAddress> {
                                         ),
                                         softWrap: false, // Add this line
                                       ),
-                                      value: 'Other',
+                                      value: 'other',
                                       activeColor: colors.buttonColor,
                                       groupValue: selectedOption,
                                       onChanged: (value) {
@@ -187,39 +167,6 @@ class _EditAddressState extends State<EditAddress> {
                           ),
                         ],
                       ),
-                      // const Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     Expanded(
-                      //       child: Padding(
-                      //         padding: EdgeInsets.symmetric(
-                      //             horizontal: 20, vertical: 15),
-                      //         child: Divider(
-                      //           color: Colors.white,
-                      //           height: 1,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     Text(
-                      //       'OR',
-                      //       style: TextStyle(
-                      //         fontSize: 16,
-                      //         color: Colors.white,
-                      //       ),
-                      //     ),
-                      //     Expanded(
-                      //       child: Padding(
-                      //         padding: EdgeInsets.symmetric(
-                      //             horizontal: 20, vertical: 15),
-                      //         child: Divider(
-                      //           color: Colors.white,
-                      //           height: 1,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-
                       Container(
                         margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                         decoration: BoxDecoration(
@@ -244,6 +191,8 @@ class _EditAddressState extends State<EditAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
+                          keyboardType: TextInputType.phone,
+                          maxLength: 10,
                           controller: addressProvider.mobileController,
                           decoration: commonInputDecoration(
                             labelText: 'Mobile Number',
@@ -260,6 +209,8 @@ class _EditAddressState extends State<EditAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
+                          maxLength: 10,
+                          keyboardType: TextInputType.phone,
                           controller: addressProvider.alternateMobileController,
                           decoration: commonInputDecoration(
                             labelText: 'Alternate Mobile Number',
@@ -355,6 +306,7 @@ class _EditAddressState extends State<EditAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
+                          keyboardType: TextInputType.number,
                           controller: addressProvider.pinCodeController,
                           decoration: commonInputDecoration(
                             labelText: 'Pincode',
@@ -367,24 +319,7 @@ class _EditAddressState extends State<EditAddress> {
                 ),
               ),
               InkWell(
-                onTap: () {
-                  Map data = {
-                    "contact_person_name": addressProvider.nameController.text,
-                    "phone": addressProvider.mobileController.text,
-                    "alt_phone": addressProvider.alternateMobileController.text,
-                    "address": addressProvider.houseController.text,
-                    "address1": addressProvider.roadController.text,
-                    "country": addressProvider.countryController.text,
-                    "state": addressProvider.stateController.text,
-                    "city": addressProvider.cityController.text,
-                    "zip": addressProvider.pinCodeController.text,
-                    "latitude": addressProvider.latitude.toString(),
-                    "longitude": addressProvider.longitude.toString(),
-                    "address_type": selectedOption,
-                    "is_billing": "1"
-                  };
-                  addressProvider.addAddress(context, data);
-                },
+                onTap: () {},
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -402,8 +337,35 @@ class _EditAddressState extends State<EditAddress> {
                             child: CommonButton(
                                 text: "SAVE ADDRESS",
                                 fontSize: 14,
-                                onClick: () {
-                                  Routes.navigateToPreviousScreen(context);
+                                onClick: () async {
+                                  Map data = {
+                                    'id': addressProvider.id,
+                                    "contact_person_name":
+                                        addressProvider.nameController.text,
+                                    "phone":
+                                        addressProvider.mobileController.text,
+                                    "alt_phone": addressProvider
+                                        .alternateMobileController.text,
+                                    "address":
+                                        addressProvider.houseController.text,
+                                    "address1":
+                                        addressProvider.roadController.text,
+                                    "country":
+                                        addressProvider.countryController.text,
+                                    "state":
+                                        addressProvider.stateController.text,
+                                    "city": addressProvider.cityController.text,
+                                    "zip":
+                                        addressProvider.pinCodeController.text,
+                                    "latitude":
+                                        addressProvider.latitude.toString(),
+                                    "longitude":
+                                        addressProvider.longitude.toString(),
+                                    "address_type": selectedOption,
+                                    "is_billing": "1"
+                                  };
+                                  await addressProvider.updateAddress(
+                                      context, data);
                                 })),
                       ),
                     ),

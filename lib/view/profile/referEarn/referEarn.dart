@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../../utils/color.dart';
 import '../../../utils/routes.dart';
 import '../../widget_common/commonBackground.dart';
@@ -15,7 +21,17 @@ class ReferAndEarn extends StatefulWidget {
 }
 
 class _ReferAndEarnState extends State<ReferAndEarn> {
+  late ProfileModel user;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    var model =
+        jsonDecode(SharedPref.shared.pref!.getString(PrefKeys.userDetails)!);
+
+    user = ProfileModel.fromJson(model);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,19 +100,19 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             height: 100,
                             width: 100,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 15),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.monetization_on,
+                                const Icon(Icons.monetization_on,
                                     color: Colors.yellow),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Text(
-                                  "2562",
-                                  style: TextStyle(
+                                  user.data[0].loyaltyPoint,
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold),
@@ -130,9 +146,9 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                     //   width: 1, // Border width
                                     // ),
                                   ),
-                                  child: const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 20),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -141,37 +157,49 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                       children: <Widget>[
                                         Column(
                                           children: [
-                                            Text(
+                                            const Text(
                                               "You referral code",
                                               style: TextStyle(
                                                   fontSize: 10,
                                                   color: Colors.white),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 5,
                                             ),
                                             Text(
-                                              'CP16533',
-                                              style: TextStyle(
+                                              user.data[0].referralCode,
+                                              style: const TextStyle(
                                                   fontSize: 20,
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                           ],
                                         ),
-                                        VerticalDivider(
+                                        const VerticalDivider(
                                           width: 1,
                                           color: Colors.grey,
                                           thickness: 3,
                                           indent: 10,
                                           endIndent: 10,
                                         ),
-                                        Text(
-                                          "Copy\nCode",
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              height: 1.5,
-                                              color: Colors.white),
+                                        InkWell(
+                                          onTap: () async {
+                                            await Clipboard.setData(
+                                                ClipboardData(
+                                                    text: user
+                                                        .data[0].referralCode));
+                                            Utils.showFlushBarWithMessage(
+                                                "Alert",
+                                                "Referral Code Copied.",
+                                                context);
+                                          },
+                                          child: Text(
+                                            "Copy\nCode",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                height: 1.5,
+                                                color: Colors.white),
+                                          ),
                                         )
                                       ],
                                     ),

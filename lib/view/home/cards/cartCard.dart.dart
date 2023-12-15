@@ -2,6 +2,7 @@ import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/cartHomeNew.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:flutter/material.dart';
 
 cartCard(HomeProduct model, BuildContext context) {
@@ -11,7 +12,8 @@ cartCard(HomeProduct model, BuildContext context) {
       children: [
         InkWell(
           onTap: () {
-            Routes.navigateToProductDetailPageScreen(context);
+            Routes.navigateToProductDetailPageScreen(
+                context, model as ProductList);
           },
           child: Container(
             height: 200,

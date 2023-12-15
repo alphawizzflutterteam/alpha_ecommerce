@@ -44,7 +44,7 @@ class _SubscribeState extends State<Subscribe> {
                       alignment: Alignment.centerRight,
                       child: InkWell(
                           onTap: () {
-                            Routes.navigateToDashboardScreen(context);
+                            Routes.navigateToDashboardScreen(context, 2);
                           },
                           child: const Icon(
                             Icons.close,

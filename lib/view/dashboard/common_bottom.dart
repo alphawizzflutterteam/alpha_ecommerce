@@ -49,7 +49,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
       body: _pages[_currentIndex],
       bottomNavigationBar: AnimatedContainer(
         duration: const Duration(milliseconds: 0),
-        height: homeProvider.isScrolled ? kBottomNavigationBarHeight : 0.0,
+        height:
+            homeProvider.isScrolled ? kBottomNavigationBarHeight * 1.5 : 0.0,
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
