@@ -1,6 +1,10 @@
-import 'package:alpha_ecommerce_18oct/utils/constant.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/images.dart';
 import '../../widget_common/commonBackground.dart';
@@ -22,6 +26,8 @@ class _SignUPState extends State<SignUP> {
   bool obscureText = true;
   bool obscureText2 = true;
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController referralController = TextEditingController();
+
   final TextEditingController confirmPasswordController =
       TextEditingController();
   final TextEditingController nameController = TextEditingController();
@@ -29,6 +35,8 @@ class _SignUPState extends State<SignUP> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
+
     return Stack(children: [
       const CommonBackgroundPatternAuthWidget(),
       const CommonBackgroundAuthWidget(),
@@ -52,23 +60,24 @@ class _SignUPState extends State<SignUP> {
                       height: 90,
                       width: 120,
                     ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 0),
                       child: Text(
-                        signUP1,
-                        style: TextStyle(
+                        translation(context).createyouraccount,
+                        style: const TextStyle(
                             color: colors.textColor,
                             fontSize: 25,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
                       child: Text(
-                        signUP2,
-                        style: TextStyle(
+                        translation(context)
+                            .createanaccounttoviewandmanageyourprojects,
+                        style: const TextStyle(
                             color: colors.lightTextColor, fontSize: 15),
                       ),
                     ),
@@ -81,10 +90,11 @@ class _SignUPState extends State<SignUP> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
                             child: TextFormField(
+                              keyboardType: TextInputType.name,
                               controller: nameController,
                               validator: validateName,
                               decoration: commonInputDecoration(
-                                labelText: 'Full Name',
+                                labelText: translation(context).fullname,
                               ),
                               style: const TextStyle(color: colors.textColor),
                             ),
@@ -93,10 +103,11 @@ class _SignUPState extends State<SignUP> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
                             child: TextFormField(
+                              keyboardType: TextInputType.emailAddress,
                               controller: emailController,
                               validator: validateEmail,
                               decoration: commonInputDecoration(
-                                labelText: 'Email',
+                                labelText: translation(context).email,
                               ),
                               style: const TextStyle(color: colors.textColor),
                             ),
@@ -111,7 +122,7 @@ class _SignUPState extends State<SignUP> {
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: colors.textFieldBG,
-                                labelText: 'Password',
+                                labelText: translation(context).password,
                                 suffixIcon: GestureDetector(
                                   onTap: () {
                                     setState(() {
@@ -178,7 +189,7 @@ class _SignUPState extends State<SignUP> {
                                 return null;
                               },
                               decoration: InputDecoration(
-                                labelText: 'Confirm Password',
+                                labelText: translation(context).confirmpassword,
                                 filled: true,
                                 fillColor: colors.textFieldBG,
                                 suffixIcon: GestureDetector(
@@ -238,41 +249,88 @@ class _SignUPState extends State<SignUP> {
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: TextFormField(
+                        keyboardType: TextInputType.text,
+                        controller: referralController,
+                        validator: validateEmail,
+                        decoration: commonInputDecoration(
+                          labelText: translation(context).referralcode,
+                        ),
+                        style: const TextStyle(color: colors.textColor),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 80,
-                color: colors.textFieldBG,
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                            height: 50,
-                            width: double.infinity,
-                            child: CommonButton(
-                                text: "CREATE ACCOUNT",
-                                fontSize: 18,
-                                onClick: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    Routes.navigateToWelcomeScreen(context);
-                                  }
-                                })),
-                      ],
+            authViewModel.isLoading
+                ? Align(
+                    child: appLoader(),
+                  )
+                : Container(),
+            authViewModel.isLoading
+                ? Align(
+                    child: appLoader(),
+                  )
+                : Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      height: 80,
+                      color: colors.textFieldBG,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 15),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                  height: 50,
+                                  width: double.infinity,
+                                  child: CommonButton(
+                                      text: translation(context).createaccount,
+                                      fontSize: 18,
+                                      onClick: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          var mobile = SharedPref.shared.pref!
+                                              .getString(PrefKeys.mobile);
+                                          var languageID = SharedPref
+                                                  .shared.pref!
+                                                  .getString(PrefKeys
+                                                      .selectedLanguageID) ??
+                                              "1";
+                                          var currencyID =
+                                              SharedPref.shared.pref!.getString(
+                                                      PrefKeys.currencyID) ??
+                                                  "3";
+
+                                          Map data = {
+                                            "f_name": nameController.text,
+                                            'email': emailController.text,
+                                            'phone': mobile,
+                                            'password': passwordController.text,
+                                            'referral_code':
+                                                referralController.text,
+                                            'language_id': languageID,
+                                            "currency_id": currencyID,
+                                            "fcm_id": ""
+                                          };
+
+                                          authViewModel.createAccountApi(
+                                              data, context);
+                                        }
+                                      })),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
           ],
         ),
-      )
+      ),
     ]);
   }
 }

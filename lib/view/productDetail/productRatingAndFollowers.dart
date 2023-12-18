@@ -1,8 +1,10 @@
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 
-productRatingAndFollowersCard() {
+productRatingAndFollowersCard(Shop shop) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -19,13 +21,16 @@ productRatingAndFollowersCard() {
           children: [
             Row(
               children: [
-                Image.asset(Images.vendor),
+                Image.network(
+                  shop.image,
+                  height: size_55,
+                ),
                 const SizedBox(
                   width: 10,
                 ),
-                const Text(
-                  "Best Mart",
-                  style: TextStyle(color: Colors.white),
+                Text(
+                  shop.name,
+                  style: const TextStyle(color: Colors.white),
                 )
               ],
             ),
@@ -42,39 +47,39 @@ productRatingAndFollowersCard() {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Row(
+            Row(
               children: [
                 Column(
                   children: [
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: Colors.orange,
                           size: 16,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(
-                          "4.3",
-                          style: TextStyle(
+                          shop.rating,
+                          style: const TextStyle(
                             color: Colors.orange,
                             fontSize: 14,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
-                    Text(
+                    const Text(
                       "Rating",
                       style: TextStyle(color: colors.lightTextColor),
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Column(
@@ -83,18 +88,18 @@ productRatingAndFollowersCard() {
                     Row(
                       children: [
                         Text(
-                          "167",
-                          style: TextStyle(
+                          shop.followers,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 14,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
-                    Text(
+                    const Text(
                       "Followers",
                       style: TextStyle(color: colors.lightTextColor),
                     )

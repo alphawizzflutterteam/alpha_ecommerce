@@ -1,12 +1,19 @@
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/productRatingAndFollowers.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/recommendedAccessoryCard.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/recommendedProductCard.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/reviewCard.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/specificationCard.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/productViewModel.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 import '../widget_common/commonBackground.dart';
@@ -17,7 +24,8 @@ import '../profile/common_header.dart';
 import 'freeDeliveryCard.dart';
 
 class ProductDetailPage extends StatefulWidget {
-  const ProductDetailPage({Key? key}) : super(key: key);
+  final ProductList model;
+  const ProductDetailPage({Key? key, required this.model}) : super(key: key);
 
   @override
   State<ProductDetailPage> createState() => _ProductDetailPageState();
@@ -26,17 +34,47 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   double rating = 4;
+  List<String> imageList = [];
+  List<Variation> variationList = [];
+  late ProductList model2;
+  var selectedPrice = "";
+  var selectedProduct = "";
+  var selectedVariation = "";
 
-  final List<String> imageList = [
-    Images.powder,
-    Images.powder,
-    Images.powder,
-    Images.powder,
-  ];
+  late ProductDetailViewModel productModel;
+  @override
+  void initState() {
+    super.initState();
+    productModel = Provider.of<ProductDetailViewModel>(context, listen: false);
+    productModel.getDetails(context, "", widget.model.slug);
+
+    imageList = widget.model.images;
+    model2 = widget.model;
+    selectedPrice = widget.model.specialPrice;
+    variationList = widget.model.variation;
+  }
+
   int _currentIndex = 0;
+
+  void checkSelectedProductAndUpdateProductRate(String selectedVariation) {
+    var text = selectedVariation.replaceAll(RegExp(r"\s+\b|\b\s"), "");
+    print(text.toLowerCase());
+    for (int i = 0; i < variationList.length; i++) {
+      if (variationList[i].type.toLowerCase().contains(text.toLowerCase())) {
+        print(variationList[i].type.toLowerCase());
+        selectedProduct = variationList[i].type;
+        print(variationList[i].price);
+        selectedPrice = variationList[i].price;
+      }
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
+    productModel = Provider.of<ProductDetailViewModel>(context);
+
+    print(model2.slug.toString());
     return Stack(
       children: [
         const LightBackGround(),
@@ -51,7 +89,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 children: [
                   ProfileHeader(),
                   InternalDetailPageHeader(
-                    text: 'Oats Fitness',
+                    text: "Product Detail",
                   )
                 ],
               ),
@@ -81,12 +119,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   return SizedBox(
                                     height: 100,
                                     width: double.infinity,
-                                    child: Image.asset(
+                                    child: Image.network(
                                       item,
+                                      fit: BoxFit.cover,
                                     ),
                                   );
                                 }).toList(),
                                 options: CarouselOptions(
+                                  enableInfiniteScroll: false,
                                   autoPlay: false,
                                   enlargeCenterPage: true,
                                   onPageChanged: (index, reason) {
@@ -133,9 +173,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              "25% Off",
-                              style: TextStyle(
+                            Text(
+                              "${model2.discount} %",
+                              style: const TextStyle(
                                   color: Colors.orange,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold),
@@ -160,19 +200,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Oats Fitness",
-                              style: TextStyle(
+                              model2.name,
+                              style: const TextStyle(
                                   color: colors.textColor,
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold),
                             ),
-                            Row(
+                            const Row(
                               children: [
                                 Icon(
                                   Icons.star,
@@ -200,9 +240,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              "\$200",
-                              style: TextStyle(
+                            Text(
+                              selectedPrice,
+                              style: const TextStyle(
                                 color: colors.lightTextColor,
                                 fontSize: 18,
                               ),
@@ -240,42 +280,113 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: 40,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: 3,
-                                itemBuilder: (context, i) {
-                                  return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 10),
-                                    margin: const EdgeInsets.only(right: 10),
-                                    decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(
-                                            color: const Color(0x14E9E9E9),
-                                            width: 2)),
-                                    child: const Text(
-                                      "250gm",
-                                      style: TextStyle(
-                                          color: colors.textColor,
-                                          fontSize: 12),
+                      const SizedBox(
+                        height: size_19,
+                      ),
+                      SizedBox(
+                        height: model2.choiceOptions.length * 75,
+                        child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            itemCount: model2.choiceOptions.length,
+                            itemBuilder: (context, i) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 8),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      model2.choiceOptions[i].title,
+                                      style: TextStyle(color: Colors.white),
                                     ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          height: 40,
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            padding: EdgeInsets.zero,
+                                            shrinkWrap: true,
+                                            physics:
+                                                const AlwaysScrollableScrollPhysics(),
+                                            itemCount: widget
+                                                .model
+                                                .choiceOptions[i]
+                                                .options
+                                                .length,
+                                            itemBuilder: (context, j) {
+                                              return InkWell(
+                                                onTap: () {
+                                                  selectedVariation = widget
+                                                      .model
+                                                      .choiceOptions[i]
+                                                      .options[j];
+                                                  checkSelectedProductAndUpdateProductRate(
+                                                      widget
+                                                          .model
+                                                          .choiceOptions[i]
+                                                          .options[j]);
+                                                },
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 10,
+                                                          vertical: 10),
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              right: 10),
+                                                      decoration: BoxDecoration(
+                                                          color: Colors
+                                                              .transparent,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
+                                                          border: Border.all(
+                                                              color: selectedVariation ==
+                                                                      widget
+                                                                          .model
+                                                                          .choiceOptions[
+                                                                              i]
+                                                                          .options[j]
+                                                                  ? Colors.white
+                                                                  : const Color(0x14E9E9E9),
+                                                              width: 2)),
+                                                      child: InkWell(
+                                                        onTap: () {},
+                                                        child: Text(
+                                                          widget
+                                                              .model
+                                                              .choiceOptions[i]
+                                                              .options[j],
+                                                          style: const TextStyle(
+                                                              color: colors
+                                                                  .textColor,
+                                                              fontSize:
+                                                                  size_12),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -283,24 +394,32 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              alignment: Alignment.center,
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              margin: const EdgeInsets.only(right: 10),
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                      color: const Color(0x14E9E9E9),
-                                      width: 2)),
-                              child: const Text(
-                                "Save for later",
-                                style: TextStyle(
-                                    color: colors.textColor,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold),
+                            InkWell(
+                              onTap: () {
+                                Map data = {
+                                  'product_id': widget.model.id.toString()
+                                };
+                                productModel.addToSaveLater(data, context);
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                margin: const EdgeInsets.only(right: 10),
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                        color: const Color(0x14E9E9E9),
+                                        width: 2)),
+                                child: const Text(
+                                  "Save for later",
+                                  style: TextStyle(
+                                      color: colors.textColor,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
                             InkWell(
@@ -335,23 +454,23 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         color: colors.textColor,
                         height: 1,
                       ),
-                      const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Description",
                               style: TextStyle(
                                   color: colors.textColor, fontSize: 14),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
-                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. LOrem Ipsum has been the industry's standard dummy text since the 1500s",
-                              style: TextStyle(
+                              model2.metaDescription,
+                              style: const TextStyle(
                                   color: colors.textColor, fontSize: 12),
                             ),
                           ],
@@ -377,7 +496,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   child: SizedBox(
                                     height: 40,
                                     child: TextField(
+                                      keyboardType:
+                                          const TextInputType.numberWithOptions(
+                                              signed: true, decimal: false),
+                                      controller: productModel.pinController,
                                       textAlign: TextAlign.start,
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(6)
+                                      ],
+                                      style:
+                                          const TextStyle(color: Colors.white),
                                       decoration: InputDecoration(
                                         filled: true,
                                         fillColor: colors.textFieldBG,
@@ -386,7 +514,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                 vertical: 10, horizontal: 15),
                                         hintText: 'Enter pincode',
                                         hintStyle: const TextStyle(
-                                            color: colors.textColor,
+                                            color: colors.white10,
                                             fontSize: 12),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
@@ -415,28 +543,50 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     child: CommonButton(
                                         text: "Submit",
                                         fontSize: 14,
-                                        onClick: () {})),
+                                        onClick: () {
+                                          if (productModel
+                                              .pinController.text.isEmpty) {
+                                            return Utils.showFlushBarWithMessage(
+                                                "Alert",
+                                                "Please enter valid pincode",
+                                                context);
+                                          }
+                                          Map data = {
+                                            'pincode':
+                                                productModel.pinController.text
+                                          };
+                                          productModel.addToSaveLater(
+                                              data, context);
+                                        })),
                               ],
                             ),
                           ],
                         ),
                       ),
-                      recommendedAccessoryCard(context: context),
+                      //  recommendedAccessoryCard(context: context),
                       deliveryCard(context: context),
                       specificationCard(context: context),
-                      productRatingAndFollowersCard(),
-                      const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: Text(
-                          "Recommended Product",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      recommendedProductCard(context: context),
-                      reviewCard(
-                        rating: rating,
-                      )
+                      productRatingAndFollowersCard(model2.shop),
+                      productModel.relatedProducts.isEmpty
+                          ? Container()
+                          : const Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              child: Text(
+                                "Recommended Product",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                      productModel.relatedProducts.isEmpty
+                          ? Container()
+                          : recommendedProductCard(
+                              context: context,
+                              model: productModel.relatedProducts),
+                      widget.model.rating.isEmpty
+                          ? Container()
+                          : reviewCard(
+                              rating: rating,
+                            )
                     ],
                   ),
                 ),

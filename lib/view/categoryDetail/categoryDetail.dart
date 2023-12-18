@@ -90,7 +90,7 @@ class _CategoryDetailState extends State<CategoryDetail> {
                           width: MediaQuery.of(context).size.width * 0.5,
                           child: InkWell(
                             onTap: () {
-                              homeFilter(context);
+                              // homeFilter(context);
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,

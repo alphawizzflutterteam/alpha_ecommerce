@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/model/profile.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/profile/logOut/logOut.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../widget_common/commonBackground.dart';
@@ -20,6 +24,11 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    var model =
+        jsonDecode(SharedPref.shared.pref!.getString(PrefKeys.userDetails)!);
+
+    ProfileModel user = ProfileModel.fromJson(model);
+
     return Stack(
       children: [
         const LightBackGround(),
@@ -84,9 +93,9 @@ class _ProfileState extends State<Profile> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        const Text(
-                                          "Cameron Williamson",
-                                          style: TextStyle(
+                                        Text(
+                                          user.data[0].fName,
+                                          style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold),
@@ -118,34 +127,34 @@ class _ProfileState extends State<Profile> {
                                     const SizedBox(
                                       height: 8,
                                     ),
-                                    const Row(
+                                    Row(
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Icons.email_outlined,
                                           color: colors.lightTextColor,
                                           size: 18,
                                         ),
-                                        SizedBox(width: 5),
+                                        const SizedBox(width: 5),
                                         Text(
-                                          "cameronwilliamson@example.com",
-                                          style: TextStyle(
+                                          user.data[0].email,
+                                          style: const TextStyle(
                                               color: colors.lightTextColor,
                                               fontSize: 12),
                                         ),
                                       ],
                                     ),
                                     const SizedBox(height: 5),
-                                    const Row(
+                                    Row(
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Icons.phone_outlined,
                                           color: colors.lightTextColor,
                                           size: 18,
                                         ),
-                                        SizedBox(width: 5),
+                                        const SizedBox(width: 5),
                                         Text(
-                                          "9685762333",
-                                          style: TextStyle(
+                                          user.data[0].phone,
+                                          style: const TextStyle(
                                               color: colors.lightTextColor,
                                               fontSize: 12),
                                         ),

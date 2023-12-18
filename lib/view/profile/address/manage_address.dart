@@ -1,4 +1,7 @@
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/routes.dart';
 import '../../widget_common/commonBackground.dart';
@@ -15,21 +18,21 @@ class ManageAddress extends StatefulWidget {
 }
 
 class _ManageAddressState extends State<ManageAddress> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController mobileController = TextEditingController();
-  final TextEditingController alternateMobileController =
-      TextEditingController();
-  final TextEditingController countryController = TextEditingController();
-  final TextEditingController stateController = TextEditingController();
-  final TextEditingController cityController = TextEditingController();
-  final TextEditingController houseController = TextEditingController();
-  final TextEditingController roadController = TextEditingController();
-  final TextEditingController pinCodeController = TextEditingController();
-  String selectedOption = 'HOME';
+  String selectedOption = 'Home';
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late AddressViewModel addressProvider;
+  @override
+  void initState() {
+    super.initState();
+    addressProvider = Provider.of<AddressViewModel>(context, listen: false);
+    addressProvider.getAddressList(context);
+    addressProvider.setText();
+  }
 
   @override
   Widget build(BuildContext context) {
+    addressProvider = Provider.of<AddressViewModel>(context);
+
     return Stack(
       children: [
         const LightBackGround(),
@@ -61,7 +64,9 @@ class _ManageAddressState extends State<ManageAddress> {
                           height: 45,
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              addressProvider.getCurrentLoc(context);
+                            },
                             style: ElevatedButton.styleFrom(
                               primary: colors.buttonColor,
                               onPrimary: Colors.white,
@@ -183,38 +188,39 @@ class _ManageAddressState extends State<ManageAddress> {
                           ),
                         ],
                       ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
-                              child: Divider(
-                                color: Colors.white,
-                                height: 1,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            'OR',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
-                              child: Divider(
-                                color: Colors.white,
-                                height: 1,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      // const Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     Expanded(
+                      //       child: Padding(
+                      //         padding: EdgeInsets.symmetric(
+                      //             horizontal: 20, vertical: 15),
+                      //         child: Divider(
+                      //           color: Colors.white,
+                      //           height: 1,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     Text(
+                      //       'OR',
+                      //       style: TextStyle(
+                      //         fontSize: 16,
+                      //         color: Colors.white,
+                      //       ),
+                      //     ),
+                      //     Expanded(
+                      //       child: Padding(
+                      //         padding: EdgeInsets.symmetric(
+                      //             horizontal: 20, vertical: 15),
+                      //         child: Divider(
+                      //           color: Colors.white,
+                      //           height: 1,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+
                       Container(
                         margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                         decoration: BoxDecoration(
@@ -223,7 +229,7 @@ class _ManageAddressState extends State<ManageAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
-                          controller: nameController,
+                          controller: addressProvider.nameController,
                           decoration: commonInputDecoration(
                             labelText: 'Name',
                           ),
@@ -239,7 +245,9 @@ class _ManageAddressState extends State<ManageAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
-                          controller: mobileController,
+                          keyboardType: TextInputType.phone,
+                          maxLength: 10,
+                          controller: addressProvider.mobileController,
                           decoration: commonInputDecoration(
                             labelText: 'Mobile Number',
                           ),
@@ -255,7 +263,9 @@ class _ManageAddressState extends State<ManageAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
-                          controller: alternateMobileController,
+                          maxLength: 10,
+                          keyboardType: TextInputType.phone,
+                          controller: addressProvider.alternateMobileController,
                           decoration: commonInputDecoration(
                             labelText: 'Alternate Mobile Number',
                           ),
@@ -271,7 +281,7 @@ class _ManageAddressState extends State<ManageAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
-                          controller: houseController,
+                          controller: addressProvider.houseController,
                           decoration: commonInputDecoration(
                             labelText: 'House no, Building Name',
                           ),
@@ -287,7 +297,7 @@ class _ManageAddressState extends State<ManageAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
-                          controller: roadController,
+                          controller: addressProvider.roadController,
                           decoration: commonInputDecoration(
                             labelText: 'Road name, Area Colony',
                           ),
@@ -303,7 +313,7 @@ class _ManageAddressState extends State<ManageAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
-                          controller: countryController,
+                          controller: addressProvider.countryController,
                           decoration: commonInputDecoration(
                             labelText: 'Country',
                           ),
@@ -319,7 +329,7 @@ class _ManageAddressState extends State<ManageAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
-                          controller: stateController,
+                          controller: addressProvider.stateController,
                           decoration: commonInputDecoration(
                             labelText: 'State',
                           ),
@@ -335,7 +345,7 @@ class _ManageAddressState extends State<ManageAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
-                          controller: cityController,
+                          controller: addressProvider.cityController,
                           decoration: commonInputDecoration(
                             labelText: 'City',
                           ),
@@ -350,7 +360,7 @@ class _ManageAddressState extends State<ManageAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
-                          controller: pinCodeController,
+                          controller: addressProvider.pinCodeController,
                           decoration: commonInputDecoration(
                             labelText: 'Pincode',
                           ),
@@ -361,26 +371,137 @@ class _ManageAddressState extends State<ManageAddress> {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: 80,
-                  color: colors.textFieldBG,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 15,
+              InkWell(
+                onTap: () {
+                  Map data = {
+                    "contact_person_name": addressProvider.nameController.text,
+                    "phone": addressProvider.mobileController.text,
+                    "alt_phone": addressProvider.alternateMobileController.text,
+                    "address": addressProvider.houseController.text,
+                    "address1": addressProvider.roadController.text,
+                    "country": addressProvider.countryController.text,
+                    "state": addressProvider.stateController.text,
+                    "city": addressProvider.cityController.text,
+                    "zip": addressProvider.pinCodeController.text,
+                    "latitude": addressProvider.latitude.toString(),
+                    "longitude": addressProvider.longitude.toString(),
+                    "address_type": selectedOption,
+                    "is_billing": "1"
+                  };
+                  print(data);
+                  addressProvider.addAddress(context, data);
+                },
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: 80,
+                    color: colors.textFieldBG,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 15,
+                        ),
+                        child: SizedBox(
+                            height: 50,
+                            width: double.infinity,
+                            child: CommonButton(
+                                text: "SAVE ADDRESS",
+                                fontSize: 14,
+                                onClick: () {
+                                  try {
+                                    Map data = {
+                                      "contact_person_name":
+                                          addressProvider.nameController.text,
+                                      "phone":
+                                          addressProvider.mobileController.text,
+                                      "alt_phone": addressProvider
+                                          .alternateMobileController.text,
+                                      "address":
+                                          addressProvider.houseController.text,
+                                      "address1":
+                                          addressProvider.roadController.text,
+                                      "country": addressProvider
+                                          .countryController.text,
+                                      "state":
+                                          addressProvider.stateController.text,
+                                      "city":
+                                          addressProvider.cityController.text,
+                                      "zip": addressProvider
+                                          .pinCodeController.text,
+                                      "latitude": addressProvider.latitude
+                                                  .toString() ==
+                                              ""
+                                          ? "0.0"
+                                          : addressProvider.latitude.toString(),
+                                      "longitude": addressProvider.longitude
+                                                  .toString() ==
+                                              ""
+                                          ? "0.0"
+                                          : addressProvider.longitude
+                                              .toString(),
+                                      "address_type": selectedOption,
+                                      "is_billing": "1"
+                                    };
+                                    if (addressProvider.nameController.text ==
+                                        "") {
+                                      addressProvider.showAlert(
+                                          context, "Name");
+                                      return;
+                                    } else if (addressProvider
+                                            .mobileController.text ==
+                                        "") {
+                                      addressProvider.showAlert(
+                                          context, "Mobile Number");
+                                      return;
+                                    } else if (addressProvider
+                                            .houseController.text ==
+                                        "") {
+                                      addressProvider.showAlert(
+                                          context, "House number");
+                                      return;
+                                    } else if (addressProvider
+                                            .roadController.text ==
+                                        "") {
+                                      addressProvider.showAlert(
+                                          context, "Road name");
+                                      return;
+                                    } else if (addressProvider
+                                            .countryController.text ==
+                                        "") {
+                                      addressProvider.showAlert(
+                                          context, "Country name");
+                                      return;
+                                    } else if (addressProvider
+                                            .stateController.text ==
+                                        "") {
+                                      addressProvider.showAlert(
+                                          context, "State name");
+                                      return;
+                                    } else if (addressProvider
+                                            .cityController.text ==
+                                        "") {
+                                      addressProvider.showAlert(
+                                          context, "City name");
+                                      return;
+                                    } else if (addressProvider
+                                            .pinCodeController.text ==
+                                        "") {
+                                      addressProvider.showAlert(
+                                          context, "Pincode");
+                                      return;
+                                    }
+                                    print(data);
+
+                                    addressProvider.addAddress(context, data);
+                                  } catch (vat) {
+                                    print(vat.toString());
+                                  }
+                                  //print(data);
+
+                                  // Routes.navigateToPreviousScreen(context);
+                                })),
                       ),
-                      child: SizedBox(
-                          height: 50,
-                          width: double.infinity,
-                          child: CommonButton(
-                              text: "SAVE ADDRESS",
-                              fontSize: 14,
-                              onClick: () {
-                                Routes.navigateToPreviousScreen(context);
-                              })),
                     ),
                   ),
                 ),

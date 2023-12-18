@@ -7,11 +7,11 @@ import '../../utils/routes.dart';
 categoryDetailCard({required BuildContext context}) {
   return InkWell(
     onTap: () {
-      Routes.navigateToProductDetailPageScreen(context);
+      //Routes.navigateToProductDetailPageScreen(context);
     },
     child: Container(
-      height: MediaQuery.of(context).size.height*0.25,
-      width: MediaQuery.of(context).size.width*0.42,
+      height: MediaQuery.of(context).size.height * 0.25,
+      width: MediaQuery.of(context).size.width * 0.42,
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           gradient: LinearGradient(

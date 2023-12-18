@@ -1,6 +1,10 @@
 import 'package:alpha_ecommerce_18oct/utils/constant.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/images.dart';
 import '../../../utils/routes.dart';
@@ -9,8 +13,13 @@ import '../../widget_common/common_button.dart';
 import '../../widget_common/toast_message.dart';
 
 class OTPVerification extends StatefulWidget {
-  final bool signIn;
-  const OTPVerification({Key? key, required this.signIn}) : super(key: key);
+  final bool isComingForLogin;
+  final bool isComingFromForgotPassword;
+  const OTPVerification(
+      {Key? key,
+      required this.isComingForLogin,
+      required this.isComingFromForgotPassword})
+      : super(key: key);
 
   @override
   State<OTPVerification> createState() => _OTPVerificationState();
@@ -24,6 +33,12 @@ class _OTPVerificationState extends State<OTPVerification> {
 
   @override
   Widget build(BuildContext context) {
+    var mobile = SharedPref.shared.pref!.getString(PrefKeys.mobile);
+    final authViewModel = Provider.of<AuthViewModel>(context);
+    var otp = SharedPref.shared.pref!.getString(PrefKeys.otp);
+    for (int i = 0; i < otp!.length; i++) {
+      otpControllers[i].text = otp[i];
+    }
     return Scaffold(
       key: _scaffoldKey,
       extendBody: true,
@@ -59,11 +74,11 @@ class _OTPVerificationState extends State<OTPVerification> {
                               padding: EdgeInsets.only(
                                   right:
                                       MediaQuery.of(context).size.width * 0.1),
-                              child: const Text(
-                                "OTP Verification",
+                              child: Text(
+                                translation(context).otpverification,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: colors.textColor, fontSize: 20),
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 20),
                               ),
                             ),
                           ),
@@ -80,21 +95,23 @@ class _OTPVerificationState extends State<OTPVerification> {
                   height: 90,
                   width: 120,
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   child: Text(
-                    otp1,
-                    style: TextStyle(
+                    translation(context).enterverificationcode,
+                    style: const TextStyle(
                         color: colors.textColor,
                         fontSize: 28,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Text(
-                    otp2,
-                    style: TextStyle(
+                    "${translation(context).entertheotpsentto} $mobile",
+                    style: const TextStyle(
                       color: colors.lightTextColor,
                       fontSize: 16,
                     ),
@@ -156,14 +173,18 @@ class _OTPVerificationState extends State<OTPVerification> {
                               height: 50,
                               width: double.infinity,
                               child: CommonButton(
-                                text: "Verify",
+                                text: translation(context).verify,
                                 fontSize: 18,
                                 onClick: () {
                                   if (_formKey.currentState!.validate()) {
-                                    widget.signIn
-                                        ? Routes.navigateToSignUpScreen(context)
-                                        : Routes.navigateToResetPasswordScreen(
-                                            context);
+                                    var enterdOTp = authViewModel
+                                        .retrieveStringFromControllers(
+                                            otpControllers);
+                                    authViewModel.verifyOTP(
+                                        widget.isComingForLogin,
+                                        context,
+                                        enterdOTp,
+                                        widget.isComingFromForgotPassword);
                                   }
                                 },
                               ),
@@ -174,20 +195,23 @@ class _OTPVerificationState extends State<OTPVerification> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Text(
-                                    otp3,
-                                    style: TextStyle(
+                                  Text(
+                                    translation(context).didntReceivedOTP,
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         color: colors.lightTextColor),
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      showToastMessage(
-                                          "Verification code was sent successfully");
+                                      Map data = {
+                                        'phone': mobile,
+                                        'fcm_id': "",
+                                      };
+                                      authViewModel.resendOTP(data, context);
                                     },
-                                    child: const Text(
-                                      "Resend OTP",
-                                      style: TextStyle(
+                                    child: Text(
+                                      translation(context).resendOTP,
+                                      style: const TextStyle(
                                           fontSize: 14,
                                           color: colors.buttonColor,
                                           fontWeight: FontWeight.bold),
@@ -208,19 +232,23 @@ class _OTPVerificationState extends State<OTPVerification> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        widget.signIn ? signIn5 : signIn4,
+                        widget.isComingForLogin
+                            ? translation(context).alreadyhaveanaccount
+                            : translation(context).dontHaveanaccount,
                         style: const TextStyle(
                             fontSize: 14, color: colors.textColor),
                       ),
                       InkWell(
                         onTap: () {
-                          widget.signIn
+                          widget.isComingForLogin
                               ? Routes.navigateToSignInScreen(context)
                               : Routes.navigateToVerifyNumberScreen(
                                   context, true);
                         },
                         child: Text(
-                          widget.signIn ? 'Sign In' : 'Sign Up',
+                          widget.isComingForLogin
+                              ? translation(context).signIn
+                              : translation(context).signUp,
                           style: const TextStyle(
                             fontSize: 14,
                             color: colors.buttonColor,

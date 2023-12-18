@@ -1,5 +1,10 @@
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/currencyViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/languageViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 import '../profile/setting/languageSelection.dart';
@@ -12,8 +17,23 @@ class SelectLanguageWidget extends StatefulWidget {
 }
 
 class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
+  late LanguageViewModel languageModel;
+  late CurrencyViewModel currencyViewModel;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    languageModel = Provider.of<LanguageViewModel>(context, listen: false);
+    currencyViewModel = Provider.of<CurrencyViewModel>(context, listen: false);
+    languageModel.getLanguages(context);
+    currencyViewModel.getCurrencies(context);
+  }
+
   @override
   Widget build(BuildContext context) {
+    var languageModel = Provider.of<LanguageViewModel>(context);
+
     return Stack(
       children: [
         Align(
@@ -52,8 +72,13 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
           ),
           body: Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: const SingleChildScrollView(
-              child: LanguageWidget(label: "Choose your Language"),
+            child: SingleChildScrollView(
+              child: languageModel.isLoading
+                  ? appLoader()
+                  : LanguageWidget(
+                      label: "Choose your Language",
+                      model: languageModel.model,
+                    ),
             ),
           ),
         ),

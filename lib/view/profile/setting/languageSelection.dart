@@ -1,3 +1,6 @@
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/view/language/language.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/languageViewModel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,39 +9,31 @@ import '../../../provider/language_provider.dart';
 
 class LanguageWidget extends StatefulWidget {
   final String label;
-  const LanguageWidget({super.key, required this.label});
+  final LanguageModel model;
+  const LanguageWidget({super.key, required this.label, required this.model});
 
   @override
   State<LanguageWidget> createState() => _LanguageWidgetState();
 }
 
 class _LanguageWidgetState extends State<LanguageWidget> {
-  List<String> languageList = [
-    'English',
-    'Germane',
-    'Italian',
-    'Chanzies',
-    'Bangla',
-    'Spanish',
-    'French',
-    'Portuguese',
-    'Arabic',
-    'Russian',
-    'Japanese'
-  ];
-  String selectedValue = 'English';
-  final ValueNotifier<List<String>> selected = ValueNotifier<List<String>>([]);
+  String selectedValue = '';
+  List<Datum> languageList = [];
+  final ValueNotifier<List<Datum>> selected = ValueNotifier<List<Datum>>([]);
 
   @override
   void initState() {
+    languageList = widget.model.data;
+
     selected.value.addAll(languageList);
+    selectedValue = languageList[0].name;
+    print(languageList.length.toString() + "Language list");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final languageProvider =
-        Provider.of<LanguageProvider>(context, listen: false);
+    final languageModel = Provider.of<LanguageViewModel>(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,6 +61,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
               selected.value = [];
               for (var i = 0; i < languageList.length; i++) {
                 if (languageList[i]
+                    .name
                     .toLowerCase()
                     .contains(value.toLowerCase())) {
                   selected.value.add(languageList[i]);
@@ -118,16 +114,19 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                   return ListTile(
                     onTap: () {
                       setState(() {
-                        selectedValue = selected.value[index];
-                        languageProvider.setLanguage(selected.value[index]);
-                        // Routes.navigateToPreviousScreen(context);
+                        selectedValue = selected.value[index].name;
+                        SharedPref.shared.pref?.setString(
+                            PrefKeys.selectedLanguageID,
+                            selected.value[index].id);
+                        languageModel.setLanguage(selected.value[index].name,
+                            context, Locale(selected.value[index].code, ""));
                       });
                     },
                     title: Text(
-                      selected.value[index],
+                      selected.value[index].name,
                       style: const TextStyle(fontSize: 14, color: Colors.white),
                     ),
-                    trailing: selected.value[index] == selectedValue
+                    trailing: selected.value[index].name == selectedValue
                         ? const Icon(
                             Icons.check,
                             color: colors.lightButton,

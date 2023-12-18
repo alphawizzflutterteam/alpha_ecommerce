@@ -10,18 +10,21 @@ import 'package:alpha_ecommerce_18oct/view/greet/pay_success.dart';
 import 'package:alpha_ecommerce_18oct/view/greet/wallet_money_added.dart';
 import 'package:alpha_ecommerce_18oct/view/greet/welcome.dart';
 import 'package:alpha_ecommerce_18oct/view/home/home.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/language_selection/language_selection.dart';
 import 'package:alpha_ecommerce_18oct/view/offer/offer.dart';
-import 'package:alpha_ecommerce_18oct/view/order/cancelOrderPopup.dart';
 import 'package:alpha_ecommerce_18oct/view/order/orderCancelled.dart';
 import 'package:alpha_ecommerce_18oct/view/order/orderDetailOnTheWay.dart';
 import 'package:alpha_ecommerce_18oct/view/order/orderReturned.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/productDetailPage.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/aboutUs/aboutUs.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/address/addressList.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/address/editAddress.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/address/manage_address.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/address/model/addressModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/chat/chat.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/contactUs/contactUs.dart';
-import 'package:alpha_ecommerce_18oct/view/profile/coupon/coupon.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/coupon/couponScreen.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/editProfile/editProfile.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/faqs/faqs.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/transactionHistory.dart';
@@ -37,6 +40,7 @@ import 'package:alpha_ecommerce_18oct/view/profile/referEarn/referEarn.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/setting/setting.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/shippingPolicy/shippingPolicy.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/subscribe/subscribe.dart';
+import 'package:alpha_ecommerce_18oct/view/vendor/model/vendorModel.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/vendor.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/vendorDetails.dart';
 import 'package:flutter/cupertino.dart';
@@ -60,12 +64,15 @@ import '../view/search/search.dart';
 GlobalKey<DashboardState>? dashboardPageState;
 
 class Routes {
-  static navigateToOTPVerificationScreen(BuildContext context, page) {
+  static navigateToOTPVerificationScreen(
+      BuildContext context, bool page, bool isComingFromForgotPassword) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) =>
-            OTPVerification(signIn: page),
+        pageBuilder: (context, animation1, animation2) => OTPVerification(
+          isComingForLogin: page,
+          isComingFromForgotPassword: isComingFromForgotPassword,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -84,8 +91,31 @@ class Routes {
   }
 
   static navigateToSignInScreen(BuildContext context) {
-    Navigator.of(context).pushAndRemoveUntil(
-        CupertinoPageRoute(builder: (context) => SignIn()),
+    Navigator.pushAndRemoveUntil(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) => const SignIn(),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ),
+        (Route<dynamic> route) => false);
+
+    // Navigator.of(context).pushAndRemoveUntil(
+    //     CupertinoPageRoute(builder: (context) => SignIn()),
+    //     (Route<dynamic> route) => false);
+  }
+
+  static navigateToIntroScreen(BuildContext context) {
+    // Navigator.of(context).pushAndRemoveUntil(
+    //     CupertinoPageRoute(builder: (context) => IntroSlider()),
+    //     (Route<dynamic> route) => false);
+    Navigator.pushAndRemoveUntil(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) => const IntroSlider(),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ),
         (Route<dynamic> route) => false);
     // Navigator.push(
     //   context,
@@ -131,12 +161,12 @@ class Routes {
     );
   }
 
-  static navigateToVerifyNumberScreen(BuildContext context, signIn) {
+  static navigateToVerifyNumberScreen(BuildContext context, forSignUp) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) =>
-            VerifyNumber(signIn: signIn),
+            VerifyNumber(forSignUp: forSignUp),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -179,18 +209,23 @@ class Routes {
     );
   }
 
-  static navigateToDashboardScreen(BuildContext context) {
+  static navigateToDashboardScreen(BuildContext context, int index) {
     Navigator.of(context).pushAndRemoveUntil(
-        CupertinoPageRoute(builder: (context) => Dashboard()),
+        CupertinoPageRoute(
+            builder: (context) => Dashboard(
+                  index: index,
+                )),
         (Route<dynamic> route) => false);
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => Dashboard(),
-        transitionDuration: Duration.zero,
-        reverseTransitionDuration: Duration.zero,
-      ),
-    );
+    // Navigator.push(
+    //   context,
+    //   PageRouteBuilder(
+    //     pageBuilder: (context, animation1, animation2) => Dashboard(
+    //       index: index,
+    //     ),
+    //     transitionDuration: Duration.zero,
+    //     reverseTransitionDuration: Duration.zero,
+    //   ),
+    // );
   }
 
   static navigateToCurrencyScreen(BuildContext context, condition) {
@@ -200,24 +235,15 @@ class Routes {
                   signIn: condition,
                 )),
         (Route<dynamic> route) => false);
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) =>
-            SelectionCurrencyWidget(
-          signIn: condition,
-        ),
-        transitionDuration: Duration.zero,
-        reverseTransitionDuration: Duration.zero,
-      ),
-    );
   }
 
-  static navigateToBottomNavScreen(BuildContext context) {
+  static navigateToBottomNavScreen(BuildContext context, int index) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const BottomNavPage(),
+        pageBuilder: (context, animation1, animation2) => BottomNavPage(
+          index: index,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -287,7 +313,7 @@ class Routes {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) =>
-            const SelectLanguageWidget(),
+            SelectLanguageWidget(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -316,11 +342,37 @@ class Routes {
     );
   }
 
+  static navigateToEditAddressScreen(
+      BuildContext context, AddressList addressList) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => EditAddress(
+          addressList: addressList,
+        ),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
   static navigateToManageAddressScreen(BuildContext context) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) => const ManageAddress(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
+  static navigateToAddressListScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const AddressListScreen(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -342,7 +394,7 @@ class Routes {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const Coupon(),
+        pageBuilder: (context, animation1, animation2) => const CouponScreen(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -587,12 +639,14 @@ class Routes {
     );
   }
 
-  static navigateToProductDetailPageScreen(BuildContext context) {
+  static navigateToProductDetailPageScreen(
+      BuildContext context, ProductList model) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) =>
-            const ProductDetailPage(),
+        pageBuilder: (context, animation1, animation2) => ProductDetailPage(
+          model: model,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -621,11 +675,14 @@ class Routes {
     );
   }
 
-  static navigateToVendorDetailsScreen(BuildContext context) {
+  static navigateToVendorDetailsScreen(
+      BuildContext context, VendorDatum model) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const VendorDetails(),
+        pageBuilder: (context, animation1, animation2) => VendorDetails(
+          model: model,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/view/vendor/model/vendorModel.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/vendorDetailCard.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
@@ -11,7 +12,8 @@ import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
 
 class VendorDetails extends StatefulWidget {
-  const VendorDetails({Key? key}) : super(key: key);
+  final VendorDatum model;
+  const VendorDetails({Key? key, required this.model}) : super(key: key);
 
   @override
   State<VendorDetails> createState() => _VendorDetailsState();
@@ -67,12 +69,14 @@ class _VendorDetailsState extends State<VendorDetails> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, top: 10),
-                                    child: Image.asset(
-                                      Images.vendor,
-                                      width: 30,
-                                      height: 30,
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Image.network(
+                                        widget.model.image,
+                                        width: 48,
+                                        height: 48,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(width: 20),
@@ -90,9 +94,9 @@ class _VendorDetailsState extends State<VendorDetails> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const Text(
-                                              "Best Mart",
-                                              style: TextStyle(
+                                            Text(
+                                              widget.model.name,
+                                              style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15,
                                               ),
@@ -125,21 +129,21 @@ class _VendorDetailsState extends State<VendorDetails> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Column(
+                                  Column(
                                     children: [
                                       Row(
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.star,
                                             color: Colors.orange,
                                             size: 16,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           ),
                                           Text(
-                                            "4.3",
-                                            style: TextStyle(
+                                            widget.model.rating,
+                                            style: const TextStyle(
                                               color: Colors.orange,
                                               fontSize: 14,
                                             ),
@@ -156,14 +160,14 @@ class _VendorDetailsState extends State<VendorDetails> {
                                   const SizedBox(
                                     width: 40,
                                   ),
-                                  const Column(
+                                  Column(
                                     children: [
                                       Text(
-                                        "167 ",
-                                        style: TextStyle(
+                                        widget.model.followers,
+                                        style: const TextStyle(
                                             color: Colors.white, fontSize: 15),
                                       ),
-                                      Text(
+                                      const Text(
                                         "Follower",
                                         style: TextStyle(
                                             color: colors.greyText,
@@ -194,18 +198,20 @@ class _VendorDetailsState extends State<VendorDetails> {
                             const SizedBox(
                               height: 10,
                             ),
-                            const Text(
-                              "Comeron Williamson",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
+                            Text(
+                              widget.model.address,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 12),
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const Text(
-                              "B502 Preston Rd. Inglewood, Maine 98380",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
+                            widget.model.contact != ""
+                                ? const SizedBox(
+                                    height: 10,
+                                  )
+                                : Container(),
+                            Text(
+                              widget.model.contact,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 12),
                             ),
                             const SizedBox(
                               height: 10,
@@ -325,35 +331,35 @@ class _VendorDetailsState extends State<VendorDetails> {
                                                   fontSize: 18),
                                             ),
                                             const SizedBox(height: 10),
-                                            SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.55,
-                                              child: GridView.builder(
-                                                shrinkWrap: true,
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 20),
-                                                physics:
-                                                    const AlwaysScrollableScrollPhysics(),
-                                                gridDelegate:
-                                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                                  crossAxisCount: 2,
-                                                  mainAxisSpacing: 2,
-                                                  childAspectRatio: 0.7,
-                                                ),
-                                                itemCount: categories[i]
-                                                    .categoryList
-                                                    .length,
-                                                itemBuilder: (context, j) {
-                                                  return categoryCard(
-                                                      context: context,
-                                                      categoryIndex: i,
-                                                      categoryListIndex: j);
-                                                },
-                                              ),
-                                            )
+                                            // SizedBox(
+                                            //   height: MediaQuery.of(context)
+                                            //           .size
+                                            //           .height *
+                                            //       0.55,
+                                            //   child: GridView.builder(
+                                            //     shrinkWrap: true,
+                                            //     padding:
+                                            //         const EdgeInsets.symmetric(
+                                            //             vertical: 20),
+                                            //     physics:
+                                            //         const AlwaysScrollableScrollPhysics(),
+                                            //     gridDelegate:
+                                            //         const SliverGridDelegateWithFixedCrossAxisCount(
+                                            //       crossAxisCount: 2,
+                                            //       mainAxisSpacing: 2,
+                                            //       childAspectRatio: 0.7,
+                                            //     ),
+                                            //     itemCount: categories[i]
+                                            //         .categoryList
+                                            //         .length,
+                                            //     itemBuilder: (context, j) {
+                                            //       return categoryCard(
+                                            //           context: context,
+                                            //           categoryIndex: i,
+                                            //           categoryListIndex: j,model: );
+                                            //     },
+                                            //   ),
+                                            // )
                                           ],
                                         ),
                                       );

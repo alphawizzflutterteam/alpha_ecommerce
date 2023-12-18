@@ -42,7 +42,7 @@ class DashboardHeader extends StatelessWidget {
                         width: 25,
                       )),
                   const SizedBox(
-                    width: 5,
+                    width: 12,
                   ),
                   InkWell(
                       onTap: () {
@@ -50,8 +50,8 @@ class DashboardHeader extends StatelessWidget {
                       },
                       child: Image.asset(
                         Images.notification,
-                        height: 30,
-                        width: 30,
+                        height: 25,
+                        width: 25,
                       )),
                 ],
               ),
@@ -142,33 +142,35 @@ class InternalDetailPageHeader extends StatelessWidget {
                 )),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Routes.navigateToSearchScreen(context);
-                    },
-                    child: Image.asset(
-                      Images.search,
-                      height: 25,
-                      width: 25,
+              child: Visibility(
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Routes.navigateToSearchScreen(context);
+                      },
+                      child: Image.asset(
+                        Images.search,
+                        height: 25,
+                        width: 25,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Routes.navigateToCartScreen(context);
-                      // const BottomNavPage(index: 0);
-                    },
-                    child: Image.asset(
-                      Images.headerCart,
-                      height: 30,
-                      width: 30,
+                    const SizedBox(
+                      width: 5,
                     ),
-                  ),
-                ],
+                    InkWell(
+                      onTap: () {
+                        Routes.navigateToCartScreen(context);
+                        // const BottomNavPage(index: 0);
+                      },
+                      child: Image.asset(
+                        Images.headerCart,
+                        height: 30,
+                        width: 30,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )
           ],

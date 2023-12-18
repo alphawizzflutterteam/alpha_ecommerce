@@ -1,5 +1,8 @@
 import 'package:alpha_ecommerce_18oct/utils/constant.dart';
+import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/images.dart';
 import '../../../utils/routes.dart';
@@ -26,6 +29,8 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
+
     return Scaffold(
       key: _scaffoldKey,
       extendBody: true,
@@ -59,11 +64,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                           child: Padding(
                             padding: EdgeInsets.only(
                                 right: MediaQuery.of(context).size.width * 0.1),
-                            child: const Text(
-                              "Reset Password",
+                            child: Text(
+                              translation(context).changepassword,
                               textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 20),
                             ),
                           ),
                         ),
@@ -113,7 +118,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         obscureText: obscureText,
                         validator: validatePassword,
                         decoration: InputDecoration(
-                          labelText: 'Create New Password',
+                          labelText: translation(context).createpassword,
                           filled: true,
                           fillColor: colors.textFieldBG,
                           suffixIcon: GestureDetector(
@@ -249,7 +254,19 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 fontSize: 18,
                                 onClick: () {
                                   if (_formKey.currentState!.validate()) {
-                                    Routes.navigateToSignInScreen(context);
+                                    if (authViewModel.matchPassword(
+                                        passwordController.text,
+                                        confirmPasswordController.text)) {
+                                      Map data = {
+                                        'password': passwordController.text,
+                                        "confirm_password":
+                                            confirmPasswordController.text
+                                      };
+
+                                      authViewModel.resetPasswordApi(
+                                          data, context);
+                                    }
+                                    // Routes.navigateToSignInScreen(context);
                                   }
                                 },
                               )),

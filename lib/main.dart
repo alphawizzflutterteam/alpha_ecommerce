@@ -1,61 +1,108 @@
-import 'package:alpha_ecommerce_18oct/provider/authentication_provider.dart';
-import 'package:alpha_ecommerce_18oct/provider/currency_provider.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/categoryViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/couponViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/currencyViewModel.dart';
 import 'package:alpha_ecommerce_18oct/provider/home_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/language_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/setting_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/theme_provider.dart';
 import 'package:alpha_ecommerce_18oct/provider/user_provider.dart';
 import 'package:alpha_ecommerce_18oct/view/dashboard/dashboard.dart';
-import 'package:alpha_ecommerce_18oct/view/intro_slider/intro_slider.dart';
+import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
+import 'package:alpha_ecommerce_18oct/view/splash/splashScreen.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/languageViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/productViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/splashViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/vendorViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'utils/color.dart';
 import 'utils/constant.dart';
 import 'utils/routes.dart';
 import 'utils/shared_pref..dart';
 import 'utils/string.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsFlutterBinding.ensureInitialized();
   await SharedPref.shared.getPref();
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider<ThemeNotifier>(
-      create: (BuildContext context) {
-        String? theme = SharedPref.shared.pref?.getString(PrefKeys.appTheme);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((value) => runApp(MultiProvider(providers: [
+        ChangeNotifierProvider<ThemeNotifier>(
+          create: (BuildContext context) {
+            String? theme =
+                SharedPref.shared.pref?.getString(PrefKeys.appTheme);
 
-        if (theme == DARK) {
-          ISDARK = 'true';
-        } else if (theme == LIGHT) {
-          ISDARK = 'false';
-        }
+            if (theme == DARK) {
+              ISDARK = 'true';
+            } else if (theme == LIGHT) {
+              ISDARK = 'false';
+            }
 
-        if (theme == null || theme == '' || theme == DEFAULT_SYSTEM) {
-          SharedPref.shared.pref?.setString(APP_THEME, DEFAULT_SYSTEM);
-          var brightness =
-              SchedulerBinding.instance.platformDispatcher.platformBrightness;
-          ISDARK = (brightness == Brightness.dark).toString();
+            if (theme == null || theme == '' || theme == DEFAULT_SYSTEM) {
+              SharedPref.shared.pref?.setString(APP_THEME, DEFAULT_SYSTEM);
+              var brightness = SchedulerBinding
+                  .instance.platformDispatcher.platformBrightness;
+              ISDARK = (brightness == Brightness.dark).toString();
 
-          return ThemeNotifier(ThemeMode.system);
-        }
+              return ThemeNotifier(ThemeMode.system);
+            }
 
-        return ThemeNotifier(theme == LIGHT ? ThemeMode.light : ThemeMode.dark);
-      },
-    ),
-    Provider<SettingProvider>(
-      create: (context) => SettingProvider(SharedPref.shared.pref!),
-    ),
-    ChangeNotifierProvider<UserProvider>(create: (context) => UserProvider()),
-    ChangeNotifierProvider<AuthenticationProvider>(
-        create: (context) => AuthenticationProvider()),
-    ChangeNotifierProvider<HomeProvider>(create: (context) => HomeProvider()),
-    ChangeNotifierProvider<LanguageProvider>(
-        create: (context) => LanguageProvider()),
-    ChangeNotifierProvider<CurrencyProvider>(
-        create: (context) => CurrencyProvider()),
-  ], child: MyApp()));
+            return ThemeNotifier(
+                theme == LIGHT ? ThemeMode.light : ThemeMode.dark);
+          },
+        ),
+        Provider<SettingProvider>(
+          create: (context) => SettingProvider(SharedPref.shared.pref!),
+        ),
+        ChangeNotifierProvider<UserProvider>(
+            create: (context) => UserProvider()),
+        ChangeNotifierProvider<AuthViewModel>(
+            create: (context) => AuthViewModel()),
+        ChangeNotifierProvider<HomeViewModel>(
+            create: (context) => HomeViewModel()),
+        ChangeNotifierProvider<VendorViewModel>(
+            create: (context) => VendorViewModel()),
+        ChangeNotifierProvider<ProductDetailViewModel>(
+            create: (context) => ProductDetailViewModel()),
+        ChangeNotifierProvider<CategoryViewModel>(
+            create: (context) => CategoryViewModel()),
+        ChangeNotifierProvider<SearchViewModel>(
+            create: (context) => SearchViewModel()),
+        ChangeNotifierProvider<CartViewModel>(
+            create: (context) => CartViewModel()),
+        ChangeNotifierProvider<CouponViewModel>(
+            create: (context) => CouponViewModel()),
+        ChangeNotifierProvider<LanguageViewModel>(
+            create: (context) => LanguageViewModel()),
+        ChangeNotifierProvider<SplashViewModel>(
+            create: (context) => SplashViewModel()),
+        ChangeNotifierProvider<HomeProvider>(
+            create: (context) => HomeProvider()),
+        ChangeNotifierProvider<LanguageProvider>(
+            create: (context) => LanguageProvider()),
+        ChangeNotifierProvider<ProfileViewModel>(
+            create: (context) => ProfileViewModel()),
+        ChangeNotifierProvider<CurrencyViewModel>(
+            create: (context) => CurrencyViewModel()),
+        ChangeNotifierProvider<OrderViewModel>(
+            create: (context) => OrderViewModel()),
+        ChangeNotifierProvider<LocationProvider>(
+            create: (context) => LocationProvider()),
+        ChangeNotifierProvider<AddressViewModel>(
+            create: (context) => AddressViewModel()),
+      ], child: const MyApp())));
 }
 
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
@@ -89,14 +136,15 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    initialization();
-    dashboardPageState = GlobalKey<DashboardState>();
+  void didChangeDependencies() {
+    getLocale().then((locale) => {setLocale(locale)});
+    super.didChangeDependencies();
   }
 
-  void initialization() async {
-    FlutterNativeSplash.remove();
+  @override
+  void initState() {
+    super.initState();
+    dashboardPageState = GlobalKey<DashboardState>();
   }
 
   @override
@@ -104,6 +152,12 @@ class _MyAppState extends State<MyApp> {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     return MaterialApp(
       locale: _locale,
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       supportedLocales: const [
         Locale('en', 'US'),
         Locale('zh', 'CN'),
@@ -115,15 +169,6 @@ class _MyAppState extends State<MyApp> {
         Locale('ja', 'JP'),
         Locale('de', 'DE'),
       ],
-      localeResolutionCallback: (locale, supportedLocales) {
-        for (var supportedLocale in supportedLocales) {
-          if (supportedLocale.languageCode == locale!.languageCode &&
-              supportedLocale.countryCode == locale.countryCode) {
-            return supportedLocale;
-          }
-        }
-        return supportedLocales.first;
-      },
       title: appName,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
@@ -156,16 +201,12 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute:
-          // SharedPref.shared.pref?.getString(PrefKeys.isLoggedIn) == "0"
-          //     ?
-          '/'
-      //     :
-      // "/home"
-      ,
+      initialRoute: '/',
       routes: {
-        '/': (context) => const IntroSlider(),
-        '/home': (context) => const Dashboard(),
+        '/': (context) => const SplashScreen(),
+        '/home': (context) => const Dashboard(
+              index: 2,
+            ),
       },
       darkTheme: ThemeData(
         canvasColor: colors.darkColor,
