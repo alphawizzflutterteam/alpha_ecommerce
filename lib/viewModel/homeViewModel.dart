@@ -12,7 +12,9 @@ import 'package:alpha_ecommerce_18oct/view/home/models/filtersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/specialOffersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/wishlist/model/wishlistModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeViewModel with ChangeNotifier {
   bool isLoading = false;
@@ -22,6 +24,7 @@ class HomeViewModel with ChangeNotifier {
   List<ProductList> productsModel = [];
 
   List<SpecialOffersList> specialOffersModel = [];
+
   List<BannersList> bannersListTop = [];
   List<DailyDealsModelList> dailyDealsModel = [];
   List<CategoryList> categoriesModel = [];
@@ -79,26 +82,26 @@ class HomeViewModel with ChangeNotifier {
     });
   }
 
-  Future<void> getProductsList(
-      BuildContext context, String limit, String offset) async {
-    setLoading(true);
-    var userID = SharedPref.shared.pref!.getString(PrefKeys.userId) ?? "";
-    await _myRepo
-        .productsListApi(
-            "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID")
-        .then((value) {
-      print(
-          "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID");
-      productsModel = value.products;
-      print(productsModel.length.toString() + "PRoduct length");
-      notifyListeners();
+  // Future<void> getProductsList(
+  //     BuildContext context, String limit, String offset) async {
+  //   setLoading(true);
+  //   var userID = SharedPref.shared.pref!.getString(PrefKeys.userId) ?? "";
+  //   await _myRepo
+  //       .productsListApi(
+  //           "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID")
+  //       .then((value) {
+  //     print(
+  //         "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID");
+  //     productsModel = value.products;
+  //     print(productsModel.length.toString() + "PRoduct length");
+  //     notifyListeners();
 
-      setLoading(false);
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      print(error.toString() + "Product error");
-    });
-  }
+  //     setLoading(false);
+  //   }).onError((error, stackTrace) {
+  //     setLoading(false);
+  //     print(error.toString() + "Product error");
+  //   });
+  // }
 
   Future<void> getCategories(BuildContext context) async {
     setLoading(true);
@@ -195,7 +198,9 @@ class HomeViewModel with ChangeNotifier {
     _myRepo.addToWishlist(AppUrl.addToWishlist, token, data).then((value) {
       setLoading(false);
 
-      getProductsList(context, "25", "1");
+      SearchViewModel searchProvider =
+          Provider.of<SearchViewModel>(context, listen: false);
+      searchProvider.getProductsListNew(context, "25", "1");
       getWishlistItem(context);
       Utils.showFlushBarWithMessage("Alert", value.message, context);
 
@@ -226,7 +231,9 @@ class HomeViewModel with ChangeNotifier {
         .then((value) {
       setLoading(false);
 
-      getProductsList(context, "25", "1");
+      SearchViewModel searchProvider =
+          Provider.of<SearchViewModel>(context, listen: false);
+      searchProvider.getProductsListNew(context, "25", "1");
       getWishlistItem(context);
       Utils.showFlushBarWithMessage("Alert", value.message, context);
 
@@ -260,7 +267,9 @@ class HomeViewModel with ChangeNotifier {
         Utils.showFlushBarWithMessage("Alert", value.message, context);
       }
 
-      getProductsList(context, "25", "1");
+      SearchViewModel searchProvider =
+          Provider.of<SearchViewModel>(context, listen: false);
+      searchProvider.getProductsListNew(context, "25", "1");
       print(value.message);
       getCartListItem(context);
       getWishlistItem(context);
@@ -283,7 +292,9 @@ class HomeViewModel with ChangeNotifier {
       setLoading(false);
       Utils.showFlushBarWithMessage("Alert", value.message, context);
 
-      getProductsList(context, "25", "1");
+      SearchViewModel searchProvider =
+          Provider.of<SearchViewModel>(context, listen: false);
+      searchProvider.getProductsListNew(context, "25", "1");
       getCartListItem(context);
       getWishlistItem(context);
 

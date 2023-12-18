@@ -62,7 +62,7 @@ productForYouCardSearch(
                       ),
                     ),
                     LikeButton(
-                      onTap: (isLiked) {
+                      onTap: (isLiked) async {
                         Map data = {'product_id': model.id.toString()};
                         if (isLiked) {
                           return homeProvider.removeFromWishlist(data, context);
@@ -96,6 +96,8 @@ productForYouCardSearch(
                 ),
                 child: Text(
                   model.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
