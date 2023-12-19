@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 
 class CancelOrderPopup extends StatefulWidget {
-  const CancelOrderPopup({super.key});
+  final String order_id;
+
+  const CancelOrderPopup({super.key, required this.order_id});
 
   @override
   _CancelOrderPopupState createState() => _CancelOrderPopupState();
@@ -116,7 +118,8 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
                   ),
                   onPressed: () {
                     Routes.navigateToPreviousScreen(context);
-                    Routes.navigateToOrderCancelledScreen(context);
+                    Routes.navigateToOrderCancelledScreen(
+                        context, widget.order_id);
                   },
                   child: const Text(
                     'CANCEL ORDER',

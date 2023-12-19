@@ -2,8 +2,7 @@
 class AppUrl {
   //https://alpha-ecom.developmentalphawizz.com
   //https://test-alpha-ecom.developmentalphawizz.com
-  static const baseURL =
-      "https://test-alpha-ecom.developmentalphawizz.com/api/v1/";
+  static const baseURL = "https://alpha-ecom.developmentalphawizz.com/api/v1/";
   static String sendLoginOtp = "${baseURL}auth/send-login-otp";
   static String sendRegisterOtp = "${baseURL}auth/send-otp";
   static String loginWithEmailPassword = "${baseURL}auth/login";
@@ -56,6 +55,7 @@ class AppUrl {
   static String deleteAddress = "${baseURL}customer/address?address_id=";
 
   static String orderList = "${baseURL}customer/order/list";
+  static String orderDetail = "${baseURL}customer/order/details";
 
   static String contactForm = "${baseURL}contact/store";
 

@@ -1,5 +1,7 @@
+import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:order_tracker/order_tracker.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 import '../../utils/routes.dart';
@@ -11,7 +13,9 @@ import '../widget_common/common_radioButton.dart';
 import 'cancelOrderPopup.dart';
 
 class OrderDetailOnTheWay extends StatefulWidget {
-  const OrderDetailOnTheWay({Key? key}) : super(key: key);
+  final String order_id;
+
+  const OrderDetailOnTheWay({super.key, required this.order_id});
 
   @override
   State<OrderDetailOnTheWay> createState() => _OrderDetailOnTheWayState();
@@ -19,17 +23,6 @@ class OrderDetailOnTheWay extends StatefulWidget {
 
 class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  List<String> reasons = [
-    'Changed My Mind',
-    'Found a Better Deal',
-    'Delay in Delivery',
-    'No longer Need the item',
-    'Technical Issues',
-    'Personal Emergency'
-  ];
-
-  String selectedReason = 'Changed My Mind';
 
   List<TextDto> orderList = [];
 
@@ -41,8 +34,17 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
 
   List<TextDto> deliveredList = [];
 
+  late OrderViewModel detailProvider;
+  @override
+  void initState() {
+    super.initState();
+    detailProvider = Provider.of<OrderViewModel>(context, listen: false);
+    detailProvider.getOrderDetail(context, widget.order_id);
+  }
+
   @override
   Widget build(BuildContext context) {
+    var detailProvider = Provider.of<OrderViewModel>(context);
     return Stack(
       children: [
         const LightBackGround(),
@@ -74,19 +76,19 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                         child: Container(
                           height: 40,
                           margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Order ID - OID5266245375",
-                                style: TextStyle(
+                                "Order ID - ${detailProvider.detail.orderId}",
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
                                 ),
                               ),
                               Text(
-                                "SOLD BY : SELLER",
-                                style: TextStyle(
+                                "SOLD BY : ${detailProvider.detail.seller!.name}",
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
                                 ),
@@ -153,10 +155,10 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 10),
-                        child: const Column(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 10),
                               child: Text(
@@ -178,7 +180,8 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                         color: colors.greyText, fontSize: 12),
                                   ),
                                   Text(
-                                    "\$480.00",
+                                    detailProvider.detail.orderAmount
+                                        .toString(),
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 12),
                                   ),
@@ -186,20 +189,21 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 10),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Delivery free",
                                     style: TextStyle(
                                         color: colors.greyText, fontSize: 12),
                                   ),
                                   Text(
-                                    "\$20.00",
-                                    style: TextStyle(
+                                    detailProvider.detail.deliveryCharge
+                                        .toString(),
+                                    style: const TextStyle(
                                         color: Colors.white, fontSize: 12),
                                   ),
                                 ],
@@ -218,7 +222,8 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                         color: colors.greyText, fontSize: 12),
                                   ),
                                   Text(
-                                    "\$80.00",
+                                    detailProvider.detail.discountAmount
+                                        .toString(),
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 12),
                                   ),
@@ -244,7 +249,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                         color: Colors.white, fontSize: 14),
                                   ),
                                   Text(
-                                    "\$600.00",
+                                    detailProvider.detail.subtotal.toString(),
                                     style: TextStyle(
                                         color: colors.buttonColor,
                                         fontSize: 14),
@@ -264,7 +269,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 10),
-                        child: const Column(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
@@ -288,7 +293,8 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               child: Text(
-                                "2118 Thorridge Cir. Synmouse, Connection 35624",
+                                detailProvider.detail.shippingAddress!.address
+                                    .toString(),
                                 style: TextStyle(
                                     color: colors.lightTextColor, fontSize: 14),
                               ),
@@ -297,7 +303,9 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               child: Text(
-                                "Naman Pawar",
+                                detailProvider
+                                    .detail.shippingAddress!.contactPersonName
+                                    .toString(),
                                 style: TextStyle(
                                     color: colors.lightTextColor, fontSize: 14),
                               ),
@@ -306,7 +314,8 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               child: Text(
-                                "Indore",
+                                detailProvider.detail.shippingAddress!.city
+                                    .toString(),
                                 style: TextStyle(
                                     color: colors.lightTextColor, fontSize: 14),
                               ),
@@ -315,7 +324,8 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               child: Text(
-                                "MP - 452010",
+                                detailProvider.detail.shippingAddress!.zip
+                                    .toString(),
                                 style: TextStyle(
                                     color: colors.lightTextColor, fontSize: 14),
                               ),
@@ -324,7 +334,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               child: Text(
-                                "Phone - 4523671234",
+                                "Phone - ${detailProvider.detail.shippingAddress!.phone.toString()}",
                                 style: TextStyle(
                                     color: colors.lightTextColor, fontSize: 14),
                               ),
@@ -377,7 +387,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                         ),
                       ),
                       Container(
-                        height: 230,
+                        height: 240,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 15),
                         child: ListView(
@@ -493,86 +503,112 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.zero,
-          backgroundColor: Colors.transparent,
-          content: Container(
-            height: 83 * reasons.length.toDouble(),
-            width: 700,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.0),
-              color: colors.overlayBG,
-            ),
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  'Cancel order reason',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  height: 59 * reasons.length.toDouble(),
-                  child: Theme(
-                    data: ThemeData(unselectedWidgetColor: colors.greyText),
-                    child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: reasons.length,
-                      itemBuilder: (context, i) {
-                        return CommonRadioTile(
-                            options: selectedReason,
-                            name: reasons[i],
-                            onChanged: handleOptionChange);
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 200,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: colors.buttonColor,
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    onPressed: () {
-                      Routes.navigateToPreviousScreen(context);
-                      showCancelOrder(context);
-                    },
-                    child: const Text('DONE'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
+            contentPadding: EdgeInsets.zero,
+            backgroundColor: Colors.transparent,
+            content: CancelOrderDialogWidget(
+              order_id: widget.order_id,
+            ));
       },
     );
   }
+}
 
+class CancelOrderDialogWidget extends StatefulWidget {
+  final String order_id;
+
+  const CancelOrderDialogWidget({super.key, required this.order_id});
+
+  @override
+  State<CancelOrderDialogWidget> createState() =>
+      _CancelOrderDialogWidgetState();
+}
+
+class _CancelOrderDialogWidgetState extends State<CancelOrderDialogWidget> {
+  List<String> reasons = [
+    'Changed My Mind',
+    'Found a Better Deal',
+    'Delay in Delivery',
+    'No longer Need the item',
+    'Technical Issues',
+    'Personal Emergency'
+  ];
+
+  String selectedReason = 'Changed My Mind';
   void handleOptionChange(String value) {
     setState(() {
       selectedReason = value;
     });
   }
 
-  Future<void> showCancelOrder(context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return const AlertDialog(
-            contentPadding: EdgeInsets.zero,
-            backgroundColor: Colors.transparent,
-            content: CancelOrderPopup());
-      },
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 83 * reasons.length.toDouble(),
+      width: 700,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.0),
+        color: colors.overlayBG,
+      ),
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text(
+            'Cancel order reason',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+            ),
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            height: 59 * reasons.length.toDouble(),
+            child: Theme(
+              data: ThemeData(unselectedWidgetColor: colors.greyText),
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: reasons.length,
+                itemBuilder: (context, i) {
+                  return CommonRadioTile(
+                      options: selectedReason,
+                      name: reasons[i],
+                      onChanged: handleOptionChange);
+                },
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 200,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: colors.buttonColor,
+                onPrimary: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              onPressed: () {
+                Routes.navigateToPreviousScreen(context);
+                showDialog<void>(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                        contentPadding: EdgeInsets.zero,
+                        backgroundColor: Colors.transparent,
+                        content: CancelOrderPopup(
+                          order_id: widget.order_id,
+                        ));
+                  },
+                );
+              },
+              child: const Text('DONE'),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

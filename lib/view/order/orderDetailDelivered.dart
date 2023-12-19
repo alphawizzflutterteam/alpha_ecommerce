@@ -1,8 +1,10 @@
 import 'package:alpha_ecommerce_18oct/view/order/returnOrderPopup.dart';
 import 'package:alpha_ecommerce_18oct/view/order/writeReviewPopup.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:order_tracker/order_tracker.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 import '../../utils/routes.dart';
@@ -14,7 +16,9 @@ import '../widget_common/common_radioButton.dart';
 import '../widget_common/toast_message.dart';
 
 class OrderDetailDelivered extends StatefulWidget {
-  const OrderDetailDelivered({Key? key}) : super(key: key);
+  final String order_id;
+
+  const OrderDetailDelivered({super.key, required this.order_id});
 
   @override
   State<OrderDetailDelivered> createState() => _OrderDetailDeliveredState();
@@ -23,17 +27,6 @@ class OrderDetailDelivered extends StatefulWidget {
 class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   double rating = 4;
-
-  List<String> reasons = [
-    'Changed My Mind',
-    'Found a Better Deal',
-    'Delay in Delivery',
-    'No longer Need the item',
-    'Technical Issues',
-    'Personal Emergency'
-  ];
-
-  String selectedReason = 'Changed My Mind';
 
   List<TextDto> orderList = [];
 
@@ -45,8 +38,17 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
 
   List<TextDto> deliveredList = [];
 
+  late OrderViewModel detailProvider;
+  @override
+  void initState() {
+    super.initState();
+    detailProvider = Provider.of<OrderViewModel>(context, listen: false);
+    detailProvider.getOrderDetail(context, widget.order_id);
+  }
+
   @override
   Widget build(BuildContext context) {
+    detailProvider = Provider.of<OrderViewModel>(context);
     return Stack(
       children: [
         const LightBackGround(),
@@ -78,18 +80,18 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                         child: Container(
                           height: 40,
                           margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Order ID - OID5266245375",
+                                "Order ID - ${detailProvider.detail.orderId}",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
                                 ),
                               ),
                               Text(
-                                "SOLD BY : SELLER",
+                                "SOLD BY : ${detailProvider.detail.seller!.name}",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
@@ -157,7 +159,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 10),
-                        child: const Column(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
@@ -182,7 +184,8 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         color: colors.greyText, fontSize: 12),
                                   ),
                                   Text(
-                                    "\$480.00",
+                                    detailProvider.detail.orderAmount
+                                        .toString(),
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 12),
                                   ),
@@ -202,7 +205,8 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         color: colors.greyText, fontSize: 12),
                                   ),
                                   Text(
-                                    "\$20.00",
+                                    detailProvider.detail.deliveryCharge
+                                        .toString(),
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 12),
                                   ),
@@ -222,7 +226,8 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         color: colors.greyText, fontSize: 12),
                                   ),
                                   Text(
-                                    "\$80.00",
+                                    detailProvider.detail.discountAmount
+                                        .toString(),
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 12),
                                   ),
@@ -248,7 +253,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         color: Colors.white, fontSize: 14),
                                   ),
                                   Text(
-                                    "\$600.00",
+                                    detailProvider.detail.subtotal.toString(),
                                     style: TextStyle(
                                         color: colors.buttonColor,
                                         fontSize: 14),
@@ -309,7 +314,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 10),
-                        child: const Column(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
@@ -333,7 +338,8 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               child: Text(
-                                "2118 Thorridge Cir. Synmouse, Connection 35624",
+                                detailProvider.detail.shippingAddress!.address
+                                    .toString(),
                                 style: TextStyle(
                                     color: colors.lightTextColor, fontSize: 14),
                               ),
@@ -342,7 +348,9 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               child: Text(
-                                "Naman Pawar",
+                                detailProvider
+                                    .detail.shippingAddress!.contactPersonName
+                                    .toString(),
                                 style: TextStyle(
                                     color: colors.lightTextColor, fontSize: 14),
                               ),
@@ -351,7 +359,8 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               child: Text(
-                                "Indore",
+                                detailProvider.detail.shippingAddress!.city
+                                    .toString(),
                                 style: TextStyle(
                                     color: colors.lightTextColor, fontSize: 14),
                               ),
@@ -360,7 +369,8 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               child: Text(
-                                "MP - 452010",
+                                detailProvider.detail.shippingAddress!.zip
+                                    .toString(),
                                 style: TextStyle(
                                     color: colors.lightTextColor, fontSize: 14),
                               ),
@@ -369,7 +379,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               child: Text(
-                                "Phone - 4523671234",
+                                "Phone - ${detailProvider.detail.shippingAddress!.phone.toString()}",
                                 style: TextStyle(
                                     color: colors.lightTextColor, fontSize: 14),
                               ),
@@ -499,86 +509,9 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.zero,
-          backgroundColor: Colors.transparent,
-          content: Container(
-            width: 700,
-            height: 80 * reasons.length.toDouble(),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.0),
-              color: colors.overlayBG,
-            ),
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  'Cancel order reason',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  height: 57 * reasons.length.toDouble(),
-                  child: Theme(
-                    data: ThemeData(unselectedWidgetColor: colors.greyText),
-                    child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: reasons.length,
-                      itemBuilder: (context, i) {
-                        return CommonRadioTile(
-                            options: selectedReason,
-                            name: reasons[i],
-                            onChanged: handleOptionChange);
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 200,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: colors.buttonColor,
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    onPressed: () {
-                      Routes.navigateToPreviousScreen(context);
-                      showCancelReturned(context);
-                    },
-                    child: const Text('DONE'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  void handleOptionChange(String value) {
-    setState(() {
-      selectedReason = value;
-    });
-  }
-
-  Future<void> showCancelReturned(context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return const AlertDialog(
-            insetPadding: EdgeInsets.all(50),
             contentPadding: EdgeInsets.zero,
             backgroundColor: Colors.transparent,
-            content: ReturnOrderPopup());
+            content: ReturnDialogWidget());
       },
     );
   }
@@ -588,11 +521,108 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return const AlertDialog(
+        return AlertDialog(
             contentPadding: EdgeInsets.zero,
             backgroundColor: Colors.transparent,
-            content: WriteReviewPopup());
+            content: WriteReviewPopup(
+              order_id: widget.order_id,
+            ));
       },
+    );
+  }
+}
+
+class ReturnDialogWidget extends StatefulWidget {
+  @override
+  State<ReturnDialogWidget> createState() => _ReturnDialogWidgetState();
+}
+
+class _ReturnDialogWidgetState extends State<ReturnDialogWidget> {
+  List<String> reasons = [
+    'Changed My Mind',
+    'Found a Better Deal',
+    'Delay in Delivery',
+    'No longer Need the item',
+    'Technical Issues',
+    'Personal Emergency'
+  ];
+
+  String selectedReason = 'Changed My Mind';
+
+  void handleOptionChange(String value) {
+    setState(() {
+      selectedReason = value;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 700,
+      height: 80 * reasons.length.toDouble(),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.0),
+        color: colors.overlayBG,
+      ),
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text(
+            'Return order reason',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+            ),
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            height: 57 * reasons.length.toDouble(),
+            child: Theme(
+              data: ThemeData(unselectedWidgetColor: colors.greyText),
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: reasons.length,
+                itemBuilder: (context, i) {
+                  return CommonRadioTile(
+                      options: selectedReason,
+                      name: reasons[i],
+                      onChanged: handleOptionChange);
+                },
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 200,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: colors.buttonColor,
+                onPrimary: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              onPressed: () {
+                Routes.navigateToPreviousScreen(context);
+                showDialog<void>(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return const AlertDialog(
+                        insetPadding: EdgeInsets.all(50),
+                        contentPadding: EdgeInsets.zero,
+                        backgroundColor: Colors.transparent,
+                        content: ReturnOrderPopup());
+                  },
+                );
+              },
+              child: const Text('DONE'),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
