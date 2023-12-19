@@ -13,7 +13,7 @@ class Images {
   static const linkedlin = "assets/images/linkedin.png";
   static const youtube = "assets/images/youTube.png";
   static const visa = 'assets/images/visa.png';
-  static const phonePay = 'assets/images/phonePay.png';
+  static const phonePay = 'assets/images/phonepay.png';
   static const upi = "assets/images/upi.png";
   static const delete = 'assets/images/delete.png';
   static const logout = 'assets/images/logout.png';

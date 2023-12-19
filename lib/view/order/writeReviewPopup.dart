@@ -5,7 +5,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../utils/color.dart';
 
 class WriteReviewPopup extends StatefulWidget {
-  const WriteReviewPopup({super.key});
+  final String order_id;
+
+  const WriteReviewPopup({super.key, required this.order_id});
 
   @override
   _WriteReviewPopupState createState() => _WriteReviewPopupState();
@@ -20,7 +22,7 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
         borderRadius: BorderRadius.circular(15.0),
         color: colors.overlayBG,
       ),
-      height: MediaQuery.of(context).size.height * 0.45,
+      height: MediaQuery.of(context).size.height * 0.43,
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
       child: Column(
@@ -133,30 +135,33 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
           const SizedBox(
             height: 20,
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.6,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith((states) {
-                  if (states.contains(MaterialState.hovered) ||
-                      states.contains(MaterialState.pressed)) {
+          Center(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.6,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith((states) {
+                    if (states.contains(MaterialState.hovered) ||
+                        states.contains(MaterialState.pressed)) {
+                      return colors.buttonColor;
+                    }
                     return colors.buttonColor;
-                  }
-                  return colors.buttonColor;
-                }),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                  }),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                   ),
                 ),
-              ),
-              onPressed: () {
-                Routes.navigateToPreviousScreen(context);
-                Routes.navigateToOrderCancelledScreen(context);
-              },
-              child: const Text(
-                'Submit Review',
-                style: TextStyle(fontSize: 12),
+                onPressed: () {
+                  Routes.navigateToPreviousScreen(context);
+                  Routes.navigateToOrderCancelledScreen(
+                      context, widget.order_id);
+                },
+                child: const Text(
+                  'Submit Review',
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
             ),
           ),

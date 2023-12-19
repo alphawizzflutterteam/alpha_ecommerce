@@ -466,12 +466,13 @@ class Routes {
     );
   }
 
-  static navigateToOrderOnTheWayDetailScreen(BuildContext context) {
+  static navigateToOrderOnTheWayDetailScreen(
+      BuildContext context, String Order_id) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) =>
-            const OrderDetailOnTheWay(),
+            OrderDetailOnTheWay(order_id: Order_id),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -699,24 +700,25 @@ class Routes {
     );
   }
 
-  static navigateToOrderCancelledScreen(BuildContext context) {
+  static navigateToOrderCancelledScreen(BuildContext context, String order_id) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) =>
-            const OrderCancelled(),
+            OrderCancelled(order_id: order_id),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
     );
   }
 
-  static navigateToOrderDetailDeliveredDetailScreen(BuildContext context) {
+  static navigateToOrderDetailDeliveredDetailScreen(
+      BuildContext context, String order_id) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) =>
-            const OrderDetailDelivered(),
+            OrderDetailDelivered(order_id: order_id),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

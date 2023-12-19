@@ -212,17 +212,17 @@ class _OrderState extends State<Order> {
                                 if (data.orderStatus!.toLowerCase() ==
                                     "canceled") {
                                   Routes.navigateToOrderCancelledScreen(
-                                      context);
+                                      context, data.orderId.toString());
                                 } else if (data.orderStatus!.toLowerCase() ==
                                     "delivered") {
                                   Routes
                                       .navigateToOrderDetailDeliveredDetailScreen(
-                                          context);
+                                          context, data.orderId.toString());
                                 } else {
                                   print("here");
 
                                   Routes.navigateToOrderOnTheWayDetailScreen(
-                                      context);
+                                      context, data.orderId.toString());
                                 }
                               },
                               child: Container(
@@ -298,13 +298,13 @@ class _OrderState extends State<Order> {
                                                 width: 2,
                                               ),
                                               color: getBackgroundColor(
-                                                  data.deliveryStatus!),
+                                                  data.orderStatus!),
                                             ),
                                             child: Text(
-                                              data.deliveryStatus!,
+                                              data.orderStatus!,
                                               style: TextStyle(
                                                   color: getTextColor(
-                                                      data.deliveryStatus!),
+                                                      data.orderStatus!),
                                                   fontSize: 10),
                                             ),
                                           ),

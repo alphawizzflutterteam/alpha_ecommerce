@@ -1,4 +1,6 @@
+import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 import '../widget_common/commonBackground.dart';
@@ -6,7 +8,9 @@ import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
 
 class OrderCancelled extends StatefulWidget {
-  const OrderCancelled({Key? key}) : super(key: key);
+  final String order_id;
+
+  const OrderCancelled({super.key, required this.order_id});
 
   @override
   State<OrderCancelled> createState() => _OrderCancelledState();
@@ -14,9 +18,17 @@ class OrderCancelled extends StatefulWidget {
 
 class _OrderCancelledState extends State<OrderCancelled> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late OrderViewModel detailProvider;
+  @override
+  void initState() {
+    super.initState();
+    detailProvider = Provider.of<OrderViewModel>(context, listen: false);
+    detailProvider.getOrderDetail(context, widget.order_id);
+  }
 
   @override
   Widget build(BuildContext context) {
+    var detailProvider = Provider.of<OrderViewModel>(context);
     return Stack(
       children: [
         const LightBackGround(),
@@ -48,18 +60,18 @@ class _OrderCancelledState extends State<OrderCancelled> {
                         child: Container(
                           height: 40,
                           margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Order ID - OID5266245375",
+                                "Order ID - ${detailProvider.detail.orderId}",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
                                 ),
                               ),
                               Text(
-                                "SOLD BY : SELLER",
+                                "SOLD BY : ${detailProvider.detail.seller!.name}",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
