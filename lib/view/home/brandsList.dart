@@ -35,6 +35,62 @@ class BrandsListScreen extends StatelessWidget {
                   )
                 ],
               ),
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height * .85),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: GridView.builder(
+                    itemCount: brandsModel.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        mainAxisExtent:
+                            MediaQuery.of(context).size.height * .25,
+                        crossAxisSpacing: 10),
+                    itemBuilder: (context, index) => Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * .13,
+                            width: MediaQuery.of(context).size.width * .35,
+                            child: Image.network(brandsModel[index].image),
+                          ),
+                          Divider(color: Colors.transparent),
+                          Text(
+                            brandsModel[index].name,
+                            style: TextStyle(fontSize: 16, color: Colors.black),
+                          ),
+                          Divider(color: Colors.transparent),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              height: 30,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: Colors.teal,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "View All",
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
