@@ -173,7 +173,7 @@ class HomeViewModel with ChangeNotifier {
 
     await _myRepo.bannersListApi(AppUrl.banners + "main_banner").then((value) {
       bannersListTop = value.data;
-
+      imageList.clear();
       for (int i = 0; i < bannersListTop.length; i++) {
         imageList.add(bannersListTop[i].photo);
       }

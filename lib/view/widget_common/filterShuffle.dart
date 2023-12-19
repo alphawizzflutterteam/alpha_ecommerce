@@ -43,8 +43,8 @@ extension ColorExtension on String {
   }
 }
 
-Future<void> homeFilter(
-    context, List<Filters> filter, SearchViewModel model) async {
+Future<void> homeFilter(context, List<Filters> filter, SearchViewModel model,
+    bool isComingForHome) async {
   return showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -57,6 +57,7 @@ Future<void> homeFilter(
             child: FilterClass(
               filter: filter,
               model: model,
+              isComingForHome: isComingForHome,
             ),
           ));
     },
@@ -66,7 +67,12 @@ Future<void> homeFilter(
 class FilterClass extends StatefulWidget {
   final List<Filters> filter;
   final SearchViewModel model;
-  const FilterClass({super.key, required this.filter, required this.model});
+  final bool isComingForHome;
+  const FilterClass(
+      {super.key,
+      required this.filter,
+      required this.model,
+      required this.isComingForHome});
 
   @override
   State<FilterClass> createState() => _FilterClassState();
@@ -104,6 +110,9 @@ class _FilterClassState extends State<FilterClass> {
                   child: InkWell(
                     onTap: () {
                       widget.model.selectedFilter.clear();
+                      widget.model.clearFilters();
+                      widget.model.getProductsListNew(context, "25", "1");
+
                       setState(() {});
                     },
                     child: const Text(
@@ -124,8 +133,8 @@ class _FilterClassState extends State<FilterClass> {
                         height: 40,
                         width: MediaQuery.of(context).size.width * 0.4,
                         child: TextFormField(
-                          keyboardType:
-                             const TextInputType.numberWithOptions(signed: true),
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: true),
                           inputFormatters: <TextInputFormatter>[
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(7),
@@ -457,7 +466,12 @@ class _FilterClassState extends State<FilterClass> {
                           ),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        widget.model.isHome = widget.isComingForHome;
+
+                        Routes.navigateToPreviousScreen(context);
+                        widget.model.getProductsListNew(context, "25", "1");
+                      },
                       child: const Text(
                         'APPLY',
                         style: TextStyle(fontSize: 12),

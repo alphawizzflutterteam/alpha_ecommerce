@@ -64,8 +64,7 @@ class _SearchState extends State<Search> {
             setState(() {
               _text = result.recognizedWords;
               searchProvider.searchController.text = _text;
-              searchProvider.getProductsList(
-                  context, "25", "1", searchProvider.searchController.text);
+              searchProvider.getProductsListNew(context, "25", "1");
               print(_text);
             });
           },
@@ -230,8 +229,11 @@ class _SearchState extends State<Search> {
                         width: MediaQuery.of(context).size.width * 0.7,
                         child: TextFormField(
                           onChanged: (value) {
-                            searchProvider.getProductsList(context, "25", "1",
-                                searchProvider.searchController.text);
+                            searchProvider.getProductsListNew(
+                              context,
+                              "25",
+                              "1",
+                            );
                           },
                           controller: searchProvider.searchController,
                           decoration: InputDecoration(
@@ -364,7 +366,8 @@ class _SearchState extends State<Search> {
                                   return productForYouCardSearch(
                                       searchProvider.searchResults[j],
                                       context,
-                                      homeProvider);
+                                      homeProvider,
+                                      searchProvider);
                                 },
                               ),
                             ),
@@ -393,8 +396,8 @@ class _SearchState extends State<Search> {
               child: Material(
                 child: InkWell(
                   onTap: () {
-                    homeFilter(
-                        context, homeProvider.filterModel, searchProvider);
+                    homeFilter(context, homeProvider.filterModel,
+                        searchProvider, false);
                   },
                   child: Row(
                     children: [
@@ -425,7 +428,8 @@ class _SearchState extends State<Search> {
                       Material(
                         child: InkWell(
                           onTap: () {
-                            homeCategory(context, categoryProvider);
+                            homeCategory(context, categoryProvider,
+                                searchProvider, true);
                           },
                           child: Container(
                             height: 60,
@@ -463,7 +467,7 @@ class _SearchState extends State<Search> {
                       Material(
                         child: InkWell(
                           onTap: () {
-                            homeSort(context);
+                            homeSort(context, searchProvider);
                           },
                           child: Container(
                             height: 60,

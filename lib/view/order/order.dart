@@ -170,7 +170,9 @@ class _OrderState extends State<Order> {
                                   border: Border.all(color: Colors.grey)),
                               child: InkWell(
                                 onTap: () {
-                                  filter(context);
+                                  filter(
+                                    context,
+                                  );
                                 },
                                 child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,

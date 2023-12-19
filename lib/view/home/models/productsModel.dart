@@ -4,11 +4,6 @@
 
 import 'dart:convert';
 
-ProductsModel productsModelFromJson(String str) =>
-    ProductsModel.fromJson(json.decode(str));
-
-String productsModelToJson(ProductsModel data) => json.encode(data.toJson());
-
 class ProductsModel {
   int totalSize;
   int limit;

@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 
-Future<void> homeCategory(context, CategoryViewModel model) async {
+Future<void> homeCategory(context, CategoryViewModel model,
+    SearchViewModel searchProvider, bool isComingFromhome) async {
   return showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -26,6 +27,8 @@ Future<void> homeCategory(context, CategoryViewModel model) async {
                             Column(mainAxisSize: MainAxisSize.min, children: [
                           CategoryFilter(
                             categoryProvider: model,
+                            searchProvider: searchProvider,
+                            isComingFromHome: isComingFromhome,
                           )
                         ]))));
           },
@@ -35,7 +38,13 @@ Future<void> homeCategory(context, CategoryViewModel model) async {
 
 class CategoryFilter extends StatefulWidget {
   final CategoryViewModel categoryProvider;
-  const CategoryFilter({Key? key, required this.categoryProvider})
+  final SearchViewModel searchProvider;
+  final bool isComingFromHome;
+  const CategoryFilter(
+      {Key? key,
+      required this.categoryProvider,
+      required this.searchProvider,
+      required this.isComingFromHome})
       : super(key: key);
 
   @override
@@ -259,7 +268,9 @@ class _CategoryFilterState extends State<CategoryFilter> {
                                                   .data[searchProvider
                                                       .selectedIndex]
                                                   .id
-                                                  .toString());
+                                                  .toString(),
+                                              isComingFromHome:
+                                                  widget.isComingFromHome);
                                         },
                                       ),
                                     )

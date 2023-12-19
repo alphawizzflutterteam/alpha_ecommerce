@@ -12,7 +12,8 @@ categoryCard(
     required categoryListIndex,
     required Childes model,
     required SearchViewModel searchProvider,
-    required String categoryId}) {
+    required String categoryId,
+    required bool isComingFromHome}) {
   return InkWell(
     onTap: () {
       searchProvider.categoryId = categoryId;
@@ -20,8 +21,12 @@ categoryCard(
       print("Category Id ${searchProvider.categoryId}");
       print("Sub Category Id ${searchProvider.subCategoryId}");
 
-      searchProvider.isHome = false;
-      Routes.navigateToSearchScreen(context);
+      searchProvider.isHome = isComingFromHome;
+      if (isComingFromHome) {
+        Routes.navigateToPreviousScreen(context);
+      } else {
+        Routes.navigateToSearchScreen(context);
+      }
       searchProvider.getProductsListNew(context, "25", "1");
     },
     child: SizedBox(

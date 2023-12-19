@@ -138,7 +138,7 @@ class _HomeState extends State<Home> {
                           child: InkWell(
                             onTap: () {
                               homeFilter(context, homeProvider.filterModel,
-                                  searchProvider);
+                                  searchProvider, true);
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -174,7 +174,8 @@ class _HomeState extends State<Home> {
                           ),
                           child: InkWell(
                             onTap: () {
-                              homeCategory(context, categoryProvider);
+                              homeCategory(context, categoryProvider,
+                                  searchProvider, true);
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -210,7 +211,7 @@ class _HomeState extends State<Home> {
                           ),
                           child: InkWell(
                             onTap: () {
-                              homeSort(context);
+                              homeSort(context, searchProvider);
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -302,14 +303,35 @@ class _HomeState extends State<Home> {
                           height: 250,
                           child: CarouselSlider(
                             items: homeProvider.imageList.map((item) {
-                              return SizedBox(
-                                width: double.infinity,
-                                child: CachedNetworkImage(
-                                  imageUrl: item,
-                                  fit: BoxFit.fill,
-                                  placeholder: (context, url) => appLoader(),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
+                              return InkWell(
+                                onTap: () {
+                                  searchProvider.clearFilters();
+
+                                  for (int i = 0;
+                                      i < homeProvider.bannersListTop.length;
+                                      i++) {
+                                    if (homeProvider.bannersListTop[i].photo ==
+                                        item) {
+                                      searchProvider.offerId = homeProvider
+                                          .bannersListTop[i].id
+                                          .toString();
+                                    }
+                                  }
+                                  //  searchProvider.brandId = model.id.toString();
+                                  searchProvider.isHome = false;
+                                  Routes.navigateToSearchScreen(context);
+                                  searchProvider.getProductsListNew(
+                                      context, "25", "1");
+                                },
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: CachedNetworkImage(
+                                    imageUrl: item,
+                                    fit: BoxFit.fill,
+                                    placeholder: (context, url) => appLoader(),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
+                                  ),
                                 ),
                               );
                             }).toList(),
@@ -367,8 +389,8 @@ class _HomeState extends State<Home> {
                                 const BoxDecoration(color: Colors.white),
                             child: Padding(
                               padding: const EdgeInsets.only(top: 2.0),
-                              child:
-                                  brandsCard(context, homeProvider.brandsModel),
+                              child: brandsCard(context,
+                                  homeProvider.brandsModel, searchProvider),
                             ),
                           )),
                     ),
@@ -512,8 +534,10 @@ class _HomeState extends State<Home> {
                                       child: Padding(
                                         padding:
                                             const EdgeInsets.only(top: 2.0),
-                                        child: specialOfferList(context,
-                                            homeProvider.specialOffersModel),
+                                        child: specialOfferList(
+                                            context,
+                                            homeProvider.specialOffersModel,
+                                            searchProvider),
                                       ),
                                     )),
                               ],
@@ -711,7 +735,9 @@ class _HomeState extends State<Home> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 2.0),
                                   child: dailyDealListCard(
-                                      context, homeProvider.dailyDealsModel),
+                                      context,
+                                      homeProvider.dailyDealsModel,
+                                      searchProvider),
                                 ),
                               )),
                           // SizedBox(
@@ -860,7 +886,8 @@ class _HomeState extends State<Home> {
                                     homeFilter(
                                         context,
                                         homeProvider.filterModel,
-                                        searchProvider);
+                                        searchProvider,
+                                        true);
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -897,7 +924,8 @@ class _HomeState extends State<Home> {
                                 ),
                                 child: InkWell(
                                   onTap: () {
-                                    homeCategory(context, categoryProvider);
+                                    homeCategory(context, categoryProvider,
+                                        searchProvider, true);
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -934,7 +962,7 @@ class _HomeState extends State<Home> {
                                 ),
                                 child: InkWell(
                                   onTap: () {
-                                    homeSort(context);
+                                    homeSort(context, searchProvider);
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,

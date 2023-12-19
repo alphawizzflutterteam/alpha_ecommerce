@@ -690,15 +690,15 @@ class Routes {
   }
 
   static navigateToCategoryDetailScreen(BuildContext context) {
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) =>
-            const CategoryDetail(),
-        transitionDuration: Duration.zero,
-        reverseTransitionDuration: Duration.zero,
-      ),
-    );
+    // Navigator.push(
+    //   context,
+    //   PageRouteBuilder(
+    //     pageBuilder: (context, animation1, animation2) =>
+    //         const CategoryDetail(),
+    //     transitionDuration: Duration.zero,
+    //     reverseTransitionDuration: Duration.zero,
+    //   ),
+    // );
   }
 
   static navigateToOrderCancelledScreen(BuildContext context) {

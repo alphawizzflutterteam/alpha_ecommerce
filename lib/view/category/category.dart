@@ -372,7 +372,8 @@ class _AllCategoryState extends State<AllCategory> {
                                                                             searchProvider:
                                                                                 searchProvider,
                                                                             categoryId:
-                                                                                categoryProvider.data[searchProvider.selectedIndex].id.toString());
+                                                                                categoryProvider.data[searchProvider.selectedIndex].id.toString(),
+                                                                            isComingFromHome: false);
                                                                       },
                                                                     ),
                                                                   )

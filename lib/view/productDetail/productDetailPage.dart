@@ -127,7 +127,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 }).toList(),
                                 options: CarouselOptions(
                                   enableInfiniteScroll: false,
-                                  autoPlay: false,
+                                  autoPlay: true,
                                   enlargeCenterPage: true,
                                   onPageChanged: (index, reason) {
                                     setState(() {
