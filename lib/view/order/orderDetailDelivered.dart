@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/view/order/productListBuilder.dart';
 import 'package:alpha_ecommerce_18oct/view/order/returnOrderPopup.dart';
 import 'package:alpha_ecommerce_18oct/view/order/writeReviewPopup.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
@@ -101,61 +102,8 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                           ),
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 5.0, vertical: 10),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  width: 75,
-                                  height: 75,
-                                  decoration: const BoxDecoration(
-                                      color: colors.boxBorder,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  child: Image.asset(
-                                    Images.dettol,
-                                    width: 50,
-                                    height: 50,
-                                  )),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.59,
-                                    child: const Text(
-                                      "Dettol Refresh Long Lasting",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  const Text(
-                                    "\$120.00",
-                                    style: TextStyle(
-                                      color: colors.buttonColor,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      ProductListBuilder(
+                          productList: detailProvider.detail.products),
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 10),
@@ -511,7 +459,10 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
         return AlertDialog(
             contentPadding: EdgeInsets.zero,
             backgroundColor: Colors.transparent,
-            content: ReturnDialogWidget());
+            content: ReturnDialogWidget(
+              orderId: detailProvider.detail.orderId.toString(),
+              amount: detailProvider.detail.subtotal.toString(),
+            ));
       },
     );
   }
@@ -533,6 +484,12 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
 }
 
 class ReturnDialogWidget extends StatefulWidget {
+  final String orderId;
+  final String amount;
+
+  const ReturnDialogWidget(
+      {super.key, required this.orderId, required this.amount});
+
   @override
   State<ReturnDialogWidget> createState() => _ReturnDialogWidgetState();
 }
@@ -605,16 +562,21 @@ class _ReturnDialogWidgetState extends State<ReturnDialogWidget> {
                 ),
               ),
               onPressed: () {
-                Routes.navigateToPreviousScreen(context);
+                // Routes.navigateToPreviousScreen(context);
+                Navigator.pop(context);
                 showDialog<void>(
                   context: context,
                   barrierDismissible: false,
                   builder: (BuildContext context) {
-                    return const AlertDialog(
+                    return AlertDialog(
                         insetPadding: EdgeInsets.all(50),
                         contentPadding: EdgeInsets.zero,
                         backgroundColor: Colors.transparent,
-                        content: ReturnOrderPopup());
+                        content: ReturnOrderPopup(
+                          order_id: widget.orderId,
+                          refund_reason: selectedReason,
+                          amount: widget.amount,
+                        ));
                   },
                 );
               },

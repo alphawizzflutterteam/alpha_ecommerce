@@ -59,4 +59,6 @@ class AppUrl {
 
   static String productDetail = "${baseURL}products/details/";
   static String pincodeCheck = "${baseURL}products/pin-code-check";
+
+  static String orderReturn = "${baseURL}customer/order/refund-store";
 }

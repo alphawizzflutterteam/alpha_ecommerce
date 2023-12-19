@@ -1,4 +1,7 @@
+import 'package:alpha_ecommerce_18oct/view/order/productListBuilder.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 import '../widget_common/commonBackground.dart';
@@ -17,6 +20,7 @@ class _OrderReturnedState extends State<OrderReturned> {
 
   @override
   Widget build(BuildContext context) {
+    var orderProvider = Provider.of<OrderViewModel>(context, listen: false);
     return Stack(
       children: [
         const LightBackGround(),
@@ -48,18 +52,18 @@ class _OrderReturnedState extends State<OrderReturned> {
                         child: Container(
                           height: 40,
                           margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Order ID - OID5266245375",
+                                "Order ID - ${orderProvider.detail.orderId}",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
                                 ),
                               ),
                               Text(
-                                "SOLD BY : SELLER",
+                                "SOLD BY : ${orderProvider.detail.seller!.name}",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
@@ -69,61 +73,63 @@ class _OrderReturnedState extends State<OrderReturned> {
                           ),
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 5.0, vertical: 10),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  width: 75,
-                                  height: 75,
-                                  decoration: const BoxDecoration(
-                                      color: colors.boxBorder,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  child: Image.asset(
-                                    Images.dettol,
-                                    width: 50,
-                                    height: 50,
-                                  )),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.59,
-                                    child: const Text(
-                                      "Dettol Refresh Long Lasting",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  const Text(
-                                    "\$120.00",
-                                    style: TextStyle(
-                                      color: colors.buttonColor,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      ProductListBuilder(
+                          productList: orderProvider.detail.products),
+                      // Container(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                      //   child: Container(
+                      //     margin: const EdgeInsets.symmetric(
+                      //         horizontal: 5.0, vertical: 10),
+                      //     child: Row(
+                      //       crossAxisAlignment: CrossAxisAlignment.start,
+                      //       children: [
+                      //         Container(
+                      //             width: 75,
+                      //             height: 75,
+                      //             decoration: const BoxDecoration(
+                      //                 color: colors.boxBorder,
+                      //                 borderRadius: BorderRadius.all(
+                      //                     Radius.circular(10))),
+                      //             child: Image.asset(
+                      //               Images.dettol,
+                      //               width: 50,
+                      //               height: 50,
+                      //             )),
+                      //         const SizedBox(
+                      //           width: 20,
+                      //         ),
+                      //         Column(
+                      //           mainAxisAlignment:
+                      //               MainAxisAlignment.spaceBetween,
+                      //           crossAxisAlignment: CrossAxisAlignment.start,
+                      //           children: [
+                      //             SizedBox(
+                      //               width: MediaQuery.of(context).size.width *
+                      //                   0.59,
+                      //               child: const Text(
+                      //                 "Dettol Refresh Long Lasting",
+                      //                 style: TextStyle(
+                      //                   color: Colors.white,
+                      //                   fontSize: 20,
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //             const SizedBox(
+                      //               height: 10,
+                      //             ),
+                      //             const Text(
+                      //               "\$120.00",
+                      //               style: TextStyle(
+                      //                 color: colors.buttonColor,
+                      //                 fontSize: 20,
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -185,7 +191,7 @@ class _OrderReturnedState extends State<OrderReturned> {
                             color: colors.boxBorder,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        child: const Column(
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -193,7 +199,7 @@ class _OrderReturnedState extends State<OrderReturned> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "\$ 120 - Alpha Wallet",
+                                  "${orderProvider.detail.subtotal} - Alpha Wallet",
                                   style: TextStyle(color: colors.textColor),
                                 ),
                                 Row(

@@ -53,4 +53,17 @@ class OrderViewModel with ChangeNotifier {
       print(stackTrace.toString());
     });
   }
+
+  Future<void> postOrderReturnRequest(
+      {required String order_id,
+      required String reason,
+      required String amount}) async {
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    await _myRepo.orderReturnRequest(
+        api: AppUrl.orderReturn,
+        bearerToken: token,
+        order_id: order_id,
+        amount: amount,
+        refund_reason: reason);
+  }
 }

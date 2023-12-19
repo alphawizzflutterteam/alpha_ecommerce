@@ -1,10 +1,20 @@
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 
 class ReturnOrderPopup extends StatefulWidget {
-  const ReturnOrderPopup({super.key});
+  final String order_id;
+  final String refund_reason;
+  final String amount;
+
+  const ReturnOrderPopup(
+      {super.key,
+      required this.order_id,
+      required this.refund_reason,
+      required this.amount});
 
   @override
   _ReturnOrderPopupState createState() => _ReturnOrderPopupState();
@@ -14,6 +24,7 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
   double rating = 1;
   @override
   Widget build(BuildContext context) {
+    var orderPInstance = Provider.of<OrderViewModel>(context, listen: false);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
@@ -114,8 +125,13 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
                       ),
                     ),
                   ),
-                  onPressed: () {
-                    Routes.navigateToPreviousScreen(context);
+                  onPressed: () async {
+                    // Routes.navigateToPreviousScreen(context);
+                    await orderPInstance.postOrderReturnRequest(
+                        order_id: widget.order_id,
+                        amount: widget.amount,
+                        reason: widget.refund_reason);
+                    Navigator.pop(context);
                     Routes.navigateToOrderReturnedDetailScreen(context);
                   },
                   child: const Text(

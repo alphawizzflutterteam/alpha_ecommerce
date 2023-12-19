@@ -40,4 +40,26 @@ class OrderRepository {
     var asn = await json.decode(res.body);
     return OrderDetailsModel.fromJson(asn);
   }
+
+//Funcation for order return request
+  Future<void> orderReturnRequest(
+      {required String api,
+      required String bearerToken,
+      required String order_id,
+      required String amount,
+      required String refund_reason}) async {
+    print(refund_reason + " " + order_id + " " + amount);
+    final url = Uri.parse(api).replace(queryParameters: {
+      'order_details_id': '',
+      'amount': amount,
+      'order_id': order_id,
+      'refund_reason': refund_reason,
+    });
+    final http.Response res;
+    res = await http.post(url, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+    print(api);
+    print(res.body);
+  }
 }
