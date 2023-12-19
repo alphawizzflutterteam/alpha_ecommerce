@@ -9,7 +9,9 @@ import 'package:alpha_ecommerce_18oct/view/country_selection/country_selection.d
 import 'package:alpha_ecommerce_18oct/view/greet/pay_success.dart';
 import 'package:alpha_ecommerce_18oct/view/greet/wallet_money_added.dart';
 import 'package:alpha_ecommerce_18oct/view/greet/welcome.dart';
+import 'package:alpha_ecommerce_18oct/view/home/brandsList.dart';
 import 'package:alpha_ecommerce_18oct/view/home/home.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/brandsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/language_selection/language_selection.dart';
 import 'package:alpha_ecommerce_18oct/view/offer/offer.dart';
@@ -43,6 +45,7 @@ import 'package:alpha_ecommerce_18oct/view/profile/subscribe/subscribe.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/model/vendorModel.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/vendor.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/vendorDetails.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:flutter/cupertino.dart';
 import '../view/category/category.dart';
 import '../view/categoryDetail/categoryDetail.dart';
@@ -266,6 +269,21 @@ class Routes {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) => const WalletSuccess(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
+  static navigateToBrandsScreen(BuildContext context, List<BrandsList> brand,
+      SearchViewModel searchProvidder) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => BrandsListScreen(
+          brandsModel: brand,
+          searchViewModel: searchProvidder,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

@@ -384,14 +384,57 @@ class _HomeState extends State<Home> {
                       decoration: const BoxDecoration(color: Colors.white),
                       child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
-                          child: Container(
-                            decoration:
-                                const BoxDecoration(color: Colors.white),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
-                              child: brandsCard(context,
-                                  homeProvider.brandsModel, searchProvider),
-                            ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                decoration:
+                                    const BoxDecoration(color: Colors.white),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 2.0),
+                                  child: brandsCard(context,
+                                      homeProvider.brandsModel, searchProvider),
+                                ),
+                              ),
+                              homeProvider.brandsModel.length > 4
+                                  ? InkWell(
+                                      onTap: () {
+                                        Routes.navigateToBrandsScreen(
+                                            context,
+                                            homeProvider.brandsModel,
+                                            searchProvider);
+                                      },
+                                      child: const Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 12.0, left: 15),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.arrow_forward,
+                                              color: Colors.black,
+                                              size: size_30,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 4.0, bottom: 8),
+                                              child: Text(
+                                                "View All",
+                                                style: TextStyle(
+                                                    color: colors.darkColor2,
+                                                    fontSize: size_12,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox()
+                            ],
                           )),
                     ),
                     Container(

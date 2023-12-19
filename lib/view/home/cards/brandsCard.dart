@@ -52,7 +52,7 @@ Row brandsCard(BuildContext context, List<BrandsList> model,
           decoration: const BoxDecoration(color: Colors.white),
           child: Row(
             children: List.generate(
-              model.length,
+              model.length > 5 ? 5 : model.length,
               (index) => brandCard(model[index], context, searchViewModel),
             ),
           ),

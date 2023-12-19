@@ -2,13 +2,15 @@
 class AppUrl {
   //https://alpha-ecom.developmentalphawizz.com
   //https://test-alpha-ecom.developmentalphawizz.com
-  static const baseURL = "https://alpha-ecom.developmentalphawizz.com/api/v1/";
-  static const String sendLoginOtp = "${baseURL}auth/send-login-otp";
-  static const String sendRegisterOtp = "${baseURL}auth/send-otp";
-  static const String loginWithEmailPassword = "${baseURL}auth/login";
-  static const String register = "${baseURL}auth/register";
-  static const String updatePassword = "${baseURL}auth/update-password";
-  static const String resetPassword = "${baseURL}customer/reset-password";
+
+  static const baseURL =
+      "https://test-alpha-ecom.developmentalphawizz.com/api/v1/";
+  static String sendLoginOtp = "${baseURL}auth/send-login-otp";
+  static String sendRegisterOtp = "${baseURL}auth/send-otp";
+  static String loginWithEmailPassword = "${baseURL}auth/login";
+  static String register = "${baseURL}auth/register";
+  static String updatePassword = "${baseURL}auth/update-password";
+  static String resetPassword = "${baseURL}customer/reset-password";
 
   static const String getProfile = "${baseURL}customer/info";
   static const String updateProfile = "${baseURL}customer/update-profile";
@@ -49,7 +51,8 @@ class AppUrl {
 
   static const String faq = "${baseURL}faq";
 
-  static const String vendorList = "${baseURL}seller/all";
+  static String vendorList = "${baseURL}seller/all";
+  static String vendorCategories = "${baseURL}categories?vendor_id=";
 
   static const String addressList = "${baseURL}customer/address/list";
   static const String addAddressList = "${baseURL}customer/address/add";

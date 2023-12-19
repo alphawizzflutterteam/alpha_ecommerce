@@ -22,7 +22,9 @@ class _VendorState extends State<Vendor> {
   void initState() {
     super.initState();
     vendorProvider = Provider.of<VendorViewModel>(context, listen: false);
-    vendorProvider.getVendorListItem(context);
+    vendorProvider.getVendorListItem(
+      context,
+    );
   }
 
   @override
