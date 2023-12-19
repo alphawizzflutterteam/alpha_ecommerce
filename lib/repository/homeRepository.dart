@@ -66,7 +66,9 @@ class HomeRepository {
       url,
     );
 
-    return productsModelFromJson(res.body);
+    var asn = await json.decode(res.body);
+
+    return ProductsModel.fromJson(asn);
   }
 
   Future<CategoriesModel> categoryListRequest(String api) async {

@@ -115,13 +115,14 @@ Future<void> logOut(context) async {
                             ),
                           ),
                           onPressed: () {
-                                SharedPref.shared.pref
+                            SharedPref.shared.pref
                                 ?.setString(PrefKeys.mobile, "");
                             SharedPref.shared.pref
                                 ?.setString(PrefKeys.isLoggedIn, "0");
+                            SharedPref.shared.pref
+                                ?.setString(PrefKeys.jwtToken, "");
 
-                              Routes.navigateToSignInScreen(context);
-                            
+                            Routes.navigateToSignInScreen(context);
                           },
                           child: const Text(
                             'LOGOUT',

@@ -12,6 +12,7 @@ import 'package:alpha_ecommerce_18oct/view/dashboard/dashboard.dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/splash/splashScreen.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/faqsViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/languageViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
@@ -84,6 +85,8 @@ void main() async {
             create: (context) => CartViewModel()),
         ChangeNotifierProvider<CouponViewModel>(
             create: (context) => CouponViewModel()),
+        ChangeNotifierProvider<FaqViewModel>(
+            create: (context) => FaqViewModel()),
         ChangeNotifierProvider<LanguageViewModel>(
             create: (context) => LanguageViewModel()),
         ChangeNotifierProvider<SplashViewModel>(

@@ -237,11 +237,13 @@ class Routes {
         (Route<dynamic> route) => false);
   }
 
-  static navigateToBottomNavScreen(BuildContext context) {
+  static navigateToBottomNavScreen(BuildContext context, int index) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const BottomNavPage(),
+        pageBuilder: (context, animation1, animation2) => BottomNavPage(
+          index: index,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -689,15 +691,15 @@ class Routes {
   }
 
   static navigateToCategoryDetailScreen(BuildContext context) {
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) =>
-            const CategoryDetail(),
-        transitionDuration: Duration.zero,
-        reverseTransitionDuration: Duration.zero,
-      ),
-    );
+    // Navigator.push(
+    //   context,
+    //   PageRouteBuilder(
+    //     pageBuilder: (context, animation1, animation2) =>
+    //         const CategoryDetail(),
+    //     transitionDuration: Duration.zero,
+    //     reverseTransitionDuration: Duration.zero,
+    //   ),
+    // );
   }
 
   static navigateToOrderCancelledScreen(BuildContext context, String order_id) {

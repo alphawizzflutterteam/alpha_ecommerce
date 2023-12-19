@@ -22,7 +22,6 @@ class OrderViewModel with ChangeNotifier {
   Future<void> getOrderList(BuildContext context) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
-    print(token);
 
     await _myRepo.orderListRequest(AppUrl.orderList, token).then((value) {
       orderList = value.data!;

@@ -85,11 +85,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
-              Stack(
+              const Stack(
                 children: [
-                  const ProfileHeader(),
+                  ProfileHeader(),
                   InternalDetailPageHeader(
-                    text: widget.model.name,
+                    text: "Product Detail",
                   )
                 ],
               ),
@@ -127,7 +127,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 }).toList(),
                                 options: CarouselOptions(
                                   enableInfiniteScroll: false,
-                                  autoPlay: false,
+                                  autoPlay: true,
                                   enlargeCenterPage: true,
                                   onPageChanged: (index, reason) {
                                     setState(() {

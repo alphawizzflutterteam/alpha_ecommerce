@@ -9,12 +9,6 @@ import 'package:flutter/material.dart';
 
 savedItemCard(
     WishlistItemProduct model, BuildContext context, CartViewModel provider) {
-  final List<String> quantity = [
-    'Qty 1',
-    'Qty 2',
-    'Qty 3',
-  ];
-  String? selectedValue;
   return Container(
     height: 200,
     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -89,67 +83,6 @@ savedItemCard(
                   ),
                   const SizedBox(
                     height: 10,
-                  ),
-                  Container(
-                    height: 50,
-                    width: 100,
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5)),
-                        border: Border.all(color: colors.boxBorder)),
-                    child: DropdownButtonFormField2<String>(
-                      isExpanded: true,
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(vertical: 15),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.zero,
-                            borderSide: BorderSide.none),
-                      ),
-                      hint: const Text(
-                        'Qty 1',
-                        style: TextStyle(fontSize: 14, color: colors.textColor),
-                      ),
-                      items: quantity
-                          .map((item) => DropdownMenuItem<String>(
-                                value: item,
-                                child: Text(
-                                  item,
-                                  style: const TextStyle(
-                                      fontSize: 12, color: colors.textColor),
-                                ),
-                              ))
-                          .toList(),
-                      validator: (value) {
-                        if (value == null) {
-                          return 'Select Quantity.';
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {},
-                      onSaved: (value) {
-                        selectedValue = value.toString();
-                      },
-                      buttonStyleData: const ButtonStyleData(
-                        padding: EdgeInsets.only(right: 8),
-                      ),
-                      iconStyleData: const IconStyleData(
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: colors.textColor,
-                        ),
-                        iconSize: 18,
-                      ),
-                      dropdownStyleData: DropdownStyleData(
-                          elevation: 8,
-                          decoration: BoxDecoration(
-                            color: colors.textFieldBG,
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: colors.boxBorder),
-                          )),
-                      menuItemStyleData: const MenuItemStyleData(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                      ),
-                    ),
                   ),
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
@@ -306,20 +307,31 @@ class _SignUPState extends State<SignUP> {
                                                       PrefKeys.currencyID) ??
                                                   "3";
 
-                                          Map data = {
-                                            "f_name": nameController.text,
-                                            'email': emailController.text,
-                                            'phone': mobile,
-                                            'password': passwordController.text,
-                                            'referral_code':
-                                                referralController.text,
-                                            'language_id': languageID,
-                                            "currency_id": currencyID,
-                                            "fcm_id": ""
-                                          };
+                                          final bool emailValid = RegExp(
+                                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                              .hasMatch(emailController.text);
+                                          if (emailValid) {
+                                            Map data = {
+                                              "f_name": nameController.text,
+                                              'email': emailController.text,
+                                              'phone': mobile,
+                                              'password':
+                                                  passwordController.text,
+                                              'referral_code':
+                                                  referralController.text,
+                                              'language_id': languageID,
+                                              "currency_id": currencyID,
+                                              "fcm_id": ""
+                                            };
 
-                                          authViewModel.createAccountApi(
-                                              data, context);
+                                            authViewModel.createAccountApi(
+                                                data, context);
+                                          } else {
+                                            Utils.showFlushBarWithMessage(
+                                                "Alert",
+                                                "Invalid Email",
+                                                context);
+                                          }
                                         }
                                       })),
                             ],

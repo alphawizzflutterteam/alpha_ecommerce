@@ -1,6 +1,7 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
@@ -8,8 +9,8 @@ import 'package:like_button/like_button.dart';
 import '../../../utils/color.dart';
 import '../../../utils/routes.dart';
 
-productForYouCardSearch(
-    ProductList model, BuildContext context, HomeViewModel homeProvider) {
+productForYouCardSearch(ProductList model, BuildContext context,
+    HomeViewModel homeProvider, SearchViewModel searchProvider) {
   return Column(
     children: [
       InkWell(
@@ -62,9 +63,11 @@ productForYouCardSearch(
                       ),
                     ),
                     LikeButton(
-                      onTap: (isLiked) {
+                      onTap: (isLiked) async {
                         Map data = {'product_id': model.id.toString()};
                         if (isLiked) {
+                          searchProvider.isHome = false;
+
                           return homeProvider.removeFromWishlist(data, context);
                         } else {
                           return homeProvider.addToWishlist(data, context);
@@ -96,6 +99,8 @@ productForYouCardSearch(
                 ),
                 child: Text(
                   model.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,

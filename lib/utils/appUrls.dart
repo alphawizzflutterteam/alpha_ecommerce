@@ -45,6 +45,8 @@ class AppUrl {
 
   static String couponList = "${baseURL}coupon";
 
+  static String faq = "${baseURL}faq";
+
   static String vendorList = "${baseURL}seller/all";
 
   static String addressList = "${baseURL}customer/address/list";

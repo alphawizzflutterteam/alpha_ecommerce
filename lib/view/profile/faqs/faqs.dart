@@ -1,4 +1,6 @@
+import 'package:alpha_ecommerce_18oct/viewModel/faqsViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../utils/color.dart';
 import '../../../utils/constant.dart';
@@ -14,9 +16,19 @@ class FAQs extends StatefulWidget {
 
 class _FAQsState extends State<FAQs> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late FaqViewModel faqProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    faqProvider = Provider.of<FaqViewModel>(context, listen: false);
+    faqProvider.getFaqListItem(context);
+  }
 
   @override
   Widget build(BuildContext context) {
+    faqProvider = Provider.of<FaqViewModel>(context);
+
     return Stack(children: [
       Align(
         alignment: Alignment.topRight,
@@ -55,11 +67,13 @@ class _FAQsState extends State<FAQs> {
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.only(
-                                  right: MediaQuery.of(context).size.width * 0.1),
+                                  right:
+                                      MediaQuery.of(context).size.width * 0.1),
                               child: const Text(
-                                "Faqs",
+                                "FAQs",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.white, fontSize: 20),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
                               ),
                             ),
                           ),
@@ -73,54 +87,64 @@ class _FAQsState extends State<FAQs> {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 30),
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            term1,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 30),
-                            child: Text(
-                              term2,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  color: colors.lightTextColor, fontSize: 14),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      height: 183 * faqProvider.faqList.length.toDouble(),
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: faqProvider.faqList.length,
+                        itemBuilder: (context, i) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: const BorderSide(
+                                    color: Colors.white38, width: 0.2),
+                              ),
+                              elevation: 2,
+                              color: colors.darkBG,
+                              child: ExpansionTile(
+                                iconColor: Colors.white,
+                                collapsedIconColor: Colors.white,
+                                title: Text(
+                                  faqProvider.faqList[i].question,
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                                children: [
+                                  SizedBox(
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.vertical,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 20.0, bottom: 10),
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                "${faqProvider.faqList[i].answer}",
+                                                style: const TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          Text(
-                            term3,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 30),
-                            child: Text(
-                              term4,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  color: colors.lightTextColor, fontSize: 14),
-                            ),
-                          ),
-                          Text(
-                            term3,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 30),
-                            child: Text(
-                              term4,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  color: colors.lightTextColor, fontSize: 14),
-                            ),
-                          ),
-                        ],
+                          );
+                        },
                       ),
                     ),
                   ],

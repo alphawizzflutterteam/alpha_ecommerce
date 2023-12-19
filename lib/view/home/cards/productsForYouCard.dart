@@ -1,4 +1,6 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/app_utils.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -63,11 +65,19 @@ productForYouCard(
                     ),
                     LikeButton(
                       onTap: (isLiked) {
-                        Map data = {'product_id': model.id.toString()};
-                        if (isLiked) {
-                          return homeProvider.removeFromWishlist(data, context);
+                        var isLoggedIn = SharedPref.shared.pref
+                            ?.getString(PrefKeys.isLoggedIn);
+
+                        if (isLoggedIn == "1") {
+                          Map data = {'product_id': model.id.toString()};
+                          if (isLiked) {
+                            return homeProvider.removeFromWishlist(
+                                data, context);
+                          } else {
+                            return homeProvider.addToWishlist(data, context);
+                          }
                         } else {
-                          return homeProvider.addToWishlist(data, context);
+                          return AppUtils.appUtilsInstance.nothing();
                         }
                       },
                       size: size_20,
@@ -112,7 +122,7 @@ productForYouCard(
                 child: Row(
                   children: [
                     Text(
-                      model.unitPrice,
+                      model.specialPrice,
                       style: const TextStyle(
                         color: Colors.cyan,
                         fontSize: 12,
@@ -136,27 +146,34 @@ productForYouCard(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () {
-                    Map data;
-                    if (!model.isCart) {
-                      data = {
-                        'id': model.id.toString(),
-                        'quantity': "1",
-                        'color': model.colorImage.isNotEmpty
-                            ? "#" + model.colorImage[0].color
-                            : "",
-                        'choice_2': model.choiceOptions.isNotEmpty
-                            ? model.choiceOptions[0].options[0]
-                            : ""
-                      };
+                    var isLoggedIn =
+                        SharedPref.shared.pref?.getString(PrefKeys.isLoggedIn);
+
+                    if (isLoggedIn == "1") {
+                      Map data;
+                      if (!model.isCart) {
+                        data = {
+                          'id': model.id.toString(),
+                          'quantity': "1",
+                          'color': model.colorImage.isNotEmpty
+                              ? "#" + model.colorImage[0].color
+                              : "",
+                          'choice_2': model.choiceOptions.isNotEmpty
+                              ? model.choiceOptions[0].options[0]
+                              : ""
+                        };
+                      } else {
+                        data = {
+                          'key': model.cart_id.toString(),
+                        };
+                      }
+                      print(data);
+                      model.isCart
+                          ? homeProvider.removeFromCart(data, context)
+                          : homeProvider.addToCart(data, context);
                     } else {
-                      data = {
-                        'key': model.cart_id.toString(),
-                      };
+                      AppUtils.appUtilsInstance.showLoginAlertDialog(context);
                     }
-                    print(data);
-                    model.isCart
-                        ? homeProvider.removeFromCart(data, context)
-                        : homeProvider.addToCart(data, context);
                   },
                   child: Container(
                     height: 30,

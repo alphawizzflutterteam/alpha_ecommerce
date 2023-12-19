@@ -10,8 +10,8 @@ import '../profile/profile.dart';
 import '../vendor/vendor.dart';
 
 class BottomNavPage extends StatefulWidget {
-  final int? index;
-  const BottomNavPage({Key? key, this.index}) : super(key: key);
+  final int index;
+  const BottomNavPage({Key? key, required this.index}) : super(key: key);
 
   @override
   _BottomNavPageState createState() => _BottomNavPageState();

@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../utils/routes.dart';
@@ -36,21 +37,24 @@ Future<void> filter(context) async {
                   ),
                   Column(
                     children: [
-                      const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               "Filter",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 18),
                             ),
-                            Text(
-                              "Clear filter",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
+                            InkWell(
+                              onTap: () {},
+                              child: Text(
+                                "Clear filter",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                              ),
                             ),
                           ],
                         ),
