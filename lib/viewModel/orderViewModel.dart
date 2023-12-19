@@ -65,4 +65,16 @@ class OrderViewModel with ChangeNotifier {
         amount: amount,
         refund_reason: reason);
   }
+
+  Future<void> getOrderCancelRequest({
+    required String order_id,
+    required String reason,
+  }) async {
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    await _myRepo.orderCancelRequest(
+        api: AppUrl.orderReturn,
+        bearerToken: token,
+        order_id: order_id,
+        cancel_reason: reason);
+  }
 }

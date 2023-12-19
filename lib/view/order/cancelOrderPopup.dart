@@ -1,12 +1,16 @@
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 
 class CancelOrderPopup extends StatefulWidget {
   final String order_id;
+  final String reason;
 
-  const CancelOrderPopup({super.key, required this.order_id});
+  const CancelOrderPopup(
+      {super.key, required this.order_id, required this.reason});
 
   @override
   _CancelOrderPopupState createState() => _CancelOrderPopupState();
@@ -16,6 +20,7 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
   double rating = 1;
   @override
   Widget build(BuildContext context) {
+    var pInstance = Provider.of<OrderViewModel>(context, listen: false);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
@@ -116,8 +121,10 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
                       ),
                     ),
                   ),
-                  onPressed: () {
-                    Routes.navigateToPreviousScreen(context);
+                  onPressed: () async {
+                    await pInstance.getOrderCancelRequest(
+                        order_id: widget.order_id, reason: widget.reason);
+                    Navigator.pop(context);
                     Routes.navigateToOrderCancelledScreen(
                         context, widget.order_id);
                   },

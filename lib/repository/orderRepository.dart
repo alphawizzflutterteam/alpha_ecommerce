@@ -62,4 +62,23 @@ class OrderRepository {
     print(api);
     print(res.body);
   }
+
+  //Funcation for order canccel request
+  Future<void> orderCancelRequest(
+      {required String api,
+      required String bearerToken,
+      required String order_id,
+      required String cancel_reason}) async {
+    print(cancel_reason + " " + order_id);
+    final url = Uri.parse(api).replace(queryParameters: {
+      'order_id': order_id,
+      'remarks': cancel_reason,
+    });
+    final http.Response res;
+    res = await http.post(url, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+    print(api);
+    print(res.body);
+  }
 }

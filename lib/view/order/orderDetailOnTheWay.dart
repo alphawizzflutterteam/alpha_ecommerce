@@ -605,6 +605,7 @@ class _CancelOrderDialogWidgetState extends State<CancelOrderDialogWidget> {
                         backgroundColor: Colors.transparent,
                         content: CancelOrderPopup(
                           order_id: widget.order_id,
+                          reason: selectedReason,
                         ));
                   },
                 );
