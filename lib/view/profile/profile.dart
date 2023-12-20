@@ -26,11 +26,20 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    var model =
-        jsonDecode(SharedPref.shared.pref!.getString(PrefKeys.userDetails)!);
-    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken) ?? "";
+    var name = "";
+    var email = "";
+    var phone = "";
+    if (token!.isEmpty) {
+    } else {
+      var model =
+          jsonDecode(SharedPref.shared.pref!.getString(PrefKeys.userDetails)!);
 
-    ProfileModel user = ProfileModel.fromJson(model);
+      ProfileModel user = ProfileModel.fromJson(model);
+      name = user.data[0].fName;
+      email = user.data[0].email;
+      phone = user.data[0].phone;
+    }
 
     return Stack(
       children: [
@@ -153,7 +162,7 @@ class _ProfileState extends State<Profile> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                user.data[0].fName,
+                                                name,
                                                 style: const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 18,
@@ -196,7 +205,7 @@ class _ProfileState extends State<Profile> {
                                               ),
                                               const SizedBox(width: 5),
                                               Text(
-                                                user.data[0].email,
+                                                email,
                                                 style: const TextStyle(
                                                     color:
                                                         colors.lightTextColor,
@@ -214,7 +223,7 @@ class _ProfileState extends State<Profile> {
                                               ),
                                               const SizedBox(width: 5),
                                               Text(
-                                                user.data[0].phone,
+                                                phone,
                                                 style: const TextStyle(
                                                     color:
                                                         colors.lightTextColor,

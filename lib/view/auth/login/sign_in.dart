@@ -85,6 +85,7 @@ class _SignInState extends State<SignIn> {
                       onTap: () {
                         authViewModel.setLoggingViaPhone(true);
                         FocusManager.instance.primaryFocus?.unfocus();
+                        mobileOrEmailController.text = "";
                       },
                       child: Container(
                         padding: const EdgeInsets.all(12.0),
@@ -110,6 +111,7 @@ class _SignInState extends State<SignIn> {
                       onTap: () {
                         authViewModel.setLoggingViaPhone(false);
                         FocusManager.instance.primaryFocus?.unfocus();
+                        mobileOrEmailController.text = "";
                       },
                       child: Container(
                         padding: const EdgeInsets.all(12.0),
@@ -149,6 +151,7 @@ class _SignInState extends State<SignIn> {
                           validator: authViewModel.isLoggingViaPhone
                               ? validateMobile
                               : validateEmail,
+                          maxLength: authViewModel.isLoggingViaPhone ? 10 : 100,
                           decoration: commonInputDecoration(
                             labelText: authViewModel.isLoggingViaPhone
                                 ? translation(context).mobileno

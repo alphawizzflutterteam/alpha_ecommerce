@@ -40,6 +40,9 @@ class _VendorDetailsState extends State<VendorDetails> {
     searchProvider = Provider.of<SearchViewModel>(context, listen: false);
     searchProvider.vendorId = widget.model.id.toString();
     getCategory();
+
+    categoryProvider.isFollowing =
+        widget.model.isFollowing == "1" ? true : false;
   }
 
   Future<void> getCategory() async {
@@ -171,13 +174,20 @@ class _VendorDetailsState extends State<VendorDetails> {
                                                         .width *
                                                     0.22,
                                                 child: CommonButton(
-                                                  text: widget.model
-                                                              .isFollowing ==
-                                                          "0"
+                                                  text: !categoryProvider
+                                                          .isFollowing
                                                       ? "Follow"
                                                       : "Unfollow",
                                                   fontSize: 14,
-                                                  onClick: () {},
+                                                  onClick: () {
+                                                    Map data = {
+                                                      'shop_id': widget.model.id
+                                                          .toString()
+                                                    };
+                                                    categoryProvider
+                                                        .followVendor(
+                                                            data, context);
+                                                  },
                                                 )),
                                           ],
                                         ),

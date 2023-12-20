@@ -52,6 +52,7 @@ class AppUrl {
 
   static String vendorList = "${baseURL}seller/all";
   static String vendorCategories = "${baseURL}categories?vendor_id=";
+  static const String followVendor = "${baseURL}seller/follow";
 
   static const String addressList = "${baseURL}customer/address/list";
   static const String addAddressList = "${baseURL}customer/address/add";

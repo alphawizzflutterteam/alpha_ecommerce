@@ -13,8 +13,9 @@ secondCategoryCard(
       onTap: () {
         searchProvider.categoryId = model.id.toString();
         searchProvider.isHome = false;
-        Routes.navigateToSearchScreen(context);
+
         searchProvider.getProductsListNew(context, "25", "1");
+        Routes.navigateToSearchScreen(context);
       },
       child: Column(
         children: [
