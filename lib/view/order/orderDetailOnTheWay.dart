@@ -1,5 +1,6 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/order/productListBuilder.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -66,435 +67,466 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                   )
                 ],
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Container(
-                          height: 40,
-                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Order ID - ${detailProvider.detail.orderId}",
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                "SOLD BY : ${detailProvider.detail.seller!.name}",
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      ProductListBuilder(
-                          productList: detailProvider.detail.products),
-                      // Container(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 20),
-                      //   child: Container(
-                      //     margin: const EdgeInsets.symmetric(
-                      //         horizontal: 5.0, vertical: 10),
-                      //     child: Row(
-                      //       crossAxisAlignment: CrossAxisAlignment.start,
-                      //       children: [
-                      //         Container(
-                      //             width: 75,
-                      //             height: 75,
-                      //             decoration: const BoxDecoration(
-                      //                 color: colors.boxBorder,
-                      //                 borderRadius: BorderRadius.all(
-                      //                     Radius.circular(10))),
-                      //             child: Image.asset(
-                      //               Images.dettol,
-                      //               width: 50,
-                      //               height: 50,
-                      //             )),
-                      //         const SizedBox(
-                      //           width: 20,
-                      //         ),
-                      //         Column(
-                      //           mainAxisAlignment:
-                      //               MainAxisAlignment.spaceBetween,
-                      //           crossAxisAlignment: CrossAxisAlignment.start,
-                      //           children: [
-                      //             SizedBox(
-                      //               width: MediaQuery.of(context).size.width *
-                      //                   0.59,
-                      //               child: const Text(
-                      //                 "Dettol Refresh Long Lasting",
-                      //                 style: TextStyle(
-                      //                   color: Colors.white,
-                      //                   fontSize: 20,
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //             const SizedBox(
-                      //               height: 10,
-                      //             ),
-                      //             const Text(
-                      //               "\$120.00",
-                      //               style: TextStyle(
-                      //                 color: colors.buttonColor,
-                      //                 fontSize: 20,
-                      //               ),
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
+              detailProvider.isLoading
+                  ? appLoader()
+                  : Expanded(
+                      child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Text(
-                                "Price Detail",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 14),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Container(
+                                height: 40,
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Order ID - ${detailProvider.detail.orderId}",
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    Text(
+                                      "SOLD BY : ${detailProvider.detail.seller!.name}",
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
+                            ProductListBuilder(
+                                productList: detailProvider.detail.products),
+                            // Container(
+                            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                            //   child: Container(
+                            //     margin: const EdgeInsets.symmetric(
+                            //         horizontal: 5.0, vertical: 10),
+                            //     child: Row(
+                            //       crossAxisAlignment: CrossAxisAlignment.start,
+                            //       children: [
+                            //         Container(
+                            //             width: 75,
+                            //             height: 75,
+                            //             decoration: const BoxDecoration(
+                            //                 color: colors.boxBorder,
+                            //                 borderRadius: BorderRadius.all(
+                            //                     Radius.circular(10))),
+                            //             child: Image.asset(
+                            //               Images.dettol,
+                            //               width: 50,
+                            //               height: 50,
+                            //             )),
+                            //         const SizedBox(
+                            //           width: 20,
+                            //         ),
+                            //         Column(
+                            //           mainAxisAlignment:
+                            //               MainAxisAlignment.spaceBetween,
+                            //           crossAxisAlignment: CrossAxisAlignment.start,
+                            //           children: [
+                            //             SizedBox(
+                            //               width: MediaQuery.of(context).size.width *
+                            //                   0.59,
+                            //               child: const Text(
+                            //                 "Dettol Refresh Long Lasting",
+                            //                 style: TextStyle(
+                            //                   color: Colors.white,
+                            //                   fontSize: 20,
+                            //                 ),
+                            //               ),
+                            //             ),
+                            //             const SizedBox(
+                            //               height: 10,
+                            //             ),
+                            //             const Text(
+                            //               "\$120.00",
+                            //               style: TextStyle(
+                            //                 color: colors.buttonColor,
+                            //                 fontSize: 20,
+                            //               ),
+                            //             ),
+                            //           ],
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    "MRP (4 items)",
-                                    style: TextStyle(
-                                        color: colors.greyText, fontSize: 12),
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Text(
+                                      "Price Detail",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 14),
+                                    ),
                                   ),
-                                  Text(
-                                    detailProvider.detail.orderAmount
-                                        .toString(),
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 12),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "MRP (4 items)",
+                                          style: TextStyle(
+                                              color: colors.greyText,
+                                              fontSize: 12),
+                                        ),
+                                        Text(
+                                          detailProvider.detail.orderAmount
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text(
+                                          "Delivery free",
+                                          style: TextStyle(
+                                              color: colors.greyText,
+                                              fontSize: 12),
+                                        ),
+                                        Text(
+                                          detailProvider.detail.deliveryCharge
+                                              .toString(),
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Discount",
+                                          style: TextStyle(
+                                              color: colors.greyText,
+                                              fontSize: 12),
+                                        ),
+                                        Text(
+                                          detailProvider.detail.discountAmount
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Divider(
+                                    height: 5,
+                                    color: colors.greyText,
+                                    indent: 10,
+                                    endIndent: 10,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Total Amount",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14),
+                                        ),
+                                        Text(
+                                          detailProvider.detail.subtotal
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: colors.buttonColor,
+                                              fontSize: 14),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Divider(
+                                    height: 5,
+                                    color: colors.greyText,
+                                    indent: 10,
+                                    endIndent: 10,
                                   ),
                                 ],
                               ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.location_on_outlined),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          "Shipping address",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    child: Text(
+                                      detailProvider
+                                          .detail.shippingAddress!.address
+                                          .toString(),
+                                      style: TextStyle(
+                                          color: colors.lightTextColor,
+                                          fontSize: 14),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    child: Text(
+                                      detailProvider.detail.shippingAddress!
+                                          .contactPersonName
+                                          .toString(),
+                                      style: TextStyle(
+                                          color: colors.lightTextColor,
+                                          fontSize: 14),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    child: Text(
+                                      detailProvider
+                                          .detail.shippingAddress!.city
+                                          .toString(),
+                                      style: TextStyle(
+                                          color: colors.lightTextColor,
+                                          fontSize: 14),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    child: Text(
+                                      detailProvider.detail.shippingAddress!.zip
+                                          .toString(),
+                                      style: TextStyle(
+                                          color: colors.lightTextColor,
+                                          fontSize: 14),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    child: Text(
+                                      "Phone - ${detailProvider.detail.shippingAddress!.phone.toString()}",
+                                      style: TextStyle(
+                                          color: colors.lightTextColor,
+                                          fontSize: 14),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Divider(
+                              height: 5,
+                              color: colors.greyText,
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                  horizontal: 20, vertical: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Text(
-                                    "Delivery free",
-                                    style: TextStyle(
-                                        color: colors.greyText, fontSize: 12),
-                                  ),
-                                  Text(
-                                    detailProvider.detail.deliveryCharge
-                                        .toString(),
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Discount",
-                                    style: TextStyle(
-                                        color: colors.greyText, fontSize: 12),
-                                  ),
-                                  Text(
-                                    detailProvider.detail.discountAmount
-                                        .toString(),
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Divider(
-                              height: 5,
-                              color: colors.greyText,
-                              indent: 10,
-                              endIndent: 10,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Total Amount",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                  ),
-                                  Text(
-                                    detailProvider.detail.subtotal.toString(),
+                                    "Arriving Wednesday",
                                     style: TextStyle(
                                         color: colors.buttonColor,
-                                        fontSize: 14),
+                                        fontSize: 25),
                                   ),
-                                ],
-                              ),
-                            ),
-                            Divider(
-                              height: 5,
-                              color: colors.greyText,
-                              indent: 10,
-                              endIndent: 10,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.location_on_outlined),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "Shipping address",
-                                    style: TextStyle(
+                                  const SizedBox(height: 20),
+                                  OrderTracker(
+                                    status: Status.order,
+                                    activeColor: Colors.orange,
+                                    inActiveColor: Colors.grey[300],
+                                    orderTitleAndDateList: orderList,
+                                    shippedTitleAndDateList: shippedList,
+                                    outOfDeliveryTitleAndDateList:
+                                        outOfDeliveryList,
+                                    deliveredTitleAndDateList: deliveredList,
+                                    headingTitleStyle: const TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                    headingDateTextStyle: const TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                    subTitleTextStyle: const TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                    subDateTextStyle: const TextStyle(
                                         color: Colors.white, fontSize: 14),
                                   ),
                                 ],
                               ),
                             ),
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
+                                  horizontal: 20, vertical: 10),
                               child: Text(
-                                detailProvider.detail.shippingAddress!.address
-                                    .toString(),
-                                style: TextStyle(
-                                    color: colors.lightTextColor, fontSize: 14),
+                                "Recommended Product",
+                                style: TextStyle(color: Colors.white),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                              child: Text(
-                                detailProvider
-                                    .detail.shippingAddress!.contactPersonName
-                                    .toString(),
-                                style: TextStyle(
-                                    color: colors.lightTextColor, fontSize: 14),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                              child: Text(
-                                detailProvider.detail.shippingAddress!.city
-                                    .toString(),
-                                style: TextStyle(
-                                    color: colors.lightTextColor, fontSize: 14),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                              child: Text(
-                                detailProvider.detail.shippingAddress!.zip
-                                    .toString(),
-                                style: TextStyle(
-                                    color: colors.lightTextColor, fontSize: 14),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                              child: Text(
-                                "Phone - ${detailProvider.detail.shippingAddress!.phone.toString()}",
-                                style: TextStyle(
-                                    color: colors.lightTextColor, fontSize: 14),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Divider(
-                        height: 5,
-                        color: colors.greyText,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Arriving Wednesday",
-                              style: TextStyle(
-                                  color: colors.buttonColor, fontSize: 25),
-                            ),
-                            const SizedBox(height: 20),
-                            OrderTracker(
-                              status: Status.order,
-                              activeColor: Colors.orange,
-                              inActiveColor: Colors.grey[300],
-                              orderTitleAndDateList: orderList,
-                              shippedTitleAndDateList: shippedList,
-                              outOfDeliveryTitleAndDateList: outOfDeliveryList,
-                              deliveredTitleAndDateList: deliveredList,
-                              headingTitleStyle: const TextStyle(
-                                  color: Colors.white, fontSize: 14),
-                              headingDateTextStyle: const TextStyle(
-                                  color: Colors.white, fontSize: 14),
-                              subTitleTextStyle: const TextStyle(
-                                  color: Colors.white, fontSize: 14),
-                              subDateTextStyle: const TextStyle(
-                                  color: Colors.white, fontSize: 14),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: Text(
-                          "Recommended Product",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      Container(
-                        height: 240,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15),
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: List.generate(3, (index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 15),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10)),
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        colors.boxGradient1.withOpacity(1),
-                                        Colors.transparent,
-                                      ],
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                    ),
-                                    border:
-                                        Border.all(color: colors.boxBorder)),
-                                width: MediaQuery.of(context).size.width * 0.42,
-                                height: 200,
-                                child: Center(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Image.asset(
-                                          Images.powder,
-                                          height: 120,
+                            Container(
+                              height: 240,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: List.generate(3, (index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10),
+                                      decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10)),
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              colors.boxGradient1
+                                                  .withOpacity(1),
+                                              Colors.transparent,
+                                            ],
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                          ),
+                                          border: Border.all(
+                                              color: colors.boxBorder)),
+                                      width: MediaQuery.of(context).size.width *
+                                          0.42,
+                                      height: 200,
+                                      child: Center(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Image.asset(
+                                                Images.powder,
+                                                height: 120,
+                                              ),
+                                            ),
+                                            const Text(
+                                              "25% Off",
+                                              style: TextStyle(
+                                                  color: Colors.orange,
+                                                  fontSize: 12),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            const Text(
+                                              "Oats Fitness",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            const Row(
+                                              children: [
+                                                Text(
+                                                  "\$200",
+                                                  style: TextStyle(
+                                                    color:
+                                                        colors.lightTextColor,
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text(
+                                                  "\$120.00",
+                                                  style: TextStyle(
+                                                    color: colors.buttonColor,
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      const Text(
-                                        "25% Off",
-                                        style: TextStyle(
-                                            color: Colors.orange, fontSize: 12),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      const Text(
-                                        "Oats Fitness",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 12),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      const Row(
-                                        children: [
-                                          Text(
-                                            "\$200",
-                                            style: TextStyle(
-                                              color: colors.lightTextColor,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            "\$120.00",
-                                            style: TextStyle(
-                                              color: colors.buttonColor,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                    ),
+                                  );
+                                }),
                               ),
-                            );
-                          }),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: 80,
-                  color: colors.textFieldBG,
-                  child: Center(
-                    child: SizedBox(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        child: CommonButton(
-                          text: "CANCEL ORDER",
-                          fontSize: 14,
-                          onClick: () {
-                            showCancelDialog();
-                          },
-                        )),
-                  ),
-                ),
-              ),
+                    ),
+              detailProvider.isLoading
+                  ? appLoader()
+                  : Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 80,
+                        color: colors.textFieldBG,
+                        child: Center(
+                          child: SizedBox(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              child: CommonButton(
+                                text: "CANCEL ORDER",
+                                fontSize: 14,
+                                onClick: () {
+                                  showCancelDialog();
+                                },
+                              )),
+                        ),
+                      ),
+                    ),
             ],
           ),
         ),

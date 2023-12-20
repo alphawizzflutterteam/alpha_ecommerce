@@ -164,7 +164,7 @@ class Product {
     required this.updatedAt,
     required this.shippingMethodId,
     required this.variant,
-    required this.variation,
+    //required this.variation,
     required this.discountType,
     required this.isStockDecreased,
     required this.refundRequest,
@@ -221,7 +221,7 @@ class Product {
   final DateTime? updatedAt;
   final int? shippingMethodId;
   final String? variant;
-  final ProductVariation? variation;
+  //final ProductVariation? variation;
   final String? discountType;
   final int? isStockDecreased;
   final int? refundRequest;
@@ -281,9 +281,9 @@ class Product {
       updatedAt: DateTime.tryParse(json["updated_at"] ?? ""),
       shippingMethodId: json["shipping_method_id"],
       variant: json["variant"],
-      variation: json["variation"] == null
-          ? null
-          : ProductVariation.fromJson(json["variation"]),
+      // variation: json["variation"] == null
+      //     ? null
+      //     : ProductVariation.fromJson(json["variation"]),
       discountType: json["discount_type"],
       isStockDecreased: json["is_stock_decreased"],
       refundRequest: json["refund_request"],
@@ -344,7 +344,7 @@ class Product {
         "updated_at": updatedAt?.toIso8601String(),
         "shipping_method_id": shippingMethodId,
         "variant": variant,
-        "variation": variation?.toJson(),
+        // "variation": variation?.toJson(),
         "discount_type": discountType,
         "is_stock_decreased": isStockDecreased,
         "refund_request": refundRequest,
@@ -414,7 +414,7 @@ class ProductDetails {
     required this.variantProduct,
     required this.attributes,
     required this.choiceOptions,
-    required this.variation,
+    // required this.variation,
     required this.published,
     required this.unitPrice,
     required this.purchasePrice,
@@ -473,7 +473,7 @@ class ProductDetails {
   final int? variantProduct;
   final List<String> attributes;
   final List<ChoiceOption> choiceOptions;
-  final List<VariationElement> variation;
+  // final List<VariationElement> variation;
   final int? published;
   final int? unitPrice;
   final int? purchasePrice;
@@ -548,10 +548,10 @@ class ProductDetails {
           ? []
           : List<ChoiceOption>.from(
               json["choice_options"]!.map((x) => ChoiceOption.fromJson(x))),
-      variation: json["variation"] == null
-          ? []
-          : List<VariationElement>.from(
-              json["variation"]!.map((x) => VariationElement.fromJson(x))),
+      // variation: json["variation"] == null
+      //     ? []
+      //     : List<VariationElement>.from(
+      //         json["variation"]!.map((x) => VariationElement.fromJson(x))),
       published: json["published"],
       unitPrice: json["unit_price"],
       purchasePrice: json["purchase_price"],
@@ -614,7 +614,7 @@ class ProductDetails {
         "variant_product": variantProduct,
         "attributes": attributes.map((x) => x).toList(),
         "choice_options": choiceOptions.map((x) => x?.toJson()).toList(),
-        "variation": variation.map((x) => x?.toJson()).toList(),
+        // "variation": variation.map((x) => x?.toJson()).toList(),
         "published": published,
         "unit_price": unitPrice,
         "purchase_price": purchasePrice,

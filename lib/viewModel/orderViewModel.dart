@@ -38,12 +38,13 @@ class OrderViewModel with ChangeNotifier {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
     print(token);
+    print(order_id + "ID");
 
     await _myRepo
         .orderDetailRequest(AppUrl.orderDetail, token, order_id)
         .then((value) {
       detail = value.data!;
-      print("detail ${detail.products[0].price}");
+      print("detail ${detail.products[0].createdAt.toString()}");
 
       setLoading(false);
       notifyListeners();

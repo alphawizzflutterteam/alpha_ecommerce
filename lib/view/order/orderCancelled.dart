@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/view/order/productListBuilder.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,97 +49,108 @@ class _OrderCancelledState extends State<OrderCancelled> {
                   )
                 ],
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Container(
-                          height: 40,
-                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Order ID - ${detailProvider.detail.orderId}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                "SOLD BY : ${detailProvider.detail.seller!.name}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      ProductListBuilder(
-                          productList: detailProvider.detail.products),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: const Row(
-                          children: [
-                            Icon(Icons.check_circle, color: colors.buttonColor),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "Ordered Saturday, 6 Oct",
-                              style: TextStyle(color: colors.textColor),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        height: 80,
-                        child: const VerticalDivider(
-                          color: Colors.grey,
-                          thickness: 1,
-                          indent: 10,
-                          endIndent: 10,
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: const Row(
+              detailProvider.isLoading
+                  ? appLoader()
+                  : Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(Icons.check_circle, color: Colors.red),
-                            SizedBox(
-                              width: 10,
+                            const SizedBox(
+                              height: 20,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Ordered Saturday, 6 Oct",
-                                    style: TextStyle(color: colors.textColor)),
-                                Text("Changed my mind",
-                                    style: TextStyle(
-                                        color: colors.lightTextColor,
-                                        fontSize: 12)),
-                              ],
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Container(
+                                height: 40,
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Order ID - ${detailProvider.detail.orderId}",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    Text(
+                                      "SOLD BY : ${detailProvider.detail.seller!.name}",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            ProductListBuilder(
+                                productList: detailProvider.detail.products),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: const Row(
+                                children: [
+                                  Icon(Icons.check_circle,
+                                      color: colors.buttonColor),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    "Ordered Saturday, 6 Oct",
+                                    style: TextStyle(color: colors.textColor),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              height: 80,
+                              child: const VerticalDivider(
+                                color: Colors.grey,
+                                thickness: 1,
+                                indent: 10,
+                                endIndent: 10,
+                              ),
+                            ),
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: const Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(Icons.check_circle, color: Colors.red),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Ordered Saturday, 6 Oct",
+                                          style: TextStyle(
+                                              color: colors.textColor)),
+                                      Text("Changed my mind",
+                                          style: TextStyle(
+                                              color: colors.lightTextColor,
+                                              fontSize: 12)),
+                                    ],
+                                  )
+                                ],
+                              ),
                             )
                           ],
                         ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+                      ),
+                    ),
             ],
           ),
         ),
