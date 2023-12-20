@@ -133,6 +133,7 @@ class _FilterClassState extends State<FilterClass> {
                         height: 40,
                         width: MediaQuery.of(context).size.width * 0.4,
                         child: TextFormField(
+                          controller: widget.model.minPriceController,
                           keyboardType: const TextInputType.numberWithOptions(
                               signed: true),
                           inputFormatters: <TextInputFormatter>[
@@ -174,6 +175,7 @@ class _FilterClassState extends State<FilterClass> {
                         height: 40,
                         width: MediaQuery.of(context).size.width * 0.4,
                         child: TextFormField(
+                          controller: widget.model.maxPriceController,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 10),
@@ -319,6 +321,52 @@ class _FilterClassState extends State<FilterClass> {
                                                                 .fields![j]
                                                                 .value!
                                                       };
+                                                      if (widget.filter[i]
+                                                              .title ==
+                                                          "Color") {
+                                                        widget.model.color =
+                                                            widget
+                                                                .filter[i]
+                                                                .fields![j]
+                                                                .value!
+                                                                .toString();
+                                                      } else if (widget
+                                                              .filter[i]
+                                                              .title ==
+                                                          "Brand") {
+                                                        widget.model.brandId =
+                                                            widget
+                                                                .filter[i]
+                                                                .fields![j]
+                                                                .value!
+                                                                .toString();
+                                                      } else if (widget
+                                                              .filter[i]
+                                                              .title ==
+                                                          "Brand") {
+                                                        widget.model.brandId =
+                                                            widget
+                                                                .filter[i]
+                                                                .fields![j]
+                                                                .value!
+                                                                .toString();
+                                                      } else if (widget
+                                                              .filter[i]
+                                                              .title ==
+                                                          "Rating") {
+                                                        widget.model
+                                                                .reviewFilter =
+                                                            widget
+                                                                .filter[i]
+                                                                .fields![j]
+                                                                .value!
+                                                                .toString();
+                                                      }
+                                                      widget.model
+                                                          .getProductsListNew(
+                                                              context,
+                                                              "25",
+                                                              "1");
                                                       bool isElementPresent = widget
                                                           .model.selectedFilter
                                                           .where((map) => map

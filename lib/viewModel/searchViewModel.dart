@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 class SearchViewModel with ChangeNotifier {
   bool isLoading = false;
   bool get loading => isLoading;
+  TextEditingController minPriceController = TextEditingController();
+  TextEditingController maxPriceController = TextEditingController();
 
 //limit:25
 // offset:1
@@ -25,6 +27,9 @@ class SearchViewModel with ChangeNotifier {
 // sort_by:
 // order_by:DESC
 // is_home:true
+//min_price
+// max_price
+// review_filter
   int selectedIndex = 0;
   String categoryId = "";
   String subCategoryId = "";
@@ -35,6 +40,9 @@ class SearchViewModel with ChangeNotifier {
   String color = "";
   String sortBy = "";
   String orderBy = "DESC";
+  String minPrice = "";
+  String maxPrice = "";
+  String reviewFilter = "";
   bool isHome = true;
   final _myRepo = HomeRepository();
   List<Map<String, dynamic>> selectedFilter = [];
@@ -83,9 +91,12 @@ class SearchViewModel with ChangeNotifier {
       BuildContext context, String limit, String offset) async {
     setLoading(true);
     var userID = SharedPref.shared.pref!.getString(PrefKeys.userId) ?? "";
+
+    minPrice = minPriceController.text;
+    maxPrice = maxPriceController.text;
     await _myRepo
         .productsListApi(
-            "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID&category_id=$categoryId&sub_category_id=$subCategoryId&vendor_id=$vendorId&brand_id=$brandId&offer_id=$offerId&offer_percentage=$offerPercentage&color=$color&sort_by=$sortBy&order_by=$orderBy&is_home=$isHome&search_text=${searchController.text}")
+            "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID&category_id=$categoryId&sub_category_id=$subCategoryId&vendor_id=$vendorId&brand_id=$brandId&offer_id=$offerId&offer_percentage=$offerPercentage&color=$color&sort_by=$sortBy&order_by=$orderBy&is_home=$isHome&search_text=${searchController.text}&min_price=$minPrice&max_price=$maxPrice&review_filter=$reviewFilter")
         .then((value) {
       print(
           "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID&category_id=$categoryId&sub_category_id=$subCategoryId&vendor_id=$vendorId&brand_id=$brandId&offer_id=$offerId&offer_percentage=$offerPercentage&color=$color&sort_by=$sortBy&order_by=$orderBy&is_home=$isHome&search_text=${searchController.text}");

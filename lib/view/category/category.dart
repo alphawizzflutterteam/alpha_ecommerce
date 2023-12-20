@@ -34,6 +34,7 @@ class _AllCategoryState extends State<AllCategory> {
     super.initState();
     categoryProvider = Provider.of<CategoryViewModel>(context, listen: false);
     searchProvider = Provider.of<SearchViewModel>(context, listen: false);
+    searchProvider.clearFilters();
 
     getCategory();
   }
