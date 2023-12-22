@@ -40,6 +40,9 @@ void main() async {
 
   ErrorWidget.builder = (FlutterErrorDetails details) {
     print(details.exception.toString());
+    print(details.library.toString());
+    print(details.exceptionAsString().toString());
+    print(details.stack.toString());
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(body: appLoader()),

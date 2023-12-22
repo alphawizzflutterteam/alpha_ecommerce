@@ -45,3 +45,4 @@ app.*.map.json
 pubspec.lock
 pubspec.lock
 pubspec.lock
+ios/Podfile.lock
