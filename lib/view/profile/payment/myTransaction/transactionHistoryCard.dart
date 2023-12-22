@@ -1,19 +1,20 @@
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/model/transactionHistoryModel.dart';
 import 'package:flutter/material.dart';
 import '../../../../model/transaction.dart';
 import '../../../../utils/color.dart';
 
-transactionHistoryCard({required context, required transactionIndex}) {
+transactionHistoryCard({required context, required DatumTrasaction data}) {
   return Column(
     children: [
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: InkWell(
           onTap: () {
-            Routes.navigateToSingleTransactionScreen(context);
+            Routes.navigateToSingleTransactionScreen(context, data);
           },
           child: SizedBox(
-            height: 100,
+            height: 110,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -25,26 +26,26 @@ transactionHistoryCard({required context, required transactionIndex}) {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "${transaction[transactionIndex].transactionDate} , ${transaction[transactionIndex].transactionTime}",
+                          data.createdAt,
                           style: const TextStyle(
                               color: colors.textColor, fontSize: 12),
                         ),
                         const SizedBox(
-                          height: 5,
+                          height: 15,
                         ),
                         Text(
-                          transaction[transactionIndex].transactionAmount,
+                          data.orderAmount,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 20),
                         )
                       ],
                     ),
-                    buildCustom(
-                        transaction[transactionIndex].transactionStatus),
+                    buildCustom(data.status.toLowerCase() == "success",
+                        data.status.toUpperCase()),
                   ],
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,7 +62,7 @@ transactionHistoryCard({required context, required transactionIndex}) {
                           height: 5,
                         ),
                         Text(
-                          transaction[transactionIndex].orderId,
+                          data.orderId.toString(),
                           style: const TextStyle(
                               color: Colors.white, fontSize: 14),
                         )
@@ -78,17 +79,11 @@ transactionHistoryCard({required context, required transactionIndex}) {
                         const SizedBox(
                           height: 5,
                         ),
-                        transaction[transactionIndex].transactionStatus
-                            ? Text(
-                                transaction[transactionIndex].transactionId,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 14),
-                              )
-                            : const Text(
-                                "-",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 14),
-                              )
+                        Text(
+                          data.transactionId,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 14),
+                        )
                       ],
                     ),
                   ],
@@ -118,7 +113,7 @@ transactionHistoryCard({required context, required transactionIndex}) {
   );
 }
 
-Widget buildCustom(bool isSuccess) {
+Widget buildCustom(bool isSuccess, String status) {
   Color buttonColor = isSuccess ? Colors.green : Colors.red;
   Color textColor = isSuccess ? Colors.green : Colors.red;
 
@@ -129,7 +124,7 @@ Widget buildCustom(bool isSuccess) {
       color: buttonColor.withOpacity(0.2),
     ),
     child: Text(
-      isSuccess ? "SUCCESS" : "unsuccessful",
+      status,
       style: TextStyle(color: textColor),
     ),
   );

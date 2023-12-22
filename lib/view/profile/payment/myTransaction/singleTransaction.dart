@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/model/transactionHistoryModel.dart';
 import 'package:flutter/material.dart';
 import '../../../../utils/color.dart';
 import '../../../../utils/routes.dart';
@@ -5,7 +6,8 @@ import '../../../widget_common/commonBackground.dart';
 import '../../common_header.dart';
 
 class SingleTransaction extends StatefulWidget {
-  const SingleTransaction({Key? key}) : super(key: key);
+  final DatumTrasaction data;
+  const SingleTransaction({Key? key, required this.data}) : super(key: key);
 
   @override
   State<SingleTransaction> createState() => _SingleTransactionState();
@@ -78,18 +80,18 @@ class _SingleTransactionState extends State<SingleTransaction> {
                           const SizedBox(
                             height: 20,
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Text(
-                              "\$ 2562",
+                              widget.data.orderAmount,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 28,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                          const Text(
-                            "2 Oct 2023 04:45 PM",
+                          Text(
+                            widget.data.createdAt,
                             style: TextStyle(
                                 color: colors.lightTextColor, height: 1.5),
                             textAlign: TextAlign.center,
@@ -154,7 +156,7 @@ class _SingleTransactionState extends State<SingleTransaction> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
@@ -166,18 +168,20 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                   SizedBox(
                                     height: 3,
                                   ),
-                                  Text("OID2345678912",
+                                  Text(widget.data.orderId.toString(),
                                       style: TextStyle(
                                           color: colors.textColor,
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold))
                                 ],
                               ),
-                              buildCustom(true)
+                              buildCustom(
+                                  widget.data.status.toLowerCase() == "success",
+                                  widget.data.status)
                             ],
                           ),
                           const SizedBox(height: 20),
-                          const Row(
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -193,7 +197,7 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                   SizedBox(
                                     height: 3,
                                   ),
-                                  Text("OID2345678912",
+                                  Text(widget.data.transactionId.toString(),
                                       style: TextStyle(
                                           color: colors.textColor,
                                           fontSize: 14,
@@ -203,7 +207,7 @@ class _SingleTransactionState extends State<SingleTransaction> {
                             ],
                           ),
                           const SizedBox(height: 20),
-                          const Row(
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -219,7 +223,7 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                   SizedBox(
                                     height: 3,
                                   ),
-                                  Text("Bank Transfer",
+                                  Text(widget.data.paymentMethod,
                                       style: TextStyle(
                                           color: colors.textColor,
                                           fontSize: 14,
@@ -268,7 +272,7 @@ class _SingleTransactionState extends State<SingleTransaction> {
     ]);
   }
 
-  Widget buildCustom(bool isSuccess) {
+  Widget buildCustom(bool isSuccess, String status) {
     Color buttonColor = isSuccess ? Colors.green : Colors.red;
     Color textColor = isSuccess ? Colors.green : Colors.red;
 
@@ -279,7 +283,7 @@ class _SingleTransactionState extends State<SingleTransaction> {
         color: buttonColor.withOpacity(0.2),
       ),
       child: Text(
-        isSuccess ? "SUCCESS" : "unsuccessful",
+        status,
         style: TextStyle(color: textColor),
       ),
     );

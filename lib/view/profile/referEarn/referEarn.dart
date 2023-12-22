@@ -121,7 +121,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             ),
                           ),
                           const Text(
-                            "lorem Ipsum is simply dummy text\n of the printing andtypesetting industry ",
+                            "Referral Points",
                             style: TextStyle(
                                 color: colors.lightTextColor, height: 1.5),
                             textAlign: TextAlign.center,
@@ -210,7 +210,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                           ),
                           InkWell(
                             onTap: () {
-                              share(context);
+                              share(context, user.data[0].referralCode);
                             },
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,

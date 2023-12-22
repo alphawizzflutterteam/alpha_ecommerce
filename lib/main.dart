@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/categoryViewModel.dart';
@@ -36,6 +37,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPref.shared.getPref();
+
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    print(details.exception.toString());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(body: appLoader()),
+    );
+  };
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

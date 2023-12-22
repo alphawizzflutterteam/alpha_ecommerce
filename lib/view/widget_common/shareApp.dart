@@ -1,9 +1,13 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import '../../utils/color.dart';
 import '../../utils/routes.dart';
 import '../../model/sharingApp.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-Future<void> share(context) async {
+Future<void> share(context, String referralCode) async {
   return showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
@@ -37,7 +41,10 @@ Future<void> share(context) async {
                               children: [
                                 InkWell(
                                     onTap: () {
-                                      Routes.navigateToPreviousScreen(context);
+                                      //Routes.navigateToPreviousScreen(context);
+                                      if (i == 0) {
+                                        _launchInstagram(referralCode);
+                                      }
                                     },
                                     child: Image.asset(
                                       sharingApp[i].appImage,
@@ -65,4 +72,21 @@ Future<void> share(context) async {
           ));
     },
   );
+}
+
+_launchInstagram(String msg) async {
+  // Replace 'your_caption' with the desired caption for the share.
+  String caption = Uri.encodeComponent('Referral code $msg');
+
+  // Replace 'your_image_url' with the URL of the image you want to share.
+  String imageUrl = 'https://i.postimg.cc/sg02JgFb/playstore-icon.png';
+
+  // Instagram URL scheme for sharing an image with a caption.
+  String url =
+      'instagram://library?AssetPath=$imageUrl&InstagramCaption=$caption';
+
+  String content = '$caption $imageUrl';
+
+  // Open the system share dialog.
+  Share.share(content, subject: 'Check out this post on Instagram');
 }

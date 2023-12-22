@@ -29,6 +29,7 @@ import 'package:alpha_ecommerce_18oct/view/profile/contactUs/contactUs.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/coupon/couponScreen.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/editProfile/editProfile.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/faqs/faqs.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/model/transactionHistoryModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/transactionHistory.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myWallet/addMoney.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myWallet/payment.dart';
@@ -768,12 +769,14 @@ class Routes {
     );
   }
 
-  static navigateToSingleTransactionScreen(BuildContext context) {
+  static navigateToSingleTransactionScreen(
+      BuildContext context, DatumTrasaction data) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) =>
-            const SingleTransaction(),
+        pageBuilder: (context, animation1, animation2) => SingleTransaction(
+          data: data,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

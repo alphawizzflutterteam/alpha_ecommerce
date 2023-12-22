@@ -75,4 +75,8 @@ class AppUrl {
   static const String privacyPolicyData =
       "${baseURL}config/privacy-policy-pages";
   static const String writeReview = "${baseURL}products/reviews/submit";
+  static const String transactionHistory =
+      "${baseURL}customer/get-order-transaction";
+
+  static const String refundHistory = "${baseURL}customer/order/refund-list";
 }
