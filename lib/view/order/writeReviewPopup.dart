@@ -1,7 +1,9 @@
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 
 class WriteReviewPopup extends StatefulWidget {
@@ -15,8 +17,17 @@ class WriteReviewPopup extends StatefulWidget {
 
 class _WriteReviewPopupState extends State<WriteReviewPopup> {
   double rating = 1;
+  late OrderViewModel reviewProvider;
+  @override
+  void initState() {
+    super.initState();
+    reviewProvider = Provider.of<OrderViewModel>(context, listen: false);
+    reviewProvider.getOrderDetail(context, widget.order_id);
+  }
+
   @override
   Widget build(BuildContext context) {
+    reviewProvider = Provider.of<OrderViewModel>(context);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
@@ -155,8 +166,8 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
                 ),
                 onPressed: () {
                   Routes.navigateToPreviousScreen(context);
-                  Routes.navigateToOrderCancelledScreen(
-                      context, widget.order_id);
+                  // Routes.navigateToOrderCancelledScreen(
+                  //     context, widget.order_id);
                 },
                 child: const Text(
                   'Submit Review',

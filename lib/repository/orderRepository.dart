@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:alpha_ecommerce_18oct/view/order/model/orderDetailModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/ordersModel.dart';
@@ -14,8 +15,6 @@ class OrderRepository {
     });
 
     print(api);
-
-    print(res.body);
 
     var asn = await json.decode(res.body);
 
@@ -41,7 +40,7 @@ class OrderRepository {
     return OrderDetailsModel.fromJson(asn);
   }
 
-//Funcation for order return request
+//Function for order return request
   Future<void> orderReturnRequest(
       {required String api,
       required String bearerToken,
@@ -63,7 +62,7 @@ class OrderRepository {
     print(res.body);
   }
 
-  //Funcation for order canccel request
+//Function for order canccel request
   Future<void> orderCancelRequest(
       {required String api,
       required String bearerToken,
@@ -73,6 +72,29 @@ class OrderRepository {
     final url = Uri.parse(api).replace(queryParameters: {
       'order_id': order_id,
       'remarks': cancel_reason,
+    });
+    final http.Response res;
+    res = await http.post(url, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+    print(api);
+    print(res.body);
+  }
+
+//Function for order review
+  Future<void> orderReviewRequest({
+    required String api,
+    required String bearerToken,
+    required String order_id,
+    required String product_id,
+    required String comment,
+    required String rating,
+  }) async {
+    final url = Uri.parse(api).replace(queryParameters: {
+      'order_id': order_id,
+      'product_id': product_id,
+      'rating': rating,
+      'comment': comment,
     });
     final http.Response res;
     res = await http.post(url, headers: {

@@ -98,7 +98,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                       ),
                                     ),
                                     Text(
-                                      "SOLD BY : ${detailProvider.detail.seller!.name}",
+                                      "SOLD BY : ${detailProvider.detail.seller?.name}",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 14,

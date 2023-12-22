@@ -96,4 +96,21 @@ class OrderViewModel with ChangeNotifier {
         order_id: order_id,
         cancel_reason: reason);
   }
+
+//Funcation to submit order review
+  Future<void> postOrderReviewRequest({
+    required String order_id,
+    required String comment,
+    required String rating,
+    required String product_id,
+  }) async {
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    await _myRepo.orderReviewRequest(
+        api: AppUrl.writeReview,
+        bearerToken: token,
+        order_id: order_id,
+        product_id: product_id,
+        comment: comment,
+        rating: rating);
+  }
 }

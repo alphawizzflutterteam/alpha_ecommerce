@@ -74,4 +74,5 @@ class AppUrl {
 
   static const String privacyPolicyData =
       "${baseURL}config/privacy-policy-pages";
+  static const String writeReview = "${baseURL}products/reviews/submit";
 }

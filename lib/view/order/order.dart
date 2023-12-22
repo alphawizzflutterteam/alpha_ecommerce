@@ -72,6 +72,7 @@ class _OrderState extends State<Order> {
     switch (status.toLowerCase()) {
       case 'processing':
         return colors.onTheWayLight;
+
       case 'canceled':
         return colors.orderCancelledLight;
       case 'delivered':
@@ -96,6 +97,8 @@ class _OrderState extends State<Order> {
   @override
   Widget build(BuildContext context) {
     orderProvider = Provider.of<OrderViewModel>(context);
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
 
     return Stack(
       children: [
@@ -201,9 +204,7 @@ class _OrderState extends State<Order> {
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height *
-                            0.15 *
-                            orderProvider.orderList.length.toDouble(),
+                        height: height * .8,
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
@@ -231,8 +232,8 @@ class _OrderState extends State<Order> {
                                 }
                               },
                               child: Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.12,
+                                height: height * 0.145,
+                                alignment: Alignment.centerLeft,
                                 margin: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 10),
                                 decoration: BoxDecoration(
@@ -243,77 +244,54 @@ class _OrderState extends State<Order> {
                                   ),
                                 ),
                                 child: ListTile(
-                                  title: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 8),
+                                  leading: Image.asset(
+                                    Images.dettol,
+                                    // data.product!.images!.first,
+                                    width: width * .18,
+                                    height: height * .08,
+                                  ),
+                                  title: Text(
+                                    data.product!.name!,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  ),
+                                  subtitle: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Image.network(
-                                        data.product!.images!.first,
-                                        width: 80,
-                                        height: 200,
+                                      Text(
+                                        data.product!.shop!.name!,
+                                        maxLines: 1,
+                                        style: const TextStyle(
+                                            color: colors.greyText,
+                                            fontSize: 12),
                                       ),
-                                      const SizedBox(width: 30),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const SizedBox(
-                                            height: 10,
+                                      SizedBox(height: 10),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 5),
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(3)),
+                                          border: Border.all(
+                                            color: const Color(0x14E9E9E9),
+                                            width: 2,
                                           ),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.5,
-                                            child: Text(
-                                              data.product!.name!,
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 14),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.5,
-                                            child: Text(
-                                              data.product!.shop!.name!,
-                                              style: const TextStyle(
-                                                  color: colors.greyText,
-                                                  fontSize: 12),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            height: 20,
-                                            alignment: Alignment.center,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 2),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(3)),
-                                              border: Border.all(
-                                                color: const Color(0x14E9E9E9),
-                                                width: 2,
-                                              ),
-                                              color: getBackgroundColor(
+                                          color: getBackgroundColor(
+                                              data.orderStatus!),
+                                        ),
+                                        child: Text(
+                                          data.orderStatus!,
+                                          style: TextStyle(
+                                              color: getTextColor(
                                                   data.orderStatus!),
-                                            ),
-                                            child: Text(
-                                              data.orderStatus!,
-                                              style: TextStyle(
-                                                  color: getTextColor(
-                                                      data.orderStatus!),
-                                                  fontSize: 10),
-                                            ),
-                                          ),
-                                        ],
+                                              fontSize: 10),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -334,3 +312,95 @@ class _OrderState extends State<Order> {
     );
   }
 }
+
+
+// Container(
+                                // height:
+                                //     MediaQuery.of(context).size.height * 0.12,
+                                // margin: const EdgeInsets.symmetric(
+                                //     horizontal: 20, vertical: 10),
+                                // decoration: BoxDecoration(
+                                //   borderRadius: BorderRadius.circular(10),
+                                //   border: Border.all(
+                                //     color: const Color(0x14E9E9E9),
+                                //     width: 2,
+                                //   ),
+//                                 ),
+//                                 child: ListTile(
+//                                   title: Row(
+//                                     mainAxisAlignment: MainAxisAlignment.center,
+//                                     children: [
+                                      // Image.network(
+                                      //   "https://banner2.cleanpng.com/20180723/zw/kisspng-sony-bravia-x8500d-4k-resolution-smart-tv-4k-resolution-4k-wallpapers-5b56815fbbd4f1.5369648015323958717694.jpg",
+                                      //   // data.product!.images!.first,
+                                      //   width: 80,
+                                      //   height: 200,
+                                      // ),
+//                                       const SizedBox(width: 30),
+//                                       Column(
+//                                         crossAxisAlignment:
+//                                             CrossAxisAlignment.start,
+//                                         children: [
+//                                           const SizedBox(
+//                                             height: 10,
+//                                           ),
+//                                           SizedBox(
+//                                             width: MediaQuery.of(context)
+//                                                     .size
+//                                                     .width *
+//                                                 0.5,
+                                            // child: Text(
+                                            //   data.product!.name!,
+                                            //   style: const TextStyle(
+                                            //       color: Colors.white,
+                                            //       fontSize: 14),
+                                            // ),
+//                                           ),
+//                                           const SizedBox(
+//                                             height: 5,
+//                                           ),
+//                                           SizedBox(
+//                                             width: MediaQuery.of(context)
+//                                                     .size
+//                                                     .width *
+//                                                 0.5,
+                                            // child: Text(
+                                            //   data.product!.shop!.name!,
+                                            //   style: const TextStyle(
+                                            //       color: colors.greyText,
+                                            //       fontSize: 12),
+                                            // ),
+//                                           ),
+//                                           const SizedBox(
+//                                             height: 10,
+//                                           ),
+                                          // Container(
+                                          //   height: 20,
+                                          //   alignment: Alignment.center,
+                                          //   padding: const EdgeInsets.symmetric(
+                                          //       horizontal: 10, vertical: 2),
+                                          //   decoration: BoxDecoration(
+                                          //     borderRadius:
+                                          //         const BorderRadius.all(
+                                          //             Radius.circular(3)),
+                                          //     border: Border.all(
+                                          //       color: const Color(0x14E9E9E9),
+                                          //       width: 2,
+                                          //     ),
+                                          //     color: getBackgroundColor(
+                                          //         data.orderStatus!),
+                                          //   ),
+                                            // child: Text(
+                                            //   data.orderStatus!,
+                                            //   style: TextStyle(
+                                            //       color: getTextColor(
+                                            //           data.orderStatus!),
+                                            //       fontSize: 10),
+                                            // ),
+//                                           ),
+//                                         ],
+//                                       ),
+//                                     ],
+//                                   ),
+//                                 ),
+//                               ),
