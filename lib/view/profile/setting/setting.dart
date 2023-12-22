@@ -42,7 +42,7 @@ class _SettingState extends State<Setting> {
           settingIcon: Images.shareApp,
           settingName: 'Share',
           nextNavigation: false,
-          navigationPage: () => share(context)),
+          navigationPage: () => share(context, "")),
       SettingList(
           settingIcon: Images.changePassword,
           settingName: 'Change Password',

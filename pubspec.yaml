@@ -61,6 +61,7 @@ dependencies:
   geocoding: ^2.1.1
   visibility_detector: ^0.4.0+2
   speech_to_text: ^5.0.0
+  share: ^2.0.4
 
   flutter_localizations:
     sdk: flutter
