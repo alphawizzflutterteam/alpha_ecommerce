@@ -62,13 +62,13 @@ class OrderViewModel with ChangeNotifier {
         .orderDetailRequest(AppUrl.orderDetail, token, order_id)
         .then((value) {
       detail = value.data!;
-      print("detail ${detail.products[0].createdAt.toString()}");
+      // print("detail ${detail.shippingAddress!.address!}");
 
       setLoading(false);
       notifyListeners();
     }).onError((error, stackTrace) {
       setLoading(false);
-      print(stackTrace.toString());
+      print(stackTrace.toString() + "API ERRORR ORDER DETAIL");
     });
   }
 

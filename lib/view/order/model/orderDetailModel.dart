@@ -75,9 +75,9 @@ class DetailsData {
       paymentStatus: json["payment_status"],
       expectedDeliveryDate: json["expected_delivery_date"],
       orderNote: json["order_note"],
-      shippingAddress: json["shipping_address"] == null
+      shippingAddress: json["shipping_address_data"] == null
           ? null
-          : ShippingAddress.fromJson(json["shipping_address"]),
+          : ShippingAddress.fromJson(json["shipping_address_data"]),
     );
   }
 
@@ -95,7 +95,7 @@ class DetailsData {
         "payment_status": paymentStatus,
         "expected_delivery_date": expectedDeliveryDate,
         "order_note": orderNote,
-        "shipping_address": shippingAddress?.toJson(),
+        "shipping_address_data": shippingAddress?.toJson(),
       };
 }
 
@@ -179,7 +179,7 @@ class Product {
     required this.adminCommission,
     required this.isPause,
     required this.cause,
-    required this.shippingAddress,
+    //required this.shippingAddress,
     required this.discountAmount,
     required this.couponCode,
     required this.couponDiscountBearer,
@@ -236,7 +236,7 @@ class Product {
   final String? adminCommission;
   final String? isPause;
   final String? cause;
-  final String? shippingAddress;
+  // final String? shippingAddress;
   final String? discountAmount;
   final String? couponCode;
   final String? couponDiscountBearer;
@@ -298,7 +298,7 @@ class Product {
       adminCommission: json["admin_commission"],
       isPause: json["is_pause"],
       cause: json["cause"],
-      shippingAddress: json["shipping_address"],
+      //shippingAddress: json["shipping_address"],
       discountAmount: json["discount_amount"],
       couponCode: json["coupon_code"],
       couponDiscountBearer: json["coupon_discount_bearer"],
@@ -359,7 +359,7 @@ class Product {
         "admin_commission": adminCommission,
         "is_pause": isPause,
         "cause": cause,
-        "shipping_address": shippingAddress,
+        //"shipping_address": shippingAddress,
         "discount_amount": discountAmount,
         "coupon_code": couponCode,
         "coupon_discount_bearer": couponDiscountBearer,
@@ -878,8 +878,8 @@ class ShippingAddress {
     required this.isBilling,
   });
 
-  final String? id;
-  final String? customerId;
+  final int? id;
+  final int? customerId;
   final String? contactPersonName;
   final String? addressType;
   final String? address;
@@ -894,7 +894,7 @@ class ShippingAddress {
   final String? country;
   final String? latitude;
   final String? longitude;
-  final String? isBilling;
+  final int? isBilling;
 
   factory ShippingAddress.fromJson(Map<String, dynamic> json) {
     return ShippingAddress(

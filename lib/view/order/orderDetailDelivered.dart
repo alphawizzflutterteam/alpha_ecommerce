@@ -29,6 +29,7 @@ class OrderDetailDelivered extends StatefulWidget {
 class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   double rating = 4;
+  late OrderViewModel detailProvider;
 
   List<TextDto> orderList = [];
 
@@ -40,10 +41,10 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
 
   List<TextDto> deliveredList = [];
 
-  late OrderViewModel detailProvider;
   @override
   void initState() {
     super.initState();
+    print(widget.order_id);
     detailProvider = Provider.of<OrderViewModel>(context, listen: false);
     detailProvider.getOrderDetail(context, widget.order_id);
   }
@@ -51,27 +52,27 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
   @override
   Widget build(BuildContext context) {
     detailProvider = Provider.of<OrderViewModel>(context);
-    return Stack(
-      children: [
-        const LightBackGround(),
-        Scaffold(
-          resizeToAvoidBottomInset: false,
-          key: _scaffoldKey,
-          extendBody: true,
-          backgroundColor: Colors.transparent,
-          body: Column(
+    return detailProvider.isLoading
+        ? appLoader()
+        : Stack(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  InternalDetailPageHeader(
-                    text: 'Order Detail',
-                  )
-                ],
-              ),
-              detailProvider.isLoading
-                  ? appLoader()
-                  : Expanded(
+              const LightBackGround(),
+              Scaffold(
+                resizeToAvoidBottomInset: false,
+                key: _scaffoldKey,
+                extendBody: true,
+                backgroundColor: Colors.transparent,
+                body: Column(
+                  children: [
+                    const Stack(
+                      children: [
+                        ProfileHeader(),
+                        InternalDetailPageHeader(
+                          text: 'Order Detail',
+                        )
+                      ],
+                    ),
+                    Expanded(
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -453,30 +454,30 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                         ),
                       ),
                     ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: 80,
-                  color: colors.textFieldBG,
-                  child: Center(
-                    child: SizedBox(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        child: CommonButton(
-                          text: "RETURN ORDER",
-                          fontSize: 14,
-                          onClick: () {
-                            showCancelDialog();
-                          },
-                        )),
-                  ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 80,
+                        color: colors.textFieldBG,
+                        child: Center(
+                          child: SizedBox(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              child: CommonButton(
+                                text: "RETURN ORDER",
+                                fontSize: 14,
+                                onClick: () {
+                                  showCancelDialog();
+                                },
+                              )),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
-          ),
-        ),
-      ],
-    );
+          );
   }
 
   Future<void> showCancelDialog() async {
