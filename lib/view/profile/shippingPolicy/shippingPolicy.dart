@@ -1,4 +1,7 @@
+import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/routes.dart';
@@ -14,6 +17,15 @@ class ShippingPolicy extends StatefulWidget {
 
 class _ShippingPolicyState extends State<ShippingPolicy> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late ProfileViewModel profileModelProvider;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    profileModelProvider =
+        Provider.of<ProfileViewModel>(context, listen: false);
+    profileModelProvider.getPrivacyPolicyData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,58 +80,18 @@ class _ShippingPolicyState extends State<ShippingPolicy> {
             ),
             Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 30),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            term1,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 30),
-                            child: Text(
-                              term2,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  color: colors.lightTextColor, fontSize: 14),
-                            ),
-                          ),
-                          Text(
-                            term3,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 30),
-                            child: Text(
-                              term4,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  color: colors.lightTextColor, fontSize: 14),
-                            ),
-                          ),
-                          Text(
-                            term3,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 30),
-                            child: Text(
-                              term4,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  color: colors.lightTextColor, fontSize: 14),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Html(
+                    data: profileModelProvider.privacyPolicyData.data!
+                        .shippingDeliveryPolicy!.content,
+                    style: {
+                      'p': Style(
+                        color: Colors.white,
+                        fontSize: FontSize(14),
+                      )
+                    },
+                  ),
                 ),
               ),
             ),

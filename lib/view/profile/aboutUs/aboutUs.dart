@@ -1,4 +1,7 @@
+import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../utils/color.dart';
 import '../../../utils/constant.dart';
@@ -15,9 +18,19 @@ class AboutUs extends StatefulWidget {
 
 class _AboutUsState extends State<AboutUs> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late ProfileViewModel profileModelProvider;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    profileModelProvider =
+        Provider.of<ProfileViewModel>(context, listen: false);
+    profileModelProvider.getPrivacyPolicyData();
+  }
 
   @override
   Widget build(BuildContext context) {
+    profileModelProvider = Provider.of<ProfileViewModel>(context);
     return Stack(children: [
       const LightBackGround(),
       Scaffold(
@@ -99,44 +112,15 @@ class _AboutUsState extends State<AboutUs> {
                           const SizedBox(
                             height: 20,
                           ),
-                          const Text(
-                            term1,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 30),
-                            child: Text(
-                              term2,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  color: colors.lightTextColor, fontSize: 14),
-                            ),
-                          ),
-                          const Text(
-                            term3,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 30),
-                            child: Text(
-                              term4,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  color: colors.lightTextColor, fontSize: 14),
-                            ),
-                          ),
-                          const Text(
-                            term3,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 30),
-                            child: Text(
-                              term4,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  color: colors.lightTextColor, fontSize: 14),
-                            ),
+                          Html(
+                            data: profileModelProvider
+                                .privacyPolicyData.data!.aboutUs,
+                            style: {
+                              'p': Style(
+                                color: Colors.white,
+                                fontSize: FontSize(14),
+                              )
+                            },
                           ),
                         ],
                       ),
