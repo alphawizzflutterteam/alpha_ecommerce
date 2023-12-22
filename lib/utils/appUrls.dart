@@ -71,4 +71,7 @@ class AppUrl {
 
   static const String productDetail = "${baseURL}products/details/";
   static const String pincodeCheck = "${baseURL}products/pin-code-check";
+
+  static const String privacyPolicyData =
+      "${baseURL}config/privacy-policy-pages";
 }

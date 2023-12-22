@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class OrderRepository {
   Future<OrdersModel> orderListRequest(String api, String bearerToken) async {
     final url = Uri.parse(api);
-
+    print(bearerToken);
     final http.Response res;
     res = await http.get(url, headers: {
       'Authorization': 'Bearer $bearerToken',
