@@ -50,7 +50,9 @@ class _ProfileState extends State<Profile> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               Routes.navigateToChatScreen(context);
@@ -300,7 +302,17 @@ class _ProfileState extends State<Profile> {
                                     width:
                                         MediaQuery.of(context).size.width * 0.4,
                                     height: 100,
-                                    color: colors.overlayBG,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? colors.overlayBG
+                                          : Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? null
+                                          : Border.all(color: Colors.black),
+                                    ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
@@ -344,12 +356,21 @@ class _ProfileState extends State<Profile> {
                                                   Images.order,
                                                   height: 50,
                                                   width: 50,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                                 ),
                                                 const SizedBox(height: 8),
-                                                const Text(
+                                                Text(
                                                   "My Order",
                                                   style: TextStyle(
-                                                    color: Colors.white,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black,
                                                     fontSize: 14,
                                                   ),
                                                 ),
@@ -369,62 +390,78 @@ class _ProfileState extends State<Profile> {
                                     width:
                                         MediaQuery.of(context).size.width * 0.4,
                                     height: 100,
-                                    color: colors.overlayBG,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const SizedBox(
-                                            width: 23,
-                                          ),
-                                          // Container(
-                                          //   width: 20,
-                                          //   height: 20,
-                                          //   decoration: BoxDecoration(
-                                          //     color: Colors.red,
-                                          //     borderRadius:
-                                          //         BorderRadius.circular(2.0),
-                                          //   ),
-                                          //   child: const Center(
-                                          //     child: Text(
-                                          //       "8",
-                                          //       style: TextStyle(
-                                          //         color: Colors.white,
-                                          //         fontSize: 10,
-                                          //         fontWeight: FontWeight.bold,
-                                          //       ),
-                                          //     ),
-                                          //   ),
-                                          // ),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? colors.overlayBG
+                                          : Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? null
+                                          : Border.all(color: Colors.black),
+                                    ),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const SizedBox(
+                                          width: 23,
+                                        ),
+                                        // Container(
+                                        //   width: 20,
+                                        //   height: 20,
+                                        //   decoration: BoxDecoration(
+                                        //     color: Colors.red,
+                                        //     borderRadius:
+                                        //         BorderRadius.circular(2.0),
+                                        //   ),
+                                        //   child: const Center(
+                                        //     child: Text(
+                                        //       "8",
+                                        //       style: TextStyle(
+                                        //         color: Colors.white,
+                                        //         fontSize: 10,
+                                        //         fontWeight: FontWeight.bold,
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        // ),
 
-                                          const SizedBox(
-                                            width: 20,
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
+                                        Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Image.asset(
+                                                Images.heart,
+                                                height: 50,
+                                                width: 50,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
+                                              const SizedBox(height: 8),
+                                              Text(
+                                                "My Wishlist",
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          Center(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  Images.heart,
-                                                  height: 50,
-                                                  width: 50,
-                                                ),
-                                                const SizedBox(height: 8),
-                                                const Text(
-                                                  "My Wishlist",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                        )
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -467,22 +504,38 @@ class _ProfileState extends State<Profile> {
                                               profile[i].profileIcon,
                                               height: 30,
                                               width: 30,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                             ),
                                             title: Text(
                                               profile[i].profileText,
-                                              style: const TextStyle(
-                                                  color: Colors.white,
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                                   fontSize: 14),
                                             ),
-                                            trailing: const Icon(
+                                            trailing: Icon(
                                               Icons.arrow_forward_ios_rounded,
-                                              color: Colors.white,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               size: 20,
                                             ),
                                           ),
                                         ),
-                                        const Divider(
-                                          color: Colors.white,
+                                        Divider(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.grey,
                                           height: 1,
                                         ),
                                       ],

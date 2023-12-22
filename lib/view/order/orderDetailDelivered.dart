@@ -400,7 +400,11 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                       ),
                                       InkWell(
                                         onTap: () {
-                                          writeReview(context);
+                                          writeReview(
+                                              context,
+                                              detailProvider
+                                                  .detail.products[0].productId
+                                                  .toString());
                                         },
                                         child: const Text(
                                           "Write Review",
@@ -496,7 +500,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
     );
   }
 
-  Future<void> writeReview(context) async {
+  Future<void> writeReview(context, String product_id) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -506,6 +510,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
             backgroundColor: Colors.transparent,
             content: WriteReviewPopup(
               order_id: widget.order_id,
+              product_id: product_id,
             ));
       },
     );

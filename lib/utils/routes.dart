@@ -734,12 +734,15 @@ class Routes {
   }
 
   static navigateToOrderDetailDeliveredDetailScreen(
-      BuildContext context, String order_id) {
+    BuildContext context,
+    String order_id,
+  ) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) =>
-            OrderDetailDelivered(order_id: order_id),
+        pageBuilder: (context, animation1, animation2) => OrderDetailDelivered(
+          order_id: order_id,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

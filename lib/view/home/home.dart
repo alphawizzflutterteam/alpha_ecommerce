@@ -97,7 +97,9 @@ class _HomeState extends State<Home> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           floatingActionButton: FloatingActionButton(
               onPressed: () {
                 Routes.navigateToChatScreen(context);
