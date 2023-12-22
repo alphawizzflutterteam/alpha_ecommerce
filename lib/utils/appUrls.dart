@@ -3,7 +3,8 @@ class AppUrl {
   //https://alpha-ecom.developmentalphawizz.com
   //https://test-alpha-ecom.developmentalphawizz.com
 
-  static const baseURL = "https://alpha-ecom.developmentalphawizz.com/api/v1/";
+  static const baseURL =
+      "https://test-alpha-ecom.developmentalphawizz.com/api/v1/";
   static String sendLoginOtp = "${baseURL}auth/send-login-otp";
   static String sendRegisterOtp = "${baseURL}auth/send-otp";
   static String loginWithEmailPassword = "${baseURL}auth/login";
@@ -23,6 +24,7 @@ class AppUrl {
   static const String productsList = "${baseURL}products";
   static const String searchList = "${baseURL}products/search?";
   static const String filtersList = "${baseURL}products/get-filters";
+  static const String bannersSection = "${baseURL}config/app-home";
 
   static const String categories = "${baseURL}categories";
   static const String banners = "${baseURL}banners?banner_type=";
@@ -49,6 +51,7 @@ class AppUrl {
   static const String couponList = "${baseURL}coupon";
 
   static const String faq = "${baseURL}faq";
+  static const String contact = "${baseURL}contact/store";
 
   static String vendorList = "${baseURL}seller/all";
   static String vendorCategories = "${baseURL}categories?vendor_id=";

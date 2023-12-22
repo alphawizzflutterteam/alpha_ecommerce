@@ -57,6 +57,8 @@ wishlistCard(WishlistItemProduct model, BuildContext context) {
                   ),
                   child: Text(
                     model.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       color: colors.textColor,
                       fontSize: 12,

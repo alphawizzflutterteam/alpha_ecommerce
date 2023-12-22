@@ -11,6 +11,7 @@ import 'package:alpha_ecommerce_18oct/view/home/models/dailyDealsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/filtersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/specialOffersModel.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/topDealsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/wishlist/model/wishlistModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,9 @@ class HomeViewModel with ChangeNotifier {
 
   List<ProductList> productsModel = [];
 
+  String banner1 = "";
+  String banner2 = "";
+
   List<SpecialOffersList> specialOffersModel = [];
 
   List<BannersList> bannersListTop = [];
@@ -33,12 +37,16 @@ class HomeViewModel with ChangeNotifier {
   List<Filters> filterModel = [];
   List<BrandsList> brandsModel = [];
   bool get loading => isLoading;
+  TopDealsModel modelBanners = TopDealsModel();
 
   List<String> imageList = [];
   setLoading(bool value) {
     isLoading = value;
     notifyListeners();
   }
+
+  final TextEditingController subjectController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
 
   setScrolling(bool value) {
     isScrolled = value;
@@ -310,6 +318,29 @@ class HomeViewModel with ChangeNotifier {
     return false;
   }
 
+  Future<bool> customerSupport(dynamic data, BuildContext context) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+
+    print(data);
+    _myRepo.contactSuupporttt(AppUrl.contact, token, data).then((value) {
+      setLoading(false);
+      Utils.showFlushBarWithMessage("", value.message, context);
+
+      subjectController.text = "";
+      descriptionController.text = "";
+      print(value.message);
+
+      return true;
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(error.toString());
+      Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+      return false;
+    });
+    return false;
+  }
+
   Future<void> getProductFilters(BuildContext context) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
@@ -326,6 +357,25 @@ class HomeViewModel with ChangeNotifier {
       print(errorMessage);
       print(error.toString() + "product filter error");
       print(stackTrace.toString() + "product filter error");
+    });
+  }
+
+  Future<void> getHomeBanners(BuildContext context) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    print(token);
+
+    await _myRepo.bannersRequestt(AppUrl.bannersSection, token).then((value) {
+      modelBanners = value;
+      banner1 = modelBanners.data!.summerSaleBanner!.image!;
+      banner2 = modelBanners.data!.primeTimeBanner!.image!;
+      notifyListeners();
+
+      setLoading(false);
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(errorMessage);
+      print(stackTrace.toString() + "getHomeBanners error");
     });
   }
 }

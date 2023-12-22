@@ -11,6 +11,11 @@ class OrderViewModel with ChangeNotifier {
   List<OrdersList> orderList = [];
   late DetailsData detail;
   bool isLoading = false;
+  Filters filters = Filters();
+  var status = "";
+  TextEditingController searchText = TextEditingController();
+  var categorie = "";
+
   bool get loading => isLoading;
   final _myRepo = OrderRepository();
 
@@ -19,12 +24,25 @@ class OrderViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getOrderList(BuildContext context) async {
+  Future<void> getOrderList(
+    BuildContext context,
+  ) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
-    await _myRepo.orderListRequest(AppUrl.orderList, token).then((value) {
+    await _myRepo
+        .orderListRequest(
+            AppUrl.orderList +
+                "?status=" +
+                status +
+                "&categorie=" +
+                categorie +
+                "&search_text=" +
+                searchText.text,
+            token)
+        .then((value) {
       orderList = value.data!;
+      filters = value.filters!;
       notifyListeners();
 
       setLoading(false);

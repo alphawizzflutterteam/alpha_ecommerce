@@ -9,6 +9,7 @@ import 'package:alpha_ecommerce_18oct/view/home/models/filtersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/specialOffersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/successModel.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/topDealsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/wishlist/model/wishlistModel.dart';
 import 'package:http/http.dart' as http;
 
@@ -102,8 +103,6 @@ class HomeRepository {
       'Authorization': 'Bearer $bearerToken',
     });
 
-    print(res.body);
-
     return homeCartModelFromJson(res.body);
   }
 
@@ -119,6 +118,20 @@ class HomeRepository {
     var asn = await json.decode(res.body);
 
     return FiltersModel.fromJson(asn);
+  }
+
+  Future<TopDealsModel> bannersRequestt(String api, String bearerToken) async {
+    final url = Uri.parse(api);
+
+    final http.Response res;
+    res = await http.get(url, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+    var asn = await json.decode(res.body);
+
+    return TopDealsModel.fromJson(asn);
   }
 
   Future<SuccessModel> addToWishlist(
@@ -173,6 +186,21 @@ class HomeRepository {
     print(api);
     final http.Response res;
     res = await http.delete(url, body: data, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return successModelFromJson(res.body);
+  }
+
+  Future<SuccessModel> contactSuupporttt(
+      String api, String bearerToken, dynamic data) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.post(url, body: data, headers: {
       'Authorization': 'Bearer $bearerToken',
     });
 

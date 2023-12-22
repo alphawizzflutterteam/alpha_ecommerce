@@ -1,6 +1,9 @@
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/textfield_validation.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/routes.dart';
 import '../../widget_common/commonBackground.dart';
@@ -19,14 +22,20 @@ class CustomerSupport extends StatefulWidget {
 class _CustomerSupportState extends State<CustomerSupport> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late HomeViewModel homeProvider;
 
   final TextEditingController typeController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController subjectController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    homeProvider = Provider.of<HomeViewModel>(context, listen: false);
+  }
 
   @override
   Widget build(BuildContext context) {
+    homeProvider = Provider.of<HomeViewModel>(context);
+
     return Stack(
       children: [
         const LightBackGround(),
@@ -82,7 +91,7 @@ class _CustomerSupportState extends State<CustomerSupport> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
                               child: TextFormField(
-                                controller: subjectController,
+                                controller: homeProvider.subjectController,
                                 validator: validateName,
                                 decoration: commonInputDecoration(
                                   labelText: 'Subject',
@@ -98,7 +107,8 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                 child: TextFormField(
                                   keyboardType: TextInputType.multiline,
                                   maxLines: null,
-                                  controller: descriptionController,
+                                  controller:
+                                      homeProvider.descriptionController,
                                   validator: validateName,
                                   decoration: commonInputDecoration(
                                       labelText: 'Description', hintText: '\n'),
@@ -123,9 +133,35 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                             onClick: () {
                                               if (_formKey.currentState!
                                                   .validate()) {
-                                                Routes
-                                                    .navigateToDashboardScreen(
-                                                        context, 2);
+                                                FocusManager
+                                                    .instance.primaryFocus
+                                                    ?.unfocus();
+
+                                                var name = SharedPref
+                                                    .shared.pref!
+                                                    .getString(PrefKeys.name)!;
+                                                var mobile = SharedPref
+                                                    .shared.pref!
+                                                    .getString(
+                                                        PrefKeys.mobile)!;
+
+                                                var email = SharedPref
+                                                    .shared.pref!
+                                                    .getString(PrefKeys.email)!;
+
+                                                Map datta = {
+                                                  "name": name,
+                                                  "email": email,
+                                                  "mobile_number": mobile,
+                                                  "subject": homeProvider
+                                                      .subjectController.text,
+                                                  "message": homeProvider
+                                                      .descriptionController
+                                                      .text
+                                                };
+
+                                                homeProvider.customerSupport(
+                                                    datta, context);
                                               }
                                             })),
                                   ],

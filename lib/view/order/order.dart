@@ -88,7 +88,9 @@ class _OrderState extends State<Order> {
   void initState() {
     super.initState();
     orderProvider = Provider.of<OrderViewModel>(context, listen: false);
-    orderProvider.getOrderList(context);
+    orderProvider.getOrderList(
+      context,
+    );
   }
 
   @override
@@ -128,7 +130,10 @@ class _OrderState extends State<Order> {
                               height: 40,
                               width: MediaQuery.of(context).size.width * 0.6,
                               child: TextFormField(
-                                onChanged: (value) {},
+                                controller: orderProvider.searchText,
+                                onChanged: (value) {
+                                  orderProvider.getOrderList(context);
+                                },
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 10),
@@ -170,9 +175,7 @@ class _OrderState extends State<Order> {
                                   border: Border.all(color: Colors.grey)),
                               child: InkWell(
                                 onTap: () {
-                                  filter(
-                                    context,
-                                  );
+                                  filter(context, orderProvider);
                                 },
                                 child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,

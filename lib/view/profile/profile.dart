@@ -30,6 +30,7 @@ class _ProfileState extends State<Profile> {
     var name = "";
     var email = "";
     var phone = "";
+    bool iisSubscribed = false;
     if (token!.isEmpty) {
     } else {
       var model =
@@ -39,6 +40,7 @@ class _ProfileState extends State<Profile> {
       name = user.data[0].fName;
       email = user.data[0].email;
       phone = user.data[0].phone;
+      iisSubscribed = user.data[0].isSubscribed == 0 ? false : true;
     }
 
     return Stack(
@@ -243,37 +245,40 @@ class _ProfileState extends State<Profile> {
                             )
                           ],
                         ),
-                        Positioned(
-                          bottom: 0,
-                          left: MediaQuery.of(context).size.width * 0.3,
-                          child: Container(
-                            width: 150,
-                            height: 25,
-                            decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5))),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  Images.alphaProfile,
-                                  height: 20,
-                                  width: 20,
+                        !iisSubscribed
+                            ? Container()
+                            : Positioned(
+                                bottom: 0,
+                                left: MediaQuery.of(context).size.width * 0.3,
+                                child: Container(
+                                  width: 150,
+                                  height: 25,
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        Images.alphaProfile,
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      const Text(
+                                        "ALPHA Membership",
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 12),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Text(
-                                  "ALPHA Membership",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 12),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                              ),
                       ],
                     ),
                     Expanded(
@@ -300,26 +305,29 @@ class _ProfileState extends State<Profile> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                            CrossAxisAlignment.center,
                                         children: [
                                           const SizedBox(
-                                            width: 3,
+                                            width: 23,
                                           ),
-                                          Container(
-                                            width: 20,
-                                            height: 20,
-                                            decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius:
-                                                  BorderRadius.circular(2.0),
-                                            ),
-                                            child: const Center(
-                                              child: Text(
-                                                "8",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.bold,
+                                          Visibility(
+                                            visible: false,
+                                            child: Container(
+                                              width: 20,
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                color: Colors.red,
+                                                borderRadius:
+                                                    BorderRadius.circular(2.0),
+                                              ),
+                                              child: const Center(
+                                                child: Text(
+                                                  "8",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -369,27 +377,28 @@ class _ProfileState extends State<Profile> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           const SizedBox(
-                                            width: 3,
+                                            width: 23,
                                           ),
-                                          Container(
-                                            width: 20,
-                                            height: 20,
-                                            decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius:
-                                                  BorderRadius.circular(2.0),
-                                            ),
-                                            child: const Center(
-                                              child: Text(
-                                                "8",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
+                                          // Container(
+                                          //   width: 20,
+                                          //   height: 20,
+                                          //   decoration: BoxDecoration(
+                                          //     color: Colors.red,
+                                          //     borderRadius:
+                                          //         BorderRadius.circular(2.0),
+                                          //   ),
+                                          //   child: const Center(
+                                          //     child: Text(
+                                          //       "8",
+                                          //       style: TextStyle(
+                                          //         color: Colors.white,
+                                          //         fontSize: 10,
+                                          //         fontWeight: FontWeight.bold,
+                                          //       ),
+                                          //     ),
+                                          //   ),
+                                          // ),
+
                                           const SizedBox(
                                             width: 20,
                                           ),

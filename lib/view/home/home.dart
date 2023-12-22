@@ -58,6 +58,7 @@ class _HomeState extends State<Home> {
     homeProvider.getWishlistItem(context);
     homeProvider.getCartListItem(context);
     homeProvider.getProductFilters(context);
+    homeProvider.getHomeBanners(context);
     getCategory();
     searchProvider.clearFilters();
     searchProvider.getProductsListNew(context, "25", "1");
@@ -251,13 +252,6 @@ class _HomeState extends State<Home> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 0.0),
-                                child: secondCategoryListCard(
-                                    context,
-                                    homeProvider.categoriesModel,
-                                    searchProvider),
-                              ),
                               homeProvider.categoriesModel.length > 4
                                   ? InkWell(
                                       onTap: () {
@@ -266,7 +260,7 @@ class _HomeState extends State<Home> {
                                       },
                                       child: const Padding(
                                         padding: EdgeInsets.only(
-                                            top: 12.0, left: 12),
+                                            top: 12.0, left: 12, right: 12),
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -292,7 +286,14 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                     )
-                                  : const SizedBox()
+                                  : const SizedBox(),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 0.0),
+                                child: secondCategoryListCard(
+                                    context,
+                                    homeProvider.categoriesModel,
+                                    searchProvider),
+                              ),
                             ],
                           )),
                     ),
@@ -388,15 +389,6 @@ class _HomeState extends State<Home> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
-                                decoration:
-                                    const BoxDecoration(color: Colors.white),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
-                                  child: brandsCard(context,
-                                      homeProvider.brandsModel, searchProvider),
-                                ),
-                              ),
                               homeProvider.brandsModel.length > 4
                                   ? InkWell(
                                       onTap: () {
@@ -407,7 +399,7 @@ class _HomeState extends State<Home> {
                                       },
                                       child: const Padding(
                                         padding: EdgeInsets.only(
-                                            top: 12.0, left: 15),
+                                            top: 12.0, left: 12, right: 12),
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -433,7 +425,16 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                     )
-                                  : const SizedBox()
+                                  : const SizedBox(),
+                              Container(
+                                decoration:
+                                    const BoxDecoration(color: Colors.white),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 2.0),
+                                  child: brandsCard(context,
+                                      homeProvider.brandsModel, searchProvider),
+                                ),
+                              ),
                             ],
                           )),
                     ),
@@ -449,7 +450,7 @@ class _HomeState extends State<Home> {
                             end: Alignment.bottomCenter,
                           ),
                         ),
-                        child: productQualityCard()),
+                        child: productQualityCard(homeProvider.modelBanners)),
                     spaceOfHeight(height: 20),
 
                     homeProvider.cartModel.isEmpty
@@ -653,67 +654,31 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                           ),
-                    SizedBox(
-                      height: 170,
-                      width: MediaQuery.of(context).size.width,
-                      child: Image.asset(
-                        Images.summerSale,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.13,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            colors.homeBG.withOpacity(1),
-                            colors.homeBGGradiant.withOpacity(1),
-                          ],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                      ),
-                      child: Column(
-                        children: [
-                          Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 20, top: 10),
-                                child: Image.asset(
-                                  Images.starDeal,
-                                  height: 20,
-                                  width: 20,
-                                ),
-                              )),
-                          const Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Prime Time Deals",
-                              style: TextStyle(
-                                  color: colors.homePrimeDeals,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold),
+                    homeProvider.banner1 == ""
+                        ? Container()
+                        : SizedBox(
+                            height: 210,
+                            width: MediaQuery.of(context).size.width,
+                            child: Image.network(
+                              homeProvider.banner1 ?? "",
+                              fit: BoxFit.cover,
                             ),
                           ),
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 20, bottom: 10),
-                                child: Image.asset(
-                                  Images.starDeal,
-                                  height: 20,
-                                  width: 20,
-                                ),
-                              )),
-                        ],
-                      ),
-                    ),
+                    homeProvider.banner1 == ""
+                        ? Container()
+                        : const SizedBox(
+                            height: 20,
+                          ),
+                    homeProvider.banner2 == ""
+                        ? Container()
+                        : SizedBox(
+                            height: 210,
+                            width: MediaQuery.of(context).size.width,
+                            child: Image.network(
+                              homeProvider.banner2 ?? "",
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -810,8 +775,9 @@ class _HomeState extends State<Home> {
                           const SizedBox(height: 30),
                           SizedBox(
                               width: MediaQuery.of(context).size.width * 0.6,
-                              child: const Text(
-                                "Top Deals of electronic appliances",
+                              child: Text(
+                                homeProvider
+                                    .modelBanners.data!.topDealProduct!.title!,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.black,
@@ -833,7 +799,10 @@ class _HomeState extends State<Home> {
                               ),
                               itemCount: 6,
                               itemBuilder: (context, j) {
-                                return topDealCard(context);
+                                return topDealCard(
+                                    context,
+                                    homeProvider.modelBanners.data!
+                                        .topDealProduct!.products![j]);
                               },
                             ),
                           ),
@@ -870,8 +839,9 @@ class _HomeState extends State<Home> {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.5,
-                                        child: const Text(
-                                          "LET THEM PICK THE PERFECT GIFT",
+                                        child: Text(
+                                          homeProvider.modelBanners.data!
+                                              .giftSection!.giftTitle!,
                                           style: TextStyle(
                                               color: colors.textColor,
                                               fontSize: 25,
@@ -884,27 +854,28 @@ class _HomeState extends State<Home> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Image.asset(
-                                      Images.book1,
-                                      height: 120,
-                                      width: 100,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Image.asset(
-                                      Images.book2,
-                                      height: 120,
-                                      width: 100,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Image.asset(
-                                      Images.book3,
-                                      height: 120,
-                                      width: 100,
-                                    )
+                                    for (int i = 0;
+                                        i <
+                                            homeProvider.modelBanners.data!
+                                                .giftSection!.products!.length;
+                                        i++)
+                                      Row(
+                                        children: [
+                                          CachedNetworkImage(
+                                            imageUrl: homeProvider
+                                                .modelBanners
+                                                .data!
+                                                .giftSection!
+                                                .products![i]
+                                                .thumbnail!,
+                                            height: 120,
+                                            width: 100,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                        ],
+                                      ),
                                   ],
                                 )
                               ],

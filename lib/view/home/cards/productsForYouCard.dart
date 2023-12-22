@@ -132,7 +132,7 @@ productForYouCard(
                       width: 10,
                     ),
                     Text(
-                      model.purchasePrice,
+                      model.unitPrice,
                       style: const TextStyle(
                         color: colors.lightTextColor,
                         decoration: TextDecoration.lineThrough,

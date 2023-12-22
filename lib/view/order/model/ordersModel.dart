@@ -1,7 +1,7 @@
 class OrdersModel {
   bool? status;
   String? message;
-  //Filters? filters;
+  Filters? filters;
   List<OrdersList>? data;
 
   OrdersModel(
@@ -13,8 +13,8 @@ class OrdersModel {
   OrdersModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    // filters =
-    //     json['filters'] != null ? Filters.fromJson(json['filters']) : null;
+    filters =
+        json['filters'] != null ? Filters.fromJson(json['filters']) : null;
     if (json['data'] != null) {
       data = <OrdersList>[];
       json['data'].forEach((v) {
@@ -27,9 +27,9 @@ class OrdersModel {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['status'] = this.status;
     data['message'] = this.message;
-    // if (this.filters != null) {
-    //   data['filters'] = this.filters!.toJson();
-    // }
+    if (this.filters != null) {
+      data['filters'] = this.filters!.toJson();
+    }
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -38,94 +38,72 @@ class OrdersModel {
 }
 
 class Filters {
-  Status? status;
-  Categories? categories;
+  List<Status>? status;
+  List<Categories>? categories;
 
   Filters({this.status, this.categories});
 
   Filters.fromJson(Map<String, dynamic> json) {
-    status =
-        json['status'] != null ? new Status.fromJson(json['status']) : null;
-    categories = json['categories'] != null
-        ? new Categories.fromJson(json['categories'])
-        : null;
+    if (json['status'] != null) {
+      status = <Status>[];
+      json['status'].forEach((v) {
+        status!.add(new Status.fromJson(v));
+      });
+    }
+    if (json['categories'] != null) {
+      categories = <Categories>[];
+      json['categories'].forEach((v) {
+        categories!.add(new Categories.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.status != null) {
-      data['status'] = this.status!.toJson();
+      data['status'] = this.status!.map((v) => v.toJson()).toList();
     }
     if (this.categories != null) {
-      data['categories'] = this.categories!.toJson();
+      data['categories'] = this.categories!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Status {
-  String? pending;
-  String? confirmed;
-  String? processing;
-  String? outForDelivery;
-  String? delivered;
-  String? returned;
-  String? failed;
-  String? canceled;
+  String? title;
+  String? value;
 
-  Status(
-      {this.pending,
-      this.confirmed,
-      this.processing,
-      this.outForDelivery,
-      this.delivered,
-      this.returned,
-      this.failed,
-      this.canceled});
+  Status({this.title, this.value});
 
   Status.fromJson(Map<String, dynamic> json) {
-    pending = json['pending'];
-    confirmed = json['confirmed'];
-    processing = json['processing'];
-    outForDelivery = json['out_for_delivery'];
-    delivered = json['delivered'];
-    returned = json['returned'];
-    failed = json['failed'];
-    canceled = json['canceled'];
+    title = json['title'];
+    value = json['value'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['pending'] = this.pending;
-    data['confirmed'] = this.confirmed;
-    data['processing'] = this.processing;
-    data['out_for_delivery'] = this.outForDelivery;
-    data['delivered'] = this.delivered;
-    data['returned'] = this.returned;
-    data['failed'] = this.failed;
-    data['canceled'] = this.canceled;
+    data['title'] = this.title;
+    data['value'] = this.value;
     return data;
   }
 }
 
 class Categories {
-  String? s5;
-  String? s11;
-  String? s12;
+  int? title;
+  String? value;
 
-  Categories({this.s5, this.s11, this.s12});
+  Categories({this.title, this.value});
 
   Categories.fromJson(Map<String, dynamic> json) {
-    s5 = json['5'];
-    s11 = json['11'];
-    s12 = json['12'];
+    title = json['title'];
+    value = json['value'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['5'] = this.s5;
-    data['11'] = this.s11;
-    data['12'] = this.s12;
+    data['title'] = this.title;
+    data['value'] = this.value;
     return data;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/brandsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/common_header.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/commonBackground.dart';
@@ -46,7 +47,7 @@ class BrandsListScreen extends StatelessWidget {
                         crossAxisCount: 2,
                         mainAxisSpacing: 10,
                         mainAxisExtent:
-                            MediaQuery.of(context).size.height * .25,
+                            MediaQuery.of(context).size.height * .22,
                         crossAxisSpacing: 10),
                     itemBuilder: (context, index) => Container(
                       padding: const EdgeInsets.all(5),
@@ -57,7 +58,7 @@ class BrandsListScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * .13,
+                            height: MediaQuery.of(context).size.height * .10,
                             width: MediaQuery.of(context).size.width * .35,
                             child: Image.network(brandsModel[index].image),
                           ),
@@ -68,7 +69,15 @@ class BrandsListScreen extends StatelessWidget {
                           ),
                           Divider(color: Colors.transparent),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              searchViewModel.clearFilters();
+
+                              searchViewModel.brandId =
+                                  brandsModel[index].id.toString();
+                              searchViewModel.getProductsListNew(
+                                  context, "25", "1");
+                              Routes.navigateToSearchScreen(context);
+                            },
                             child: Container(
                               height: 30,
                               width: 100,
@@ -78,7 +87,7 @@ class BrandsListScreen extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  "View All",
+                                  "View Products",
                                   style: TextStyle(
                                       fontSize: 10, color: Colors.white),
                                 ),

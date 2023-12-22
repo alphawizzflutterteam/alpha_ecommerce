@@ -1,11 +1,13 @@
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/topDealsModel.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/color.dart';
-import '../../utils/routes.dart';
 import 'homeTexts&Spaces.dart';
 
-topDealCard(context) {
+topDealCard(context, ProductList2 products) {
   return Column(
     children: [
       InkWell(
@@ -47,7 +49,7 @@ topDealCard(context) {
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10)),
                   ),
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
@@ -56,17 +58,19 @@ topDealCard(context) {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
-                          'Electric Stove',
+                          products.name!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 12,
+                            fontSize: size_12,
                           ),
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
-                          '\$699',
+                          products.purchasePrice!.toString(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,

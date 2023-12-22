@@ -11,7 +11,7 @@ class Utils {
   static showFlushBarWithMessage(
       String title, String msg, BuildContext context) {
     Flushbar(
-      title: title,
+      // title: title,
       forwardAnimationCurve: Curves.decelerate,
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       padding: const EdgeInsets.all(10),

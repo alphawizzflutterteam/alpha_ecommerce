@@ -1,9 +1,6 @@
 import 'package:alpha_ecommerce_18oct/view/profile/address/addressList.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../utils/images.dart';
 import '../view/profile/aboutUs/aboutUs.dart';
-import '../view/profile/address/manage_address.dart';
 import '../view/profile/contactUs/contactUs.dart';
 import '../view/profile/coupon/couponScreen.dart';
 import '../view/profile/customerSupport/customerSupport.dart';
