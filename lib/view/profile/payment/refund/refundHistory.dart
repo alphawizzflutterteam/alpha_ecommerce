@@ -1,5 +1,8 @@
 import 'package:alpha_ecommerce_18oct/view/profile/payment/refund/refundHistoryCard.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../../utils/color.dart';
 import '../../../../model/refund.dart';
 import '../../../../utils/routes.dart';
@@ -17,8 +20,19 @@ class RefundHistory extends StatefulWidget {
 class _RefundHistoryState extends State<RefundHistory> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  late ProfileViewModel profileModelProvider;
+  @override
+  void initState() {
+    super.initState();
+    profileModelProvider =
+        Provider.of<ProfileViewModel>(context, listen: false);
+    profileModelProvider.getRefundHistoryData();
+  }
+
   @override
   Widget build(BuildContext context) {
+    profileModelProvider = Provider.of<ProfileViewModel>(context);
+
     return Stack(
       children: [
         const LightBackGround(),
@@ -37,19 +51,25 @@ class _RefundHistoryState extends State<RefundHistory> {
                   )
                 ],
               ),
-              Expanded(
-                  child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    for (int i = 0; i < 4; i++)
-                      refundHistoryCard(context: context, refundIndex: i),
-                  ],
-                ),
-              )),
+              profileModelProvider.isLoading
+                  ? appLoader()
+                  : Expanded(
+                      child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          for (int i = 0;
+                              i < profileModelProvider.refundData.length;
+                              i++)
+                            refundHistoryCard(
+                                context: context,
+                                data: profileModelProvider.refundData[i]),
+                        ],
+                      ),
+                    )),
             ],
           ),
         ),

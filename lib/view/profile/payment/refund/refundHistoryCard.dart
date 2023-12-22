@@ -1,9 +1,10 @@
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/payment/refund/model/refundHistoryModel.dart';
 import 'package:flutter/material.dart';
 import '../../../../model/refund.dart';
 import '../../../../utils/color.dart';
 
-refundHistoryCard({required context, required refundIndex}) {
+refundHistoryCard({required context, required DatumRefund data}) {
   return Column(
     children: [
       Padding(
@@ -25,7 +26,7 @@ refundHistoryCard({required context, required refundIndex}) {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "${refund[refundIndex].transactionDate} , ${refund[refundIndex].transactionTime}",
+                          data.createdAt,
                           style: const TextStyle(
                               color: colors.textColor, fontSize: 12),
                         ),
@@ -33,13 +34,14 @@ refundHistoryCard({required context, required refundIndex}) {
                           height: 5,
                         ),
                         Text(
-                          refund[refundIndex].transactionAmount,
+                          data.amount,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 20),
                         )
                       ],
                     ),
-                    buildCustomButton(refund[refundIndex].transactionStatus),
+                    buildCustomButton(
+                        data.status.toLowerCase() == "success", data.status),
                   ],
                 ),
                 const SizedBox(
@@ -52,16 +54,10 @@ refundHistoryCard({required context, required refundIndex}) {
                 const SizedBox(
                   height: 5,
                 ),
-                refund[refundIndex].transactionStatus
-                    ? Text(
-                        refund[refundIndex].transactionId,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 14),
-                      )
-                    : const Text(
-                        "-",
-                        style: TextStyle(color: Colors.white, fontSize: 14),
-                      )
+                Text(
+                  data.orderId.toString(),
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
+                )
               ],
             ),
           ),
@@ -84,7 +80,7 @@ refundHistoryCard({required context, required refundIndex}) {
   );
 }
 
-Widget buildCustomButton(bool isSuccess) {
+Widget buildCustomButton(bool isSuccess, String status) {
   Color buttonColor = isSuccess ? Colors.green : Colors.red;
   Color textColor = isSuccess ? Colors.green : Colors.red;
 
@@ -94,6 +90,6 @@ Widget buildCustomButton(bool isSuccess) {
       onPrimary: textColor,
     ),
     onPressed: () {},
-    child: Text(isSuccess ? "SUCCESS" : "unsuccessful"),
+    child: Text(status),
   );
 }
