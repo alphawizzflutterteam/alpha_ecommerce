@@ -71,6 +71,8 @@ extension colors on ColorScheme {
       brightness == Brightness.dark ? whiteTemp : const Color(0xff222222);
 
   static Color darkIcon = const Color(0xff9B9B9B);
+  static Color lightBorder = const Color(0xFFC3C5DD);
+  static Color lightGrey = const Color(0xFFC3C5DD);
 
   static const Color grad1Color = Color(0xffEEF2F3);
   static const Color grad2Color = Color(0xC7183D3D);

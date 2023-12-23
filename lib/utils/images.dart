@@ -141,4 +141,5 @@ class Images {
   static const headphone = "assets/images/temporaryImages/headphone.png";
   static const cameraTemporary = "assets/images/temporaryImages/camera.png";
   static const jeans = "assets/images/temporaryImages/jeans.png";
+  static const defaultProductImg = "assets/images/defaults-img.png";
 }

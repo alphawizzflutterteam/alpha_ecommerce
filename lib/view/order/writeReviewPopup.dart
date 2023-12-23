@@ -9,22 +9,27 @@ import '../../utils/color.dart';
 class WriteReviewPopup extends StatefulWidget {
   final String order_id;
   final String product_id;
+  final double rating;
 
   const WriteReviewPopup(
-      {super.key, required this.order_id, required this.product_id});
+      {super.key,
+      required this.order_id,
+      required this.product_id,
+      required this.rating});
 
   @override
   _WriteReviewPopupState createState() => _WriteReviewPopupState();
 }
 
 class _WriteReviewPopupState extends State<WriteReviewPopup> {
-  double rating = 1;
+  late double rating;
   final _formKey = GlobalKey<FormState>();
   late OrderViewModel reviewProvider;
   final TextEditingController reviewCtrl = TextEditingController();
   @override
   void initState() {
     super.initState();
+    rating = widget.rating;
     reviewProvider = Provider.of<OrderViewModel>(context, listen: false);
   }
 

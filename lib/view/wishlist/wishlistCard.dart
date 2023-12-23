@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
+import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/wishlist/model/wishlistModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
@@ -11,20 +12,30 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
       //  Routes.navigateToProductDetailPageScreen(context);
     },
     child: Container(
-      height: 120,
+      height: MediaQuery.of(context).size.height * .18,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
-        color: const Color(0x14E9E9E9).withOpacity(0.05),
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color(0x14E9E9E9).withOpacity(0.05)
+            : Colors.white,
+        border: Border.all(
+          color: Theme.of(context).brightness == Brightness.dark
+              ? const Color(0x14E9E9E9).withOpacity(0.05)
+              : colors.lightBorder,
+        ),
         borderRadius: BorderRadius.circular(10),
       ),
       child: ListTile(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.network(
               model.images[0],
-              width: 100,
-              height: 170,
+              errorBuilder: (context, error, stackTrace) =>
+                  Image.asset(Images.defaultProductImg),
+              width: MediaQuery.of(context).size.width * .25,
+              // height: MediaQuery.of(context).size.height * .15,
             ),
             const SizedBox(width: 30),
             Column(
@@ -35,7 +46,11 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                 ),
                 Text(
                   model.name,
-                  style: const TextStyle(color: Colors.white, fontSize: 14),
+                  style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: 14),
                 ),
                 const SizedBox(
                   height: 5,
@@ -51,8 +66,10 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                       padding: const EdgeInsets.only(left: 10),
                       child: Text(
                         model.specialPrice,
-                        style: const TextStyle(
-                          color: colors.greyText,
+                        style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.greyText
+                              : Colors.black,
                           fontSize: 14,
                           decoration: TextDecoration.lineThrough,
                         ),
@@ -65,7 +82,11 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                 ),
                 Text(
                   model.code,
-                  style: const TextStyle(color: colors.greyText, fontSize: 12),
+                  style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? colors.greyText
+                          : Colors.black,
+                      fontSize: 12),
                 ),
                 const SizedBox(
                   height: 10,
@@ -87,11 +108,20 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                           decoration: BoxDecoration(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(5)),
-                              border: Border.all(color: colors.boxBorder)),
-                          child: const Text(
+                              border: Border.all(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.boxBorder
+                                    : colors.lightBorder,
+                              )),
+                          child: Text(
                             "DELETE",
                             style: TextStyle(
-                                color: colors.textColor, fontSize: 10),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: 10),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -127,11 +157,20 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                           decoration: BoxDecoration(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(5)),
-                              border: Border.all(color: colors.boxBorder)),
+                              border: Border.all(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.boxBorder
+                                    : colors.lightBorder,
+                              )),
                           child: Text(
                             model.isCart ? "Remove From Cart" : "Add To Cart",
-                            style: const TextStyle(
-                                color: colors.textColor, fontSize: 10),
+                            style: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: 10),
                             textAlign: TextAlign.center,
                           ),
                         ),

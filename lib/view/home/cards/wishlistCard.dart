@@ -18,15 +18,27 @@ wishlistCard(WishlistItemProduct model, BuildContext context) {
             width: 160,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
-                gradient: LinearGradient(
-                  colors: [
-                    colors.boxGradient1.withOpacity(1),
-                    Colors.transparent,
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-                border: Border.all(color: colors.boxBorder)),
+                gradient: Theme.of(context).brightness == Brightness.dark
+                    ? LinearGradient(
+                        colors: [
+                          colors.boxGradient1.withOpacity(1),
+                          Colors.transparent,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      )
+                    : LinearGradient(
+                        colors: [
+                          Color(0xFFE4E2ED),
+                          Colors.white,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                border: Border.all(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? colors.boxBorder
+                        : colors.lightBorder)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,8 +71,10 @@ wishlistCard(WishlistItemProduct model, BuildContext context) {
                     model.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: colors.textColor,
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? colors.textColor
+                          : Colors.black,
                       fontSize: 12,
                     ),
                   ),

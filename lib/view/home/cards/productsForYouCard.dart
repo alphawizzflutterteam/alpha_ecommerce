@@ -1,5 +1,6 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/app_utils.dart';
+import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
@@ -24,15 +25,27 @@ productForYouCard(
           decoration: BoxDecoration(
               // image: DecorationImage(image: NetworkImage(model.images.first)),
               borderRadius: const BorderRadius.all(Radius.circular(10)),
-              gradient: LinearGradient(
-                colors: [
-                  colors.boxGradient1.withOpacity(1),
-                  Colors.transparent,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-              border: Border.all(color: colors.boxBorder)),
+              gradient: Theme.of(context).brightness == Brightness.dark
+                  ? LinearGradient(
+                      colors: [
+                        colors.boxGradient1.withOpacity(1),
+                        Colors.transparent,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    )
+                  : LinearGradient(
+                      colors: [
+                        Color(0xFFE4E2ED),
+                        Colors.white,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+              border: Border.all(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? colors.boxBorder
+                      : colors.lightBorder)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,6 +58,8 @@ productForYouCard(
                   ),
                   child: CachedNetworkImage(
                     imageUrl: model.images.first,
+                    errorWidget: (context, url, error) =>
+                        Image.asset(Images.defaultProductImg),
                     fit: BoxFit.fitWidth,
                   )),
               SizedBox(height: MediaQuery.of(context).size.height * 0.0005),
@@ -108,8 +123,10 @@ productForYouCard(
                   model.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? colors.textColor
+                        : Colors.black,
                     fontSize: 12,
                   ),
                 ),
@@ -185,8 +202,11 @@ productForYouCard(
                         border: Border.all(color: colors.boxBorder)),
                     child: Text(
                       model.isCart ? "Remove From Cart" : "Add to Cart",
-                      style: const TextStyle(
-                          color: colors.textColor, fontSize: size_12),
+                      style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textColor
+                              : Colors.black,
+                          fontSize: size_12),
                       textAlign: TextAlign.center,
                     ),
                   ),

@@ -44,7 +44,11 @@ categoryCard(
           Text(
             model.name!,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white, fontSize: 12),
+            style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+                fontSize: 12),
           ),
         ],
       ),

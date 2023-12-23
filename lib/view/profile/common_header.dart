@@ -12,13 +12,18 @@ class ProfileHeader extends StatelessWidget {
           children: [
             Image.asset(
               Images.headerBGLine,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? null
+                  : Colors.white54,
               width: MediaQuery.of(context).size.width,
             ),
-            Image.asset(
-              Images.commonHeader,
-              fit: BoxFit.contain,
-              width: MediaQuery.of(context).size.width,
-            ),
+            Theme.of(context).brightness == Brightness.dark
+                ? Image.asset(
+                    Images.commonHeader,
+                    fit: BoxFit.contain,
+                    width: MediaQuery.of(context).size.width,
+                  )
+                : Container(),
           ],
         ));
   }

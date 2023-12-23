@@ -64,7 +64,9 @@ class _OrderState extends State<Order> {
       case 'pending':
         return colors.returnedDark;
       default:
-        return Colors.white;
+        return Theme.of(context).brightness == Brightness.dark
+            ? Colors.white
+            : Colors.black;
     }
   }
 
@@ -80,7 +82,9 @@ class _OrderState extends State<Order> {
       case 'pending':
         return colors.returnedLight;
       default:
-        return Colors.transparent;
+        return Theme.of(context).brightness == Brightness.dark
+            ? Colors.transparent
+            : Colors.grey.shade200;
     }
   }
 
@@ -107,16 +111,23 @@ class _OrderState extends State<Order> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  InternalPageHeader(
-                    text: "My Orders",
-                  ),
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: const Stack(
+                  children: [
+                    ProfileHeader(),
+                    InternalPageHeader(
+                      text: "My Orders",
+                    ),
+                  ],
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -140,19 +151,33 @@ class _OrderState extends State<Order> {
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 10),
-                                  fillColor: colors.textFieldBG,
+                                  fillColor: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textFieldBG
+                                      : Colors.white,
                                   filled: true,
                                   hintText: 'Search',
-                                  hintStyle:
-                                      const TextStyle(color: Colors.white),
-                                  prefixIcon: const Icon(
+                                  hintStyle: TextStyle(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
+                                  prefixIcon: Icon(
                                     Icons.search,
-                                    color: Colors.white,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: const BorderSide(
-                                          color: Colors.grey, width: 1)),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          width: 2)),
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                       borderSide: const BorderSide(
@@ -173,20 +198,26 @@ class _OrderState extends State<Order> {
                               height: 40,
                               width: MediaQuery.of(context).size.width * 0.25,
                               decoration: BoxDecoration(
-                                  color: colors.textFieldBG,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textFieldBG
+                                      : Colors.white,
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Colors.grey)),
                               child: InkWell(
                                 onTap: () {
                                   filter(context, orderProvider);
                                 },
-                                child: const Row(
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Icon(
                                       Icons.filter_list_outlined,
-                                      color: Colors.white,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
                                     ),
                                     SizedBox(
                                       width: 5,
@@ -194,7 +225,11 @@ class _OrderState extends State<Order> {
                                     Text(
                                       'Filter',
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 16),
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: 16),
                                     )
                                   ],
                                 ),
@@ -239,16 +274,21 @@ class _OrderState extends State<Order> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                    color: const Color(0x14E9E9E9),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? const Color(0x14E9E9E9)
+                                        : colors.lightBorder,
                                     width: 2,
                                   ),
                                 ),
                                 child: ListTile(
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 8),
-                                  leading: Image.asset(
-                                    Images.dettol,
-                                    // data.product!.images!.first,
+                                  leading: Image.network(
+                                    data.product!.images!.first,
+                                    errorBuilder: (context, error,
+                                            stackTrace) =>
+                                        Image.asset(Images.defaultProductImg),
                                     width: width * .18,
                                     height: height * .08,
                                   ),
@@ -256,8 +296,12 @@ class _OrderState extends State<Order> {
                                     data.product!.name!,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 14),
+                                    style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 14),
                                   ),
                                   subtitle: Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -267,8 +311,12 @@ class _OrderState extends State<Order> {
                                       Text(
                                         data.product!.shop!.name!,
                                         maxLines: 1,
-                                        style: const TextStyle(
-                                            color: colors.greyText,
+                                        style: TextStyle(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? colors.greyText
+                                                    : Colors.black,
                                             fontSize: 12),
                                       ),
                                       SizedBox(height: 10),

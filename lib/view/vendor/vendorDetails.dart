@@ -98,16 +98,23 @@ class _VendorDetailsState extends State<VendorDetails> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  InternalDetailPageHeader(
-                    text: "Vendor Details",
-                  ),
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: const Stack(
+                  children: [
+                    ProfileHeader(),
+                    InternalDetailPageHeader(
+                      text: "Vendor Details",
+                    ),
+                  ],
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -118,162 +125,151 @@ class _VendorDetailsState extends State<VendorDetails> {
                       const SizedBox(height: 20),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
+                            horizontal: 12, vertical: 10),
+                        margin: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
-                                color: const Color(0x14E9E9E9), width: 2)),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? const Color(0x14E9E9E9)
+                                    : colors.lightBorder,
+                                width: 2)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: Image.network(
-                                        widget.model.image,
-                                        width: 48,
-                                        height: 48,
-                                      ),
-                                    ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(
+                                    widget.model.image,
+                                    width: 48,
+                                    height: 48,
                                   ),
-                                  const SizedBox(width: 20),
-                                  SizedBox(
+                                ),
+                                VerticalDivider(color: Colors.transparent),
+                                Text(
+                                  widget.model.name,
+                                  style: TextStyle(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.greyText
+                                        : Colors.black,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                Spacer(),
+                                SizedBox(
+                                    height: 30,
                                     width: MediaQuery.of(context).size.width *
-                                        0.65,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                        0.22,
+                                    child: CommonButton(
+                                      text: !categoryProvider.isFollowing
+                                          ? "Follow"
+                                          : "Unfollow",
+                                      fontSize: 14,
+                                      onClick: () {
+                                        Map data = {
+                                          'shop_id': widget.model.id.toString()
+                                        };
+                                        categoryProvider.followVendor(
+                                            data, context);
+                                      },
+                                    )),
+                              ],
+                            ),
+                            Divider(
+                              color: Colors.transparent,
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
                                       children: [
-                                        const SizedBox(
-                                          height: 12,
+                                        const Icon(
+                                          Icons.star,
+                                          color: Colors.orange,
+                                          size: 16,
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              widget.model.name,
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                                height: 30,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.22,
-                                                child: CommonButton(
-                                                  text: !categoryProvider
-                                                          .isFollowing
-                                                      ? "Follow"
-                                                      : "Unfollow",
-                                                  fontSize: 14,
-                                                  onClick: () {
-                                                    Map data = {
-                                                      'shop_id': widget.model.id
-                                                          .toString()
-                                                    };
-                                                    categoryProvider
-                                                        .followVendor(
-                                                            data, context);
-                                                  },
-                                                )),
-                                          ],
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          widget.model.rating,
+                                          style: const TextStyle(
+                                            color: Colors.orange,
+                                            fontSize: 14,
+                                          ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.star,
-                                            color: Colors.orange,
-                                            size: 16,
-                                          ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            widget.model.rating,
-                                            style: const TextStyle(
-                                              color: Colors.orange,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
+                                    Text(
+                                      "Rating",
+                                      style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? colors.greyText
+                                            : Colors.black,
                                       ),
-                                      Text(
-                                        "Rating",
-                                        style:
-                                            TextStyle(color: colors.greyText),
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 40,
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text(
-                                        widget.model.followers,
-                                        style: const TextStyle(
-                                            color: Colors.white, fontSize: 15),
-                                      ),
-                                      const Text(
-                                        "Follower",
-                                        style: TextStyle(
-                                            color: colors.greyText,
-                                            fontSize: 14),
-                                      ),
-                                    ],
-                                  ),
-                                  widget.model.isVerified == "0"
-                                      ? Container()
-                                      : Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Image.asset(
-                                            Images.trusted,
-                                            height: 30,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.2,
-                                            fit: BoxFit.contain,
-                                          ),
+                                    )
+                                  ],
+                                ),
+                                VerticalDivider(
+                                    color: Colors.transparent, width: 40),
+                                Column(
+                                  children: [
+                                    Text(
+                                      widget.model.followers,
+                                      style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: 15),
+                                    ),
+                                    Text(
+                                      "Follower",
+                                      style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? colors.greyText
+                                              : Colors.black,
+                                          fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                                widget.model.isVerified == "0"
+                                    ? Container()
+                                    : Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Image.asset(
+                                          Images.trusted,
+                                          height: 30,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.2,
+                                          fit: BoxFit.contain,
                                         ),
-                                ],
-                              ),
+                                      ),
+                              ],
                             ),
                             const SizedBox(
                               height: 10,
                             ),
-                            const Divider(
-                              color: Colors.white,
+                            Divider(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
                               height: 1,
                             ),
                             const SizedBox(
@@ -281,8 +277,12 @@ class _VendorDetailsState extends State<VendorDetails> {
                             ),
                             Text(
                               widget.model.address,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 12),
+                              style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize: 12),
                             ),
                             widget.model.contact != ""
                                 ? const SizedBox(
@@ -291,11 +291,12 @@ class _VendorDetailsState extends State<VendorDetails> {
                                 : Container(),
                             Text(
                               widget.model.contact,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 12),
-                            ),
-                            const SizedBox(
-                              height: 10,
+                              style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize: 12),
                             ),
                           ],
                         ),
@@ -367,25 +368,39 @@ class _VendorDetailsState extends State<VendorDetails> {
                                                     const EdgeInsets.symmetric(
                                                         vertical: 5,
                                                         horizontal: 10),
-                                                fillColor: colors.textFieldBG,
+                                                fillColor: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textFieldBG
+                                                    : Colors.white,
                                                 filled: true,
                                                 hintText: 'Search',
-                                                hintStyle: const TextStyle(
-                                                    color: Colors.white),
-                                                prefixIcon: const Icon(
-                                                  Icons.search,
-                                                  color: Colors.white,
+                                                hintStyle: TextStyle(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                                 ),
-                                                focusedErrorBorder:
-                                                    OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        borderSide:
-                                                            const BorderSide(
-                                                                color:
-                                                                    Colors.grey,
-                                                                width: 1)),
+                                                prefixIcon: Icon(
+                                                  Icons.search,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                ),
+                                                focusedErrorBorder: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    borderSide: BorderSide(
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                        width: 2)),
                                                 enabledBorder:
                                                     OutlineInputBorder(
                                                         borderRadius:
@@ -455,8 +470,13 @@ class _VendorDetailsState extends State<VendorDetails> {
                                                             .data[searchProvider
                                                                 .selectedIndex]
                                                             .name!,
-                                                        style: const TextStyle(
-                                                            color: Colors.white,
+                                                        style: TextStyle(
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? Colors.white
+                                                                : Colors.black,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 18),
@@ -535,19 +555,28 @@ class _VendorDetailsState extends State<VendorDetails> {
 
   Widget buildTabButton(String label, bool isSelected, VoidCallback onPressed) {
     return Container(
-      color: colors.textFieldBG,
+      color: Theme.of(context).brightness == Brightness.dark
+          ? colors.textFieldBG
+          : Color(0xFFE3E1EC),
       width: MediaQuery.of(context).size.width * 0.3,
       height: 55,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           primary: isSelected ? colors.buttonColor : Colors.transparent,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         ),
         child: Text(
           label,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 12, color: Colors.white),
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+              color: isSelected
+                  ? Colors.white
+                  : Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black),
         ),
       ),
     );

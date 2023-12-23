@@ -87,20 +87,27 @@ class _AllCategoryState extends State<AllCategory> {
     return Stack(
       children: [
         const LightBackGround(),
-        categoryProvider.isLoading
-            ? appLoader()
-            : Scaffold(
-                resizeToAvoidBottomInset: false,
-                key: _scaffoldKey,
-                extendBody: true,
-                backgroundColor: Colors.transparent,
-                body: Column(
+        Scaffold(
+          resizeToAvoidBottomInset: false,
+          key: _scaffoldKey,
+          extendBody: true,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
+          body: categoryProvider.isLoading
+              ? appLoader()
+              : Column(
                   children: [
-                    const Stack(
-                      children: [
-                        ProfileHeader(),
-                        DashboardHeader(),
-                      ],
+                    Container(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.transparent
+                          : colors.buttonColor,
+                      child: const Stack(
+                        children: [
+                          ProfileHeader(),
+                          DashboardHeader(),
+                        ],
+                      ),
                     ),
                     categoryProvider.isLoading
                         ? appLoader()
@@ -111,13 +118,16 @@ class _AllCategoryState extends State<AllCategory> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: 20),
-                                  const Padding(
+                                  Padding(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 20),
                                     child: Text(
                                       "Explore Categories",
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -206,32 +216,50 @@ class _AllCategoryState extends State<AllCategory> {
                                                                     vertical: 5,
                                                                     horizontal:
                                                                         10),
-                                                            fillColor: colors
-                                                                .textFieldBG,
+                                                            fillColor: Theme.of(
+                                                                            context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? colors
+                                                                    .textFieldBG
+                                                                : Colors.white,
                                                             filled: true,
                                                             hintText: 'Search',
                                                             hintStyle:
-                                                                const TextStyle(
-                                                                    color: Colors
-                                                                        .white),
-                                                            prefixIcon:
-                                                                const Icon(
+                                                                TextStyle(
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                            prefixIcon: Icon(
                                                               Icons.search,
-                                                              color:
-                                                                  Colors.white,
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
                                                             ),
                                                             focusedErrorBorder: OutlineInputBorder(
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
                                                                             10),
-                                                                borderSide:
-                                                                    const BorderSide(
-                                                                        color:
-                                                                            Colors
-                                                                                .grey,
-                                                                        width:
-                                                                            1)),
+                                                                borderSide: BorderSide(
+                                                                    color: Theme.of(context).brightness ==
+                                                                            Brightness
+                                                                                .dark
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Colors
+                                                                            .black,
+                                                                    width: 2)),
                                                             enabledBorder: OutlineInputBorder(
                                                                 borderRadius:
                                                                     BorderRadius
@@ -317,9 +345,12 @@ class _AllCategoryState extends State<AllCategory> {
                                                                         .data[searchProvider
                                                                             .selectedIndex]
                                                                         .name!,
-                                                                    style: const TextStyle(
-                                                                        color: Colors
-                                                                            .white,
+                                                                    style: TextStyle(
+                                                                        color: Theme.of(context).brightness == Brightness.dark
+                                                                            ? Colors
+                                                                                .white
+                                                                            : Colors
+                                                                                .black,
                                                                         fontWeight:
                                                                             FontWeight
                                                                                 .bold,
@@ -394,26 +425,35 @@ class _AllCategoryState extends State<AllCategory> {
                           ),
                   ],
                 ),
-              ),
+        ),
       ],
     );
   }
 
   Widget buildTabButton(String label, bool isSelected, VoidCallback onPressed) {
     return Container(
-      color: colors.textFieldBG,
+      color: Theme.of(context).brightness == Brightness.dark
+          ? colors.textFieldBG
+          : Color(0xFFE3E1EC),
       width: MediaQuery.of(context).size.width * 0.35,
       height: 55,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           primary: isSelected ? colors.buttonColor : Colors.transparent,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         ),
         child: Text(
           label,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white),
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+              color: isSelected
+                  ? Colors.white
+                  : Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black),
         ),
       ),
     );

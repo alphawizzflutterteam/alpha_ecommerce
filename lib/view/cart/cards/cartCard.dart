@@ -62,8 +62,12 @@ cartCard(
                         },
                         child: Text(
                           model.name,
-                          style: const TextStyle(
-                              color: colors.textColor, fontSize: 14),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textColor
+                                  : Colors.black,
+                              fontSize: 14),
                         ),
                       ),
                       const SizedBox(
@@ -116,17 +120,26 @@ cartCard(
                           ),
                           hint: Text(
                             'Qty ${model.selectedQuantity}',
-                            style: const TextStyle(
-                                fontSize: 14, color: colors.textColor),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textColor
+                                  : Colors.black87,
+                            ),
                           ),
                           items: quantity
                               .map((item) => DropdownMenuItem<String>(
                                     value: item,
                                     child: Text(
                                       "Qty $item",
-                                      style: const TextStyle(
-                                          fontSize: 12,
-                                          color: colors.textColor),
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? colors.textColor
+                                            : Colors.black87,
+                                      ),
                                     ),
                                   ))
                               .toList(),
@@ -152,17 +165,23 @@ cartCard(
                           buttonStyleData: const ButtonStyleData(
                             padding: EdgeInsets.only(right: 8),
                           ),
-                          iconStyleData: const IconStyleData(
+                          iconStyleData: IconStyleData(
                             icon: Icon(
                               Icons.arrow_drop_down,
-                              color: colors.textColor,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textColor
+                                  : Colors.black,
                             ),
                             iconSize: 18,
                           ),
                           dropdownStyleData: DropdownStyleData(
                               elevation: 8,
                               decoration: BoxDecoration(
-                                color: colors.textFieldBG,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                                 borderRadius: BorderRadius.circular(15),
                                 border: Border.all(color: colors.boxBorder),
                               )),
@@ -192,9 +211,14 @@ cartCard(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(5)),
                           border: Border.all(color: colors.boxBorder)),
-                      child: const Text(
+                      child: Text(
                         "Save for later",
-                        style: TextStyle(color: colors.textColor, fontSize: 12),
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textColor
+                                    : Colors.black,
+                            fontSize: 12),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -214,9 +238,14 @@ cartCard(
                         Map data = {'key': model.cartId.toString()};
                         cartProvider.removeFromCart(data, context);
                       },
-                      child: const Text(
+                      child: Text(
                         "Remove from cart",
-                        style: TextStyle(color: colors.textColor, fontSize: 12),
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textColor
+                                    : Colors.black,
+                            fontSize: 12),
                         textAlign: TextAlign.center,
                       ),
                     ),

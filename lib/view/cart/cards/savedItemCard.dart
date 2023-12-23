@@ -31,6 +31,13 @@ savedItemCard(
                   },
                   child: Image.network(
                     model.images[0],
+                    errorBuilder: (BuildContext context, Object exception,
+                        StackTrace? stackTrace) {
+                      return Container(
+                        height: 100,
+                        width: 100,
+                      );
+                    },
                     width: 100,
                     height: 100,
                   ),
@@ -45,10 +52,20 @@ savedItemCard(
                       Routes.navigateToProductDetailPageScreen(
                           context, model as ProductList);
                     },
-                    child: Text(
-                      model.name,
-                      style: const TextStyle(
-                          color: colors.textColor, fontSize: 14),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width * .46),
+                      child: Text(
+                        model.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textColor
+                                    : Colors.black,
+                            fontSize: 14),
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -107,9 +124,13 @@ savedItemCard(
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(5)),
                       border: Border.all(color: colors.boxBorder)),
-                  child: const Text(
+                  child: Text(
                     "Remove from Saved Items",
-                    style: TextStyle(color: colors.textColor, fontSize: 12),
+                    style: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? colors.textColor
+                            : Colors.black,
+                        fontSize: 12),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -138,9 +159,13 @@ savedItemCard(
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(5)),
                       border: Border.all(color: colors.boxBorder)),
-                  child: const Text(
+                  child: Text(
                     "Add to Cart",
-                    style: TextStyle(color: colors.textColor, fontSize: 12),
+                    style: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? colors.textColor
+                            : Colors.black,
+                        fontSize: 12),
                     textAlign: TextAlign.center,
                   ),
                 ),

@@ -511,6 +511,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
             content: WriteReviewPopup(
               order_id: widget.order_id,
               product_id: product_id,
+              rating: rating,
             ));
       },
     );

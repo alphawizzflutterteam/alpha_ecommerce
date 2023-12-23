@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
-productForUText() {
+productForUText(BuildContext ctx) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 20),
     alignment: Alignment.centerLeft,
-    child: const Text(
+    child: Text(
       "Product for you",
       style: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+          color: Theme.of(ctx).brightness == Brightness.dark
+              ? Colors.white
+              : Colors.black),
     ),
   );
 }

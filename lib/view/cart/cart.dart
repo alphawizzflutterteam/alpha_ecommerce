@@ -49,7 +49,6 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     cartProvider = Provider.of<CartViewModel>(context);
     addressProvider = Provider.of<AddressViewModel>(context);
-
     return Stack(
       children: [
         const LightBackGround(),
@@ -57,16 +56,23 @@ class _CartState extends State<Cart> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: cartProvider.isLoading
               ? appLoader()
               : Column(
                   children: [
-                    const Stack(
-                      children: [
-                        ProfileHeader(),
-                        DashboardHeader(),
-                      ],
+                    Container(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.transparent
+                          : colors.buttonColor,
+                      child: const Stack(
+                        children: [
+                          ProfileHeader(),
+                          DashboardHeader(),
+                        ],
+                      ),
                     ),
                     Expanded(
                       child: SingleChildScrollView(
@@ -74,23 +80,29 @@ class _CartState extends State<Cart> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 30),
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: Text(
                                 "Cart List",
                                 style: TextStyle(
-                                    color: colors.textColor,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.textColor
+                                        : Colors.black,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
                             const SizedBox(height: 10),
                             cartProvider.cartModel.isEmpty
-                                ? const Center(
+                                ? Center(
                                     child: Text(
                                       "Nothing in cart list...",
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? colors.textColor
+                                              : colors.greyText,
                                           fontSize: size_16),
                                     ),
                                   )
@@ -99,27 +111,34 @@ class _CartState extends State<Cart> {
                                     child: SingleChildScrollView(
                                       scrollDirection: Axis.vertical,
                                       child: Container(
-                                          child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 2.0),
-                                              child: cartCardRow(
-                                                  context,
-                                                  cartProvider.cartModel,
-                                                  cartProvider))),
-                                    )),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 2.0),
+                                          child: cartCardRow(
+                                              context,
+                                              cartProvider.cartModel,
+                                              cartProvider),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                             cartProvider.cartModel.isEmpty
                                 ? Container()
                                 : Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const Padding(
+                                      Padding(
                                         padding:
                                             EdgeInsets.only(left: 20, top: 20),
                                         child: Text(
                                           "Delivery type",
                                           style: TextStyle(
-                                              color: colors.textColor,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.textColor
+                                                  : Colors.black,
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -157,24 +176,32 @@ class _CartState extends State<Cart> {
                             cartProvider.cartModel.isEmpty
                                 ? Container()
                                 : Container(
-                                    height: 150,
+                                    height: MediaQuery.of(context).size.height *
+                                        .19,
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 10),
                                     decoration: BoxDecoration(
-                                      color: const Color(0x14E9E9E9),
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? const Color(0x14E9E9E9)
+                                          : Color(0xFFE3E1EC),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Padding(
+                                        Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 10),
                                           child: Text(
                                             "Price Detail",
                                             style: TextStyle(
-                                                color: colors.textColor,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textColor
+                                                    : Colors.black,
                                                 fontSize: 14),
                                           ),
                                         ),
@@ -190,22 +217,34 @@ class _CartState extends State<Cart> {
                                                       2
                                                   ? Text(
                                                       "MRP (${cartProvider.model.data.totalItems} item)",
-                                                      style: const TextStyle(
-                                                          color:
-                                                              colors.greyText,
+                                                      style: TextStyle(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? colors.textColor
+                                                              : Colors.black,
                                                           fontSize: 12),
                                                     )
                                                   : Text(
                                                       "MRP (${cartProvider.model.data.totalItems} items)",
-                                                      style: const TextStyle(
-                                                          color:
-                                                              colors.greyText,
+                                                      style: TextStyle(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? colors.textColor
+                                                              : Colors.black,
                                                           fontSize: 12),
                                                     ),
                                               Text(
                                                 cartProvider.model.data.total,
-                                                style: const TextStyle(
-                                                    color: colors.textColor,
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.textColor
+                                                        : Colors.black,
                                                     fontSize: 12),
                                               ),
                                             ],
@@ -221,14 +260,22 @@ class _CartState extends State<Cart> {
                                               Text(
                                                 "Delivery fee",
                                                 style: TextStyle(
-                                                    color: colors.greyText,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.greyText
+                                                        : Colors.black54,
                                                     fontSize: 12),
                                               ),
                                               Text(
                                                 cartProvider
                                                     .model.data.deliveryCharge,
                                                 style: TextStyle(
-                                                    color: colors.textColor,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.textColor
+                                                        : Colors.black,
                                                     fontSize: 12),
                                               ),
                                             ],
@@ -251,7 +298,11 @@ class _CartState extends State<Cart> {
                                                 cartProvider
                                                     .model.data.discount,
                                                 style: TextStyle(
-                                                    color: colors.textColor,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.textColor
+                                                        : Colors.black,
                                                     fontSize: 12),
                                               ),
                                             ],
@@ -274,7 +325,11 @@ class _CartState extends State<Cart> {
                                               Text(
                                                 "Total Amount",
                                                 style: TextStyle(
-                                                    color: colors.textColor,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.textColor
+                                                        : Colors.black,
                                                     fontSize: 14),
                                               ),
                                               Text(
@@ -298,16 +353,25 @@ class _CartState extends State<Cart> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        const Text(
+                                        Text(
                                           "Offer & Benefits",
                                           style: TextStyle(
-                                              color: colors.textColor,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.textColor
+                                                  : Colors.black,
                                               fontSize: 14),
                                         ),
                                         Row(
                                           children: [
                                             Image.asset(
                                               Images.cartOffer,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.textColor
+                                                  : Colors.black,
                                               height: 20,
                                               width: 20,
                                             ),
@@ -317,10 +381,14 @@ class _CartState extends State<Cart> {
                                                 Routes.navigateToCouponScreen(
                                                     context);
                                               },
-                                              child: const Text(
+                                              child: Text(
                                                 "View Offer",
                                                 style: TextStyle(
-                                                    color: colors.textColor,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.textColor
+                                                        : Colors.black,
                                                     fontSize: 14),
                                               ),
                                             )
@@ -354,8 +422,13 @@ class _CartState extends State<Cart> {
                                                         vertical: 10,
                                                         horizontal: 10),
                                                 hintText: 'Voucher Number',
-                                                hintStyle: const TextStyle(
-                                                    color: colors.white10),
+                                                hintStyle: TextStyle(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? colors.lightTextColor
+                                                      : Colors.black45,
+                                                ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
                                                   borderSide: const BorderSide(
@@ -400,37 +473,30 @@ class _CartState extends State<Cart> {
                             Container(
                               margin: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
-                              child: const Text(
+                              child: Text(
                                 "Saved Items",
                                 style: TextStyle(
-                                    color: colors.textColor, fontSize: 14),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.textColor
+                                        : Colors.black,
+                                    fontSize: 14),
                               ),
                             ),
                             Container(
-                                width: MediaQuery.of(context).size.width,
-                                child: SingleChildScrollView(
-                                    scrollDirection: Axis.vertical,
-                                    child: Container(
-                                      child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 2.0),
-                                          child: savedCardsRow(
-                                              context,
-                                              cartProvider.savedModel,
-                                              cartProvider)),
-                                    ))),
-                            // SizedBox(
-                            //   height: 210 * 2.toDouble(),
-                            //   child: ListView.builder(
-                            //     padding: EdgeInsets.zero,
-                            //     shrinkWrap: true,
-                            //     physics: const NeverScrollableScrollPhysics(),
-                            //     itemCount: 2,
-                            //     itemBuilder: (context, i) {
-                            //       return SavedItemsWidget(i: i);
-                            //     },
-                            //   ),
-                            // ),
+                              width: MediaQuery.of(context).size.width,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+                                child: Container(
+                                  child: Padding(
+                                      padding: const EdgeInsets.only(top: 2.0),
+                                      child: savedCardsRow(
+                                          context,
+                                          cartProvider.savedModel,
+                                          cartProvider)),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -440,8 +506,11 @@ class _CartState extends State<Cart> {
                         : Align(
                             alignment: Alignment.bottomCenter,
                             child: Container(
-                              height: 120,
-                              color: colors.textFieldBG,
+                              height: MediaQuery.of(context).size.height * .125,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textFieldBG
+                                  : Colors.white,
                               child: Center(
                                 child: Column(
                                   children: [
@@ -460,7 +529,14 @@ class _CartState extends State<Cart> {
                                                       Icons.location_on,
                                                       color: Colors.red,
                                                     )
-                                                  : const Icon(Icons.pin_drop),
+                                                  : Icon(
+                                                      Icons.pin_drop,
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? colors.textColor
+                                                          : Colors.black,
+                                                    ),
                                               const SizedBox(
                                                 width: 5,
                                               ),
@@ -472,11 +548,16 @@ class _CartState extends State<Cart> {
                                                             .navigateToManageAddressScreen(
                                                                 context);
                                                       },
-                                                      child: const Text(
+                                                      child: Text(
                                                         "Add Address",
                                                         style: TextStyle(
-                                                            color: colors
-                                                                .textColor,
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? colors
+                                                                    .textColor
+                                                                : Colors.black,
                                                             fontSize: 16),
                                                       ),
                                                     )
@@ -489,9 +570,14 @@ class _CartState extends State<Cart> {
                                                       child: Text(
                                                         addressProvider
                                                             .selectedAddress,
-                                                        style: const TextStyle(
-                                                            color: colors
-                                                                .textColor,
+                                                        style: TextStyle(
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? colors
+                                                                    .textColor
+                                                                : Colors.black,
                                                             fontSize: size_12),
                                                         maxLines: 1,
                                                         overflow: TextOverflow
@@ -531,8 +617,12 @@ class _CartState extends State<Cart> {
                                     ),
                                     cartProvider.cartModel.isEmpty
                                         ? Container()
-                                        : const Divider(
-                                            color: colors.textColor,
+                                        : Divider(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textColor
+                                                    : Colors.black,
                                             height: 1,
                                           ),
                                     cartProvider.cartModel.isEmpty
@@ -548,18 +638,22 @@ class _CartState extends State<Cart> {
                                               children: [
                                                 Text(
                                                   cartProvider.model.data.total,
-                                                  style: const TextStyle(
-                                                      fontSize: size_20,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: colors.textColor),
+                                                  style: TextStyle(
+                                                    fontSize: size_20,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.textColor
+                                                        : Colors.black,
+                                                  ),
                                                 ),
                                                 SizedBox(
                                                     height: 35,
                                                     width: 130,
                                                     child: CommonButton(
                                                       text: "PLACE ORDER",
-                                                      fontSize: 14,
+                                                      fontSize: 12,
                                                       onClick: () async {
                                                         var billingId = SharedPref
                                                                 .shared.pref!

@@ -76,18 +76,18 @@ abstract class AppTheme {
         iconTheme: Theme.of(context).iconTheme.copyWith(
               color: colors.secondary,
             ),
-        textTheme: TextTheme(
-          titleLarge: TextStyle(
-            color: Theme.of(context).colorScheme.fontColor,
-            fontWeight: FontWeight.w600,
-          ),
-          titleMedium: TextStyle(
-            color: Theme.of(context).colorScheme.fontColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ).apply(
-          bodyColor: Theme.of(context).colorScheme.fontColor,
-        ),
+        // textTheme: TextTheme(
+        //   titleLarge: TextStyle(
+        //     color: Theme.of(context).colorScheme.fontColor,
+        //     fontWeight: FontWeight.w600,
+        //   ),
+        //   titleMedium: TextStyle(
+        //     color: Theme.of(context).colorScheme.fontColor,
+        //     fontWeight: FontWeight.bold,
+        //   ),
+        // ).apply(
+        //   bodyColor: Theme.of(context).colorScheme.fontColor,
+        // ),
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: colors.primary_app,
         ).copyWith(

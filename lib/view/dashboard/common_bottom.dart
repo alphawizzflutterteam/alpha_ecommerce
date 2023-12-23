@@ -60,10 +60,12 @@ class _BottomNavPageState extends State<BottomNavPage> {
           ),
           child: Theme(
             data: Theme.of(context).copyWith(
-              canvasColor: Colors.transparent,
+              canvasColor: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.transparent
+                  : Colors.white,
             ),
             child: BottomNavigationBar(
-              elevation: 0.0,
+              elevation: 10,
               currentIndex: _currentIndex,
               onTap: (index) {
                 setState(() {
@@ -71,7 +73,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
                 });
               },
               selectedLabelStyle: const TextStyle(fontSize: 12),
-              selectedItemColor: colors.textColor,
+              selectedItemColor: Theme.of(context).brightness == Brightness.dark
+                  ? colors.textColor
+                  : colors.buttonColor,
               unselectedItemColor: Colors.grey,
               showSelectedLabels: true,
               showUnselectedLabels: false,
@@ -79,6 +83,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
                 BottomNavigationBarItem(
                   activeIcon: Image.asset(
                     Images.buyWhite,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? null
+                        : Colors.teal,
                     height: homeProvider.isScrolled ? 25 : 0,
                     width: homeProvider.isScrolled ? 25 : 0,
                   ),
@@ -91,6 +98,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
                 ),
                 BottomNavigationBarItem(
                   activeIcon: Image.asset(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? null
+                        : Colors.teal,
                     Images.categoryWhite,
                     height: homeProvider.isScrolled ? 25 : 0,
                     width: homeProvider.isScrolled ? 25 : 0,
@@ -105,6 +115,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
                 BottomNavigationBarItem(
                   activeIcon: Image.asset(
                     Images.homeWhite,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? null
+                        : Colors.teal,
                     height: homeProvider.isScrolled ? 25 : 0,
                     width: homeProvider.isScrolled ? 25 : 0,
                   ),
@@ -118,6 +131,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
                 // Add items for your new tabs
                 BottomNavigationBarItem(
                   activeIcon: Image.asset(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? null
+                        : Colors.teal,
                     Images.dashboardVendorWhite,
                     height: homeProvider.isScrolled ? 25 : 0,
                     width: homeProvider.isScrolled ? 25 : 0,
@@ -132,6 +148,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
                 BottomNavigationBarItem(
                   activeIcon: Image.asset(
                     Images.dashboardProfileWhite,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? null
+                        : Colors.teal,
                     height: homeProvider.isScrolled ? 25 : 0,
                     width: homeProvider.isScrolled ? 25 : 0,
                   ),

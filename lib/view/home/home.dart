@@ -112,11 +112,16 @@ class _HomeState extends State<Home> {
               )),
           body: Column(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  DashboardHeader(),
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: const Stack(
+                  children: [
+                    ProfileHeader(),
+                    DashboardHeader(),
+                  ],
+                ),
               ),
               // Container(
               //   height: 50,
@@ -473,10 +478,14 @@ class _HomeState extends State<Home> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          const Text(
+                                          Text(
                                             "View your cart Items",
                                             style: TextStyle(
-                                                color: colors.textColor),
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textColor
+                                                    : Colors.black),
                                           ),
                                           InkWell(
                                             onTap: () {
@@ -608,10 +617,14 @@ class _HomeState extends State<Home> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        const Text(
+                                        Text(
                                           "Your wishlist items",
                                           style: TextStyle(
-                                              color: colors.textColor),
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.textColor
+                                                  : Colors.black),
                                         ),
                                         InkWell(
                                           onTap: () {
@@ -625,14 +638,6 @@ class _HomeState extends State<Home> {
                                                 style: TextStyle(
                                                     color: colors.buttonColor),
                                               ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              Image.asset(
-                                                Images.doubleArrow,
-                                                height: 15,
-                                                width: 15,
-                                              )
                                             ],
                                           ),
                                         ),
@@ -885,7 +890,7 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                     isWidgetVisible ? Container() : spaceOfHeight(),
-                    isWidgetVisible ? Container() : productForUText(),
+                    isWidgetVisible ? Container() : productForUText(context),
                     isWidgetVisible ? Container() : spaceOfHeight(height: 20),
 //Product for you section
 
@@ -896,7 +901,10 @@ class _HomeState extends State<Home> {
                               Container(
                                 height: 50,
                                 width: MediaQuery.of(context).size.width * 0.33,
-                                color: colors.midBorder,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.midBorder
+                                    : Color(0xFFE3E1EC),
                                 child: InkWell(
                                   onTap: () {
                                     homeFilter(
@@ -914,14 +922,23 @@ class _HomeState extends State<Home> {
                                         Images.filter,
                                         height: 20,
                                         width: 20,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
                                       ),
                                       const SizedBox(
                                         width: 5,
                                       ),
-                                      const Text(
+                                      Text(
                                         'Filter',
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 16),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: 16),
                                       )
                                     ],
                                   ),
@@ -930,11 +947,17 @@ class _HomeState extends State<Home> {
                               Container(
                                 height: 50,
                                 width: MediaQuery.of(context).size.width * 0.34,
-                                decoration: const BoxDecoration(
-                                  color: colors.midBorder,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.midBorder
+                                      : Color(0xFFE3E1EC),
                                   border: Border(
                                     left: BorderSide(
-                                      color: colors.midBorder,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? colors.midBorder
+                                          : Colors.grey.shade400,
                                     ),
                                   ),
                                 ),
@@ -952,14 +975,23 @@ class _HomeState extends State<Home> {
                                         Images.categoryWhite,
                                         height: 20,
                                         width: 20,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
                                       ),
                                       const SizedBox(
                                         width: 5,
                                       ),
-                                      const Text(
+                                      Text(
                                         'Category',
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 16),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: 16),
                                       )
                                     ],
                                   ),
@@ -968,11 +1000,17 @@ class _HomeState extends State<Home> {
                               Container(
                                 height: 50,
                                 width: MediaQuery.of(context).size.width * 0.33,
-                                decoration: const BoxDecoration(
-                                  color: colors.midBorder,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.midBorder
+                                      : Color(0xFFE3E1EC),
                                   border: Border(
                                     left: BorderSide(
-                                      color: colors.midBorder,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? colors.midBorder
+                                          : Colors.grey.shade400,
                                     ),
                                   ),
                                 ),
@@ -987,16 +1025,25 @@ class _HomeState extends State<Home> {
                                     children: [
                                       Image.asset(
                                         Images.sort,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
                                         height: 20,
                                         width: 20,
                                       ),
                                       const SizedBox(
                                         width: 5,
                                       ),
-                                      const Text(
+                                      Text(
                                         'Sort',
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 16),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: 16),
                                       )
                                     ],
                                   ),

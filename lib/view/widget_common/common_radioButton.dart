@@ -14,12 +14,15 @@ class CommonRadioTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("object");
     return Expanded(
       child: RadioListTile(
         title: Text(
           name,
-          style: const TextStyle(
-            color: colors.textColor,
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.light
+                ? Colors.white
+                : Colors.black,
             fontSize: 14,
           ),
           softWrap: false,

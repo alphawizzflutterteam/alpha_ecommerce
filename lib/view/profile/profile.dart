@@ -118,11 +118,16 @@ class _ProfileState extends State<Profile> {
                 )
               : Column(
                   children: [
-                    const Stack(
-                      children: [
-                        ProfileHeader(),
-                        DashboardHeader(),
-                      ],
+                    Container(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.transparent
+                          : colors.buttonColor,
+                      child: const Stack(
+                        children: [
+                          ProfileHeader(),
+                          DashboardHeader(),
+                        ],
+                      ),
                     ),
                     Stack(
                       children: [
@@ -137,9 +142,10 @@ class _ProfileState extends State<Profile> {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
-                                    width: 100,
-                                    height: 100,
+                                  Container(
+                                    width: 90,
+                                    height: 90,
+                                    margin: const EdgeInsets.all(5),
                                     child: ClipOval(
                                       child: Image.asset(
                                         Images.human,
