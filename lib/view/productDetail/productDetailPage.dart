@@ -1,5 +1,7 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/app_utils.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/productRatingAndFollowers.dart';
@@ -11,6 +13,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
@@ -178,21 +181,41 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold),
                             ),
-                            Row(
-                              children: [
-                                Image.asset(
-                                  Images.share,
-                                  height: 20,
-                                  width: 20,
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                const Icon(
-                                  FontAwesomeIcons.heart,
-                                  size: 18,
-                                )
-                              ],
+                            LikeButton(
+                              // onTap: (isLiked) {
+                              //   var isLoggedIn = SharedPref.shared.pref
+                              //       ?.getString(PrefKeys.isLoggedIn);
+
+                              //   if (isLoggedIn == "1") {
+                              //     Map data = {
+                              //       'product_id': widget.model.id.toString()
+                              //     };
+                              //     if (isLiked) {
+                              //       // return homeProvider.removeFromWishlist(
+                              //       //     data, context);
+                              //     } else {
+                              //       // return homeProvider.addToWishlist(
+                              //       //     data, context);
+                              //     }
+                              //   } else {
+                              //     return AppUtils.appUtilsInstance.nothing();
+                              //   }
+                              //    },
+                              size: size_20,
+                              isLiked: widget.model.isFavorite,
+                              circleColor: const CircleColor(
+                                  start: Colors.red, end: Colors.red),
+                              bubblesColor: const BubblesColor(
+                                dotPrimaryColor: Colors.red,
+                                dotSecondaryColor: Colors.red,
+                              ),
+                              likeBuilder: (bool isLiked) {
+                                return Icon(
+                                  Icons.favorite,
+                                  color: isLiked ? Colors.pink : Colors.grey,
+                                  size: 20,
+                                );
+                              },
                             )
                           ],
                         ),
@@ -284,10 +307,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         ),
                       ),
                       const SizedBox(
-                        height: size_19,
+                        height: size_15,
                       ),
                       SizedBox(
-                        height: model2.choiceOptions.length * 76,
+                        height: model2.choiceOptions.length * 80,
                         child: ListView.builder(
                             scrollDirection: Axis.vertical,
                             padding: EdgeInsets.zero,
