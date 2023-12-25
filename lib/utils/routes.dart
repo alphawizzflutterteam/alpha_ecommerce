@@ -29,6 +29,7 @@ import 'package:alpha_ecommerce_18oct/view/profile/contactUs/contactUs.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/coupon/couponScreen.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/editProfile/editProfile.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/faqs/faqs.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/models/referralModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/model/transactionHistoryModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/transactionHistory.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myWallet/addMoney.dart';
@@ -760,12 +761,13 @@ class Routes {
     );
   }
 
-  static navigateToViewAllReferallScreen(BuildContext context) {
+  static navigateToViewAllReferallScreen(
+      BuildContext context, List<ReferralData> referralList) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) =>
-            const ViewAllReferall(),
+            ViewAllReferall(referralList: referralList),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/view/profile/models/referralModel.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,9 @@ import '../../widget_common/shareApp.dart';
 import '../common_header.dart';
 
 class ViewAllReferall extends StatefulWidget {
-  const ViewAllReferall({Key? key}) : super(key: key);
+  final List<ReferralData> referralList;
+
+  const ViewAllReferall({super.key, required this.referralList});
 
   @override
   State<ViewAllReferall> createState() => _ViewAllReferallState();
@@ -26,48 +29,58 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
         resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
         extendBody: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.transparent
+            : Colors.white,
         body: Column(
           children: [
-            Stack(
-              children: [
-                const ProfileHeader(),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 35),
-                    height: 100,
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: InkWell(
-                                onTap: () {
-                                  Routes.navigateToPreviousScreen(context);
-                                },
-                                child: const Icon(Icons.arrow_back_ios)),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.1),
-                              child: const Text(
-                                "Referall Member",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+            Container(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.transparent
+                  : colors.buttonColor,
+              child: Stack(
+                children: [
+                  const ProfileHeader(),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 35),
+                      height: 100,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: InkWell(
+                                  onTap: () {
+                                    Routes.navigateToPreviousScreen(context);
+                                  },
+                                  child: const Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white,
+                                  )),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    right: MediaQuery.of(context).size.width *
+                                        0.1),
+                                child: const Text(
+                                  "Referall Member",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -75,11 +88,17 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
                   children: [
                     SizedBox(
                       height: 80 * 20,
-                      child: ListView.builder(
+                      child: ListView.separated(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 20,
+                        itemCount: widget.referralList.length,
+                        separatorBuilder: (context, index) => Container(
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 6, horizontal: 20),
+                          color: Colors.grey.withOpacity(0.7),
+                          height: .5,
+                        ),
                         itemBuilder: (context, i) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(
@@ -114,22 +133,29 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
                                           ),
                                         ),
                                         const SizedBox(width: 15),
-                                        const Column(
+                                        Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "Anshul Sharma",
+                                              widget.referralList[i].description
+                                                  .toString(),
                                               style: TextStyle(
-                                                  color: Colors.white,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                                   fontSize: 14),
                                             ),
                                             SizedBox(
                                               height: 5,
                                             ),
-                                            Text("02 oct 2022",
+                                            Text(
+                                                widget.referralList[i].createdAt
+                                                    .toString(),
                                                 style: TextStyle(
                                                     color:
                                                         colors.lightTextColor,
@@ -138,19 +164,17 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
                                         ),
                                       ],
                                     ),
-                                    const Text(
-                                      "200",
+                                    Text(
+                                      widget.referralList[i].balance.toString(),
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold),
                                     )
                                   ],
-                                ),
-                                const SizedBox(height: 20),
-                                const Divider(
-                                  color: Colors.white,
-                                  height: 1,
                                 ),
                               ],
                             ),
