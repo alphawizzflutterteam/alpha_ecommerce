@@ -3,11 +3,9 @@ import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/productRatingAndFollowers.dart';
-import 'package:alpha_ecommerce_18oct/view/productDetail/recommendedAccessoryCard.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/recommendedProductCard.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/reviewCard.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/specificationCard.dart';
-import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/productViewModel.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -205,12 +203,17 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              model2.name,
-                              style: const TextStyle(
-                                  color: colors.textColor,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width - 100,
+                              child: Text(
+                                model2.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    color: colors.textColor,
+                                    fontSize: size_16,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                             const Row(
                               children: [
@@ -284,12 +287,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         height: size_19,
                       ),
                       SizedBox(
-                        height: model2.choiceOptions.length * 75,
+                        height: model2.choiceOptions.length * 76,
                         child: ListView.builder(
                             scrollDirection: Axis.vertical,
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
-                            physics: const AlwaysScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: model2.choiceOptions.length,
                             itemBuilder: (context, i) {
                               return Padding(
@@ -626,8 +629,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               onPressed: () {
                                 showToastMessage("Removed from Cart");
                               },
-                              child: const Text(
-                                'REMOVE FROM CART',
+                              child: Text(
+                                widget.model.isCart
+                                    ? 'REMOVE FROM CART'
+                                    : 'ADD TO CART',
                                 style: TextStyle(fontSize: 12),
                               ),
                             ),
