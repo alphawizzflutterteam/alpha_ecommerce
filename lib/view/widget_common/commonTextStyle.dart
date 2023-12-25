@@ -10,7 +10,7 @@ class HeaderText extends StatelessWidget {
     return Text(
       text,
       textAlign: TextAlign.center,
-      style: const TextStyle(color: colors.textColor, fontSize: 20),
+      style: const TextStyle(color: Colors.white, fontSize: 20),
     );
   }
 }

@@ -29,6 +29,7 @@ class Images {
   static const mic = 'assets/images/micAllow.png';
   static const commonHeader = "assets/images/header-bg.png";
   static const refer = "assets/images/refer.png";
+  static const coin = "assets/images/coin.png";
   static const discount = 'assets/images/discount.png';
   static const cart = 'assets/images/cart.png';
   static const bgColor = "assets/images/bg-color.png";
@@ -81,7 +82,7 @@ class Images {
   static const rupees = "assets/icons/rupees.png";
 
   //profile
-  static const coin = "assets/icons/coin.png";
+
   static const subscribe = 'assets/icons/subscribe.png';
   static const setting = "assets/icons/setting.png";
   static const discountProfile = 'assets/icons/discount.png';
