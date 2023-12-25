@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 
-productRatingAndFollowersCard(Shop shop) {
+productRatingAndFollowersCard(Shop shop, BuildContext ctx) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     decoration: BoxDecoration(
-        color: Colors.transparent,
+        color: Theme.of(ctx).brightness == Brightness.dark
+            ? Colors.transparent
+            : Colors.grey.withOpacity(0.2),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
           color: const Color(0x14E9E9E9),
@@ -30,7 +32,10 @@ productRatingAndFollowersCard(Shop shop) {
                 ),
                 Text(
                   shop.name,
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(
+                      color: Theme.of(ctx).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black),
                 )
               ],
             ),
@@ -73,9 +78,12 @@ productRatingAndFollowersCard(Shop shop) {
                     const SizedBox(
                       height: 5,
                     ),
-                    const Text(
+                    Text(
                       "Rating",
-                      style: TextStyle(color: colors.lightTextColor),
+                      style: TextStyle(
+                          color: Theme.of(ctx).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black),
                     )
                   ],
                 ),
@@ -89,8 +97,10 @@ productRatingAndFollowersCard(Shop shop) {
                       children: [
                         Text(
                           shop.followers,
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: Theme.of(ctx).brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.black,
                             fontSize: 14,
                           ),
                         ),
@@ -99,9 +109,12 @@ productRatingAndFollowersCard(Shop shop) {
                     const SizedBox(
                       height: 5,
                     ),
-                    const Text(
+                    Text(
                       "Followers",
-                      style: TextStyle(color: colors.lightTextColor),
+                      style: TextStyle(
+                          color: Theme.of(ctx).brightness == Brightness.dark
+                              ? colors.lightTextColor
+                              : Colors.black),
                     )
                   ],
                 ),

@@ -75,7 +75,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   Widget build(BuildContext context) {
     productModel = Provider.of<ProductDetailViewModel>(context);
 
-    print(model2.slug.toString());
+    print(model2.id.toString());
     return Stack(
       children: [
         const LightBackGround(),
@@ -83,16 +83,23 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  InternalDetailPageHeader(
-                    text: "Product Detail",
-                  )
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: const Stack(
+                  children: [
+                    ProfileHeader(),
+                    InternalDetailPageHeader(
+                      text: "Product Detail",
+                    )
+                  ],
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -112,7 +119,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               end: Alignment.bottomCenter,
                             ),
                           ),
-                          height: 250,
+                          height: MediaQuery.of(context).size.height * .3,
                           child: Column(
                             children: [
                               CarouselSlider(
@@ -122,6 +129,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     width: double.infinity,
                                     child: Image.network(
                                       item,
+                                      errorBuilder: (context, error,
+                                              stackTrace) =>
+                                          Image.asset(Images.defaultProductImg,
+                                              fit: BoxFit.contain),
                                       fit: BoxFit.cover,
                                     ),
                                   );
@@ -232,13 +243,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 model2.name,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    color: colors.textColor,
+                                style: TextStyle(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
                                     fontSize: size_16,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-                            const Row(
+                            Row(
                               children: [
                                 Icon(
                                   Icons.star,
@@ -250,8 +264,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ),
                                 Text(
                                   "4.3",
+                                  // model2.rating[0].average,
                                   style: TextStyle(
-                                    color: colors.textColor,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
                                     fontSize: 14,
                                   ),
                                 ),
@@ -268,17 +286,24 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           children: [
                             Text(
                               selectedPrice,
-                              style: const TextStyle(
-                                color: colors.lightTextColor,
+                              style: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.lightTextColor
+                                    : Colors.black87,
                                 fontSize: 18,
                               ),
                             ),
                             Row(
                               children: [
-                                const Text(
-                                  "or Pay \$100 + ",
+                                Text(
+                                  "or Pay \₹ 200 + ",
+                                  // "or Pay \₹${model2.use_coins_with_amount} + ",
                                   style: TextStyle(
-                                    color: colors.textColor,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
                                     fontSize: 14,
                                   ),
                                 ),
@@ -292,10 +317,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     const SizedBox(
                                       width: 5,
                                     ),
-                                    const Text(
+                                    Text(
                                       "20",
                                       style: TextStyle(
-                                        color: colors.textColor,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
                                         fontSize: 14,
                                       ),
                                     ),
@@ -310,7 +338,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         height: size_15,
                       ),
                       SizedBox(
-                        height: model2.choiceOptions.length * 80,
+                        height: model2.choiceOptions.length *
+                            (MediaQuery.of(context).size.height * .1),
                         child: ListView.builder(
                             scrollDirection: Axis.vertical,
                             padding: EdgeInsets.zero,
@@ -327,7 +356,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   children: [
                                     Text(
                                       model2.choiceOptions[i].title,
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                     ),
                                     const SizedBox(
                                       height: 10,
@@ -374,18 +408,24 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                           color: Colors
                                                               .transparent,
                                                           borderRadius:
-                                                              BorderRadius
-                                                                  .circular(5),
-                                                          border: Border.all(
-                                                              color: selectedVariation ==
-                                                                      widget
-                                                                          .model
-                                                                          .choiceOptions[
-                                                                              i]
-                                                                          .options[j]
-                                                                  ? Colors.white
-                                                                  : const Color(0x14E9E9E9),
-                                                              width: 2)),
+                                                              BorderRadius.circular(
+                                                                  5),
+                                                          border: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Border.all(
+                                                                  color: selectedVariation == widget.model.choiceOptions[i].options[j]
+                                                                      ? Colors
+                                                                          .white
+                                                                      : const Color(
+                                                                          0x14E9E9E9),
+                                                                  width: 2)
+                                                              : Border.all(
+                                                                  color: selectedVariation == widget.model.choiceOptions[i].options[j]
+                                                                      ? colors.buttonColor
+                                                                      : colors.lightBorder,
+                                                                  width: 2)),
                                                       child: InkWell(
                                                         onTap: () {},
                                                         child: Text(
@@ -393,9 +433,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                               .model
                                                               .choiceOptions[i]
                                                               .options[j],
-                                                          style: const TextStyle(
-                                                              color: colors
-                                                                  .textColor,
+                                                          style: TextStyle(
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
                                                               fontSize:
                                                                   size_12),
                                                         ),
@@ -437,12 +482,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     color: Colors.transparent,
                                     borderRadius: BorderRadius.circular(5),
                                     border: Border.all(
-                                        color: const Color(0x14E9E9E9),
-                                        width: 2)),
-                                child: const Text(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Color(0x14E9E9E9)
+                                            : Colors.black,
+                                        width: 1)),
+                                child: Text(
                                   "Save for later",
                                   style: TextStyle(
-                                      color: colors.textColor,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -462,12 +513,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     color: Colors.transparent,
                                     borderRadius: BorderRadius.circular(5),
                                     border: Border.all(
-                                        color: const Color(0x14E9E9E9),
-                                        width: 2)),
-                                child: const Text(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Color(0x14E9E9E9)
+                                            : Colors.black,
+                                        width: 1)),
+                                child: Text(
                                   "View 360",
                                   style: TextStyle(
-                                      color: colors.textColor,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -486,18 +543,27 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Description",
                               style: TextStyle(
-                                  color: colors.textColor, fontSize: 14),
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(
                               height: 10,
                             ),
                             Text(
                               model2.metaDescription,
-                              style: const TextStyle(
-                                  color: colors.textColor, fontSize: 12),
+                              style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : colors.greyText,
+                                  fontSize: 12),
                             ),
                           ],
                         ),
@@ -508,9 +574,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Use pincode to check delivery info",
-                              style: TextStyle(color: colors.textColor),
+                              style: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
                             ),
                             const SizedBox(
                               height: 10,
@@ -534,13 +605,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           const TextStyle(color: Colors.white),
                                       decoration: InputDecoration(
                                         filled: true,
-                                        fillColor: colors.textFieldBG,
+                                        fillColor:
+                                            Theme.of(context).brightness ==
+                                                    Brightness.dark
+                                                ? colors.textFieldBG
+                                                : Colors.white,
                                         contentPadding:
                                             const EdgeInsets.symmetric(
                                                 vertical: 10, horizontal: 15),
                                         hintText: 'Enter pincode',
-                                        hintStyle: const TextStyle(
-                                            color: colors.white10,
+                                        hintStyle: TextStyle(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
                                             fontSize: 12),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
@@ -591,16 +670,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       ),
                       //  recommendedAccessoryCard(context: context),
                       deliveryCard(context: context),
-                      specificationCard(context: context),
-                      productRatingAndFollowersCard(model2.shop),
+                      specificationCard(context: context, productData: model2),
+                      productRatingAndFollowersCard(model2.shop, context),
                       productModel.relatedProducts.isEmpty
                           ? Container()
-                          : const Padding(
+                          : Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
                               child: Text(
                                 "Recommended Product",
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
                               ),
                             ),
                       productModel.relatedProducts.isEmpty
@@ -620,8 +704,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: 80,
-                  color: colors.textFieldBG,
+                  height: MediaQuery.of(context).size.height * .08,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? colors.textFieldBG
+                      : Colors.white,
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -638,16 +724,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       states.contains(MaterialState.pressed)) {
                                     return colors.buttonColor;
                                   }
-                                  return Colors.transparent; // Default color
+                                  return Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.transparent
+                                      : colors.lightBorder; // Default color
                                 }),
                                 shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                 ),
-                                side: MaterialStateProperty.all(
-                                    const BorderSide(
-                                        color: Colors.white, width: 1)),
+                                side: MaterialStateProperty.all(BorderSide(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : colors.lightBorder,
+                                    width: 1)),
                               ),
                               onPressed: () {
                                 showToastMessage("Removed from Cart");
@@ -656,7 +748,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 widget.model.isCart
                                     ? 'REMOVE FROM CART'
                                     : 'ADD TO CART',
-                                style: TextStyle(fontSize: 12),
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black),
                               ),
                             ),
                           ),
@@ -683,7 +780,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               },
                               child: const Text(
                                 'BUY NOW',
-                                style: TextStyle(fontSize: 12),
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.white),
                               ),
                             ),
                           ),

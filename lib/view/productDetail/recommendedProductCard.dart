@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,8 @@ import '../../utils/color.dart';
 
 recommendedProductCard({required context, required List<ProductList> model}) {
   return Container(
-    height: MediaQuery.of(context).size.height * 0.33,
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+    height: MediaQuery.of(context).size.height * 0.35,
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     child: ListView(
       scrollDirection: Axis.horizontal,
       children: List.generate(model.length, (index) {
@@ -16,32 +17,45 @@ recommendedProductCard({required context, required List<ProductList> model}) {
         return Container(
           height: MediaQuery.of(context).size.height * 0.31,
           width: MediaQuery.of(context).size.width * 0.44,
+          margin: const EdgeInsets.only(right: 10),
           decoration: BoxDecoration(
               // image: DecorationImage(image: NetworkImage(model.images.first)),
               borderRadius: const BorderRadius.all(Radius.circular(10)),
               gradient: LinearGradient(
-                colors: [
-                  colors.boxGradient1.withOpacity(1),
-                  Colors.transparent,
-                ],
+                colors: Theme.of(context).brightness == Brightness.dark
+                    ? [
+                        colors.boxGradient1.withOpacity(1),
+                        Colors.transparent,
+                      ]
+                    : [
+                        Colors.grey.withOpacity(0.2),
+                        Colors.transparent,
+                      ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
-              border: Border.all(color: colors.boxBorder)),
+              border: Border.all(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? colors.boxBorder
+                      : colors.lightBorder)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  height: MediaQuery.of(context).size.height * 0.14,
-                  width: MediaQuery.of(context).size.width * 0.44,
-                  decoration: const BoxDecoration(
+                height: MediaQuery.of(context).size.height * 0.14,
+                width: MediaQuery.of(context).size.width * 0.44,
+                decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: CachedNetworkImage(
-                    imageUrl: card.images.first,
-                    fit: BoxFit.fitWidth,
-                  )),
+                    image: DecorationImage(
+                      image: NetworkImage(card.images.first),
+                      fit: BoxFit.fitWidth,
+                      onError: (exception, stackTrace) => Image.asset(
+                        Images.defaultProductImg,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    )),
+              ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.0005),
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -95,8 +109,11 @@ recommendedProductCard({required context, required List<ProductList> model}) {
                 ),
                 child: Text(
                   card.name,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  maxLines: 2,
+                  style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
                     fontSize: 12,
                   ),
                 ),
@@ -165,8 +182,11 @@ recommendedProductCard({required context, required List<ProductList> model}) {
                         border: Border.all(color: colors.boxBorder)),
                     child: Text(
                       card.isCart ? "Remove From Cart" : "Add to Cart",
-                      style: const TextStyle(
-                          color: colors.textColor, fontSize: size_12),
+                      style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textColor
+                              : Colors.black,
+                          fontSize: size_12),
                       textAlign: TextAlign.center,
                     ),
                   ),

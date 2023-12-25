@@ -1,23 +1,28 @@
+import 'package:alpha_ecommerce_18oct/view/cart/model/cartModel.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 
-specificationCard({required context}) {
+specificationCard({required context, required ProductList productData}) {
   return Container(
-    padding: const EdgeInsets.symmetric(
-        horizontal: 10, vertical: 10),
-    margin: const EdgeInsets.symmetric(
-        horizontal: 20, vertical: 10),
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     decoration: BoxDecoration(
-      color: const Color(0x14E9E9E9),
+      color: Theme.of(context).brightness == Brightness.dark
+          ? const Color(0x14E9E9E9)
+          : Colors.grey.withOpacity(0.2),
       borderRadius: BorderRadius.circular(10),
     ),
-    child: const Column(
+    child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "Specification",
-          style:
-          TextStyle(color: Colors.white, fontSize: 14),
+          style: TextStyle(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+              fontSize: 14),
         ),
         SizedBox(
           height: 20,
@@ -28,12 +33,18 @@ specificationCard({required context}) {
             Text(
               "Weight",
               style: TextStyle(
-                  color: colors.greyText, fontSize: 12),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.grey.shade300
+                      : Colors.black87,
+                  fontSize: 12),
             ),
             Text(
-              "190 MI",
+              productData.weight,
               style: TextStyle(
-                  color: Colors.white, fontSize: 12),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 12),
             ),
           ],
         ),
@@ -46,12 +57,18 @@ specificationCard({required context}) {
             Text(
               "Made IN",
               style: TextStyle(
-                  color: colors.greyText, fontSize: 12),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.grey.shade300
+                      : Colors.black87,
+                  fontSize: 12),
             ),
             Text(
               "India",
               style: TextStyle(
-                  color: Colors.white, fontSize: 12),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 12),
             ),
           ],
         ),
@@ -64,12 +81,18 @@ specificationCard({required context}) {
             Text(
               "Warranty",
               style: TextStyle(
-                  color: colors.greyText, fontSize: 12),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.grey.shade300
+                      : Colors.black87,
+                  fontSize: 12),
             ),
             Text(
               "1 year",
               style: TextStyle(
-                  color: Colors.white, fontSize: 12),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 12),
             ),
           ],
         ),
@@ -82,12 +105,18 @@ specificationCard({required context}) {
             Text(
               "Guarantee",
               style: TextStyle(
-                  color: colors.greyText, fontSize: 12),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.grey.shade300
+                      : Colors.black87,
+                  fontSize: 12),
             ),
             Text(
               "1 year",
               style: TextStyle(
-                  color: Colors.white, fontSize: 12),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 12),
             ),
           ],
         ),
@@ -100,12 +129,18 @@ specificationCard({required context}) {
             Text(
               "Refundable",
               style: TextStyle(
-                  color: colors.greyText, fontSize: 12),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.grey.shade300
+                      : Colors.black87,
+                  fontSize: 12),
             ),
             Text(
               "1 Days",
               style: TextStyle(
-                  color: Colors.white, fontSize: 12),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 12),
             ),
           ],
         ),
@@ -118,12 +153,18 @@ specificationCard({required context}) {
             Text(
               "Warranty",
               style: TextStyle(
-                  color: colors.greyText, fontSize: 12),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.grey.shade300
+                      : Colors.black87,
+                  fontSize: 12),
             ),
             Text(
               "1 year",
               style: TextStyle(
-                  color: Colors.white, fontSize: 12),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 12),
             ),
           ],
         ),
@@ -136,12 +177,18 @@ specificationCard({required context}) {
             Text(
               "Cancellable",
               style: TextStyle(
-                  color: colors.greyText, fontSize: 12),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.grey.shade300
+                      : Colors.black87,
+                  fontSize: 12),
             ),
             Text(
               "Till received",
               style: TextStyle(
-                  color: Colors.white, fontSize: 12),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 12),
             ),
           ],
         ),

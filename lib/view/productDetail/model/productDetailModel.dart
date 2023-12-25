@@ -18,14 +18,14 @@ class ProductDetailModel {
     }
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['status'] = status;
-    data['message'] = message;
-    if (relatedProducts != null) {
-      data['related_products'] =
-          relatedProducts!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = Map<String, dynamic>();
+  //   data['status'] = status;
+  //   data['message'] = message;
+  //   if (relatedProducts != null) {
+  //     data['related_products'] =
+  //         relatedProducts!.map((v) => v.toJson()).toList();
+  //   }
+  //   return data;
+  // }
 }
