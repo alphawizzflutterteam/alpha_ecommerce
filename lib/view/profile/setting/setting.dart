@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/setting/changeTheme.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/setting/selectCurrency.dart';
@@ -70,16 +71,23 @@ class _SettingState extends State<Setting> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  InternalPageHeader(
-                    text: "Setting",
-                  )
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: const Stack(
+                  children: [
+                    ProfileHeader(),
+                    InternalPageHeader(
+                      text: "Settings",
+                    )
+                  ],
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -117,11 +125,20 @@ class _SettingState extends State<Setting> {
                                         settings[i].settingIcon,
                                         height: 30,
                                         width: 30,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : colors.bodyBackgroundDark,
                                       ),
                                       title: Text(
                                         settings[i].settingName,
-                                        style: const TextStyle(
-                                            color: Colors.white, fontSize: 14),
+                                        style: TextStyle(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : colors.bodyBackgroundDark,
+                                            fontSize: 14),
                                       ),
                                       trailing: const Icon(
                                         Icons.arrow_forward_ios_rounded,

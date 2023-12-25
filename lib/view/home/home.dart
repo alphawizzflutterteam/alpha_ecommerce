@@ -59,6 +59,8 @@ class _HomeState extends State<Home> {
     homeProvider.getCartListItem(context);
     homeProvider.getProductFilters(context);
     homeProvider.getHomeBanners(context);
+    homeProvider.getChatlist(context);
+
     getCategory();
     searchProvider.clearFilters();
     searchProvider.getProductsListNew(context, "25", "1");

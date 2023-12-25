@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 class VendorViewModel with ChangeNotifier {
   List<VendorDatum> vendorModel = [];
+  List<VendorDatum> followedvendorModel = [];
   List<CategoryList> data = [];
   bool isLoading = false;
   bool isFollowing = false;
@@ -27,6 +28,22 @@ class VendorViewModel with ChangeNotifier {
 
     await _myRepo.vendorListRequest(AppUrl.vendorList, token).then((value) {
       vendorModel = value.data;
+      notifyListeners();
+
+      setLoading(false);
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(error.toString());
+    });
+  }
+
+  Future<void> getFollowingVendorListItem(BuildContext context) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    print(token);
+
+    await _myRepo.vendorListRequest(AppUrl.followedVendor, token).then((value) {
+      followedvendorModel = value.data;
       notifyListeners();
 
       setLoading(false);

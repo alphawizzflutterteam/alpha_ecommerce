@@ -25,6 +25,10 @@ class AppUrl {
   static const String searchList = "${baseURL}products/search?";
   static const String filtersList = "${baseURL}products/get-filters";
   static const String bannersSection = "${baseURL}config/app-home";
+  static const String sendMessage =
+      "${baseURL}customer/chat/send-admin-messages/admin";
+  static const String chatList =
+      "${baseURL}customer/chat/get-admin-messages/admin/1?limit=10&offset=0";
 
   static const String categories = "${baseURL}categories";
   static const String banners = "${baseURL}banners?banner_type=";
@@ -54,6 +58,7 @@ class AppUrl {
   static const String contact = "${baseURL}contact/store";
 
   static String vendorList = "${baseURL}seller/all";
+  static String followedVendor = "${baseURL}customer/followed-vendor";
   static String vendorCategories = "${baseURL}categories?vendor_id=";
   static const String followVendor = "${baseURL}seller/follow";
 

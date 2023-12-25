@@ -10,7 +10,7 @@ vendorCard(context, VendorDatum model) {
       Routes.navigateToVendorDetailsScreen(context, model);
     },
     child: Container(
-      height: MediaQuery.of(context).size.height * .135,
+      height: MediaQuery.of(context).size.height * .120,
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
@@ -49,14 +49,19 @@ vendorCard(context, VendorDatum model) {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          model.name,
-                          style: TextStyle(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? colors.textColor
-                                    : Colors.black,
-                            fontSize: 15,
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.40,
+                          child: Text(
+                            model.name,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textColor
+                                  : Colors.black,
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                         Spacer(),

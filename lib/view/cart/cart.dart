@@ -59,22 +59,22 @@ class _CartState extends State<Cart> {
           backgroundColor: Theme.of(context).brightness == Brightness.dark
               ? Colors.transparent
               : Colors.white,
-          body: cartProvider.isLoading
-              ? appLoader()
-              : Column(
+          body: Column(
+            children: [
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: const Stack(
                   children: [
-                    Container(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.transparent
-                          : colors.buttonColor,
-                      child: const Stack(
-                        children: [
-                          ProfileHeader(),
-                          DashboardHeader(),
-                        ],
-                      ),
-                    ),
-                    Expanded(
+                    ProfileHeader(),
+                    DashboardHeader(),
+                  ],
+                ),
+              ),
+              cartProvider.isLoading
+                  ? appLoader()
+                  : Expanded(
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,17 +155,69 @@ class _CartState extends State<Cart> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
                                             children: <Widget>[
-                                              CommonRadioTile(
-                                                options:
-                                                    cartProvider.selectedOption,
-                                                name: 'Normal Delivery',
-                                                onChanged: handleOptionChange,
+                                              Expanded(
+                                                child: Material(
+                                                  color: Colors.transparent,
+                                                  child: RadioListTile(
+                                                    title: Text(
+                                                      'Normal Delivery',
+                                                      style: TextStyle(
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.light
+                                                            ? Colors.black
+                                                            : Colors.white,
+                                                        fontSize: 14,
+                                                      ),
+                                                      softWrap: false,
+                                                    ),
+                                                    activeColor:
+                                                        colors.buttonColor,
+                                                    groupValue: cartProvider
+                                                        .selectedOption,
+                                                    onChanged: (value) {
+                                                      handleOptionChange(
+                                                          "Normal Delivery");
+                                                    },
+                                                    contentPadding:
+                                                        const EdgeInsets
+                                                            .symmetric(
+                                                            horizontal: 0),
+                                                    value: 'Normal Delivery',
+                                                  ),
+                                                ),
                                               ),
-                                              CommonRadioTile(
-                                                options:
-                                                    cartProvider.selectedOption,
-                                                name: 'Alpha Delivery',
-                                                onChanged: handleOptionChange,
+                                              Expanded(
+                                                child: Material(
+                                                  color: Colors.transparent,
+                                                  child: RadioListTile(
+                                                    title: Text(
+                                                      'Alpha Delivery',
+                                                      style: TextStyle(
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.light
+                                                            ? Colors.black
+                                                            : Colors.white,
+                                                        fontSize: 14,
+                                                      ),
+                                                      softWrap: false,
+                                                    ),
+                                                    activeColor:
+                                                        colors.buttonColor,
+                                                    groupValue: cartProvider
+                                                        .selectedOption,
+                                                    onChanged: (value) {
+                                                      handleOptionChange(
+                                                          "Alpha Delivery");
+                                                    },
+                                                    contentPadding:
+                                                        const EdgeInsets
+                                                            .symmetric(
+                                                            horizontal: 0),
+                                                    value: 'Alpha Delivery',
+                                                  ),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -501,197 +553,192 @@ class _CartState extends State<Cart> {
                         ),
                       ),
                     ),
-                    cartProvider.cartModel.isEmpty
-                        ? Container()
-                        : Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Container(
-                              height: MediaQuery.of(context).size.height * .125,
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textFieldBG
-                                  : Colors.white,
-                              child: Center(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              addressProvider
-                                                      .addressList.isEmpty
-                                                  ? const Icon(
-                                                      Icons.location_on,
-                                                      color: Colors.red,
-                                                    )
-                                                  : Icon(
-                                                      Icons.pin_drop,
-                                                      color: Theme.of(context)
-                                                                  .brightness ==
-                                                              Brightness.dark
-                                                          ? colors.textColor
-                                                          : Colors.black,
-                                                    ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              addressProvider
-                                                      .addressList.isEmpty
-                                                  ? InkWell(
-                                                      onTap: () {
-                                                        Routes
-                                                            .navigateToManageAddressScreen(
-                                                                context);
-                                                      },
-                                                      child: Text(
-                                                        "Add Address",
-                                                        style: TextStyle(
-                                                            color: Theme.of(context)
-                                                                        .brightness ==
-                                                                    Brightness
-                                                                        .dark
-                                                                ? colors
-                                                                    .textColor
-                                                                : Colors.black,
-                                                            fontSize: 16),
-                                                      ),
-                                                    )
-                                                  : SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.63,
-                                                      child: Text(
-                                                        addressProvider
-                                                            .selectedAddress,
-                                                        style: TextStyle(
-                                                            color: Theme.of(context)
-                                                                        .brightness ==
-                                                                    Brightness
-                                                                        .dark
-                                                                ? colors
-                                                                    .textColor
-                                                                : Colors.black,
-                                                            fontSize: size_12),
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
-                                                    ),
-                                              cartProvider.cartModel.isEmpty
-                                                  ? Container()
-                                                  : addressProvider
-                                                          .addressList.isEmpty
-                                                      ? const Icon(Icons
-                                                          .arrow_forward_ios_rounded)
-                                                      : InkWell(
-                                                          onTap: () {
-                                                            Routes
-                                                                .navigateToAddressListScreen(
-                                                                    context);
-                                                          },
-                                                          child: const SizedBox(
-                                                            child: Text(
-                                                              "(Change)",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .green,
-                                                                  fontSize: 15),
-                                                              maxLines: 1,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                            ),
-                                                          ),
-                                                        ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    cartProvider.cartModel.isEmpty
-                                        ? Container()
-                                        : Divider(
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.dark
-                                                    ? colors.textColor
-                                                    : Colors.black,
-                                            height: 1,
-                                          ),
-                                    cartProvider.cartModel.isEmpty
-                                        ? Container()
-                                        : Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 20, vertical: 10),
-                                            height: 50,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  cartProvider.model.data.total,
-                                                  style: TextStyle(
-                                                    fontSize: size_20,
-                                                    fontWeight: FontWeight.bold,
+              cartProvider.isLoading
+                  ? Container()
+                  : cartProvider.cartModel.isEmpty
+                      ? Container()
+                      : Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * .125,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            addressProvider.addressList.isEmpty
+                                                ? const Icon(
+                                                    Icons.location_on,
+                                                    color: Colors.red,
+                                                  )
+                                                : Icon(
+                                                    Icons.pin_drop,
                                                     color: Theme.of(context)
                                                                 .brightness ==
                                                             Brightness.dark
                                                         ? colors.textColor
                                                         : Colors.black,
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                    height: 35,
-                                                    width: 130,
-                                                    child: CommonButton(
-                                                      text: "PLACE ORDER",
-                                                      fontSize: 12,
-                                                      onClick: () async {
-                                                        var billingId = SharedPref
-                                                                .shared.pref!
-                                                                .getString(PrefKeys
-                                                                    .billingAddressID) ??
-                                                            addressProvider
-                                                                .addressList[0]
-                                                                .id;
-                                                        var paymentMethod =
-                                                            "cash_on_delivery";
-                                                        String couponCode =
-                                                            cartProvider
-                                                                .couponController
-                                                                .text;
-                                                        String data =
-                                                            "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
-                                                        var res =
-                                                            await cartProvider
-                                                                .placeOrder(
-                                                                    data,
-                                                                    context);
-                                                        if (res) {
-                                                          Routes
-                                                              .navigateToPaymentScreen(
-                                                                  context);
-                                                        }
-                                                      },
-                                                    )),
-                                              ],
+                                            const SizedBox(
+                                              width: 5,
                                             ),
+                                            addressProvider.addressList.isEmpty
+                                                ? InkWell(
+                                                    onTap: () {
+                                                      Routes
+                                                          .navigateToManageAddressScreen(
+                                                              context);
+                                                    },
+                                                    child: Text(
+                                                      "Add Address",
+                                                      style: TextStyle(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? colors.textColor
+                                                              : Colors.black,
+                                                          fontSize: 16),
+                                                    ),
+                                                  )
+                                                : SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.63,
+                                                    child: Text(
+                                                      addressProvider
+                                                          .selectedAddress,
+                                                      style: TextStyle(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? colors.textColor
+                                                              : Colors.black,
+                                                          fontSize: size_12),
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                            cartProvider.cartModel.isEmpty
+                                                ? Container()
+                                                : addressProvider
+                                                        .addressList.isEmpty
+                                                    ? const Icon(Icons
+                                                        .arrow_forward_ios_rounded)
+                                                    : InkWell(
+                                                        onTap: () {
+                                                          Routes
+                                                              .navigateToAddressListScreen(
+                                                                  context);
+                                                        },
+                                                        child: const SizedBox(
+                                                          child: Text(
+                                                            "(Change)",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .green,
+                                                                fontSize: 15),
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                          ),
+                                                        ),
+                                                      ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  cartProvider.cartModel.isEmpty
+                                      ? Container()
+                                      : Divider(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? colors.textColor
+                                              : Colors.black,
+                                          height: 1,
+                                        ),
+                                  cartProvider.cartModel.isEmpty
+                                      ? Container()
+                                      : Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 10),
+                                          height: 50,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                cartProvider.model.data.total,
+                                                style: TextStyle(
+                                                  fontSize: size_20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? colors.textColor
+                                                      : Colors.black,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                  height: 35,
+                                                  width: 130,
+                                                  child: CommonButton(
+                                                    text: "PLACE ORDER",
+                                                    fontSize: 12,
+                                                    onClick: () async {
+                                                      var billingId = SharedPref
+                                                              .shared.pref!
+                                                              .getString(PrefKeys
+                                                                  .billingAddressID) ??
+                                                          addressProvider
+                                                              .addressList[0]
+                                                              .id;
+                                                      var paymentMethod =
+                                                          "cash_on_delivery";
+                                                      String couponCode =
+                                                          cartProvider
+                                                              .couponController
+                                                              .text;
+                                                      String data =
+                                                          "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
+                                                      var res =
+                                                          await cartProvider
+                                                              .placeOrder(data,
+                                                                  context);
+                                                      if (res) {
+                                                        Routes
+                                                            .navigateToPaymentScreen(
+                                                                context);
+                                                      }
+                                                    },
+                                                  )),
+                                            ],
                                           ),
-                                  ],
-                                ),
+                                        ),
+                                ],
                               ),
                             ),
                           ),
-                  ],
-                ),
+                        ),
+            ],
+          ),
         ),
       ],
     );

@@ -581,6 +581,9 @@ class _ReturnDialogWidgetState extends State<ReturnDialogWidget> {
                   return CommonRadioTile(
                       options: selectedReason,
                       name: reasons[i],
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
                       onChanged: handleOptionChange);
                 },
               ),

@@ -1,4 +1,7 @@
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../model/chatMessage.dart';
 import '../../widget_common/commonBackground.dart';
@@ -13,28 +16,48 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController txtMessage = TextEditingController();
+  late HomeViewModel homeProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    homeProvider = Provider.of<HomeViewModel>(context, listen: false);
+
+    homeProvider.getChatlist(context);
+  }
 
   @override
   Widget build(BuildContext context) {
+    homeProvider = Provider.of<HomeViewModel>(context);
+
     return Stack(
       children: [
         const LightBackGround(),
         Scaffold(
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              Stack(
-                children: [
-                  const ProfileHeader(),
-                  Align(
-                    alignment: Alignment.center,
-                    child: SafeArea(
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: Stack(
+                  children: [
+                    const ProfileHeader(),
+                    Align(
+                      alignment: Alignment.center,
                       child: Container(
                         padding: const EdgeInsets.only(right: 16),
                         child: Column(
                           children: [
+                            SizedBox(
+                              height: size_50,
+                            ),
                             Row(
                               children: <Widget>[
                                 IconButton(
@@ -50,18 +73,24 @@ class _ChatState extends State<Chat> {
                                   width: 2,
                                 ),
                                 Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: const BoxDecoration(
+                                  width: size_35,
+                                  height: size_35,
+                                  decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: colors.buttonColor,
+                                    color: Theme.of(context).brightness !=
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : colors.buttonColor,
                                   ),
-                                  child: const Center(
+                                  child: Center(
                                     child: Text(
-                                      "AS",
+                                      "AC",
                                       style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : colors.buttonColor,
+                                        fontSize: size_15,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -72,13 +101,14 @@ class _ChatState extends State<Chat> {
                                 ),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: const [
                                       Text(
-                                        "Kriss Benwat",
+                                        "Alpha Chatbot",
                                         style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: size_18,
                                             color: Colors.white,
                                             fontWeight: FontWeight.w600),
                                       ),
@@ -91,44 +121,47 @@ class _ChatState extends State<Chat> {
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(
+                  reverse: true,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ListView.builder(
-                        itemCount: messages.length,
+                        itemCount: homeProvider.chatListt.length,
                         shrinkWrap: true,
-                        padding: const EdgeInsets.only(top: 10, bottom: 10),
+                        padding: const EdgeInsets.only(top: 5, bottom: 10),
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return Container(
                             padding: const EdgeInsets.only(
                                 left: 14, right: 14, top: 10, bottom: 10),
                             child: Align(
-                              alignment:
-                                  (messages[index].messageType == "receiver"
-                                      ? Alignment.topLeft
-                                      : Alignment.topRight),
+                              alignment: (homeProvider
+                                          .chatListt[index].sentByCustomer ==
+                                      0
+                                  ? Alignment.topLeft
+                                  : Alignment.topRight),
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(5),
                                       topRight: Radius.circular(5),
                                       bottomRight: Radius.circular(5)),
-                                  color:
-                                      (messages[index].messageType == "receiver"
-                                          ? colors.buttonColor
-                                          : Colors.grey.shade700),
+                                  color: (homeProvider
+                                              .chatListt[index].sentByAdmin ==
+                                          1
+                                      ? colors.buttonColor
+                                      : Colors.grey.shade600),
                                 ),
                                 padding: const EdgeInsets.all(16),
                                 child: Column(
                                   children: [
                                     Text(
-                                      messages[index].messageContent,
+                                      homeProvider.chatListt[index].message,
                                       style: const TextStyle(
                                           fontSize: 15, color: Colors.white),
                                     ),
@@ -146,8 +179,10 @@ class _ChatState extends State<Chat> {
               Align(
                 alignment: Alignment.bottomLeft,
                 child: Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Color.fromARGB(255, 229, 229, 229),
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   margin:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -157,23 +192,24 @@ class _ChatState extends State<Chat> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      GestureDetector(
-                        onTap: () {},
-                        child: const SizedBox(
-                          height: 30,
-                          width: 30,
-                          child: Icon(
-                            Icons.camera_alt_outlined,
-                            color: Colors.black,
-                            size: 25,
-                          ),
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {},
+                      //   child: const SizedBox(
+                      //     height: 30,
+                      //     width: 30,
+                      //     child: Icon(
+                      //       Icons.camera_alt_outlined,
+                      //       color: Colors.black,
+                      //       size: 25,
+                      //     ),
+                      //   ),
+                      // ),
                       const SizedBox(
                         width: 10,
                       ),
-                      const Expanded(
+                      Expanded(
                         child: TextField(
+                          controller: txtMessage,
                           decoration: InputDecoration(
                               hintText: "Type message",
                               hintStyle: TextStyle(color: Colors.black),
@@ -184,7 +220,12 @@ class _ChatState extends State<Chat> {
                         width: 15,
                       ),
                       FloatingActionButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          Map data = {'id': "1", 'message': txtMessage.text};
+                          txtMessage.clear();
+
+                          await homeProvider.sendMessage(context, data);
+                        },
                         backgroundColor: colors.buttonColor,
                         elevation: 0,
                         child: const Icon(

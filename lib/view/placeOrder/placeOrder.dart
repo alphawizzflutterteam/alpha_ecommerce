@@ -223,11 +223,19 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
                                   CommonRadioTile(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? Colors.black
+                                        : Colors.white,
                                     options: selectedOption,
                                     name: 'Normal Delivery',
                                     onChanged: handleOptionChange,
                                   ),
                                   CommonRadioTile(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? Colors.black
+                                        : Colors.white,
                                     options: selectedOption,
                                     name: 'Alpha Delivery',
                                     onChanged: handleOptionChange,

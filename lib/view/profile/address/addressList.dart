@@ -36,17 +36,24 @@ class _AddressListScreenState extends State<AddressListScreen> {
       Scaffold(
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: SingleChildScrollView(
             child: Column(
               children: [
-                Stack(
-                  children: [
-                    const ProfileHeader(),
-                    const InternalPageHeader(
-                      text: "Address",
-                    ),
-                  ],
+                Container(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.transparent
+                      : colors.buttonColor,
+                  child: Stack(
+                    children: [
+                      const ProfileHeader(),
+                      const InternalPageHeader(
+                        text: "Address",
+                      ),
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(

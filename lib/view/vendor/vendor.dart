@@ -78,7 +78,8 @@ class _VendorState extends State<Vendor> {
                       vendorProvider.isLoading
                           ? appLoader()
                           : SizedBox(
-                              height: 120 * 10,
+                              height: 130 *
+                                  vendorProvider.vendorModel.length.toDouble(),
                               child: ListView.builder(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,

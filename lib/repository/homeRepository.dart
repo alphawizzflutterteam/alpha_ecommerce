@@ -10,6 +10,7 @@ import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/specialOffersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/successModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/topDealsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/chat/model/chatModel.dart';
 import 'package:alpha_ecommerce_18oct/view/wishlist/model/wishlistModel.dart';
 import 'package:http/http.dart' as http;
 
@@ -134,6 +135,20 @@ class HomeRepository {
     return TopDealsModel.fromJson(asn);
   }
 
+  Future<ChatModel> chatListRequest(String api, String bearerToken) async {
+    final url = Uri.parse(api);
+
+    final http.Response res;
+    res = await http.get(url, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+    var asn = await json.decode(res.body);
+
+    return ChatModel.fromJson(asn);
+  }
+
   Future<SuccessModel> addToWishlist(
       String api, String bearerToken, dynamic data) async {
     final url = Uri.parse(api);
@@ -147,6 +162,20 @@ class HomeRepository {
     print(res.body);
 
     return successModelFromJson(res.body);
+  }
+
+  Future<dynamic> sendMessage(
+      String api, String bearerToken, dynamic data) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    print(data);
+    final http.Response res;
+    res = await http.post(url, body: data, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
   }
 
   Future<SuccessModel> removeFromWishlist(

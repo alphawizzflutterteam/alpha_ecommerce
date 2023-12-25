@@ -12,6 +12,7 @@ import 'package:alpha_ecommerce_18oct/view/home/models/filtersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/specialOffersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/topDealsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/chat/model/chatModel.dart';
 import 'package:alpha_ecommerce_18oct/view/wishlist/model/wishlistModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class HomeViewModel with ChangeNotifier {
   List<WishlistItem> wishlistModel = [];
   List<HomeProduct> cartModel = [];
   List<Filters> filterModel = [];
+  List<MessageChat> chatListt = [];
   List<BrandsList> brandsModel = [];
   bool get loading => isLoading;
   TopDealsModel modelBanners = TopDealsModel();
@@ -376,6 +378,41 @@ class HomeViewModel with ChangeNotifier {
       setLoading(false);
       print(errorMessage);
       print(stackTrace.toString() + "getHomeBanners error");
+    });
+  }
+
+  Future<void> getChatlist(BuildContext context) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    print(token);
+
+    await _myRepo.chatListRequest(AppUrl.chatList, token).then((value) {
+      chatListt = value.message;
+
+      notifyListeners();
+
+      setLoading(false);
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(errorMessage);
+      print(stackTrace.toString() + "chat error");
+    });
+  }
+
+  Future<void> sendMessage(BuildContext context, dynamic body) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    print(token);
+
+    await _myRepo.sendMessage(AppUrl.sendMessage, token, body).then((value) {
+      getChatlist(context);
+      notifyListeners();
+
+      setLoading(false);
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(errorMessage);
+      print(stackTrace.toString() + "message send error");
     });
   }
 }

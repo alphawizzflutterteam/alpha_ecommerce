@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/view/profile/address/addressList.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/followingVendor/view/followingVendorScreen.dart';
 import '../utils/images.dart';
 import '../view/profile/aboutUs/aboutUs.dart';
 import '../view/profile/contactUs/contactUs.dart';
@@ -35,6 +36,10 @@ List<ProfileList> profile = [
       profileIcon: Images.discountProfile,
       profileText: 'Coupons',
       navigationScreen: const CouponScreen()),
+  ProfileList(
+      profileIcon: "assets/images/Group 448.png",
+      profileText: 'Following Vendors',
+      navigationScreen: const FollowingVendorList()),
   ProfileList(
       profileIcon: Images.setting,
       profileText: 'Setting',

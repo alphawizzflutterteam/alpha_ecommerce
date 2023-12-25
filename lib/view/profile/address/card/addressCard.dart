@@ -35,7 +35,9 @@ addressItemCard(AddressList model, BuildContext context,
             child: Row(
               children: [
                 Radio(
-                  activeColor: Colors.white,
+                  activeColor: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
                   value: model.id,
                   groupValue: provider.selectedId,
                   onChanged: (value) {
@@ -49,8 +51,12 @@ addressItemCard(AddressList model, BuildContext context,
                     children: [
                       Text(
                         model.contactPersonName,
-                        style: const TextStyle(
-                            color: Colors.white, fontSize: size_12),
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                            fontSize: size_12),
                       ),
                       const SizedBox(
                         height: size_10,
@@ -61,8 +67,12 @@ addressItemCard(AddressList model, BuildContext context,
                           "${model.address}, ${model.address1}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: size_10),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: size_10),
                         ),
                       ),
                       const SizedBox(
@@ -70,8 +80,12 @@ addressItemCard(AddressList model, BuildContext context,
                       ),
                       Text(
                         model.phone,
-                        style: const TextStyle(
-                            color: Colors.white, fontSize: size_10),
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                            fontSize: size_10),
                       )
                     ],
                   ),
@@ -86,9 +100,11 @@ addressItemCard(AddressList model, BuildContext context,
                 borderRadius: BorderRadius.circular(10.0),
               ),
               color: colors.darkBG,
-              icon: const Icon(
+              icon: Icon(
                 Icons.more_vert,
-                color: Colors.white,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
               ),
               itemBuilder: (context) {
                 return [

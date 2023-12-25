@@ -39,16 +39,23 @@ class _ManageAddressState extends State<ManageAddress> {
         Scaffold(
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  InternalPageHeader(
-                    text: "Address",
-                  )
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: const Stack(
+                  children: [
+                    ProfileHeader(),
+                    InternalPageHeader(
+                      text: "Address",
+                    )
+                  ],
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -92,12 +99,15 @@ class _ManageAddressState extends State<ManageAddress> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.only(left: 20, top: 20),
                             child: Text(
                               "Select Delivery type",
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -116,10 +126,13 @@ class _ManageAddressState extends State<ManageAddress> {
                                   Expanded(
                                     child: RadioListTile(
                                       activeColor: colors.buttonColor,
-                                      title: const Text(
+                                      title: Text(
                                         'Home',
                                         style: TextStyle(
-                                          color: Colors.white,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14,
                                         ),
                                         softWrap: false, // Add this line
@@ -138,10 +151,13 @@ class _ManageAddressState extends State<ManageAddress> {
                                   ),
                                   Expanded(
                                     child: RadioListTile(
-                                      title: const Text(
+                                      title: Text(
                                         'Office',
                                         style: TextStyle(
-                                          color: Colors.white,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14,
                                         ),
                                         softWrap: false, // Add this line
@@ -161,10 +177,13 @@ class _ManageAddressState extends State<ManageAddress> {
                                   ),
                                   Expanded(
                                     child: RadioListTile(
-                                      title: const Text(
+                                      title: Text(
                                         'Other',
                                         style: TextStyle(
-                                          color: Colors.white,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14,
                                         ),
                                         softWrap: false, // Add this line
@@ -224,6 +243,9 @@ class _ManageAddressState extends State<ManageAddress> {
                       Container(
                         margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                         decoration: BoxDecoration(
+                          // color: Theme.of(context).brightness == Brightness.dark
+                          //   ? Colors.white
+                          //   : Colors.black,
                           color: colors
                               .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),

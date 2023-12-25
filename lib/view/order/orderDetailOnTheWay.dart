@@ -611,6 +611,9 @@ class _CancelOrderDialogWidgetState extends State<CancelOrderDialogWidget> {
                   return CommonRadioTile(
                       options: selectedReason,
                       name: reasons[i],
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
                       onChanged: handleOptionChange);
                 },
               ),

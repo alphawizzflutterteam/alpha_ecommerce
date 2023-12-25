@@ -85,7 +85,7 @@ class InternalPageHeader extends StatelessWidget {
                     onTap: () {
                       Routes.navigateToPreviousScreen(context);
                     },
-                    child: const Icon(Icons.arrow_back_ios)),
+                    child: Icon(Icons.arrow_back_ios, color: Colors.white)),
               ),
               Expanded(
                 child: Padding(
