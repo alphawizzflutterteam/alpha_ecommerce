@@ -63,7 +63,7 @@ specificationCard({required context, required ProductListDetail productData}) {
                   fontSize: 12),
             ),
             Text(
-              "India",
+              productData.made_in,
               style: TextStyle(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
@@ -87,7 +87,7 @@ specificationCard({required context, required ProductListDetail productData}) {
                   fontSize: 12),
             ),
             Text(
-              "1 year",
+              productData.warranty,
               style: TextStyle(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
@@ -103,7 +103,7 @@ specificationCard({required context, required ProductListDetail productData}) {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Guarantee",
+              "Manufacturing Date",
               style: TextStyle(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.grey.shade300
@@ -111,7 +111,7 @@ specificationCard({required context, required ProductListDetail productData}) {
                   fontSize: 12),
             ),
             Text(
-              "1 year",
+              productData.manufacturing_date,
               style: TextStyle(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
@@ -135,7 +135,7 @@ specificationCard({required context, required ProductListDetail productData}) {
                   fontSize: 12),
             ),
             Text(
-              "1 Days",
+              productData.refundable,
               style: TextStyle(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
@@ -144,30 +144,8 @@ specificationCard({required context, required ProductListDetail productData}) {
             ),
           ],
         ),
-        SizedBox(
-          height: 15,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Warranty",
-              style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.grey.shade300
-                      : Colors.black87,
-                  fontSize: 12),
-            ),
-            Text(
-              "1 year",
-              style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 12),
-            ),
-          ],
-        ),
+
+
         SizedBox(
           height: 15,
         ),

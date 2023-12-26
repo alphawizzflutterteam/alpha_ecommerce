@@ -292,17 +292,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 children: [
                                   Text(
                                     selectedPrice,
-                                    style: const TextStyle(
-                                      color: colors.lightTextColor,
+                                    style: TextStyle(
+                                      color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
                                       fontSize: 18,
                                     ),
                                   ),
                                   Row(
                                     children: [
-                                      const Text(
+                                      Text(
                                         "or Pay \$100 + ",
                                         style: TextStyle(
-                                          color: colors.textColor,
+                                          color: Theme.of(context).brightness == Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14,
                                         ),
                                       ),
@@ -316,10 +321,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           const SizedBox(
                                             width: 5,
                                           ),
-                                          const Text(
-                                            "20",
+                                          Text(
+                                            productModel.model.first.use_coins_with_amount,
                                             style: TextStyle(
-                                              color: colors.textColor,
+                                              color: Theme.of(context).brightness == Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               fontSize: 14,
                                             ),
                                           ),
@@ -336,7 +343,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             SizedBox(
                               height: productModel
                                       .model.first.choiceOptions.length *
-                                  80,
+                                  (MediaQuery.of(context).size.height*.1),
                               child: ListView.builder(
                                   scrollDirection: Axis.vertical,
                                   padding: EdgeInsets.zero,

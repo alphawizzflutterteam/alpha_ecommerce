@@ -113,7 +113,7 @@ productRatingAndFollowersCard(Shop shop, BuildContext ctx) {
                       "Followers",
                       style: TextStyle(
                           color: Theme.of(ctx).brightness == Brightness.dark
-                              ? colors.lightTextColor
+                              ? Colors.white
                               : Colors.black),
                     )
                   ],
