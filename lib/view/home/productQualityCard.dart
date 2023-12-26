@@ -3,9 +3,9 @@ import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/topDealsModel.dart';
 import 'package:flutter/material.dart';
 
-productQualityCard(TopDealsModel modelBanners) {
+productQualityCard(TopDealsModel modelBanners, BuildContext context) {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -19,9 +19,12 @@ productQualityCard(TopDealsModel modelBanners) {
             width: 2,
           ),
           SizedBox(
-              width: 60,
+              width: MediaQuery.of(context).size.width * .2,
+              height: 25,
               child: Text(
                 modelBanners.data!.frameOne!.label1!,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style:
                     TextStyle(fontSize: size_10, fontWeight: FontWeight.bold),
               )),
@@ -39,7 +42,8 @@ productQualityCard(TopDealsModel modelBanners) {
             width: 2,
           ),
           SizedBox(
-              width: 60,
+              width: MediaQuery.of(context).size.width * .2,
+              height: 25,
               child: Text(
                 modelBanners.data!.frameOne!.label2!,
                 style:
@@ -59,7 +63,8 @@ productQualityCard(TopDealsModel modelBanners) {
             width: 2,
           ),
           SizedBox(
-              width: 60,
+              width: MediaQuery.of(context).size.width * .2,
+              height: 25,
               child: Text(
                 modelBanners.data!.frameOne!.label3!,
                 style:

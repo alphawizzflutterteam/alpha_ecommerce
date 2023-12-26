@@ -1,6 +1,7 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/categoryModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ secondCategoryCard(
                 backgroundColor: Colors.white,
                 child: CachedNetworkImage(
                   imageUrl: model.icon!,
+                  errorWidget: (context, url, error) => ErrorImageWidget(),
                   height: size_65,
                   width: size_65,
                 ),

@@ -28,8 +28,8 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken) ?? "";
     var name = "";
-    var email = "";
-    var phone = "";
+    var loyaltyPoint = "";
+    var walletBalance = "";
     bool iisSubscribed = false;
     if (token!.isEmpty) {
     } else {
@@ -38,8 +38,8 @@ class _ProfileState extends State<Profile> {
 
       ProfileModel user = ProfileModel.fromJson(model);
       name = user.data[0].fName;
-      email = user.data[0].email;
-      phone = user.data[0].phone;
+      loyaltyPoint = user.data[0].loyaltyPoint;
+      walletBalance = user.data[0].walletBalance.toString();
       iisSubscribed = user.data[0].isSubscribed == 0 ? false : true;
     }
 
@@ -129,246 +129,292 @@ class _ProfileState extends State<Profile> {
                         ],
                       ),
                     ),
-                    Stack(
-                      children: [
-                        Column(
-                          children: [
-                            Container(
-                              color: colors.buttonColor,
-                              padding: const EdgeInsets.only(left: 5),
-                              height: 100,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: 90,
-                                    height: 90,
-                                    margin: const EdgeInsets.all(5),
-                                    child: ClipOval(
-                                      child: Image.asset(
-                                        Images.human,
-                                        fit: BoxFit.cover,
+                    Container(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? colors.buttonColor
+                          : const Color(0xFFE1F4F4),
+                      child: Stack(
+                        // fit: StackFit.passthrough,
+                        children: [
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: Image.asset(Images.semicircles),
+                            height: MediaQuery.of(context).size.height * .075,
+                            // width: MediaQuery.of(context).size.width * .1,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 8, bottom: 15, left: 15, right: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * .11,
+                                  width:
+                                      MediaQuery.of(context).size.height * .11,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        image:
+                                            AssetImage(Images.defaultProfile),
                                       ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 10),
-                                    child: SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.65,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                name,
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                      border: Border.all(
+                                          color: Colors.white, width: 2)),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.65,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              name,
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Container(
+                                              width: 30,
+                                              height: 30,
+                                              padding: const EdgeInsets.all(2),
+                                              decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                                shape: BoxShape.circle,
                                               ),
-                                              Container(
-                                                width: 25,
-                                                height: 25,
-                                                decoration: const BoxDecoration(
-                                                  color: Colors.white,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Center(
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      Routes
-                                                          .navigateToEditProfileScreen(
-                                                              context);
-                                                    },
-                                                    child: const Icon(
-                                                      Icons.edit,
-                                                      color: colors.buttonColor,
-                                                      size: 20,
-                                                    ),
+                                              child: Center(
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Routes
+                                                        .navigateToEditProfileScreen(
+                                                            context);
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.edit,
+                                                    color: colors.buttonColor,
+                                                    size: 16,
                                                   ),
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 8,
-                                          ),
-                                          Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.email_outlined,
-                                                color: colors.lightTextColor,
-                                                size: 18,
                                               ),
-                                              const SizedBox(width: 5),
-                                              Text(
-                                                email,
-                                                style: const TextStyle(
-                                                    color:
-                                                        colors.lightTextColor,
-                                                    fontSize: 12),
+                                            )
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  .025,
+                                              child: Image.asset(
+                                                Images.coin,
                                               ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 5),
-                                          Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.phone_outlined,
-                                                color: colors.lightTextColor,
-                                                size: 18,
+                                            ),
+                                            VerticalDivider(
+                                              color: Colors.transparent,
+                                              width: 4,
+                                            ),
+                                            Text(
+                                              loyaltyPoint,
+                                              style: TextStyle(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
                                               ),
-                                              const SizedBox(width: 5),
-                                              Text(
-                                                phone,
-                                                style: const TextStyle(
-                                                    color:
-                                                        colors.lightTextColor,
-                                                    fontSize: 12),
+                                            ),
+                                            VerticalDivider(
+                                              color: Colors.transparent,
+                                              width: 10,
+                                            ),
+                                            SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  .025,
+                                              child: Image.asset(
+                                                Images.wallet,
                                               ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                            ),
+                                            VerticalDivider(
+                                              color: Colors.transparent,
+                                              width: 4,
+                                            ),
+                                            Text(
+                                              walletBalance,
+                                              style: TextStyle(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            Container(
-                              height: 15,
-                            )
-                          ],
-                        ),
-                        !iisSubscribed
-                            ? Container()
-                            : Positioned(
-                                bottom: 0,
-                                left: MediaQuery.of(context).size.width * 0.3,
-                                child: Container(
-                                  width: 150,
-                                  height: 25,
-                                  decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5))),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        Images.alphaProfile,
-                                        height: 20,
-                                        width: 20,
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      const Text(
-                                        "ALPHA Membership",
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 12),
-                                      )
-                                    ],
+                          ),
+                          Container(
+                            height: 15,
+                          ),
+                          !iisSubscribed
+                              ? Container()
+                              : Positioned(
+                                  bottom: 0,
+                                  left: MediaQuery.of(context).size.width * 0.3,
+                                  child: Container(
+                                    width: 150,
+                                    height: 25,
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5))),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          Images.alphaProfile,
+                                          height: 20,
+                                          width: 20,
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        const Text(
+                                          "ALPHA Membership",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                      ],
+                        ],
+                      ),
                     ),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Routes.navigateToOrderScreen(context);
-                                  },
-                                  child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                    height: 100,
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? colors.overlayBG
-                                          : Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? null
-                                          : Border.all(color: Colors.black),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          const SizedBox(
-                                            width: 23,
-                                          ),
-                                          Visibility(
-                                            visible: false,
-                                            child: Container(
-                                              width: 20,
-                                              height: 20,
-                                              decoration: BoxDecoration(
-                                                color: Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(2.0),
-                                              ),
-                                              child: const Center(
-                                                child: Text(
-                                                  "8",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.bold,
+                            Divider(color: Colors.transparent, height: 20),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Routes.navigateToOrderScreen(context);
+                                    },
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.45,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              .12,
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? colors.overlayBG
+                                            : Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? null
+                                            : Border.all(
+                                                color: colors.lightBorder),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Visibility(
+                                              visible: false,
+                                              child: Container(
+                                                width: 20,
+                                                height: 20,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.red,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          2.0),
+                                                ),
+                                                child: const Center(
+                                                  child: Text(
+                                                    "8",
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Center(
-                                            child: Column(
+                                            Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Image.asset(
                                                   Images.order,
-                                                  height: 50,
-                                                  width: 50,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      .05,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      .05,
                                                   color: Theme.of(context)
                                                               .brightness ==
                                                           Brightness.dark
                                                       ? Colors.white
                                                       : Colors.black,
                                                 ),
-                                                const SizedBox(height: 8),
                                                 Text(
                                                   "My Order",
                                                   style: TextStyle(
@@ -378,81 +424,64 @@ class _ProfileState extends State<Profile> {
                                                         ? Colors.white
                                                         : Colors.black,
                                                     fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
                                                   ),
                                                 ),
                                               ],
-                                            ),
-                                          )
-                                        ],
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Routes.navigateToWishlistScreen(context);
-                                  },
-                                  child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                    height: 100,
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? colors.overlayBG
-                                          : Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? null
-                                          : Border.all(color: Colors.black),
-                                    ),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const SizedBox(
-                                          width: 23,
-                                        ),
-                                        // Container(
-                                        //   width: 20,
-                                        //   height: 20,
-                                        //   decoration: BoxDecoration(
-                                        //     color: Colors.red,
-                                        //     borderRadius:
-                                        //         BorderRadius.circular(2.0),
-                                        //   ),
-                                        //   child: const Center(
-                                        //     child: Text(
-                                        //       "8",
-                                        //       style: TextStyle(
-                                        //         color: Colors.white,
-                                        //         fontSize: 10,
-                                        //         fontWeight: FontWeight.bold,
-                                        //       ),
-                                        //     ),
-                                        //   ),
-                                        // ),
-
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        Center(
-                                          child: Column(
+                                  InkWell(
+                                    onTap: () {
+                                      Routes.navigateToWishlistScreen(context);
+                                    },
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.45,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              .12,
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? colors.overlayBG
+                                            : Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? null
+                                            : Border.all(
+                                                color: colors.lightBorder),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
                                               Image.asset(
                                                 Images.heart,
-                                                height: 50,
-                                                width: 50,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    .05,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    .05,
                                                 color: Theme.of(context)
                                                             .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
                                               ),
-                                              const SizedBox(height: 8),
                                               Text(
                                                 "My Wishlist",
                                                 style: TextStyle(
@@ -462,23 +491,29 @@ class _ProfileState extends State<Profile> {
                                                       ? Colors.white
                                                       : Colors.black,
                                                   fontSize: 14,
+                                                  fontWeight: FontWeight.w500,
                                                 ),
                                               ),
                                             ],
-                                          ),
-                                        )
-                                      ],
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                            const SizedBox(
-                              height: 40,
-                            ),
+                            Divider(color: Colors.transparent, height: 5),
                             SizedBox(
                               height: 57 * profile.length.toDouble(),
-                              child: ListView.builder(
+                              child: ListView.separated(
+                                separatorBuilder: (context, index) => Divider(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Color(0xFF4A5054)
+                                      : Colors.grey,
+                                  height: 1,
+                                ),
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
@@ -500,51 +535,38 @@ class _ProfileState extends State<Profile> {
                                         );
                                       }
                                     },
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          child: ListTile(
-                                            leading: Image.asset(
-                                              profile[i].profileIcon,
-                                              height: 30,
-                                              width: 30,
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                            title: Text(
-                                              profile[i].profileText,
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                  fontSize: 14),
-                                            ),
-                                            trailing: Icon(
-                                              Icons.arrow_forward_ios_rounded,
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              size: 20,
-                                            ),
-                                          ),
-                                        ),
-                                        Divider(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      child: ListTile(
+                                        leading: Image.asset(
+                                          profile[i].profileIcon,
+                                          height: 30,
+                                          width: 30,
                                           color: Theme.of(context).brightness ==
                                                   Brightness.dark
                                               ? Colors.white
-                                              : Colors.grey,
-                                          height: 1,
+                                              : Colors.black,
                                         ),
-                                      ],
+                                        title: Text(
+                                          profile[i].profileText,
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: 14),
+                                        ),
+                                        trailing: Icon(
+                                          Icons.arrow_forward_ios_rounded,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          size: 20,
+                                        ),
+                                      ),
                                     ),
                                   );
                                 },

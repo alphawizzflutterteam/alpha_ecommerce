@@ -58,7 +58,7 @@ topDealCard(context, ProductList2 products) {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
-                          products.name!,
+                          products.name,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -70,10 +70,12 @@ topDealCard(context, ProductList2 products) {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
-                          products.purchasePrice!.toString(),
+                          products.specialPrice.toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 14,
                           ),
                         ),
                       ),

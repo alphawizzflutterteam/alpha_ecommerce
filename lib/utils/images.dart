@@ -48,7 +48,7 @@ class Images {
   static const bestOffer = "assets/images/bestOffer.png";
   static const homeBG = 'assets/images/home_bg.png';
   static const cancelOrder = 'assets/images/cancelOrder.png';
-
+  static const semicircles = "assets/images/semicircle.png";
   static const headerBGLine = 'assets/images/header_bg_line.png';
 
   //dashboard
@@ -76,8 +76,8 @@ class Images {
   static const notification = 'assets/icons/notification.png';
   static const headerCart = "assets/icons/cart.png";
 
-  static const heart = 'assets/icons/heart.png';
-  static const order = "assets/icons/order.png";
+  static const heart = 'assets/images/wishlist.png';
+  static const order = "assets/images/order.png";
 
   static const rupees = "assets/icons/rupees.png";
 
@@ -142,5 +142,7 @@ class Images {
   static const headphone = "assets/images/temporaryImages/headphone.png";
   static const cameraTemporary = "assets/images/temporaryImages/camera.png";
   static const jeans = "assets/images/temporaryImages/jeans.png";
-  static const defaultProductImg = "assets/images/defaults-img.png";
+  static const defaultProductImg = "assets/images/default-img.png";
+  static const defaultProfile = "assets/images/profile.png";
+  static const wallet = "assets/images/wallet.png";
 }

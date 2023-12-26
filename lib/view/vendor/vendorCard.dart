@@ -1,5 +1,6 @@
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/model/vendorModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../utils/routes.dart';
@@ -10,15 +11,12 @@ vendorCard(context, VendorDatum model) {
       Routes.navigateToVendorDetailsScreen(context, model);
     },
     child: Container(
-      height: MediaQuery.of(context).size.height * .120,
+      height: MediaQuery.of(context).size.height * .135,
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
             ? const Color(0x14E9E9E9)
-            : Colors.white,
-        border: Theme.of(context).brightness == Brightness.dark
-            ? null
-            : Border.all(width: 1, color: colors.lightBorder),
+            : const Color(0xFFE3E1EC),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(
@@ -26,19 +24,21 @@ vendorCard(context, VendorDatum model) {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
+            Container(
+              height: double.maxFinite,
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+              ),
               child: Image.network(
                 model.image,
-                width: 80,
-                height: 80,
-                errorBuilder: (BuildContext context, Object exception,
-                    StackTrace? stackTrace) {
-                  return Image.asset(Images.defaultProductImg);
-                },
+                width: MediaQuery.of(context).size.width * .2,
+                errorBuilder: (context, error, stackTrace) =>
+                    ErrorImageWidget(),
               ),
             ),
-            const SizedBox(width: 30),
+            VerticalDivider(color: Colors.transparent),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.55,
               child: Column(
@@ -112,9 +112,7 @@ vendorCard(context, VendorDatum model) {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  Divider(color: Colors.transparent),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -128,9 +126,6 @@ vendorCard(context, VendorDatum model) {
                         ),
                       ),
                     ],
-                  ),
-                  const SizedBox(
-                    height: 10,
                   ),
                 ],
               ),

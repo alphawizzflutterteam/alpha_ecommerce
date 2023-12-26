@@ -140,114 +140,10 @@ class _HomeState extends State<Home> {
               // ),
               !isWidgetVisible
                   ? Container()
-                  : Row(
-                      children: [
-                        Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width * 0.33,
-                          color: colors.midBorder,
-                          child: InkWell(
-                            onTap: () {
-                              homeFilter(context, homeProvider.filterModel,
-                                  searchProvider, true);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  Images.filter,
-                                  height: 20,
-                                  width: 20,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Text(
-                                  'Filter',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width * 0.34,
-                          decoration: const BoxDecoration(
-                            color: colors.midBorder,
-                            border: Border(
-                              left: BorderSide(
-                                color: colors.midBorder,
-                              ),
-                            ),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              homeCategory(context, categoryProvider,
-                                  searchProvider, true);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  Images.categoryWhite,
-                                  height: 20,
-                                  width: 20,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Text(
-                                  'Category',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width * 0.33,
-                          decoration: const BoxDecoration(
-                            color: colors.midBorder,
-                            border: Border(
-                              left: BorderSide(
-                                color: colors.midBorder,
-                              ),
-                            ),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              homeSort(context, searchProvider);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  Images.sort,
-                                  height: 20,
-                                  width: 20,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Text(
-                                  'Sort',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
+                  : FilterBar(
+                      homeProvider: homeProvider,
+                      searchProvider: searchProvider,
+                      categoryProvider: categoryProvider),
               Expanded(
                   child: SingleChildScrollView(
                 controller: _scrollController,
@@ -311,7 +207,7 @@ class _HomeState extends State<Home> {
                     Column(
                       children: [
                         SizedBox(
-                          height: 250,
+                          height: 240,
                           child: CarouselSlider(
                             items: homeProvider.imageList.map((item) {
                               return InkWell(
@@ -387,7 +283,7 @@ class _HomeState extends State<Home> {
                         ),
                       ],
                     ),
-                    spaceOfHeight(height: 20),
+                    Divider(color: Colors.transparent, height: 5),
 
                     //Brands Listing
                     Container(
@@ -451,7 +347,7 @@ class _HomeState extends State<Home> {
                     homeProvider.modelBanners == null
                         ? appLoader()
                         : Container(
-                            height: 100,
+                            height: MediaQuery.of(context).size.height * .07,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
@@ -462,8 +358,8 @@ class _HomeState extends State<Home> {
                                 end: Alignment.bottomCenter,
                               ),
                             ),
-                            child:
-                                productQualityCard(homeProvider.modelBanners)),
+                            child: productQualityCard(
+                                homeProvider.modelBanners, context)),
                     spaceOfHeight(height: 20),
 
                     homeProvider.cartModel.isEmpty
@@ -669,12 +565,11 @@ class _HomeState extends State<Home> {
                           ),
                     homeProvider.banner1 == ""
                         ? Container()
-                        : SizedBox(
-                            height: 210,
+                        : Container(
                             width: MediaQuery.of(context).size.width,
                             child: Image.network(
                               homeProvider.banner1 ?? "",
-                              fit: BoxFit.cover,
+                              fit: BoxFit.contain,
                             ),
                           ),
                     homeProvider.banner1 == ""
@@ -685,11 +580,10 @@ class _HomeState extends State<Home> {
                     homeProvider.banner2 == ""
                         ? Container()
                         : SizedBox(
-                            height: 210,
                             width: MediaQuery.of(context).size.width,
                             child: Image.network(
                               homeProvider.banner2 ?? "",
-                              fit: BoxFit.cover,
+                              fit: BoxFit.contain,
                             ),
                           ),
                     const SizedBox(
@@ -698,15 +592,26 @@ class _HomeState extends State<Home> {
                     Container(
                       height: MediaQuery.of(context).size.height * 0.25,
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            colors.homeGradient3.withOpacity(0.7),
-                            colors.homeGradient4.withOpacity(0.4),
-                            colors.homeGradient3.withOpacity(0.7),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.centerRight,
-                        ),
+                        gradient:
+                            Theme.of(context).brightness == Brightness.dark
+                                ? LinearGradient(
+                                    colors: [
+                                      colors.homeGradient3.withOpacity(0.7),
+                                      colors.homeGradient4.withOpacity(0.4),
+                                      colors.homeGradient3.withOpacity(0.7),
+                                    ],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.centerRight,
+                                  )
+                                : LinearGradient(
+                                    colors: [
+                                      colors.homeGradient3.withOpacity(0.7),
+                                      colors.homeGradient4.withOpacity(0.4),
+                                      colors.homeGradient3.withOpacity(0.7),
+                                    ],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.centerRight,
+                                  ),
                       ),
                       child: Column(
                         children: [
@@ -902,161 +807,10 @@ class _HomeState extends State<Home> {
 
                     isWidgetVisible
                         ? Container()
-                        : Row(
-                            children: [
-                              Container(
-                                height: 50,
-                                width: MediaQuery.of(context).size.width * 0.33,
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.midBorder
-                                    : Color(0xFFE3E1EC),
-                                child: InkWell(
-                                  onTap: () {
-                                    homeFilter(
-                                        context,
-                                        homeProvider.filterModel,
-                                        searchProvider,
-                                        true);
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        Images.filter,
-                                        height: 20,
-                                        width: 20,
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        'Filter',
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                            fontSize: 16),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                height: 50,
-                                width: MediaQuery.of(context).size.width * 0.34,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? colors.midBorder
-                                      : Color(0xFFE3E1EC),
-                                  border: Border(
-                                    left: BorderSide(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? colors.midBorder
-                                          : Colors.grey.shade400,
-                                    ),
-                                  ),
-                                ),
-                                child: InkWell(
-                                  onTap: () {
-                                    homeCategory(context, categoryProvider,
-                                        searchProvider, true);
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        Images.categoryWhite,
-                                        height: 20,
-                                        width: 20,
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        'Category',
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                            fontSize: 16),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                height: 50,
-                                width: MediaQuery.of(context).size.width * 0.33,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? colors.midBorder
-                                      : Color(0xFFE3E1EC),
-                                  border: Border(
-                                    left: BorderSide(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? colors.midBorder
-                                          : Colors.grey.shade400,
-                                    ),
-                                  ),
-                                ),
-                                child: InkWell(
-                                  onTap: () {
-                                    homeSort(context, searchProvider);
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        Images.sort,
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        height: 20,
-                                        width: 20,
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        'Sort',
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                            fontSize: 16),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                        : FilterBar(
+                            homeProvider: homeProvider,
+                            searchProvider: searchProvider,
+                            categoryProvider: categoryProvider),
                     VisibilityDetector(
                       key: Key("unique key"),
                       onVisibilityChanged: (VisibilityInfo info) {
@@ -1100,6 +854,157 @@ class _HomeState extends State<Home> {
                 ),
               )),
             ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class FilterBar extends StatelessWidget {
+  const FilterBar({
+    super.key,
+    required this.homeProvider,
+    required this.searchProvider,
+    required this.categoryProvider,
+  });
+
+  final HomeViewModel homeProvider;
+  final SearchViewModel searchProvider;
+  final CategoryViewModel categoryProvider;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          height: 50,
+          width: MediaQuery.of(context).size.width * 0.33,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? colors.midBorder
+              : Color(0xFFE3E1EC),
+          child: InkWell(
+            onTap: () {
+              homeFilter(
+                  context, homeProvider.filterModel, searchProvider, true);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  Images.filter,
+                  height: 20,
+                  width: 20,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  'Filter',
+                  style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: 16),
+                )
+              ],
+            ),
+          ),
+        ),
+        Container(
+          height: 50,
+          width: MediaQuery.of(context).size.width * 0.34,
+          decoration: BoxDecoration(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? colors.midBorder
+                : Color(0xFFE3E1EC),
+            border: Border(
+              left: BorderSide(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? colors.midBorder
+                    : Colors.grey.shade400,
+              ),
+            ),
+          ),
+          child: InkWell(
+            onTap: () {
+              homeCategory(context, categoryProvider, searchProvider, true);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  Images.categoryWhite,
+                  height: 20,
+                  width: 20,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  'Category',
+                  style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: 16),
+                )
+              ],
+            ),
+          ),
+        ),
+        Container(
+          height: 50,
+          width: MediaQuery.of(context).size.width * 0.33,
+          decoration: BoxDecoration(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? colors.midBorder
+                : Color(0xFFE3E1EC),
+            border: Border(
+              left: BorderSide(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? colors.midBorder
+                    : Colors.grey.shade400,
+              ),
+            ),
+          ),
+          child: InkWell(
+            onTap: () {
+              homeSort(context, searchProvider);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  Images.sort,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                  height: 20,
+                  width: 20,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  'Sort',
+                  style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: 16),
+                )
+              ],
+            ),
           ),
         ),
       ],

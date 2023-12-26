@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/view/home/models/categoryModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ categoryCard(
             imageUrl: model.icon!,
             height: 70,
             width: 90,
+            errorWidget: (context, url, error) => ErrorImageWidget(),
           ),
           const SizedBox(
             height: 10,

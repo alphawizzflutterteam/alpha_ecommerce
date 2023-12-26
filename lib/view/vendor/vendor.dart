@@ -56,43 +56,39 @@ class _VendorState extends State<Vendor> {
                 ),
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 30),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          "Vendor List",
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Divider(color: Colors.transparent),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        "Vendor List",
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textColor
+                                    : Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(height: 10),
-                      vendorProvider.isLoading
-                          ? appLoader()
-                          : SizedBox(
-                              height: 130 *
-                                  vendorProvider.vendorModel.length.toDouble(),
-                              child: ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: vendorProvider.vendorModel.length,
-                                itemBuilder: (context, i) {
-                                  var model = vendorProvider.vendorModel[i];
-                                  return vendorCard(context, model);
-                                },
-                              ),
+                    ),
+                    Divider(color: Colors.transparent, height: 5),
+                    vendorProvider.isLoading
+                        ? appLoader()
+                        : SizedBox(
+                            height: MediaQuery.of(context).size.height * .7,
+                            child: ListView.builder(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              itemCount: vendorProvider.vendorModel.length,
+                              itemBuilder: (context, i) {
+                                var model = vendorProvider.vendorModel[i];
+                                return vendorCard(context, model);
+                              },
                             ),
-                    ],
-                  ),
+                          ),
+                  ],
                 ),
               )
             ],

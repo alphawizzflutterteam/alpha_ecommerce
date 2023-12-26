@@ -308,40 +308,34 @@ class _VendorDetailsState extends State<VendorDetails> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.7,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.32,
-                                      child: ListView.builder(
-                                        padding: EdgeInsets.zero,
-                                        physics:
-                                            const AlwaysScrollableScrollPhysics(),
-                                        itemCount: categoryProvider.data.length,
-                                        itemBuilder: (context, i) {
-                                          return buildTabButton(
-                                              categoryProvider.data[i].name!,
-                                              searchProvider.selectedIndex == i,
-                                              () {
-                                            searchProvider.selectedIndex = i;
-                                            searchTextController.text = "";
-                                            searchProvider.categoryId =
-                                                categoryProvider.data[i].id!
-                                                    .toString();
-                                            searchProvider.vendorId =
-                                                widget.model.id.toString();
-                                            setState(() {
-                                              searchText("");
-                                            });
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ],
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.7,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.32,
+                                  child: ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
+                                    itemCount: categoryProvider.data.length,
+                                    itemBuilder: (context, i) {
+                                      return buildTabButton(
+                                          categoryProvider.data[i].name!,
+                                          searchProvider.selectedIndex == i,
+                                          () {
+                                        searchProvider.selectedIndex = i;
+                                        searchTextController.text = "";
+                                        searchProvider.categoryId =
+                                            categoryProvider.data[i].id!
+                                                .toString();
+                                        searchProvider.vendorId =
+                                            widget.model.id.toString();
+                                        setState(() {
+                                          searchText("");
+                                        });
+                                      });
+                                    },
+                                  ),
                                 ),
                                 const SizedBox(
                                   width: 20,
@@ -441,7 +435,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.9,
+                                                0.5,
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -558,25 +552,33 @@ class _VendorDetailsState extends State<VendorDetails> {
       color: Theme.of(context).brightness == Brightness.dark
           ? colors.textFieldBG
           : Color(0xFFE3E1EC),
-      width: MediaQuery.of(context).size.width * 0.3,
+      width: MediaQuery.of(context).size.width * 0.35,
       height: 55,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          primary: isSelected ? colors.buttonColor : Colors.transparent,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-        ),
-        child: Text(
-          label,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-              color: isSelected
-                  ? Colors.white
-                  : Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black),
+      child: GestureDetector(
+        onTap: onPressed,
+        child: Container(
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.only(left: 8),
+          decoration: BoxDecoration(
+            color: isSelected
+                ? colors.buttonColor
+                : Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : Color(0xFFE3E1EC),
+          ),
+          child: Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                color: isSelected
+                    ? Colors.white
+                    : Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black),
+          ),
         ),
       ),
     );
