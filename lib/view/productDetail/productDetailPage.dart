@@ -421,7 +421,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                             child: InkWell(
                                                               onTap: () {},
                                                               child: Text(
-                                                                productModel.model.first
+                                                                productModel
+                                                                    .model
+                                                                    .first
                                                                     .choiceOptions[
                                                                         i]
                                                                     .options[j],
@@ -636,9 +638,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             ),
                             //  recommendedAccessoryCard(context: context),
                             deliveryCard(context: context),
-                            specificationCard(context: context),
+                            specificationCard(
+                                context: context,
+                                productData: productModel.model.first),
                             productRatingAndFollowersCard(
-                                productModel.model.first.shop),
+                                productModel.model.first.shop, context),
                             productModel.relatedProducts.isEmpty
                                 ? Container()
                                 : const Padding(

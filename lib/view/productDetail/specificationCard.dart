@@ -1,9 +1,9 @@
 import 'package:alpha_ecommerce_18oct/view/cart/model/cartModel.dart';
-import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/productDetail/model/productDetailModel.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 
-specificationCard({required context, required ProductList productData}) {
+specificationCard({required context, required ProductListDetail productData}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
