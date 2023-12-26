@@ -100,7 +100,7 @@ class CartProduct {
   String unit;
   int minQty;
   int featured;
-  int refundable;
+  String refundable;
   int variantCartProduct;
   List<int> attributes;
   List<ChoiceOption> choiceOptions;

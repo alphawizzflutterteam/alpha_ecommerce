@@ -262,7 +262,7 @@ class CartViewModel with ChangeNotifier {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
-    print(AppUrl.placeOrder + data);
+    print(data);
     _myRepo
         .placeOrder(
       AppUrl.placeOrder + data,

@@ -1,4 +1,6 @@
+import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../../utils/color.dart';
 import '../../../../utils/routes.dart';
 import '../../../../model/paymentMethod.dart';
@@ -8,7 +10,9 @@ import '../../../widget_common/common_header.dart';
 import '../../common_header.dart';
 
 class Payment extends StatefulWidget {
-  const Payment({Key? key}) : super(key: key);
+  const Payment({
+    super.key,
+  });
 
   @override
   State<Payment> createState() => _PaymentState();
@@ -18,6 +22,13 @@ class _PaymentState extends State<Payment> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   int? selectedPaymentMethod;
+  late CartViewModel cartProvider;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    cartProvider = Provider.of<CartViewModel>(context, listen: false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +96,7 @@ class _PaymentState extends State<Payment> {
                                 onChanged: (int? value) {
                                   setState(() {
                                     selectedPaymentMethod = value;
+                                    print(value);
                                   });
                                 },
                                 focusColor: colors.buttonColor,
@@ -118,7 +130,11 @@ class _PaymentState extends State<Payment> {
                                   text: "CONTINUE",
                                   fontSize: 14,
                                   onClick: () {
-                                    if (selectedPaymentMethod != null) {
+                                    if (selectedPaymentMethod != null &&
+                                        selectedPaymentMethod == 4) {
+                                      // cartProvider.placeOrder(
+                                      //     widget.data, context);
+                                    } else if (selectedPaymentMethod != null) {
                                       Routes.navigateToPaymentFormScreen(
                                           context);
                                     } else {

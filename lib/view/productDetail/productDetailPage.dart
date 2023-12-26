@@ -83,16 +83,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  InternalDetailPageHeader(
-                    text: "Product Detail",
-                  )
-                ],
+              Container( color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.transparent
+                  : colors.buttonColor,
+                child: const Stack(
+                  children: [
+                    ProfileHeader(),
+                    InternalDetailPageHeader(
+                      text: "Product Detail",
+                    )
+                  ],
+                ),
               ),
               productModel.isLoading
                   ? appLoader()
@@ -114,7 +120,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     end: Alignment.bottomCenter,
                                   ),
                                 ),
-                                height: 250,
+                                height: MediaQuery.of(context).size.height * .3,
                                 child: Column(
                                   children: [
                                     CarouselSlider(
@@ -125,6 +131,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           child: Image.network(
                                             item,
                                             fit: BoxFit.cover,
+                                            errorBuilder: (context, error, stackTrace) => Image.asset(Images.defaultProductImg),
                                           ),
                                         );
                                       }).toList(),
@@ -244,8 +251,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       productModel.model.first.name,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                          color: colors.textColor,
+                                      style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: size_16,
                                           fontWeight: FontWeight.bold),
                                     ),

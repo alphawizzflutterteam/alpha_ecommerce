@@ -455,11 +455,13 @@ class Routes {
     );
   }
 
-  static navigateToPaymentScreen(BuildContext context) {
+  static navigateToPaymentScreen(
+    BuildContext context,
+  ) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const Payment(),
+        pageBuilder: (context, animation1, animation2) => Payment(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

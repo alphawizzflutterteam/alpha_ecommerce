@@ -56,7 +56,7 @@ class ProductListDetail {
   String unit;
   int minQty;
   dynamic featured;
-  int refundable;
+  String refundable;
   int variantProduct;
   List<int> attributes;
   List<ChoiceOption> choiceOptions;
