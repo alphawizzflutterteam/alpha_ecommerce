@@ -127,6 +127,7 @@ class InternalDetailPageHeader extends StatelessWidget {
                 child: const Icon(
                   Icons.arrow_back_ios,
                   size: 25,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -136,7 +137,7 @@ class InternalDetailPageHeader extends StatelessWidget {
                 child: Text(
                   text,
                   style: const TextStyle(
-                      color: colors.textColor,
+                      color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
                 )),

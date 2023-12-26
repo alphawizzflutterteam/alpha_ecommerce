@@ -47,14 +47,15 @@ recommendedProductCard({required context, required List<ProductList> model}) {
                 width: MediaQuery.of(context).size.width * 0.44,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    image: DecorationImage(
-                      image: NetworkImage(card.images.first),
-                      fit: BoxFit.fitWidth,
-                      onError: (exception, stackTrace) => Image.asset(
-                        Images.defaultProductImg,
-                        fit: BoxFit.fitWidth,
-                      ),
-                    )),
+                  ),
+                child:CachedNetworkImage(
+                  imageUrl: card.images.first,
+                  fit: BoxFit.fitWidth,
+                  errorWidget:(context, url, error) =>  Image.asset(
+                    Images.defaultProductImg,
+                    fit: BoxFit.contain,
+                  ),
+                ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.0005),
               Padding(

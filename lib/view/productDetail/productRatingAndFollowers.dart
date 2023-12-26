@@ -26,6 +26,7 @@ productRatingAndFollowersCard(Shop shop, BuildContext ctx) {
                 Image.network(
                   shop.image,
                   height: size_55,
+                  errorBuilder: (context, error, stackTrace) => Image.asset(Images.defaultProductImg),
                 ),
                 const SizedBox(
                   width: 10,
