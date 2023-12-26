@@ -12,8 +12,7 @@ cartCard(HomeProduct model, BuildContext context) {
       children: [
         InkWell(
           onTap: () {
-            Routes.navigateToProductDetailPageScreen(
-                context, model as ProductList);
+            Routes.navigateToProductDetailPageScreen(context, model.slug);
           },
           child: Container(
             height: 200,

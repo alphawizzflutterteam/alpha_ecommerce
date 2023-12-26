@@ -4,10 +4,12 @@ import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/productDetail/model/productDetailModel.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/productRatingAndFollowers.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/recommendedProductCard.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/reviewCard.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/specificationCard.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/productViewModel.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +27,8 @@ import '../profile/common_header.dart';
 import 'freeDeliveryCard.dart';
 
 class ProductDetailPage extends StatefulWidget {
-  final ProductList model;
-  const ProductDetailPage({Key? key, required this.model}) : super(key: key);
+  final String slug;
+  const ProductDetailPage({Key? key, required this.slug}) : super(key: key);
 
   @override
   State<ProductDetailPage> createState() => _ProductDetailPageState();
@@ -37,7 +39,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   double rating = 4;
   List<String> imageList = [];
   List<Variation> variationList = [];
-  late ProductList model2;
   var selectedPrice = "";
   var selectedProduct = "";
   var selectedVariation = "";
@@ -47,12 +48,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   void initState() {
     super.initState();
     productModel = Provider.of<ProductDetailViewModel>(context, listen: false);
-    productModel.getDetails(context, "", widget.model.slug);
+    productModel.getDetails(context, "", widget.slug);
 
-    imageList = widget.model.images;
-    model2 = widget.model;
-    selectedPrice = widget.model.specialPrice;
-    variationList = widget.model.variation;
+    imageList = productModel.model.first.images;
+    selectedPrice = productModel.model.first.specialPrice;
+    variationList = productModel.model.first.variation;
   }
 
   int _currentIndex = 0;
@@ -75,7 +75,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   Widget build(BuildContext context) {
     productModel = Provider.of<ProductDetailViewModel>(context);
 
-    print(model2.slug.toString());
+    //  print(productModel.model.first.slug.toString());
     return Stack(
       children: [
         const LightBackGround(),
@@ -94,529 +94,575 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   )
                 ],
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.center,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                colors.boxGradient1.withOpacity(0.5),
-                                Colors.transparent,
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                          ),
-                          height: 250,
-                          child: Column(
-                            children: [
-                              CarouselSlider(
-                                items: imageList.map((item) {
-                                  return SizedBox(
-                                    height: 100,
-                                    width: double.infinity,
-                                    child: Image.network(
-                                      item,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  );
-                                }).toList(),
-                                options: CarouselOptions(
-                                  enableInfiniteScroll: false,
-                                  autoPlay: true,
-                                  enlargeCenterPage: true,
-                                  onPageChanged: (index, reason) {
-                                    setState(() {
-                                      _currentIndex = index;
-                                    });
-                                  },
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children:
-                                    imageList.asMap().entries.map((entry) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        _currentIndex = entry.key;
-                                      });
-                                    },
-                                    child: Container(
-                                      width: 10.0,
-                                      height: 10.0,
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 5.0),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: _currentIndex == entry.key
-                                            ? colors.buttonColor
-                                            : Colors.grey,
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              productModel.isLoading
+                  ? appLoader()
+                  : Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "${model2.discount} %",
-                              style: const TextStyle(
-                                  color: Colors.orange,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            LikeButton(
-                              // onTap: (isLiked) {
-                              //   var isLoggedIn = SharedPref.shared.pref
-                              //       ?.getString(PrefKeys.isLoggedIn);
-
-                              //   if (isLoggedIn == "1") {
-                              //     Map data = {
-                              //       'product_id': widget.model.id.toString()
-                              //     };
-                              //     if (isLiked) {
-                              //       // return homeProvider.removeFromWishlist(
-                              //       //     data, context);
-                              //     } else {
-                              //       // return homeProvider.addToWishlist(
-                              //       //     data, context);
-                              //     }
-                              //   } else {
-                              //     return AppUtils.appUtilsInstance.nothing();
-                              //   }
-                              //    },
-                              size: size_20,
-                              isLiked: widget.model.isFavorite,
-                              circleColor: const CircleColor(
-                                  start: Colors.red, end: Colors.red),
-                              bubblesColor: const BubblesColor(
-                                dotPrimaryColor: Colors.red,
-                                dotSecondaryColor: Colors.red,
-                              ),
-                              likeBuilder: (bool isLiked) {
-                                return Icon(
-                                  Icons.favorite,
-                                  color: isLiked ? Colors.pink : Colors.grey,
-                                  size: 20,
-                                );
-                              },
-                            )
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width - 100,
-                              child: Text(
-                                model2.name,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    color: colors.textColor,
-                                    fontSize: size_16,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            const Row(
-                              children: [
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.yellow,
-                                  size: 16,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  "4.3",
-                                  style: TextStyle(
-                                    color: colors.textColor,
-                                    fontSize: 14,
+                            Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      colors.boxGradient1.withOpacity(0.5),
+                                      Colors.transparent,
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
                                   ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              selectedPrice,
-                              style: const TextStyle(
-                                color: colors.lightTextColor,
-                                fontSize: 18,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                const Text(
-                                  "or Pay \$100 + ",
-                                  style: TextStyle(
-                                    color: colors.textColor,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Image.asset(
-                                      Images.rupees,
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    const Text(
-                                      "20",
-                                      style: TextStyle(
-                                        color: colors.textColor,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: size_15,
-                      ),
-                      SizedBox(
-                        height: model2.choiceOptions.length * 80,
-                        child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: model2.choiceOptions.length,
-                            itemBuilder: (context, i) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 8),
+                                height: 250,
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      model2.choiceOptions[i].title,
-                                      style: TextStyle(color: Colors.white),
+                                    CarouselSlider(
+                                      items: imageList.map((item) {
+                                        return SizedBox(
+                                          height: 100,
+                                          width: double.infinity,
+                                          child: Image.network(
+                                            item,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        );
+                                      }).toList(),
+                                      options: CarouselOptions(
+                                        enableInfiniteScroll: false,
+                                        autoPlay: true,
+                                        enlargeCenterPage: true,
+                                        onPageChanged: (index, reason) {
+                                          setState(() {
+                                            _currentIndex = index;
+                                          });
+                                        },
+                                      ),
                                     ),
                                     const SizedBox(
                                       height: 10,
                                     ),
                                     Row(
-                                      children: [
-                                        SizedBox(
-                                          height: 40,
-                                          child: ListView.builder(
-                                            scrollDirection: Axis.horizontal,
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            physics:
-                                                const AlwaysScrollableScrollPhysics(),
-                                            itemCount: widget
-                                                .model
-                                                .choiceOptions[i]
-                                                .options
-                                                .length,
-                                            itemBuilder: (context, j) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  selectedVariation = widget
-                                                      .model
-                                                      .choiceOptions[i]
-                                                      .options[j];
-                                                  checkSelectedProductAndUpdateProductRate(
-                                                      widget
-                                                          .model
-                                                          .choiceOptions[i]
-                                                          .options[j]);
-                                                },
-                                                child: Row(
-                                                  children: [
-                                                    Container(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 10,
-                                                          vertical: 10),
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              right: 10),
-                                                      decoration: BoxDecoration(
-                                                          color: Colors
-                                                              .transparent,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(5),
-                                                          border: Border.all(
-                                                              color: selectedVariation ==
-                                                                      widget
-                                                                          .model
-                                                                          .choiceOptions[
-                                                                              i]
-                                                                          .options[j]
-                                                                  ? Colors.white
-                                                                  : const Color(0x14E9E9E9),
-                                                              width: 2)),
-                                                      child: InkWell(
-                                                        onTap: () {},
-                                                        child: Text(
-                                                          widget
-                                                              .model
-                                                              .choiceOptions[i]
-                                                              .options[j],
-                                                          style: const TextStyle(
-                                                              color: colors
-                                                                  .textColor,
-                                                              fontSize:
-                                                                  size_12),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: imageList
+                                          .asMap()
+                                          .entries
+                                          .map((entry) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              _currentIndex = entry.key;
+                                            });
+                                          },
+                                          child: Container(
+                                            width: 10.0,
+                                            height: 10.0,
+                                            margin: const EdgeInsets.symmetric(
+                                                horizontal: 5.0),
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: _currentIndex == entry.key
+                                                  ? colors.buttonColor
+                                                  : Colors.grey,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        );
+                                      }).toList(),
                                     ),
                                   ],
                                 ),
-                              );
-                            }),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Map data = {
-                                  'product_id': widget.model.id.toString()
-                                };
-                                productModel.addToSaveLater(data, context);
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                margin: const EdgeInsets.only(right: 10),
-                                decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                        color: const Color(0x14E9E9E9),
-                                        width: 2)),
-                                child: const Text(
-                                  "Save for later",
-                                  style: TextStyle(
-                                      color: colors.textColor,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                ),
                               ),
                             ),
-                            InkWell(
-                              onTap: () {
-                                showAlertDialog(context);
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                margin: const EdgeInsets.only(right: 10),
-                                decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                        color: const Color(0x14E9E9E9),
-                                        width: 2)),
-                                child: const Text(
-                                  "View 360",
-                                  style: TextStyle(
-                                      color: colors.textColor,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "${productModel.model.first.discount} %",
+                                    style: const TextStyle(
+                                        color: Colors.orange,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  LikeButton(
+                                    // onTap: (isLiked) {
+                                    //   var isLoggedIn = SharedPref.shared.pref
+                                    //       ?.getString(PrefKeys.isLoggedIn);
+
+                                    //   if (isLoggedIn == "1") {
+                                    //     Map data = {
+                                    //       'product_id': productModel.model.first.id.toString()
+                                    //     };
+                                    //     if (isLiked) {
+                                    //       // return homeProvider.removeFromWishlist(
+                                    //       //     data, context);
+                                    //     } else {
+                                    //       // return homeProvider.addToWishlist(
+                                    //       //     data, context);
+                                    //     }
+                                    //   } else {
+                                    //     return AppUtils.appUtilsInstance.nothing();
+                                    //   }
+                                    //    },
+                                    size: size_20,
+                                    isLiked:
+                                        productModel.model.first.isFavorite,
+                                    circleColor: const CircleColor(
+                                        start: Colors.red, end: Colors.red),
+                                    bubblesColor: const BubblesColor(
+                                      dotPrimaryColor: Colors.red,
+                                      dotSecondaryColor: Colors.red,
+                                    ),
+                                    likeBuilder: (bool isLiked) {
+                                      return Icon(
+                                        Icons.favorite,
+                                        color:
+                                            isLiked ? Colors.pink : Colors.grey,
+                                        size: 20,
+                                      );
+                                    },
+                                  )
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                      const Divider(
-                        color: colors.textColor,
-                        height: 1,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Description",
-                              style: TextStyle(
-                                  color: colors.textColor, fontSize: 14),
+                            const SizedBox(height: 10),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width - 100,
+                                    child: Text(
+                                      productModel.model.first.name,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          color: colors.textColor,
+                                          fontSize: size_16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  const Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.yellow,
+                                        size: 16,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        "4.3",
+                                        style: TextStyle(
+                                          color: colors.textColor,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    selectedPrice,
+                                    style: const TextStyle(
+                                      color: colors.lightTextColor,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Text(
+                                        "or Pay \$100 + ",
+                                        style: TextStyle(
+                                          color: colors.textColor,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            Images.rupees,
+                                            height: 20,
+                                            width: 20,
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          const Text(
+                                            "20",
+                                            style: TextStyle(
+                                              color: colors.textColor,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: size_15,
                             ),
-                            Text(
-                              model2.metaDescription,
-                              style: const TextStyle(
-                                  color: colors.textColor, fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Use pincode to check delivery info",
-                              style: TextStyle(color: colors.textColor),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: SizedBox(
-                                    height: 40,
-                                    child: TextField(
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              signed: true, decimal: false),
-                                      controller: productModel.pinController,
-                                      textAlign: TextAlign.start,
-                                      inputFormatters: [
-                                        LengthLimitingTextInputFormatter(6)
-                                      ],
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                      decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: colors.textFieldBG,
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 10, horizontal: 15),
-                                        hintText: 'Enter pincode',
-                                        hintStyle: const TextStyle(
-                                            color: colors.white10,
-                                            fontSize: 12),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: colors.textFieldColor,
+                            SizedBox(
+                              height: productModel
+                                      .model.first.choiceOptions.length *
+                                  80,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: productModel
+                                      .model.first.choiceOptions.length,
+                                  itemBuilder: (context, i) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 8),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            productModel.model.first
+                                                .choiceOptions[i].title,
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: colors.textFieldColor,
+                                          const SizedBox(
+                                            height: 10,
                                           ),
+                                          Row(
+                                            children: [
+                                              SizedBox(
+                                                height: 40,
+                                                child: ListView.builder(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  padding: EdgeInsets.zero,
+                                                  shrinkWrap: true,
+                                                  physics:
+                                                      const AlwaysScrollableScrollPhysics(),
+                                                  itemCount: productModel
+                                                      .model
+                                                      .first
+                                                      .choiceOptions[i]
+                                                      .options
+                                                      .length,
+                                                  itemBuilder: (context, j) {
+                                                    return InkWell(
+                                                      onTap: () {
+                                                        selectedVariation =
+                                                            productModel
+                                                                .model
+                                                                .first
+                                                                .choiceOptions[
+                                                                    i]
+                                                                .options[j];
+                                                        checkSelectedProductAndUpdateProductRate(
+                                                            productModel
+                                                                .model
+                                                                .first
+                                                                .choiceOptions[
+                                                                    i]
+                                                                .options[j]);
+                                                      },
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                                    horizontal:
+                                                                        10,
+                                                                    vertical:
+                                                                        10),
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    right: 10),
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5),
+                                                                border: Border.all(
+                                                                    color: selectedVariation ==
+                                                                            productModel.model.first.choiceOptions[i].options[
+                                                                                j]
+                                                                        ? Colors
+                                                                            .white
+                                                                        : const Color(
+                                                                            0x14E9E9E9),
+                                                                    width: 2)),
+                                                            child: InkWell(
+                                                              onTap: () {},
+                                                              child: Text(
+                                                                productModel.model.first
+                                                                    .choiceOptions[
+                                                                        i]
+                                                                    .options[j],
+                                                                style: const TextStyle(
+                                                                    color: colors
+                                                                        .textColor,
+                                                                    fontSize:
+                                                                        size_12),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Map data = {
+                                        'product_id': productModel
+                                            .model.first.id
+                                            .toString()
+                                      };
+                                      productModel.addToSaveLater(
+                                          data, context);
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.4,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10),
+                                      margin: const EdgeInsets.only(right: 10),
+                                      decoration: BoxDecoration(
+                                          color: Colors.transparent,
                                           borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
+                                              BorderRadius.circular(5),
+                                          border: Border.all(
+                                              color: const Color(0x14E9E9E9),
+                                              width: 2)),
+                                      child: const Text(
+                                        "Save for later",
+                                        style: TextStyle(
+                                            color: colors.textColor,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                SizedBox(
-                                    height: 40,
-                                    width: 100,
-                                    child: CommonButton(
-                                        text: "Submit",
-                                        fontSize: 14,
-                                        onClick: () {
-                                          if (productModel
-                                              .pinController.text.isEmpty) {
-                                            return Utils.showFlushBarWithMessage(
-                                                "Alert",
-                                                "Please enter valid pincode",
-                                                context);
-                                          }
-                                          Map data = {
-                                            'pincode':
-                                                productModel.pinController.text
-                                          };
-                                          productModel.addToSaveLater(
-                                              data, context);
-                                        })),
-                              ],
+                                  InkWell(
+                                    onTap: () {
+                                      showAlertDialog(context);
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.4,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10),
+                                      margin: const EdgeInsets.only(right: 10),
+                                      decoration: BoxDecoration(
+                                          color: Colors.transparent,
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          border: Border.all(
+                                              color: const Color(0x14E9E9E9),
+                                              width: 2)),
+                                      child: const Text(
+                                        "View 360",
+                                        style: TextStyle(
+                                            color: colors.textColor,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
+                            const Divider(
+                              color: colors.textColor,
+                              height: 1,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Description",
+                                    style: TextStyle(
+                                        color: colors.textColor, fontSize: 14),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    productModel.model.first.metaDescription,
+                                    style: const TextStyle(
+                                        color: colors.textColor, fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Use pincode to check delivery info",
+                                    style: TextStyle(color: colors.textColor),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: SizedBox(
+                                          height: 40,
+                                          child: TextField(
+                                            keyboardType: const TextInputType
+                                                .numberWithOptions(
+                                                signed: true, decimal: false),
+                                            controller:
+                                                productModel.pinController,
+                                            textAlign: TextAlign.start,
+                                            inputFormatters: [
+                                              LengthLimitingTextInputFormatter(
+                                                  6)
+                                            ],
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                            decoration: InputDecoration(
+                                              filled: true,
+                                              fillColor: colors.textFieldBG,
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 15),
+                                              hintText: 'Enter pincode',
+                                              hintStyle: const TextStyle(
+                                                  color: colors.white10,
+                                                  fontSize: 12),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: const BorderSide(
+                                                  color: colors.textFieldColor,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: const BorderSide(
+                                                  color: colors.textFieldColor,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      SizedBox(
+                                          height: 40,
+                                          width: 100,
+                                          child: CommonButton(
+                                              text: "Submit",
+                                              fontSize: 14,
+                                              onClick: () {
+                                                if (productModel.pinController
+                                                    .text.isEmpty) {
+                                                  return Utils
+                                                      .showFlushBarWithMessage(
+                                                          "Alert",
+                                                          "Please enter valid pincode",
+                                                          context);
+                                                }
+                                                Map data = {
+                                                  'pincode': productModel
+                                                      .pinController.text
+                                                };
+                                                productModel.addToSaveLater(
+                                                    data, context);
+                                              })),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            //  recommendedAccessoryCard(context: context),
+                            deliveryCard(context: context),
+                            specificationCard(context: context),
+                            productRatingAndFollowersCard(
+                                productModel.model.first.shop),
+                            productModel.relatedProducts.isEmpty
+                                ? Container()
+                                : const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                    child: Text(
+                                      "Recommended Product",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                            productModel.relatedProducts.isEmpty
+                                ? Container()
+                                : recommendedProductCard(
+                                    context: context,
+                                    model: productModel.relatedProducts),
+                            productModel.model.first.rating.isEmpty
+                                ? Container()
+                                : reviewCard(
+                                    rating: rating,
+                                  )
                           ],
                         ),
                       ),
-                      //  recommendedAccessoryCard(context: context),
-                      deliveryCard(context: context),
-                      specificationCard(context: context),
-                      productRatingAndFollowersCard(model2.shop),
-                      productModel.relatedProducts.isEmpty
-                          ? Container()
-                          : const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              child: Text(
-                                "Recommended Product",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                      productModel.relatedProducts.isEmpty
-                          ? Container()
-                          : recommendedProductCard(
-                              context: context,
-                              model: productModel.relatedProducts),
-                      widget.model.rating.isEmpty
-                          ? Container()
-                          : reviewCard(
-                              rating: rating,
-                            )
-                    ],
-                  ),
-                ),
-              ),
+                    ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
@@ -653,7 +699,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 showToastMessage("Removed from Cart");
                               },
                               child: Text(
-                                widget.model.isCart
+                                productModel.model.first.isCart
                                     ? 'REMOVE FROM CART'
                                     : 'ADD TO CART',
                                 style: TextStyle(fontSize: 12),

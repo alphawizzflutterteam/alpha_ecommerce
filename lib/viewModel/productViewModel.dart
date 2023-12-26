@@ -4,6 +4,7 @@ import 'package:alpha_ecommerce_18oct/utils/appUrls.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/productDetail/model/productDetailModel.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailViewModel with ChangeNotifier {
@@ -11,6 +12,8 @@ class ProductDetailViewModel with ChangeNotifier {
   bool get loading => isLoading;
   final _myRepo = ProductRepository();
   final _myRepo2 = CartRepository();
+  List<ProductListDetail> model = [];
+
   TextEditingController pinController = TextEditingController();
 
   List<ProductList> relatedProducts = [];
@@ -33,6 +36,7 @@ class ProductDetailViewModel with ChangeNotifier {
       token,
     )
         .then((value) {
+      model = value.products!;
       relatedProducts = value.relatedProducts!;
       setLoading(false);
     }).onError((error, stackTrace) {

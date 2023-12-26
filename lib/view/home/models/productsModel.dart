@@ -47,11 +47,11 @@ class ProductList {
   String unit;
   int minQty;
   dynamic featured;
-  int refundable;
+  String refundable;
   int variantProduct;
   List<int> attributes;
   List<ChoiceOption> choiceOptions;
-  List<Variation> variation;
+  //List<Variation> variation;
   String weight;
   int published;
   String unitPrice;
@@ -106,7 +106,7 @@ class ProductList {
     required this.variantProduct,
     required this.attributes,
     required this.choiceOptions,
-    required this.variation,
+    // required this.variation,
     required this.weight,
     required this.published,
     required this.unitPrice,
@@ -165,8 +165,8 @@ class ProductList {
         attributes: List<int>.from(json["attributes"].map((x) => x)),
         choiceOptions: List<ChoiceOption>.from(
             json["choice_options"].map((x) => ChoiceOption.fromJson(x))),
-        variation: List<Variation>.from(
-            json["variation"].map((x) => Variation.fromJson(x))),
+        // variation: List<Variation>.from(
+        //     json["variation"].map((x) => Variation.fromJson(x))),
         weight: json["weight"]!,
         published: json["published"],
         unitPrice: json["unit_price"],
@@ -226,7 +226,7 @@ class ProductList {
         "attributes": List<dynamic>.from(attributes.map((x) => x)),
         "choice_options":
             List<dynamic>.from(choiceOptions.map((x) => x.toJson())),
-        "variation": List<dynamic>.from(variation.map((x) => x.toJson())),
+        //"variation": List<dynamic>.from(variation.map((x) => x.toJson())),
         "weight": weight,
         "published": published,
         "unit_price": unitPrice,

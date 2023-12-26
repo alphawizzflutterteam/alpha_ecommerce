@@ -43,7 +43,7 @@ cartCard(
                   InkWell(
                     onTap: () {
                       Routes.navigateToProductDetailPageScreen(
-                          context, model as ProductList);
+                          context, model.slug);
                     },
                     child: Image.network(
                       model.images[0],
@@ -58,7 +58,7 @@ cartCard(
                       InkWell(
                         onTap: () {
                           Routes.navigateToProductDetailPageScreen(
-                              context, model as ProductList);
+                              context, model.slug);
                         },
                         child: Text(
                           model.name,
