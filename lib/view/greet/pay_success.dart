@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 
@@ -11,6 +12,14 @@ class PaySuccess extends StatefulWidget {
 
 class _PaySuccessState extends State<PaySuccess> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 3), () {
+      Routes.navigateToDashboardScreen(context, 2);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,15 +62,17 @@ class _PaySuccessState extends State<PaySuccess> {
                 Padding(
                   padding: EdgeInsets.all(5),
                   child: Text(
-                    "Lorem Ipsum is simply dummy text of the",
-                    style: TextStyle(color: colors.lightTextColor, fontSize: 16),
+                    "",
+                    style:
+                        TextStyle(color: colors.lightTextColor, fontSize: 16),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(5),
                   child: Text(
-                    "printing and typesetting industry",
-                    style: TextStyle(color: colors.lightTextColor, fontSize: 16),
+                    "",
+                    style:
+                        TextStyle(color: colors.lightTextColor, fontSize: 16),
                   ),
                 )
               ],

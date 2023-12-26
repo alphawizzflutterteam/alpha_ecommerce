@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,8 +11,10 @@ import '../../../widget_common/common_header.dart';
 import '../../common_header.dart';
 
 class Payment extends StatefulWidget {
+  final String data;
   const Payment({
     super.key,
+    required this.data,
   });
 
   @override
@@ -25,13 +28,14 @@ class _PaymentState extends State<Payment> {
   late CartViewModel cartProvider;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     cartProvider = Provider.of<CartViewModel>(context, listen: false);
   }
 
   @override
   Widget build(BuildContext context) {
+    cartProvider = Provider.of<CartViewModel>(context);
+
     return Stack(
       children: [
         const LightBackGround(),
@@ -66,42 +70,55 @@ class _PaymentState extends State<Payment> {
                       ),
                       const SizedBox(height: 10),
                       for (int i = 0; i < paymentMethods.length; i++)
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          decoration: BoxDecoration(
-                            color: const Color(0x14E9E9E9),
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: const Color(0x660A9494),
+                        InkWell(
+                          onTap: () async {
+                            if (i == 4) {
+                              await cartProvider.placeOrder(
+                                  widget.data, context);
+                            } else {
+                              Utils.showFlushBarWithMessage(
+                                  "Alert",
+                                  "Please proceed with Cash on delivery only.",
+                                  context);
+                            }
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: const Color(0x14E9E9E9),
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: const Color(0x660A9494),
+                              ),
                             ),
-                          ),
-                          child: ListTile(
-                            leading: Image.asset(
-                              paymentMethods[i].paymentMethodImage,
-                              width: 40,
-                              height: 40,
-                            ),
-                            title: Text(
-                              paymentMethods[i].paymentMethodName,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 14),
-                            ),
-                            trailing: Theme(
-                              data: ThemeData(
-                                  unselectedWidgetColor: colors.greyText),
-                              child: Radio<int>(
-                                value: i,
-                                groupValue: selectedPaymentMethod,
-                                onChanged: (int? value) {
-                                  setState(() {
-                                    selectedPaymentMethod = value;
-                                    print(value);
-                                  });
-                                },
-                                focusColor: colors.buttonColor,
-                                hoverColor: colors.buttonColor,
-                                activeColor: colors.buttonColor,
+                            child: ListTile(
+                              leading: Image.asset(
+                                paymentMethods[i].paymentMethodImage,
+                                width: 40,
+                                height: 40,
+                              ),
+                              title: Text(
+                                paymentMethods[i].paymentMethodName,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                              ),
+                              trailing: Theme(
+                                data: ThemeData(
+                                    unselectedWidgetColor: colors.greyText),
+                                child: Radio<int>(
+                                  value: i,
+                                  groupValue: selectedPaymentMethod,
+                                  onChanged: (int? value) {
+                                    setState(() {
+                                      selectedPaymentMethod = value;
+                                      print(value);
+                                    });
+                                  },
+                                  focusColor: colors.buttonColor,
+                                  hoverColor: colors.buttonColor,
+                                  activeColor: colors.buttonColor,
+                                ),
                               ),
                             ),
                           ),
@@ -129,23 +146,16 @@ class _PaymentState extends State<Payment> {
                               child: CommonButton(
                                   text: "CONTINUE",
                                   fontSize: 14,
-                                  onClick: () {
+                                  onClick: () async {
                                     if (selectedPaymentMethod != null &&
                                         selectedPaymentMethod == 4) {
-                                      // cartProvider.placeOrder(
-                                      //     widget.data, context);
-                                    } else if (selectedPaymentMethod != null) {
-                                      Routes.navigateToPaymentFormScreen(
-                                          context);
+                                      await cartProvider.placeOrder(
+                                          widget.data, context);
                                     } else {
-                                      print('Please select a payment method.');
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                              'Please select a payment method.'),
-                                        ),
-                                      );
+                                      Utils.showFlushBarWithMessage(
+                                          "Alert",
+                                          "Please proceed with Cash on delivery only.",
+                                          context);
                                     }
                                   })),
                         ],

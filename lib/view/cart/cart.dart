@@ -718,15 +718,10 @@ class _CartState extends State<Cart> {
                                                               .text;
                                                       String data =
                                                           "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
-                                                      var res =
-                                                          await cartProvider
-                                                              .placeOrder(data,
-                                                                  context);
-                                                      if (res) {
-                                                        Routes
-                                                            .navigateToPaymentScreen(
-                                                                context);
-                                                      }
+
+                                                      Routes
+                                                          .navigateToPaymentScreen(
+                                                              context, data);
                                                     },
                                                   )),
                                             ],
