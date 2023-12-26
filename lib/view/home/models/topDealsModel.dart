@@ -142,7 +142,7 @@ class ProductList2 {
   String unit;
   int minQty;
   dynamic featured;
-  int refundable;
+  String refundable;
   int variantProduct;
   List<int> attributes;
   List<ChoiceOption> choiceOptions;
@@ -476,7 +476,7 @@ class Products2 {
   String? unit;
   int? minQty;
   int? featured;
-  int? refundable;
+  String? refundable;
   int? variantProduct;
   String? weight;
   int? published;

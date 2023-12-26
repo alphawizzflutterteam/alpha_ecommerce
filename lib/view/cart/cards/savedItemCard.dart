@@ -27,7 +27,7 @@ savedItemCard(
                 child: InkWell(
                   onTap: () {
                     Routes.navigateToProductDetailPageScreen(
-                        context, model as ProductList);
+                        context, model.slug);
                   },
                   child: Image.network(
                     model.images[0],
@@ -50,7 +50,7 @@ savedItemCard(
                   InkWell(
                     onTap: () {
                       Routes.navigateToProductDetailPageScreen(
-                          context, model as ProductList);
+                          context, model.slug);
                     },
                     child: ConstrainedBox(
                       constraints: BoxConstraints(

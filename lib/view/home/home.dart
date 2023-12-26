@@ -50,6 +50,8 @@ class _HomeState extends State<Home> {
     homeProvider = Provider.of<HomeViewModel>(context, listen: false);
     categoryProvider = Provider.of<CategoryViewModel>(context, listen: false);
     searchProvider = Provider.of<SearchViewModel>(context, listen: false);
+    homeProvider.getHomeBanners(context);
+
     homeProvider.getBrandsList(context);
     homeProvider.getSpecialOffersList(context);
     homeProvider.getDailyDealsList(context);
@@ -58,7 +60,6 @@ class _HomeState extends State<Home> {
     homeProvider.getWishlistItem(context);
     homeProvider.getCartListItem(context);
     homeProvider.getProductFilters(context);
-    homeProvider.getHomeBanners(context);
     homeProvider.getChatlist(context);
 
     getCategory();
@@ -447,19 +448,22 @@ class _HomeState extends State<Home> {
                             ],
                           )),
                     ),
-                    Container(
-                        height: 100,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              colors.homeBG.withOpacity(1),
-                              colors.homeBG.withOpacity(0.8),
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
-                        ),
-                        child: productQualityCard(homeProvider.modelBanners)),
+                    homeProvider.modelBanners == null
+                        ? appLoader()
+                        : Container(
+                            height: 100,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  colors.homeBG.withOpacity(1),
+                                  colors.homeBG.withOpacity(0.8),
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                            ),
+                            child:
+                                productQualityCard(homeProvider.modelBanners)),
                     spaceOfHeight(height: 20),
 
                     homeProvider.cartModel.isEmpty

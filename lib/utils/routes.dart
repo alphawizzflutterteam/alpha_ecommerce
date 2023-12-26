@@ -660,13 +660,12 @@ class Routes {
     );
   }
 
-  static navigateToProductDetailPageScreen(
-      BuildContext context, ProductList model) {
+  static navigateToProductDetailPageScreen(BuildContext context, String model) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) => ProductDetailPage(
-          model: model,
+          slug: model,
         ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,

@@ -17,7 +17,7 @@ productForYouCard(
     children: [
       InkWell(
         onTap: () {
-          Routes.navigateToProductDetailPageScreen(context, model);
+          Routes.navigateToProductDetailPageScreen(context, model.slug);
         },
         child: Container(
           height: MediaQuery.of(context).size.height * 0.31,

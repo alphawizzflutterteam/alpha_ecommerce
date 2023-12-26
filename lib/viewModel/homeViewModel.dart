@@ -39,7 +39,7 @@ class HomeViewModel with ChangeNotifier {
   List<MessageChat> chatListt = [];
   List<BrandsList> brandsModel = [];
   bool get loading => isLoading;
-  TopDealsModel modelBanners = TopDealsModel();
+  late TopDealsModel modelBanners;
 
   List<String> imageList = [];
   setLoading(bool value) {
@@ -368,6 +368,7 @@ class HomeViewModel with ChangeNotifier {
     print(token);
 
     await _myRepo.bannersRequestt(AppUrl.bannersSection, token).then((value) {
+      print(value.toString() + "BAnners");
       modelBanners = value;
       banner1 = modelBanners.data!.summerSaleBanner!.image!;
       banner2 = modelBanners.data!.primeTimeBanner!.image!;
