@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:alpha_ecommerce_18oct/repository/cartRepository.dart';
 import 'package:alpha_ecommerce_18oct/utils/appUrls.dart';
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/cart/model/cartModel.dart';
@@ -77,6 +78,7 @@ class CartViewModel with ChangeNotifier {
     }).onError((error, stackTrace) {
       setLoading(false);
       print(error.toString());
+      print(stackTrace.toString());
     });
   }
 
@@ -274,12 +276,13 @@ class CartViewModel with ChangeNotifier {
       Utils.showFlushBarWithMessage("Alert", value.message, context);
 
       if (value.status) {
-        if (selectedOption == "Alpha Delivery") {
-          print(value);
-          getCartListItem(context, couponController.text, "1", "0", "");
-        } else {
-          getCartListItem(context, couponController.text, "0", "0", "");
-        }
+        Routes.navigateToPaySuccessScreen(context);
+        // if (selectedOption == "Alpha Delivery") {
+        //   print(value);
+        //   getCartListItem(context, couponController.text, "1", "0", "");
+        // } else {
+        //   getCartListItem(context, couponController.text, "0", "0", "");
+        // }
       }
       return true;
     }).onError((error, stackTrace) {
