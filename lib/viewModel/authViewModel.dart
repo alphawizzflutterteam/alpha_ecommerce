@@ -8,6 +8,7 @@ import 'package:alpha_ecommerce_18oct/repository/authRepository.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthViewModel with ChangeNotifier {
   final _myRepo = AuthRepository();
@@ -95,6 +96,69 @@ class AuthViewModel with ChangeNotifier {
           ),
         ),
       );
+
+  void loginGoogle(BuildContext context) async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn(
+        scopes: ['email'],
+      );
+
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+      if (googleUser == null) {
+        // The user canceled the sign-in process.
+        return;
+      }
+
+      // You can access user information like this:
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final String userId = googleUser.id;
+      var email = googleUser.email;
+      final String displayName = googleUser.displayName ?? "";
+      final String photoUrl = googleUser.photoUrl ?? "";
+
+      //Get.snackbar("Success", "Welcome $displayName}");
+
+      //googleAuthentication();
+
+      // Perform actions with user data or navigate to a new page.
+      // For example, you can create a UserProfilePage to display user information.
+    } catch (error) {
+      print('Error signing in with Google: $error');
+      //  fetchChannelDetails("UCZEij3REDdWpfp3CCxy24TA");
+    }
+  }
+
+  // void loginFB() async {
+  //   final FacebookAuth facebookAuth = FacebookAuth.instance;
+
+  //   LoginResult result =
+  //       await facebookAuth.login(permissions: ['email', 'public_profile']);
+
+  //   if (result.status == LoginStatus.success) {
+  //     final AccessToken accessToken = result.accessToken!;
+
+  //     print('FACEBOOK Logged in');
+  //     print('FACEBOOK User ID: ${accessToken.userId}');
+  //     print('FACEBOOK Access Token: ${accessToken.token}');
+  //     _getUserData(accessToken, facebookAuth);
+  //     var fbAccessToken = accessToken.token;
+  //     var fbId = accessToken.userId;
+  //   } else {
+  //     print('Login failed');
+  //   }
+  // }
+
+  // Future<void> _getUserData(
+  //     AccessToken accessToken, FacebookAuth facebookAuth) async {
+  //   final userData = await facebookAuth.getUserData();
+  //   final email = userData['email'];
+  //   final name = userData['name'];
+
+  //   print('FACEBOOK email: ${email}');
+  //   print('FACEBOOK name: ${name}');
+  // }
 
   Future<void> loginFn(GlobalKey<FormState> formKey, BuildContext context,
       String phone, dynamic data) async {
