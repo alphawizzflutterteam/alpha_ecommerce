@@ -22,8 +22,8 @@ class CommonButton extends StatelessWidget {
         onClick();
       },
       style: ElevatedButton.styleFrom(
-        primary: color ? colors.textColor : colors.buttonColor,
-        onPrimary: color ? colors.buttonColor : colors.textColor,
+        primary: color ? Colors.white : colors.buttonColor,
+        onPrimary: color ? colors.buttonColor : Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),

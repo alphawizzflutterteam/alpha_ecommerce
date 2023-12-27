@@ -1,5 +1,6 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -23,15 +24,27 @@ productForYouCardSearch(ProductList model, BuildContext context,
           decoration: BoxDecoration(
               // image: DecorationImage(image: NetworkImage(model.images.first)),
               borderRadius: const BorderRadius.all(Radius.circular(10)),
-              gradient: LinearGradient(
-                colors: [
-                  colors.boxGradient1.withOpacity(1),
-                  Colors.transparent,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-              border: Border.all(color: colors.boxBorder)),
+              gradient: Theme.of(context).brightness == Brightness.dark
+                  ? LinearGradient(
+                      colors: [
+                        colors.boxGradient1.withOpacity(1),
+                        Colors.transparent,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    )
+                  : LinearGradient(
+                      colors: [
+                        Color(0xFFE4E2ED),
+                        Colors.white,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+              border: Border.all(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? colors.boxBorder
+                      : colors.lightBorder)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,6 +58,7 @@ productForYouCardSearch(ProductList model, BuildContext context,
                   child: CachedNetworkImage(
                     imageUrl: model.images.first,
                     fit: BoxFit.fitWidth,
+                    errorWidget: (context, url, error) => ErrorImageWidget(),
                   )),
               SizedBox(height: MediaQuery.of(context).size.height * 0.0005),
               Padding(
@@ -101,8 +115,10 @@ productForYouCardSearch(ProductList model, BuildContext context,
                   model.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
                     fontSize: 12,
                   ),
                 ),
@@ -126,8 +142,10 @@ productForYouCardSearch(ProductList model, BuildContext context,
                     ),
                     Text(
                       model.purchasePrice,
-                      style: const TextStyle(
-                        color: colors.lightTextColor,
+                      style: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? colors.lightTextColor
+                            : Colors.grey,
                         decoration: TextDecoration.lineThrough,
                         fontSize: 12,
                       ),
@@ -171,8 +189,11 @@ productForYouCardSearch(ProductList model, BuildContext context,
                         border: Border.all(color: colors.boxBorder)),
                     child: Text(
                       model.isCart ? "Remove From Cart" : "Add to Cart",
-                      style: const TextStyle(
-                          color: colors.textColor, fontSize: size_12),
+                      style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textColor
+                              : Colors.black,
+                          fontSize: size_12),
                       textAlign: TextAlign.center,
                     ),
                   ),

@@ -79,7 +79,7 @@ class _CartState extends State<Cart> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 20),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: Text(
@@ -343,7 +343,11 @@ class _CartState extends State<Cart> {
                                               Text(
                                                 "Discount",
                                                 style: TextStyle(
-                                                    color: colors.greyText,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.greyText
+                                                        : Colors.black54,
                                                     fontSize: 12),
                                               ),
                                               Text(
@@ -478,14 +482,13 @@ class _CartState extends State<Cart> {
                                                   color: Theme.of(context)
                                                               .brightness ==
                                                           Brightness.dark
-                                                      ? colors.lightTextColor
+                                                      ? colors.greyText
                                                       : Colors.black45,
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
                                                   borderSide: const BorderSide(
-                                                    color:
-                                                        colors.textFieldColor,
+                                                    color: colors.boxBorder,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(10),

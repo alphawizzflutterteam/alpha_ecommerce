@@ -109,7 +109,7 @@ class _OrderCancelledState extends State<OrderCancelled> {
                             Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
-                              child: const Row(
+                              child: Row(
                                 children: [
                                   Icon(Icons.check_circle,
                                       color: colors.buttonColor),
@@ -118,7 +118,12 @@ class _OrderCancelledState extends State<OrderCancelled> {
                                   ),
                                   Text(
                                     "Ordered Saturday, 6 Oct",
-                                    style: TextStyle(color: colors.textColor),
+                                    style: TextStyle(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
                                   )
                                 ],
                               ),
@@ -137,7 +142,7 @@ class _OrderCancelledState extends State<OrderCancelled> {
                             Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
-                              child: const Row(
+                              child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Icon(Icons.check_circle, color: Colors.red),
@@ -150,10 +155,19 @@ class _OrderCancelledState extends State<OrderCancelled> {
                                     children: [
                                       Text("Ordered Saturday, 6 Oct",
                                           style: TextStyle(
-                                              color: colors.textColor)),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                          )),
                                       Text("Changed my mind",
                                           style: TextStyle(
-                                              color: colors.lightTextColor,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.lightTextColor
+                                                  : Colors.black54,
                                               fontSize: 12)),
                                     ],
                                   )

@@ -186,35 +186,76 @@ class _MyAppState extends State<MyApp> {
       ],
       title: appName,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: colors.primary_app,
+          ).copyWith(
+            secondary: colors.darkIcon,
+            brightness: Brightness.light,
+          ),
+          canvasColor: Theme.of(context).colorScheme.lightWhite,
+          cardColor: Theme.of(context).colorScheme.white,
+          dialogBackgroundColor: Theme.of(context).colorScheme.white,
+          iconTheme: Theme.of(context).iconTheme.copyWith(
+                color: colors.primary,
+              ),
           primarySwatch: colors.primary_app,
-        ).copyWith(
-          secondary: colors.darkIcon,
+          primaryColor: Theme.of(context).colorScheme.lightWhite,
+          fontFamily: 'ubuntu',
           brightness: Brightness.light,
-        ),
-        canvasColor: Theme.of(context).colorScheme.lightWhite,
-        cardColor: Theme.of(context).colorScheme.white,
-        dialogBackgroundColor: Theme.of(context).colorScheme.white,
-        iconTheme: Theme.of(context).iconTheme.copyWith(
-              color: colors.primary,
+          textTheme: TextTheme(
+            titleLarge: TextStyle(
+              color: Theme.of(context).colorScheme.fontColor,
+              fontWeight: FontWeight.w600,
             ),
-        primarySwatch: colors.primary_app,
-        primaryColor: Theme.of(context).colorScheme.lightWhite,
-        fontFamily: 'ubuntu',
-        brightness: Brightness.light,
-        textTheme: TextTheme(
-          titleLarge: TextStyle(
-            color: Theme.of(context).colorScheme.fontColor,
-            fontWeight: FontWeight.w600,
+            titleMedium: TextStyle(
+              color: Theme.of(context).colorScheme.fontColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ).apply(
+            bodyColor: Theme.of(context).colorScheme.fontColor,
           ),
-          titleMedium: TextStyle(
-            color: Theme.of(context).colorScheme.fontColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ).apply(
-          bodyColor: Theme.of(context).colorScheme.fontColor,
-        ),
-      ),
+          inputDecorationTheme: InputDecorationTheme(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            filled: true,
+            fillColor: Colors.white,
+            labelStyle: const TextStyle(
+              color: colors.labelColor,
+              fontSize: 14,
+            ),
+            hintStyle: const TextStyle(
+              color: colors.labelColor,
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                color: colors.textFieldColor,
+                width: 1,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                color: colors.textFieldColor,
+                width: 1,
+              ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                color: colors.textFieldColor,
+                width: 1,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                color: colors.textFieldColor,
+                width: 1,
+              ),
+            ),
+          )),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
@@ -239,6 +280,48 @@ class _MyAppState extends State<MyApp> {
         iconTheme: Theme.of(context).iconTheme.copyWith(
               color: colors.secondary,
             ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          filled: true,
+          fillColor: colors.textFieldBG,
+          labelStyle: const TextStyle(
+            color: colors.labelColor,
+            fontSize: 14,
+          ),
+          hintStyle: const TextStyle(
+            color: colors.labelColor,
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: colors.textFieldColor,
+              width: 1,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: colors.textFieldColor,
+              width: 1,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: colors.textFieldColor,
+              width: 1,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: colors.textFieldColor,
+              width: 1,
+            ),
+          ),
+        ),
         textTheme: TextTheme(
           titleLarge: TextStyle(
             color: Theme.of(context).colorScheme.fontColor,

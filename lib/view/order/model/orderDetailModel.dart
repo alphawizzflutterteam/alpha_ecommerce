@@ -1,19 +1,28 @@
+import '../../home/models/productsModel.dart';
+
 class OrderDetailsModel {
   OrderDetailsModel({
     required this.status,
     required this.message,
     required this.data,
+    required this.recommendedProducts,
   });
 
-  final bool? status;
-  final String? message;
-  final DetailsData? data;
+  bool? status;
+  String? message;
+  DetailsData? data;
+  List<ProductList> recommendedProducts;
 
   factory OrderDetailsModel.fromJson(Map<String, dynamic> json) {
+    final List<ProductList> Products = [];
+    json['recommended_products'].forEach((v) {
+      Products.add(ProductList.fromJson(v));
+    });
     return OrderDetailsModel(
       status: json["status"],
       message: json["message"],
       data: json["data"] == null ? null : DetailsData.fromJson(json["data"]),
+      recommendedProducts: Products,
     );
   }
 
@@ -164,7 +173,6 @@ class Product {
     required this.updatedAt,
     required this.shippingMethodId,
     required this.variant,
-    //required this.variation,
     required this.discountType,
     required this.isStockDecreased,
     required this.refundRequest,
@@ -179,7 +187,6 @@ class Product {
     required this.adminCommission,
     required this.isPause,
     required this.cause,
-    //required this.shippingAddress,
     required this.discountAmount,
     required this.couponCode,
     required this.couponDiscountBearer,
@@ -187,7 +194,6 @@ class Product {
     required this.orderGroupId,
     required this.verificationCode,
     required this.sellerIs,
-    //required this.shippingAddressData,
     required this.deliveryManId,
     required this.deliverymanCharge,
     required this.expectedDeliveryDate,

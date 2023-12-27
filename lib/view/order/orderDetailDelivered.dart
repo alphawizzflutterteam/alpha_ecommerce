@@ -278,19 +278,26 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Row(
+                                  Row(
                                     children: [
                                       Icon(
                                         Icons.file_present_outlined,
-                                        color: colors.textColor,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
                                       ),
                                       SizedBox(
                                         width: 5,
                                       ),
                                       Text(
                                         "Download Invoice",
-                                        style:
-                                            TextStyle(color: colors.textColor),
+                                        style: TextStyle(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black),
                                       )
                                     ],
                                   ),
@@ -298,9 +305,12 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                     onTap: () {
                                       showToastMessage("Invoice Downloaded");
                                     },
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.download_for_offline_sharp,
-                                      color: colors.textColor,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
                                     ),
                                   )
                                 ],
@@ -320,7 +330,12 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         horizontal: 10, vertical: 5),
                                     child: Row(
                                       children: [
-                                        Icon(Icons.location_on_outlined),
+                                        Icon(Icons.location_on_outlined,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black),
                                         SizedBox(
                                           width: 10,
                                         ),
@@ -345,7 +360,10 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                           .detail.shippingAddress!.address
                                           .toString(),
                                       style: TextStyle(
-                                          color: colors.lightTextColor,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14),
                                     ),
                                   ),
@@ -357,7 +375,10 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                           .contactPersonName
                                           .toString(),
                                       style: TextStyle(
-                                          color: colors.lightTextColor,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14),
                                     ),
                                   ),
@@ -369,7 +390,10 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                           .detail.shippingAddress!.city
                                           .toString(),
                                       style: TextStyle(
-                                          color: colors.lightTextColor,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14),
                                     ),
                                   ),
@@ -380,7 +404,10 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                       detailProvider.detail.shippingAddress!.zip
                                           .toString(),
                                       style: TextStyle(
-                                          color: colors.lightTextColor,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14),
                                     ),
                                   ),
@@ -388,9 +415,12 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 5),
                                     child: Text(
-                                      "Phone - ${detailProvider.detail.shippingAddress!.phone.toString()}",
+                                      "Phone Number: ${detailProvider.detail.shippingAddress!.phone.toString()}",
                                       style: TextStyle(
-                                          color: colors.lightTextColor,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14),
                                     ),
                                   ),
@@ -479,14 +509,30 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                     outOfDeliveryTitleAndDateList:
                                         outOfDeliveryList,
                                     deliveredTitleAndDateList: deliveredList,
-                                    headingTitleStyle: const TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                    headingDateTextStyle: const TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                    subTitleTextStyle: const TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                    subDateTextStyle: const TextStyle(
-                                        color: Colors.white, fontSize: 14),
+                                    headingTitleStyle: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 14),
+                                    headingDateTextStyle: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 14),
+                                    subTitleTextStyle: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 14),
+                                    subDateTextStyle: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 14),
                                   ),
                                 ],
                               ),
@@ -593,16 +639,20 @@ class _ReturnDialogWidgetState extends State<ReturnDialogWidget> {
       height: 80 * reasons.length.toDouble(),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
-        color: colors.overlayBG,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? colors.overlayBG
+            : Colors.white,
       ),
       padding: const EdgeInsets.all(20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             'Return order reason',
             style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
               fontSize: 20.0,
             ),
           ),

@@ -166,7 +166,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                 SizedBox(
                                     height: 30,
                                     width: MediaQuery.of(context).size.width *
-                                        0.22,
+                                        0.26,
                                     child: CommonButton(
                                       text: !categoryProvider.isFollowing
                                           ? "Follow"

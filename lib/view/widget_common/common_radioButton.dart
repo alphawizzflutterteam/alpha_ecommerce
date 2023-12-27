@@ -29,9 +29,9 @@ class _CommonRadioTileState extends State<CommonRadioTile> {
           title: Text(
             widget.name,
             style: TextStyle(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.black
-                  : Colors.white,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
               fontSize: 14,
             ),
             softWrap: false,
