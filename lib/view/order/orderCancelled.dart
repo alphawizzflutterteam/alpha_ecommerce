@@ -38,16 +38,23 @@ class _OrderCancelledState extends State<OrderCancelled> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  InternalPageHeader(
-                    text: 'Order Detail',
-                  )
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: const Stack(
+                  children: [
+                    ProfileHeader(),
+                    InternalPageHeader(
+                      text: 'Order Detail',
+                    )
+                  ],
+                ),
               ),
               detailProvider.isLoading
                   ? appLoader()
@@ -73,14 +80,20 @@ class _OrderCancelledState extends State<OrderCancelled> {
                                     Text(
                                       "Order ID - ${detailProvider.detail.orderId}",
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
                                         fontSize: 14,
                                       ),
                                     ),
                                     Text(
                                       "SOLD BY : ${detailProvider.detail.seller!.name}",
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
                                         fontSize: 14,
                                       ),
                                     ),

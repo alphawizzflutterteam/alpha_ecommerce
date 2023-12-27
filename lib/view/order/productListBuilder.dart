@@ -1,6 +1,8 @@
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/orderDetailModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ProductListBuilder extends StatelessWidget {
@@ -21,32 +23,53 @@ class ProductListBuilder extends StatelessWidget {
           margin: const EdgeInsets.only(right: 15),
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
+              // image: DecorationImage(image: NetworkImage(model.images.first)),
               borderRadius: const BorderRadius.all(Radius.circular(10)),
-              gradient: LinearGradient(
-                colors: [
-                  colors.boxGradient1.withOpacity(1),
-                  Colors.transparent,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-              border: Border.all(color: colors.boxBorder)),
+              gradient: Theme.of(context).brightness == Brightness.dark
+                  ? LinearGradient(
+                      colors: [
+                        colors.boxGradient1.withOpacity(1),
+                        Colors.transparent,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    )
+                  : LinearGradient(
+                      colors: [
+                        Color(0xFFE4E2ED),
+                        Colors.white,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+              border: Border.all(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? colors.boxBorder
+                      : colors.lightBorder)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Align(
                 alignment: Alignment.center,
-                child: Image.asset(
-                  Images.dettol,
-                  height: 100,
+                child: CachedNetworkImage(
+                  imageUrl: productList[index].productDetails!.images.first,
+                  errorWidget: (context, url, error) => Image.asset(
+                    Images.defaultProductImg,
+                    height: size_100,
+                  ),
+                  fit: BoxFit.fitWidth,
                 ),
               ),
               Text(
                 productList[index].productDetails!.name.toString(),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: Colors.white, fontSize: 12),
+                style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: 12),
               ),
               const SizedBox(height: 5),
               Text(

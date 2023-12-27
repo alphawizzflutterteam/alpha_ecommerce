@@ -222,7 +222,7 @@ class Product {
   String? unit;
   int? minQty;
   int? featured;
-  int? refundable;
+  String? refundable;
   int? variantProduct;
   List<int>? attributes;
   List<ChoiceOptions>? choiceOptions;

@@ -61,16 +61,23 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                 resizeToAvoidBottomInset: false,
                 key: _scaffoldKey,
                 extendBody: true,
-                backgroundColor: Colors.transparent,
+                backgroundColor: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : Colors.white,
                 body: Column(
                   children: [
-                    const Stack(
-                      children: [
-                        ProfileHeader(),
-                        InternalDetailPageHeader(
-                          text: 'Order Detail',
-                        )
-                      ],
+                    Container(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.transparent
+                          : colors.buttonColor,
+                      child: const Stack(
+                        children: [
+                          ProfileHeader(),
+                          InternalDetailPageHeader(
+                            text: 'Order Detail',
+                          )
+                        ],
+                      ),
                     ),
                     Expanded(
                       child: SingleChildScrollView(
@@ -94,14 +101,20 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                     Text(
                                       "Order ID - ${detailProvider.detail.orderId}",
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
                                         fontSize: 14,
                                       ),
                                     ),
                                     Text(
                                       "SOLD BY : ${detailProvider.detail.seller?.name}",
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
                                         fontSize: 14,
                                       ),
                                     ),
@@ -123,7 +136,11 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                     child: Text(
                                       "Price Detail",
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 14),
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: 14),
                                     ),
                                   ),
                                   Padding(
@@ -143,7 +160,11 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                           detailProvider.detail.orderAmount
                                               .toString(),
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               fontSize: 12),
                                         ),
                                       ],
@@ -166,7 +187,11 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                           detailProvider.detail.deliveryCharge
                                               .toString(),
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               fontSize: 12),
                                         ),
                                       ],
@@ -189,7 +214,11 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                           detailProvider.detail.discountAmount
                                               .toString(),
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               fontSize: 12),
                                         ),
                                       ],
@@ -211,7 +240,11 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         Text(
                                           "Total Amount",
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               fontSize: 14),
                                         ),
                                         Text(
@@ -294,7 +327,11 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         Text(
                                           "Shipping address",
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               fontSize: 14),
                                         ),
                                       ],
@@ -462,7 +499,9 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                       alignment: Alignment.bottomCenter,
                       child: Container(
                         height: 80,
-                        color: colors.textFieldBG,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? colors.textFieldBG
+                            : Color.fromARGB(255, 227, 227, 227),
                         child: Center(
                           child: SizedBox(
                               height: 40,

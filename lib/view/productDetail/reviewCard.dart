@@ -1,9 +1,10 @@
+import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../utils/images.dart';
 
-reviewCard({required rating}) {
+reviewCard(Rating rating) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
     child: Column(
@@ -31,7 +32,7 @@ reviewCard({required rating}) {
                   style: TextStyle(color: Colors.white),
                 ),
                 RatingBar.builder(
-                  initialRating: rating,
+                  initialRating: double.parse(rating.average),
                   minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: false,
@@ -43,7 +44,7 @@ reviewCard({required rating}) {
                     color: Colors.orange,
                   ),
                   onRatingUpdate: (newRating) {
-                    rating = newRating;
+                    //rating = newRating;
                   },
                 ),
               ],
@@ -82,7 +83,7 @@ reviewCard({required rating}) {
                   style: TextStyle(color: Colors.white),
                 ),
                 RatingBar.builder(
-                  initialRating: rating,
+                  // initialRating: rating,
                   minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: false,
@@ -94,7 +95,7 @@ reviewCard({required rating}) {
                     color: Colors.orange,
                   ),
                   onRatingUpdate: (newRating) {
-                    rating = newRating;
+                    // rating = newRating;
                   },
                 ),
               ],

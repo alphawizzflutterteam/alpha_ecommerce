@@ -14,6 +14,12 @@ class ProductDetailViewModel with ChangeNotifier {
   final _myRepo2 = CartRepository();
   List<ProductListDetail> model = [];
 
+  List<String> imageList = [];
+  List<Variation> variationList = [];
+  var selectedPrice = "";
+  var selectedProduct = "";
+  var selectedVariation = "";
+
   TextEditingController pinController = TextEditingController();
 
   List<ProductList> relatedProducts = [];
@@ -37,6 +43,10 @@ class ProductDetailViewModel with ChangeNotifier {
     )
         .then((value) {
       model = value.products!;
+
+      imageList = model.first.images;
+      selectedPrice = model.first.specialPrice;
+      variationList = model.first.variation;
       relatedProducts = value.relatedProducts!;
       setLoading(false);
     }).onError((error, stackTrace) {

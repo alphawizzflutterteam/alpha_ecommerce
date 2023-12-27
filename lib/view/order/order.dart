@@ -243,7 +243,7 @@ class _OrderState extends State<Order> {
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
+                          physics: const AlwaysScrollableScrollPhysics(),
                           itemCount: orderProvider.orderList.length,
                           itemBuilder: (context, i) {
                             var data = orderProvider.orderList[i];

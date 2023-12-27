@@ -187,7 +187,7 @@ class Product {
     required this.orderGroupId,
     required this.verificationCode,
     required this.sellerIs,
-    required this.shippingAddressData,
+    //required this.shippingAddressData,
     required this.deliveryManId,
     required this.deliverymanCharge,
     required this.expectedDeliveryDate,
@@ -244,7 +244,7 @@ class Product {
   final String? orderGroupId;
   final String? verificationCode;
   final String? sellerIs;
-  final String? shippingAddressData;
+  // final String? shippingAddressData;
   final String? deliveryManId;
   final String? deliverymanCharge;
   final String? expectedDeliveryDate;
@@ -306,7 +306,7 @@ class Product {
       orderGroupId: json["order_group_id"],
       verificationCode: json["verification_code"],
       sellerIs: json["seller_is"],
-      shippingAddressData: json["shipping_address_data"],
+      //shippingAddressData: json["shipping_address_data"],
       deliveryManId: json["delivery_man_id"],
       deliverymanCharge: json["deliveryman_charge"],
       expectedDeliveryDate: json["expected_delivery_date"],
@@ -367,7 +367,7 @@ class Product {
         "order_group_id": orderGroupId,
         "verification_code": verificationCode,
         "seller_is": sellerIs,
-        "shipping_address_data": shippingAddressData,
+        //"shipping_address_data": shippingAddressData,
         "delivery_man_id": deliveryManId,
         "deliveryman_charge": deliverymanCharge,
         "expected_delivery_date": expectedDeliveryDate,

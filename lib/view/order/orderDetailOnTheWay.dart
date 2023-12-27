@@ -56,16 +56,23 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  InternalDetailPageHeader(
-                    text: 'Order Detail',
-                  )
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: const Stack(
+                  children: [
+                    ProfileHeader(),
+                    InternalDetailPageHeader(
+                      text: 'Order Detail',
+                    )
+                  ],
+                ),
               ),
               detailProvider.isLoading
                   ? appLoader()
@@ -90,15 +97,21 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                   children: [
                                     Text(
                                       "Order ID - ${detailProvider.detail.orderId}",
-                                      style: const TextStyle(
-                                        color: Colors.white,
+                                      style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
                                         fontSize: 14,
                                       ),
                                     ),
                                     Text(
                                       "SOLD BY : ${detailProvider.detail.seller!.name}",
-                                      style: const TextStyle(
-                                        color: Colors.white,
+                                      style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
                                         fontSize: 14,
                                       ),
                                     ),
@@ -169,13 +182,17 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 10),
                                     child: Text(
                                       "Price Detail",
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 14),
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: 14),
                                     ),
                                   ),
                                   Padding(
@@ -186,7 +203,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "MRP (4 items)",
+                                          "MRP ",
                                           style: TextStyle(
                                               color: colors.greyText,
                                               fontSize: 12),
@@ -195,7 +212,11 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                           detailProvider.detail.orderAmount
                                               .toString(),
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               fontSize: 12),
                                         ),
                                       ],
@@ -217,8 +238,12 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                         Text(
                                           detailProvider.detail.deliveryCharge
                                               .toString(),
-                                          style: const TextStyle(
-                                              color: Colors.white,
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               fontSize: 12),
                                         ),
                                       ],
@@ -241,7 +266,11 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                           detailProvider.detail.discountAmount
                                               .toString(),
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               fontSize: 12),
                                         ),
                                       ],
@@ -263,7 +292,11 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                         Text(
                                           "Total Amount",
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               fontSize: 14),
                                         ),
                                         Text(
@@ -303,7 +336,11 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                         Text(
                                           "Shipping address",
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               fontSize: 14),
                                         ),
                                       ],
@@ -395,24 +432,45 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                     outOfDeliveryTitleAndDateList:
                                         outOfDeliveryList,
                                     deliveredTitleAndDateList: deliveredList,
-                                    headingTitleStyle: const TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                    headingDateTextStyle: const TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                    subTitleTextStyle: const TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                    subDateTextStyle: const TextStyle(
-                                        color: Colors.white, fontSize: 14),
+                                    headingTitleStyle: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 14),
+                                    headingDateTextStyle: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 14),
+                                    subTitleTextStyle: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 14),
+                                    subDateTextStyle: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 14),
                                   ),
                                 ],
                               ),
                             ),
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
                               child: Text(
                                 "Recommended Product",
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
                               ),
                             ),
                             Container(
@@ -428,19 +486,35 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 10),
                                       decoration: BoxDecoration(
+                                          // image: DecorationImage(image: NetworkImage(model.images.first)),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(10)),
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              colors.boxGradient1
-                                                  .withOpacity(1),
-                                              Colors.transparent,
-                                            ],
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                          ),
+                                          gradient: Theme.of(context)
+                                                      .brightness ==
+                                                  Brightness.dark
+                                              ? LinearGradient(
+                                                  colors: [
+                                                    colors.boxGradient1
+                                                        .withOpacity(1),
+                                                    Colors.transparent,
+                                                  ],
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                )
+                                              : LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFE4E2ED),
+                                                    Colors.white,
+                                                  ],
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                ),
                                           border: Border.all(
-                                              color: colors.boxBorder)),
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.boxBorder
+                                                  : colors.lightBorder)),
                                       width: MediaQuery.of(context).size.width *
                                           0.42,
                                       height: 200,
@@ -465,10 +539,14 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                   fontSize: 12),
                                             ),
                                             const SizedBox(height: 5),
-                                            const Text(
+                                            Text(
                                               "Oats Fitness",
                                               style: TextStyle(
-                                                  color: Colors.white,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                                   fontSize: 12),
                                             ),
                                             const SizedBox(height: 5),
@@ -512,7 +590,9 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                       alignment: Alignment.bottomCenter,
                       child: Container(
                         height: 80,
-                        color: colors.textFieldBG,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? colors.textFieldBG
+                            : Color.fromARGB(255, 227, 227, 227),
                         child: Center(
                           child: SizedBox(
                               height: 40,

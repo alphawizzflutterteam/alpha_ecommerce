@@ -37,11 +37,6 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   double rating = 4;
-  List<String> imageList = [];
-  List<Variation> variationList = [];
-  var selectedPrice = "";
-  var selectedProduct = "";
-  var selectedVariation = "";
 
   late ProductDetailViewModel productModel;
   @override
@@ -49,10 +44,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     super.initState();
     productModel = Provider.of<ProductDetailViewModel>(context, listen: false);
     productModel.getDetails(context, "", widget.slug);
-
-    imageList = productModel.model.first.images;
-    selectedPrice = productModel.model.first.specialPrice;
-    variationList = productModel.model.first.variation;
   }
 
   int _currentIndex = 0;
@@ -60,12 +51,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   void checkSelectedProductAndUpdateProductRate(String selectedVariation) {
     var text = selectedVariation.replaceAll(RegExp(r"\s+\b|\b\s"), "");
     print(text.toLowerCase());
-    for (int i = 0; i < variationList.length; i++) {
-      if (variationList[i].type.toLowerCase().contains(text.toLowerCase())) {
-        print(variationList[i].type.toLowerCase());
-        selectedProduct = variationList[i].type;
-        print(variationList[i].price);
-        selectedPrice = variationList[i].price;
+    for (int i = 0; i < productModel.variationList.length; i++) {
+      if (productModel.variationList[i].type
+          .toLowerCase()
+          .contains(text.toLowerCase())) {
+        print(productModel.variationList[i].type.toLowerCase());
+        productModel.selectedProduct = productModel.variationList[i].type;
+        print(productModel.variationList[i].price);
+        productModel.selectedPrice = productModel.variationList[i].price;
       }
     }
     setState(() {});
@@ -125,7 +118,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 child: Column(
                                   children: [
                                     CarouselSlider(
-                                      items: imageList.map((item) {
+                                      items: productModel.imageList.map((item) {
                                         return SizedBox(
                                           height: 100,
                                           width: double.infinity,
@@ -156,7 +149,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: imageList
+                                      children: productModel.imageList
                                           .asMap()
                                           .entries
                                           .map((entry) {
@@ -295,7 +288,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    selectedPrice,
+                                    productModel.selectedPrice,
                                     style: TextStyle(
                                       color: Theme.of(context).brightness ==
                                               Brightness.dark
@@ -403,7 +396,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                   itemBuilder: (context, j) {
                                                     return InkWell(
                                                       onTap: () {
-                                                        selectedVariation =
+                                                        productModel
+                                                                .selectedVariation =
                                                             productModel
                                                                 .model
                                                                 .first
@@ -446,16 +440,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                                       Brightness
                                                                           .dark
                                                                   ? Border.all(
-                                                                      color: selectedVariation ==
-                                                                              productModel.model.first.choiceOptions[i].options[
-                                                                                  j]
+                                                                      color: productModel.selectedVariation == productModel.model.first.choiceOptions[i].options[j]
                                                                           ? Colors
                                                                               .white
                                                                           : const Color(
                                                                               0x14E9E9E9),
                                                                       width: 2)
                                                                   : Border.all(
-                                                                      color: selectedVariation ==
+                                                                      color: productModel.selectedVariation ==
                                                                               productModel.model.first.choiceOptions[i].options[
                                                                                   j]
                                                                           ? colors
@@ -736,15 +728,17 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 productModel.model.first.shop, context),
                             productModel.relatedProducts.isEmpty
                                 ? Container()
-                                :  Padding(
+                                : Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 10),
                                     child: Text(
                                       "Recommended Product",
-                                      style: TextStyle(  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                          ? Colors.white
-                                          : Colors.black,),
+                                      style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                     ),
                                   ),
                             productModel.relatedProducts.isEmpty
@@ -752,11 +746,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 : recommendedProductCard(
                                     context: context,
                                     model: productModel.relatedProducts),
-                            productModel.model.first.rating.isEmpty
-                                ? Container()
-                                : reviewCard(
-                                    rating: rating,
-                                  )
+
+                            for (int i = 0;
+                                i < productModel.model.first.rating.length;
+                                i++)
+                              reviewCard(
+                                productModel.model.first.rating[i],
+                              )
+                            // productModel.model.first.rating.isEmpty
+                            //     ? Container()
+                            //     :reviewCard(
+                            //         rating: rating,
+                            //       )
                           ],
                         ),
                       ),
@@ -789,19 +790,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       states.contains(MaterialState.pressed)) {
                                     return colors.buttonColor;
                                   }
-                                  return   Theme.of(context).brightness ==
-                                      Brightness.dark
+                                  return Theme.of(context).brightness ==
+                                          Brightness.dark
                                       ? Colors.transparent
-                                          : Colors.white; // Default color
+                                      : Colors.white; // Default color
                                 }),
                                 shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                 ),
-                                side: MaterialStateProperty.all(
-                                    BorderSide(
-                                        color:Theme.of(context).brightness==Brightness.dark?Colors.white:colors.lightBorder, width: 1)),
+                                side: MaterialStateProperty.all(BorderSide(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : colors.lightBorder,
+                                    width: 1)),
                               ),
                               onPressed: () {
                                 showToastMessage("Removed from Cart");
@@ -843,7 +847,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               },
                               child: const Text(
                                 'BUY NOW',
-                                style: TextStyle(fontSize: 12,color: Colors.white),
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.white),
                               ),
                             ),
                           ),
