@@ -123,7 +123,7 @@ class _SearchState extends State<Search> {
                   children: [
                     ProfileHeader(),
                     InternalDetailPageHeader(
-                      text: "Catregories Product",
+                      text: "Search Product",
                     ),
                   ],
                 ),
@@ -274,6 +274,7 @@ class _SearchState extends State<Search> {
                   searchProvider.isLoading
                       ? appLoader()
                       : Container(
+                          height: MediaQuery.of(context).size.height * .73,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 20),
                           // height: MediaQuery.of(context).size.height * 0.73,

@@ -700,8 +700,14 @@ class _CartState extends State<Cart> {
                                                 ),
                                               ),
                                               SizedBox(
-                                                  height: 35,
-                                                  width: 130,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      .05,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      .35,
                                                   child: CommonButton(
                                                     text: "PLACE ORDER",
                                                     fontSize: 12,
