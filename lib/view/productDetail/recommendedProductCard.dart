@@ -15,7 +15,7 @@ recommendedProductCard({required context, required List<ProductList> model}) {
       children: List.generate(model.length, (index) {
         var card = model[index];
         return Container(
-          height: MediaQuery.of(context).size.height * 0.31,
+          height: MediaQuery.of(context).size.height * 0.3,
           width: MediaQuery.of(context).size.width * 0.44,
           margin: const EdgeInsets.only(right: 10),
           decoration: BoxDecoration(
@@ -46,12 +46,12 @@ recommendedProductCard({required context, required List<ProductList> model}) {
                 height: MediaQuery.of(context).size.height * 0.14,
                 width: MediaQuery.of(context).size.width * 0.44,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                child:CachedNetworkImage(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: CachedNetworkImage(
                   imageUrl: card.images.first,
                   fit: BoxFit.fitWidth,
-                  errorWidget:(context, url, error) =>  Image.asset(
+                  errorWidget: (context, url, error) => Image.asset(
                     Images.defaultProductImg,
                     fit: BoxFit.contain,
                   ),

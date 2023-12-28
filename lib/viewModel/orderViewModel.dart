@@ -3,6 +3,7 @@ import 'package:alpha_ecommerce_18oct/repository/orderRepository.dart';
 import 'package:alpha_ecommerce_18oct/repository/vendorRepository.dart';
 import 'package:alpha_ecommerce_18oct/utils/appUrls.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/orderDetailModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/ordersModel.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 class OrderViewModel with ChangeNotifier {
   List<OrdersList> orderList = [];
   late DetailsData detail;
+  List<ProductList> RecommendedProducts = [];
   bool isLoading = false;
   Filters filters = Filters();
   var status = "";
@@ -62,6 +64,7 @@ class OrderViewModel with ChangeNotifier {
         .orderDetailRequest(AppUrl.orderDetail, token, order_id)
         .then((value) {
       detail = value.data!;
+      RecommendedProducts = value.recommendedProducts;
       // print("detail ${detail.shippingAddress!.address!}");
 
       setLoading(false);

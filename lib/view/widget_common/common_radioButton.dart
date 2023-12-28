@@ -21,7 +21,7 @@ class CommonRadioTile extends StatefulWidget {
 class _CommonRadioTileState extends State<CommonRadioTile> {
   @override
   Widget build(BuildContext context) {
-    print("object");
+    print(Theme.of(context).brightness);
     return Expanded(
       child: Material(
         color: Colors.transparent,
@@ -29,9 +29,7 @@ class _CommonRadioTileState extends State<CommonRadioTile> {
           title: Text(
             widget.name,
             style: TextStyle(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.black
-                  : Colors.white,
+              color: widget.color,
               fontSize: 14,
             ),
             softWrap: false,

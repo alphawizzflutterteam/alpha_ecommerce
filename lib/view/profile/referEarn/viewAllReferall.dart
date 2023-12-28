@@ -83,107 +83,103 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
               ),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 80 * 20,
-                      child: ListView.separated(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: widget.referralList.length,
-                        separatorBuilder: (context, index) => Container(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 6, horizontal: 20),
-                          color: Colors.grey.withOpacity(0.7),
-                          height: .5,
-                        ),
-                        itemBuilder: (context, i) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          width: 40,
-                                          height: 40,
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Color(0x6B969696),
-                                          ),
-                                          child: const Center(
-                                            child: Text(
-                                              "AS",
-                                              style: TextStyle(
-                                                color: Colors
-                                                    .white, // Set the text color
-                                                fontSize:
-                                                    14, // Set the text size
-                                                fontWeight: FontWeight
-                                                    .bold, // Set the text weight
-                                              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .85,
+                    child: ListView.separated(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: widget.referralList.length,
+                      separatorBuilder: (context, index) => Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 6, horizontal: 20),
+                        color: Colors.grey.withOpacity(0.7),
+                        height: .5,
+                      ),
+                      itemBuilder: (context, i) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 20),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: 40,
+                                        height: 40,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Color(0x6B969696),
+                                        ),
+                                        child: const Center(
+                                          child: Text(
+                                            "AS",
+                                            style: TextStyle(
+                                              color: Colors
+                                                  .white, // Set the text color
+                                              fontSize: 14, // Set the text size
+                                              fontWeight: FontWeight
+                                                  .bold, // Set the text weight
                                             ),
                                           ),
                                         ),
-                                        const SizedBox(width: 15),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              widget.referralList[i].description
+                                      ),
+                                      const SizedBox(width: 15),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            widget.referralList[i].description
+                                                .toString(),
+                                            style: TextStyle(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: 14),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                              widget.referralList[i].createdAt
                                                   .toString(),
                                               style: TextStyle(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                  fontSize: 14),
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text(
-                                                widget.referralList[i].createdAt
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color:
-                                                        colors.lightTextColor,
-                                                    fontSize: 12))
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      widget.referralList[i].balance.toString(),
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                                                  color: colors.lightTextColor,
+                                                  fontSize: 12))
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    widget.referralList[i].balance.toString(),
+                                    style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

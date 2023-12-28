@@ -1,9 +1,12 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/order/productListBuilder.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:like_button/like_button.dart';
 import 'package:order_tracker/order_tracker.dart';
 import 'package:provider/provider.dart';
 import '../../utils/color.dart';
@@ -329,7 +332,12 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                         horizontal: 10, vertical: 5),
                                     child: Row(
                                       children: [
-                                        Icon(Icons.location_on_outlined),
+                                        Icon(Icons.location_on_outlined,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black),
                                         SizedBox(
                                           width: 10,
                                         ),
@@ -354,7 +362,10 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                           .detail.shippingAddress!.address
                                           .toString(),
                                       style: TextStyle(
-                                          color: colors.lightTextColor,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14),
                                     ),
                                   ),
@@ -366,7 +377,10 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                           .contactPersonName
                                           .toString(),
                                       style: TextStyle(
-                                          color: colors.lightTextColor,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14),
                                     ),
                                   ),
@@ -378,7 +392,10 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                           .detail.shippingAddress!.city
                                           .toString(),
                                       style: TextStyle(
-                                          color: colors.lightTextColor,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14),
                                     ),
                                   ),
@@ -389,7 +406,10 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                       detailProvider.detail.shippingAddress!.zip
                                           .toString(),
                                       style: TextStyle(
-                                          color: colors.lightTextColor,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14),
                                     ),
                                   ),
@@ -397,9 +417,12 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 5),
                                     child: Text(
-                                      "Phone - ${detailProvider.detail.shippingAddress!.phone.toString()}",
+                                      "Phone Number: ${detailProvider.detail.shippingAddress!.phone.toString()}",
                                       style: TextStyle(
-                                          color: colors.lightTextColor,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14),
                                     ),
                                   ),
@@ -474,110 +497,266 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                               ),
                             ),
                             Container(
-                              height: 240,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.325,
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
-                              child: ListView(
+                                  horizontal: 20, vertical: 10),
+                              child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                children: List.generate(3, (index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 15),
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 10),
-                                      decoration: BoxDecoration(
-                                          // image: DecorationImage(image: NetworkImage(model.images.first)),
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(10)),
-                                          gradient: Theme.of(context)
-                                                      .brightness ==
+                                itemCount:
+                                    detailProvider.RecommendedProducts.length,
+                                itemBuilder: (context, index) => Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.3,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.44,
+                                  margin: const EdgeInsets.only(right: 10),
+                                  decoration: BoxDecoration(
+                                      // image: DecorationImage(image: NetworkImage(model.images.first)),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)),
+                                      gradient: LinearGradient(
+                                        colors: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? [
+                                                colors.boxGradient1
+                                                    .withOpacity(1),
+                                                Colors.transparent,
+                                              ]
+                                            : [
+                                                Colors.grey.withOpacity(0.2),
+                                                Colors.transparent,
+                                              ],
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                      ),
+                                      border: Border.all(
+                                          color: Theme.of(context).brightness ==
                                                   Brightness.dark
-                                              ? LinearGradient(
-                                                  colors: [
-                                                    colors.boxGradient1
-                                                        .withOpacity(1),
-                                                    Colors.transparent,
-                                                  ],
-                                                  begin: Alignment.topCenter,
-                                                  end: Alignment.bottomCenter,
-                                                )
-                                              : LinearGradient(
-                                                  colors: [
-                                                    Color(0xFFE4E2ED),
-                                                    Colors.white,
-                                                  ],
-                                                  begin: Alignment.topCenter,
-                                                  end: Alignment.bottomCenter,
-                                                ),
-                                          border: Border.all(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? colors.boxBorder
-                                                  : colors.lightBorder)),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.42,
-                                      height: 200,
-                                      child: Center(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                              ? colors.boxBorder
+                                              : colors.lightBorder)),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.14,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.44,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10),
+                                          ),
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              detailProvider
+                                                  .RecommendedProducts[index]
+                                                  .images
+                                                  .first,
+                                            ),
+                                            fit: BoxFit.cover,
+                                            onError: (exception, stackTrace) =>
+                                                ErrorImageWidget(),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.0005),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 5,
+                                        ),
+                                        child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Image.asset(
-                                                Images.powder,
-                                                height: 120,
+                                            Text(
+                                              "${detailProvider.RecommendedProducts[index].discount}% Off",
+                                              style: const TextStyle(
+                                                color: Colors.orange,
+                                                fontSize: 12,
                                               ),
                                             ),
-                                            const Text(
-                                              "25% Off",
-                                              style: TextStyle(
-                                                  color: Colors.orange,
-                                                  fontSize: 12),
-                                            ),
-                                            const SizedBox(height: 5),
+                                            LikeButton(
+                                              // onTap: (isLiked) {
+                                              //   Map data = {'product_id': detailProvider.RecommendedProducts[index].id.toString()};
+                                              //   if (isLiked) {
+                                              //     return true;
+                                              //     //homeProvider.removeFromWishlist(data, context);
+                                              //   } else {
+                                              //     return false;
+                                              //     //  homeProvider.addToWishlist(data, context);
+                                              //   }
+                                              // },
+                                              size: size_20,
+                                              isLiked: detailProvider
+                                                  .RecommendedProducts[index]
+                                                  .isFavorite,
+                                              circleColor: const CircleColor(
+                                                  start: Colors.red,
+                                                  end: Colors.red),
+                                              bubblesColor: const BubblesColor(
+                                                dotPrimaryColor: Colors.red,
+                                                dotSecondaryColor: Colors.red,
+                                              ),
+                                              likeBuilder: (bool isLiked) {
+                                                return Icon(
+                                                  Icons.favorite,
+                                                  color: isLiked
+                                                      ? Colors.pink
+                                                      : Colors.grey,
+                                                  size: 20,
+                                                );
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 5,
+                                        ),
+                                        child: Text(
+                                          detailProvider
+                                              .RecommendedProducts[index].name,
+                                          maxLines: 2,
+                                          style: TextStyle(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 5,
+                                        ),
+                                        child: Row(
+                                          children: [
                                             Text(
-                                              "Oats Fitness",
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                  fontSize: 12),
+                                              detailProvider
+                                                  .RecommendedProducts[index]
+                                                  .unitPrice,
+                                              style: const TextStyle(
+                                                color: Colors.cyan,
+                                                fontSize: 12,
+                                              ),
                                             ),
-                                            const SizedBox(height: 5),
-                                            const Row(
-                                              children: [
-                                                Text(
-                                                  "\$200",
-                                                  style: TextStyle(
-                                                    color:
-                                                        colors.lightTextColor,
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  "\$120.00",
-                                                  style: TextStyle(
-                                                    color: colors.buttonColor,
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
-                                              ],
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              detailProvider
+                                                  .RecommendedProducts[index]
+                                                  .purchasePrice,
+                                              style: const TextStyle(
+                                                color: colors.lightTextColor,
+                                                decoration:
+                                                    TextDecoration.lineThrough,
+                                                fontSize: 12,
+                                              ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  );
-                                }),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: InkWell(
+                                          onTap: () {
+                                            Map data;
+                                            if (!detailProvider
+                                                .RecommendedProducts[index]
+                                                .isCart) {
+                                              data = {
+                                                'id': detailProvider
+                                                    .RecommendedProducts[index]
+                                                    .id
+                                                    .toString(),
+                                                'quantity': "1",
+                                                'color': detailProvider
+                                                        .RecommendedProducts[
+                                                            index]
+                                                        .colorImage
+                                                        .isNotEmpty
+                                                    ? "#" +
+                                                        detailProvider
+                                                            .RecommendedProducts[
+                                                                index]
+                                                            .colorImage[0]
+                                                            .color
+                                                    : "",
+                                                'choice_2': detailProvider
+                                                        .RecommendedProducts[
+                                                            index]
+                                                        .choiceOptions
+                                                        .isNotEmpty
+                                                    ? detailProvider
+                                                        .RecommendedProducts[
+                                                            index]
+                                                        .choiceOptions[0]
+                                                        .options[0]
+                                                    : ""
+                                              };
+                                            } else {
+                                              data = {
+                                                'key': detailProvider
+                                                    .RecommendedProducts[index]
+                                                    .cart_id
+                                                    .toString(),
+                                              };
+                                            }
+                                            print(data);
+                                            // detailProvider.RecommendedProducts[index].isCart
+                                            //     ? homeProvider.removeFromCart(data, context)
+                                            //     : homeProvider.addToCart(data, context);
+                                          },
+                                          child: Container(
+                                            height: 30,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(5)),
+                                                border: Border.all(
+                                                    color: colors.boxBorder)),
+                                            child: Text(
+                                              detailProvider
+                                                      .RecommendedProducts[
+                                                          index]
+                                                      .isCart
+                                                  ? "Remove From Cart"
+                                                  : "Add to Cart",
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? colors.textColor
+                                                      : Colors.black,
+                                                  fontSize: size_12),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -664,16 +843,20 @@ class _CancelOrderDialogWidgetState extends State<CancelOrderDialogWidget> {
       width: 700,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
-        color: colors.overlayBG,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? colors.overlayBG
+            : Colors.white,
       ),
       padding: const EdgeInsets.all(20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             'Cancel order reason',
             style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
               fontSize: 20.0,
             ),
           ),
@@ -691,10 +874,11 @@ class _CancelOrderDialogWidgetState extends State<CancelOrderDialogWidget> {
                   return CommonRadioTile(
                       options: selectedReason,
                       name: reasons[i],
-                      color: Theme.of(context).brightness == Brightness.light
+                      color: Theme.of(context).brightness == Brightness.dark
                           ? Colors.black
                           : Colors.white,
                       onChanged: handleOptionChange);
+                  // return RadioListTile(value: value, groupValue: opt, onChanged: (value) => handleOptionChange("hj"),);
                 },
               ),
             ),

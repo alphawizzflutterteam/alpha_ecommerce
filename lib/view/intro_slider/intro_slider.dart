@@ -34,39 +34,54 @@ class _IntroSliderState extends State<IntroSlider> {
     Images.onBoarding2,
     Images.onBoarding3
   ];
-
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      const CommonBackgroundPatternAuthWidget(),
-      const CommonBackgroundAuthWidget(),
-      Scaffold(
-        resizeToAvoidBottomInset: false,
-        key: _scaffoldKey,
-        extendBody: true,
-        backgroundColor: Colors.transparent,
-        body: body(),
-      )
-    ]);
-  }
-
-  Widget body() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Container(child: carouselSliderBuilder()),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [carouselSliderIndicator(), skipAndStartButton()],
-        ),
-        const SizedBox(
-          height: 50,
-        )
-      ],
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      key: _scaffoldKey,
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.transparent
+          : Colors.white,
+      body: Stack(
+        children: [
+          Theme.of(context).brightness == Brightness.dark
+              ? CommonBackgroundAuthWidget()
+              : Container(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Container(child: carouselSliderBuilder()),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [carouselSliderIndicator(), skipAndStartButton()],
+              ),
+              const SizedBox(
+                height: 50,
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Stack(children: [
+  //     const CommonBackgroundPatternAuthWidget(),
+  //     const CommonBackgroundAuthWidget(),
+  //     Scaffold(
+  //       resizeToAvoidBottomInset: false,
+  //       key: _scaffoldKey,
+  //       extendBody: true,
+  //       backgroundColor: Theme.of(context).brightness == Brightness.dark
+  //           ? Colors.transparent
+  //           : Colors.transparent,
+  //       body: body(),
+  //     )
+  //   ]);
+  // }
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -80,65 +95,79 @@ class _IntroSliderState extends State<IntroSlider> {
     return ValueListenableBuilder(
       valueListenable: currentIndex,
       builder: (context, value, child) {
-        return CarouselSlider(
-          carouselController: carouselController,
-          options: CarouselOptions(
-              viewportFraction: 1,
-              enableInfiniteScroll: false,
-              height: MediaQuery.of(context).size.height,
-              onPageChanged: (index, value) {
-                currentIndex.value = index;
-              }),
-          items: list.map((item) {
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 5.0),
-              color: Colors.transparent,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: Image.asset(
-                      imageList[currentIndex.value],
-                      fit: BoxFit.fill,
-                      height: MediaQuery.of(context).size.height / 2,
-                    ),
-                  ),
-                  const SizedBox(height: 50),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: Text(
-                        item,
-                        style: const TextStyle(
-                            fontSize: 20,
-                            color: colors.textColor,
-                            fontWeight: FontWeight.bold),
+        return Container(
+          decoration: BoxDecoration(
+              image:
+                  DecorationImage(image: AssetImage(Images.lightIntroImage))),
+          child: CarouselSlider(
+            carouselController: carouselController,
+            options: CarouselOptions(
+                viewportFraction: 1,
+                enableInfiniteScroll: false,
+                animateToClosest: false,
+                height: MediaQuery.of(context).size.height,
+                onPageChanged: (index, value) {
+                  currentIndex.value = index;
+                }),
+            items: list.map((item) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: Image.asset(
+                        imageList[currentIndex.value],
+                        fit: BoxFit.fill,
+                        height: MediaQuery.of(context).size.height / 2,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      width: MediaQuery.of(context).size.width * 0.75,
-                      child: const Text(
-                        'Lorem Ipsum is simply dummy text of the printing and typesetting',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: colors.textColor,
+                    const SizedBox(height: 50),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: Text(
+                          item,
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textColor
+                                  : Colors.black,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          }).toList(),
+                    const SizedBox(height: 20),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        width: MediaQuery.of(context).size.width * 0.75,
+                        child: Text(
+                          'Lorem Ipsum is simply dummy text of the printing and typesetting',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textColor
+                                    : Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
         );
       },
     );

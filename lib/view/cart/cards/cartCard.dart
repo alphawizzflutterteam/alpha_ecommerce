@@ -3,6 +3,7 @@ import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/cart/model/cartModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/toast_message.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -33,7 +34,10 @@ cartCard(
             //   begin: Alignment.topCenter,
             //   end: Alignment.bottomCenter,
             // ),
-            border: Border.all(color: colors.boxBorder)),
+            border: Border.all(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? colors.boxBorder
+                    : colors.lightBorder)),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
@@ -50,7 +54,8 @@ cartCard(
                       model.images[0],
                       width: 110,
                       height: 140,
-                      errorBuilder: (context, error, stackTrace) => Image.asset(Images.defaultProductImg),
+                      errorBuilder: (context, error, stackTrace) => SizedBox(
+                          height: 140, width: 110, child: ErrorImageWidget()),
                     ),
                   ),
                   const SizedBox(width: 30),
@@ -110,14 +115,18 @@ cartCard(
                       Container(
                         height: 50,
                         width: 100,
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5)),
-                            border: Border.all(color: colors.boxBorder)),
+                        // decoration: BoxDecoration(
+                        //     borderRadius:
+                        //         const BorderRadius.all(Radius.circular(5)),
+                        //     border: Border.all(color: colors.boxBorder)),
                         child: DropdownButtonFormField2<String>(
                           isExpanded: true,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(vertical: 15),
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.transparent
+                                    : Colors.white,
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.zero,
                                 borderSide: BorderSide.none),
@@ -184,7 +193,7 @@ cartCard(
                               decoration: BoxDecoration(
                                 color: Theme.of(context).brightness ==
                                         Brightness.dark
-                                    ? colors.textFieldBG
+                                    ? colors.boxBorder
                                     : Colors.white,
                                 borderRadius: BorderRadius.circular(15),
                                 border: Border.all(color: colors.boxBorder),
@@ -214,14 +223,19 @@ cartCard(
                       decoration: BoxDecoration(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(5)),
-                          border: Border.all(color: colors.boxBorder)),
+                          border: Border.all(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.boxBorder
+                                  : colors.lightBorder)),
                       child: Text(
                         "Save for later",
                         style: TextStyle(
                             color:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textColor
-                                    : Colors.black,
+                                    : colors.greyText,
+                            fontWeight: FontWeight.bold,
                             fontSize: 12),
                         textAlign: TextAlign.center,
                       ),
@@ -236,7 +250,11 @@ cartCard(
                     decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5)),
-                        border: Border.all(color: colors.boxBorder)),
+                        border: Border.all(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.boxBorder
+                                    : colors.lightBorder)),
                     child: InkWell(
                       onTap: () {
                         Map data = {'key': model.cartId.toString()};
@@ -248,8 +266,9 @@ cartCard(
                             color:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textColor
-                                    : Colors.black,
-                            fontSize: 12),
+                                    : colors.greyText,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
                     ),

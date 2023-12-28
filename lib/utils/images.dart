@@ -145,4 +145,6 @@ class Images {
   static const defaultProductImg = "assets/images/default-img.png";
   static const defaultProfile = "assets/images/profile.png";
   static const wallet = "assets/images/wallet.png";
+  static const lightIntroImage = "assets/images/intro_bg.png";
+  static const light_bg = "assets/images/light-bg.png";
 }
