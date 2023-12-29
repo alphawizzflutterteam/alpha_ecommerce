@@ -119,4 +119,53 @@ class ProductDetailViewModel with ChangeNotifier {
     });
     return false;
   }
+
+  Future<bool> removeFromCart(dynamic data, BuildContext context) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+
+    print(data);
+    _myRepo.removeFromCart(AppUrl.removeFromCart, token, data).then((value) {
+      setLoading(false);
+      Utils.showFlushBarWithMessage("Alert", value.message, context);
+
+      print(value.message);
+
+      return true;
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(error.toString());
+      Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+      return false;
+    });
+    return false;
+  }
+
+  Future<bool> addToCart(dynamic data, BuildContext context) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+
+    if (token == null || token == "") {
+      Utils.showFlushBarWithMessage("Alert", "Please login first.", context);
+
+      return false;
+    }
+    _myRepo.addToCart(AppUrl.addToCart, token, data).then((value) {
+      setLoading(false);
+
+      if (value.message == "Successfully added!") {
+        Utils.showFlushBarWithMessage("Alert", value.message, context);
+      } else {
+        Utils.showFlushBarWithMessage("Alert", value.message, context);
+      }
+
+      return true;
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(error.toString());
+      Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+      return false;
+    });
+    return false;
+  }
 }

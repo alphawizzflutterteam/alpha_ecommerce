@@ -808,7 +808,42 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     width: 1)),
                               ),
                               onPressed: () {
-                                showToastMessage("Removed from Cart");
+                                var isLoggedIn = SharedPref.shared.pref
+                                    ?.getString(PrefKeys.isLoggedIn);
+                                if (isLoggedIn == "1") {
+                                  Map data;
+                                  if (!productModel.model.first.isCart) {
+                                    data = {
+                                      'id': productModel.model.first.id
+                                          .toString(),
+                                      'quantity': "1",
+                                      'color': productModel
+                                              .model.first.colorImage.isNotEmpty
+                                          ? "#" +
+                                              productModel.model.first
+                                                  .colorImage[0].color
+                                          : "",
+                                      'choice_2': productModel.model.first
+                                              .choiceOptions.isNotEmpty
+                                          ? productModel.model.first
+                                              .choiceOptions[0].options[0]
+                                          : ""
+                                    };
+                                  } else {
+                                    data = {
+                                      'key': productModel.model.first.cart_id
+                                          .toString(),
+                                    };
+                                  }
+                                  print(data);
+                                  productModel.model.first.isCart
+                                      ? productModel.removeFromCart(
+                                          data, context)
+                                      : productModel.addToCart(data, context);
+                                } else {
+                                  AppUtils.appUtilsInstance
+                                      .showLoginAlertDialog(context);
+                                }
                               },
                               child: Text(
                                 productModel.model.first.isCart
@@ -843,7 +878,37 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ),
                               ),
                               onPressed: () {
-                                Routes.navigateToPlaceOrderScreen(context);
+                                var isLoggedIn = SharedPref.shared.pref
+                                    ?.getString(PrefKeys.isLoggedIn);
+                                if (isLoggedIn == "1") {
+                                  Map data;
+                                  if (!productModel.model.first.isCart) {
+                                    data = {
+                                      'id': productModel.model.first.id
+                                          .toString(),
+                                      'quantity': "1",
+                                      'color': productModel
+                                              .model.first.colorImage.isNotEmpty
+                                          ? "#" +
+                                              productModel.model.first
+                                                  .colorImage[0].color
+                                          : "",
+                                      'choice_2': productModel.model.first
+                                              .choiceOptions.isNotEmpty
+                                          ? productModel.model.first
+                                              .choiceOptions[0].options[0]
+                                          : ""
+                                    };
+
+                                    productModel.addToCart(data, context);
+                                  } else {
+                                    Routes.navigateToDashboardScreen(
+                                        context, 0);
+                                  }
+                                } else {
+                                  AppUtils.appUtilsInstance
+                                      .showLoginAlertDialog(context);
+                                }
                               },
                               child: const Text(
                                 'BUY NOW',

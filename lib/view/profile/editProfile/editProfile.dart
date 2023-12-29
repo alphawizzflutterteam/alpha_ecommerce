@@ -245,6 +245,7 @@ class _EditProfileState extends State<EditProfile> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
+                          keyboardType: TextInputType.phone,
                           controller: pinCodeController,
                           decoration: commonInputDecoration(
                             labelText: 'Pincode',
