@@ -100,11 +100,17 @@ class _VerifyNumberState extends State<VerifyNumber> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * .15,
               ),
-              Image.asset(
-                Images.greenTopLogo,
-                height: 90,
-                width: 120,
-              ),
+              Theme.of(context).brightness == Brightness.dark
+                  ? Image.asset(
+                      Images.logoWithoutText,
+                      height: 90,
+                      width: 120,
+                    )
+                  : Image.asset(
+                      "assets/images/loogo_black.png",
+                      height: 90,
+                      width: 120,
+                    ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -138,8 +144,11 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                 border: const OutlineInputBorder(
                                   borderSide: BorderSide(),
                                 ),
-                                labelStyle: const TextStyle(
-                                  color: colors.textColor,
+                                labelStyle: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black,
                                   fontSize: 14,
                                 ),
                                 hintStyle: const TextStyle(

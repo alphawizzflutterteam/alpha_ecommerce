@@ -88,7 +88,7 @@ class _AddMoneyState extends State<AddMoney> {
                                   onClick: () {
                                     if (_formKey.currentState!.validate()) {
                                       Routes.navigateToPaymentScreen(
-                                          context, "");
+                                          context, "", "", "");
                                     }
                                   })),
                         ],

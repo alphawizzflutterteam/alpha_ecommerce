@@ -717,8 +717,8 @@ class _CartState extends State<Cart> {
                                                               .getString(PrefKeys
                                                                   .billingAddressID) ??
                                                           addressProvider
-                                                              .addressList[0]
-                                                              .id;
+                                                              .addressList[0].id
+                                                              .toString();
                                                       var paymentMethod =
                                                           "cash_on_delivery";
                                                       String couponCode =
@@ -730,7 +730,10 @@ class _CartState extends State<Cart> {
 
                                                       Routes
                                                           .navigateToPaymentScreen(
-                                                              context, data);
+                                                              context,
+                                                              data,
+                                                              billingId,
+                                                              couponCode);
                                                     },
                                                   )),
                                             ],

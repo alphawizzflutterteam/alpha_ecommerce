@@ -541,7 +541,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                       fontSize: 14,
                                       onClick: () {
                                         Routes.navigateToPaymentScreen(
-                                            context, "");
+                                            context, "", "", "");
                                       })),
                             ],
                           ),

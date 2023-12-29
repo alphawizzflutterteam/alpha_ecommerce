@@ -164,18 +164,22 @@ class _HomeState extends State<Home> {
                                         Routes.navigateToBottomNavScreen(
                                             context, 1);
                                       },
-                                      child: const Padding(
+                                      child: Padding(
                                         padding: EdgeInsets.only(
                                             top: 12.0, left: 12, right: 12),
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Icon(
-                                              Icons.arrow_forward,
-                                              color: Colors.black,
-                                              size: size_30,
+                                            Image.asset(
+                                              "assets/images/Group 738.png",
+                                              height: size_30,
                                             ),
+                                            // Icon(
+                                            //   Icons.arrow_forward,
+                                            //   color: Colors.black,
+                                            //   size: size_30,
+                                            // ),
                                             Padding(
                                               padding: EdgeInsets.only(
                                                   top: 4.0, bottom: 8),

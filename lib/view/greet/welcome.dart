@@ -15,6 +15,14 @@ class _WelcomeState extends State<Welcome> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 3), () {
+      Routes.navigateToDashboardScreen(context, 2);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(children: [
       Container(

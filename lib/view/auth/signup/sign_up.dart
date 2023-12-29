@@ -56,11 +56,17 @@ class _SignUPState extends State<SignUP> {
                     const SizedBox(
                       height: 100,
                     ),
-                    Image.asset(
-                      Images.logoWithoutText,
-                      height: 90,
-                      width: 120,
-                    ),
+                    Theme.of(context).brightness == Brightness.dark
+                        ? Image.asset(
+                            Images.logoWithoutText,
+                            height: 90,
+                            width: 120,
+                          )
+                        : Image.asset(
+                            "assets/images/loogo_black.png",
+                            height: 90,
+                            width: 120,
+                          ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 0),

@@ -18,4 +18,6 @@ List<PaymentMethodList> paymentMethods = [
       paymentMethodName: 'Google Pay', paymentMethodImage: Images.google),
   PaymentMethodList(
       paymentMethodName: 'Cash On Delivery', paymentMethodImage: Images.cod),
+  PaymentMethodList(
+      paymentMethodName: 'Razor Pay', paymentMethodImage: Images.visa),
 ];

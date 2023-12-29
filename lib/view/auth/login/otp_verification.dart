@@ -105,11 +105,17 @@ class _OTPVerificationState extends State<OTPVerification> {
               const SizedBox(
                 height: 30,
               ),
-              Image.asset(
-                Images.greenTopLogo,
-                height: 90,
-                width: 120,
-              ),
+              Theme.of(context).brightness == Brightness.dark
+                  ? Image.asset(
+                      Images.logoWithoutText,
+                      height: 90,
+                      width: 120,
+                    )
+                  : Image.asset(
+                      "assets/images/loogo_black.png",
+                      height: 90,
+                      width: 120,
+                    ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -174,7 +180,11 @@ class _OTPVerificationState extends State<OTPVerification> {
                                     TextStyle(color: colors.textFieldColor),
                               ),
                               keyboardType: TextInputType.number,
-                              style: const TextStyle(color: colors.textColor),
+                              style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(1)
                               ], // Limit to one character

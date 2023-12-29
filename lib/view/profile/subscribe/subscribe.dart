@@ -473,7 +473,7 @@ class UpgradePlanWidget extends StatelessWidget {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
         onPressed: () {
-          Routes.navigateToPaymentScreen(context, "");
+          Routes.navigateToPaymentScreen(context, "", "", "");
         },
         child: Text(
           showHeader ? 'SUBSCRIBE NOW' : 'UPGRADE PLAN',
