@@ -256,7 +256,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 children: [
                                   SizedBox(
                                     width:
-                                        MediaQuery.of(context).size.width - 100,
+                                        MediaQuery.of(context).size.width - 120,
                                     child: Text(
                                       productModel.model.first.name,
                                       maxLines: 1,
@@ -284,16 +284,17 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                             Text(
                                               productModel.model.first.rating
                                                       .isNotEmpty
-                                                  ? productModel
-                                                          .model
-                                                          .first
-                                                          .rating
-                                                          .first
-                                                          .average ??
+                                                  ? productModel.model.first
+                                                          .rating.first.average
+                                                          .substring(0, 3) ??
                                                       ""
                                                   : "",
                                               style: TextStyle(
-                                                color: colors.textColor,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textColor
+                                                    : Colors.black,
                                                 fontSize: 14,
                                               ),
                                             ),
@@ -624,36 +625,42 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   : Colors.black54,
                               height: 1,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Description",
-                                    style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 14),
+                            productModel.model.first.metaDescription == ""
+                                ? Container()
+                                : Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 15),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Description",
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: 14),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          productModel
+                                              .model.first.metaDescription,
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.textColor
+                                                  : Colors.black,
+                                              fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    productModel.model.first.metaDescription,
-                                    style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? colors.textColor
-                                            : Colors.black,
-                                        fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                            ),
                             Container(
                               margin: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),

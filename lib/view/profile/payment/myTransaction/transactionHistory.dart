@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/transactionHistoryCard.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
@@ -37,16 +38,23 @@ class _TransactionHistoryState extends State<TransactionHistory> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : const Color.fromARGB(255, 232, 232, 232),
           body: Column(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  InternalPageHeader(
-                    text: "Transaction History",
-                  )
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: const Stack(
+                  children: [
+                    ProfileHeader(),
+                    InternalPageHeader(
+                      text: "Transaction History",
+                    )
+                  ],
+                ),
               ),
               profileModelProvider.isLoading
                   ? appLoader()

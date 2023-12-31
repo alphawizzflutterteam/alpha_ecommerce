@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/couponViewModel.dart';
 import 'package:flutter/material.dart';
@@ -37,16 +38,23 @@ class _CouponScreenState extends State<CouponScreen> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Color.fromARGB(255, 245, 245, 245),
           body: Column(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  InternalPageHeader(
-                    text: 'Coupon',
-                  )
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: const Stack(
+                  children: [
+                    ProfileHeader(),
+                    InternalPageHeader(
+                      text: 'Coupon',
+                    )
+                  ],
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(

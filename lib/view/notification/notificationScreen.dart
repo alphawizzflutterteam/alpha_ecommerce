@@ -1,4 +1,6 @@
 import 'package:alpha_ecommerce_18oct/view/notification/notificationCard.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/common_header.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/common_header.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../utils/routes.dart';
@@ -102,42 +104,22 @@ class _NotificationScreenState extends State<NotificationScreen> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  padding: const EdgeInsets.only(top: 35),
-                  height: 100,
-                  color: const Color(0x99183D3D),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: InkWell(
-                              onTap: () {
-                                Routes.navigateToPreviousScreen(context);
-                              },
-                              child: const Icon(Icons.arrow_back_ios)),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                right: MediaQuery.of(context).size.width * 0.1),
-                            child: const Text(
-                              "Notification",
-                              textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                          ),
-                        ),
-                      ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: Stack(
+                  children: [
+                    const ProfileHeader(),
+                    const InternalPageHeader(
+                      text: "Notification",
                     ),
-                  ),
+                  ],
                 ),
               ),
               Expanded(

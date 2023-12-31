@@ -46,7 +46,7 @@ class CouponList {
   String code;
   String startDate;
   String expireDate;
-  int minPurchase;
+  dynamic minPurchase;
   int maxDiscount;
   int discount;
   String discountType;

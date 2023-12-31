@@ -9,7 +9,7 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
     HomeViewModel homeProvider) {
   return InkWell(
     onTap: () {
-      //  Routes.navigateToProductDetailPageScreen(context);
+      Routes.navigateToProductDetailPageScreen(context, model.slug);
     },
     child: Container(
       height: MediaQuery.of(context).size.height * .18,

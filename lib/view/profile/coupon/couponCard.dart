@@ -37,7 +37,7 @@ couponCard({required context, required CouponList coupon}) {
                 child: Text(
                   coupon.title,
                   style: const TextStyle(
-                    fontSize: 16.0,
+                    fontSize: 14.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -63,7 +63,9 @@ couponCard({required context, required CouponList coupon}) {
             border: Border.all(
               color: colors.boxBorder,
             ),
-            color: Colors.transparent,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.transparent
+                : Color.fromARGB(255, 235, 233, 233),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
@@ -71,7 +73,11 @@ couponCard({required context, required CouponList coupon}) {
             children: [
               Text(
                 coupon.title,
-                style: const TextStyle(color: Colors.white, fontSize: 12),
+                style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: 12),
               ),
               // const SizedBox(
               //   height: 5,
@@ -85,8 +91,10 @@ couponCard({required context, required CouponList coupon}) {
               ),
               Text(
                 "${coupon.discount}%",
-                style: const TextStyle(
-                    color: Colors.white,
+                style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold),
               ),
@@ -108,8 +116,12 @@ couponCard({required context, required CouponList coupon}) {
                       ),
                       Text(
                         "${parseDate.day} ${getMonth(parseDate.month.toString())} ${parseDate.year}",
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 14),
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                            fontSize: 14),
                       ),
                     ],
                   ),
@@ -129,13 +141,22 @@ couponCard({required context, required CouponList coupon}) {
                         decoration: const BoxDecoration(),
                         child: Row(
                           children: <Widget>[
-                            const Icon(Icons.file_copy,
-                                color: Colors
-                                    .white), // Replace with your desired icon
+                            Icon(
+                              Icons.file_copy,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ), // Replace with your desired icon
                             Text(
                               coupon.code,
-                              style: const TextStyle(
-                                  fontSize: 16, color: Colors.white),
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
                             ),
                           ],
                         ),

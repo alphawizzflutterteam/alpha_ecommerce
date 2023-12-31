@@ -237,7 +237,7 @@ class _CartState extends State<Cart> {
                                 ? Container()
                                 : Container(
                                     height: MediaQuery.of(context).size.height *
-                                        .21,
+                                        .22,
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 10),
                                     decoration: BoxDecoration(
@@ -389,8 +389,9 @@ class _CartState extends State<Cart> {
                                                     fontSize: 12),
                                               ),
                                               Text(
-                                                cartProvider
-                                                    .model.data.discount,
+                                                "- " +
+                                                    cartProvider
+                                                        .model.data.discount,
                                                 style: TextStyle(
                                                     color: Theme.of(context)
                                                                 .brightness ==

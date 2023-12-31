@@ -28,15 +28,20 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
                         Text(
                           data.createdAt,
                           style: const TextStyle(
-                              color: colors.textColor, fontSize: 12),
+                              color: Color.fromARGB(255, 165, 165, 165),
+                              fontSize: 12),
                         ),
                         const SizedBox(
                           height: 15,
                         ),
                         Text(
                           data.orderAmount,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 20),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 20),
                         )
                       ],
                     ),
@@ -55,16 +60,21 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
                       children: [
                         const Text(
                           "Order ID",
-                          style:
-                              TextStyle(color: colors.textColor, fontSize: 12),
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 165, 165, 165),
+                              fontSize: 12),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
                           data.orderId.toString(),
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 14),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 14),
                         )
                       ],
                     ),
@@ -73,16 +83,21 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
                       children: [
                         const Text(
                           "Transaction ID",
-                          style:
-                              TextStyle(color: colors.textColor, fontSize: 12),
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 165, 165, 165),
+                              fontSize: 12),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
                           data.transactionId,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 14),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 14),
                         )
                       ],
                     ),
@@ -99,10 +114,12 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
       const SizedBox(
         height: 20,
       ),
-      const Padding(
+      Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Divider(
-          color: Colors.white,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.white
+              : Colors.black,
           height: 1,
         ),
       ),
