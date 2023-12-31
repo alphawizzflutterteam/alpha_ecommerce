@@ -505,256 +505,274 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                 scrollDirection: Axis.horizontal,
                                 itemCount:
                                     detailProvider.RecommendedProducts.length,
-                                itemBuilder: (context, index) => Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.44,
-                                  margin: const EdgeInsets.only(right: 10),
-                                  decoration: BoxDecoration(
-                                      // image: DecorationImage(image: NetworkImage(model.images.first)),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(10)),
-                                      gradient: LinearGradient(
-                                        colors: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? [
-                                                colors.boxGradient1
-                                                    .withOpacity(1),
-                                                Colors.transparent,
-                                              ]
-                                            : [
-                                                Colors.grey.withOpacity(0.2),
-                                                Colors.transparent,
-                                              ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                      ),
-                                      border: Border.all(
-                                          color: Theme.of(context).brightness ==
+                                itemBuilder: (context, index) => InkWell(
+                                  onTap: () {
+                                    Routes.navigateToProductDetailPageScreen(
+                                        context,
+                                        detailProvider
+                                            .RecommendedProducts[index].slug);
+                                  },
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.3,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.44,
+                                    margin: const EdgeInsets.only(right: 10),
+                                    decoration: BoxDecoration(
+                                        // image: DecorationImage(image: NetworkImage(model.images.first)),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10)),
+                                        gradient: LinearGradient(
+                                          colors: Theme.of(context)
+                                                      .brightness ==
                                                   Brightness.dark
-                                              ? colors.boxBorder
-                                              : colors.lightBorder)),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.14,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.44,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10),
-                                          ),
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                              detailProvider
-                                                  .RecommendedProducts[index]
-                                                  .images
-                                                  .first,
-                                            ),
-                                            fit: BoxFit.cover,
-                                            onError: (exception, stackTrace) =>
-                                                ErrorImageWidget(),
-                                          ),
+                                              ? [
+                                                  colors.boxGradient1
+                                                      .withOpacity(1),
+                                                  Colors.transparent,
+                                                ]
+                                              : [
+                                                  Colors.grey.withOpacity(0.2),
+                                                  Colors.transparent,
+                                                ],
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
                                         ),
-                                      ),
-                                      SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.0005),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 5,
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              "${detailProvider.RecommendedProducts[index].discount}% Off",
-                                              style: const TextStyle(
-                                                color: Colors.orange,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                            LikeButton(
-                                              // onTap: (isLiked) {
-                                              //   Map data = {'product_id': detailProvider.RecommendedProducts[index].id.toString()};
-                                              //   if (isLiked) {
-                                              //     return true;
-                                              //     //homeProvider.removeFromWishlist(data, context);
-                                              //   } else {
-                                              //     return false;
-                                              //     //  homeProvider.addToWishlist(data, context);
-                                              //   }
-                                              // },
-                                              size: size_20,
-                                              isLiked: detailProvider
-                                                  .RecommendedProducts[index]
-                                                  .isFavorite,
-                                              circleColor: const CircleColor(
-                                                  start: Colors.red,
-                                                  end: Colors.red),
-                                              bubblesColor: const BubblesColor(
-                                                dotPrimaryColor: Colors.red,
-                                                dotSecondaryColor: Colors.red,
-                                              ),
-                                              likeBuilder: (bool isLiked) {
-                                                return Icon(
-                                                  Icons.favorite,
-                                                  color: isLiked
-                                                      ? Colors.pink
-                                                      : Colors.grey,
-                                                  size: 20,
-                                                );
-                                              },
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 5,
-                                        ),
-                                        child: Text(
-                                          detailProvider
-                                              .RecommendedProducts[index].name,
-                                          maxLines: 2,
-                                          style: TextStyle(
+                                        border: Border.all(
                                             color:
                                                 Theme.of(context).brightness ==
                                                         Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                            fontSize: 12,
+                                                    ? colors.boxBorder
+                                                    : colors.lightBorder)),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.14,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.44,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                detailProvider
+                                                    .RecommendedProducts[index]
+                                                    .images
+                                                    .first,
+                                              ),
+                                              fit: BoxFit.cover,
+                                              onError:
+                                                  (exception, stackTrace) =>
+                                                      ErrorImageWidget(),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 5,
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              detailProvider
-                                                  .RecommendedProducts[index]
-                                                  .unitPrice,
-                                              style: const TextStyle(
-                                                color: Colors.cyan,
-                                                fontSize: 12,
+                                        SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.0005),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                            vertical: 5,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "${detailProvider.RecommendedProducts[index].discount}% Off",
+                                                style: const TextStyle(
+                                                  color: Colors.orange,
+                                                  fontSize: 12,
+                                                ),
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              detailProvider
-                                                  .RecommendedProducts[index]
-                                                  .purchasePrice,
-                                              style: const TextStyle(
-                                                color: colors.lightTextColor,
-                                                decoration:
-                                                    TextDecoration.lineThrough,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ],
+                                              LikeButton(
+                                                // onTap: (isLiked) {
+                                                //   Map data = {'product_id': detailProvider.RecommendedProducts[index].id.toString()};
+                                                //   if (isLiked) {
+                                                //     return true;
+                                                //     //homeProvider.removeFromWishlist(data, context);
+                                                //   } else {
+                                                //     return false;
+                                                //     //  homeProvider.addToWishlist(data, context);
+                                                //   }
+                                                // },
+                                                size: size_20,
+                                                isLiked: detailProvider
+                                                    .RecommendedProducts[index]
+                                                    .isFavorite,
+                                                circleColor: const CircleColor(
+                                                    start: Colors.red,
+                                                    end: Colors.red),
+                                                bubblesColor:
+                                                    const BubblesColor(
+                                                  dotPrimaryColor: Colors.red,
+                                                  dotSecondaryColor: Colors.red,
+                                                ),
+                                                likeBuilder: (bool isLiked) {
+                                                  return Icon(
+                                                    Icons.favorite,
+                                                    color: isLiked
+                                                        ? Colors.pink
+                                                        : Colors.grey,
+                                                    size: 20,
+                                                  );
+                                                },
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: InkWell(
-                                          onTap: () {
-                                            Map data;
-                                            if (!detailProvider
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                            vertical: 5,
+                                          ),
+                                          child: Text(
+                                            detailProvider
                                                 .RecommendedProducts[index]
-                                                .isCart) {
-                                              data = {
-                                                'id': detailProvider
+                                                .name,
+                                            maxLines: 2,
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                            vertical: 5,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                detailProvider
                                                     .RecommendedProducts[index]
-                                                    .id
-                                                    .toString(),
-                                                'quantity': "1",
-                                                'color': detailProvider
-                                                        .RecommendedProducts[
-                                                            index]
-                                                        .colorImage
-                                                        .isNotEmpty
-                                                    ? "#" +
-                                                        detailProvider
-                                                            .RecommendedProducts[
-                                                                index]
-                                                            .colorImage[0]
-                                                            .color
-                                                    : "",
-                                                'choice_2': detailProvider
-                                                        .RecommendedProducts[
-                                                            index]
-                                                        .choiceOptions
-                                                        .isNotEmpty
-                                                    ? detailProvider
-                                                        .RecommendedProducts[
-                                                            index]
-                                                        .choiceOptions[0]
-                                                        .options[0]
-                                                    : ""
-                                              };
-                                            } else {
-                                              data = {
-                                                'key': detailProvider
+                                                    .unitPrice,
+                                                style: const TextStyle(
+                                                  color: Colors.cyan,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                detailProvider
                                                     .RecommendedProducts[index]
-                                                    .cart_id
-                                                    .toString(),
-                                              };
-                                            }
-                                            print(data);
-                                            // detailProvider.RecommendedProducts[index].isCart
-                                            //     ? homeProvider.removeFromCart(data, context)
-                                            //     : homeProvider.addToCart(data, context);
-                                          },
-                                          child: Container(
-                                            height: 30,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(5)),
-                                                border: Border.all(
-                                                    color: colors.boxBorder)),
-                                            child: Text(
-                                              detailProvider
+                                                    .purchasePrice,
+                                                style: const TextStyle(
+                                                  color: colors.lightTextColor,
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: InkWell(
+                                            onTap: () {
+                                              Map data;
+                                              if (!detailProvider
+                                                  .RecommendedProducts[index]
+                                                  .isCart) {
+                                                data = {
+                                                  'id': detailProvider
                                                       .RecommendedProducts[
                                                           index]
-                                                      .isCart
-                                                  ? "Remove From Cart"
-                                                  : "Add to Cart",
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? colors.textColor
-                                                      : Colors.black,
-                                                  fontSize: size_12),
-                                              textAlign: TextAlign.center,
+                                                      .id
+                                                      .toString(),
+                                                  'quantity': "1",
+                                                  'color': detailProvider
+                                                          .RecommendedProducts[
+                                                              index]
+                                                          .colorImage
+                                                          .isNotEmpty
+                                                      ? "#" +
+                                                          detailProvider
+                                                              .RecommendedProducts[
+                                                                  index]
+                                                              .colorImage[0]
+                                                              .color
+                                                      : "",
+                                                  'choice_2': detailProvider
+                                                          .RecommendedProducts[
+                                                              index]
+                                                          .choiceOptions
+                                                          .isNotEmpty
+                                                      ? detailProvider
+                                                          .RecommendedProducts[
+                                                              index]
+                                                          .choiceOptions[0]
+                                                          .options[0]
+                                                      : ""
+                                                };
+                                              } else {
+                                                data = {
+                                                  'key': detailProvider
+                                                      .RecommendedProducts[
+                                                          index]
+                                                      .cart_id
+                                                      .toString(),
+                                                };
+                                              }
+                                              print(data);
+                                              // detailProvider.RecommendedProducts[index].isCart
+                                              //     ? homeProvider.removeFromCart(data, context)
+                                              //     : homeProvider.addToCart(data, context);
+                                            },
+                                            child: Container(
+                                              height: 30,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(5)),
+                                                  border: Border.all(
+                                                      color: colors.boxBorder)),
+                                              child: Text(
+                                                detailProvider
+                                                        .RecommendedProducts[
+                                                            index]
+                                                        .isCart
+                                                    ? "Remove From Cart"
+                                                    : "Add to Cart",
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.textColor
+                                                        : Colors.black,
+                                                    fontSize: size_12),
+                                                textAlign: TextAlign.center,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
