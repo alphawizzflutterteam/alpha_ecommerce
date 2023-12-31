@@ -13,6 +13,9 @@ class ProductDetailViewModel with ChangeNotifier {
   final _myRepo = ProductRepository();
   final _myRepo2 = CartRepository();
   List<ProductListDetail> model = [];
+  bool isCart = false;
+  bool isFav = false;
+  bool isFollowing = false;
 
   List<String> imageList = [];
   List<Variation> variationList = [];
@@ -35,7 +38,6 @@ class ProductDetailViewModel with ChangeNotifier {
     var userId = SharedPref.shared.pref!.getString(PrefKeys.userId)!;
     print(token);
 
-//demo-product-23-wHYnzh?user_id=14
     await _myRepo
         .getProductDetails(
       "${AppUrl.productDetail}$productName?user_id=$userId",
@@ -43,16 +45,20 @@ class ProductDetailViewModel with ChangeNotifier {
     )
         .then((value) {
       model = value.products!;
-
+      isFav = model.first.isFavorite;
+      isCart = model.first.isCart;
       imageList = model.first.images;
       selectedPrice = model.first.specialPrice;
       variationList = model.first.variation;
       relatedProducts = value.relatedProducts!;
       setLoading(false);
+      notifyListeners();
     }).onError((error, stackTrace) {
       setLoading(false);
+      notifyListeners();
+
       print(error.toString());
-      print(stackTrace.toString());
+      print(stackTrace.toString() + "Product detail");
     });
   }
 
@@ -120,13 +126,103 @@ class ProductDetailViewModel with ChangeNotifier {
     return false;
   }
 
-  Future<bool> removeFromCart(dynamic data, BuildContext context) async {
+  Future<bool> removeFromCart(
+      dynamic data, BuildContext context, String slug) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
     print(data);
     _myRepo.removeFromCart(AppUrl.removeFromCart, token, data).then((value) {
       setLoading(false);
+      Utils.showFlushBarWithMessage("Alert", value.message, context);
+      isCart = !isCart;
+      getDetails(context, "", slug);
+
+      print(value.message);
+
+      return true;
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(error.toString());
+      Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+      return false;
+    });
+    return false;
+  }
+
+  Future<bool> addToCart(
+      dynamic data, BuildContext context, String slug) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+
+    if (token == null || token == "") {
+      Utils.showFlushBarWithMessage("Alert", "Please login first.", context);
+
+      return false;
+    }
+    _myRepo.addToCart(AppUrl.addToCart, token, data).then((value) {
+      setLoading(false);
+
+      if (value.message == "Successfully added!") {
+        isCart = !isCart;
+        getDetails(context, "", slug);
+
+        Utils.showFlushBarWithMessage("Alert", value.message, context);
+      } else {
+        Utils.showFlushBarWithMessage("Alert", value.message, context);
+      }
+
+      return true;
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(error.toString());
+      Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+      return false;
+    });
+    return false;
+  }
+
+  Future<bool> addToWishlist(dynamic data, BuildContext context) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+
+    if (token == null || token == "") {
+      Utils.showFlushBarWithMessage("Alert", "Please login first.", context);
+
+      return false;
+    }
+    _myRepo.addToWishlist(AppUrl.addToWishlist, token, data).then((value) {
+      setLoading(false);
+
+      Utils.showFlushBarWithMessage("Alert", value.message, context);
+
+      print(value.message);
+
+      return true;
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(error.toString());
+      Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+      return false;
+    });
+
+    return false;
+  }
+
+  Future<bool> removeFromWishlist(dynamic data, BuildContext context) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+
+    if (token == null || token == "") {
+      Utils.showFlushBarWithMessage("Alert", "Please login first.", context);
+
+      return false;
+    }
+    _myRepo
+        .removeFromWishlist(AppUrl.removeFromWishlist, token, data)
+        .then((value) {
+      setLoading(false);
+
       Utils.showFlushBarWithMessage("Alert", value.message, context);
 
       print(value.message);
@@ -141,7 +237,7 @@ class ProductDetailViewModel with ChangeNotifier {
     return false;
   }
 
-  Future<bool> addToCart(dynamic data, BuildContext context) async {
+  Future<bool> followVendor(dynamic data, BuildContext context) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
@@ -150,14 +246,11 @@ class ProductDetailViewModel with ChangeNotifier {
 
       return false;
     }
-    _myRepo.addToCart(AppUrl.addToCart, token, data).then((value) {
+    _myRepo.followvendor(AppUrl.followVendor, token, data).then((value) {
       setLoading(false);
 
-      if (value.message == "Successfully added!") {
-        Utils.showFlushBarWithMessage("Alert", value.message, context);
-      } else {
-        Utils.showFlushBarWithMessage("Alert", value.message, context);
-      }
+      Utils.showFlushBarWithMessage("Alert", value.message, context);
+      isFollowing = !isFollowing;
 
       return true;
     }).onError((error, stackTrace) {
@@ -166,6 +259,7 @@ class ProductDetailViewModel with ChangeNotifier {
       Utils.showFlushBarWithMessage("Alert", error.toString(), context);
       return false;
     });
+
     return false;
   }
 }

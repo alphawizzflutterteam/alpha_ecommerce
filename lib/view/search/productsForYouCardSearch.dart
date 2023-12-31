@@ -131,7 +131,7 @@ productForYouCardSearch(ProductList model, BuildContext context,
                 child: Row(
                   children: [
                     Text(
-                      model.unitPrice,
+                      model.specialPrice,
                       style: const TextStyle(
                         color: Colors.cyan,
                         fontSize: 12,
@@ -141,7 +141,7 @@ productForYouCardSearch(ProductList model, BuildContext context,
                       width: 10,
                     ),
                     Text(
-                      model.purchasePrice,
+                      model.unitPrice,
                       style: TextStyle(
                         color: Theme.of(context).brightness == Brightness.dark
                             ? colors.lightTextColor

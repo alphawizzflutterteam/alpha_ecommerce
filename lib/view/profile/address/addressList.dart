@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddressListScreen extends StatefulWidget {
-  const AddressListScreen({super.key});
+  final bool isComingForSelection;
+  const AddressListScreen({super.key, required this.isComingForSelection});
 
   @override
   State<AddressListScreen> createState() => _AddressListScreenState();
@@ -95,7 +96,8 @@ class _AddressListScreenState extends State<AddressListScreen> {
                               child: addressCardsRow(
                                   context,
                                   addressProvider.addressList,
-                                  addressProvider)),
+                                  addressProvider,
+                                  widget.isComingForSelection)),
                         ))),
               ],
             ),

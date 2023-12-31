@@ -1,8 +1,11 @@
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/cartHomeNew.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 cartCard(HomeProduct model, BuildContext context) {
@@ -44,10 +47,13 @@ cartCard(HomeProduct model, BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  Images.onBoarding2,
-                  width: 80,
-                  height: 80,
+                Center(
+                  child: CachedNetworkImage(
+                    imageUrl: model.images.first,
+                    errorWidget: (context, url, error) => ErrorImageWidget(),
+                    height: size_80,
+                    width: size_80,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Padding(
@@ -88,7 +94,7 @@ cartCard(HomeProduct model, BuildContext context) {
                   child: Row(
                     children: [
                       Text(
-                        model.purchasePrice,
+                        model.specialPrice,
                         style: const TextStyle(
                           color: Colors.cyan,
                           fontSize: 12,

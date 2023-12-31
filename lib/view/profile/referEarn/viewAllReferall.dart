@@ -56,9 +56,12 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
                                   onTap: () {
                                     Routes.navigateToPreviousScreen(context);
                                   },
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.arrow_back_ios,
-                                    color: Colors.white,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
                                   )),
                             ),
                             Expanded(

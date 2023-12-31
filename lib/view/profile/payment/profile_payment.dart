@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:flutter/material.dart';
 import '../../../model/paymentType.dart';
 import '../../widget_common/commonBackground.dart';
@@ -23,16 +24,23 @@ class _ProfilePaymentState extends State<ProfilePayment> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  InternalPageHeader(
-                    text: "Payment",
-                  )
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: const Stack(
+                  children: [
+                    ProfileHeader(),
+                    InternalPageHeader(
+                      text: "Payment",
+                    )
+                  ],
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -64,15 +72,26 @@ class _ProfilePaymentState extends State<ProfilePayment> {
                                     paymentType[i].paymentTypeIcon,
                                     height: 30,
                                     width: 30,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                   title: Text(
                                     paymentType[i].paymentTypeName,
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 14),
+                                    style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 14),
                                   ),
-                                  trailing: const Icon(
+                                  trailing: Icon(
                                     Icons.arrow_forward_ios_rounded,
-                                    color: Colors.white,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
                                     size: 20,
                                   ),
                                 ),

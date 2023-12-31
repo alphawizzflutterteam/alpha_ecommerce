@@ -1,10 +1,13 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/productViewModel.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 
-productRatingAndFollowersCard(Shop shop, BuildContext ctx) {
+productRatingAndFollowersCard(
+    Shop shop, BuildContext ctx, ProductDetailViewModel model) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -124,17 +127,28 @@ productRatingAndFollowersCard(Shop shop, BuildContext ctx) {
                 ),
               ],
             ),
-            Container(
-                height: 40,
-                width: 40,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(5),
-                decoration: const BoxDecoration(
-                    color: colors.buttonColor, shape: BoxShape.circle),
-                child: const Icon(
-                  Icons.arrow_forward_ios_outlined,
-                  color: colors.textColor,
-                )),
+            InkWell(
+              onTap: () {
+                Map data = {'shop_id': shop.id.toString()};
+                model.isFollowing = !model.isFollowing;
+                model.followVendor(data, ctx);
+              },
+              child: Container(
+                  height: 40,
+                  width: 70,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: colors.buttonColor,
+                      shape: BoxShape.rectangle),
+                  child: Text(model.isFollowing ? "Unfollow" : "Follow",
+                      style: TextStyle(color: Colors.white))),
+              //  Icon(
+              //   Icons.arrow_forward_ios_outlined,
+              //   color: colors.textColor,
+              // )),
+            ),
           ],
         )
       ],

@@ -21,16 +21,29 @@ brandCard(
         },
         child: Column(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: CachedNetworkImage(
-                imageUrl: model.image,
-                height: size_50,
-                fit: BoxFit.fill,
-                placeholder: (context, url) => appLoader(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+            CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: CachedNetworkImage(
+                  imageUrl: model.image,
+                  height: size_50,
+                  fit: BoxFit.fill,
+                  placeholder: (context, url) => appLoader(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
               ),
             ),
+            // ClipRRect(
+            //   borderRadius: BorderRadius.circular(8.0),
+            //   child: CachedNetworkImage(
+            //     imageUrl: model.image,
+            //     height: size_50,
+            //     fit: BoxFit.fill,
+            //     placeholder: (context, url) => appLoader(),
+            //     errorWidget: (context, url, error) => const Icon(Icons.error),
+            //   ),
+            // ),
             const SizedBox(
               height: size_5,
             ),
@@ -52,7 +65,7 @@ Row brandsCard(BuildContext context, List<BrandsList> model,
           decoration: const BoxDecoration(color: Colors.white),
           child: Row(
             children: List.generate(
-              model.length > 5 ? 5 : model.length,
+              model.length > 10 ? 10 : model.length,
               (index) => brandCard(model[index], context, searchViewModel),
             ),
           ),

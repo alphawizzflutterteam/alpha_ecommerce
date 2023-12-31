@@ -2,14 +2,18 @@ import 'dart:ffi';
 
 import 'package:alpha_ecommerce_18oct/repository/profileRepository.dart';
 import 'package:alpha_ecommerce_18oct/utils/appUrls.dart';
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/privacyPolicyModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/referralModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/subscriptionModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/model/transactionHistoryModel.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/payment/myWallet/model/walletModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/refund/model/refundHistoryModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileViewModel with ChangeNotifier {
   bool isLoading = false;
@@ -19,6 +23,7 @@ class ProfileViewModel with ChangeNotifier {
 
   List<DatumTrasaction> transactionDatta = [];
   List<DatumRefund> refundData = [];
+  List<WalletTransactioList> walletHistory = [];
   List<ReferralData> referralList = [];
   List<SubscriptionData> subscriptionList = [];
 
@@ -36,6 +41,17 @@ class ProfileViewModel with ChangeNotifier {
         .updateProfileRequest(AppUrl.updateProfile, token, data)
         .then((value) {
       setLoading(false);
+
+      HomeViewModel homeProvider =
+          Provider.of<HomeViewModel>(context, listen: false);
+      try {
+        var phone = SharedPref.shared.pref!.getString(PrefKeys.mobile);
+
+        Map data2 = {'phone': phone};
+        homeProvider.getProfileAPI(data2, context);
+      } catch (stacktrace) {}
+      Routes.navigateToPreviousScreen(context);
+
       Utils.showFlushBarWithMessage("Alert", value.message, context);
     }).onError((error, stackTrace) {
       setLoading(false);
@@ -86,6 +102,22 @@ class ProfileViewModel with ChangeNotifier {
         .then((value) {
       refundData = value.data;
       print("Transacttiion Data");
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(error.toString());
+      print(stackTrace.toString());
+    });
+  }
+
+  Future<void> getWalletHistory() async {
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    await _myRepo
+        .getWalletHistoryDataRequest(
+            api: AppUrl.walletHistory, bearerToken: token)
+        .then((value) {
+      walletHistory = value.walletTransactioList;
+      print("walllet Data");
       notifyListeners();
     }).onError((error, stackTrace) {
       setLoading(false);

@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:alpha_ecommerce_18oct/repository/homeRepository.dart';
 import 'package:alpha_ecommerce_18oct/utils/appUrls.dart';
 import 'package:alpha_ecommerce_18oct/utils/constant.dart';
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/bannersModel.dart';
@@ -414,6 +417,57 @@ class HomeViewModel with ChangeNotifier {
       setLoading(false);
       print(errorMessage);
       print(stackTrace.toString() + "message send error");
+    });
+  }
+
+  Future<void> getProfileAPI(dynamic data, BuildContext context) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+
+    _myRepo.getProfileAPI(AppUrl.getProfile, token, data).then((value) {
+      setLoading(false);
+
+      print(value.data[0].id.toString());
+
+      SharedPref.shared.pref
+          ?.setString(PrefKeys.userId, value.data[0].id.toString());
+      SharedPref.shared.pref
+          ?.setString(PrefKeys.name, value.data[0].name.toString());
+      SharedPref.shared.pref
+          ?.setString(PrefKeys.email, value.data[0].email.toString());
+
+      SharedPref.shared.pref
+          ?.setString(PrefKeys.userDetails, jsonEncode(value));
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(error.toString());
+      print(stackTrace.toString());
+
+      Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+    });
+  }
+
+  Future<void> addMoneyToWallet(dynamic data, BuildContext context) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+
+    print(data);
+    _myRepo.addWAllet(AppUrl.addWallet, token, data).then((value) async {
+      setLoading(false);
+
+      Routes.navigateToWalletSuccessScreen(context);
+      try {
+        var phone = SharedPref.shared.pref!.getString(PrefKeys.mobile);
+
+        Map data2 = {'phone': phone};
+        getProfileAPI(data2, context);
+      } catch (stacktrace) {}
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(stackTrace.toString());
+      Utils.showFlushBarWithMessage(
+          "Alert", "Email or phone has already been taken.", context);
+      //  Utils.showFlushBarWithMessage("Alert", error.toString(), context);
     });
   }
 }

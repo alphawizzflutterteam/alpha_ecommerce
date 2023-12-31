@@ -387,12 +387,14 @@ class Routes {
     );
   }
 
-  static navigateToAddressListScreen(BuildContext context) {
+  static navigateToAddressListScreen(
+      BuildContext context, bool isComingForSelection) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) =>
-            const AddressListScreen(),
+        pageBuilder: (context, animation1, animation2) => AddressListScreen(
+          isComingForSelection: isComingForSelection,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -460,6 +462,8 @@ class Routes {
     String data,
     String billingId,
     String couponCode,
+    bool showCod,
+    String isComingFor,
   ) {
     Navigator.push(
       context,
@@ -468,6 +472,8 @@ class Routes {
           data: data,
           billingId: billingId,
           couponCode: couponCode,
+          showCod: showCod,
+          isComingFor: isComingFor,
         ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,

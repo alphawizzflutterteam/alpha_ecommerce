@@ -11,6 +11,7 @@ import 'package:alpha_ecommerce_18oct/view/home/models/specialOffersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/successModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/topDealsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/chat/model/chatModel.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
 import 'package:alpha_ecommerce_18oct/view/wishlist/model/wishlistModel.dart';
 import 'package:http/http.dart' as http;
 
@@ -164,6 +165,21 @@ class HomeRepository {
     return successModelFromJson(res.body);
   }
 
+  Future<ProfileModel> getProfileAPI(
+      String api, String bearerToken, dynamic data) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.get(url, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return profileModelFromJson(res.body);
+  }
+
   Future<dynamic> sendMessage(
       String api, String bearerToken, dynamic data) async {
     final url = Uri.parse(api);
@@ -191,6 +207,21 @@ class HomeRepository {
     print(res.body);
 
     return successModelFromJson(res.body);
+  }
+
+  Future<SuccessModel2> addWAllet(
+      String api, String bearerToken, dynamic data) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.post(url, body: data, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return successModel2FromJson(res.body);
   }
 
   Future<SuccessModel> addToCart(

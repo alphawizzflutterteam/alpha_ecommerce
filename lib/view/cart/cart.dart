@@ -2,6 +2,7 @@ import 'package:alpha_ecommerce_18oct/model/cartList.dart';
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/cart/cards/cartCard.dart';
 import 'package:alpha_ecommerce_18oct/view/cart/cards/savedItemCard.dart';
 import 'package:alpha_ecommerce_18oct/view/cart/savedItems.dart';
@@ -39,9 +40,13 @@ class _CartState extends State<Cart> {
     super.initState();
     cartProvider = Provider.of<CartViewModel>(context, listen: false);
     addressProvider = Provider.of<AddressViewModel>(context, listen: false);
-    cartProvider.getCartListItem(context, "", "0", "", "");
-    addressProvider.getAddressList(context);
+    if (cartProvider.selectedOption == "Normal Delivery") {
+      cartProvider.getCartListItem(context, "", "0", "", "");
+    } else {
+      cartProvider.getCartListItem(context, "", "1", "", "");
+    }
 
+    handleOptionChange(cartProvider.selectedOption);
     //cartProvider.getSavedListItem(context);
   }
 
@@ -49,6 +54,9 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     cartProvider = Provider.of<CartViewModel>(context);
     addressProvider = Provider.of<AddressViewModel>(context);
+    if (addressProvider.addressList.isEmpty) {
+      addressProvider.getAddressList(context);
+    }
     return Stack(
       children: [
         const LightBackGround(),
@@ -229,7 +237,7 @@ class _CartState extends State<Cart> {
                                 ? Container()
                                 : Container(
                                     height: MediaQuery.of(context).size.height *
-                                        .19,
+                                        .21,
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 10),
                                     decoration: BoxDecoration(
@@ -290,7 +298,7 @@ class _CartState extends State<Cart> {
                                                           fontSize: 12),
                                                     ),
                                               Text(
-                                                cartProvider.model.data.total,
+                                                cartProvider.model.data.mrp,
                                                 style: TextStyle(
                                                     color: Theme.of(context)
                                                                 .brightness ==
@@ -322,6 +330,36 @@ class _CartState extends State<Cart> {
                                               Text(
                                                 cartProvider
                                                     .model.data.deliveryCharge,
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.textColor
+                                                        : Colors.black,
+                                                    fontSize: 12),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 5),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Tax",
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.greyText
+                                                        : Colors.black54,
+                                                    fontSize: 12),
+                                              ),
+                                              Text(
+                                                cartProvider.model.data.tax,
                                                 style: TextStyle(
                                                     color: Theme.of(context)
                                                                 .brightness ==
@@ -647,7 +685,8 @@ class _CartState extends State<Cart> {
                                                         onTap: () {
                                                           Routes
                                                               .navigateToAddressListScreen(
-                                                                  context);
+                                                                  context,
+                                                                  true);
                                                         },
                                                         child: const SizedBox(
                                                           child: Text(
@@ -728,12 +767,30 @@ class _CartState extends State<Cart> {
                                                       String data =
                                                           "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
 
-                                                      Routes
-                                                          .navigateToPaymentScreen(
+                                                      var res = await cartProvider
+                                                          .checkDeliveryStatus(
                                                               context,
-                                                              data,
-                                                              billingId,
-                                                              couponCode);
+                                                              billingId
+                                                                  .toString());
+
+                                                      print(res.toString() +
+                                                          "CHECK AVAILABILITY");
+
+                                                      if (res) {
+                                                        Routes
+                                                            .navigateToPaymentScreen(
+                                                                context,
+                                                                data,
+                                                                billingId,
+                                                                couponCode,
+                                                                true,
+                                                                "order");
+                                                      } else {
+                                                        Utils.showFlushBarWithMessage(
+                                                            "",
+                                                            "Delivery not available on this pincode.",
+                                                            context);
+                                                      }
                                                     },
                                                   )),
                                             ],

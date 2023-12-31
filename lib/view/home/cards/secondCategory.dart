@@ -6,17 +6,18 @@ import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-secondCategoryCard(
-    CategoryList model, BuildContext context, SearchViewModel searchProvider) {
+secondCategoryCard(CategoryList model, BuildContext context,
+    SearchViewModel searchProvider, int index) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 6),
     child: InkWell(
       onTap: () {
         searchProvider.categoryId = model.id.toString();
         searchProvider.isHome = false;
-
-        searchProvider.getProductsListNew(context, "25", "1");
-        Routes.navigateToSearchScreen(context);
+        searchProvider.selectedIndexFromHome = index;
+        Routes.navigateToDashboardScreen(context, 1);
+        // searchProvider.getProductsListNew(context, "25", "1");
+        // Routes.navigateToSearchScreen(context);
       },
       child: Column(
         children: [
@@ -60,9 +61,9 @@ Row secondCategoryListCard(BuildContext context, List<CategoryList> model,
         Container(
           child: Row(
             children: List.generate(
-              model.length > 5 ? 5 : model.length,
-              (index) =>
-                  secondCategoryCard(model[index], context, searchProvider),
+              model.length > 10 ? 10 : model.length,
+              (index) => secondCategoryCard(
+                  model[index], context, searchProvider, index),
             ),
           ),
         )

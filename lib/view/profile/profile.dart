@@ -8,7 +8,9 @@ import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/logOut/logOut.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../widget_common/commonBackground.dart';
 import '../widget_common/common_header.dart';
@@ -22,27 +24,39 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  late HomeViewModel homeProvider;
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken) ?? "";
+  var name = "";
+  var loyaltyPoint = "";
+  var walletBalance = "";
+  bool iisSubscribed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    homeProvider = Provider.of<HomeViewModel>(context, listen: false);
+  }
+
+  setProfile() {
+    var model =
+        jsonDecode(SharedPref.shared.pref!.getString(PrefKeys.userDetails)!);
+
+    ProfileModel user = ProfileModel.fromJson(model);
+    name = user.data[0].fName;
+    loyaltyPoint = user.data[0].loyaltyPoint;
+    walletBalance = user.data[0].walletBalance.toString();
+    iisSubscribed = user.data[0].isSubscribed == 0 ? false : true;
+  }
 
   @override
   Widget build(BuildContext context) {
-    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken) ?? "";
-    var name = "";
-    var loyaltyPoint = "";
-    var walletBalance = "";
-    bool iisSubscribed = false;
-    if (token!.isEmpty) {
+    homeProvider = Provider.of<HomeViewModel>(context);
+    if (token.isEmpty) {
     } else {
-      var model =
-          jsonDecode(SharedPref.shared.pref!.getString(PrefKeys.userDetails)!);
-
-      ProfileModel user = ProfileModel.fromJson(model);
-      name = user.data[0].fName;
-      loyaltyPoint = user.data[0].loyaltyPoint;
-      walletBalance = user.data[0].walletBalance.toString();
-      iisSubscribed = user.data[0].isSubscribed == 0 ? false : true;
+      setProfile();
     }
-
     return Stack(
       children: [
         const LightBackGround(),
@@ -223,35 +237,35 @@ class _ProfileState extends State<Profile> {
                                         ),
                                         Row(
                                           children: [
-                                            SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  .025,
-                                              child: Image.asset(
-                                                Images.coin,
-                                              ),
-                                            ),
-                                            VerticalDivider(
-                                              color: Colors.transparent,
-                                              width: 4,
-                                            ),
-                                            Text(
-                                              loyaltyPoint,
-                                              style: TextStyle(
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            VerticalDivider(
-                                              color: Colors.transparent,
-                                              width: 10,
-                                            ),
+                                            // SizedBox(
+                                            //   height: MediaQuery.of(context)
+                                            //           .size
+                                            //           .height *
+                                            //       .025,
+                                            //   child: Image.asset(
+                                            //     Images.coin,
+                                            //   ),
+                                            // ),
+                                            // VerticalDivider(
+                                            //   color: Colors.transparent,
+                                            //   width: 4,
+                                            // ),
+                                            // Text(
+                                            //   loyaltyPoint,
+                                            //   style: TextStyle(
+                                            //     color: Theme.of(context)
+                                            //                 .brightness ==
+                                            //             Brightness.dark
+                                            //         ? Colors.white
+                                            //         : Colors.black,
+                                            //     fontSize: 16,
+                                            //     fontWeight: FontWeight.bold,
+                                            //   ),
+                                            // ),
+                                            // VerticalDivider(
+                                            //   color: Colors.transparent,
+                                            //   width: 10,
+                                            // ),
                                             SizedBox(
                                               height: MediaQuery.of(context)
                                                       .size

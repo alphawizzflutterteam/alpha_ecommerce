@@ -35,6 +35,10 @@ class _AllCategoryState extends State<AllCategory> {
     categoryProvider = Provider.of<CategoryViewModel>(context, listen: false);
     searchProvider = Provider.of<SearchViewModel>(context, listen: false);
     searchProvider.clearFilters();
+    if (searchProvider.selectedIndexFromHome != 0) {
+      searchProvider.selectedIndex = searchProvider.selectedIndexFromHome;
+      searchProvider.selectedIndexFromHome = 0;
+    }
 
     getCategory();
   }
@@ -286,9 +290,14 @@ class _AllCategoryState extends State<AllCategory> {
                                                                       width:
                                                                           1)),
                                                         ),
-                                                        style: const TextStyle(
-                                                            color:
-                                                                Colors.white),
+                                                        style: TextStyle(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                        ),
                                                       ),
                                                     ),
                                                     const SizedBox(

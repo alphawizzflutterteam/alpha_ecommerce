@@ -40,7 +40,8 @@ class AddressViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  setselected(int value, AddressList model) {
+  setselected(int value, AddressList model, bool isComingForSelection,
+      BuildContext context) {
     selectedId = value;
     print("here");
     selectedAddress = "${model.address}, ${model.address1}";
@@ -51,6 +52,9 @@ class AddressViewModel with ChangeNotifier {
 
     print(SharedPref.shared.pref!.getString(PrefKeys.billingAddress));
     notifyListeners();
+    if (isComingForSelection) {
+      Routes.navigateToPreviousScreen(context);
+    }
   }
 
   void setText() {
@@ -82,7 +86,7 @@ class AddressViewModel with ChangeNotifier {
       addressList = value.data;
       notifyListeners();
 
-      setselected(0, addressList[0]);
+      setselected(0, addressList[0], false, context);
 
       SharedPref.shared.pref
           ?.setString(PrefKeys.billingAddressID, addressList[0].id.toString());
@@ -101,8 +105,10 @@ class AddressViewModel with ChangeNotifier {
     await _myRepo
         .updateAddress(AppUrl.updateAddressList, token, data)
         .then((value) {
-      Utils.showFlushBarWithMessage("Alert", value.message, context);
       notifyListeners();
+      getAddressList(context);
+      Routes.navigateToPreviousScreen(context);
+      Utils.showFlushBarWithMessage("Alert", value.message, context);
 
       setLoading(false);
     }).onError((error, stackTrace) {
@@ -146,6 +152,7 @@ class AddressViewModel with ChangeNotifier {
         .then((value) async {
       Utils.showFlushBarWithMessage("Alert", value.message, context);
 
+      getAddressList(context);
       clearTextt();
       setLoading(false);
       Future.delayed(Duration(seconds: 2), () {

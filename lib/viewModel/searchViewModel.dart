@@ -30,6 +30,8 @@ class SearchViewModel with ChangeNotifier {
 //min_price
 // max_price
 // review_filter
+  int selectedIndexFromHome = 0;
+
   int selectedIndex = 0;
   String categoryId = "";
   String subCategoryId = "";
@@ -83,6 +85,7 @@ class SearchViewModel with ChangeNotifier {
       setLoading(false);
     }).onError((error, stackTrace) {
       setLoading(false);
+      searchResults.clear();
       print(error.toString() + "Product error");
     });
   }
@@ -107,6 +110,8 @@ class SearchViewModel with ChangeNotifier {
       setLoading(false);
     }).onError((error, stackTrace) {
       setLoading(false);
+      searchResults.clear();
+
       print("${stackTrace} Product error new ");
     });
   }

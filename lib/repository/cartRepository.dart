@@ -42,6 +42,23 @@ class CartRepository {
     return successModelFromJson(res.body);
   }
 
+  Future<SuccessModel> checkDeliveryStatus(
+    String api,
+    String bearerToken,
+  ) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.get(url, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return successModelFromJson(res.body);
+  }
+
   Future<SuccessModel> addToSaveLater(
       String api, String bearerToken, dynamic data) async {
     final url = Uri.parse(api);

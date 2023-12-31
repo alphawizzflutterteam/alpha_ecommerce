@@ -3,8 +3,7 @@ class AppUrl {
   //https://alpha-ecom.developmentalphawizz.com
   //https://test-alpha-ecom.developmentalphawizz.com
 
-  static const baseURL =
-      "https://test-alpha-ecom.developmentalphawizz.com/api/v1/";
+  static const baseURL = "https://alpha-ecom.developmentalphawizz.com/api/v1/";
   static String sendLoginOtp = "${baseURL}auth/send-login-otp";
   static String sendRegisterOtp = "${baseURL}auth/send-otp";
   static String loginWithEmailPassword = "${baseURL}auth/login";
@@ -14,6 +13,8 @@ class AppUrl {
 
   static const String getProfile = "${baseURL}customer/info";
   static const String updateProfile = "${baseURL}customer/update-profile";
+
+  static String addWallet = "${baseURL}customer/wallet/add-wallet";
 
   static const String languages = "${baseURL}languages";
   static const String currencies = "${baseURL}currencies";
@@ -46,6 +47,8 @@ class AppUrl {
   static const String updateCart = "${baseURL}cart/update";
   static const String applyCoupon = "${baseURL}coupon/apply?code=";
   static const String placeOrder = "${baseURL}customer/order/place?";
+  static const String checkAvailabbilitty =
+      "${baseURL}customer/order/check-shipping-type?billing_address_id=";
 
   static const String savedList = "${baseURL}customer/save-list";
   static const String addToSaveLater = "${baseURL}customer/save-list/add";
@@ -84,6 +87,8 @@ class AppUrl {
       "${baseURL}customer/get-order-transaction";
 
   static const String refundHistory = "${baseURL}customer/order/refund-list";
+  static const String walletHistory =
+      "${baseURL}customer/wallet/list?limit=25&offset=0";
   static const String referral = "${baseURL}customer/referrer-list";
   static const String subscription = "${baseURL}customer/plans";
 }

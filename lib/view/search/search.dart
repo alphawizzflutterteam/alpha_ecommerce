@@ -1,5 +1,6 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/utils/theme.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/common_header.dart';
 import 'package:alpha_ecommerce_18oct/view/search/productsForYouCardSearch.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
@@ -32,7 +33,7 @@ class _SearchState extends State<Search> {
   late HomeViewModel homeProvider;
   late CategoryViewModel categoryProvider;
   late stt.SpeechToText _speech;
-  bool _isListening = false;
+  bool isListening = false;
   String _text = 'Press the button and start speaking';
 
   @override
@@ -45,13 +46,20 @@ class _SearchState extends State<Search> {
   }
 
   void _listen() async {
-    if (!_isListening) {
+    if (!isListening) {
       bool available = await _speech.initialize(
         onStatus: (status) {
           print('Status: $status');
+          _speech.stop();
+          isListening = !isListening;
+          setState(() {});
         },
         onError: (error) {
           print('Error: $error');
+          _speech.stop();
+          isListening = !isListening;
+
+          setState(() {});
         },
       );
 
@@ -68,17 +76,19 @@ class _SearchState extends State<Search> {
               searchProvider.searchController.text = _text;
               searchProvider.getProductsListNew(context, "25", "1");
               print(_text);
+              setState(() {});
             });
           },
         );
       }
     } else {
       _speech.stop();
-      _isListening = !_isListening;
+      isListening = !isListening;
+      setState(() {});
     }
 
     setState(() {
-      _isListening = !_isListening;
+      isListening = !isListening;
     });
   }
 
@@ -138,7 +148,7 @@ class _SearchState extends State<Search> {
                       children: [
                         SizedBox(
                           height: 40,
-                          width: MediaQuery.of(context).size.width * 0.7,
+                          width: MediaQuery.of(context).size.width * 0.8,
                           child: TextFormField(
                             onChanged: (value) {
                               searchProvider.getProductsListNew(
@@ -169,12 +179,12 @@ class _SearchState extends State<Search> {
                                       : Colors.black),
                               suffixIcon: InkWell(
                                 onTap: () {
-                                  if (searchProvider.searchController.text ==
-                                      "") {
-                                    Routes.navigateToPreviousScreen(context);
-                                  } else {
-                                    searchProvider.searchController.text = "";
-                                  }
+                                  searchProvider.searchController.text = "";
+                                  searchProvider.getProductsListNew(
+                                    context,
+                                    "25",
+                                    "1",
+                                  );
                                 },
                                 child: Icon(Icons.clear,
                                     color: Theme.of(context).brightness ==
@@ -199,40 +209,50 @@ class _SearchState extends State<Search> {
                                   borderSide: const BorderSide(
                                       color: colors.textFieldColor, width: 1)),
                             ),
-                            style: const TextStyle(color: Colors.white),
+                            style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
                           ),
                         ),
-                        InkWell(
-                            onTap: () {
-                              //accessCamera(context);
-                            },
-                            child: Image.asset(Images.camera,
-                                height: 25,
-                                width: 25,
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black)),
-                        InkWell(
-                          onTap: () {
-                            _listen();
-                          },
-                          child: _isListening
-                              ? Image.asset("assets/images/microphone_gif.gif",
+                        // InkWell(
+                        //     onTap: () {
+                        //       //accessCamera(context);
+                        //     },
+                        //     child: Image.asset(Images.camera,
+                        //         height: 25,
+                        //         width: 25,
+                        //         color: Theme.of(context).brightness ==
+                        //                 Brightness.dark
+                        //             ? Colors.white
+                        //             : Colors.black)),
+                        isListening
+                            ? InkWell(
+                                onTap: () {
+                                  _speech.stop();
+                                  isListening = false;
+                                  setState(() {});
+                                },
+                                child: Image.asset(
+                                  "assets/images/microphone_gif.gif",
                                   height: 25,
                                   width: 25,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black)
-                              : Image.asset(Images.smallMic,
-                                  height: 25,
-                                  width: 25,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black),
-                        )
+                                ),
+                              )
+                            : InkWell(
+                                onTap: () {
+                                  _listen();
+                                },
+                                child: Image.asset(Images.smallMic,
+                                    height: 25,
+                                    width: 25,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black),
+                              )
                       ],
                     ),
                   ),
@@ -240,8 +260,11 @@ class _SearchState extends State<Search> {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            const SizedBox(
+                              height: size_50,
+                            ),
                             Image.asset("assets/images/no-results.png",
-                                height: size_100,
+                                height: size_80,
                                 color: Theme.of(context).brightness ==
                                         Brightness.dark
                                     ? Colors.white
@@ -271,32 +294,34 @@ class _SearchState extends State<Search> {
                           ],
                         )
                       : Container(height: 0),
-                  searchProvider.isLoading
-                      ? appLoader()
-                      : Container(
-                          height: MediaQuery.of(context).size.height * .73,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 20),
-                          // height: MediaQuery.of(context).size.height * 0.73,
-                          child: GridView.builder(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.zero,
-                            // physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 0.68,
+                  searchProvider.searchResults.isEmpty
+                      ? Container()
+                      : searchProvider.isLoading
+                          ? appLoader()
+                          : Container(
+                              height: MediaQuery.of(context).size.height * .73,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 20),
+                              // height: MediaQuery.of(context).size.height * 0.73,
+                              child: GridView.builder(
+                                shrinkWrap: true,
+                                padding: EdgeInsets.zero,
+                                // physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 0.68,
+                                ),
+                                itemCount: searchProvider.searchResults.length,
+                                itemBuilder: (context, j) {
+                                  return productForYouCardSearch(
+                                      searchProvider.searchResults[j],
+                                      context,
+                                      homeProvider,
+                                      searchProvider);
+                                },
+                              ),
                             ),
-                            itemCount: searchProvider.searchResults.length,
-                            itemBuilder: (context, j) {
-                              return productForYouCardSearch(
-                                  searchProvider.searchResults[j],
-                                  context,
-                                  homeProvider,
-                                  searchProvider);
-                            },
-                          ),
-                        ),
                 ],
               ),
             ],
@@ -305,12 +330,14 @@ class _SearchState extends State<Search> {
             alignment: Alignment.bottomCenter,
             child: Container(
               height: 60,
-              decoration: const BoxDecoration(
-                color: colors.textFieldBG,
-                image: DecorationImage(
-                  image: AssetImage(Images.bgTab),
-                  fit: BoxFit.cover,
-                ),
+              decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? colors.textFieldBG
+                    : Colors.white,
+                // image: DecorationImage(
+                //   image: AssetImage(Images.bgTab),
+                //   fit: BoxFit.cover,
+                // ),
               ),
               child: Center(
                 child: Material(
@@ -324,7 +351,9 @@ class _SearchState extends State<Search> {
                         Container(
                           height: 60,
                           width: MediaQuery.of(context).size.width * 0.33,
-                          color: colors.midBorder,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.midBorder
+                              : colors.theme,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -354,11 +383,17 @@ class _SearchState extends State<Search> {
                             child: Container(
                               height: 60,
                               width: MediaQuery.of(context).size.width * 0.34,
-                              decoration: const BoxDecoration(
-                                color: colors.midBorder,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.midBorder
+                                    : colors.theme,
                                 border: Border(
                                   left: BorderSide(
-                                    color: colors.midBorder,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.midBorder
+                                        : colors.theme,
                                   ),
                                 ),
                               ),
@@ -392,11 +427,17 @@ class _SearchState extends State<Search> {
                             child: Container(
                               height: 60,
                               width: MediaQuery.of(context).size.width * 0.33,
-                              decoration: const BoxDecoration(
-                                color: colors.midBorder,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.midBorder
+                                    : colors.theme,
                                 border: Border(
                                   left: BorderSide(
-                                    color: colors.midBorder,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.midBorder
+                                        : colors.theme,
                                   ),
                                 ),
                               ),

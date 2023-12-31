@@ -184,10 +184,11 @@ class _ChatState extends State<Chat> {
                           ? Colors.white
                           : Color.fromARGB(255, 229, 229, 229),
                       borderRadius: BorderRadius.all(Radius.circular(5))),
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
-                  height: 50,
+                  // margin:
+                  //     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  padding: const EdgeInsets.only(
+                      left: 20, bottom: 20, top: 10, right: 20),
+                  height: 700,
                   width: double.infinity,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -204,16 +205,19 @@ class _ChatState extends State<Chat> {
                       //     ),
                       //   ),
                       // ),
-                      const SizedBox(
-                        width: 10,
-                      ),
+                      // const SizedBox(
+                      //   width: 10,
+                      // ),
                       Expanded(
                         child: TextField(
                           controller: txtMessage,
                           decoration: InputDecoration(
-                              hintText: "Type message",
-                              hintStyle: TextStyle(color: Colors.black),
-                              border: InputBorder.none),
+                            hintText: "Type message",
+                            hintStyle: TextStyle(color: Colors.black),
+                            contentPadding: EdgeInsets.all(8.0),
+                            border: InputBorder.none,
+                          ),
+                          textAlign: TextAlign.start,
                         ),
                       ),
                       const SizedBox(

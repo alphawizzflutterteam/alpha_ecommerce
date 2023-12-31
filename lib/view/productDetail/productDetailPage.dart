@@ -46,6 +46,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     productModel.getDetails(context, "", widget.slug);
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    // productModel.dispose();
+  }
+
   int _currentIndex = 0;
 
   void checkSelectedProductAndUpdateProductRate(String selectedVariation) {
@@ -193,28 +200,33 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   LikeButton(
-                                    // onTap: (isLiked) {
-                                    //   var isLoggedIn = SharedPref.shared.pref
-                                    //       ?.getString(PrefKeys.isLoggedIn);
+                                    onTap: (isLiked) {
+                                      var isLoggedIn = SharedPref.shared.pref
+                                          ?.getString(PrefKeys.isLoggedIn);
 
-                                    //   if (isLoggedIn == "1") {
-                                    //     Map data = {
-                                    //       'product_id': productModel.model.first.id.toString()
-                                    //     };
-                                    //     if (isLiked) {
-                                    //       // return homeProvider.removeFromWishlist(
-                                    //       //     data, context);
-                                    //     } else {
-                                    //       // return homeProvider.addToWishlist(
-                                    //       //     data, context);
-                                    //     }
-                                    //   } else {
-                                    //     return AppUtils.appUtilsInstance.nothing();
-                                    //   }
-                                    //    },
+                                      if (isLoggedIn == "1") {
+                                        Map data = {
+                                          'product_id': productModel
+                                              .model.first.id
+                                              .toString()
+                                        };
+                                        productModel.isFav =
+                                            !productModel.isFav;
+                                        if (isLiked) {
+                                          return productModel
+                                              .removeFromWishlist(
+                                                  data, context);
+                                        } else {
+                                          return productModel.addToWishlist(
+                                              data, context);
+                                        }
+                                      } else {
+                                        return AppUtils.appUtilsInstance
+                                            .nothing();
+                                      }
+                                    },
                                     size: size_20,
-                                    isLiked:
-                                        productModel.model.first.isFavorite,
+                                    isLiked: productModel.isFav,
                                     circleColor: const CircleColor(
                                         start: Colors.red, end: Colors.red),
                                     bubblesColor: const BubblesColor(
@@ -224,8 +236,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     likeBuilder: (bool isLiked) {
                                       return Icon(
                                         Icons.favorite,
-                                        color:
-                                            isLiked ? Colors.pink : Colors.grey,
+                                        color: productModel.isFav
+                                            ? Colors.pink
+                                            : Colors.grey,
                                         size: 20,
                                       );
                                     },
@@ -257,35 +270,46 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.star,
-                                        color: Colors.yellow,
-                                        size: 16,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        "4.3",
-                                        style: TextStyle(
-                                          color: colors.textColor,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  productModel.model.first.rating.isNotEmpty
+                                      ? Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.star,
+                                              color: Colors.yellow,
+                                              size: 16,
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              productModel.model.first.rating
+                                                      .isNotEmpty
+                                                  ? productModel
+                                                          .model
+                                                          .first
+                                                          .rating
+                                                          .first
+                                                          .average ??
+                                                      ""
+                                                  : "",
+                                              style: TextStyle(
+                                                color: colors.textColor,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : Container()
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 15),
+                            const SizedBox(height: 10),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                // mainAxisAlignment:
+                                //     MainAxisAlignment.,
                                 children: [
                                   Text(
                                     productModel.selectedPrice,
@@ -297,44 +321,56 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       fontSize: 18,
                                     ),
                                   ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "or Pay \$${productModel.model.first.amount_after_coin_use} + ",
-                                        style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Image.asset(
-                                            Images.rupees,
-                                            height: 20,
-                                            width: 20,
-                                          ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            productModel.model.first
-                                                .use_coins_with_amount,
-                                            style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+
+                                  const SizedBox(
+                                    width: 10,
                                   ),
+                                  Text(
+                                    productModel.model.first.unitPrice,
+                                    style: const TextStyle(
+                                      color: colors.lightTextColor,
+                                      fontSize: 12,
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                                  ),
+                                  // Row(
+                                  //   children: [
+                                  //     Text(
+                                  //       "or Pay \$${productModel.model.first.amount_after_coin_use} + ",
+                                  //       style: TextStyle(
+                                  //         color: Theme.of(context).brightness ==
+                                  //                 Brightness.dark
+                                  //             ? Colors.white
+                                  //             : Colors.black,
+                                  //         fontSize: 14,
+                                  //       ),
+                                  //     ),
+                                  // Row(
+                                  //   children: [
+                                  //     Image.asset(
+                                  //       Images.rupees,
+                                  //       height: 20,
+                                  //       width: 20,
+                                  //     ),
+                                  //     const SizedBox(
+                                  //       width: 5,
+                                  //     ),
+                                  //     Text(
+                                  //       productModel.model.first
+                                  //           .use_coins_with_amount,
+                                  //       style: TextStyle(
+                                  //         color: Theme.of(context)
+                                  //                     .brightness ==
+                                  //                 Brightness.dark
+                                  //             ? Colors.white
+                                  //             : Colors.black,
+                                  //         fontSize: 14,
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  //  ],
+                                  //  ),
                                 ],
                               ),
                             ),
@@ -469,8 +505,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                                     color: Theme.of(context).brightness ==
                                                                             Brightness
                                                                                 .dark
-                                                                        ? Colors
-                                                                            .white
+                                                                        ? const Color
+                                                                            .fromARGB(
+                                                                            255,
+                                                                            214,
+                                                                            208,
+                                                                            208)
                                                                         : Colors
                                                                             .black,
                                                                     fontSize:
@@ -650,8 +690,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                               LengthLimitingTextInputFormatter(
                                                   6)
                                             ],
-                                            style: const TextStyle(
-                                                color: Colors.white),
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
                                             decoration: InputDecoration(
                                               filled: true,
                                               fillColor: Theme.of(context)
@@ -711,8 +756,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                   'pincode': productModel
                                                       .pinController.text
                                                 };
-                                                productModel.addToSaveLater(
-                                                    data, context);
+                                                productModel
+                                                    .pincodeAvailabilityCheck(
+                                                        data, context);
                                               })),
                                     ],
                                   ),
@@ -720,12 +766,17 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               ),
                             ),
                             //  recommendedAccessoryCard(context: context),
-                            deliveryCard(context: context),
+                            deliveryCard(
+                              context,
+                              model: productModel.model.first,
+                            ),
                             specificationCard(
                                 context: context,
                                 productData: productModel.model.first),
                             productRatingAndFollowersCard(
-                                productModel.model.first.shop, context),
+                                productModel.model.first.shop,
+                                context,
+                                productModel),
                             productModel.relatedProducts.isEmpty
                                 ? Container()
                                 : Padding(
@@ -747,12 +798,26 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     context: context,
                                     model: productModel.relatedProducts),
 
+                            productModel.model.first.reviews.isNotEmpty
+                                ? Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 0),
+                                    child: Text(
+                                      "Reviews",
+                                      style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                  )
+                                : Container(),
                             for (int i = 0;
-                                i < productModel.model.first.rating.length;
+                                i < productModel.model.first.reviews.length;
                                 i++)
                               reviewCard(
-                                productModel.model.first.rating[i],
-                              )
+                                  productModel.model.first.reviews[i], context)
                             // productModel.model.first.rating.isEmpty
                             //     ? Container()
                             //     :reviewCard(
@@ -836,17 +901,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     };
                                   }
                                   print(data);
-                                  productModel.model.first.isCart
+                                  productModel.isCart
                                       ? productModel.removeFromCart(
-                                          data, context)
-                                      : productModel.addToCart(data, context);
+                                          data, context, widget.slug)
+                                      : productModel.addToCart(
+                                          data, context, widget.slug);
                                 } else {
                                   AppUtils.appUtilsInstance
                                       .showLoginAlertDialog(context);
                                 }
                               },
                               child: Text(
-                                productModel.model.first.isCart
+                                productModel.isCart
                                     ? 'REMOVE FROM CART'
                                     : 'ADD TO CART',
                                 style: TextStyle(
@@ -900,7 +966,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           : ""
                                     };
 
-                                    productModel.addToCart(data, context);
+                                    productModel.addToCart(
+                                        data, context, widget.slug);
                                   } else {
                                     Routes.navigateToDashboardScreen(
                                         context, 0);

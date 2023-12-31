@@ -12,12 +12,20 @@ class SplashScreen extends StatelessWidget {
     splashViewModel.changeScreen(context);
     return Stack(
       children: [
-        Image.asset(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          "assets/images/splash.png",
-          fit: BoxFit.fill,
-        ),
+        //assets/images/splashIconLiight.png
+        Theme.of(context).brightness == Brightness.dark
+            ? Image.asset(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                "assets/images/splash.png",
+                fit: BoxFit.fill,
+              )
+            : Image.asset(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                "assets/images/splashIconLiight.png",
+                fit: BoxFit.fill,
+              ),
       ],
     );
   }

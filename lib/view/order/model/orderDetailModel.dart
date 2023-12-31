@@ -481,8 +481,8 @@ class ProductDetails {
   final List<ChoiceOption> choiceOptions;
   // final List<VariationElement> variation;
   final int? published;
-  final int? unitPrice;
-  final int? purchasePrice;
+  final dynamic? unitPrice;
+  final dynamic? purchasePrice;
   final int? tax;
   final String? taxType;
   final String? taxModel;
@@ -502,7 +502,7 @@ class ProductDetails {
   final String? metaImage;
   final int? requestStatus;
   final String? deniedNote;
-  final int? shippingCost;
+  final dynamic? shippingCost;
   final int? multiplyQty;
   final int? tempShippingCost;
   final int? isShippingCostUpdated;

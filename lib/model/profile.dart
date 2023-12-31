@@ -27,7 +27,9 @@ List<ProfileList> profile = [
   ProfileList(
       profileIcon: Images.locationProfile,
       profileText: 'Manage Address',
-      navigationScreen: const AddressListScreen()),
+      navigationScreen: const AddressListScreen(
+        isComingForSelection: false,
+      )),
   ProfileList(
       profileIcon: Images.walletProfile,
       profileText: 'Payment',

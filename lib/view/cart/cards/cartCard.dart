@@ -67,16 +67,19 @@ cartCard(
                           Routes.navigateToProductDetailPageScreen(
                               context, model.slug);
                         },
-                        child: Text(
-                          model.name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black,
-                              fontSize: 14),
+                        child: SizedBox(
+                          width: 200,
+                          child: Text(
+                            model.name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textColor
+                                    : Colors.black,
+                                fontSize: 14),
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -85,14 +88,14 @@ cartCard(
                       Row(
                         children: [
                           Text(
-                            model.purchasePrice,
+                            model.specialPrice,
                             style: const TextStyle(
                                 color: colors.buttonColor, fontSize: 16),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Text(
-                              model.discount.toString(),
+                              model.unitPrice.toString(),
                               style: const TextStyle(
                                   decoration: TextDecoration.lineThrough,
                                   color: colors.greyText,

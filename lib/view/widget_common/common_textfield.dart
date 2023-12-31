@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 
-InputDecoration commonInputDecoration(
-    {String labelText = '', String hintText = '', Color? color}) {
+InputDecoration commonInputDecoration({
+  String labelText = '',
+  String hintText = '',
+  Color? color,
+}) {
   return InputDecoration(
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),

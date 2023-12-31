@@ -77,14 +77,14 @@ class _WelcomeState extends State<Welcome> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 5),
                     child: Text(
-                      "Lorem IPsum is simply dummy text of the",
+                      "Unlock Your World: Seamless Access to Orders,",
                       style: TextStyle(color: Colors.white, fontSize: 17),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 5),
                     child: Text(
-                      "printing and typesetting industry",
+                      " Wishlists, and Tailored Recommendations Wishlists, and Tailored Recommendations",
                       style: TextStyle(color: Colors.white, fontSize: 17),
                     ),
                   )

@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/home/cards/brandsCard.dart';
 import 'package:alpha_ecommerce_18oct/view/home/cards/cartCard.dart.dart';
 import 'package:alpha_ecommerce_18oct/view/home/cards/dailyDealsCard.dart';
@@ -52,6 +53,12 @@ class _HomeState extends State<Home> {
     searchProvider = Provider.of<SearchViewModel>(context, listen: false);
     homeProvider.getHomeBanners(context);
 
+    try {
+      var phone = SharedPref.shared.pref!.getString(PrefKeys.mobile);
+
+      Map data = {'phone': phone};
+      homeProvider.getProfileAPI(data, context);
+    } catch (stacktrace) {}
     homeProvider.getBrandsList(context);
     homeProvider.getSpecialOffersList(context);
     homeProvider.getDailyDealsList(context);
@@ -61,7 +68,8 @@ class _HomeState extends State<Home> {
     homeProvider.getCartListItem(context);
     homeProvider.getProductFilters(context);
     homeProvider.getChatlist(context);
-
+    searchProvider.selectedIndexFromHome = 0;
+    searchProvider.selectedIndex = 0;
     getCategory();
     searchProvider.clearFilters();
     searchProvider.getProductsListNew(context, "25", "1");
@@ -307,18 +315,22 @@ class _HomeState extends State<Home> {
                                             homeProvider.brandsModel,
                                             searchProvider);
                                       },
-                                      child: const Padding(
+                                      child: Padding(
                                         padding: EdgeInsets.only(
                                             top: 12.0, left: 12, right: 12),
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Icon(
-                                              Icons.arrow_forward,
-                                              color: Colors.black,
-                                              size: size_30,
+                                            Image.asset(
+                                              "assets/images/Group 738.png",
+                                              height: size_30,
                                             ),
+                                            // Icon(
+                                            //   Icons.arrow_forward,
+                                            //   color: Colors.black,
+                                            //   size: size_30,
+                                            // ),
                                             Padding(
                                               padding: EdgeInsets.only(
                                                   top: 4.0, bottom: 8),
@@ -783,15 +795,28 @@ class _HomeState extends State<Home> {
                                         i++)
                                       Row(
                                         children: [
-                                          CachedNetworkImage(
-                                            imageUrl: homeProvider
-                                                .modelBanners
-                                                .data!
-                                                .giftSection!
-                                                .products![i]
-                                                .thumbnail!,
-                                            height: 120,
-                                            width: 100,
+                                          InkWell(
+                                            onTap: () {
+                                              Routes
+                                                  .navigateToProductDetailPageScreen(
+                                                      context,
+                                                      homeProvider
+                                                          .modelBanners
+                                                          .data!
+                                                          .giftSection!
+                                                          .products![i]
+                                                          .slug!);
+                                            },
+                                            child: CachedNetworkImage(
+                                              imageUrl: homeProvider
+                                                  .modelBanners
+                                                  .data!
+                                                  .giftSection!
+                                                  .products![i]
+                                                  .thumbnail!,
+                                              height: 120,
+                                              width: 100,
+                                            ),
                                           ),
                                           const SizedBox(
                                             width: 10,

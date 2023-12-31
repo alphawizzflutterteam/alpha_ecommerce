@@ -43,6 +43,7 @@ class OrderViewModel with ChangeNotifier {
                 searchText.text,
             token)
         .then((value) {
+      orderList.clear();
       orderList = value.data!;
       filters = value.filters!;
       notifyListeners();

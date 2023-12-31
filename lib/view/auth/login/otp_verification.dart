@@ -236,7 +236,13 @@ class _OTPVerificationState extends State<OTPVerification> {
                                       'phone': mobile,
                                       'fcm_id': "",
                                     };
-                                    authViewModel.resendOTP(data, context);
+                                    if (!widget.isComingForLogin) {
+                                      Map data = {'phone': mobile};
+                                      authViewModel.resendRegisterOtp(
+                                          data, context);
+                                    } else {
+                                      authViewModel.resendOTP(data, context);
+                                    }
                                   },
                                   child: Text(
                                     translation(context).resendOTP,

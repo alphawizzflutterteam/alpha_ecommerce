@@ -1,7 +1,10 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/topDealsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/color.dart';
@@ -12,9 +15,7 @@ topDealCard(context, ProductList2 products) {
     children: [
       InkWell(
         onTap: () {
-          // Routes
-          //     .navigateToProductDetailPageScreen(
-          //     context);
+          Routes.navigateToProductDetailPageScreen(context, products.slug);
         },
         child: SizedBox(
           height: 160,
@@ -32,10 +33,13 @@ topDealCard(context, ProductList2 products) {
                       topLeft: Radius.circular(10)),
                 ),
                 width: double.infinity,
-                child: Image.asset(
-                  Images.onBoarding2,
-                  width: 70,
-                  height: 70,
+                child: Center(
+                  child: CachedNetworkImage(
+                    imageUrl: products.images.first,
+                    errorWidget: (context, url, error) => ErrorImageWidget(),
+                    height: size_70,
+                    width: size_70,
+                  ),
                 ),
               ),
               Align(

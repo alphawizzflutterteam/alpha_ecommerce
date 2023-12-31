@@ -32,8 +32,10 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
           children: [
             Image.network(
               model.images[0],
-              errorBuilder: (context, error, stackTrace) =>
-                  Image.asset(Images.defaultProductImg),
+              errorBuilder: (context, error, stackTrace) => Image.asset(
+                Images.defaultProductImg,
+                width: MediaQuery.of(context).size.width * .25,
+              ),
               width: MediaQuery.of(context).size.width * .25,
               // height: MediaQuery.of(context).size.height * .15,
             ),
@@ -44,13 +46,18 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                 const SizedBox(
                   height: 10,
                 ),
-                Text(
-                  model.name,
-                  style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                      fontSize: 14),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .5,
+                  child: Text(
+                    model.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14),
+                  ),
                 ),
                 const SizedBox(
                   height: 5,

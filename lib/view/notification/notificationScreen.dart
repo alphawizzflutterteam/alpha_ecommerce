@@ -15,71 +15,71 @@ class _NotificationScreenState extends State<NotificationScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<Map<String, dynamic>> notifications = [
-    {
-      'image': Images.cart,
-      'text': 'Your order has been shipped',
-      'subText': "Lorem IPsum is simply dummy text",
-      'date': "09 May 2023"
-    },
-    {
-      'image': Images.discount,
-      'text': 'Big Sale T-shirts under \$399',
-      'subText':
-          "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-      'date': ""
-    },
-    {
-      'image': Images.cart,
-      'text': 'Your order has been shipped',
-      'subText': "Lorem IPsum is simply dummy text",
-      'date': "09 May 2023"
-    },
-    {
-      'image': Images.discount,
-      'text': 'Big Sale T-shirts under \$399',
-      'subText':
-          "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-      'date': ""
-    },
-    {
-      'image': Images.cart,
-      'text': 'Your order has been shipped',
-      'subText': "Lorem IPsum is simply dummy text",
-      'date': "09 May 2023"
-    },
-    {
-      'image': Images.discount,
-      'text': 'Big Sale T-shirts under \$399',
-      'subText':
-          "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-      'date': ""
-    },
-    {
-      'image': Images.cart,
-      'text': 'Your order has been shipped',
-      'subText': "Lorem IPsum is simply dummy text",
-      'date': "09 May 2023"
-    },
-    {
-      'image': Images.discount,
-      'text': 'Big Sale T-shirts under \$399',
-      'subText':
-          "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-      'date': ""
-    },
-    {
-      'image': Images.cart,
-      'text': 'Your order has been shipped',
-      'subText': "Lorem IPsum is simply dummy text",
-      'date': "09 May 2023"
-    },
-    {
-      'image': Images.discount,
-      'text': 'Big Sale T-shirts under \$399',
-      'subText':
-          "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-      'date': ""
-    },
+    // {
+    //   'image': Images.cart,
+    //   'text': 'Your order has been shipped',
+    //   'subText': "Lorem IPsum is simply dummy text",
+    //   'date': "09 May 2023"
+    // },
+    // {
+    //   'image': Images.discount,
+    //   'text': 'Big Sale T-shirts under \$399',
+    //   'subText':
+    //       "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
+    //   'date': ""
+    // },
+    // {
+    //   'image': Images.cart,
+    //   'text': 'Your order has been shipped',
+    //   'subText': "Lorem IPsum is simply dummy text",
+    //   'date': "09 May 2023"
+    // },
+    // {
+    //   'image': Images.discount,
+    //   'text': 'Big Sale T-shirts under \$399',
+    //   'subText':
+    //       "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
+    //   'date': ""
+    // },
+    // {
+    //   'image': Images.cart,
+    //   'text': 'Your order has been shipped',
+    //   'subText': "Lorem IPsum is simply dummy text",
+    //   'date': "09 May 2023"
+    // },
+    // {
+    //   'image': Images.discount,
+    //   'text': 'Big Sale T-shirts under \$399',
+    //   'subText':
+    //       "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
+    //   'date': ""
+    // },
+    // {
+    //   'image': Images.cart,
+    //   'text': 'Your order has been shipped',
+    //   'subText': "Lorem IPsum is simply dummy text",
+    //   'date': "09 May 2023"
+    // },
+    // {
+    //   'image': Images.discount,
+    //   'text': 'Big Sale T-shirts under \$399',
+    //   'subText':
+    //       "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
+    //   'date': ""
+    // },
+    // {
+    //   'image': Images.cart,
+    //   'text': 'Your order has been shipped',
+    //   'subText': "Lorem IPsum is simply dummy text",
+    //   'date': "09 May 2023"
+    // },
+    // {
+    //   'image': Images.discount,
+    //   'text': 'Big Sale T-shirts under \$399',
+    //   'subText':
+    //       "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
+    //   'date': ""
+    // },
   ];
 
   @override

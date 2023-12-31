@@ -191,7 +191,12 @@ class _OrderState extends State<Order> {
                                       borderSide: const BorderSide(
                                           color: Colors.grey, width: 1)),
                                 ),
-                                style: const TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
                               ),
                             ),
                             Container(

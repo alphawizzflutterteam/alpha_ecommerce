@@ -31,16 +31,23 @@ class _PaymentFormState extends State<PaymentForm> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              Stack(
-                children: const [
-                  ProfileHeader(),
-                  InternalPageHeader(
-                    text: "Add Money",
-                  )
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: Stack(
+                  children: const [
+                    ProfileHeader(),
+                    InternalPageHeader(
+                      text: "Add Money",
+                    )
+                  ],
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(

@@ -11,7 +11,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 addressItemCard(AddressList model, BuildContext context,
-    AddressViewModel provider, int index) {
+    AddressViewModel provider, int index, bool isComingForSelection) {
   void actionPopUpItemSelected(String value, int index) {
     // _scaffoldkey.currentState.hideCurrentSnackBar();
     if (value == 'edit') {
@@ -41,7 +41,8 @@ addressItemCard(AddressList model, BuildContext context,
                   value: model.id,
                   groupValue: provider.selectedId,
                   onChanged: (value) {
-                    provider.setselected(value!, model);
+                    provider.setselected(
+                        value!, model, isComingForSelection, context);
                   },
                 ),
                 SizedBox(
@@ -133,7 +134,7 @@ addressItemCard(AddressList model, BuildContext context,
 }
 
 Column addressCardsRow(BuildContext context, List<AddressList> model,
-        AddressViewModel provider) =>
+        AddressViewModel provider, bool isComingForSelection) =>
     Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -141,8 +142,8 @@ Column addressCardsRow(BuildContext context, List<AddressList> model,
           child: Column(
             children: List.generate(
               model.length,
-              (index) =>
-                  addressItemCard(model[index], context, provider, index),
+              (index) => addressItemCard(
+                  model[index], context, provider, index, isComingForSelection),
             ),
           ),
         )

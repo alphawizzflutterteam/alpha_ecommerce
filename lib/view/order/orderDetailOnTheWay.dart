@@ -871,13 +871,40 @@ class _CancelOrderDialogWidgetState extends State<CancelOrderDialogWidget> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: reasons.length,
                 itemBuilder: (context, i) {
-                  return CommonRadioTile(
-                      options: selectedReason,
-                      name: reasons[i],
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.black
-                          : Colors.white,
-                      onChanged: handleOptionChange);
+                  return Expanded(
+                    child: Material(
+                      color: Colors.transparent,
+                      child: RadioListTile(
+                        title: Text(
+                          reasons[i],
+                          style: TextStyle(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                            fontSize: 14,
+                          ),
+                          softWrap: false,
+                        ),
+                        activeColor: colors.buttonColor,
+                        value: reasons[i],
+                        groupValue: selectedReason,
+                        onChanged: (value) {
+                          handleOptionChange(value.toString());
+                        },
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 0),
+                      ),
+                    ),
+                  );
+
+                  // CommonRadioTile(
+                  //     options: selectedReason,
+                  //     name: reasons[i],
+                  //     color: Theme.of(context).brightness == Brightness.dark
+                  //         ? Colors.black
+                  //         : Colors.white,
+                  //     onChanged: handleOptionChange);
                   // return RadioListTile(value: value, groupValue: opt, onChanged: (value) => handleOptionChange("hj"),);
                 },
               ),

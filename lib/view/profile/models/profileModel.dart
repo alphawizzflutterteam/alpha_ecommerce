@@ -62,7 +62,7 @@ class Datum {
   int isPhoneVerified;
   String temporaryToken;
   int isEmailVerified;
-  int walletBalance;
+  dynamic walletBalance;
   String loyaltyPoint;
   int loginHitCount;
   int isTempBlocked;

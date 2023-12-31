@@ -14,7 +14,7 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
             Routes.navigateToSingleTransactionScreen(context, data);
           },
           child: SizedBox(
-            height: 110,
+            height: 115,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

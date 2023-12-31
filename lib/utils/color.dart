@@ -57,6 +57,7 @@ extension colors on ColorScheme {
   static const Color deliveredDark = Color(0xff2B6F1B);
   static const Color returnedLight = Color(0xffB8C7FF);
   static const Color returnedDark = Color(0xff4A16DD);
+  static const Color theme = Color(0xff0A9494);
 
   // previous
 

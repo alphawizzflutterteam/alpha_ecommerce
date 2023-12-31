@@ -351,6 +351,37 @@ class AuthViewModel with ChangeNotifier {
     });
   }
 
+  Future<void> resendRegisterOtp(dynamic data, BuildContext context) async {
+    setLoading(true);
+
+    _myRepo.loginApiReqzuest(AppUrl.sendRegisterOtp, data).then((value) {
+      setLoading(false);
+
+      print(value.message);
+      if (value.message == "OTP sent success") {
+        SharedPref.shared.pref?.setString(PrefKeys.jwtToken, value.token);
+
+        Utils.showFlushBarWithMessage(
+            "Alert", "OTP sent successfully.", context);
+        SharedPref.shared.pref?.setString(PrefKeys.otp, value.data[0].otp);
+        SharedPref.shared.pref
+            ?.setString(PrefKeys.mobile, value.data[0].mobile);
+
+        // Utils.showFlushBarWithMessage("OTP", value.data[0].otp, context);
+        // Routes.navigateToOTPVerificationScreen(context, false, false);
+      } else {
+        value.errors.isEmpty
+            ? Utils.showFlushBarWithMessage("Alert", value.message, context)
+            : Utils.showFlushBarWithMessage(
+                "Alert", value.errors[0].message, context);
+      }
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(stackTrace.toString());
+      Utils.showFlushBarWithMessage("Alert", stackTrace.toString(), context);
+    });
+  }
+
   Future<void> createAccountApi(dynamic data, BuildContext context) async {
     setLoading(true);
 

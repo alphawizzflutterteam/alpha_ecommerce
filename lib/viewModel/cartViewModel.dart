@@ -50,6 +50,10 @@ class CartViewModel with ChangeNotifier {
     print(token);
 
 //?coupan=FIRST99&delivery_type=0&is_coin_used&coins
+    if (dType == 0) {
+      selectedOption = "Normal Delivery";
+      notifyListeners();
+    }
     await _myRepo
         .cartListRequest(
             "${AppUrl.cartList}$coupon&delivery_type=$dType&is_coin_used=$isCoinsUsed&coins=",
@@ -80,6 +84,29 @@ class CartViewModel with ChangeNotifier {
       print(error.toString());
       print(stackTrace.toString());
     });
+  }
+
+  Future<bool> checkDeliveryStatus(
+      BuildContext context, String billingId) async {
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    print(token);
+
+    bool res = false;
+
+    await _myRepo
+        .checkDeliveryStatus(AppUrl.checkAvailabbilitty + billingId, token)
+        .then((value) {
+      res = value.status;
+      setLoading(false);
+      return res;
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(error.toString());
+      print(stackTrace.toString());
+
+      return false;
+    });
+    return res;
   }
 
   Future<bool> addToCart(dynamic data, BuildContext context) async {

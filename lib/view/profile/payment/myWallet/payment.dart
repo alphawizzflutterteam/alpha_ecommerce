@@ -1,6 +1,8 @@
+import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -16,11 +18,15 @@ class Payment extends StatefulWidget {
   final String data;
   final String billingId;
   final String couponCode;
+  final bool showCod;
+  final String isComingFor;
   const Payment({
     super.key,
     required this.data,
     required this.billingId,
     required this.couponCode,
+    required this.showCod,
+    required this.isComingFor,
   });
 
   @override
@@ -33,15 +39,32 @@ class _PaymentState extends State<Payment> {
   int? selectedPaymentMethod;
   Razorpay? _razorpay;
   int? pricerazorpayy;
+  String selectedMethod = "";
   late CartViewModel cartProvider;
+  List<PaymentMethodList> paymentMethods = [];
+  late HomeViewModel homeProvider;
+
   @override
   void initState() {
     super.initState();
     cartProvider = Provider.of<CartViewModel>(context, listen: false);
+    homeProvider = Provider.of<HomeViewModel>(context, listen: false);
     _razorpay = Razorpay();
     _razorpay?.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay?.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay?.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+
+    if (widget.showCod && widget.isComingFor == "order") {
+      paymentMethods.add(PaymentMethodList(
+          paymentMethodName: 'Cash On Delivery',
+          paymentMethodImage: Images.cod));
+    } else {}
+    paymentMethods.add(PaymentMethodList(
+        paymentMethodName: 'Razor Pay', paymentMethodImage: Images.visa));
+    if (widget.isComingFor != "wallet") {
+      paymentMethods.add(PaymentMethodList(
+          paymentMethodName: 'Wallet', paymentMethodImage: Images.wallet));
+    }
   }
 
   void openCheckout(amount) async {
@@ -65,7 +88,21 @@ class _PaymentState extends State<Payment> {
   Future<void> _handlePaymentSuccess(PaymentSuccessResponse response) async {
     Utils.toastMessage("Payment successfully");
 
-    setTransactionId(response.paymentId!);
+    if (widget.isComingFor == "wallet") {
+      var uuserID = SharedPref.shared.pref!.getString(PrefKeys.userId)!;
+
+      Map data = {
+        'user_id': uuserID,
+        'amount': widget.couponCode,
+        'transaction_type': 'add_wallet',
+        "transaction_id": response.paymentId
+      };
+      homeProvider.addMoneyToWallet(data, context);
+    } else if (selectedMethod == "Razor Pay") {
+      setTransactionId(response.paymentId!);
+    } else {
+      setTransactionIdWallet(response.paymentId!);
+    }
     // Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
   }
 
@@ -78,6 +115,7 @@ class _PaymentState extends State<Payment> {
   @override
   Widget build(BuildContext context) {
     cartProvider = Provider.of<CartViewModel>(context);
+    homeProvider = Provider.of<HomeViewModel>(context);
 
     return Stack(
       children: [
@@ -86,14 +124,21 @@ class _PaymentState extends State<Payment> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              Stack(
-                children: const [
-                  ProfileHeader(),
-                  InternalPageHeader(text: "Add Money")
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: Stack(
+                  children: const [
+                    ProfileHeader(),
+                    InternalPageHeader(text: "Add Money")
+                  ],
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -103,69 +148,84 @@ class _PaymentState extends State<Payment> {
                       const SizedBox(
                         height: 25,
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
                           "Select payment method",
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                              color: Theme.of(context).brightness !=
+                                      Brightness.dark
+                                  ? Colors.black
+                                  : Colors.white,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       const SizedBox(height: 10),
-                      for (int i = 0; i < paymentMethods.length; i++)
-                        InkWell(
-                          onTap: () async {
-                            if (i == 4) {
-                              await cartProvider.placeOrder(
-                                  widget.data, context);
-                            } else {
-                              Utils.showFlushBarWithMessage(
-                                  "Alert",
-                                  "Please proceed with Cash on delivery only.",
-                                  context);
-                            }
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            decoration: BoxDecoration(
-                              color: const Color(0x14E9E9E9),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: const Color(0x660A9494),
-                              ),
-                            ),
-                            child: ListTile(
-                              leading: Image.asset(
-                                paymentMethods[i].paymentMethodImage,
-                                width: 40,
-                                height: 40,
-                              ),
-                              title: Text(
-                                paymentMethods[i].paymentMethodName,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 14),
-                              ),
-                              trailing: Theme(
-                                data: ThemeData(
-                                    unselectedWidgetColor: colors.greyText),
-                                child: Radio<int>(
-                                  value: i,
-                                  groupValue: selectedPaymentMethod,
-                                  onChanged: (int? value) {
-                                    setState(() {
-                                      selectedPaymentMethod = value;
-                                      print(value);
-                                    });
-                                  },
-                                  focusColor: colors.buttonColor,
-                                  hoverColor: colors.buttonColor,
-                                  activeColor: colors.buttonColor,
+                      ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: paymentMethods.length,
+                        itemBuilder: (context, i) {
+                          return InkWell(
+                              onTap: () async {
+                                if (paymentMethods[i].paymentMethodName ==
+                                    "Cash On Delivery") {
+                                  await cartProvider.placeOrder(
+                                      widget.data, context);
+                                }
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).brightness !=
+                                          Brightness.dark
+                                      ? const Color.fromARGB(255, 212, 212, 212)
+                                      : Color.fromARGB(255, 147, 147, 147),
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: const Color(0x660A9494),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        ),
+                                child: ListTile(
+                                  leading: Image.asset(
+                                    paymentMethods[i].paymentMethodImage,
+                                    width: 40,
+                                    height: 40,
+                                  ),
+                                  title: Text(
+                                    paymentMethods[i].paymentMethodName,
+                                    style: TextStyle(
+                                        color: Theme.of(context).brightness !=
+                                                Brightness.dark
+                                            ? Colors.black
+                                            : Colors.white,
+                                        fontSize: 14),
+                                  ),
+                                  trailing: Theme(
+                                    data: ThemeData(
+                                        unselectedWidgetColor: colors.greyText),
+                                    child: Radio<int>(
+                                      value: i,
+                                      groupValue: selectedPaymentMethod,
+                                      onChanged: (int? value) {
+                                        setState(() {
+                                          selectedPaymentMethod = value;
+                                          print(value);
+                                        });
+                                        selectedMethod =
+                                            paymentMethods[i].paymentMethodName;
+                                      },
+                                      focusColor: colors.buttonColor,
+                                      hoverColor: colors.buttonColor,
+                                      activeColor: colors.buttonColor,
+                                    ),
+                                  ),
+                                ),
+                              ));
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -174,7 +234,9 @@ class _PaymentState extends State<Payment> {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   height: 80,
-                  color: colors.textFieldBG,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? colors.textFieldBG
+                      : const Color.fromARGB(255, 228, 228, 228),
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -190,31 +252,62 @@ class _PaymentState extends State<Payment> {
                                   text: "CONTINUE",
                                   fontSize: 14,
                                   onClick: () async {
-                                    if (selectedPaymentMethod != null &&
-                                        selectedPaymentMethod == 4) {
-                                      await cartProvider.placeOrder(
-                                          widget.data, context);
-                                    } else if (selectedPaymentMethod != null &&
-                                        selectedPaymentMethod == 5) {
-                                      //cartProvider.model.data.total
-                                      var billingId = SharedPref.shared.pref!
-                                          .getString(PrefKeys.billingAddressID);
-
-                                      var paymentMethod = "razorpay";
-                                      String couponCode =
-                                          cartProvider.couponController.text;
-                                      String data =
-                                          "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
-
-                                      var amout = cartProvider.model.data.total
-                                          .replaceFirst("₹ ", "");
-                                      print(amout);
-                                      openCheckout(amout);
+                                    if (widget.isComingFor == "wallet") {
+                                      openCheckout(widget.couponCode);
                                     } else {
-                                      Utils.showFlushBarWithMessage(
-                                          "Alert",
-                                          "Please proceed with Cash on delivery only.",
-                                          context);
+                                      if (selectedPaymentMethod != null &&
+                                          selectedMethod ==
+                                              "Cash On Delivery") {
+                                        await cartProvider.placeOrder(
+                                            widget.data, context);
+                                      } else if (selectedPaymentMethod !=
+                                              null &&
+                                          selectedMethod == "Razor Pay") {
+                                        //cartProvider.model.data.total
+                                        var billingId = SharedPref.shared.pref!
+                                            .getString(
+                                                PrefKeys.billingAddressID);
+
+                                        var paymentMethod = "razorpay";
+                                        String couponCode =
+                                            cartProvider.couponController.text;
+                                        String data =
+                                            "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
+
+                                        var amout = cartProvider
+                                            .model.data.total
+                                            .replaceFirst("₹ ", "");
+                                        print(amout);
+                                        openCheckout(amout);
+                                      } else if (selectedPaymentMethod !=
+                                              null &&
+                                          selectedMethod == "Wallet") {
+                                        if (widget.isComingFor == "order") {
+                                          var billingId =
+                                              SharedPref.shared.pref!.getString(
+                                                  PrefKeys.billingAddressID);
+
+                                          var paymentMethod = "pay_by_wallet";
+                                          String couponCode = cartProvider
+                                              .couponController.text;
+                                          var amout = cartProvider
+                                              .model.data.total
+                                              .replaceFirst("₹ ", "");
+                                          String data =
+                                              "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=1&wallet_amount=$amout&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
+
+                                          print(amout);
+                                          await cartProvider.placeOrder(
+                                              data, context); // registration();
+
+                                          // openCheckout(amout);
+                                        }
+                                      } else {
+                                        Utils.showFlushBarWithMessage(
+                                            "Alert",
+                                            "Please select any option",
+                                            context);
+                                      }
                                     }
                                   })),
                         ],
@@ -233,6 +326,14 @@ class _PaymentState extends State<Payment> {
   Future<void> setTransactionId(String transactionId) async {
     String data =
         "billing_address_id=${widget.billingId}&payment_method=razorpay&transaction_id=$transactionId&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=${widget.couponCode}&coupan_amount";
+
+    await cartProvider.placeOrder(data, context); // registration();
+  }
+
+  Future<void> setTransactionIdWallet(String transactionId) async {
+    var amout = cartProvider.model.data.total.replaceFirst("₹ ", "");
+    String data =
+        "billing_address_id=${widget.billingId}&payment_method=pay_by_wallet&transaction_id=$transactionId&is_wallet_used=1&wallet_amount=$amout&order_note=This is a order note.&coupan_code=${widget.couponCode}&coupan_amount";
 
     await cartProvider.placeOrder(data, context); // registration();
   }

@@ -34,8 +34,11 @@ savedItemCard(
                 },
                 child: Image.network(
                   model.images[0],
-                  errorBuilder: (context, error, stackTrace) =>
-                      ErrorImageWidget(),
+                  errorBuilder: (context, error, stackTrace) => Image.asset(
+                    Images.defaultProductImg,
+                    width: 100,
+                    height: 100,
+                  ),
                   width: 100,
                   height: 100,
                 ),

@@ -54,4 +54,49 @@ class ProductRepository with ChangeNotifier {
 
     return successModelFromJson(res.body);
   }
+
+  Future<SuccessModel> removeFromWishlist(
+      String api, String bearerToken, dynamic data) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.delete(url, body: data, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return successModelFromJson(res.body);
+  }
+
+  Future<SuccessModel> addToWishlist(
+      String api, String bearerToken, dynamic data) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.post(url, body: data, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return successModelFromJson(res.body);
+  }
+
+  Future<SuccessModel2> followvendor(
+      String api, String bearerToken, dynamic data) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.post(url, body: data, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return successModel2FromJson(res.body);
+  }
 }

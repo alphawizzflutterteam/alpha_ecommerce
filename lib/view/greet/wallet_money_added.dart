@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../profile/setting/showRateUs.dart';
@@ -12,6 +13,14 @@ class WalletSuccess extends StatefulWidget {
 
 class _WalletSuccessState extends State<WalletSuccess> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 2), () {
+      Routes.navigateToDashboardScreen(context, 4);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -22,7 +22,9 @@ Future<void> homeSort(context, SearchViewModel searchProvider) async {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
           child: SingleChildScrollView(
             child: Container(
-                color: colors.overlayBG,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? colors.overlayBG
+                    : Colors.white,
                 height: 310,
                 child: SortClass(
                   searchProvider: searchProvider,
@@ -55,10 +57,12 @@ class _SortClassState extends State<SortClass> {
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              child: const Text(
+              child: Text(
                 "Sort by",
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
@@ -121,16 +125,21 @@ class _SortClassState extends State<SortClass> {
                     children: [
                       Text(
                         sort[i]['text'],
-                        style: const TextStyle(
-                            color: Colors.white,
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                             fontSize: 14,
                             fontWeight: FontWeight.bold),
                       ),
                       Visibility(
                         visible: sort[i]['text'] == selectedType,
-                        child: const Icon(
+                        child: Icon(
                           Icons.check,
-                          color: Colors.white,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
                         ),
                       )
                     ],

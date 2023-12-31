@@ -132,6 +132,30 @@ class _FilterClassState extends State<FilterClass> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(right: 20, left: 20, top: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Min Price",
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  Text(
+                    "Max Price",
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  )
+                ],
+              ),
+            ),
             Container(
                 alignment: Alignment.centerLeft,
                 padding:
@@ -158,7 +182,11 @@ class _FilterClassState extends State<FilterClass> {
                                   vertical: 5, horizontal: 10),
                               hintText: "Min",
                             ),
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                        ),
                       ),
                     ),
                     Text(
@@ -174,6 +202,12 @@ class _FilterClassState extends State<FilterClass> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       child: TextFormField(
                         controller: widget.model.maxPriceController,
+                        keyboardType:
+                            const TextInputType.numberWithOptions(signed: true),
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(7),
+                        ],
                         decoration: (const InputDecoration())
                             .applyDefaults(
                                 Theme.of(context).inputDecorationTheme)
@@ -182,7 +216,11 @@ class _FilterClassState extends State<FilterClass> {
                                   vertical: 5, horizontal: 10),
                               hintText: "Max",
                             ),
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                        ),
                       ),
                     ),
                   ],
@@ -219,7 +257,7 @@ class _FilterClassState extends State<FilterClass> {
                                 ),
                                 SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height * .1,
+                                      MediaQuery.of(context).size.height * .14,
                                   child: GridView.builder(
                                     shrinkWrap: true,
                                     padding:
@@ -257,18 +295,30 @@ class _FilterClassState extends State<FilterClass> {
                                               // int value = int.parse(valueString, radix: 16);
                                               //Color otherColor = new Color(value);
                                               decoration: BoxDecoration(
-                                                  color:
-                                                      widget.filter[i].title ==
-                                                              "Color"
-                                                          ? widget.filter[i]
-                                                              .fields![j].value!
-                                                              .toColor()
-                                                          : Colors.transparent,
+                                                  color: widget.filter[i]
+                                                              .title ==
+                                                          "Color"
+                                                      ? widget.filter[i]
+                                                          .fields![j].value!
+                                                          .toColor()
+                                                      : Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.transparent
+                                                          : Color.fromARGB(255,
+                                                              222, 222, 222),
+                                                  //  Colors.transparent,
                                                   borderRadius:
                                                       BorderRadius.circular(8),
                                                   border: Border.all(
                                                       color: isElementPresent
-                                                          ? Colors.white
+                                                          ? Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Colors
+                                                                  .transparent
+                                                              : Colors.black
                                                           : const Color(
                                                               0x14E9E9E9),
                                                       width: isElementPresent

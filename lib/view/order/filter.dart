@@ -1,24 +1,10 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/view/order/model/ordersModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../utils/routes.dart';
-
-List<Map<dynamic, dynamic>> status = [
-  {'text': 'On the way'},
-  {'text': 'Delivered'},
-  {'text': 'Cancelled'},
-  {'text': 'Returned'}
-];
-
-List<Map<dynamic, dynamic>> category = [
-  {'text': 'Grocery & Staples'},
-  {'text': 'Books'},
-  {'text': 'Sweets'},
-  {'text': 'Fruits'},
-  {'text': 'Footwear'}
-];
 
 Future<void> filter(context, OrderViewModel orderProvider) async {
   return showModalBottomSheet(
@@ -29,7 +15,9 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
           child: SingleChildScrollView(
             child: Container(
-              color: colors.overlayBG,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? colors.textFieldBG
+                  : Colors.white,
               height: 420,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +36,7 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
                       FilterClassStatus(
                         orderProvider: orderProvider,
                       ),
-                      const Padding(
+                      Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                         child: Row(
@@ -56,8 +44,12 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
                           children: [
                             Text(
                               "Category",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
+                              style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize: 18),
                             ),
                           ],
                         ),
@@ -163,9 +155,13 @@ class _CancelApplyyBButttonState extends State<CancelApplyyBButtton> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
+          Text(
             "Filter",
-            style: TextStyle(color: Colors.white, fontSize: 18),
+            style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+                fontSize: 18),
           ),
           InkWell(
             onTap: () {
@@ -177,7 +173,11 @@ class _CancelApplyyBButttonState extends State<CancelApplyyBButtton> {
             },
             child: Text(
               "Clear filter",
-              style: TextStyle(color: Colors.white, fontSize: 14),
+              style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14),
             ),
           ),
         ],
@@ -216,72 +216,121 @@ class _FilterClassCategoryState extends State<FilterClassCategory> {
                       SizedBox(
                         height:
                             widget.orderProvider.filters.categories!.length *
-                                35,
+                                80,
                         child: GridView.builder(
                           shrinkWrap: true,
                           padding: const EdgeInsets.symmetric(vertical: 0),
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 4,
-                            crossAxisSpacing: 15,
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 8,
+                            crossAxisSpacing: 10,
                             childAspectRatio: 3.8,
                           ),
                           itemCount:
                               widget.orderProvider.filters.categories!.length,
                           itemBuilder: (context, j) {
-                            return FittedBox(
-                              fit: BoxFit.fitWidth,
-                              child: Container(
-                                height: 28,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 0),
-                                decoration: BoxDecoration(
-                                  color: colors.textFieldBG,
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: Colors.grey),
-                                ),
-                                child: InkWell(
-                                  onTap: () {
-                                    widget.orderProvider.categorie = widget
-                                        .orderProvider
-                                        .filters
-                                        .categories![j]
-                                        .title!
-                                        .toString();
-                                    setState(() {});
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Visibility(
-                                        visible:
-                                            widget.orderProvider.categorie ==
-                                                widget.orderProvider.filters
-                                                    .categories![j].title!
-                                                    .toString(),
-                                        child: const Icon(
-                                          Icons.check,
-                                          color: Colors.white,
-                                          size: size_10,
-                                        ),
+                            return
+                                // InkWell(
+                                //   onTap: () {
+                                //     widget.orderProvider.categorie = widget
+                                //         .orderProvider.filters.categories![j].title!
+                                //         .toString();
+                                //     setState(() {});
+                                //   },
+                                //   child: Container(
+                                //     decoration: BoxDecoration(
+                                //       border: Border.all(
+                                //         color: Colors.grey,
+                                //         width: 1.0,
+                                //       ),
+                                //       borderRadius: BorderRadius.circular(8.0),
+                                //     ),
+                                //     child: Row(
+                                //       mainAxisAlignment: MainAxisAlignment.center,
+                                //       children: [
+                                //         Visibility(
+                                //           visible: widget.orderProvider.categorie
+                                //                   .toString() ==
+                                //               widget.orderProvider.filters
+                                //                   .categories![j].title!
+                                //                   .toString(),
+                                //           child: const Icon(
+                                //             Icons.check,
+                                //             color: Colors.white,
+                                //             size: size_2,
+                                //           ),
+                                //         ),
+                                //         SizedBox(height: 8.0),
+                                //         Text(
+                                //           widget.orderProvider.filters
+                                //               .categories![j].value!,
+                                //           style: TextStyle(
+                                //               fontSize: 12.0, color: Colors.white),
+                                //         ),
+                                //       ],
+                                //     ),
+                                //   ),
+                                // );
+
+                                Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 0),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Colors.grey),
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  widget.orderProvider.categorie = widget
+                                      .orderProvider
+                                      .filters
+                                      .categories![j]
+                                      .title!
+                                      .toString();
+                                  setState(() {});
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Visibility(
+                                      visible: widget.orderProvider.categorie ==
+                                          widget.orderProvider.filters
+                                              .categories![j].title!
+                                              .toString(),
+                                      child: Icon(
+                                        Icons.check,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        size: size_10,
                                       ),
-                                      const SizedBox(width: 5),
-                                      Text(
+                                    ),
+                                    const SizedBox(width: 2),
+                                    SizedBox(
+                                      width: size_80,
+                                      child: Text(
                                         widget.orderProvider.filters
                                             .categories![j].value!,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: size_10,
+                                        style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: size_12,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             );
@@ -338,61 +387,66 @@ class _FilterClassStatusState extends State<FilterClassStatus> {
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
-                            mainAxisSpacing: 5,
+                            mainAxisSpacing: 8,
                             crossAxisSpacing: 10,
                             childAspectRatio: 3,
                           ),
                           itemCount:
                               widget.orderProvider.filters.status!.length,
                           itemBuilder: (context, j) {
-                            return FittedBox(
-                              fit: BoxFit.fitWidth,
-                              child: Container(
-                                height: 18,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 0),
-                                decoration: BoxDecoration(
-                                  color: colors.textFieldBG,
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color: Colors.grey),
-                                ),
-                                child: InkWell(
-                                  onTap: () {
-                                    widget.orderProvider.status = widget
-                                        .orderProvider
-                                        .filters
-                                        .status![j]
-                                        .title!;
-                                    setState(() {});
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Visibility(
-                                        visible: widget.orderProvider.status ==
-                                            widget.orderProvider.filters
-                                                .status![j].title!,
-                                        child: const Icon(
-                                          Icons.check,
-                                          color: Colors.white,
-                                          size: size_10,
-                                        ),
+                            return Container(
+                              height: 18,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 0),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: Colors.grey),
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  widget.orderProvider.status = widget
+                                      .orderProvider.filters.status![j].title!;
+                                  setState(() {});
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Visibility(
+                                      visible: widget.orderProvider.status ==
+                                          widget.orderProvider.filters
+                                              .status![j].title!,
+                                      child: Icon(
+                                        Icons.check,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        size: size_12,
                                       ),
-                                      const SizedBox(width: 5),
-                                      Text(
+                                    ),
+                                    const SizedBox(width: 5),
+                                    SizedBox(
+                                      width: size_80,
+                                      child: Text(
                                         widget.orderProvider.filters.status![j]
                                             .value!,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: size_8,
+                                        style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: size_12,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             );

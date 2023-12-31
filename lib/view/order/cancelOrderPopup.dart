@@ -24,7 +24,9 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
-        color: colors.overlayBG,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? colors.overlayBG
+            : Colors.white,
       ),
       height: 270,
       width: MediaQuery.of(context).size.width,
@@ -64,7 +66,7 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
             height: 10,
           ),
           const Text(
-            'Are you sure, that you want to Cancel Order',
+            'Are you sure, that you want to Cancel Order?',
             textAlign: TextAlign.center,
             style: TextStyle(color: colors.greyText),
           ),
@@ -75,7 +77,7 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.22,
+                width: MediaQuery.of(context).size.width * 0.25,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:

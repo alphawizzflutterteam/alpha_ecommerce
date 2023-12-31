@@ -161,8 +161,8 @@ class InternalDetailPageHeader extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        Routes.navigateToCartScreen(context);
-                        // const BottomNavPage(index: 0);
+                        Routes.navigateToBottomNavScreen(
+                            context, 0); // const BottomNavPage(index: 0);
                       },
                       child: Image.asset(
                         Images.headerCart,
