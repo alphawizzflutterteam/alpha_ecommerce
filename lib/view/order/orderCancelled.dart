@@ -2,6 +2,7 @@ import 'package:alpha_ecommerce_18oct/view/order/productListBuilder.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
@@ -26,6 +27,16 @@ class _OrderCancelledState extends State<OrderCancelled> {
     super.initState();
     detailProvider = Provider.of<OrderViewModel>(context, listen: false);
     detailProvider.getOrderDetail(context, widget.order_id);
+  }
+
+  String convertTimestampToFormattedDate(String timestamp) {
+    // Parse the timestamp string into a DateTime object
+    DateTime dateTime = DateTime.parse(timestamp);
+
+    // Format the DateTime object as "dd Month name yyyy"
+    String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
+
+    return "(" + formattedDate + " )";
   }
 
   @override
@@ -106,74 +117,133 @@ class _OrderCancelledState extends State<OrderCancelled> {
                             const SizedBox(
                               height: 10,
                             ),
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.check_circle,
-                                      color: colors.buttonColor),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "Ordered Saturday, 6 Oct",
-                                    style: TextStyle(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.white
-                                          : Colors.black,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              height: 80,
-                              child: const VerticalDivider(
-                                color: Colors.grey,
-                                thickness: 1,
-                                indent: 10,
-                                endIndent: 10,
-                              ),
-                            ),
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Icon(Icons.check_circle, color: Colors.red),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Ordered Saturday, 6 Oct",
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                            for (int i = 0;
+                                i <
+                                    detailProvider
+                                        .detail.orderStatusHistory.length;
+                                i++)
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Icon(Icons.check_circle,
+                                            color: detailProvider
+                                                    .detail
+                                                    .orderStatusHistory[i]
+                                                    .status!
+                                                    .toLowerCase()
+                                                    .contains("can")
+                                                ? Colors.red
+                                                : detailProvider
+                                                        .detail
+                                                        .orderStatusHistory[i]
+                                                        .status!
+                                                        .toLowerCase()
+                                                        .contains("pend")
+                                                    ? Colors.orange
+                                                    : colors.buttonColor),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              detailProvider
+                                                  .detail
+                                                  .orderStatusHistory[i]
+                                                  .status!,
+                                              //  "Ordered Saturday, 6 Oct",
+                                              style: TextStyle(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                          )),
-                                      Text("Changed my mind",
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? colors.lightTextColor
-                                                  : Colors.black54,
-                                              fontSize: 12)),
-                                    ],
-                                  )
-                                ],
+                                              ),
+                                            ),
+                                            Text(
+                                                convertTimestampToFormattedDate(
+                                                    detailProvider
+                                                        .detail
+                                                        .orderStatusHistory[i]
+                                                        .updatedAt
+                                                        .toString())),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    i ==
+                                            detailProvider.detail
+                                                    .orderStatusHistory.length -
+                                                1
+                                        ? Container()
+                                        : Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 4),
+                                            height: 50,
+                                            child: const VerticalDivider(
+                                              color: Colors.grey,
+                                              thickness: 1.2,
+                                              indent: 2,
+                                              endIndent: 2,
+                                            ),
+                                          ),
+                                  ],
+                                ),
                               ),
-                            )
+                            // Container(
+                            //   padding:
+                            //       const EdgeInsets.symmetric(horizontal: 20),
+                            //   height: 80,
+                            //   child: const VerticalDivider(
+                            //     color: Colors.grey,
+                            //     thickness: 1,
+                            //     indent: 10,
+                            //     endIndent: 10,
+                            //   ),
+                            // ),
+                            // Container(
+                            //   padding:
+                            //       const EdgeInsets.symmetric(horizontal: 20),
+                            //   child: Row(
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Icon(Icons.check_circle, color: Colors.red),
+                            //       SizedBox(
+                            //         width: 10,
+                            //       ),
+                            //       Column(
+                            //         crossAxisAlignment:
+                            //             CrossAxisAlignment.start,
+                            //         children: [
+                            //           Text("Ordered Saturday, 6 Oct",
+                            //               style: TextStyle(
+                            //                 color:
+                            //                     Theme.of(context).brightness ==
+                            //                             Brightness.dark
+                            //                         ? Colors.white
+                            //                         : Colors.black,
+                            //               )),
+                            //           Text("Changed my mind",
+                            //               style: TextStyle(
+                            //                   color: Theme.of(context)
+                            //                               .brightness ==
+                            //                           Brightness.dark
+                            //                       ? colors.lightTextColor
+                            //                       : Colors.black54,
+                            //                   fontSize: 12)),
+                            //         ],
+                            //       )
+                            //     ],
+                            //   ),
+                            // )
                           ],
                         ),
                       ),

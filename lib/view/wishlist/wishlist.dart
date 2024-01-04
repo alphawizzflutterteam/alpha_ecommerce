@@ -52,9 +52,9 @@ class _WishlistState extends State<Wishlist> {
                 child: const Stack(
                   children: [
                     ProfileHeader(),
-                    InternalPageHeader(
+                    InternalDetailPageHeader(
                       text: "My Wishlist",
-                    )
+                    ),
                   ],
                 ),
               ),

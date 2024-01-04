@@ -121,9 +121,15 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
                                 orderProvider.getOrderList(context);
                                 Routes.navigateToPreviousScreen(context);
                               },
-                              child: const Text(
+                              child: Text(
                                 'APPLY',
-                                style: TextStyle(fontSize: 12),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.black
+                                      : Colors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -215,8 +221,9 @@ class _FilterClassCategoryState extends State<FilterClassCategory> {
                     children: [
                       SizedBox(
                         height:
-                            widget.orderProvider.filters.categories!.length *
-                                80,
+                            widget.orderProvider.filters.categories!.length /
+                                3 *
+                                70,
                         child: GridView.builder(
                           shrinkWrap: true,
                           padding: const EdgeInsets.symmetric(vertical: 0),

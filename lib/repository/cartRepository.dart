@@ -134,7 +134,7 @@ class CartRepository {
     return successModelFromJson(res.body);
   }
 
-  Future<SuccessModel> placeOrder(String api, String bearerToken) async {
+  Future<SuccessModel2> placeOrder(String api, String bearerToken) async {
     final url = Uri.parse(api);
 
     print(api);
@@ -145,6 +145,6 @@ class CartRepository {
 
     print(res.body);
 
-    return successModelFromJson(res.body);
+    return successModel2FromJson(res.body);
   }
 }

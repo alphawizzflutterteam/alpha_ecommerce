@@ -15,6 +15,7 @@ class AppUrl {
   static const String updateProfile = "${baseURL}customer/update-profile";
 
   static String addWallet = "${baseURL}customer/wallet/add-wallet";
+  static String subscribe = "${baseURL}customer/purchase-plan";
 
   static const String languages = "${baseURL}languages";
   static const String currencies = "${baseURL}currencies";

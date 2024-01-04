@@ -384,11 +384,11 @@ class _SignInState extends State<SignIn> {
                                   height: 50,
                                   width: 60,
                                 ),
-                                Image.asset(
-                                  Images.facebook,
-                                  height: 50,
-                                  width: 60,
-                                ),
+                                // Image.asset(
+                                //   Images.facebook,
+                                //   height: 50,
+                                //   width: 60,
+                                // ),
                               ],
                             ),
                           ),

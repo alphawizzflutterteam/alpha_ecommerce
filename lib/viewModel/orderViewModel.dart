@@ -43,15 +43,16 @@ class OrderViewModel with ChangeNotifier {
                 searchText.text,
             token)
         .then((value) {
-      orderList.clear();
+      //orderList.clear();
       orderList = value.data!;
       filters = value.filters!;
-      notifyListeners();
-
       setLoading(false);
+
+      notifyListeners();
     }).onError((error, stackTrace) {
       setLoading(false);
-      print(stackTrace.toString());
+      notifyListeners();
+      print(stackTrace.toString() + "ORder Error");
     });
   }
 

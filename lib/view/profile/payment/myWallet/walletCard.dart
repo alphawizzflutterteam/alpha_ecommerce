@@ -114,7 +114,7 @@ Widget buildCustom(
         height: size_2,
       ),
       Text(
-        isSuccess ? "+ $credit" : "- $debit",
+        isSuccess ? "+ $credit" : " $debit",
         style: TextStyle(
             color: Theme.of(context).brightness == Brightness.dark
                 ? Colors.white

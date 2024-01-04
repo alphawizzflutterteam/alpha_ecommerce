@@ -22,6 +22,9 @@ class ProductDetailViewModel with ChangeNotifier {
   var selectedPrice = "";
   var selectedProduct = "";
   var selectedVariation = "";
+  var slugProdduct = "";
+
+  List<Map<String, dynamic>> selectedVariationMap = [];
 
   TextEditingController pinController = TextEditingController();
 
@@ -44,11 +47,25 @@ class ProductDetailViewModel with ChangeNotifier {
       token,
     )
         .then((value) {
+      slugProdduct = productName;
       model = value.products!;
+      selectedPrice = model.first.specialPrice;
+
+      try {
+        for (int i = 0; i < model.first.choiceOptions.length; i++) {
+          Map<String, String> map = {
+            model.first.choiceOptions[i].name:
+                model.first.choiceOptions[i].options[0]
+          };
+          selectedPrice = model.first.variation.first.price;
+
+          selectedVariationMap.add(map);
+        }
+      } catch (stacktrace) {}
+
       isFav = model.first.isFavorite;
       isCart = model.first.isCart;
       imageList = model.first.images;
-      selectedPrice = model.first.specialPrice;
       variationList = model.first.variation;
       relatedProducts = value.relatedProducts!;
       setLoading(false);
@@ -150,17 +167,31 @@ class ProductDetailViewModel with ChangeNotifier {
     return false;
   }
 
+  Map<String, String> addMapListToData(
+      Map<String, String> data, List<Map<String, dynamic>> mapList) {
+    for (var map in mapList) {
+      map.forEach((key, value) {
+        data[key] = value;
+      });
+    }
+    return data;
+  }
+
   Future<bool> addToCart(
-      dynamic data, BuildContext context, String slug) async {
+      Map<String, String> data, BuildContext context, String slug) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
+    var data2 = data;
+    data2 = addMapListToData(data2, selectedVariationMap);
+
+    print(data2);
     if (token == null || token == "") {
       Utils.showFlushBarWithMessage("Alert", "Please login first.", context);
 
       return false;
     }
-    _myRepo.addToCart(AppUrl.addToCart, token, data).then((value) {
+    _myRepo.addToCart(AppUrl.addToCart, token, data2).then((value) {
       setLoading(false);
 
       if (value.message == "Successfully added!") {
@@ -189,6 +220,7 @@ class ProductDetailViewModel with ChangeNotifier {
     if (token == null || token == "") {
       Utils.showFlushBarWithMessage("Alert", "Please login first.", context);
 
+      getDetails(context, data, slugProdduct);
       return false;
     }
     _myRepo.addToWishlist(AppUrl.addToWishlist, token, data).then((value) {
@@ -224,6 +256,7 @@ class ProductDetailViewModel with ChangeNotifier {
       setLoading(false);
 
       Utils.showFlushBarWithMessage("Alert", value.message, context);
+      getDetails(context, data, slugProdduct);
 
       print(value.message);
 

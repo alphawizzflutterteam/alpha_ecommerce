@@ -34,6 +34,7 @@ class _CartState extends State<Cart> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late CartViewModel cartProvider;
   late AddressViewModel addressProvider;
+  bool apiHitted = false;
 
   @override
   void initState() {
@@ -54,8 +55,9 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     cartProvider = Provider.of<CartViewModel>(context);
     addressProvider = Provider.of<AddressViewModel>(context);
-    if (addressProvider.addressList.isEmpty) {
+    if (addressProvider.addressList.isEmpty && !apiHitted) {
       addressProvider.getAddressList(context);
+      apiHitted = true;
     }
     return Stack(
       children: [
@@ -237,7 +239,7 @@ class _CartState extends State<Cart> {
                                 ? Container()
                                 : Container(
                                     height: MediaQuery.of(context).size.height *
-                                        .22,
+                                        .25,
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 10),
                                     decoration: BoxDecoration(
@@ -507,8 +509,12 @@ class _CartState extends State<Cart> {
                                             child: TextField(
                                               controller:
                                                   cartProvider.couponController,
-                                              style: const TextStyle(
-                                                  color: Colors.white),
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black),
                                               cursorColor: Colors.white,
                                               textAlign: TextAlign.start,
                                               decoration: InputDecoration(
@@ -564,19 +570,26 @@ class _CartState extends State<Cart> {
                                       ],
                                     ),
                                   ),
-                            Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              child: Text(
-                                "Saved Items",
-                                style: TextStyle(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? colors.textColor
-                                        : Colors.black,
-                                    fontSize: 14),
-                              ),
-                            ),
+                            cartProvider.savedModel.isEmpty
+                                ? SizedBox(
+                                    height: size_200 * 1.35,
+                                  )
+                                : Container(),
+                            cartProvider.savedModel.isNotEmpty
+                                ? Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                    child: Text(
+                                      "Saved Items",
+                                      style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? colors.textColor
+                                              : Colors.black,
+                                          fontSize: 14),
+                                    ),
+                                  )
+                                : Container(),
                             Container(
                               width: MediaQuery.of(context).size.width,
                               child: SingleChildScrollView(

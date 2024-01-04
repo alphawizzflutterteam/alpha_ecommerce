@@ -470,4 +470,29 @@ class HomeViewModel with ChangeNotifier {
       //  Utils.showFlushBarWithMessage("Alert", error.toString(), context);
     });
   }
+
+  Future<void> subscribeAlpha(dynamic data, BuildContext context) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+
+    print(data);
+    _myRepo.addWAllet(AppUrl.subscribe, token, data).then((value) async {
+      setLoading(false);
+
+      Routes.navigateToDashboardScreen(context, 2);
+      Utils.showFlushBarWithMessage("", value.message, context);
+      try {
+        var phone = SharedPref.shared.pref!.getString(PrefKeys.mobile);
+
+        Map data2 = {'phone': phone};
+        getProfileAPI(data2, context);
+      } catch (stacktrace) {}
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(stackTrace.toString());
+      Utils.showFlushBarWithMessage(
+          "Alert", "Email or phone has already been taken.", context);
+      //  Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+    });
+  }
 }

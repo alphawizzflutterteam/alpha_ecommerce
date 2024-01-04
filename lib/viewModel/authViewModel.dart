@@ -16,6 +16,7 @@ class AuthViewModel with ChangeNotifier {
   String? mobileNumber, password;
   String? name, countryCode, signUpPassword, signUpEmail;
   String? newPassword;
+  final TextEditingController mobileController = TextEditingController();
 
   bool? error;
   String errorMessage = '';
@@ -320,6 +321,11 @@ class AuthViewModel with ChangeNotifier {
 
   Future<void> sendRegisterOtp(dynamic data, BuildContext context) async {
     setLoading(true);
+
+    if (mobileController.text.length < 10 || mobileController.text.isEmpty) {
+      Utils.showFlushBarWithMessage("Alert", "Invalid Mobile number", context);
+      return;
+    }
 
     _myRepo.loginApiReqzuest(AppUrl.sendRegisterOtp, data).then((value) {
       setLoading(false);

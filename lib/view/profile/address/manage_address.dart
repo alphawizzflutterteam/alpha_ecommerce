@@ -382,6 +382,7 @@ class _ManageAddressState extends State<ManageAddress> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
+                          keyboardType: TextInputType.number,
                           controller: addressProvider.pinCodeController,
                           decoration: commonInputDecoration(
                             labelText: 'Pincode',

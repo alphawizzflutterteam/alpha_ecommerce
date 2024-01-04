@@ -229,7 +229,7 @@ class _SubscribeState extends State<Subscribe> {
                                               ),
                                               Text.rich(
                                                 TextSpan(
-                                                  text: '\$', // The dollar sign
+                                                  text: '', // The dollar sign
                                                   style: TextStyle(
                                                     fontSize:
                                                         18, // Adjust the size as needed
@@ -248,13 +248,13 @@ class _SubscribeState extends State<Subscribe> {
                                                               .subscriptionList[
                                                                   0]
                                                               .yearly[index]
-                                                              .price
+                                                              .priceWithCurrency
                                                               .toString()
                                                           : subscriptionProvider
                                                               .subscriptionList[
                                                                   0]
                                                               .monthly[index]
-                                                              .price
+                                                              .priceWithCurrency
                                                               .toString(),
                                                       style: TextStyle(
                                                         fontSize:
@@ -342,7 +342,34 @@ class _SubscribeState extends State<Subscribe> {
                                                       ],
                                                     )
                                                   : UpgradePlanWidget(
-                                                      showHeader: showHeader)
+                                                      showHeader: showHeader,
+                                                      planId: isYearlyTabSelected
+                                                          ? subscriptionProvider
+                                                              .subscriptionList[
+                                                                  0]
+                                                              .yearly[index]
+                                                              .id
+                                                              .toString()
+                                                          : subscriptionProvider
+                                                              .subscriptionList[
+                                                                  0]
+                                                              .monthly[index]
+                                                              .id
+                                                              .toString(),
+                                                      price: isYearlyTabSelected
+                                                          ? subscriptionProvider
+                                                              .subscriptionList[
+                                                                  0]
+                                                              .yearly[index]
+                                                              .price
+                                                              .toString()
+                                                          : subscriptionProvider
+                                                              .subscriptionList[
+                                                                  0]
+                                                              .monthly[index]
+                                                              .price
+                                                              .toString(),
+                                                    )
                                               : subscriptionProvider
                                                       .subscriptionList[0]
                                                       .monthly[index]
@@ -393,7 +420,34 @@ class _SubscribeState extends State<Subscribe> {
                                                       ],
                                                     )
                                                   : UpgradePlanWidget(
-                                                      showHeader: showHeader),
+                                                      showHeader: showHeader,
+                                                      planId: isYearlyTabSelected
+                                                          ? subscriptionProvider
+                                                              .subscriptionList[
+                                                                  0]
+                                                              .yearly[index]
+                                                              .id
+                                                              .toString()
+                                                          : subscriptionProvider
+                                                              .subscriptionList[
+                                                                  0]
+                                                              .monthly[index]
+                                                              .id
+                                                              .toString(),
+                                                      price: isYearlyTabSelected
+                                                          ? subscriptionProvider
+                                                              .subscriptionList[
+                                                                  0]
+                                                              .yearly[index]
+                                                              .price
+                                                              .toString()
+                                                          : subscriptionProvider
+                                                              .subscriptionList[
+                                                                  0]
+                                                              .monthly[index]
+                                                              .price
+                                                              .toString(),
+                                                    ),
                                         ],
                                       ),
                                       Divider(
@@ -453,9 +507,13 @@ class _SubscribeState extends State<Subscribe> {
 }
 
 class UpgradePlanWidget extends StatelessWidget {
+  final String planId;
+  final String price;
   const UpgradePlanWidget({
     super.key,
     required this.showHeader,
+    required this.planId,
+    required this.price,
   });
 
   final bool showHeader;
@@ -474,7 +532,7 @@ class UpgradePlanWidget extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
         onPressed: () {
           Routes.navigateToPaymentScreen(
-              context, "", "", "", true, "subscription");
+              context, planId, "", price, true, "subscription");
         },
         child: Text(
           showHeader ? 'SUBSCRIBE NOW' : 'UPGRADE PLAN',

@@ -5,6 +5,7 @@ import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:intl/intl.dart';
 import 'package:order_tracker/order_tracker.dart';
 import 'package:provider/provider.dart';
 import '../../utils/color.dart';
@@ -47,6 +48,16 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
     print(widget.order_id);
     detailProvider = Provider.of<OrderViewModel>(context, listen: false);
     detailProvider.getOrderDetail(context, widget.order_id);
+  }
+
+  String convertTimestampToFormattedDate(String timestamp) {
+    // Parse the timestamp string into a DateTime object
+    DateTime dateTime = DateTime.parse(timestamp);
+
+    // Format the DateTime object as "dd Month name yyyy"
+    String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
+
+    return "(" + formattedDate + " )";
   }
 
   @override
@@ -493,8 +504,10 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    "Arrived Wednesday",
+                                  Text(
+                                    "Arrived " +
+                                        detailProvider
+                                            .detail.expectedDeliveryDate!,
                                     style: TextStyle(
                                         color: colors.buttonColor,
                                         fontSize: 25),

@@ -21,12 +21,19 @@ class DashboardHeader extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-              child: Image.asset(
-                Images.logoHorizontal,
-                height: 50,
-                width: 120,
-                fit: BoxFit.fitWidth,
-              ),
+              child: Theme.of(context).brightness == Brightness.dark
+                  ? Image.asset(
+                      Images.logoHorizontal,
+                      height: 50,
+                      width: 120,
+                      fit: BoxFit.fitWidth,
+                    )
+                  : Image.asset(
+                      "assets/images/Group 233.png",
+                      height: 50,
+                      width: 120,
+                      fit: BoxFit.fitWidth,
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),

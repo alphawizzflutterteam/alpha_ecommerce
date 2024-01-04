@@ -116,7 +116,7 @@ cartCard(
                         height: 10,
                       ),
                       Container(
-                        height: 50,
+                        height: 40,
                         width: 100,
                         // decoration: BoxDecoration(
                         //     borderRadius:
@@ -125,7 +125,7 @@ cartCard(
                         child: DropdownButtonFormField2<String>(
                           isExpanded: true,
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(vertical: 15),
+                            contentPadding: EdgeInsets.symmetric(vertical: 12),
                             fillColor:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.transparent
@@ -137,7 +137,7 @@ cartCard(
                           hint: Text(
                             'Qty ${model.selectedQuantity}',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 12,
                               color: Theme.of(context).brightness ==
                                       Brightness.dark
                                   ? colors.textColor

@@ -264,6 +264,40 @@ class CartViewModel with ChangeNotifier {
     return false;
   }
 
+  Future<bool> deleteSaveLater(dynamic data, BuildContext context) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+
+    _myRepo.addToSaveLater(AppUrl.addToSaveLater, token, data).then((value) {
+      setLoading(false);
+
+      Utils.showFlushBarWithMessage("Alert", value.message, context);
+      if (value.status) {
+        if (selectedOption == "Alpha Delivery") {
+          print(value);
+          getCartListItem(context, couponController.text, "1", "0", "");
+        } else {
+          getCartListItem(context, couponController.text, "0", "0", "");
+        }
+        if (selectedOption == "Alpha Delivery") {
+          print(value);
+          getCartListItem(context, couponController.text, "1", "0", "");
+        } else {
+          getCartListItem(context, couponController.text, "0", "0", "");
+        }
+        getSavedListItem(context);
+      }
+
+      return true;
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(stackTrace.toString());
+      Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+      return false;
+    });
+    return false;
+  }
+
   Future<bool> applyCoupon(String data, BuildContext context) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
@@ -271,15 +305,19 @@ class CartViewModel with ChangeNotifier {
     _myRepo.applyCoupon(AppUrl.applyCoupon + data, token, data).then((value) {
       setLoading(false);
 
-      // Utils.showFlushBarWithMessage("Alert", value.message, context);
-
       if (value.status) {
-        getCartListItem(context, "", "0", "", "");
+        getCartListItem(context, data, "0", "", "");
+      } else {
+        couponController.text = "";
       }
+      Utils.showFlushBarWithMessage("Alert", value.message, context);
+
       return true;
     }).onError((error, stackTrace) {
       setLoading(false);
       print(stackTrace.toString());
+      couponController.text = "";
+
       Utils.showFlushBarWithMessage("Alert", "Invaid Coupon", context);
 
       return false;
@@ -315,7 +353,7 @@ class CartViewModel with ChangeNotifier {
     }).onError((error, stackTrace) {
       setLoading(false);
       print(stackTrace.toString());
-      Utils.showFlushBarWithMessage("Alert", "Invaid Coupon", context);
+      Utils.showFlushBarWithMessage("Alert", "Inval", context);
 
       // Utils.showFlushBarWithMessage("Alert", error.toString(), context);
       return false;

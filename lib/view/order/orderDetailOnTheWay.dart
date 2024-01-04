@@ -6,6 +6,7 @@ import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:intl/intl.dart';
 import 'package:like_button/like_button.dart';
 import 'package:order_tracker/order_tracker.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +48,16 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
     super.initState();
     detailProvider = Provider.of<OrderViewModel>(context, listen: false);
     detailProvider.getOrderDetail(context, widget.order_id);
+  }
+
+  String convertTimestampToFormattedDate(String timestamp) {
+    // Parse the timestamp string into a DateTime object
+    DateTime dateTime = DateTime.parse(timestamp);
+
+    // Format the DateTime object as "dd Month name yyyy"
+    String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
+
+    return "(" + formattedDate + " )";
   }
 
   @override
@@ -439,47 +450,140 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    "Arriving Wednesday",
-                                    style: TextStyle(
-                                        color: colors.buttonColor,
-                                        fontSize: 25),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  OrderTracker(
-                                    status: Status.order,
-                                    activeColor: Colors.orange,
-                                    inActiveColor: Colors.grey[300],
-                                    orderTitleAndDateList: orderList,
-                                    shippedTitleAndDateList: shippedList,
-                                    outOfDeliveryTitleAndDateList:
-                                        outOfDeliveryList,
-                                    deliveredTitleAndDateList: deliveredList,
-                                    headingTitleStyle: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 14),
-                                    headingDateTextStyle: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 14),
-                                    subTitleTextStyle: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 14),
-                                    subDateTextStyle: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 14),
-                                  ),
+                                  detailProvider.detail.expectedDeliveryDate ==
+                                          ""
+                                      ? Container()
+                                      : Text(
+                                          "Arriving " +
+                                              detailProvider
+                                                  .detail.expectedDeliveryDate!,
+                                          style: TextStyle(
+                                              color: colors.buttonColor,
+                                              fontSize: 25),
+                                        ),
+                                  detailProvider.detail.expectedDeliveryDate ==
+                                          ""
+                                      ? Container()
+                                      : const SizedBox(height: 20),
+                                  for (int i = 0;
+                                      i <
+                                          detailProvider
+                                              .detail.orderStatusHistory.length;
+                                      i++)
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 0),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(Icons.check_circle,
+                                                  color: detailProvider
+                                                          .detail
+                                                          .orderStatusHistory[i]
+                                                          .status!
+                                                          .toLowerCase()
+                                                          .contains("can")
+                                                      ? Colors.red
+                                                      : detailProvider
+                                                              .detail
+                                                              .orderStatusHistory[
+                                                                  i]
+                                                              .status!
+                                                              .toLowerCase()
+                                                              .contains("pend")
+                                                          ? Colors.orange
+                                                          : colors.buttonColor),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    detailProvider
+                                                        .detail
+                                                        .orderStatusHistory[i]
+                                                        .status!,
+                                                    //  "Ordered Saturday, 6 Oct",
+                                                    style: TextStyle(
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                  ),
+                                                  Text(convertTimestampToFormattedDate(
+                                                      detailProvider
+                                                          .detail
+                                                          .orderStatusHistory[i]
+                                                          .updatedAt
+                                                          .toString())),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          i ==
+                                                  detailProvider
+                                                          .detail
+                                                          .orderStatusHistory
+                                                          .length -
+                                                      1
+                                              ? Container()
+                                              : Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(horizontal: 4),
+                                                  height: 50,
+                                                  child: const VerticalDivider(
+                                                    color: Colors.grey,
+                                                    thickness: 1.2,
+                                                    indent: 2,
+                                                    endIndent: 2,
+                                                  ),
+                                                ),
+                                        ],
+                                      ),
+                                    ),
+                                  // OrderTracker(
+                                  //   status: Status.order,
+                                  //   activeColor: Colors.orange,
+                                  //   inActiveColor: Colors.grey[300],
+                                  //   orderTitleAndDateList: orderList,
+                                  //   shippedTitleAndDateList: shippedList,
+                                  //   outOfDeliveryTitleAndDateList:
+                                  //       outOfDeliveryList,
+                                  //   deliveredTitleAndDateList: deliveredList,
+                                  //   headingTitleStyle: TextStyle(
+                                  //       color: Theme.of(context).brightness ==
+                                  //               Brightness.dark
+                                  //           ? Colors.white
+                                  //           : Colors.black,
+                                  //       fontSize: 14),
+                                  //   headingDateTextStyle: TextStyle(
+                                  //       color: Theme.of(context).brightness ==
+                                  //               Brightness.dark
+                                  //           ? Colors.white
+                                  //           : Colors.black,
+                                  //       fontSize: 14),
+                                  //   subTitleTextStyle: TextStyle(
+                                  //       color: Theme.of(context).brightness ==
+                                  //               Brightness.dark
+                                  //           ? Colors.white
+                                  //           : Colors.black,
+                                  //       fontSize: 14),
+                                  //   subDateTextStyle: TextStyle(
+                                  //       color: Theme.of(context).brightness ==
+                                  //               Brightness.dark
+                                  //           ? Colors.white
+                                  //           : Colors.black,
+                                  //       fontSize: 14),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -782,7 +886,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                       ),
                     ),
               detailProvider.isLoading
-                  ? appLoader()
+                  ? Container()
                   : Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(

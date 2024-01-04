@@ -13,7 +13,7 @@ String walletHistoryToJson(WalletHistory data) => json.encode(data.toJson());
 class WalletHistory {
   int limit;
   int offset;
-  double totalWalletBalance;
+  String totalWalletBalance;
   int totalWalletTransactio;
   List<WalletTransactioList> walletTransactioList;
 
@@ -49,10 +49,10 @@ class WalletTransactioList {
   int id;
   int userId;
   String transactionId;
-  double credit;
-  int debit;
-  int adminBonus;
-  double balance;
+  String credit;
+  String debit;
+  String adminBonus;
+  String balance;
   String transactionType;
   String reference;
   String createdAt;

@@ -24,7 +24,6 @@ class _VerifyNumberState extends State<VerifyNumber> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isCheckboxChecked = false;
-  final TextEditingController mobileController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +137,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                         children: [
                           Expanded(
                             child: IntlPhoneField(
-                              controller: mobileController,
+                              controller: authViewModel.mobileController,
                               decoration: InputDecoration(
                                 labelText: translation(context).mobileNumber,
                                 border: const OutlineInputBorder(
@@ -290,7 +289,9 @@ class _VerifyNumberState extends State<VerifyNumber> {
                             text: translation(context).send,
                             fontSize: 18,
                             onClick: () {
-                              Map data = {'phone': mobileController.text};
+                              Map data = {
+                                'phone': authViewModel.mobileController.text
+                              };
                               widget.forSignUp
                                   ? isCheckboxChecked
                                       ? authViewModel.sendRegisterOtp(

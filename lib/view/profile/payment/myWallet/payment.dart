@@ -1,9 +1,11 @@
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../../../utils/color.dart';
@@ -60,7 +62,7 @@ class _PaymentState extends State<Payment> {
           paymentMethodImage: Images.cod));
     } else {}
     paymentMethods.add(PaymentMethodList(
-        paymentMethodName: 'Razor Pay', paymentMethodImage: Images.visa));
+        paymentMethodName: 'Razor Pay', paymentMethodImage: Images.razorpay));
     if (widget.isComingFor != "wallet") {
       paymentMethods.add(PaymentMethodList(
           paymentMethodName: 'Wallet', paymentMethodImage: Images.wallet));
@@ -98,6 +100,11 @@ class _PaymentState extends State<Payment> {
         "transaction_id": response.paymentId
       };
       homeProvider.addMoneyToWallet(data, context);
+    } else if (widget.isComingFor == "subscription") {
+      var uuserID = SharedPref.shared.pref!.getString(PrefKeys.userId)!;
+
+      Map data = {'plan_id': widget.data, "transaction_id": response.paymentId};
+      homeProvider.subscribeAlpha(data, context);
     } else if (selectedMethod == "Razor Pay") {
       setTransactionId(response.paymentId!);
     } else {
@@ -232,89 +239,106 @@ class _PaymentState extends State<Payment> {
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: 80,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? colors.textFieldBG
-                      : const Color.fromARGB(255, 228, 228, 228),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 15,
+                child: cartProvider.isLoading
+                    ? Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: Center(
+                            child: LoadingAnimationWidget.halfTriangleDot(
+                          color: colors.buttonColor,
+                          size: 40,
+                        )),
+                      )
+                    : Container(
+                        height: 80,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? colors.textFieldBG
+                            : const Color.fromARGB(255, 228, 228, 228),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 15,
+                            ),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                    height: 50,
+                                    width: double.infinity,
+                                    child: CommonButton(
+                                        text: "CONTINUE",
+                                        fontSize: 14,
+                                        onClick: () async {
+                                          if (widget.isComingFor == "wallet") {
+                                            openCheckout(widget.couponCode);
+                                          } else if (widget.isComingFor ==
+                                              "subscription") {
+                                            openCheckout(widget.couponCode);
+                                          } else {
+                                            if (selectedPaymentMethod != null &&
+                                                selectedMethod ==
+                                                    "Cash On Delivery") {
+                                              await cartProvider.placeOrder(
+                                                  widget.data, context);
+                                            } else if (selectedPaymentMethod !=
+                                                    null &&
+                                                selectedMethod == "Razor Pay") {
+                                              //cartProvider.model.data.total
+                                              var billingId = SharedPref
+                                                  .shared.pref!
+                                                  .getString(PrefKeys
+                                                      .billingAddressID);
+
+                                              var paymentMethod = "razorpay";
+                                              String couponCode = cartProvider
+                                                  .couponController.text;
+                                              String data =
+                                                  "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
+
+                                              var amout = cartProvider
+                                                  .model.data.total
+                                                  .replaceFirst("₹ ", "");
+                                              print(amout);
+                                              openCheckout(amout);
+                                            } else if (selectedPaymentMethod !=
+                                                    null &&
+                                                selectedMethod == "Wallet") {
+                                              if (widget.isComingFor ==
+                                                  "order") {
+                                                var billingId = SharedPref
+                                                    .shared.pref!
+                                                    .getString(PrefKeys
+                                                        .billingAddressID);
+
+                                                var paymentMethod =
+                                                    "pay_by_wallet";
+                                                String couponCode = cartProvider
+                                                    .couponController.text;
+                                                var amout = cartProvider
+                                                    .model.data.total
+                                                    .replaceFirst("₹ ", "");
+                                                String data =
+                                                    "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=1&wallet_amount=$amout&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
+
+                                                print(amout);
+                                                await cartProvider.placeOrder(
+                                                    data,
+                                                    context); // registration();
+
+                                                // openCheckout(amout);
+                                              }
+                                            } else {
+                                              Utils.showFlushBarWithMessage(
+                                                  "Alert",
+                                                  "Please select any option",
+                                                  context);
+                                            }
+                                          }
+                                        })),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                              height: 50,
-                              width: double.infinity,
-                              child: CommonButton(
-                                  text: "CONTINUE",
-                                  fontSize: 14,
-                                  onClick: () async {
-                                    if (widget.isComingFor == "wallet") {
-                                      openCheckout(widget.couponCode);
-                                    } else {
-                                      if (selectedPaymentMethod != null &&
-                                          selectedMethod ==
-                                              "Cash On Delivery") {
-                                        await cartProvider.placeOrder(
-                                            widget.data, context);
-                                      } else if (selectedPaymentMethod !=
-                                              null &&
-                                          selectedMethod == "Razor Pay") {
-                                        //cartProvider.model.data.total
-                                        var billingId = SharedPref.shared.pref!
-                                            .getString(
-                                                PrefKeys.billingAddressID);
-
-                                        var paymentMethod = "razorpay";
-                                        String couponCode =
-                                            cartProvider.couponController.text;
-                                        String data =
-                                            "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
-
-                                        var amout = cartProvider
-                                            .model.data.total
-                                            .replaceFirst("₹ ", "");
-                                        print(amout);
-                                        openCheckout(amout);
-                                      } else if (selectedPaymentMethod !=
-                                              null &&
-                                          selectedMethod == "Wallet") {
-                                        if (widget.isComingFor == "order") {
-                                          var billingId =
-                                              SharedPref.shared.pref!.getString(
-                                                  PrefKeys.billingAddressID);
-
-                                          var paymentMethod = "pay_by_wallet";
-                                          String couponCode = cartProvider
-                                              .couponController.text;
-                                          var amout = cartProvider
-                                              .model.data.total
-                                              .replaceFirst("₹ ", "");
-                                          String data =
-                                              "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=1&wallet_amount=$amout&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
-
-                                          print(amout);
-                                          await cartProvider.placeOrder(
-                                              data, context); // registration();
-
-                                          // openCheckout(amout);
-                                        }
-                                      } else {
-                                        Utils.showFlushBarWithMessage(
-                                            "Alert",
-                                            "Please select any option",
-                                            context);
-                                      }
-                                    }
-                                  })),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
               ),
             ],
           ),

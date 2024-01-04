@@ -1,13 +1,19 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/app_utils.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/productViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import '../../utils/color.dart';
 
-recommendedProductCard({required context, required List<ProductList> model}) {
+recommendedProductCard(
+    {required context,
+    required List<ProductList> model,
+    required ProductDetailViewModel provider}) {
   return Container(
     height: MediaQuery.of(context).size.height * 0.35,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -80,16 +86,21 @@ recommendedProductCard({required context, required List<ProductList> model}) {
                         ),
                       ),
                       LikeButton(
-                        // onTap: (isLiked) {
-                        //   Map data = {'product_id': card.id.toString()};
-                        //   if (isLiked) {
-                        //     return true;
-                        //     //homeProvider.removeFromWishlist(data, context);
-                        //   } else {
-                        //     return false;
-                        //     //  homeProvider.addToWishlist(data, context);
-                        //   }
-                        // },
+                        onTap: (isLiked) {
+                          var isLoggedIn = SharedPref.shared.pref
+                              ?.getString(PrefKeys.isLoggedIn);
+
+                          if (isLoggedIn == "1") {
+                            Map data = {'product_id': card.id.toString()};
+                            if (isLiked) {
+                              return provider.removeFromWishlist(data, context);
+                            } else {
+                              return provider.addToWishlist(data, context);
+                            }
+                          } else {
+                            return AppUtils.appUtilsInstance.nothing();
+                          }
+                        },
                         size: size_20,
                         isLiked: card.isFavorite,
                         circleColor: const CircleColor(
@@ -101,7 +112,7 @@ recommendedProductCard({required context, required List<ProductList> model}) {
                         likeBuilder: (bool isLiked) {
                           return Icon(
                             Icons.favorite,
-                            color: isLiked ? Colors.pink : Colors.grey,
+                            color: card.isFavorite ? Colors.pink : Colors.grey,
                             size: 20,
                           );
                         },

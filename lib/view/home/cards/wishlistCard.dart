@@ -93,7 +93,7 @@ wishlistCard(WishlistItemProduct model, BuildContext context) {
                   child: Row(
                     children: [
                       Text(
-                        model.purchasePrice,
+                        model.specialPrice,
                         style: const TextStyle(
                           color: Colors.cyan,
                           fontSize: 12,

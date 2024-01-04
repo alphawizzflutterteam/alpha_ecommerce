@@ -108,7 +108,7 @@ savedItemCard(
                   'product_id': model.id.toString(),
                 };
                 print(data);
-                await provider.addToSaveLater(data, context);
+                await provider.removeFromSaveLater(data, context);
               },
               child: Container(
                 margin:

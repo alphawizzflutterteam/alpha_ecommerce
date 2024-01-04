@@ -243,117 +243,130 @@ class _OrderState extends State<Order> {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: height * .8,
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          itemCount: orderProvider.orderList.length,
-                          itemBuilder: (context, i) {
-                            var data = orderProvider.orderList[i];
-                            return InkWell(
-                              onTap: () {
-                                print(data.orderStatus!.toLowerCase());
-                                if (data.orderStatus!.toLowerCase() ==
-                                    "canceled") {
-                                  Routes.navigateToOrderCancelledScreen(
-                                      context, data.orderId.toString());
-                                } else if (data.orderStatus!.toLowerCase() ==
-                                    "delivered") {
-                                  Routes
-                                      .navigateToOrderDetailDeliveredDetailScreen(
-                                          context, data.orderId.toString());
-                                } else {
-                                  print("here");
+                      orderProvider.isLoading
+                          ? Container()
+                          : SizedBox(
+                              height: height * .8,
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                itemCount: orderProvider.orderList.length,
+                                itemBuilder: (context, i) {
+                                  var data = orderProvider.orderList[i];
+                                  return InkWell(
+                                    onTap: () {
+                                      print(data.orderStatus!.toLowerCase());
+                                      if (data.orderStatus!.toLowerCase() ==
+                                          "canceled") {
+                                        Routes.navigateToOrderCancelledScreen(
+                                            context, data.orderId.toString());
+                                      } else if (data.orderStatus!
+                                              .toLowerCase() ==
+                                          "delivered") {
+                                        Routes
+                                            .navigateToOrderDetailDeliveredDetailScreen(
+                                                context,
+                                                data.orderId.toString());
+                                      } else {
+                                        print("here");
 
-                                  Routes.navigateToOrderOnTheWayDetailScreen(
-                                      context, data.orderId.toString());
-                                }
-                              },
-                              child: Container(
-                                height: height * 0.145,
-                                alignment: Alignment.centerLeft,
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? const Color(0x14E9E9E9)
-                                        : colors.lightBorder,
-                                    width: 2,
-                                  ),
-                                ),
-                                child: ListTile(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 8),
-                                  leading: Image.network(
-                                    data.product!.images!.first,
-                                    errorBuilder: (context, error,
-                                            stackTrace) =>
-                                        Image.asset(Images.defaultProductImg),
-                                    width: width * .18,
-                                    height: height * .08,
-                                  ),
-                                  title: Text(
-                                    data.product!.name!,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 14),
-                                  ),
-                                  subtitle: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        data.product!.shop!.name!,
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.dark
-                                                    ? colors.greyText
-                                                    : Colors.black,
-                                            fontSize: 12),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 15, vertical: 5),
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(3)),
-                                          border: Border.all(
-                                            color: const Color(0x14E9E9E9),
-                                            width: 2,
-                                          ),
-                                          color: getBackgroundColor(
-                                              data.orderStatus!),
+                                        Routes
+                                            .navigateToOrderOnTheWayDetailScreen(
+                                                context,
+                                                data.orderId.toString());
+                                      }
+                                    },
+                                    child: Container(
+                                      height: height * 0.145,
+                                      alignment: Alignment.centerLeft,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? const Color(0x14E9E9E9)
+                                              : colors.lightBorder,
+                                          width: 2,
                                         ),
-                                        child: Text(
-                                          data.orderStatus!,
+                                      ),
+                                      child: ListTile(
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                vertical: 5, horizontal: 8),
+                                        leading: Image.network(
+                                          data.product!.images!.first,
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  Image.asset(
+                                                      Images.defaultProductImg),
+                                          width: width * .18,
+                                          height: height * .08,
+                                        ),
+                                        title: Text(
+                                          data.product!.name!,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
-                                              color: getTextColor(
-                                                  data.orderStatus!),
-                                              fontSize: 10),
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: 14),
+                                        ),
+                                        subtitle: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              data.product!.shop!.name!,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? colors.greyText
+                                                      : Colors.black,
+                                                  fontSize: 12),
+                                            ),
+                                            SizedBox(height: 10),
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 15,
+                                                      vertical: 5),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(3)),
+                                                border: Border.all(
+                                                  color:
+                                                      const Color(0x14E9E9E9),
+                                                  width: 2,
+                                                ),
+                                                color: getBackgroundColor(
+                                                    data.orderStatus!),
+                                              ),
+                                              child: Text(
+                                                data.orderStatus!,
+                                                style: TextStyle(
+                                                    color: getTextColor(
+                                                        data.orderStatus!),
+                                                    fontSize: 10),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
-                      ),
+                            ),
                     ],
                   ),
                 ),

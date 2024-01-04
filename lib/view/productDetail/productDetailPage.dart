@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:like_button/like_button.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
@@ -44,6 +45,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     super.initState();
     productModel = Provider.of<ProductDetailViewModel>(context, listen: false);
     productModel.getDetails(context, "", widget.slug);
+    productModel.selectedVariationMap.clear();
+    try {
+      checkSelectedProductAndUpdateProductRate(
+          productModel.model.first.choiceOptions[0].options[0]);
+    } catch (stacktrace) {}
+  }
+
+  bool isValuePresent(List<Map<String, dynamic>> dataList, String targetValue) {
+    for (var data in dataList) {
+      for (var value in data.values) {
+        if (value == targetValue) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   @override
@@ -69,6 +86,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       }
     }
     setState(() {});
+    setState(() {});
   }
 
   @override
@@ -92,17 +110,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.transparent
                     : colors.buttonColor,
-                child: const Stack(
+                child: Stack(
                   children: [
                     ProfileHeader(),
                     InternalDetailPageHeader(
                       text: "Product Detail",
-                    )
+                    ),
                   ],
                 ),
               ),
               productModel.isLoading
-                  ? appLoader()
+                  ? Center(
+                      child: LoadingAnimationWidget.halfTriangleDot(
+                        color: colors.buttonColor,
+                        size: 40,
+                      ),
+                    )
                   : Expanded(
                       child: SingleChildScrollView(
                         child: Column(
@@ -381,7 +404,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             SizedBox(
                               height: productModel
                                       .model.first.choiceOptions.length *
-                                  (MediaQuery.of(context).size.height * .1),
+                                  90,
                               child: ListView.builder(
                                   scrollDirection: Axis.vertical,
                                   padding: EdgeInsets.zero,
@@ -415,114 +438,168 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           ),
                                           Row(
                                             children: [
-                                              SizedBox(
-                                                height: 40,
-                                                child: ListView.builder(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  padding: EdgeInsets.zero,
-                                                  shrinkWrap: true,
-                                                  physics:
-                                                      const AlwaysScrollableScrollPhysics(),
-                                                  itemCount: productModel
-                                                      .model
-                                                      .first
-                                                      .choiceOptions[i]
-                                                      .options
-                                                      .length,
-                                                  itemBuilder: (context, j) {
-                                                    return InkWell(
-                                                      onTap: () {
-                                                        productModel
-                                                                .selectedVariation =
+                                              SingleChildScrollView(
+                                                child: SizedBox(
+                                                  height: 40,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width -
+                                                      50,
+                                                  child: ListView.builder(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    padding: EdgeInsets.zero,
+                                                    shrinkWrap: true,
+                                                    physics:
+                                                        const AlwaysScrollableScrollPhysics(),
+                                                    itemCount: productModel
+                                                        .model
+                                                        .first
+                                                        .choiceOptions[i]
+                                                        .options
+                                                        .length,
+                                                    itemBuilder: (context, j) {
+                                                      return InkWell(
+                                                        onTap: () {
+                                                          Map<String, String>
+                                                              map = {
                                                             productModel
-                                                                .model
-                                                                .first
-                                                                .choiceOptions[
-                                                                    i]
-                                                                .options[j];
-                                                        checkSelectedProductAndUpdateProductRate(
-                                                            productModel
-                                                                .model
-                                                                .first
-                                                                .choiceOptions[
-                                                                    i]
-                                                                .options[j]);
-                                                      },
-                                                      child: Row(
-                                                        children: [
-                                                          Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                                    horizontal:
-                                                                        10,
-                                                                    vertical:
-                                                                        10),
-                                                            margin:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    right: 10),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Colors
-                                                                  .transparent,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
-                                                              border: Theme.of(
-                                                                              context)
-                                                                          .brightness ==
-                                                                      Brightness
-                                                                          .dark
-                                                                  ? Border.all(
-                                                                      color: productModel.selectedVariation == productModel.model.first.choiceOptions[i].options[j]
-                                                                          ? Colors
-                                                                              .white
-                                                                          : const Color(
-                                                                              0x14E9E9E9),
-                                                                      width: 2)
-                                                                  : Border.all(
-                                                                      color: productModel.selectedVariation ==
-                                                                              productModel.model.first.choiceOptions[i].options[
-                                                                                  j]
-                                                                          ? colors
-                                                                              .buttonColor
-                                                                          : colors
-                                                                              .lightBorder,
-                                                                      width: 2),
-                                                            ),
-                                                            child: InkWell(
-                                                              onTap: () {},
-                                                              child: Text(
+                                                                    .model
+                                                                    .first
+                                                                    .choiceOptions[
+                                                                        i]
+                                                                    .name:
                                                                 productModel
                                                                     .model
                                                                     .first
                                                                     .choiceOptions[
                                                                         i]
-                                                                    .options[j],
-                                                                style: TextStyle(
-                                                                    color: Theme.of(context).brightness ==
-                                                                            Brightness
-                                                                                .dark
-                                                                        ? const Color
-                                                                            .fromARGB(
-                                                                            255,
-                                                                            214,
-                                                                            208,
-                                                                            208)
-                                                                        : Colors
-                                                                            .black,
-                                                                    fontSize:
-                                                                        size_12),
+                                                                    .options[j]
+                                                          };
+
+                                                          bool isElementPresent = productModel
+                                                              .selectedVariationMap
+                                                              .where((map) => map
+                                                                  .containsKey(
+                                                                      productModel
+                                                                          .model
+                                                                          .first
+                                                                          .choiceOptions[
+                                                                              i]
+                                                                          .name))
+                                                              .isNotEmpty;
+                                                          if (isElementPresent) {
+                                                            print(
+                                                                'Element is present in the list.');
+                                                          } else {
+                                                            print(
+                                                                'Element is not present in the list.');
+                                                          }
+
+                                                          if (isElementPresent) {
+                                                            productModel
+                                                                .selectedVariationMap
+                                                                .removeWhere((element) =>
+                                                                    element.containsKey(productModel
+                                                                        .model
+                                                                        .first
+                                                                        .choiceOptions[
+                                                                            i]
+                                                                        .name));
+                                                          }
+                                                          productModel
+                                                              .selectedVariationMap
+                                                              .add(map);
+                                                          checkSelectedProductAndUpdateProductRate(
+                                                              productModel
+                                                                  .model
+                                                                  .first
+                                                                  .choiceOptions[
+                                                                      i]
+                                                                  .options[j]);
+                                                          setState(() {});
+                                                          print(productModel
+                                                              .selectedVariationMap
+                                                              .toString());
+                                                        },
+                                                        child: Row(
+                                                          children: [
+                                                            Container(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
+                                                                          10,
+                                                                      vertical:
+                                                                          10),
+                                                              margin:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      right:
+                                                                          10),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5),
+                                                                border: Theme.of(context)
+                                                                            .brightness ==
+                                                                        Brightness
+                                                                            .dark
+                                                                    ? Border.all(
+                                                                        color: isValuePresent(productModel.selectedVariationMap, productModel.model.first.choiceOptions[i].options[j])
+                                                                            // productModel
+                                                                            //     .selectedVariationMap,
+                                                                            // targetValue)
+                                                                            ? Colors.white
+                                                                            : const Color(0x14E9E9E9),
+                                                                        width: 2)
+                                                                    : Border.all(color: isValuePresent(productModel.selectedVariationMap, productModel.model.first.choiceOptions[i].options[j]) ? colors.buttonColor : colors.lightBorder, width: 2),
+                                                              ),
+                                                              child: SizedBox(
+                                                                width: productModel
+                                                                            .model
+                                                                            .first
+                                                                            .choiceOptions[i]
+                                                                            .options[j]
+                                                                            .length <
+                                                                        10
+                                                                    ? size_30
+                                                                    : size_100,
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    productModel
+                                                                        .model
+                                                                        .first
+                                                                        .choiceOptions[
+                                                                            i]
+                                                                        .options[j],
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    style: TextStyle(
+                                                                        color: Theme.of(context).brightness == Brightness.dark
+                                                                            ? const Color.fromARGB(
+                                                                                255,
+                                                                                214,
+                                                                                208,
+                                                                                208)
+                                                                            : Colors
+                                                                                .black,
+                                                                        fontSize:
+                                                                            size_12),
+                                                                  ),
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  },
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -803,7 +880,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ? Container()
                                 : recommendedProductCard(
                                     context: context,
-                                    model: productModel.relatedProducts),
+                                    model: productModel.relatedProducts,
+                                    provider: productModel),
 
                             productModel.model.first.reviews.isNotEmpty
                                 ? Padding(
@@ -834,169 +912,178 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         ),
                       ),
                     ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: MediaQuery.of(context).size.height * .08,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Color(0xFF040D12)
-                        : Colors.white,
-                    boxShadow: [
-                      BoxShadow(color: Colors.black12, blurRadius: 20)
-                    ],
-                  ),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SizedBox(
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.resolveWith((states) {
-                                  if (states.contains(MaterialState.hovered) ||
-                                      states.contains(MaterialState.pressed)) {
-                                    return colors.buttonColor;
-                                  }
-                                  return Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.transparent
-                                      : Colors.white; // Default color
-                                }),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
+              productModel.isLoading
+                  ? Container()
+                  : Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * .08,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Color(0xFF040D12)
+                              : Colors.white,
+                          boxShadow: [
+                            BoxShadow(color: Colors.black12, blurRadius: 20)
+                          ],
+                        ),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                SizedBox(
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.resolveWith(
+                                              (states) {
+                                        if (states.contains(
+                                                MaterialState.hovered) ||
+                                            states.contains(
+                                                MaterialState.pressed)) {
+                                          return colors.buttonColor;
+                                        }
+                                        return Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.transparent
+                                            : Colors.white; // Default color
+                                      }),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                      ),
+                                      side: MaterialStateProperty.all(
+                                          BorderSide(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : colors.lightBorder,
+                                              width: 1)),
+                                    ),
+                                    onPressed: () {
+                                      var isLoggedIn = SharedPref.shared.pref
+                                          ?.getString(PrefKeys.isLoggedIn);
+                                      if (isLoggedIn == "1") {
+                                        Map<String, String> data;
+                                        if (!productModel.model.first.isCart) {
+                                          data = {
+                                            'id': productModel.model.first.id
+                                                .toString(),
+                                            'quantity': "1",
+                                            'color': productModel.model.first
+                                                    .colorImage.isNotEmpty
+                                                ? "#" +
+                                                    productModel.model.first
+                                                        .colorImage[0].color
+                                                : "",
+                                          };
+                                        } else {
+                                          data = {
+                                            'key': productModel
+                                                .model.first.cart_id
+                                                .toString(),
+                                          };
+                                        }
+                                        print(data);
+                                        productModel.isCart
+                                            ? productModel.removeFromCart(
+                                                data, context, widget.slug)
+                                            : productModel.addToCart(
+                                                data, context, widget.slug);
+                                      } else {
+                                        AppUtils.appUtilsInstance
+                                            .showLoginAlertDialog(context);
+                                      }
+                                    },
+                                    child: Text(
+                                      productModel.isCart
+                                          ? 'REMOVE FROM CART'
+                                          : 'ADD TO CART',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                side: MaterialStateProperty.all(BorderSide(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white
-                                        : colors.lightBorder,
-                                    width: 1)),
-                              ),
-                              onPressed: () {
-                                var isLoggedIn = SharedPref.shared.pref
-                                    ?.getString(PrefKeys.isLoggedIn);
-                                if (isLoggedIn == "1") {
-                                  Map data;
-                                  if (!productModel.model.first.isCart) {
-                                    data = {
-                                      'id': productModel.model.first.id
-                                          .toString(),
-                                      'quantity': "1",
-                                      'color': productModel
-                                              .model.first.colorImage.isNotEmpty
-                                          ? "#" +
-                                              productModel.model.first
-                                                  .colorImage[0].color
-                                          : "",
-                                      'choice_2': productModel.model.first
-                                              .choiceOptions.isNotEmpty
-                                          ? productModel.model.first
-                                              .choiceOptions[0].options[0]
-                                          : ""
-                                    };
-                                  } else {
-                                    data = {
-                                      'key': productModel.model.first.cart_id
-                                          .toString(),
-                                    };
-                                  }
-                                  print(data);
-                                  productModel.isCart
-                                      ? productModel.removeFromCart(
-                                          data, context, widget.slug)
-                                      : productModel.addToCart(
-                                          data, context, widget.slug);
-                                } else {
-                                  AppUtils.appUtilsInstance
-                                      .showLoginAlertDialog(context);
-                                }
-                              },
-                              child: Text(
-                                productModel.isCart
-                                    ? 'REMOVE FROM CART'
-                                    : 'ADD TO CART',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.resolveWith((states) {
-                                  if (states.contains(MaterialState.hovered) ||
-                                      states.contains(MaterialState.pressed)) {
-                                    return colors.buttonColor;
-                                  }
-                                  return colors.buttonColor;
-                                }),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                              ),
-                              onPressed: () {
-                                var isLoggedIn = SharedPref.shared.pref
-                                    ?.getString(PrefKeys.isLoggedIn);
-                                if (isLoggedIn == "1") {
-                                  Map data;
-                                  if (!productModel.model.first.isCart) {
-                                    data = {
-                                      'id': productModel.model.first.id
-                                          .toString(),
-                                      'quantity': "1",
-                                      'color': productModel
-                                              .model.first.colorImage.isNotEmpty
-                                          ? "#" +
-                                              productModel.model.first
-                                                  .colorImage[0].color
-                                          : "",
-                                      'choice_2': productModel.model.first
-                                              .choiceOptions.isNotEmpty
-                                          ? productModel.model.first
-                                              .choiceOptions[0].options[0]
-                                          : ""
-                                    };
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.resolveWith(
+                                              (states) {
+                                        if (states.contains(
+                                                MaterialState.hovered) ||
+                                            states.contains(
+                                                MaterialState.pressed)) {
+                                          return colors.buttonColor;
+                                        }
+                                        return colors.buttonColor;
+                                      }),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      var isLoggedIn = SharedPref.shared.pref
+                                          ?.getString(PrefKeys.isLoggedIn);
+                                      if (isLoggedIn == "1") {
+                                        Map<String, String> data;
+                                        if (!productModel.model.first.isCart) {
+                                          data = {
+                                            'id': productModel.model.first.id
+                                                .toString(),
+                                            'quantity': "1",
+                                            'color': productModel.model.first
+                                                    .colorImage.isNotEmpty
+                                                ? "#" +
+                                                    productModel.model.first
+                                                        .colorImage[0].color
+                                                : "",
+                                            'choice_2': productModel.model.first
+                                                    .choiceOptions.isNotEmpty
+                                                ? productModel.model.first
+                                                    .choiceOptions[0].options[0]
+                                                : ""
+                                          };
 
-                                    productModel.addToCart(
-                                        data, context, widget.slug);
-                                  } else {
-                                    Routes.navigateToDashboardScreen(
-                                        context, 0);
-                                  }
-                                } else {
-                                  AppUtils.appUtilsInstance
-                                      .showLoginAlertDialog(context);
-                                }
-                              },
-                              child: const Text(
-                                'BUY NOW',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.white),
-                              ),
+                                          productModel.addToCart(
+                                              data, context, widget.slug);
+                                        } else {
+                                          Routes.navigateToDashboardScreen(
+                                              context, 0);
+                                        }
+                                      } else {
+                                        AppUtils.appUtilsInstance
+                                            .showLoginAlertDialog(context);
+                                      }
+                                    },
+                                    child: const Text(
+                                      'BUY NOW',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
