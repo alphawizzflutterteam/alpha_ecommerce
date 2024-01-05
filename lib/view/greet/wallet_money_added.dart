@@ -77,14 +77,14 @@ class _WalletSuccessState extends State<WalletSuccess> {
                   Padding(
                     padding: EdgeInsets.only(top: 10, bottom: 5),
                     child: Text(
-                      "Lorem Ipsum is simply dummy text of the",
+                      "",
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(5),
                     child: Text(
-                      "printing and typesetting industry",
+                      "",
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   )

@@ -2,7 +2,9 @@ import 'package:alpha_ecommerce_18oct/repository/couponRepository.dart';
 import 'package:alpha_ecommerce_18oct/repository/orderRepository.dart';
 import 'package:alpha_ecommerce_18oct/repository/vendorRepository.dart';
 import 'package:alpha_ecommerce_18oct/utils/appUrls.dart';
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/orderDetailModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/ordersModel.dart';
@@ -80,26 +82,40 @@ class OrderViewModel with ChangeNotifier {
   Future<void> postOrderReturnRequest(
       {required String order_id,
       required String reason,
-      required String amount}) async {
+      required String amount,
+      required BuildContext context}) async {
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
-    await _myRepo.orderReturnRequest(
-        api: AppUrl.orderReturn,
-        bearerToken: token,
-        order_id: order_id,
-        amount: amount,
-        refund_reason: reason);
+    await _myRepo
+        .orderReturnRequest(
+            api: AppUrl.orderReturn,
+            bearerToken: token,
+            order_id: order_id,
+            amount: amount,
+            refund_reason: reason)
+        .then((value) =>
+            {Utils.showFlushBarWithMessage("", value.message, context)});
   }
 
-  Future<void> getOrderCancelRequest({
-    required String order_id,
-    required String reason,
-  }) async {
+  Future<void> getOrderCancelRequest(
+      {required String order_id,
+      required String reason,
+      required BuildContext context}) async {
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
-    await _myRepo.orderCancelRequest(
-        api: AppUrl.orderReturn,
-        bearerToken: token,
-        order_id: order_id,
-        cancel_reason: reason);
+    await _myRepo
+        .orderCancelRequest(
+            api: AppUrl.orderReturn,
+            bearerToken: token,
+            order_id: order_id,
+            cancel_reason: reason)
+        .then((value) {
+      if (value.status) {
+        Navigator.pop(context);
+        Routes.navigateToOrderCancelledScreen(context, order_id);
+      } else {
+        Navigator.pop(context);
+      }
+      Utils.showFlushBarWithMessage("", value.message, context);
+    });
   }
 
 //Funcation to submit order review

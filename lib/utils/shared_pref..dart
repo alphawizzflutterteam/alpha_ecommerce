@@ -23,6 +23,20 @@ class SharedPref {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove(key);
   }
+
+  removeUserPRef() {
+    SharedPref.shared.pref?.setString(PrefKeys.mobile, "");
+    SharedPref.shared.pref?.setString(PrefKeys.email, "");
+    SharedPref.shared.pref?.setString(PrefKeys.userDetails, "");
+    SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "0");
+    SharedPref.shared.pref?.setString(PrefKeys.userId, "");
+    SharedPref.shared.pref?.setString(PrefKeys.jwtToken, "");
+    SharedPref.shared.pref?.setString(PrefKeys.otp, "");
+    // SharedPref.shared.pref?.setString(PrefKeys.selectedLanguageID, "");
+    // SharedPref.shared.pref?.setString(PrefKeys.currencyID, "");
+    SharedPref.shared.pref?.setString(PrefKeys.billingAddressID, "");
+    SharedPref.shared.pref?.setString(PrefKeys.billingAddress, "");
+  }
 }
 
 class PrefKeys {

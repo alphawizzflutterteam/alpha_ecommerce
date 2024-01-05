@@ -119,6 +119,19 @@ class AuthViewModel with ChangeNotifier {
       final String displayName = googleUser.displayName ?? "";
       final String photoUrl = googleUser.photoUrl ?? "";
 
+      print(email);
+      print(displayName);
+      print(userId);
+      print(googleUser.photoUrl);
+      print(googleAuth.accessToken);
+
+      Map data = {
+        'token': googleAuth.accessToken.toString(),
+        'unique_id': userId.toString(),
+        'email': email.toString(),
+        'medium': "google"
+      };
+      loginGooglePostMethod(context, data);
       //Get.snackbar("Success", "Welcome $displayName}");
 
       //googleAuthentication();
@@ -129,6 +142,34 @@ class AuthViewModel with ChangeNotifier {
       print('Error signing in with Google: $error');
       //  fetchChannelDetails("UCZEij3REDdWpfp3CCxy24TA");
     }
+  }
+
+  Future<void> loginGooglePostMethod(BuildContext context, dynamic data) async {
+    setLoading(true);
+
+    _myRepo.loginApiReqzuest(AppUrl.socialLogin, data).then((value) async {
+      setLoading(false);
+
+      if (value.message == "User login success") {
+        SharedPref.shared.pref?.setString(PrefKeys.jwtToken, value.token);
+
+        await getProfileAPI(data, context);
+        SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "1");
+
+        Routes.navigateToDashboardScreen(context, 2);
+      } else if (value.message == "User Registered success") {
+        SharedPref.shared.pref?.setString(PrefKeys.jwtToken, value.token);
+        await getProfileAPI(data, context);
+        SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "1");
+
+        Routes.navigateToDashboardScreen(context, 2);
+      }
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(error.toString());
+      print(stackTrace.toString());
+      Utils.showFlushBarWithMessage("Alert", stackTrace.toString(), context);
+    });
   }
 
   // void loginFB() async {
@@ -169,7 +210,12 @@ class AuthViewModel with ChangeNotifier {
       if (isLoggingViaPhone) {
         _myRepo.loginApiReqzuest(AppUrl.sendLoginOtp, data).then((value) {
           setLoading(false);
-
+          if (mobileController.text.length < 10 ||
+              mobileController.text.isEmpty) {
+            Utils.showFlushBarWithMessage(
+                "Alert", "Invalid Mobile number", context);
+            return;
+          }
           if (value.message == "OTP sent success") {
             Utils.showFlushBarWithMessage(
                 "Alert", "OTP sent successfully.", context);
@@ -258,6 +304,11 @@ class AuthViewModel with ChangeNotifier {
     _myRepo.loginApiReqzuest(AppUrl.sendLoginOtp, data).then((value) {
       setLoading(false);
 
+      if (mobileController.text.length < 10 || mobileController.text.isEmpty) {
+        Utils.showFlushBarWithMessage(
+            "Alert", "Invalid Mobile number", context);
+        return;
+      }
       if (value.message == "OTP sent success") {
         Utils.showFlushBarWithMessage(
             "Alert", "OTP sent successfully.", context);

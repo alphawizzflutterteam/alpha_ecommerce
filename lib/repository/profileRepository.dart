@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:http_parser/http_parser.dart';
 
 import 'package:alpha_ecommerce_18oct/view/home/models/successModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/privacyPolicyModel.dart';
@@ -121,5 +124,47 @@ class ProfileRepository {
     print(res.body);
 
     return successModel2FromJson(res.body);
+  }
+
+  Future<Map<String, dynamic>> multipartRequest(
+    String api,
+    File userImage,
+    MediaType mediaType,
+  ) async {
+    final url = Uri.parse(api);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+
+    print(
+        "========================================================================================================");
+    print(
+        "-------------------------------------------- URL --------------------------------------------");
+    print("$url");
+    print(
+        "-------------------------------------------- PARAMETERS --------------------------------------------");
+    print("${userImage.path.split('/').last}");
+
+    final length = await userImage.length();
+
+    final request = http.MultipartRequest(
+      "POST",
+      url,
+    );
+    request.headers.addAll({
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    }); // request.headers["apipassword"] = APIs.apipassword;
+    // request.headers["Content-type"] = "multipart/form-data";
+    // request.headers["uid"] = userid.toString();
+    // request.headers["scode"] = sCode.toString();
+
+    request.files.add(http.MultipartFile(
+        'image', userImage.readAsBytes().asStream(), length,
+        filename: userImage.path.split('/').last, contentType: mediaType));
+
+    final streamRes = await request.send();
+    final res = await http.Response.fromStream(streamRes);
+    final Map<String, dynamic> json = await jsonDecode(res.body);
+
+    print(res.body);
+    return json;
   }
 }

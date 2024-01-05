@@ -289,7 +289,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Delivery free",
+                                    "Delivery fee",
                                     style: TextStyle(
                                         color: colors.greyText, fontSize: 12),
                                   ),

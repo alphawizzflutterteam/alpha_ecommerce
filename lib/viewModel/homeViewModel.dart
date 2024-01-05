@@ -67,6 +67,7 @@ class HomeViewModel with ChangeNotifier {
 
       setLoading(false);
     }).onError((error, stackTrace) {
+      brandsModel.clear();
       setLoading(false);
     });
   }
@@ -80,6 +81,7 @@ class HomeViewModel with ChangeNotifier {
 
       setLoading(false);
     }).onError((error, stackTrace) {
+      specialOffersModel.clear();
       setLoading(false);
     });
   }
@@ -91,6 +93,7 @@ class HomeViewModel with ChangeNotifier {
       dailyDealsModel = value.data;
       setLoading(false);
     }).onError((error, stackTrace) {
+      dailyDealsModel.clear();
       setLoading(false);
     });
   }
@@ -125,6 +128,7 @@ class HomeViewModel with ChangeNotifier {
       print(categoriesModel.length.toString());
       setLoading(false);
     }).onError((error, stackTrace) {
+      categoriesModel.clear();
       print("heree " + error.toString());
       setLoading(false);
     });
@@ -140,6 +144,7 @@ class HomeViewModel with ChangeNotifier {
       setLoading(false);
     }).onError((error, stackTrace) {
       setLoading(false);
+      categoriesModel.clear();
       print(error.toString());
     });
   }
@@ -157,6 +162,7 @@ class HomeViewModel with ChangeNotifier {
       setLoading(false);
     }).onError((error, stackTrace) {
       setLoading(false);
+      wishlistModel.clear();
       print(error.toString() + "wishlilist");
       print(stackTrace.toString() + "wishlilist");
     });
@@ -176,6 +182,7 @@ class HomeViewModel with ChangeNotifier {
     }).onError((error, stackTrace) {
       setLoading(false);
       print(errorMessage);
+      cartModel.clear();
       print(error.toString() + "cart error");
       print(stackTrace.toString() + "cart error");
     });
@@ -195,6 +202,9 @@ class HomeViewModel with ChangeNotifier {
       setLoading(false);
     }).onError((error, stackTrace) {
       setLoading(false);
+      bannersListTop.clear();
+      imageList.clear();
+
       print(error.toString());
     });
   }

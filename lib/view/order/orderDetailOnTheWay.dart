@@ -244,7 +244,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         const Text(
-                                          "Delivery free",
+                                          "Delivery fee",
                                           style: TextStyle(
                                               color: colors.greyText,
                                               fontSize: 12),
@@ -747,7 +747,8 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                             detailProvider
                                                 .RecommendedProducts[index]
                                                 .name,
-                                            maxLines: 2,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
                                               color: Theme.of(context)
                                                           .brightness ==

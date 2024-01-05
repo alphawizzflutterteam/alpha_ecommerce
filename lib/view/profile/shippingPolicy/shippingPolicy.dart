@@ -35,48 +35,55 @@ class _ShippingPolicyState extends State<ShippingPolicy> {
         resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
         extendBody: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.transparent
+            : Colors.white,
         body: Column(
           children: [
-            Stack(
-              children: [
-                const ProfileHeader(),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 35),
-                    height: 100,
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: InkWell(
-                                onTap: () {
-                                  Routes.navigateToPreviousScreen(context);
-                                },
-                                child: const Icon(Icons.arrow_back_ios)),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.1),
-                              child: const Text(
-                                "Shipping & Delivery",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+            Container(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.transparent
+                  : colors.buttonColor,
+              child: Stack(
+                children: [
+                  const ProfileHeader(),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 35),
+                      height: 100,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: InkWell(
+                                  onTap: () {
+                                    Routes.navigateToPreviousScreen(context);
+                                  },
+                                  child: const Icon(Icons.arrow_back_ios)),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    right: MediaQuery.of(context).size.width *
+                                        0.1),
+                                child: const Text(
+                                  "Shipping & Delivery",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -87,7 +94,9 @@ class _ShippingPolicyState extends State<ShippingPolicy> {
                         .shippingDeliveryPolicy!.content,
                     style: {
                       'p': Style(
-                        color: Colors.white,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
                         fontSize: FontSize(14),
                       )
                     },

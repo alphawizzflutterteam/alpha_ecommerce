@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -28,53 +29,86 @@ class _TermAndConditionState extends State<TermAndCondition> {
 
   @override
   Widget build(BuildContext context) {
+    profileModelProvider = Provider.of<ProfileViewModel>(context);
+
     return Stack(children: [
       const LightBackGround(),
       Scaffold(
         resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
         extendBody: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.transparent
+            : Colors.white,
         body: Column(
           children: [
-            Stack(
-              children: [
-                const ProfileHeader(),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 35),
-                    height: 110,
-                    child: const Center(
-                      child: Text(
-                        "Term & Condition",
-                        style: TextStyle(
-                            color: colors.textColor,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
+            Container(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.transparent
+                  : colors.buttonColor,
+              child: Stack(
+                children: [
+                  const ProfileHeader(),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 35),
+                      height: 100,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: InkWell(
+                                  onTap: () {
+                                    Routes.navigateToPreviousScreen(context);
+                                  },
+                                  child: const Icon(Icons.arrow_back_ios)),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    right: MediaQuery.of(context).size.width *
+                                        0.1),
+                                child: const Text(
+                                  "Terms & Condition",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Html(
-                    data: profileModelProvider
-                        .privacyPolicyData.data!.termsConditions,
-                    style: {
-                      'p': Style(
-                        color: Colors.white,
-                        fontSize: FontSize(14),
-                      )
-                    },
-                  ),
-                ),
+                ],
               ),
             ),
+            profileModelProvider.isLoading
+                ? Container()
+                : Expanded(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Html(
+                          data: profileModelProvider
+                              .privacyPolicyData.data!.termsConditions,
+                          style: {
+                            'p': Style(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: FontSize(14),
+                            )
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
           ],
         ),
       )

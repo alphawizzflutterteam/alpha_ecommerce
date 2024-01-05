@@ -63,7 +63,7 @@ class ProductList {
   String taxAmount;
   double discount;
   String discountType;
-  int currentStock;
+  dynamic currentStock;
   int minimumOrderQty;
   int freeShipping;
   String createdAt;

@@ -19,8 +19,8 @@ productQualityCard(TopDealsModel modelBanners, BuildContext context) {
             width: 2,
           ),
           SizedBox(
-              width: MediaQuery.of(context).size.width * .2,
-              height: 25,
+              width: MediaQuery.of(context).size.width * .15,
+              height: 30,
               child: Text(
                 modelBanners.data!.frameOne!.label1!,
                 maxLines: 2,
@@ -42,8 +42,8 @@ productQualityCard(TopDealsModel modelBanners, BuildContext context) {
             width: 2,
           ),
           SizedBox(
-              width: MediaQuery.of(context).size.width * .2,
-              height: 25,
+              width: MediaQuery.of(context).size.width * .15,
+              height: 30,
               child: Text(
                 modelBanners.data!.frameOne!.label2!,
                 style:
@@ -63,8 +63,8 @@ productQualityCard(TopDealsModel modelBanners, BuildContext context) {
             width: 2,
           ),
           SizedBox(
-              width: MediaQuery.of(context).size.width * .2,
-              height: 25,
+              width: MediaQuery.of(context).size.width * .15,
+              height: 30,
               child: Text(
                 modelBanners.data!.frameOne!.label3!,
                 style:

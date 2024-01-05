@@ -137,6 +137,7 @@ Future<void> logOut(context) async {
                       SharedPref.shared.pref
                           ?.setString(PrefKeys.isLoggedIn, "0");
                       SharedPref.shared.pref?.setString(PrefKeys.jwtToken, "");
+                      SharedPref.shared.removeUserPRef();
 
                       Routes.navigateToSignInScreen(context);
                     },

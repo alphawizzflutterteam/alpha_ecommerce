@@ -68,7 +68,7 @@ cartCard(
                               context, model.slug);
                         },
                         child: SizedBox(
-                          width: 200,
+                          width: MediaQuery.of(context).size.width - 220,
                           child: Text(
                             model.name,
                             maxLines: 1,

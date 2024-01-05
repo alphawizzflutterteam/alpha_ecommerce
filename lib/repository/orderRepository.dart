@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:alpha_ecommerce_18oct/view/home/models/successModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/orderDetailModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/ordersModel.dart';
 import 'package:http/http.dart' as http;
@@ -41,7 +42,7 @@ class OrderRepository {
   }
 
 //Function for order return request
-  Future<void> orderReturnRequest(
+  Future<SuccessModel> orderReturnRequest(
       {required String api,
       required String bearerToken,
       required String order_id,
@@ -60,10 +61,13 @@ class OrderRepository {
     });
     print(api);
     print(res.body);
+    var asn = await json.decode(res.body);
+
+    return SuccessModel.fromJson(asn);
   }
 
 //Function for order canccel request
-  Future<void> orderCancelRequest(
+  Future<SuccessModel> orderCancelRequest(
       {required String api,
       required String bearerToken,
       required String order_id,
@@ -79,10 +83,13 @@ class OrderRepository {
     });
     print(api);
     print(res.body);
+    var asn = await json.decode(res.body);
+
+    return SuccessModel.fromJson(asn);
   }
 
 //Function for order review
-  Future<void> orderReviewRequest({
+  Future<SuccessModel> orderReviewRequest({
     required String api,
     required String bearerToken,
     required String order_id,
@@ -102,5 +109,7 @@ class OrderRepository {
     });
     print(api);
     var ans = jsonDecode(res.body);
+
+    return SuccessModel.fromJson(ans);
   }
 }

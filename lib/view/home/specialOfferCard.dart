@@ -41,14 +41,14 @@ specialOfferCard(SpecialOffersList model, BuildContext context,
             ],
           ),
           const SizedBox(
-            height: size_10,
+            height: size_8,
           ),
           SizedBox(
-              height: 28,
-              width: MediaQuery.of(context).size.width * 0.26,
+              height: 30,
+              width: MediaQuery.of(context).size.width * 0.27,
               child: CommonButton(
                   text: "Shop now",
-                  fontSize: 12,
+                  fontSize: size_10,
                   whitePrimary: true,
                   onClick: () {})),
         ],

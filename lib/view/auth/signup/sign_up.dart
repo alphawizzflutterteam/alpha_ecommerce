@@ -5,6 +5,7 @@ import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/images.dart';
@@ -274,11 +275,11 @@ class _SignUPState extends State<SignUP> {
                                     suffixIcon: GestureDetector(
                                       onTap: () {
                                         setState(() {
-                                          obscureText = !obscureText;
+                                          obscureText2 = !obscureText2;
                                         });
                                       },
                                       child: Icon(
-                                        obscureText
+                                        obscureText2
                                             ? Icons.visibility_off
                                             : Icons.visibility,
                                         color: Theme.of(context).brightness ==
@@ -370,13 +371,16 @@ class _SignUPState extends State<SignUP> {
                   ),
                 ),
                 authViewModel.isLoading
-                    ? Align(
-                        child: appLoader(),
-                      )
-                    : Container(),
-                authViewModel.isLoading
-                    ? Align(
-                        child: appLoader(),
+                    ? Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: Align(
+                          child: Center(
+                            child: LoadingAnimationWidget.halfTriangleDot(
+                              color: colors.buttonColor,
+                              size: 40,
+                            ),
+                          ),
+                        ),
                       )
                     : Align(
                         alignment: Alignment.bottomCenter,

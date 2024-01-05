@@ -1,13 +1,17 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
-import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/textfield_validation.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../widget_common/commonBackground.dart';
@@ -36,7 +40,7 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController pinCodeController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String selectedGender = 'Male'; // Default selected gender
-
+  late ProfileModel user;
   // List of gender options
   List<String> genderOptions = ['Male', 'Female', 'Other'];
   void assignTextFields(Datum user) {
@@ -58,9 +62,83 @@ class _EditProfileState extends State<EditProfile> {
     var model =
         jsonDecode(SharedPref.shared.pref!.getString(PrefKeys.userDetails)!);
 
-    ProfileModel user = ProfileModel.fromJson(model);
+    user = ProfileModel.fromJson(model);
 
     assignTextFields(user.data[0]);
+  }
+
+  Future<void> _pickImage(ImageSource source) async {
+    try {
+      final pickedFile = await ImagePicker().pickImage(source: source);
+
+      if (pickedFile != null) {
+        setState(() {
+          profileProvider.selecteddUserImage = File(pickedFile.path);
+          profileProvider.uploadFile(context);
+        });
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+    }
+  }
+
+  void _showImagePickerOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          color: Theme.of(context).brightness != Brightness.dark
+              ? Colors.white
+              : colors.overlayBG,
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Icon(
+                  Icons.photo_library,
+                  color: Theme.of(context).brightness != Brightness.dark
+                      ? colors.darkBG
+                      : Colors.white,
+                ),
+                title: Text(
+                  'Choose from Gallery',
+                  style: TextStyle(
+                    color: Theme.of(context).brightness != Brightness.dark
+                        ? colors.darkBG
+                        : Colors.white,
+                  ),
+                ),
+                onTap: () {
+                  _pickImage(ImageSource.gallery);
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.camera_alt,
+                  color: Theme.of(context).brightness != Brightness.dark
+                      ? colors.darkBG
+                      : Colors.white,
+                ),
+                title: Text(
+                  'Take a Picture',
+                  style: TextStyle(
+                    color: Theme.of(context).brightness != Brightness.dark
+                        ? colors.darkBG
+                        : Colors.white,
+                  ),
+                ),
+                onTap: () {
+                  _pickImage(ImageSource.camera);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -73,188 +151,409 @@ class _EditProfileState extends State<EditProfile> {
         Scaffold(
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              Stack(
-                children: const [
-                  ProfileHeader(),
-                  InternalPageHeader(text: "Edit Profile"),
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: Stack(
+                  children: const [
+                    ProfileHeader(),
+                    InternalPageHeader(text: "Edit Profile"),
+                  ],
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: SizedBox(
-                          width: 130,
-                          height: 130,
-                          child: ClipOval(
-                            child: Image.asset(
-                              Images.human,
-                              fit: BoxFit.cover,
+                  child: InkWell(
+                    onTap: () {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Stack(children: [
+                            Center(
+                              child: Container(
+                                width: 100.0, // Set your desired width
+                                height: 100.0, // Set your desired height
+                                child: ClipOval(
+                                  child: CachedNetworkImage(
+                                    imageUrl: user.data.first.image,
+                                    fit: BoxFit.cover,
+                                    errorWidget: (context, url, error) =>
+                                        ClipOval(
+                                      child: Image.asset(
+                                        Images.defaultProfile,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ]),
+                        ),
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              width: size_150,
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    //   profileProvider.pickFile(context);
+                                    _showImagePickerOptions(context);
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Icon(
+                                        Icons.edit,
+                                      ),
+                                      Text("Edit Image")
+                                    ],
+                                  )),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: size_10),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                        decoration: BoxDecoration(
-                          color: colors.textFieldBG,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          controller: nameController,
-                          decoration: commonInputDecoration(
-                            labelText: 'Full Name',
+                        SizedBox(height: size_10),
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                          decoration: BoxDecoration(
+                            color: colors.textFieldBG,
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                          style: const TextStyle(color: colors.textColor),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                        decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          controller: emailController,
-                          decoration: commonInputDecoration(
-                            labelText: 'Email',
+                          child: TextFormField(
+                            keyboardType: TextInputType.text,
+                            controller: nameController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textFieldBG
+                                  : Colors.white,
+                              labelText: translation(context).fullname,
+                              labelStyle: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.labelColor
+                                    : colors.textFieldBG,
+                                fontSize: 14,
+                              ),
+                              hintStyle: const TextStyle(
+                                color: colors.labelColor,
+                              ),
+                            ),
+                            // decoration: commonInputDecoration(
+                            //   labelText: translation(context).fullname,
+                            // ),
+                            style: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textColor
+                                    : Colors.black),
                           ),
-                          style: const TextStyle(color: colors.textColor),
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          controller: mobileController,
-                          decoration: commonInputDecoration(
-                            labelText: 'Phone',
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                          decoration: BoxDecoration(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                          style: const TextStyle(color: colors.textColor),
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: colors.textFieldBG, //
-                          border: Border.all(
-                            // Set the border color and width
-                            color: colors
-                                .white10, // Replace with your desired border color
-                            width:
-                                2.0, // Replace with your desired border width
+                          child: TextFormField(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            validator: validateEmail,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textFieldBG
+                                  : Colors.white,
+                              labelText: translation(context).email,
+                              labelStyle: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.labelColor
+                                    : colors.textFieldBG,
+                                fontSize: 14,
+                              ),
+                              hintStyle: const TextStyle(
+                                color: colors.labelColor,
+                              ),
+                            ),
+                            // decoration: commonInputDecoration(
+                            //   labelText: translation(context).fullname,
+                            // ),
+                            style: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textColor
+                                    : Colors.black),
                           ),
-                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 12.0, right: 12),
-                          child: DropdownButton<String>(
-                            underline: Container(),
-                            isExpanded: true,
-                            value: selectedGender,
-                            dropdownColor: colors.darkBG,
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedGender = newValue!;
-                              });
-                            },
-                            items: genderOptions
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Text(
-                                    value,
-                                    style: const TextStyle(
-                                        color: colors.textColor),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? colors.textFieldBG
+                                : Colors
+                                    .white, // Change this color to your desired background color
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: TextFormField(
+                            keyboardType: TextInputType.phone,
+                            controller: mobileController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textFieldBG
+                                  : Colors.white,
+                              labelText: "Phone",
+                              labelStyle: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.labelColor
+                                    : colors.textFieldBG,
+                                fontSize: 14,
+                              ),
+                              hintStyle: const TextStyle(
+                                color: colors.labelColor,
+                              ),
+                            ),
+                            style: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textColor
+                                    : Colors.black),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
+                            border: Border.all(
+                              // Set the border color and width
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.white10
+                                  : colors
+                                      .greyText, // Replace with your desired border color
+                              width:
+                                  2.0, // Replace with your desired border width
+                            ),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(left: 12.0, right: 12),
+                            child: DropdownButton<String>(
+                              underline: Container(),
+                              isExpanded: true,
+                              value: selectedGender,
+                              dropdownColor: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.darkBG
+                                  : Colors.white,
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  selectedGender = newValue!;
+                                });
+                              },
+                              items: genderOptions
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? colors.textColor
+                                              : Colors.black),
+                                    ),
                                   ),
-                                ),
-                              );
-                            }).toList(),
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          controller: countryController,
-                          decoration: commonInputDecoration(
-                            labelText: 'Country',
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: colors
+                                .textFieldBG, // Change this color to your desired background color
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                          style: const TextStyle(color: colors.textColor),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          controller: stateController,
-                          decoration: commonInputDecoration(
-                            labelText: 'State',
+                          child: TextFormField(
+                            controller: countryController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textFieldBG
+                                  : Colors.white,
+                              labelText: 'Country',
+                              labelStyle: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.labelColor
+                                    : colors.textFieldBG,
+                                fontSize: 14,
+                              ),
+                              hintStyle: const TextStyle(
+                                color: colors.labelColor,
+                              ),
+                            ),
+                            // decoration: commonInputDecoration(
+                            //   labelText: translation(context).fullname,
+                            // ),
+                            style: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textColor
+                                    : Colors.black),
                           ),
-                          style: const TextStyle(color: colors.textColor),
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          controller: cityController,
-                          decoration: commonInputDecoration(
-                            labelText: 'City',
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: colors
+                                .textFieldBG, // Change this color to your desired background color
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                          style: const TextStyle(color: colors.textColor),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          keyboardType: TextInputType.phone,
-                          controller: pinCodeController,
-                          decoration: commonInputDecoration(
-                            labelText: 'Pincode',
+                          child: TextFormField(
+                            controller: stateController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textFieldBG
+                                  : Colors.white,
+                              labelText: 'State',
+                              labelStyle: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.labelColor
+                                    : colors.textFieldBG,
+                                fontSize: 14,
+                              ),
+                              hintStyle: const TextStyle(
+                                color: colors.labelColor,
+                              ),
+                            ),
+                            // decoration: commonInputDecoration(
+                            //   labelText: translation(context).fullname,
+                            // ),
+                            style: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textColor
+                                    : Colors.black),
                           ),
-                          style: const TextStyle(color: colors.textColor),
                         ),
-                      ),
-                    ],
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: colors
+                                .textFieldBG, // Change this color to your desired background color
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: TextFormField(
+                            controller: cityController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textFieldBG
+                                  : Colors.white,
+                              labelText: 'City',
+                              labelStyle: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.labelColor
+                                    : colors.textFieldBG,
+                                fontSize: 14,
+                              ),
+                              hintStyle: const TextStyle(
+                                color: colors.labelColor,
+                              ),
+                            ),
+                            // decoration: commonInputDecoration(
+                            //   labelText: translation(context).fullname,
+                            // ),
+                            style: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textColor
+                                    : Colors.black),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: colors
+                                .textFieldBG, // Change this color to your desired background color
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: TextFormField(
+                            keyboardType: TextInputType.phone,
+                            controller: pinCodeController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textFieldBG
+                                  : Colors.white,
+                              labelText: 'Pincode',
+                              labelStyle: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.labelColor
+                                    : colors.textFieldBG,
+                                fontSize: 14,
+                              ),
+                              hintStyle: const TextStyle(
+                                color: colors.labelColor,
+                              ),
+                            ),
+                            // decoration: commonInputDecoration(
+                            //   labelText: translation(context).fullname,
+                            // ),
+                            style: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textColor
+                                    : Colors.black),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -262,7 +561,9 @@ class _EditProfileState extends State<EditProfile> {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   height: 80,
-                  color: colors.textFieldBG,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? colors.textFieldBG
+                      : Color.fromARGB(255, 245, 245, 245),
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -279,7 +580,6 @@ class _EditProfileState extends State<EditProfile> {
                                 Map data = {
                                   "f_name": nameController.text,
                                   "phone": mobileController.text,
-                                  "image": "",
                                   "password": "",
                                   "gender": selectedGender,
                                   "country": countryController.text,

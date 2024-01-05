@@ -64,30 +64,26 @@ class _WelcomeState extends State<Welcome> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(vertical: 5),
+                  //   child: Text(
+                  //     "Welcome's you",
+                  //     style: TextStyle(
+                  //         color: Colors.white,
+                  //         fontSize: 20,
+                  //         fontWeight: FontWeight.bold),
+                  //   ),
+                  // ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                    child: Text(
-                      "Welcome's you",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                    child: Center(
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        "Unlock Your World: Seamless Access to Orders,Wishlists, and Tailored Recommendations Wishlists, and Tailored Recommendations",
+                        style: TextStyle(color: Colors.white, fontSize: 17),
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                    child: Text(
-                      "Unlock Your World: Seamless Access to Orders,",
-                      style: TextStyle(color: Colors.white, fontSize: 17),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                    child: Text(
-                      " Wishlists, and Tailored Recommendations Wishlists, and Tailored Recommendations",
-                      style: TextStyle(color: Colors.white, fontSize: 17),
-                    ),
-                  )
                 ],
               ),
             ),

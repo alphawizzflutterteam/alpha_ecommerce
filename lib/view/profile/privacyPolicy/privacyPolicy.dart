@@ -37,66 +37,78 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
         resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
         extendBody: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.transparent
+            : Colors.white,
         body: Column(
           children: [
-            Stack(
-              children: [
-                const ProfileHeader(),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 35),
-                    height: 100,
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: InkWell(
-                                onTap: () {
-                                  Routes.navigateToPreviousScreen(context);
-                                },
-                                child: const Icon(Icons.arrow_back_ios)),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.1),
-                              child: const Text(
-                                "Privacy Policy",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+            Container(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.transparent
+                  : colors.buttonColor,
+              child: Stack(
+                children: [
+                  const ProfileHeader(),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 35),
+                      height: 100,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: InkWell(
+                                  onTap: () {
+                                    Routes.navigateToPreviousScreen(context);
+                                  },
+                                  child: const Icon(Icons.arrow_back_ios)),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    right: MediaQuery.of(context).size.width *
+                                        0.1),
+                                child: const Text(
+                                  "Privacy Policy",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Html(
-                    data: profileModelProvider
-                        .privacyPolicyData.data!.privacyPolicy,
-                    style: {
-                      'p': Style(
-                        color: Colors.white,
-                        fontSize: FontSize(14),
-                      )
-                    },
-                  ),
-                ),
+                ],
               ),
             ),
+            profileModelProvider.isLoading
+                ? Container()
+                : Expanded(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Html(
+                          data: profileModelProvider
+                              .privacyPolicyData.data!.privacyPolicy,
+                          style: {
+                            'p': Style(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: FontSize(14),
+                            )
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
           ],
         ),
       )

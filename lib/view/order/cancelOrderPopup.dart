@@ -125,10 +125,9 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
                   ),
                   onPressed: () async {
                     await pInstance.getOrderCancelRequest(
-                        order_id: widget.order_id, reason: widget.reason);
-                    Navigator.pop(context);
-                    Routes.navigateToOrderCancelledScreen(
-                        context, widget.order_id);
+                        order_id: widget.order_id,
+                        reason: widget.reason,
+                        context: context);
                   },
                   child: const Text(
                     'CANCEL ORDER',

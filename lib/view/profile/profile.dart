@@ -9,6 +9,7 @@ import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/logOut/logOut.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../utils/color.dart';
@@ -29,6 +30,7 @@ class _ProfileState extends State<Profile> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken) ?? "";
   var name = "";
+  var image = "";
   var loyaltyPoint = "";
   var walletBalance = "";
   bool iisSubscribed = false;
@@ -45,6 +47,7 @@ class _ProfileState extends State<Profile> {
 
     ProfileModel user = ProfileModel.fromJson(model);
     name = user.data[0].fName;
+    image = user.data[0].image;
     loyaltyPoint = user.data[0].loyaltyPoint;
     walletBalance = user.data[0].walletBalance.toString();
     iisSubscribed = user.data[0].isSubscribed == 0 ? false : true;
@@ -165,18 +168,21 @@ class _ProfileState extends State<Profile> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * .11,
-                                  width:
-                                      MediaQuery.of(context).size.height * .11,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                        image:
-                                            AssetImage(Images.defaultProfile),
+                                  width: 100.0, // Set your desired width
+                                  height: 100.0, // Set your desired height
+                                  child: ClipOval(
+                                    child: CachedNetworkImage(
+                                      imageUrl: image,
+                                      fit: BoxFit.cover,
+                                      errorWidget: (context, url, error) =>
+                                          ClipOval(
+                                        child: Image.asset(
+                                          Images.defaultProfile,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                      border: Border.all(
-                                          color: Colors.white, width: 2)),
+                                    ),
+                                  ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 10),

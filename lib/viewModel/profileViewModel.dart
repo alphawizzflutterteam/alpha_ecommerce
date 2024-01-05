@@ -1,4 +1,6 @@
 import 'dart:ffi';
+import 'dart:io';
+import 'package:http_parser/http_parser.dart';
 
 import 'package:alpha_ecommerce_18oct/repository/profileRepository.dart';
 import 'package:alpha_ecommerce_18oct/utils/appUrls.dart';
@@ -12,6 +14,7 @@ import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/model/t
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myWallet/model/walletModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/refund/model/refundHistoryModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,10 +29,44 @@ class ProfileViewModel with ChangeNotifier {
   List<WalletTransactioList> walletHistory = [];
   List<ReferralData> referralList = [];
   List<SubscriptionData> subscriptionList = [];
+  File? selecteddUserImage;
 
   setLoading(bool value) {
     isLoading = value;
     notifyListeners();
+  }
+
+  Future<void> pickFile(BuildContext context) async {
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.image);
+
+    if (result != null) {
+      selecteddUserImage = File(result.files.single.path!);
+      var res = await _myRepo.multipartRequest(
+          AppUrl.updateImage, selecteddUserImage!, MediaType('image', 'jpeg'));
+      print(res["status"]);
+      if (res['status'] == true) {
+        HomeViewModel homeProvider =
+            Provider.of<HomeViewModel>(context, listen: false);
+
+        Routes.navigateToPreviousScreen(context);
+        await homeProvider.getProfileAPI({}, context);
+      }
+    } else {
+      Utils.showFlushBarWithMessage("", "Something went wrong", context);
+    }
+  }
+
+  Future<void> uploadFile(BuildContext context) async {
+    var res = await _myRepo.multipartRequest(
+        AppUrl.updateImage, selecteddUserImage!, MediaType('image', 'jpeg'));
+    print(res["status"]);
+    if (res['status'] == true) {
+      HomeViewModel homeProvider =
+          Provider.of<HomeViewModel>(context, listen: false);
+      await homeProvider.getProfileAPI({}, context);
+      Routes.navigateToPreviousScreen(context);
+    }
   }
 
   Future<void> updateProfile(BuildContext context, dynamic data) async {
@@ -68,7 +105,8 @@ class ProfileViewModel with ChangeNotifier {
         .getPrivacyPolicyDataRequest(api: AppUrl.privacyPolicyData)
         .then((value) {
       privacyPolicyData = value;
-      print(privacyPolicyData.data!.privacyPolicy);
+      print(privacyPolicyData.data!.privacyPolicy.toString() +
+          'Privacy poolicyy');
       setLoading(false);
       notifyListeners();
     }).onError((error, stackTrace) {

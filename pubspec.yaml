@@ -52,6 +52,7 @@ dependencies:
   another_flushbar: ^1.12.30
   http: ^1.1.0
   google_sign_in: ^5.2.1
+  file_picker: ^6.1.1
   permission_handler: ^9.1.0
   #speech_to_text: ^5.1.0
   loading_animation_widget: ^1.2.0+4
@@ -66,6 +67,7 @@ dependencies:
   firebase_core: ^2.24.2
   firebase_messaging: ^14.6.4
   razorpay_flutter: ^1.1.1
+  image_picker: ^1.0.6
 
   flutter_localizations:
     sdk: flutter

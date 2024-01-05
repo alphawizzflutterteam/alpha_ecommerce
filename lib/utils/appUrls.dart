@@ -5,6 +5,7 @@ class AppUrl {
 
   static const baseURL = "https://alpha-ecom.developmentalphawizz.com/api/v1/";
   static String sendLoginOtp = "${baseURL}auth/send-login-otp";
+  static String socialLogin = "${baseURL}auth/social-login";
   static String sendRegisterOtp = "${baseURL}auth/send-otp";
   static String loginWithEmailPassword = "${baseURL}auth/login";
   static String register = "${baseURL}auth/register";
@@ -19,6 +20,8 @@ class AppUrl {
 
   static const String languages = "${baseURL}languages";
   static const String currencies = "${baseURL}currencies";
+
+  static const String updateImage = "${baseURL}customer/update-profile-image";
 
   static const String brands = "${baseURL}brands";
   static const String specialOffers = "${baseURL}offers/special-offers";

@@ -25,9 +25,9 @@ class _IntroSliderState extends State<IntroSlider> {
   }
 
   List<String> list = [
-    'Discover New Local Product',
-    'Discover New Local Product',
-    'Enjoy Wide Range of Products'
+    'Welcome to Alpha E-commerce: Your ultimate shopping destination for all things stylish and affordable!',
+    'Explore endless possibilities with Alpha E-commerce: Where convenience meets quality shopping experiences.',
+    'Start your journey with Alpha E-commerce: Where every purchase brings you closer to satisfaction and style'
   ];
   List<String> imageList = [
     Images.onBoarding1,
@@ -129,40 +129,41 @@ class _IntroSliderState extends State<IntroSlider> {
                     ),
                     const SizedBox(height: 50),
                     Align(
-                      alignment: Alignment.centerLeft,
+                      alignment: Alignment.center,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        width: MediaQuery.of(context).size.width * 0.7,
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        width: MediaQuery.of(context).size.width * 1,
                         child: Text(
                           item,
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 20,
                               color: Theme.of(context).brightness ==
                                       Brightness.dark
                                   ? colors.textColor
                                   : Colors.black,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        width: MediaQuery.of(context).size.width * 0.75,
-                        child: Text(
-                          'Lorem Ipsum is simply dummy text of the printing and typesetting',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? colors.textColor
-                                    : Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Align(
+                    //   alignment: Alignment.centerLeft,
+                    //   child: Container(
+                    //     padding: const EdgeInsets.symmetric(horizontal: 20),
+                    //     width: MediaQuery.of(context).size.width * 0.75,
+                    //     child: Text(
+                    //       'Lorem Ipsum is simply dummy text of the printing and typesetting',
+                    //       style: TextStyle(
+                    //         fontSize: 14,
+                    //         color:
+                    //             Theme.of(context).brightness == Brightness.dark
+                    //                 ? colors.textColor
+                    //                 : Colors.black,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               );

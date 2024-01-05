@@ -884,8 +884,8 @@ class ShippingAddress {
     required this.isBilling,
   });
 
-  final int? id;
-  final int? customerId;
+  final String? id;
+  final String? customerId;
   final String? contactPersonName;
   final String? addressType;
   final String? address;
@@ -900,7 +900,7 @@ class ShippingAddress {
   final String? country;
   final String? latitude;
   final String? longitude;
-  final int? isBilling;
+  final String? isBilling;
 
   factory ShippingAddress.fromJson(Map<String, dynamic> json) {
     return ShippingAddress(

@@ -21,7 +21,7 @@ class Utils {
       borderRadius: const BorderRadius.all(Radius.circular(8)),
       positionOffset: 20,
       message: msg,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 2),
     ).show(context);
   }
 }

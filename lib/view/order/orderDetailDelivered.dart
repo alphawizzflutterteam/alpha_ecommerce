@@ -189,7 +189,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "Delivery free",
+                                          "Delivery fee",
                                           style: TextStyle(
                                               color: colors.greyText,
                                               fontSize: 12),
