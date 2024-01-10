@@ -24,7 +24,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
     super.initState();
     profileModelProvider =
         Provider.of<ProfileViewModel>(context, listen: false);
-    profileModelProvider.getTransactionHistoryData();
+    profileModelProvider.getTransactionHistoryData(context);
   }
 
   @override

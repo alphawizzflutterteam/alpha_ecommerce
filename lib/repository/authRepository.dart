@@ -1,4 +1,3 @@
-import 'package:alpha_ecommerce_18oct/view/home/models/successModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/responseModel/loginOtpResponseModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/responseModel/resetPasswordResponseModel.dart';

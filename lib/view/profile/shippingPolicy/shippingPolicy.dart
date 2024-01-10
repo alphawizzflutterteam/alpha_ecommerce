@@ -24,7 +24,7 @@ class _ShippingPolicyState extends State<ShippingPolicy> {
     super.initState();
     profileModelProvider =
         Provider.of<ProfileViewModel>(context, listen: false);
-    profileModelProvider.getPrivacyPolicyData();
+    profileModelProvider.getPrivacyPolicyData(context);
   }
 
   @override
@@ -59,6 +59,8 @@ class _ShippingPolicyState extends State<ShippingPolicy> {
                             Padding(
                               padding: const EdgeInsets.only(left: 20),
                               child: InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
                                   onTap: () {
                                     Routes.navigateToPreviousScreen(context);
                                   },
@@ -98,7 +100,13 @@ class _ShippingPolicyState extends State<ShippingPolicy> {
                             ? Colors.white
                             : Colors.black,
                         fontSize: FontSize(14),
-                      )
+                      ),
+                      'li': Style(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: FontSize(14),
+                      ),
                     },
                   ),
                 ),

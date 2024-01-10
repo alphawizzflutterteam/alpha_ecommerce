@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 dailyDealCard(DailyDealsModelList model, BuildContext context,
     SearchViewModel searchProvider) {
   return InkWell(
+    highlightColor: Colors.transparent,
+    splashColor: Colors.transparent,
     onTap: (() {
       searchProvider.clearFilters();
       searchProvider.offerId = model.id.toString();

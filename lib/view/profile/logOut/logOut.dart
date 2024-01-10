@@ -20,7 +20,7 @@ Future<void> logOut(context) async {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20)),
         ),
-        height: MediaQuery.of(context).size.height * .3,
+        height: MediaQuery.of(context).size.height * .35,
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

@@ -39,7 +39,9 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
-        color: colors.overlayBG,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? colors.overlayBG
+            : Colors.white,
       ),
       height: MediaQuery.of(context).size.height * 0.45,
       width: MediaQuery.of(context).size.width,
@@ -55,22 +57,31 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.06,
                 ),
-                const Expanded(
+                Expanded(
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
                       "Write Review",
-                      style: TextStyle(color: colors.textColor, fontSize: 20),
+                      style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textColor
+                              : Colors.black,
+                          fontSize: 20),
                     ),
                   ),
                 ),
                 InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     Routes.navigateToPreviousScreen(context);
                   },
-                  child: const Icon(
+                  child: Icon(
                     Icons.close,
                     size: 30,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
                   ),
                 )
               ],
@@ -78,10 +89,12 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
             const SizedBox(
               height: 20,
             ),
-            const Text(
+            Text(
               'Review',
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? colors.textColor
+                    : Colors.black,
               ),
             ),
             const SizedBox(
@@ -123,10 +136,16 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
                   return null;
               },
               maxLines: 3,
-              style: const TextStyle(color: colors.textColor, fontSize: 12),
+              style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? colors.textColor
+                      : Colors.black,
+                  fontSize: 12),
               decoration: InputDecoration(
                 filled: true,
-                fillColor: colors.textFieldBG,
+                fillColor: Theme.of(context).brightness == Brightness.dark
+                    ? colors.textFieldBG
+                    : Colors.white,
                 hintText: "Write here...",
                 hintStyle:
                     const TextStyle(color: colors.lightTextColor, fontSize: 12),
@@ -192,7 +211,8 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
                           order_id: widget.order_id,
                           comment: reviewCtrl.text,
                           rating: rating.toString(),
-                          product_id: widget.product_id);
+                          product_id: widget.product_id,
+                          context: context);
                     }
                     Routes.navigateToPreviousScreen(context);
                     // Routes.navigateToOrderCancelledScreen(

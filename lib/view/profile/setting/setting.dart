@@ -109,6 +109,8 @@ class _SettingState extends State<Setting> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20),
                                   child: InkWell(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
                                     onTap: () {
                                       settings[i].nextNavigation
                                           ? Navigator.push(

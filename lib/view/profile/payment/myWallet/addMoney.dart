@@ -34,6 +34,8 @@ class _AddMoneyState extends State<AddMoney> {
               ? Colors.transparent
               : Colors.white,
           body: InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onTap: () {
               FocusManager.instance.primaryFocus?.unfocus();
             },
@@ -120,6 +122,11 @@ class _AddMoneyState extends State<AddMoney> {
                                 ),
                               ),
                             ),
+                            style: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black),
                             //    commonInputDecoration(
                             //       labelText: 'Amount', context: context),
                             //   style: const TextStyle(color: colors.textColor),
@@ -146,7 +153,7 @@ class _AddMoneyState extends State<AddMoney> {
                           children: [
                             SizedBox(
                                 height: 50,
-                                width: 250,
+                                width: double.infinity,
                                 child: CommonButton(
                                     text: "CONTINUE",
                                     fontSize: 14,

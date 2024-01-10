@@ -1,5 +1,8 @@
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../widget_common/commonBackground.dart';
 import '../../widget_common/common_button.dart';
@@ -27,54 +30,65 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
+
     return Stack(children: [
       const LightBackGround(),
       Scaffold(
         resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
         extendBody: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.transparent
+            : Colors.white,
         body: Column(
           children: [
-            Stack(
-              children: [
-                const ProfileHeader(),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 35),
-                    height: 100,
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: InkWell(
-                                onTap: () {
-                                  Routes.navigateToPreviousScreen(context);
-                                },
-                                child: const Icon(Icons.arrow_back_ios)),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.05),
-                              child: const Text(
-                                "Change Password",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+            Container(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.transparent
+                  : colors.buttonColor,
+              child: Stack(
+                children: [
+                  const ProfileHeader(),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 35),
+                      height: 100,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  onTap: () {
+                                    Routes.navigateToPreviousScreen(context);
+                                  },
+                                  child: const Icon(Icons.arrow_back_ios)),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    right: MediaQuery.of(context).size.width *
+                                        0.05),
+                                child: const Text(
+                                  "Change Password",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -96,7 +110,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                               validator: validatePassword,
                               decoration: InputDecoration(
                                 filled: true,
-                                fillColor: colors.textFieldBG,
+                                fillColor: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                                 labelText: 'Old Password',
                                 suffixIcon: GestureDetector(
                                   onTap: () {
@@ -149,7 +166,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   ),
                                 ),
                               ),
-                              style: const TextStyle(color: colors.textColor),
+                              style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                             ),
                           ),
                           Padding(
@@ -161,7 +182,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                               validator: validatePassword,
                               decoration: InputDecoration(
                                 filled: true,
-                                fillColor: colors.textFieldBG,
+                                fillColor: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                                 labelText: 'New Password',
                                 suffixIcon: GestureDetector(
                                   onTap: () {
@@ -214,7 +238,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   ),
                                 ),
                               ),
-                              style: const TextStyle(color: colors.textColor),
+                              style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                             ),
                           ),
                           Padding(
@@ -226,7 +254,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                               validator: validatePassword,
                               decoration: InputDecoration(
                                 filled: true,
-                                fillColor: colors.textFieldBG,
+                                fillColor: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                                 labelText: 'Confirm Password',
                                 suffixIcon: GestureDetector(
                                   onTap: () {
@@ -279,7 +310,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   ),
                                 ),
                               ),
-                              style: const TextStyle(color: colors.textColor),
+                              style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                             ),
                           ),
                         ],
@@ -293,7 +328,9 @@ class _ChangePasswordState extends State<ChangePassword> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: 80,
-                color: colors.textFieldBG,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? colors.textFieldBG
+                    : Color.fromARGB(255, 245, 245, 245),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -308,7 +345,34 @@ class _ChangePasswordState extends State<ChangePassword> {
                                 fontSize: 18,
                                 onClick: () {
                                   if (_formKey.currentState!.validate()) {
-                                    Routes.navigateToPreviousScreen(context);
+                                    if (authViewModel.matchPassword(
+                                        passwordController.text,
+                                        confirmPasswordController.text)) {
+                                      if (authViewModel.matchPassword(
+                                          oldPasswordController.text,
+                                          passwordController.text)) {
+                                        Utils.showFlushBarWithMessage(
+                                            "",
+                                            "Old annd new password should not be same.",
+                                            context);
+                                      } else {
+                                        Map data = {
+                                          'old_password':
+                                              oldPasswordController.text,
+                                          'password': passwordController.text,
+                                          "confirm_password":
+                                              confirmPasswordController.text
+                                        };
+
+                                        authViewModel.uupdatePasswordApi(
+                                            data, context);
+                                      }
+                                    } else {
+                                      Utils.showFlushBarWithMessage(
+                                          "",
+                                          "Password and confirm password should not be same.",
+                                          context);
+                                    }
                                   }
                                 })),
                       ],

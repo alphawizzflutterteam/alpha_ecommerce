@@ -181,14 +181,14 @@ class _ChatState extends State<Chat> {
                 child: Container(
                   decoration: BoxDecoration(
                       color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
+                          ? Colors.black
                           : Color.fromARGB(255, 229, 229, 229),
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   // margin:
                   //     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   padding: const EdgeInsets.only(
                       left: 20, bottom: 20, top: 10, right: 20),
-                  height: 700,
+                  height: 75,
                   width: double.infinity,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -212,11 +212,24 @@ class _ChatState extends State<Chat> {
                         child: TextField(
                           controller: txtMessage,
                           decoration: InputDecoration(
+                            // fillColor:
+                            //     Theme.of(context).brightness == Brightness.dark
+                            //         ? Colors.white
+                            //         : Colors.white,
                             hintText: "Type message",
-                            hintStyle: TextStyle(color: Colors.black),
+                            hintStyle: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black),
                             contentPadding: EdgeInsets.all(8.0),
                             border: InputBorder.none,
                           ),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black),
                           textAlign: TextAlign.start,
                         ),
                       ),

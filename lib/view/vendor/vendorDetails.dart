@@ -1,10 +1,15 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/categoryModel.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/model/vendorModel.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/vendorDetailCard.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/vendorViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../utils/color.dart';
@@ -144,13 +149,16 @@ class _VendorDetailsState extends State<VendorDetails> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    widget.model.image,
-                                    width: 48,
-                                    height: 48,
-                                  ),
-                                ),
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: CachedNetworkImage(
+                                      imageUrl: widget.model.image,
+                                      fit: BoxFit.cover,
+                                      errorWidget: (context, url, error) {
+                                        return ErrorImageWidget();
+                                      },
+                                      width: size_60,
+                                      height: size_60,
+                                    )),
                                 VerticalDivider(color: Colors.transparent),
                                 Text(
                                   widget.model.name,
@@ -171,7 +179,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                       text: !categoryProvider.isFollowing
                                           ? "Follow"
                                           : "Unfollow",
-                                      fontSize: 14,
+                                      fontSize: Platform.isAndroid ? 12 : 14,
                                       onClick: () {
                                         Map data = {
                                           'shop_id': widget.model.id.toString()

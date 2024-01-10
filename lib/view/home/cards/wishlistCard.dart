@@ -13,6 +13,8 @@ wishlistCard(WishlistItemProduct model, BuildContext context) {
     child: Column(
       children: [
         InkWell(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
           onTap: () {
             Routes.navigateToProductDetailPageScreen(context, model.slug);
           },

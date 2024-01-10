@@ -1,6 +1,7 @@
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/routes.dart';
@@ -27,6 +28,17 @@ class _ManageAddressState extends State<ManageAddress> {
     addressProvider = Provider.of<AddressViewModel>(context, listen: false);
     addressProvider.getAddressList(context);
     addressProvider.setText();
+
+    addressProvider.alternateMobileController.text = "";
+    addressProvider.houseController.text = "";
+    addressProvider.roadController.text = "";
+    addressProvider.countryController.text = "";
+    addressProvider.stateController.text = "";
+    addressProvider.cityController.text = "";
+    addressProvider.pinCodeController.text = "";
+    selectedOption = "";
+    addressProvider.latitude = "";
+    addressProvider.longitude = "";
   }
 
   @override
@@ -243,55 +255,123 @@ class _ManageAddressState extends State<ManageAddress> {
                       Container(
                         margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                         decoration: BoxDecoration(
-                          // color: Theme.of(context).brightness == Brightness.dark
-                          //   ? Colors.white
-                          //   : Colors.black,
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
+                          // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
                           controller: addressProvider.nameController,
-                          decoration: commonInputDecoration(
+                          maxLength: 50,
+
+                          keyboardType: TextInputType.text,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(r'\d+')),
+                          ],
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'Name',
+                            labelStyle: const TextStyle(
+                              color: colors.labelColor,
+                              fontSize: 14,
+                            ),
+                            hintStyle: const TextStyle(
+                              color: colors.labelColor,
+                            ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textColor
+                                  : Colors.black),
                         ),
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
+                          // color: colors
+                          //     .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
-                          keyboardType: TextInputType.phone,
+                          keyboardType:
+                              TextInputType.numberWithOptions(signed: true),
                           maxLength: 10,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'\d+')),
+                          ],
                           controller: addressProvider.mobileController,
-                          decoration: commonInputDecoration(
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'Mobile Number',
+                            labelStyle: const TextStyle(
+                              color: colors.labelColor,
+                              fontSize: 14,
+                            ),
+                            hintStyle: const TextStyle(
+                              color: colors.labelColor,
+                            ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textColor
+                                  : Colors.black),
                         ),
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
+                          // color: colors
+                          //     .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
+                          keyboardType:
+                              TextInputType.numberWithOptions(signed: true),
                           maxLength: 10,
-                          keyboardType: TextInputType.phone,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'\d+')),
+                          ],
                           controller: addressProvider.alternateMobileController,
-                          decoration: commonInputDecoration(
+
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'Alternate Mobile Number',
+                            labelStyle: const TextStyle(
+                              color: colors.labelColor,
+                              fontSize: 14,
+                            ),
+                            hintStyle: const TextStyle(
+                              color: colors.labelColor,
+                            ),
                           ),
-                          style: const TextStyle(color: colors.greyText),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textColor
+                                  : Colors.black),
                         ),
                       ),
                       Container(
@@ -304,26 +384,65 @@ class _ManageAddressState extends State<ManageAddress> {
                         ),
                         child: TextFormField(
                           controller: addressProvider.houseController,
-                          decoration: commonInputDecoration(
+
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'House no, Building Name',
+                            labelStyle: const TextStyle(
+                              color: colors.labelColor,
+                              fontSize: 14,
+                            ),
+                            hintStyle: const TextStyle(
+                              color: colors.labelColor,
+                            ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textColor
+                                  : Colors.black),
                         ),
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
+                          // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
                           controller: addressProvider.roadController,
-                          decoration: commonInputDecoration(
+
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'Road name, Area Colony',
+                            labelStyle: const TextStyle(
+                              color: colors.labelColor,
+                              fontSize: 14,
+                            ),
+                            hintStyle: const TextStyle(
+                              color: colors.labelColor,
+                            ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textColor
+                                  : Colors.black),
                         ),
                       ),
                       Container(
@@ -336,10 +455,32 @@ class _ManageAddressState extends State<ManageAddress> {
                         ),
                         child: TextFormField(
                           controller: addressProvider.countryController,
-                          decoration: commonInputDecoration(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(r'\d+')),
+                          ],
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'Country',
+                            labelStyle: const TextStyle(
+                              color: colors.labelColor,
+                              fontSize: 14,
+                            ),
+                            hintStyle: const TextStyle(
+                              color: colors.labelColor,
+                            ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textColor
+                                  : Colors.black),
                         ),
                       ),
                       Container(
@@ -352,10 +493,32 @@ class _ManageAddressState extends State<ManageAddress> {
                         ),
                         child: TextFormField(
                           controller: addressProvider.stateController,
-                          decoration: commonInputDecoration(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(r'\d+')),
+                          ],
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'State',
+                            labelStyle: const TextStyle(
+                              color: colors.labelColor,
+                              fontSize: 14,
+                            ),
+                            hintStyle: const TextStyle(
+                              color: colors.labelColor,
+                            ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textColor
+                                  : Colors.black),
                         ),
                       ),
                       Container(
@@ -368,26 +531,71 @@ class _ManageAddressState extends State<ManageAddress> {
                         ),
                         child: TextFormField(
                           controller: addressProvider.cityController,
-                          decoration: commonInputDecoration(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(r'\d+')),
+                          ],
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'City',
+                            labelStyle: const TextStyle(
+                              color: colors.labelColor,
+                              fontSize: 14,
+                            ),
+                            hintStyle: const TextStyle(
+                              color: colors.labelColor,
+                            ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textColor
+                                  : Colors.black),
                         ),
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors.textFieldBG,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
-                          keyboardType: TextInputType.number,
+                          maxLength: 6,
+                          keyboardType:
+                              TextInputType.numberWithOptions(signed: true),
                           controller: addressProvider.pinCodeController,
-                          decoration: commonInputDecoration(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'\d+')),
+                          ],
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'Pincode',
+                            labelStyle: const TextStyle(
+                              color: colors.labelColor,
+                              fontSize: 14,
+                            ),
+                            hintStyle: const TextStyle(
+                              color: colors.labelColor,
+                            ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textColor
+                                  : Colors.black),
                         ),
                       ),
                     ],
@@ -395,6 +603,8 @@ class _ManageAddressState extends State<ManageAddress> {
                 ),
               ),
               InkWell(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {
                   Map data = {
                     "contact_person_name": addressProvider.nameController.text,
@@ -418,7 +628,9 @@ class _ManageAddressState extends State<ManageAddress> {
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     height: 80,
-                    color: colors.textFieldBG,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? colors.textFieldBG
+                        : Colors.white,
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(

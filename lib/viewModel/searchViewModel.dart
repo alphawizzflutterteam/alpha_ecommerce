@@ -6,13 +6,16 @@ import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/filtersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/networkViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SearchViewModel with ChangeNotifier {
   bool isLoading = false;
   bool get loading => isLoading;
   TextEditingController minPriceController = TextEditingController();
   TextEditingController maxPriceController = TextEditingController();
+  String selectedType = "";
 
 //limit:25
 // offset:1
@@ -73,21 +76,31 @@ class SearchViewModel with ChangeNotifier {
       BuildContext context, String limit, String offset, String name) async {
     setLoading(true);
     var userID = SharedPref.shared.pref!.getString(PrefKeys.userId) ?? "";
-    await _myRepo
-        .productsListApi(
-            "${AppUrl.searchList}name=$name&limit=$limit&offset=$offset")
-        .then((value) {
-      print(
-          "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID");
-      searchResults = value.products;
-      notifyListeners();
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
 
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
       setLoading(false);
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      searchResults.clear();
-      print(error.toString() + "Product error");
-    });
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .productsListApi(
+              "${AppUrl.searchList}name=$name&limit=$limit&offset=$offset")
+          .then((value) {
+        print(
+            "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID");
+        searchResults = value.products;
+        notifyListeners();
+
+        setLoading(false);
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        searchResults.clear();
+        print(error.toString() + "Product error");
+      });
+    }
   }
 
   Future<void> getProductsListNew(
@@ -97,22 +110,32 @@ class SearchViewModel with ChangeNotifier {
 
     minPrice = minPriceController.text;
     maxPrice = maxPriceController.text;
-    await _myRepo
-        .productsListApi(
-            "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID&category_id=$categoryId&sub_category_id=$subCategoryId&vendor_id=$vendorId&brand_id=$brandId&offer_id=$offerId&offer_percentage=$offerPercentage&color=$color&sort_by=$sortBy&order_by=$orderBy&is_home=$isHome&search_text=${searchController.text}&min_price=$minPrice&max_price=$maxPrice&review_filter=$reviewFilter")
-        .then((value) {
-      print(
-          "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID&category_id=$categoryId&sub_category_id=$subCategoryId&vendor_id=$vendorId&brand_id=$brandId&offer_id=$offerId&offer_percentage=$offerPercentage&color=$color&sort_by=$sortBy&order_by=$orderBy&is_home=$isHome&search_text=${searchController.text}");
-      searchResults = value.products;
-      print(searchResults.length.toString() + "Products length");
-      notifyListeners();
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
 
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
       setLoading(false);
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      searchResults.clear();
 
-      print("${stackTrace} Product error new ");
-    });
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .productsListApi(
+              "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID&category_id=$categoryId&sub_category_id=$subCategoryId&vendor_id=$vendorId&brand_id=$brandId&offer_id=$offerId&offer_percentage=$offerPercentage&color=$color&sort_by=$sortBy&order_by=$orderBy&is_home=$isHome&search_text=${searchController.text}&min_price=$minPrice&max_price=$maxPrice&review_filter=$reviewFilter")
+          .then((value) {
+        print(
+            "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID&category_id=$categoryId&sub_category_id=$subCategoryId&vendor_id=$vendorId&brand_id=$brandId&offer_id=$offerId&offer_percentage=$offerPercentage&color=$color&sort_by=$sortBy&order_by=$orderBy&is_home=$isHome&search_text=${searchController.text}");
+        searchResults = value.products;
+        print(searchResults.length.toString() + "Products length");
+        notifyListeners();
+
+        setLoading(false);
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        searchResults.clear();
+
+        print("${stackTrace} Product error new ");
+      });
+    }
   }
 }

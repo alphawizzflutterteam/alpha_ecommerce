@@ -50,6 +50,8 @@ class _VerifyNumberState extends State<VerifyNumber> {
               ? CommonBackgroundAuthWidget()
               : Container(),
           InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onTap: () {
               FocusManager.instance.primaryFocus?.unfocus();
             },
@@ -67,6 +69,8 @@ class _VerifyNumberState extends State<VerifyNumber> {
                         Padding(
                           padding: const EdgeInsets.only(left: 20),
                           child: InkWell(
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent,
                               onTap: () {
                                 Routes.navigateToPreviousScreen(context);
                               },
@@ -105,15 +109,20 @@ class _VerifyNumberState extends State<VerifyNumber> {
                   height: MediaQuery.of(context).size.height * .15,
                 ),
                 Theme.of(context).brightness == Brightness.dark
-                    ? Image.asset(
-                        Images.logoWithoutText,
-                        height: 90,
-                        width: 120,
+                    ? Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: Image.asset(
+                          Images.logoWithoutText,
+                          height: MediaQuery.of(context).size.height * 0.1,
+                          // width: 120,
+                        ),
                       )
-                    : Image.asset(
-                        "assets/images/loogo_black.png",
-                        height: 90,
-                        width: 120,
+                    : Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: Image.asset(
+                          "assets/images/loogo_black.png",
+                          height: MediaQuery.of(context).size.height * 0.1,
+                        ),
                       ),
                 Padding(
                   padding:
@@ -193,7 +202,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                 style: TextStyle(
                                   color: Theme.of(context).brightness ==
                                           Brightness.dark
-                                      ? colors.textColor
+                                      ? Colors.white
                                       : Colors.black,
                                 ),
                                 initialCountryCode: 'IN',
@@ -248,6 +257,8 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                     child: Row(
                                       children: [
                                         InkWell(
+                                          highlightColor: Colors.transparent,
+                                          splashColor: Colors.transparent,
                                           onTap: () {
                                             Routes
                                                 .navigateToTermsConditionScreen(
@@ -268,6 +279,8 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                               color: colors.lightTextColor),
                                         ),
                                         InkWell(
+                                          highlightColor: Colors.transparent,
+                                          splashColor: Colors.transparent,
                                           onTap: () {
                                             Routes
                                                 .navigateToPrivacyPolicyScreen(
@@ -337,6 +350,8 @@ class _VerifyNumberState extends State<VerifyNumber> {
                         ),
                       ),
                       InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
                         onTap: () {
                           widget.forSignUp
                               ? Routes.navigateToSignInScreen(context)

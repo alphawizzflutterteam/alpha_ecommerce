@@ -40,6 +40,8 @@ class DashboardHeader extends StatelessWidget {
               child: Row(
                 children: [
                   InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
                       onTap: () {
                         Routes.navigateToSearchScreen(context);
                       },
@@ -52,6 +54,8 @@ class DashboardHeader extends StatelessWidget {
                     width: 12,
                   ),
                   InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
                       onTap: () {
                         Routes.navigateToNotificationScreen(context);
                       },
@@ -89,6 +93,8 @@ class InternalPageHeader extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       Routes.navigateToPreviousScreen(context);
                     },
@@ -128,6 +134,8 @@ class InternalDetailPageHeader extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
               child: InkWell(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {
                   Routes.navigateToPreviousScreen(context);
                 },
@@ -154,6 +162,8 @@ class InternalDetailPageHeader extends StatelessWidget {
                 child: Row(
                   children: [
                     InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
                       onTap: () {
                         Routes.navigateToSearchScreen(context);
                       },
@@ -167,6 +177,8 @@ class InternalDetailPageHeader extends StatelessWidget {
                       width: 5,
                     ),
                     InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
                       onTap: () {
                         Routes.navigateToBottomNavScreen(
                             context, 0); // const BottomNavPage(index: 0);

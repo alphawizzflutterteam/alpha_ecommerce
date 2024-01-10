@@ -41,7 +41,7 @@ class _SubscribeState extends State<Subscribe> {
     showHeader = widget.signUp ?? false;
     subscriptionProvider =
         Provider.of<ProfileViewModel>(context, listen: false);
-    subscriptionProvider.getSubscriptionData();
+    subscriptionProvider.getSubscriptionData(context);
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -69,6 +69,8 @@ class _SubscribeState extends State<Subscribe> {
                             padding: const EdgeInsets.only(top: 40, right: 20),
                             alignment: Alignment.centerRight,
                             child: InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
                                 onTap: () {
                                   Routes.navigateToDashboardScreen(context, 2);
                                 },
@@ -681,6 +683,8 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                                         width: 3,
 //                                     //                                       ),
 //                                     //                                       InkWell(
+                      // highlightColor: Colors.transparent,
+                      // splashColor: Colors.transparent,
 //                                     //                                         onTap: () {
 //                                     //                                           Routes.navigateToCurrentPlanScreen(
 //                                     //                                               context);

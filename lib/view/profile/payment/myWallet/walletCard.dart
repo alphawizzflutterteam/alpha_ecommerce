@@ -23,6 +23,8 @@ walletCart(
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 0),
             child: InkWell(
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               onTap: () {},
               child: SizedBox(
                 height: 120,

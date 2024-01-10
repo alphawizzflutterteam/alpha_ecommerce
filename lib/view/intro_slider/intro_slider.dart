@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/languageViewModel.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -136,8 +139,11 @@ class _IntroSliderState extends State<IntroSlider> {
                         child: Text(
                           item,
                           textAlign: TextAlign.center,
+                          textScaler: Platform.isAndroid
+                              ? TextScaler.linear(0.8)
+                              : TextScaler.linear(1),
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: size_20,
                               color: Theme.of(context).brightness ==
                                       Brightness.dark
                                   ? colors.textColor
@@ -212,6 +218,8 @@ class _IntroSliderState extends State<IntroSlider> {
 
   Widget skipAndStartButton() {
     return InkWell(
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {
         if (currentIndex.value == 2) {
           //Routes.navigateToLanguageScreen(context);

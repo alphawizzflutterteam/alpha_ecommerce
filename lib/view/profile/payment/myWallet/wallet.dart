@@ -28,7 +28,7 @@ class _WalletState extends State<Wallet> {
   void initState() {
     super.initState();
     provider = Provider.of<ProfileViewModel>(context, listen: false);
-    provider.getWalletHistory();
+    provider.getWalletHistory(context);
   }
 
   @override

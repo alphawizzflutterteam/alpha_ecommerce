@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/constant.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
@@ -6,6 +8,7 @@ import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/images.dart';
@@ -24,8 +27,6 @@ class _SignInState extends State<SignIn> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool obscureText = true;
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController mobileOrEmailController = TextEditingController();
 
   void showPasswordRequirementsDialog(BuildContext context) {
     showDialog(
@@ -106,6 +107,36 @@ class _SignInState extends State<SignIn> {
     final authViewModel = Provider.of<AuthViewModel>(context);
     return Scaffold(
       key: _scaffoldKey,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 30),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(translation(context).dontHaveanaccount,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? colors.lightTextColor
+                      : colors.greyText,
+                )),
+            InkWell(
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              onTap: () {
+                Routes.navigateToVerifyNumberScreen(context, true);
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: Text(translation(context).signUp,
+                    style: const TextStyle(
+                        fontSize: 14,
+                        color: colors.buttonColor,
+                        decoration: TextDecoration.underline)),
+              ),
+            ),
+          ],
+        ),
+      ),
       extendBody: true,
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).brightness == Brightness.dark
@@ -129,18 +160,23 @@ class _SignInState extends State<SignIn> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: size_100,
+                  height: size_50,
                 ),
                 Theme.of(context).brightness == Brightness.dark
-                    ? Image.asset(
-                        Images.logoWithoutText,
-                        height: 90,
-                        width: 120,
+                    ? Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: Image.asset(
+                          Images.logoWithoutText,
+                          height: MediaQuery.of(context).size.height * 0.1,
+                          // width: 120,
+                        ),
                       )
-                    : Image.asset(
-                        "assets/images/loogo_black.png",
-                        height: 90,
-                        width: 120,
+                    : Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: Image.asset(
+                          "assets/images/loogo_black.png",
+                          height: MediaQuery.of(context).size.height * 0.1,
+                        ),
                       ),
                 Padding(
                   padding:
@@ -151,7 +187,7 @@ class _SignInState extends State<SignIn> {
                         color: Theme.of(context).brightness == Brightness.dark
                             ? colors.textColor
                             : Colors.black,
-                        fontSize: 25,
+                        fontSize: size_24,
                         fontWeight: FontWeight.w700),
                   ),
                 ),
@@ -159,11 +195,14 @@ class _SignInState extends State<SignIn> {
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Text(
                     signIn2,
+                    textScaler: Platform.isAndroid
+                        ? TextScaler.linear(0.8)
+                        : TextScaler.linear(1),
                     style: TextStyle(
                         color: Theme.of(context).brightness == Brightness.dark
                             ? colors.textColor
                             : Colors.black,
-                        fontSize: 15,
+                        fontSize: size_14,
                         fontWeight: FontWeight.w400),
                   ),
                 ),
@@ -172,11 +211,13 @@ class _SignInState extends State<SignIn> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
                       onTap: () {
                         authViewModel.setLoggingViaPhone(true);
                         FocusManager.instance.primaryFocus?.unfocus();
-                        mobileOrEmailController.text = "";
-                        passwordController.text = "";
+                        authViewModel.mobileOrEmailController.text = "";
+                        authViewModel.passwordController.text = "";
                       },
                       child: Container(
                         padding: const EdgeInsets.all(12.0),
@@ -202,10 +243,13 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                     InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
                       onTap: () {
                         authViewModel.setLoggingViaPhone(false);
                         FocusManager.instance.primaryFocus?.unfocus();
-                        mobileOrEmailController.text = "";
+                        authViewModel.mobileOrEmailController.text = "";
+                        authViewModel.passwordController.text = "";
                       },
                       child: Container(
                         padding: const EdgeInsets.all(12.0),
@@ -242,13 +286,21 @@ class _SignInState extends State<SignIn> {
                             horizontal: 20, vertical: 10),
                         child: TextFormField(
                           keyboardType: authViewModel.isLoggingViaPhone
-                              ? TextInputType.phone
+                              ? TextInputType.numberWithOptions(signed: true)
                               : TextInputType.emailAddress,
-                          controller: mobileOrEmailController,
+                          controller: authViewModel.mobileOrEmailController,
+
+                          inputFormatters: [
+                            authViewModel.isLoggingViaPhone
+                                ? FilteringTextInputFormatter.allow(
+                                    RegExp(r'\d+'))
+                                : FilteringTextInputFormatter.allow(
+                                    RegExp(r'[a-zA-Z0-9@.]')),
+                          ],
                           // validator: authViewModel.isLoggingViaPhone
                           //     ? validateMobile
                           //     : validateEmail,
-                          maxLength: authViewModel.isLoggingViaPhone ? 10 : 100,
+                          maxLength: authViewModel.isLoggingViaPhone ? 10 : 50,
                           decoration: (const InputDecoration())
                               .applyDefaults(
                                   Theme.of(context).inputDecorationTheme)
@@ -268,9 +320,9 @@ class _SignInState extends State<SignIn> {
                           ? const SizedBox()
                           : Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
+                                  horizontal: 20, vertical: 0),
                               child: TextFormField(
-                                controller: passwordController,
+                                controller: authViewModel.passwordController,
                                 obscureText: obscureText,
                                 // validator: validatePassword,
                                 decoration: InputDecoration(
@@ -341,7 +393,7 @@ class _SignInState extends State<SignIn> {
                             ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15),
+                            horizontal: 20, vertical: 20),
                         child: Column(
                           children: [
                             authViewModel.isLoading
@@ -354,22 +406,23 @@ class _SignInState extends State<SignIn> {
                                         Map data = {};
                                         if (authViewModel.isLoggingViaPhone) {
                                           data = {
-                                            'phone':
-                                                mobileOrEmailController.text,
+                                            'phone': authViewModel
+                                                .mobileOrEmailController.text,
                                             'fcm_id': ""
                                           };
                                         } else {
                                           final bool emailValid = RegExp(
                                                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                              .hasMatch(
-                                                  mobileOrEmailController.text);
+                                              .hasMatch(authViewModel
+                                                  .mobileOrEmailController
+                                                  .text);
 
                                           if (emailValid) {
                                             data = {
-                                              'email':
-                                                  mobileOrEmailController.text,
-                                              'password':
-                                                  passwordController.text,
+                                              'email': authViewModel
+                                                  .mobileOrEmailController.text,
+                                              'password': authViewModel
+                                                  .passwordController.text,
                                               'fcm_id': ""
                                             };
                                           } else {
@@ -379,16 +432,20 @@ class _SignInState extends State<SignIn> {
                                                 context);
                                           }
 
-                                          if (validatePassword(
-                                                  passwordController.text) !=
+                                          if (validatePassword(authViewModel
+                                                  .passwordController.text) !=
                                               null) {
                                             showPasswordRequirementsDialog(
                                                 context);
                                           }
                                         }
 
-                                        authViewModel.loginFn(_formKey, context,
-                                            mobileOrEmailController.text, data);
+                                        authViewModel.loginFn(
+                                            _formKey,
+                                            context,
+                                            authViewModel
+                                                .mobileOrEmailController.text,
+                                            data);
                                       },
                                       style: ElevatedButton.styleFrom(
                                         primary: colors.buttonColor,
@@ -413,7 +470,7 @@ class _SignInState extends State<SignIn> {
                                     ),
                                   ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -425,7 +482,7 @@ class _SignInState extends State<SignIn> {
                                     child: Text(
                                       translation(context).forgotPassword,
                                       style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: size_14,
                                         color: Theme.of(context).brightness ==
                                                 Brightness.dark
                                             ? colors.lightTextColor
@@ -473,13 +530,15 @@ class _SignInState extends State<SignIn> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   InkWell(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
                                     onTap: () {
                                       authViewModel.loginGoogle(context);
                                     },
                                     child: Image.asset(
                                       Images.google,
-                                      height: 50,
-                                      width: 60,
+                                      height: size_40,
+                                      width: size_40,
                                     ),
                                   ),
                                   // Image.asset(
@@ -497,8 +556,8 @@ class _SignInState extends State<SignIn> {
                                 children: [
                                   Image.asset(
                                     Images.guestUser,
-                                    height: 25,
-                                    width: 25,
+                                    height: size_22,
+                                    width: size_22,
                                     color: Theme.of(context).brightness ==
                                             Brightness.dark
                                         ? Colors.white
@@ -506,6 +565,8 @@ class _SignInState extends State<SignIn> {
                                   ),
                                   const SizedBox(width: 5),
                                   InkWell(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
                                     onTap: () {
                                       Routes.navigateToDashboardScreen(
                                           context, 2);
@@ -518,34 +579,6 @@ class _SignInState extends State<SignIn> {
                                               ? Colors.white
                                               : colors.bodyBackgroundDark,
                                         )),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 40),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(translation(context).dontHaveanaccount,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? colors.lightTextColor
-                                            : colors.greyText,
-                                      )),
-                                  InkWell(
-                                    onTap: () {
-                                      Routes.navigateToVerifyNumberScreen(
-                                          context, true);
-                                    },
-                                    child: Text(translation(context).signUp,
-                                        style: const TextStyle(
-                                            fontSize: 14,
-                                            color: colors.buttonColor,
-                                            decoration:
-                                                TextDecoration.underline)),
                                   ),
                                 ],
                               ),

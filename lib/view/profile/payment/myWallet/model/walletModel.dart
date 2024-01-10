@@ -28,7 +28,7 @@ class WalletHistory {
   factory WalletHistory.fromJson(Map<String, dynamic> json) => WalletHistory(
         limit: json["limit"],
         offset: json["offset"],
-        totalWalletBalance: json["total_wallet_balance"]?.toDouble(),
+        totalWalletBalance: json["total_wallet_balance"],
         totalWalletTransactio: json["total_wallet_transactio"],
         walletTransactioList: List<WalletTransactioList>.from(
             json["wallet_transactio_list"]

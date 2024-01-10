@@ -5,6 +5,8 @@ import '../../utils/images.dart';
 
 recommendedAccessoryCard({required context}) {
   return InkWell(
+    highlightColor: Colors.transparent,
+    splashColor: Colors.transparent,
     onTap: () {},
     child: Container(
       height: 300,

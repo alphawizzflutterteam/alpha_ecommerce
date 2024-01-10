@@ -89,6 +89,8 @@
 //                           height: 50,
 //                           width: MediaQuery.of(context).size.width * 0.5,
 //                           child: InkWell(
+                      // highlightColor: Colors.transparent,
+                      // splashColor: Colors.transparent,
 //                             onTap: () {
 //                               // homeFilter(context);
 //                             },
@@ -124,6 +126,8 @@
 //                             ),
 //                           ),
 //                           child: InkWell(
+                      // highlightColor: Colors.transparent,
+                      // splashColor: Colors.transparent,
 //                             onTap: () {
 //                               homeSort(context, searchProvider);
 //                             },

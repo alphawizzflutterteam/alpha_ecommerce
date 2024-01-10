@@ -25,6 +25,8 @@ Future<void> changeTheme(context) async {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     theme.setThemeMode(ThemeMode.dark);
                   },
@@ -58,6 +60,8 @@ Future<void> changeTheme(context) async {
                   height: 1,
                 ),
                 InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     theme.setThemeMode(ThemeMode.light);
                   },

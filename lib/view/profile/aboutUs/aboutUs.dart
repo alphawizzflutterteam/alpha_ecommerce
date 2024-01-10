@@ -25,7 +25,7 @@ class _AboutUsState extends State<AboutUs> {
     super.initState();
     profileModelProvider =
         Provider.of<ProfileViewModel>(context, listen: false);
-    profileModelProvider.getPrivacyPolicyData();
+    profileModelProvider.getPrivacyPolicyData(context);
   }
 
   @override
@@ -61,6 +61,8 @@ class _AboutUsState extends State<AboutUs> {
                             Padding(
                               padding: const EdgeInsets.only(left: 20),
                               child: InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
                                   onTap: () {
                                     Routes.navigateToPreviousScreen(context);
                                   },
@@ -110,6 +112,8 @@ class _AboutUsState extends State<AboutUs> {
                                 ),
                               ),
                               InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
                                 onTap: _launchURL,
                                 child: const Text(
                                   'https://www.alphawizz.com',

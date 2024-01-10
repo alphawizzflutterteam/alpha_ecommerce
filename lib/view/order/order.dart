@@ -1,8 +1,11 @@
 // ignore_for_file: unnecessary_const
 
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/order/filter.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../utils/color.dart';
@@ -62,6 +65,7 @@ class _OrderState extends State<Order> {
         return colors.orderCancelledDark;
       case 'delivered':
         return colors.deliveredDark;
+
       case 'pending':
         return colors.returnedDark;
       default:
@@ -75,11 +79,12 @@ class _OrderState extends State<Order> {
     switch (status.toLowerCase()) {
       case 'processing':
         return colors.onTheWayLight;
-
       case 'canceled':
         return colors.orderCancelledLight;
       case 'delivered':
         return colors.deliveredLight;
+      case 'confirmed':
+        return colors.deliveredDark;
       case 'pending':
         return colors.returnedLight;
       default:
@@ -211,6 +216,8 @@ class _OrderState extends State<Order> {
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Colors.grey)),
                               child: InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
                                 onTap: () {
                                   filter(context, orderProvider);
                                 },
@@ -271,6 +278,8 @@ class _OrderState extends State<Order> {
                                     itemBuilder: (context, i) {
                                       var data = orderProvider.orderList[i];
                                       return InkWell(
+                                        highlightColor: Colors.transparent,
+                                        splashColor: Colors.transparent,
                                         onTap: () {
                                           print(
                                               data.orderStatus!.toLowerCase());
@@ -298,51 +307,112 @@ class _OrderState extends State<Order> {
                                         },
                                         child: Container(
                                           height: height * 0.15,
+                                          decoration: BoxDecoration(
+                                              // image: DecorationImage(image: NetworkImage(model.images.first)),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(10)),
+                                              gradient: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? LinearGradient(
+                                                      colors: [
+                                                        colors.boxGradient1
+                                                            .withOpacity(1),
+                                                        Colors.transparent,
+                                                      ],
+                                                      begin:
+                                                          Alignment.topCenter,
+                                                      end: Alignment
+                                                          .bottomCenter,
+                                                    )
+                                                  : LinearGradient(
+                                                      colors: [
+                                                        Color(0xFFE4E2ED),
+                                                        Colors.white,
+                                                      ],
+                                                      begin:
+                                                          Alignment.topCenter,
+                                                      end: Alignment
+                                                          .bottomCenter,
+                                                    ),
+                                              border: Border.all(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? colors.boxBorder
+                                                      : colors.lightBorder)),
                                           alignment: Alignment.centerLeft,
                                           margin: const EdgeInsets.symmetric(
                                               horizontal: 20, vertical: 10),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? const Color(0x14E9E9E9)
-                                                  : colors.lightBorder,
-                                              width: 2,
-                                            ),
-                                          ),
+                                          // decoration: BoxDecoration(
+                                          //   borderRadius:
+                                          //       BorderRadius.circular(10),
+                                          //   border: Border.all(
+                                          //     color: Theme.of(context)
+                                          //                 .brightness ==
+                                          //             Brightness.dark
+                                          //         ? const Color(0x14E9E9E9)
+                                          //         : colors.lightBorder,
+                                          //     width: 2,
+                                          //   ),
+                                          // ),
                                           child: ListTile(
                                             contentPadding:
                                                 const EdgeInsets.symmetric(
                                                     vertical: 5, horizontal: 8),
-                                            leading: Image.network(
-                                              data.product!.images!.first,
-                                              errorBuilder: (context, error,
-                                                      stackTrace) =>
-                                                  Image.asset(
-                                                      Images.defaultProductImg),
-                                              width: width * .18,
-                                              height: height * .08,
+                                            leading: CachedNetworkImage(
+                                              imageUrl:
+                                                  data.product!.thumbnail!,
+                                              fit: BoxFit.cover,
+                                              errorWidget:
+                                                  (context, url, error) {
+                                                return Image.asset(
+                                                  Images.defaultProductImg,
+                                                  width: width * .25,
+                                                  height: height * .18,
+                                                );
+                                              },
+                                              width: width * .25,
+                                              height: height * .18,
                                             ),
+                                            // Image.network(
+                                            //   data.product!.images!.first,
+                                            //   fit: BoxFit.cover,
+                                            //   errorBuilder: (context, error,
+                                            //           stackTrace) =>
+                                            //       Image.asset(
+                                            //     Images.defaultProductImg,
+                                            //     width: width * .25,
+                                            //     height: height * .18,
+                                            //   ),
+                                            //   width: width * .25,
+                                            //   height: height * .18,
+                                            // ),
                                             title: Text(
-                                              data.product!.name!,
+                                              data.product!.name! +
+                                                  data.product!.name!,
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
                                                   color: Theme.of(context)
                                                               .brightness ==
                                                           Brightness.dark
                                                       ? Colors.white
                                                       : Colors.black,
-                                                  fontSize: 14),
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_10
+                                                      : size_12),
                                             ),
                                             subtitle: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
+                                                SizedBox(
+                                                  height: size_5,
+                                                ),
                                                 Text(
                                                   data.product!.shop!.name!,
                                                   maxLines: 1,
@@ -352,7 +422,7 @@ class _OrderState extends State<Order> {
                                                               Brightness.dark
                                                           ? colors.greyText
                                                           : Colors.black,
-                                                      fontSize: 12),
+                                                      fontSize: size_10),
                                                 ),
                                                 SizedBox(height: 10),
                                                 Container(
@@ -377,7 +447,7 @@ class _OrderState extends State<Order> {
                                                     style: TextStyle(
                                                         color: getTextColor(
                                                             data.orderStatus!),
-                                                        fontSize: 10),
+                                                        fontSize: size_12),
                                                   ),
                                                 ),
                                               ],

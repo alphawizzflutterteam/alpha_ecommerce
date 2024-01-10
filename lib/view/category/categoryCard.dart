@@ -16,6 +16,8 @@ categoryCard(
     required String categoryId,
     required bool isComingFromHome}) {
   return InkWell(
+    highlightColor: Colors.transparent,
+    splashColor: Colors.transparent,
     onTap: () {
       searchProvider.categoryId = categoryId;
       searchProvider.subCategoryId = model.id!.toString();

@@ -150,7 +150,7 @@ class _AllCategoryState extends State<AllCategory> {
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.71,
+                                                0.68,
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -308,7 +308,7 @@ class _AllCategoryState extends State<AllCategory> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.64,
+                                                              0.6,
                                                       width:
                                                           MediaQuery.of(context)
                                                                   .size
@@ -438,7 +438,7 @@ class _AllCategoryState extends State<AllCategory> {
           ? colors.textFieldBG
           : Color(0xFFE3E1EC),
       width: MediaQuery.of(context).size.width * 0.35,
-      height: 55,
+      height: 48,
       child: GestureDetector(
         onTap: onPressed,
         child: Container(

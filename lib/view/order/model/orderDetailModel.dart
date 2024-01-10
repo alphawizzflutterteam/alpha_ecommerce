@@ -797,7 +797,7 @@ class Seller {
   });
 
   final int? id;
-  final String? sellerId;
+  final int? sellerId;
   final String? name;
   final String? address;
   final String? contact;

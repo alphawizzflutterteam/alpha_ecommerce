@@ -178,6 +178,8 @@ class _SearchState extends State<Search> {
                                       ? Colors.white
                                       : Colors.black),
                               suffixIcon: InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
                                 onTap: () {
                                   searchProvider.searchController.text = "";
                                   searchProvider.getProductsListNew(
@@ -218,6 +220,8 @@ class _SearchState extends State<Search> {
                           ),
                         ),
                         // InkWell(
+                        // highlightColor: Colors.transparent,
+                        // splashColor: Colors.transparent,
                         //     onTap: () {
                         //       //accessCamera(context);
                         //     },
@@ -230,6 +234,8 @@ class _SearchState extends State<Search> {
                         //             : Colors.black)),
                         isListening
                             ? InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
                                 onTap: () {
                                   _speech.stop();
                                   isListening = false;
@@ -242,6 +248,8 @@ class _SearchState extends State<Search> {
                                 ),
                               )
                             : InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
                                 onTap: () {
                                   _listen();
                                 },
@@ -342,6 +350,8 @@ class _SearchState extends State<Search> {
               child: Center(
                 child: Material(
                   child: InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       homeFilter(context, homeProvider.filterModel,
                           searchProvider, false);
@@ -376,6 +386,8 @@ class _SearchState extends State<Search> {
                         ),
                         Material(
                           child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
                               homeCategory(context, categoryProvider,
                                   searchProvider, true);
@@ -421,6 +433,8 @@ class _SearchState extends State<Search> {
                         ),
                         Material(
                           child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
                               homeSort(context, searchProvider);
                             },

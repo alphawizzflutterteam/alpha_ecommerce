@@ -40,6 +40,8 @@ class _CurrentPlanState extends State<CurrentPlan> {
                           Padding(
                             padding: const EdgeInsets.only(left: 20),
                             child: InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
                                 onTap: () {
                                   Routes.navigateToPreviousScreen(context);
                                 },
@@ -165,6 +167,9 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                                 width: 3,
                                               ),
                                               InkWell(
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                splashColor: Colors.transparent,
                                                 onTap: () {
                                                   Routes
                                                       .navigateToCurrentPlanScreen(

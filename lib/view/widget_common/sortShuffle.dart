@@ -11,7 +11,6 @@ List<Map<dynamic, dynamic>> sort = [
   {'text': 'Price - Low to high'},
   {'text': 'Price - High to low'}
 ];
-String selectedType = "";
 
 Future<void> homeSort(context, SearchViewModel searchProvider) async {
   return showModalBottomSheet(
@@ -69,6 +68,8 @@ class _SortClassState extends State<SortClass> {
             ),
             for (int i = 0; i < sort.length; i++)
               InkWell(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {
                   //  {'text': 'Top Rated'},
                   // {'text': 'New Arrival'},
@@ -76,21 +77,25 @@ class _SortClassState extends State<SortClass> {
                   // {'text': 'Price - Low to high'},
                   // {'text': 'Price - High to low'}
                   setState(() {
-                    selectedType = sort[i]['text'];
+                    widget.searchProvider.selectedType = sort[i]['text'];
                   });
-                  if (selectedType == sort[0]['text']) {
+                  if (widget.searchProvider.selectedType == sort[0]['text']) {
                     widget.searchProvider.sortBy = "review";
                     widget.searchProvider.orderBy = "DESC";
-                  } else if (selectedType == sort[1]['text']) {
+                  } else if (widget.searchProvider.selectedType ==
+                      sort[1]['text']) {
                     widget.searchProvider.sortBy = "id";
                     widget.searchProvider.orderBy = "DESC";
-                  } else if (selectedType == sort[2]['text']) {
+                  } else if (widget.searchProvider.selectedType ==
+                      sort[2]['text']) {
                     widget.searchProvider.sortBy = "id";
                     widget.searchProvider.orderBy = "ASC";
-                  } else if (selectedType == sort[3]['text']) {
+                  } else if (widget.searchProvider.selectedType ==
+                      sort[3]['text']) {
                     widget.searchProvider.sortBy = "price";
                     widget.searchProvider.orderBy = "ASC";
-                  } else if (selectedType == sort[4]['text']) {
+                  } else if (widget.searchProvider.selectedType ==
+                      sort[4]['text']) {
                     widget.searchProvider.sortBy = "price";
                     widget.searchProvider.orderBy = "DESC";
                   }
@@ -134,7 +139,8 @@ class _SortClassState extends State<SortClass> {
                             fontWeight: FontWeight.bold),
                       ),
                       Visibility(
-                        visible: sort[i]['text'] == selectedType,
+                        visible: sort[i]['text'] ==
+                            widget.searchProvider.selectedType,
                         child: Icon(
                           Icons.check,
                           color: Theme.of(context).brightness == Brightness.dark

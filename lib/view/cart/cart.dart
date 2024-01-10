@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/model/cartList.dart';
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
@@ -41,6 +43,7 @@ class _CartState extends State<Cart> {
     super.initState();
     cartProvider = Provider.of<CartViewModel>(context, listen: false);
     addressProvider = Provider.of<AddressViewModel>(context, listen: false);
+    callAddress();
     if (cartProvider.selectedOption == "Normal Delivery") {
       cartProvider.getCartListItem(context, "", "0", "", "");
     } else {
@@ -51,13 +54,22 @@ class _CartState extends State<Cart> {
     //cartProvider.getSavedListItem(context);
   }
 
+  callAddress() async {
+    await addressProvider.getAddressList(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     cartProvider = Provider.of<CartViewModel>(context);
     addressProvider = Provider.of<AddressViewModel>(context);
     if (addressProvider.addressList.isEmpty && !apiHitted) {
-      addressProvider.getAddressList(context);
-      apiHitted = true;
+      if (cartProvider.isLoading) {
+        Future.delayed(Duration(seconds: 3), () {
+          callAddress();
+        });
+      } else {
+        callAddress();
+      }
     }
     return Stack(
       children: [
@@ -735,7 +747,7 @@ class _CartState extends State<Cart> {
                                       : Container(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 20, vertical: 10),
-                                          height: 50,
+                                          height: 49,
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -763,46 +775,58 @@ class _CartState extends State<Cart> {
                                                       .35,
                                                   child: CommonButton(
                                                     text: "PLACE ORDER",
-                                                    fontSize: 12,
+                                                    fontSize: Platform.isAndroid
+                                                        ? 11
+                                                        : 14,
                                                     onClick: () async {
-                                                      var billingId = SharedPref
-                                                              .shared.pref!
-                                                              .getString(PrefKeys
-                                                                  .billingAddressID) ??
-                                                          addressProvider
-                                                              .addressList[0].id
-                                                              .toString();
-                                                      var paymentMethod =
-                                                          "cash_on_delivery";
-                                                      String couponCode =
-                                                          cartProvider
-                                                              .couponController
-                                                              .text;
-                                                      String data =
-                                                          "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
+                                                      if (!addressProvider
+                                                          .addressList
+                                                          .isEmpty) {
+                                                        var billingId = SharedPref
+                                                                .shared.pref!
+                                                                .getString(PrefKeys
+                                                                    .billingAddressID) ??
+                                                            addressProvider
+                                                                .addressList[0]
+                                                                .id
+                                                                .toString();
+                                                        var paymentMethod =
+                                                            "cash_on_delivery";
+                                                        String couponCode =
+                                                            cartProvider
+                                                                .couponController
+                                                                .text;
+                                                        String data =
+                                                            "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
 
-                                                      var res = await cartProvider
-                                                          .checkDeliveryStatus(
-                                                              context,
-                                                              billingId
-                                                                  .toString());
-
-                                                      print(res.toString() +
-                                                          "CHECK AVAILABILITY");
-
-                                                      if (res) {
-                                                        Routes
-                                                            .navigateToPaymentScreen(
+                                                        var res = await cartProvider
+                                                            .checkDeliveryStatus(
                                                                 context,
-                                                                data,
-                                                                billingId,
-                                                                couponCode,
-                                                                true,
-                                                                "order");
+                                                                billingId
+                                                                    .toString());
+
+                                                        print(res.toString() +
+                                                            "CHECK AVAILABILITY");
+
+                                                        if (res) {
+                                                          Routes
+                                                              .navigateToPaymentScreen(
+                                                                  context,
+                                                                  data,
+                                                                  billingId,
+                                                                  couponCode,
+                                                                  true,
+                                                                  "order");
+                                                        } else {
+                                                          Utils.showFlushBarWithMessage(
+                                                              "",
+                                                              "Delivery not available on this pincode.",
+                                                              context);
+                                                        }
                                                       } else {
                                                         Utils.showFlushBarWithMessage(
                                                             "",
-                                                            "Delivery not available on this pincode.",
+                                                            "Please add address first.",
                                                             context);
                                                       }
                                                     },

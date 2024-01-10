@@ -15,6 +15,8 @@ productForYouCardSearch(ProductList model, BuildContext context,
   return Column(
     children: [
       InkWell(
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
         onTap: () {
           Routes.navigateToProductDetailPageScreen(context, model.slug);
         },
@@ -156,6 +158,8 @@ productForYouCardSearch(ProductList model, BuildContext context,
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     Map data;
                     if (!model.isCart) {

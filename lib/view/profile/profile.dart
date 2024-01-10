@@ -168,8 +168,8 @@ class _ProfileState extends State<Profile> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  width: 100.0, // Set your desired width
-                                  height: 100.0, // Set your desired height
+                                  width: 85.0, // Set your desired width
+                                  height: 85.0, // Set your desired height
                                   child: ClipOval(
                                     child: CachedNetworkImage(
                                       imageUrl: image,
@@ -223,6 +223,10 @@ class _ProfileState extends State<Profile> {
                                               ),
                                               child: Center(
                                                 child: InkWell(
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  splashColor:
+                                                      Colors.transparent,
                                                   onTap: () {
                                                     Routes
                                                         .navigateToEditProfileScreen(
@@ -362,6 +366,8 @@ class _ProfileState extends State<Profile> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   InkWell(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
                                     onTap: () {
                                       Routes.navigateToOrderScreen(context);
                                     },
@@ -455,6 +461,8 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ),
                                   InkWell(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
                                     onTap: () {
                                       Routes.navigateToWishlistScreen(context);
                                     },
@@ -540,6 +548,8 @@ class _ProfileState extends State<Profile> {
                                 itemCount: profile.length,
                                 itemBuilder: (context, i) {
                                   return InkWell(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
                                     onTap: () {
                                       if (profile[i]
                                               .navigationScreen

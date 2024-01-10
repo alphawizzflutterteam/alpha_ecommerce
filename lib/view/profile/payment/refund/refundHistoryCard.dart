@@ -10,6 +10,8 @@ refundHistoryCard({required context, required DatumRefund data}) {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: InkWell(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
           onTap: () {
             Routes.navigateToSingleRefundScreen(context);
           },

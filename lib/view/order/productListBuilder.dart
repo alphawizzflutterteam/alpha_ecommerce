@@ -14,6 +14,8 @@ class ProductListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {},
       child: Container(
         height: MediaQuery.of(context).size.height * .23,
@@ -22,6 +24,8 @@ class ProductListBuilder extends StatelessWidget {
           itemCount: productList.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onTap: () {
               Routes.navigateToProductDetailPageScreen(
                   context, productList[index].productDetails!.slug!);
@@ -61,7 +65,8 @@ class ProductListBuilder extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: CachedNetworkImage(
-                      imageUrl: productList[index].productDetails!.images.first,
+                      imageUrl: productList[index].productDetails!.thumbnail!,
+                      height: size_100,
                       errorWidget: (context, url, error) => Image.asset(
                         Images.defaultProductImg,
                         height: size_100,
@@ -81,7 +86,7 @@ class ProductListBuilder extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    productList[index].orderAmount.toString(),
+                    productList[index].price.toString(),
                     style: TextStyle(
                       color: colors.buttonColor,
                       fontSize: 12,

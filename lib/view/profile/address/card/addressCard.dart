@@ -100,7 +100,9 @@ addressItemCard(AddressList model, BuildContext context,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              color: colors.darkBG,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? colors.darkBG
+                  : Colors.white,
               icon: Icon(
                 Icons.more_vert,
                 color: Theme.of(context).brightness == Brightness.dark
@@ -109,18 +111,26 @@ addressItemCard(AddressList model, BuildContext context,
               ),
               itemBuilder: (context) {
                 return [
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 'edit',
                     child: Text(
                       'Edit',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                        color: Theme.of(context).brightness != Brightness.dark
+                            ? colors.darkBG
+                            : Colors.white,
+                      ),
                     ),
                   ),
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 'delete',
                     child: Text(
                       'Delete',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                        color: Theme.of(context).brightness != Brightness.dark
+                            ? colors.darkBG
+                            : Colors.white,
+                      ),
                     ),
                   )
                 ];

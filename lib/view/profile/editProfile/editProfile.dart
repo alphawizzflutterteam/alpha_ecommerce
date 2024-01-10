@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
@@ -11,6 +12,7 @@ import 'package:alpha_ecommerce_18oct/view/widget_common/textfield_validation.da
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
@@ -47,11 +49,18 @@ class _EditProfileState extends State<EditProfile> {
     nameController.text = user.fName;
     emailController.text = user.email;
     mobileController.text = user.phone;
-    // genderController.text = user.;
+    // genderController.text = user.gender;
     countryController.text = user.country;
     stateController.text = user.state;
     cityController.text = user.city;
     pinCodeController.text = user.zip;
+    if (user.gender.toLowerCase() == "male") {
+      selectedGender = 'Male';
+    } else if (user.gender.toLowerCase() == "female") {
+      selectedGender = 'Female';
+    } else {
+      selectedGender = 'Other';
+    }
   }
 
   @override
@@ -170,6 +179,8 @@ class _EditProfileState extends State<EditProfile> {
               Expanded(
                 child: SingleChildScrollView(
                   child: InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       FocusManager.instance.primaryFocus?.unfocus();
                     },
@@ -227,11 +238,16 @@ class _EditProfileState extends State<EditProfile> {
                         Container(
                           margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                           decoration: BoxDecoration(
-                            color: colors.textFieldBG,
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: TextFormField(
                             keyboardType: TextInputType.text,
+                            maxLength: 50,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.deny(RegExp(r'\d+')),
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'[a-zA-Z\s]')), //
+                            ],
                             controller: nameController,
                             decoration: InputDecoration(
                               filled: true,
@@ -271,9 +287,17 @@ class _EditProfileState extends State<EditProfile> {
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: TextFormField(
-                            controller: emailController,
+                            enabled: emailController.text == "" ? true : false,
                             keyboardType: TextInputType.emailAddress,
+                            controller: emailController,
+                            maxLength: 50,
                             validator: validateEmail,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.allow(RegExp(
+                                  r'[a-zA-Z0-9@.]')), // Allow only alphanumeric characters
+
+                              /// You can add additional formatters if needed
+                            ],
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Theme.of(context).brightness ==
@@ -314,8 +338,14 @@ class _EditProfileState extends State<EditProfile> {
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: TextFormField(
-                            keyboardType: TextInputType.phone,
+                            keyboardType:
+                                TextInputType.numberWithOptions(signed: true),
+                            maxLength: 10,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'\d+')),
+                            ],
                             controller: mobileController,
+                            enabled: mobileController.text == "" ? true : false,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Theme.of(context).brightness ==
@@ -517,12 +547,16 @@ class _EditProfileState extends State<EditProfile> {
                           margin: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
-                            color: colors
-                                .textFieldBG, // Change this color to your desired background color
+                            // Change this color to your desired background color
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: TextFormField(
-                            keyboardType: TextInputType.phone,
+                            keyboardType:
+                                TextInputType.numberWithOptions(signed: true),
+                            maxLength: 6,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'\d+')),
+                            ],
                             controller: pinCodeController,
                             decoration: InputDecoration(
                               filled: true,
@@ -577,18 +611,27 @@ class _EditProfileState extends State<EditProfile> {
                               text: "SAVE CHANGES",
                               fontSize: 14,
                               onClick: () {
-                                Map data = {
-                                  "f_name": nameController.text,
-                                  "phone": mobileController.text,
-                                  "password": "",
-                                  "gender": selectedGender,
-                                  "country": countryController.text,
-                                  "state": stateController.text,
-                                  "city": cityController.text,
-                                  "pin_code": pinCodeController.text
-                                };
-                                print(data);
-                                profileProvider.updateProfile(context, data);
+                                final bool emailValid =
+                                    RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+                                            .hasMatch(emailController.text) &&
+                                        !emailController.text.startsWith('.');
+                                if (emailValid) {
+                                  Map data = {
+                                    "f_name": nameController.text,
+                                    "phone": mobileController.text,
+                                    "password": "",
+                                    "gender": selectedGender,
+                                    "country": countryController.text,
+                                    "state": stateController.text,
+                                    "city": cityController.text,
+                                    "pin_code": pinCodeController.text
+                                  };
+                                  print(data);
+                                  profileProvider.updateProfile(context, data);
+                                } else {
+                                  Utils.showFlushBarWithMessage(
+                                      "Alert", "Invalid Email", context);
+                                }
                               })),
                     ),
                   ),

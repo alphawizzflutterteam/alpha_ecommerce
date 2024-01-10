@@ -27,6 +27,8 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               InkWell(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {
                   // Routes.navigateToProductDetailPageScreen(context);
                 },
@@ -41,6 +43,8 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       //     Routes.navigateToProductDetailPageScreen(context);
                     },

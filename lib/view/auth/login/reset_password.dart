@@ -55,6 +55,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                         Padding(
                           padding: const EdgeInsets.only(left: 20),
                           child: InkWell(
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent,
                               onTap: () {
                                 Routes.navigateToPreviousScreen(context);
                               },
@@ -287,6 +289,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                             style: TextStyle(
                                 fontSize: 14, color: colors.lightTextColor)),
                         InkWell(
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
                           onTap: () {
                             Routes.navigateToVerifyNumberScreen(context, true);
                           },

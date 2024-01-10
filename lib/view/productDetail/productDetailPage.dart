@@ -401,6 +401,169 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             const SizedBox(
                               height: size_15,
                             ),
+                            productModel.model.first.colorsFormatted.length > 0
+                                ? Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0),
+                                    child: Text(
+                                      "Colors",
+                                      style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                  )
+                                : Container(),
+                            SizedBox(
+                              height: size_10,
+                            ),
+                            productModel.model.first.colorsFormatted.length > 0
+                                ? Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0),
+                                    child: Row(
+                                      children: [
+                                        SingleChildScrollView(
+                                          child: SizedBox(
+                                            height: 40,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width -
+                                                50,
+                                            child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              padding: EdgeInsets.zero,
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const AlwaysScrollableScrollPhysics(),
+                                              itemCount: productModel.model
+                                                  .first.colorsFormatted.length,
+                                              itemBuilder: (context, j) {
+                                                return InkWell(
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  onTap: () {
+                                                    productModel.selectedColor =
+                                                        productModel
+                                                            .model
+                                                            .first
+                                                            .colorsFormatted[j]
+                                                            .name;
+                                                    productModel
+                                                            .selectedColorCode =
+                                                        productModel
+                                                            .model
+                                                            .first
+                                                            .colorsFormatted[j]
+                                                            .code;
+                                                    setState(() {});
+                                                  },
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal: 10,
+                                                                vertical: 10),
+                                                        margin: const EdgeInsets
+                                                            .only(right: 10),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors
+                                                              .transparent,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
+                                                          border: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Border.all(
+                                                                  color: productModel.selectedColor ==
+                                                                          productModel
+                                                                              .model
+                                                                              .first
+                                                                              .colorsFormatted[
+                                                                                  j]
+                                                                              .name
+                                                                      ? Colors
+                                                                          .white
+                                                                      : const Color(
+                                                                          0x14E9E9E9),
+                                                                  width: 2)
+                                                              : Border.all(
+                                                                  color: productModel.selectedColor ==
+                                                                          productModel
+                                                                              .model
+                                                                              .first
+                                                                              .colorsFormatted[
+                                                                                  j]
+                                                                              .name
+                                                                      ? colors
+                                                                          .buttonColor
+                                                                      : colors
+                                                                          .lightBorder,
+                                                                  width: 2),
+                                                        ),
+                                                        child: SizedBox(
+                                                          width: productModel
+                                                                      .model
+                                                                      .first
+                                                                      .colorsFormatted
+                                                                      .length <
+                                                                  10
+                                                              ? size_60
+                                                              : size_100,
+                                                          child: Center(
+                                                            child: Text(
+                                                              productModel
+                                                                  .model
+                                                                  .first
+                                                                  .colorsFormatted[
+                                                                      j]
+                                                                  .name,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: TextStyle(
+                                                                  color: Theme.of(context)
+                                                                              .brightness ==
+                                                                          Brightness
+                                                                              .dark
+                                                                      ? const Color
+                                                                          .fromARGB(
+                                                                          255,
+                                                                          214,
+                                                                          208,
+                                                                          208)
+                                                                      : Colors
+                                                                          .black,
+                                                                  fontSize:
+                                                                      size_12),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : Container(),
+
+                            const SizedBox(
+                              height: size_15,
+                            ),
                             SizedBox(
                               height: productModel
                                       .model.first.choiceOptions.length *
@@ -460,6 +623,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                         .length,
                                                     itemBuilder: (context, j) {
                                                       return InkWell(
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        splashColor:
+                                                            Colors.transparent,
                                                         onTap: () {
                                                           Map<String, String>
                                                               map = {
@@ -617,6 +784,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   InkWell(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
                                     onTap: () {
                                       Map data = {
                                         'product_id': productModel
@@ -658,6 +827,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     ),
                                   ),
                                   InkWell(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
                                     onTap: () {
                                       showAlertDialog(context);
                                     },
@@ -976,10 +1147,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                 .toString(),
                                             'quantity': "1",
                                             'color': productModel.model.first
-                                                    .colorImage.isNotEmpty
+                                                    .colorsFormatted.isNotEmpty
                                                 ? "#" +
-                                                    productModel.model.first
-                                                        .colorImage[0].color
+                                                    productModel
+                                                        .selectedColorCode
                                                 : "",
                                           };
                                         } else {
@@ -1048,10 +1219,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                 .toString(),
                                             'quantity': "1",
                                             'color': productModel.model.first
-                                                    .colorImage.isNotEmpty
+                                                    .colorsFormatted.isNotEmpty
                                                 ? "#" +
-                                                    productModel.model.first
-                                                        .colorImage[0].color
+                                                    productModel
+                                                        .selectedColorCode
                                                 : "",
                                             'choice_2': productModel.model.first
                                                     .choiceOptions.isNotEmpty
@@ -1111,6 +1282,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       Routes.navigateToPreviousScreen(context);
                     },

@@ -64,6 +64,8 @@ class _CustomerSupportState extends State<CustomerSupport> {
               Expanded(
                 child: SingleChildScrollView(
                   child: InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       FocusManager.instance.primaryFocus?.unfocus();
                     },

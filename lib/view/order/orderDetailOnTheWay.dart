@@ -223,7 +223,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                               fontSize: 12),
                                         ),
                                         Text(
-                                          detailProvider.detail.orderAmount
+                                          detailProvider.detail.subtotal
                                               .toString(),
                                           style: TextStyle(
                                               color: Theme.of(context)
@@ -277,8 +277,10 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                               fontSize: 12),
                                         ),
                                         Text(
-                                          detailProvider.detail.discountAmount
-                                              .toString(),
+                                          "- " +
+                                              detailProvider
+                                                  .detail.discountAmount
+                                                  .toString(),
                                           style: TextStyle(
                                               color: Theme.of(context)
                                                           .brightness ==
@@ -314,7 +316,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                               fontSize: 14),
                                         ),
                                         Text(
-                                          detailProvider.detail.subtotal
+                                          detailProvider.detail.orderAmount
                                               .toString(),
                                           style: TextStyle(
                                               color: colors.buttonColor,
@@ -519,12 +521,22 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                           : Colors.black,
                                                     ),
                                                   ),
-                                                  Text(convertTimestampToFormattedDate(
-                                                      detailProvider
-                                                          .detail
-                                                          .orderStatusHistory[i]
-                                                          .updatedAt
-                                                          .toString())),
+                                                  Text(
+                                                    convertTimestampToFormattedDate(
+                                                        detailProvider
+                                                            .detail
+                                                            .orderStatusHistory[
+                                                                i]
+                                                            .updatedAt
+                                                            .toString()),
+                                                    style: TextStyle(
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                  ),
                                                 ],
                                               )
                                             ],
@@ -610,6 +622,8 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                 itemCount:
                                     detailProvider.RecommendedProducts.length,
                                 itemBuilder: (context, index) => InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
                                   onTap: () {
                                     Routes.navigateToProductDetailPageScreen(
                                         context,
@@ -795,6 +809,8 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: InkWell(
+                                            highlightColor: Colors.transparent,
+                                            splashColor: Colors.transparent,
                                             onTap: () {
                                               Map data;
                                               if (!detailProvider

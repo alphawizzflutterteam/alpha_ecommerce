@@ -170,6 +170,8 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                 width: 15,
                               ),
                               InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
                                 onTap: () {
                                   showToastMessage("Item remove from wishlist");
                                 },
@@ -372,6 +374,8 @@ class _PlaceOrderState extends State<PlaceOrder> {
                               margin: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 10),
                               child: InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
                                 onTap: () {
                                   Routes.navigateToOffersScreen(context);
                                 },
@@ -473,6 +477,8 @@ class _PlaceOrderState extends State<PlaceOrder> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 15),
                           child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
                               Routes.navigateToManageAddressScreen(context);
                             },

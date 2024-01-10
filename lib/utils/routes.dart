@@ -14,6 +14,7 @@ import 'package:alpha_ecommerce_18oct/view/home/home.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/brandsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/language_selection/language_selection.dart';
+import 'package:alpha_ecommerce_18oct/view/noInternet/noInternetScreen.dart';
 import 'package:alpha_ecommerce_18oct/view/offer/offer.dart';
 import 'package:alpha_ecommerce_18oct/view/order/orderCancelled.dart';
 import 'package:alpha_ecommerce_18oct/view/order/orderDetailOnTheWay.dart';
@@ -260,6 +261,18 @@ class Routes {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) => const PaySuccess(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
+  static navigateTonoInterntScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const NoInternetScreen(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

@@ -38,7 +38,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
 
     user = ProfileModel.fromJson(model);
     profileProvider = Provider.of<ProfileViewModel>(context, listen: false);
-    profileProvider.getReferralData();
+    profileProvider.getReferralData(context);
   }
 
   @override
@@ -74,6 +74,8 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             Padding(
                               padding: const EdgeInsets.only(left: 20),
                               child: InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
                                   onTap: () {
                                     Routes.navigateToPreviousScreen(context);
                                   },
@@ -228,6 +230,8 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                           endIndent: 10,
                                         ),
                                         InkWell(
+                                          highlightColor: Colors.transparent,
+                                          splashColor: Colors.transparent,
                                           onTap: () async {
                                             await Clipboard.setData(
                                                 ClipboardData(
@@ -259,6 +263,8 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             ),
                           ),
                           InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
                               share(context, user.data[0].referralCode);
                             },
@@ -304,6 +310,8 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                 fontSize: 18),
                           ),
                           InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
                               Routes.navigateToViewAllReferallScreen(
                                   context, profileProvider.referralList);

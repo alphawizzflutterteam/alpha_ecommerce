@@ -19,6 +19,8 @@
 //           mainAxisAlignment: MainAxisAlignment.start,
 //           children: [
 //             InkWell(
+                      // highlightColor: Colors.transparent,
+                      // splashColor: Colors.transparent,
 //               onTap: () {
 //                 Routes.navigateToProductDetailPageScreen(context);
 //               },
@@ -33,6 +35,8 @@
 //               crossAxisAlignment: CrossAxisAlignment.start,
 //               children: [
 //                 InkWell(
+                      // highlightColor: Colors.transparent,
+                      // splashColor: Colors.transparent,
 //                   onTap: () {
 //                     Routes.navigateToProductDetailPageScreen(context);
 //                   },
@@ -163,6 +167,8 @@
 //                   borderRadius: const BorderRadius.all(Radius.circular(5)),
 //                   border: Border.all(color: colors.boxBorder)),
 //               child: InkWell(
+                      // highlightColor: Colors.transparent,
+                      // splashColor: Colors.transparent,
 //                 onTap: () {
 //                   showToastMessage("Item remove from cart");
 //                 },

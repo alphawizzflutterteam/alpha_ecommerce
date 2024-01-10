@@ -59,6 +59,8 @@ class _ProfilePaymentState extends State<ProfilePayment> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
                               child: InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
                                 onTap: () {
                                   Navigator.push(
                                     context,

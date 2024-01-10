@@ -97,17 +97,20 @@ class OrderRepository {
     required String comment,
     required String rating,
   }) async {
-    final url = Uri.parse(api).replace(queryParameters: {
+    Map para = {
       'order_id': order_id,
       'product_id': product_id,
       'rating': rating,
       'comment': comment,
-    });
+    };
+    final url = Uri.parse(api);
     final http.Response res;
-    res = await http.post(url, headers: {
+    res = await http.post(url, body: para, headers: {
       'Authorization': 'Bearer $bearerToken',
     });
     print(api);
+
+    print(res.body);
     var ans = jsonDecode(res.body);
 
     return SuccessModel.fromJson(ans);

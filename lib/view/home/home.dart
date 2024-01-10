@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/home/cards/brandsCard.dart';
@@ -13,6 +15,7 @@ import 'package:alpha_ecommerce_18oct/view/home/topDealCard.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/categoryShuffle.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/filterShuffle.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/sortShuffle.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/categoryViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
@@ -21,6 +24,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_network_connectivity/flutter_network_connectivity.dart';
 import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../../utils/color.dart';
@@ -42,16 +47,28 @@ class _HomeState extends State<Home> {
   bool isWidgetVisible = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late HomeViewModel homeProvider;
+
   late SearchViewModel searchProvider;
   late CategoryViewModel categoryProvider;
   ScrollController _scrollController = ScrollController();
+
+  final FlutterNetworkConnectivity _flutterNetworkConnectivity =
+      FlutterNetworkConnectivity(
+    isContinousLookUp: true,
+    // optional, false if you cont want continous lookup
+    lookUpDuration: const Duration(seconds: 10),
+    // optional, to override default lookup duration
+    lookUpUrl: 'example.com', // optional, to override default lookup url
+  );
+
   @override
   void initState() {
     super.initState();
     homeProvider = Provider.of<HomeViewModel>(context, listen: false);
     categoryProvider = Provider.of<CategoryViewModel>(context, listen: false);
     searchProvider = Provider.of<SearchViewModel>(context, listen: false);
-    callApis();
+
+    checkInternetAvailability();
     _scrollController.addListener(() {
       setState(() {
         // homeProvider.isScrolled = _scrollController.offset > 0;
@@ -64,8 +81,9 @@ class _HomeState extends State<Home> {
   }
 
   callApis() async {
-    homeProvider.getHomeBanners(context);
+    await homeProvider.getHomeBanners(context);
     await homeProvider.getCategoriesList(context);
+    await homeProvider.getBannersList(context);
 
     try {
       var phone = SharedPref.shared.pref!.getString(PrefKeys.mobile);
@@ -76,16 +94,19 @@ class _HomeState extends State<Home> {
     await homeProvider.getBrandsList(context);
     await homeProvider.getSpecialOffersList(context);
     await homeProvider.getDailyDealsList(context);
-    await homeProvider.getBannersList(context);
-    await homeProvider.getWishlistItem(context);
     await homeProvider.getCartListItem(context);
-    await homeProvider.getProductFilters(context);
-    await homeProvider.getChatlist(context);
+    await homeProvider.getWishlistItem(context);
+
     searchProvider.selectedIndexFromHome = 0;
     searchProvider.selectedIndex = 0;
+    searchProvider.selectedType = "";
     getCategory();
+
     searchProvider.clearFilters();
+    await homeProvider.getProductFilters(context);
     await searchProvider.getProductsListNew(context, "25", "1");
+
+    await homeProvider.getChatlist(context);
   }
 
   Future<void> getCategory() async {
@@ -96,7 +117,30 @@ class _HomeState extends State<Home> {
   @override
   void dispose() {
     _scrollController.dispose();
+
     super.dispose();
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> checkInternetAvailability() async {
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    // We also handle the message potentially returning null.
+    try {
+      bool _isInternetAvailableOnCall =
+          await _flutterNetworkConnectivity.isInternetConnectionAvailable();
+      if (_isInternetAvailableOnCall) {
+        callApis();
+      }
+    } on PlatformException {
+      // _isInternetAvailableOnCall = null;
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {});
   }
 
   @override
@@ -117,7 +161,7 @@ class _HomeState extends State<Home> {
           semanticsValue: 'Refresh',
           onRefresh: () async {
             await Future.delayed(Duration(seconds: 2));
-            callApis();
+            checkInternetAvailability();
           },
           child: Scaffold(
             resizeToAvoidBottomInset: false,
@@ -183,6 +227,8 @@ class _HomeState extends State<Home> {
                               children: [
                                 homeProvider.categoriesModel.length > 4
                                     ? InkWell(
+                                        highlightColor: Colors.transparent,
+                                        splashColor: Colors.transparent,
                                         onTap: () {
                                           Routes.navigateToBottomNavScreen(
                                               context, 1);
@@ -238,6 +284,8 @@ class _HomeState extends State<Home> {
                             child: CarouselSlider(
                               items: homeProvider.imageList.map((item) {
                                 return InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
                                   onTap: () {
                                     searchProvider.clearFilters();
 
@@ -326,6 +374,8 @@ class _HomeState extends State<Home> {
                               children: [
                                 homeProvider.brandsModel.length > 4
                                     ? InkWell(
+                                        highlightColor: Colors.transparent,
+                                        splashColor: Colors.transparent,
                                         onTap: () {
                                           Routes.navigateToBrandsScreen(
                                               context,
@@ -382,7 +432,7 @@ class _HomeState extends State<Home> {
                       homeProvider.modelBanners == null
                           ? appLoader()
                           : Container(
-                              height: MediaQuery.of(context).size.height * .07,
+                              height: MediaQuery.of(context).size.height * .1,
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   colors: [
@@ -409,6 +459,8 @@ class _HomeState extends State<Home> {
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: InkWell(
+                                        highlightColor: Colors.transparent,
+                                        splashColor: Colors.transparent,
                                         onTap: () {
                                           Routes.navigateToCartScreen(context);
                                         },
@@ -426,6 +478,9 @@ class _HomeState extends State<Home> {
                                                       : Colors.black),
                                             ),
                                             InkWell(
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              splashColor: Colors.transparent,
                                               onTap: () {
                                                 Routes
                                                     .navigateToBottomNavScreen(
@@ -568,6 +623,8 @@ class _HomeState extends State<Home> {
                                                     : Colors.black),
                                           ),
                                           InkWell(
+                                            highlightColor: Colors.transparent,
+                                            splashColor: Colors.transparent,
                                             onTap: () {
                                               Routes.navigateToWishlistScreen(
                                                   context);
@@ -632,27 +689,28 @@ class _HomeState extends State<Home> {
                       Container(
                         height: MediaQuery.of(context).size.height * 0.25,
                         decoration: BoxDecoration(
-                          gradient:
-                              Theme.of(context).brightness == Brightness.dark
-                                  ? LinearGradient(
-                                      colors: [
-                                        colors.homeGradient3.withOpacity(0.7),
-                                        colors.homeGradient4.withOpacity(0.4),
-                                        colors.homeGradient3.withOpacity(0.7),
-                                      ],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.centerRight,
-                                    )
-                                  : LinearGradient(
-                                      colors: [
-                                        colors.homeGradient3.withOpacity(0.7),
-                                        colors.homeGradient4.withOpacity(0.4),
-                                        colors.homeGradient3.withOpacity(0.7),
-                                      ],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.centerRight,
-                                    ),
-                        ),
+                            gradient:
+                                // Theme.of(context).brightness == Brightness.dark
+                                //     ?
+                                LinearGradient(
+                          colors: [
+                            colors.homeGradient3.withOpacity(0.7),
+                            colors.homeGradient4.withOpacity(0.4),
+                            colors.homeGradient3.withOpacity(0.7),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.centerRight,
+                        )
+                            // : LinearGradient(
+                            //     colors: [
+                            //       colors.homeGradient3.withOpacity(0.7),
+                            //       colors.homeGradient4.withOpacity(0.4),
+                            //       colors.homeGradient3.withOpacity(0.7),
+                            //     ],
+                            //     begin: Alignment.topLeft,
+                            //     end: Alignment.centerRight,
+                            //   ),
+                            ),
                         child: Column(
                           children: [
                             spaceOfHeight(),
@@ -755,7 +813,7 @@ class _HomeState extends State<Home> {
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 3,
                                   crossAxisSpacing: 10,
-                                  childAspectRatio: 0.55,
+                                  childAspectRatio: 0.62,
                                 ),
                                 itemCount: homeProvider.modelBanners.data!
                                             .topDealProduct!.products!.length >
@@ -786,7 +844,7 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.40,
+                              height: MediaQuery.of(context).size.height * 0.3,
                               child: Column(
                                 children: [
                                   Row(
@@ -794,7 +852,7 @@ class _HomeState extends State<Home> {
                                     children: [
                                       Image.asset(
                                         Images.refer,
-                                        height: 120,
+                                        height: 100,
                                         width: 100,
                                       ),
                                       const SizedBox(
@@ -810,13 +868,13 @@ class _HomeState extends State<Home> {
                                                 .giftSection!.giftTitle!,
                                             style: TextStyle(
                                                 color: colors.textColor,
-                                                fontSize: 25,
+                                                fontSize: 20,
                                                 fontWeight: FontWeight.bold),
                                           ))
                                     ],
                                   ),
                                   spaceOfHeight(),
-                                  spaceOfHeight(),
+                                  // spaceOfHeight(),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -832,6 +890,9 @@ class _HomeState extends State<Home> {
                                         Row(
                                           children: [
                                             InkWell(
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              splashColor: Colors.transparent,
                                               onTap: () {
                                                 Routes
                                                     .navigateToProductDetailPageScreen(
@@ -850,7 +911,11 @@ class _HomeState extends State<Home> {
                                                     .giftSection!
                                                     .products![i]
                                                     .thumbnail!,
-                                                height: 120,
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Image.asset(Images
+                                                            .defaultProductImg),
+                                                height: 110,
                                                 width: 100,
                                               ),
                                             ),
@@ -889,7 +954,7 @@ class _HomeState extends State<Home> {
                           height: MediaQuery.of(context).size.height *
                               0.35 *
                               searchProvider.searchResults.length /
-                              2,
+                              1.8,
                           child: GridView.builder(
                             shrinkWrap: true,
                             padding: EdgeInsets.zero,
@@ -950,6 +1015,8 @@ class FilterBar extends StatelessWidget {
               ? colors.midBorder
               : Color(0xFFE3E1EC),
           child: InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onTap: () {
               homeFilter(
                   context, homeProvider.filterModel, searchProvider, true);
@@ -997,6 +1064,8 @@ class FilterBar extends StatelessWidget {
             ),
           ),
           child: InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onTap: () {
               homeCategory(context, categoryProvider, searchProvider, true);
             },
@@ -1043,6 +1112,8 @@ class FilterBar extends StatelessWidget {
             ),
           ),
           child: InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onTap: () {
               homeSort(context, searchProvider);
             },

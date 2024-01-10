@@ -128,6 +128,8 @@ productRatingAndFollowersCard(
               ],
             ),
             InkWell(
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               onTap: () {
                 Map data = {'shop_id': shop.id.toString()};
                 model.isFollowing = !model.isFollowing;

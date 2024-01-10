@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/model/vendorModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
@@ -7,11 +9,13 @@ import '../../utils/routes.dart';
 
 vendorCard(context, VendorDatum model) {
   return InkWell(
+    highlightColor: Colors.transparent,
+    splashColor: Colors.transparent,
     onTap: () {
       Routes.navigateToVendorDetailsScreen(context, model);
     },
     child: Container(
-      height: MediaQuery.of(context).size.height * .135,
+      height: MediaQuery.of(context).size.height * .14,
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
@@ -40,7 +44,7 @@ vendorCard(context, VendorDatum model) {
             ),
             VerticalDivider(color: Colors.transparent),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.55,
+              width: MediaQuery.of(context).size.width * 0.54,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -113,7 +117,7 @@ vendorCard(context, VendorDatum model) {
                     ],
                   ),
                   Divider(color: Colors.transparent),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       const Text(""),
@@ -122,7 +126,8 @@ vendorCard(context, VendorDatum model) {
                         child: Text(
                           "View Details",
                           style: TextStyle(
-                              color: colors.buttonColor, fontSize: 14),
+                              color: colors.buttonColor,
+                              fontSize: Platform.isAndroid ? 12 : 14),
                         ),
                       ),
                     ],

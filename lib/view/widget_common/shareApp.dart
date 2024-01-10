@@ -40,6 +40,8 @@ Future<void> share(context, String referralCode) async {
                             Column(
                               children: [
                                 InkWell(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
                                     onTap: () {
                                       //Routes.navigateToPreviousScreen(context);
                                       if (i == 0) {

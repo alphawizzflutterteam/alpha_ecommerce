@@ -13,9 +13,10 @@ class Utils {
     Flushbar(
       // title: title,
       forwardAnimationCurve: Curves.decelerate,
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
       padding: const EdgeInsets.all(12),
-      backgroundColor: colors.buttonColor,
+      backgroundColor: const Color.fromARGB(255, 23, 128, 128),
+      messageColor: Colors.white,
       flushbarPosition: FlushbarPosition.TOP,
       reverseAnimationCurve: Curves.easeOutSine,
       borderRadius: const BorderRadius.all(Radius.circular(8)),

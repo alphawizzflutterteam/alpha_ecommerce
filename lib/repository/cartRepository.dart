@@ -12,7 +12,7 @@ class CartRepository {
     res = await http.get(url, headers: {
       'Authorization': 'Bearer $bearerToken',
     });
-
+    print(res.body);
     return cartModelFromJson(res.body);
   }
 
@@ -23,7 +23,7 @@ class CartRepository {
     res = await http.get(url, headers: {
       'Authorization': 'Bearer $bearerToken',
     });
-
+    print(res.body);
     return wishlistModelFromJson(res.body);
   }
 

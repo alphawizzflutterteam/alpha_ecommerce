@@ -39,6 +39,8 @@ class _WelcomeState extends State<Welcome> {
           extendBody: true,
           backgroundColor: Colors.transparent,
           body: InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onTap: () {
               Routes.navigateToSubscribeScreen(context, true);
             },

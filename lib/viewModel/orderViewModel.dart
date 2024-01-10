@@ -8,7 +8,9 @@ import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/orderDetailModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/ordersModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/networkViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class OrderViewModel with ChangeNotifier {
   List<OrdersList> orderList = [];
@@ -33,29 +35,38 @@ class OrderViewModel with ChangeNotifier {
   ) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
 
-    await _myRepo
-        .orderListRequest(
-            AppUrl.orderList +
-                "?status=" +
-                status +
-                "&categorie=" +
-                categorie +
-                "&search_text=" +
-                searchText.text,
-            token)
-        .then((value) {
-      //orderList.clear();
-      orderList = value.data!;
-      filters = value.filters!;
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
       setLoading(false);
 
-      notifyListeners();
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      notifyListeners();
-      print(stackTrace.toString() + "ORder Error");
-    });
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .orderListRequest(
+              AppUrl.orderList +
+                  "?status=" +
+                  status +
+                  "&categorie=" +
+                  categorie +
+                  "&search_text=" +
+                  searchText.text,
+              token)
+          .then((value) {
+        //orderList.clear();
+        orderList = value.data!;
+        filters = value.filters!;
+        setLoading(false);
+
+        notifyListeners();
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        notifyListeners();
+        print(stackTrace.toString() + "ORder Error");
+      });
+    }
   }
 
   Future<void> getOrderDetail(BuildContext context, String order_id) async {
@@ -63,20 +74,29 @@ class OrderViewModel with ChangeNotifier {
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
     print(token);
     print(order_id + "ID");
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
 
-    await _myRepo
-        .orderDetailRequest(AppUrl.orderDetail, token, order_id)
-        .then((value) {
-      detail = value.data!;
-      RecommendedProducts = value.recommendedProducts;
-      // print("detail ${detail.shippingAddress!.address!}");
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
 
-      setLoading(false);
-      notifyListeners();
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      print(stackTrace.toString() + "API ERRORR ORDER DETAIL");
-    });
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .orderDetailRequest(AppUrl.orderDetail, token, order_id)
+          .then((value) {
+        detail = value.data!;
+        RecommendedProducts = value.recommendedProducts;
+        // print("detail ${detail.shippingAddress!.address!}");
+
+        setLoading(false);
+        notifyListeners();
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        print(stackTrace.toString() + "API ERRORR ORDER DETAIL");
+      });
+    }
   }
 
   Future<void> postOrderReturnRequest(
@@ -85,15 +105,25 @@ class OrderViewModel with ChangeNotifier {
       required String amount,
       required BuildContext context}) async {
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
-    await _myRepo
-        .orderReturnRequest(
-            api: AppUrl.orderReturn,
-            bearerToken: token,
-            order_id: order_id,
-            amount: amount,
-            refund_reason: reason)
-        .then((value) =>
-            {Utils.showFlushBarWithMessage("", value.message, context)});
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .orderReturnRequest(
+              api: AppUrl.orderReturn,
+              bearerToken: token,
+              order_id: order_id,
+              amount: amount,
+              refund_reason: reason)
+          .then((value) =>
+              {Utils.showFlushBarWithMessage("", value.message, context)});
+    }
   }
 
   Future<void> getOrderCancelRequest(
@@ -101,37 +131,61 @@ class OrderViewModel with ChangeNotifier {
       required String reason,
       required BuildContext context}) async {
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
-    await _myRepo
-        .orderCancelRequest(
-            api: AppUrl.orderReturn,
-            bearerToken: token,
-            order_id: order_id,
-            cancel_reason: reason)
-        .then((value) {
-      if (value.status) {
-        Navigator.pop(context);
-        Routes.navigateToOrderCancelledScreen(context, order_id);
-      } else {
-        Navigator.pop(context);
-      }
-      Utils.showFlushBarWithMessage("", value.message, context);
-    });
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .orderCancelRequest(
+              api: AppUrl.orderReturn,
+              bearerToken: token,
+              order_id: order_id,
+              cancel_reason: reason)
+          .then((value) {
+        if (value.status) {
+          Navigator.pop(context);
+          Routes.navigateToOrderCancelledScreen(context, order_id);
+        } else {
+          Navigator.pop(context);
+        }
+        Utils.showFlushBarWithMessage("", value.message, context);
+      });
+    }
   }
 
 //Funcation to submit order review
-  Future<void> postOrderReviewRequest({
-    required String order_id,
-    required String comment,
-    required String rating,
-    required String product_id,
-  }) async {
+  Future<void> postOrderReviewRequest(
+      {required String order_id,
+      required String comment,
+      required String rating,
+      required String product_id,
+      required BuildContext context}) async {
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
-    await _myRepo.orderReviewRequest(
-        api: AppUrl.writeReview,
-        bearerToken: token,
-        order_id: order_id,
-        product_id: product_id,
-        comment: comment,
-        rating: rating);
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .orderReviewRequest(
+              api: AppUrl.writeReview,
+              bearerToken: token,
+              order_id: order_id,
+              product_id: product_id,
+              comment: comment,
+              rating: rating)
+          .then((value) {
+        Utils.showFlushBarWithMessage("", value.message, context);
+      });
+    }
   }
 }

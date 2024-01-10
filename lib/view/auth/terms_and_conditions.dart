@@ -24,7 +24,11 @@ class _TermAndConditionState extends State<TermAndCondition> {
     super.initState();
     profileModelProvider =
         Provider.of<ProfileViewModel>(context, listen: false);
-    profileModelProvider.getPrivacyPolicyData();
+    callApi();
+  }
+
+  callApi() async {
+    await profileModelProvider.getPrivacyPolicyData(context);
   }
 
   @override
@@ -61,6 +65,8 @@ class _TermAndConditionState extends State<TermAndCondition> {
                             Padding(
                               padding: const EdgeInsets.only(left: 20),
                               child: InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
                                   onTap: () {
                                     Routes.navigateToPreviousScreen(context);
                                   },

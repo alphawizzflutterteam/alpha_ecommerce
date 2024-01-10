@@ -71,6 +71,8 @@ class _OTPVerificationState extends State<OTPVerification> {
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
                         child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
                               Routes.navigateToPreviousScreen(context);
                             },
@@ -106,15 +108,20 @@ class _OTPVerificationState extends State<OTPVerification> {
                 height: 30,
               ),
               Theme.of(context).brightness == Brightness.dark
-                  ? Image.asset(
-                      Images.logoWithoutText,
-                      height: 90,
-                      width: 120,
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Image.asset(
+                        Images.logoWithoutText,
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        // width: 120,
+                      ),
                     )
-                  : Image.asset(
-                      "assets/images/loogo_black.png",
-                      height: 90,
-                      width: 120,
+                  : Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Image.asset(
+                        "assets/images/loogo_black.png",
+                        height: MediaQuery.of(context).size.height * 0.1,
+                      ),
                     ),
               Padding(
                 padding:
@@ -231,6 +238,8 @@ class _OTPVerificationState extends State<OTPVerification> {
                                       color: colors.lightTextColor),
                                 ),
                                 InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
                                   onTap: () {
                                     Map data = {
                                       'phone': mobile,
@@ -277,6 +286,8 @@ class _OTPVerificationState extends State<OTPVerification> {
                     ),
                   ),
                   InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       widget.isComingForLogin
                           ? Routes.navigateToSignInScreen(context)

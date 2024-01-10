@@ -14,11 +14,13 @@ topDealCard(context, ProductList2 products) {
   return Column(
     children: [
       InkWell(
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
         onTap: () {
           Routes.navigateToProductDetailPageScreen(context, products.slug);
         },
         child: SizedBox(
-          height: 160,
+          height: 150,
           width: 100,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

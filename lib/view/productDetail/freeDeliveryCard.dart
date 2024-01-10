@@ -15,13 +15,14 @@ deliveryCard(BuildContext context, {required ProductListDetail model}) {
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Visibility(
           visible: model.freeShipping == 1,
           child: SizedBox(
-            width: 60,
+            // width: 60,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(Images.freeDelivery,
                     height: 30,
@@ -47,8 +48,9 @@ deliveryCard(BuildContext context, {required ProductListDetail model}) {
         ),
         model.refundable == "1"
             ? SizedBox(
-                width: 60,
+                // width: 60,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(Images.nonRefundable,
                         height: 30,
@@ -60,7 +62,7 @@ deliveryCard(BuildContext context, {required ProductListDetail model}) {
                       height: 5,
                     ),
                     Text(
-                      "Non -\nRefundable",
+                      "Non-Refundable",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
@@ -76,8 +78,9 @@ deliveryCard(BuildContext context, {required ProductListDetail model}) {
             : Container(),
         model.featuredStatus == 1
             ? SizedBox(
-                width: 60,
+                //  width: 60,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(Images.topBrand,
                         height: 30,
@@ -102,8 +105,9 @@ deliveryCard(BuildContext context, {required ProductListDetail model}) {
               )
             : Container(),
         SizedBox(
-          width: 60,
+          //  width: 60,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(Images.warranty,
                   height: 30,

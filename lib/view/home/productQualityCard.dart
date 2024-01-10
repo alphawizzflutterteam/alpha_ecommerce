@@ -12,21 +12,20 @@ productQualityCard(TopDealsModel modelBanners, BuildContext context) {
         children: [
           Image.asset(
             Images.product,
-            height: 50,
-            width: 50,
+            height: size_40,
+            width: size_40,
           ),
           const SizedBox(
             width: 2,
           ),
           SizedBox(
-              width: MediaQuery.of(context).size.width * .15,
-              height: 30,
+              width: MediaQuery.of(context).size.width * .20,
               child: Text(
                 modelBanners.data!.frameOne!.label1!,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style:
-                    TextStyle(fontSize: size_10, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: size_9, fontWeight: FontWeight.bold),
               )),
         ],
       ),
@@ -35,19 +34,20 @@ productQualityCard(TopDealsModel modelBanners, BuildContext context) {
         children: [
           Image.asset(
             Images.product,
-            height: 50,
-            width: 50,
+            height: size_40,
+            width: size_40,
           ),
           const SizedBox(
             width: 2,
           ),
           SizedBox(
-              width: MediaQuery.of(context).size.width * .15,
-              height: 30,
+              width: MediaQuery.of(context).size.width * .20,
               child: Text(
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 modelBanners.data!.frameOne!.label2!,
-                style:
-                    TextStyle(fontSize: size_10, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: size_9, fontWeight: FontWeight.bold),
               )),
         ],
       ),
@@ -56,19 +56,20 @@ productQualityCard(TopDealsModel modelBanners, BuildContext context) {
         children: [
           Image.asset(
             Images.product,
-            height: 50,
-            width: 50,
+            height: size_40,
+            width: size_40,
           ),
           const SizedBox(
             width: 2,
           ),
           SizedBox(
-              width: MediaQuery.of(context).size.width * .15,
-              height: 30,
+              width: MediaQuery.of(context).size.width * .2,
               child: Text(
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
                 modelBanners.data!.frameOne!.label3!,
-                style:
-                    TextStyle(fontSize: size_10, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: size_9, fontWeight: FontWeight.bold),
               )),
         ],
       ),

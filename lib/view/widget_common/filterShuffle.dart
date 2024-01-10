@@ -114,6 +114,8 @@ class _FilterClassState extends State<FilterClass> {
               child: Padding(
                 padding: const EdgeInsets.only(right: 20, bottom: 5),
                 child: InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     widget.model.selectedFilter.clear();
                     widget.model.clearFilters();
@@ -325,6 +327,9 @@ class _FilterClassState extends State<FilterClass> {
                                                           ? 3
                                                           : 2)),
                                               child: InkWell(
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                splashColor: Colors.transparent,
                                                 onTap: () {
                                                   print(widget.filter[i].title!
                                                           .toString() +

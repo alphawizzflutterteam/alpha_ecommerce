@@ -10,6 +10,8 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: InkWell(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
           onTap: () {
             Routes.navigateToSingleTransactionScreen(context, data);
           },

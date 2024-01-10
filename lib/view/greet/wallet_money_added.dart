@@ -39,6 +39,8 @@ class _WalletSuccessState extends State<WalletSuccess> {
           extendBody: true,
           backgroundColor: Colors.transparent,
           body: InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onTap: () {
               showAlertDialog(context);
             },

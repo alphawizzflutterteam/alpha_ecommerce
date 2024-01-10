@@ -26,7 +26,7 @@ class _RefundHistoryState extends State<RefundHistory> {
     super.initState();
     profileModelProvider =
         Provider.of<ProfileViewModel>(context, listen: false);
-    profileModelProvider.getRefundHistoryData();
+    profileModelProvider.getRefundHistoryData(context);
   }
 
   @override

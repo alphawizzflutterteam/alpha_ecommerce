@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 specialOfferCard(SpecialOffersList model, BuildContext context,
     SearchViewModel searchProvider) {
   return InkWell(
+    highlightColor: Colors.transparent,
+    splashColor: Colors.transparent,
     onTap: () {
       searchProvider.clearFilters();
 

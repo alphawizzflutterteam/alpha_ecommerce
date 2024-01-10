@@ -8,6 +8,7 @@ import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/address/model/addressModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/coupon/model/couponListModel.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/model/vendorModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/networkViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -79,66 +80,93 @@ class AddressViewModel with ChangeNotifier {
   }
 
   Future<void> getAddressList(BuildContext context) async {
-    setLoading(true);
+    // setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
 
-    await _myRepo.addressList(AppUrl.addressList, token).then((value) {
-      addressList = value.data;
-      notifyListeners();
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      // setLoading(false);
 
-      try {
-        setselected(0, addressList[0], false, context);
-        SharedPref.shared.pref?.setString(
-            PrefKeys.billingAddressID, addressList[0].id.toString());
-      } catch (stacktrace) {}
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo.addressList(AppUrl.addressList, token).then((value) {
+        addressList = value.data;
+        notifyListeners();
 
-      setLoading(false);
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      print(error.toString());
-      print(stackTrace.toString());
-    });
+        try {
+          setselected(0, addressList[0], false, context);
+          SharedPref.shared.pref?.setString(
+              PrefKeys.billingAddressID, addressList[0].id.toString());
+        } catch (stacktrace) {}
+
+        // setLoading(false);
+      }).onError((error, stackTrace) {
+        // setLoading(false);
+        print(error.toString());
+        print(stackTrace.toString());
+      });
+    }
   }
 
   Future<void> updateAddress(BuildContext context, dynamic data) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
 
-    await _myRepo
-        .updateAddress(AppUrl.updateAddressList, token, data)
-        .then((value) {
-      notifyListeners();
-      getAddressList(context);
-      Routes.navigateToPreviousScreen(context);
-      Utils.showFlushBarWithMessage("Alert", value.message, context);
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
 
-      setLoading(false);
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      print(error.toString());
-      print(stackTrace.toString());
-    });
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .updateAddress(AppUrl.updateAddressList, token, data)
+          .then((value) {
+        notifyListeners();
+        getAddressList(context);
+        Routes.navigateToPreviousScreen(context);
+        Utils.showFlushBarWithMessage("Alert", value.message, context);
+
+        setLoading(false);
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        print(error.toString());
+        print(stackTrace.toString());
+      });
+    }
   }
 
   Future<void> deleteAddress(BuildContext context, dynamic data) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
 
-    await _myRepo
-        .deleteAddress(
-      AppUrl.deleteAddress + data,
-      token,
-    )
-        .then((value) {
-      Utils.showFlushBarWithMessage("Alert", value.message, context);
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
 
-      setLoading(false);
-      getAddressList(context);
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      print(error.toString());
-      print(stackTrace.toString());
-    });
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .deleteAddress(
+        AppUrl.deleteAddress + data,
+        token,
+      )
+          .then((value) {
+        Utils.showFlushBarWithMessage("Alert", value.message, context);
+
+        setLoading(false);
+        getAddressList(context);
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        print(error.toString());
+        print(stackTrace.toString());
+      });
+    }
   }
 
   void showAlert(BuildContext context, String msg) {
@@ -148,25 +176,35 @@ class AddressViewModel with ChangeNotifier {
   Future<void> addAddress(BuildContext context, dynamic data) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
 
-    await _myRepo
-        .addAddddress(AppUrl.addAddressList, token, data)
-        .then((value) async {
-      Utils.showFlushBarWithMessage("Alert", value.message, context);
-
-      getAddressList(context);
-      clearTextt();
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
       setLoading(false);
-      Future.delayed(Duration(seconds: 2), () {
-        Routes.navigateToPreviousScreen(context);
-        Routes.navigateToPreviousScreen(context);
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .addAddddress(AppUrl.addAddressList, token, data)
+          .then((value) async {
+        Utils.showFlushBarWithMessage("Alert", value.message, context);
+
+        getAddressList(context);
+        clearTextt();
+        setLoading(false);
+        Future.delayed(Duration(seconds: 2), () {
+          Routes.navigateToPreviousScreen(context);
+          // Routes.navigateToPreviousScreen(context);
+        });
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        print(error.toString());
+        print(stackTrace.toString());
+        Utils.showFlushBarWithMessage(
+            "Alert", "Something went wrong.", context);
       });
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      print(error.toString());
-      print(stackTrace.toString());
-      Utils.showFlushBarWithMessage("Alert", "Something went wrong.", context);
-    });
+    }
   }
 
   Future<void> getCurrentLoc(BuildContext context) async {
@@ -238,7 +276,7 @@ class AddressViewModel with ChangeNotifier {
     };
 
     stateController.text =
-        stateAbbreviationMap[placemark[0].administrativeArea] ?? 'Unknown';
+        stateAbbreviationMap[placemark[0].administrativeArea] ?? '';
 
     print(
         "${placemark[0].street}, ${placemark[0].subLocality}, ${placemark[0].locality}");

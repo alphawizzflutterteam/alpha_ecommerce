@@ -11,6 +11,8 @@ secondCategoryCard(CategoryList model, BuildContext context,
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 6),
     child: InkWell(
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {
         searchProvider.categoryId = model.id.toString();
         searchProvider.isHome = false;
@@ -23,15 +25,18 @@ secondCategoryCard(CategoryList model, BuildContext context,
         children: [
           Stack(
             children: [
-              CircleAvatar(
-                backgroundColor: Colors.white,
-                child: CachedNetworkImage(
-                  imageUrl: model.icon!,
-                  errorWidget: (context, url, error) => ErrorImageWidget(),
-                  height: size_65,
-                  width: size_65,
+              Container(
+                width: size_50, // Set your desired width
+                height: size_50, // Set your desired height
+                child: ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: model.icon!,
+                    fit: BoxFit.cover,
+                    errorWidget: (context, url, error) =>
+                        ClipOval(child: ErrorImageWidget()),
+                  ),
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(

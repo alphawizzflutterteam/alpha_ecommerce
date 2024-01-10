@@ -9,7 +9,7 @@ class AppUrl {
   static String sendRegisterOtp = "${baseURL}auth/send-otp";
   static String loginWithEmailPassword = "${baseURL}auth/login";
   static String register = "${baseURL}auth/register";
-  static String updatePassword = "${baseURL}auth/update-password";
+  static String updatePassword = "${baseURL}customer/update-password";
   static String resetPassword = "${baseURL}customer/reset-password";
 
   static const String getProfile = "${baseURL}customer/info";

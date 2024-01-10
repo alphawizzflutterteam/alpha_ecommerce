@@ -6,6 +6,8 @@ import '../../utils/routes.dart';
 
 categoryDetailCard({required BuildContext context}) {
   return InkWell(
+    highlightColor: Colors.transparent,
+    splashColor: Colors.transparent,
     onTap: () {
       //Routes.navigateToProductDetailPageScreen(context);
     },

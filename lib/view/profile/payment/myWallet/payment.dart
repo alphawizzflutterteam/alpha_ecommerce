@@ -175,6 +175,8 @@ class _PaymentState extends State<Payment> {
                         itemCount: paymentMethods.length,
                         itemBuilder: (context, i) {
                           return InkWell(
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent,
                               onTap: () async {
                                 if (paymentMethods[i].paymentMethodName ==
                                     "Cash On Delivery") {

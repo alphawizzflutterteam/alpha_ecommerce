@@ -162,7 +162,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "MRP (4 items)",
+                                          "MRP (1 item)",
                                           style: TextStyle(
                                               color: colors.greyText,
                                               fontSize: 12),
@@ -313,6 +313,8 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                     ],
                                   ),
                                   InkWell(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
                                     onTap: () {
                                       showToastMessage("Invoice Downloaded");
                                     },
@@ -477,6 +479,8 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         width: 5,
                                       ),
                                       InkWell(
+                                        highlightColor: Colors.transparent,
+                                        splashColor: Colors.transparent,
                                         onTap: () {
                                           writeReview(
                                               context,
@@ -513,40 +517,139 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         fontSize: 25),
                                   ),
                                   const SizedBox(height: 20),
-                                  OrderTracker(
-                                    status: Status.delivered,
-                                    activeColor: colors.buttonColor,
-                                    inActiveColor: Colors.grey[300],
-                                    orderTitleAndDateList: orderList,
-                                    shippedTitleAndDateList: shippedList,
-                                    outOfDeliveryTitleAndDateList:
-                                        outOfDeliveryList,
-                                    deliveredTitleAndDateList: deliveredList,
-                                    headingTitleStyle: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 14),
-                                    headingDateTextStyle: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 14),
-                                    subTitleTextStyle: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 14),
-                                    subDateTextStyle: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 14),
-                                  ),
+                                  detailProvider.detail.expectedDeliveryDate ==
+                                          ""
+                                      ? Container()
+                                      : const SizedBox(height: 20),
+                                  for (int i = 0;
+                                      i <
+                                          detailProvider
+                                              .detail.orderStatusHistory.length;
+                                      i++)
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 0),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(Icons.check_circle,
+                                                  color: detailProvider
+                                                          .detail
+                                                          .orderStatusHistory[i]
+                                                          .status!
+                                                          .toLowerCase()
+                                                          .contains("can")
+                                                      ? Colors.red
+                                                      : detailProvider
+                                                              .detail
+                                                              .orderStatusHistory[
+                                                                  i]
+                                                              .status!
+                                                              .toLowerCase()
+                                                              .contains("pend")
+                                                          ? Colors.orange
+                                                          : colors.buttonColor),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    detailProvider
+                                                        .detail
+                                                        .orderStatusHistory[i]
+                                                        .status!,
+                                                    //  "Ordered Saturday, 6 Oct",
+                                                    style: TextStyle(
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    convertTimestampToFormattedDate(
+                                                        detailProvider
+                                                            .detail
+                                                            .orderStatusHistory[
+                                                                i]
+                                                            .updatedAt
+                                                            .toString()),
+                                                    style: TextStyle(
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          i ==
+                                                  detailProvider
+                                                          .detail
+                                                          .orderStatusHistory
+                                                          .length -
+                                                      1
+                                              ? Container()
+                                              : Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(horizontal: 4),
+                                                  height: 50,
+                                                  child: const VerticalDivider(
+                                                    color: Colors.grey,
+                                                    thickness: 1.2,
+                                                    indent: 2,
+                                                    endIndent: 2,
+                                                  ),
+                                                ),
+                                        ],
+                                      ),
+                                    ),
+                                  //   OrderTracker(
+                                  //   status: Status.delivered,
+                                  //   activeColor: colors.buttonColor,
+                                  //   inActiveColor: Colors.grey[300],
+                                  //   orderTitleAndDateList: orderList,
+                                  //   shippedTitleAndDateList: shippedList,
+                                  //   outOfDeliveryTitleAndDateList:
+                                  //       outOfDeliveryList,
+                                  //   deliveredTitleAndDateList: deliveredList,
+                                  //   headingTitleStyle: TextStyle(
+                                  //       color: Theme.of(context).brightness ==
+                                  //               Brightness.dark
+                                  //           ? Colors.white
+                                  //           : Colors.black,
+                                  //       fontSize: 14),
+                                  //   headingDateTextStyle: TextStyle(
+                                  //       color: Theme.of(context).brightness ==
+                                  //               Brightness.dark
+                                  //           ? Colors.white
+                                  //           : Colors.black,
+                                  //       fontSize: 14),
+                                  //   subTitleTextStyle: TextStyle(
+                                  //       color: Theme.of(context).brightness ==
+                                  //               Brightness.dark
+                                  //           ? Colors.white
+                                  //           : Colors.black,
+                                  //       fontSize: 14),
+                                  //   subDateTextStyle: TextStyle(
+                                  //       color: Theme.of(context).brightness ==
+                                  //               Brightness.dark
+                                  //           ? Colors.white
+                                  //           : Colors.black,
+                                  //       fontSize: 14),
+                                  // ),
                                 ],
                               ),
                             ),

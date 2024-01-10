@@ -1,5 +1,6 @@
 import 'dart:ffi';
 import 'dart:io';
+import 'package:alpha_ecommerce_18oct/viewModel/networkViewModel.dart';
 import 'package:http_parser/http_parser.dart';
 
 import 'package:alpha_ecommerce_18oct/repository/profileRepository.dart';
@@ -37,35 +38,55 @@ class ProfileViewModel with ChangeNotifier {
   }
 
   Future<void> pickFile(BuildContext context) async {
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(type: FileType.image);
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
 
-    if (result != null) {
-      selecteddUserImage = File(result.files.single.path!);
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      FilePickerResult? result =
+          await FilePicker.platform.pickFiles(type: FileType.image);
+
+      if (result != null) {
+        selecteddUserImage = File(result.files.single.path!);
+        var res = await _myRepo.multipartRequest(AppUrl.updateImage,
+            selecteddUserImage!, MediaType('image', 'jpeg'));
+        print(res["status"]);
+        if (res['status'] == true) {
+          HomeViewModel homeProvider =
+              Provider.of<HomeViewModel>(context, listen: false);
+
+          Routes.navigateToPreviousScreen(context);
+          await homeProvider.getProfileAPI({}, context);
+        }
+      } else {
+        Utils.showFlushBarWithMessage("", "Something went wrong", context);
+      }
+    }
+  }
+
+  Future<void> uploadFile(BuildContext context) async {
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
       var res = await _myRepo.multipartRequest(
           AppUrl.updateImage, selecteddUserImage!, MediaType('image', 'jpeg'));
       print(res["status"]);
       if (res['status'] == true) {
         HomeViewModel homeProvider =
             Provider.of<HomeViewModel>(context, listen: false);
-
-        Routes.navigateToPreviousScreen(context);
         await homeProvider.getProfileAPI({}, context);
+        Routes.navigateToPreviousScreen(context);
       }
-    } else {
-      Utils.showFlushBarWithMessage("", "Something went wrong", context);
-    }
-  }
-
-  Future<void> uploadFile(BuildContext context) async {
-    var res = await _myRepo.multipartRequest(
-        AppUrl.updateImage, selecteddUserImage!, MediaType('image', 'jpeg'));
-    print(res["status"]);
-    if (res['status'] == true) {
-      HomeViewModel homeProvider =
-          Provider.of<HomeViewModel>(context, listen: false);
-      await homeProvider.getProfileAPI({}, context);
-      Routes.navigateToPreviousScreen(context);
     }
   }
 
@@ -74,130 +95,203 @@ class ProfileViewModel with ChangeNotifier {
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
     print(token);
 
-    await _myRepo
-        .updateProfileRequest(AppUrl.updateProfile, token, data)
-        .then((value) {
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
       setLoading(false);
 
-      HomeViewModel homeProvider =
-          Provider.of<HomeViewModel>(context, listen: false);
-      try {
-        var phone = SharedPref.shared.pref!.getString(PrefKeys.mobile);
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .updateProfileRequest(AppUrl.updateProfile, token, data)
+          .then((value) {
+        setLoading(false);
 
-        Map data2 = {'phone': phone};
-        homeProvider.getProfileAPI(data2, context);
-      } catch (stacktrace) {}
-      Routes.navigateToPreviousScreen(context);
+        HomeViewModel homeProvider =
+            Provider.of<HomeViewModel>(context, listen: false);
+        try {
+          var phone = SharedPref.shared.pref!.getString(PrefKeys.mobile);
 
-      Utils.showFlushBarWithMessage("Alert", value.message, context);
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      print(error.toString());
-      print(stackTrace.toString());
-    });
+          Map data2 = {'phone': phone};
+          homeProvider.getProfileAPI(data2, context);
+        } catch (stacktrace) {}
+        Routes.navigateToPreviousScreen(context);
+
+        Utils.showFlushBarWithMessage("Alert", value.message, context);
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        print(error.toString());
+        print(stackTrace.toString());
+      });
+    }
   }
 
 //Funcation to fetch All Privacy Policy Data
-  Future<void> getPrivacyPolicyData() async {
+  Future<void> getPrivacyPolicyData(BuildContext context) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
-    await _myRepo
-        .getPrivacyPolicyDataRequest(api: AppUrl.privacyPolicyData)
-        .then((value) {
-      privacyPolicyData = value;
-      print(privacyPolicyData.data!.privacyPolicy.toString() +
-          'Privacy poolicyy');
+
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
       setLoading(false);
-      notifyListeners();
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      print(error.toString());
-      print(stackTrace.toString());
-    });
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .getPrivacyPolicyDataRequest(api: AppUrl.privacyPolicyData)
+          .then((value) {
+        privacyPolicyData = value;
+        print(privacyPolicyData.data!.privacyPolicy.toString() +
+            'Privacy poolicyy');
+        setLoading(false);
+        notifyListeners();
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        print(error.toString());
+        print(stackTrace.toString());
+      });
+    }
   }
 
-  Future<void> getTransactionHistoryData() async {
+  Future<void> getTransactionHistoryData(BuildContext context) async {
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
-    await _myRepo
-        .getTransactionHistoryDataRequest(
-            api: AppUrl.transactionHistory, bearerToken: token)
-        .then((value) {
-      transactionDatta = value.data;
-      print("Transacttiion Data");
-      notifyListeners();
-    }).onError((error, stackTrace) {
+
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
       setLoading(false);
-      print(error.toString());
-      print(stackTrace.toString());
-    });
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .getTransactionHistoryDataRequest(
+              api: AppUrl.transactionHistory, bearerToken: token)
+          .then((value) {
+        transactionDatta = value.data;
+        print("Transacttiion Data");
+        notifyListeners();
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        print(error.toString());
+        print(stackTrace.toString());
+      });
+    }
   }
 
-  Future<void> getRefundHistoryData() async {
-    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
-    await _myRepo
-        .getRefundHistoryDataRequest(
-            api: AppUrl.refundHistory, bearerToken: token)
-        .then((value) {
-      refundData = value.data;
-      print("Transacttiion Data");
-      notifyListeners();
-    }).onError((error, stackTrace) {
+  Future<void> getRefundHistoryData(BuildContext context) async {
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
       setLoading(false);
-      print(error.toString());
-      print(stackTrace.toString());
-    });
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+      await _myRepo
+          .getRefundHistoryDataRequest(
+              api: AppUrl.refundHistory, bearerToken: token)
+          .then((value) {
+        refundData = value.data;
+        print("Transacttiion Data");
+        notifyListeners();
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        print(error.toString());
+        print(stackTrace.toString());
+      });
+    }
   }
 
-  Future<void> getWalletHistory() async {
-    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
-    await _myRepo
-        .getWalletHistoryDataRequest(
-            api: AppUrl.walletHistory, bearerToken: token)
-        .then((value) {
-      walletHistory = value.walletTransactioList;
-      print("walllet Data");
-      notifyListeners();
-    }).onError((error, stackTrace) {
+  Future<void> getWalletHistory(BuildContext context) async {
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
       setLoading(false);
-      print(error.toString());
-      print(stackTrace.toString());
-    });
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+      await _myRepo
+          .getWalletHistoryDataRequest(
+              api: AppUrl.walletHistory, bearerToken: token)
+          .then((value) {
+        walletHistory = value.walletTransactioList;
+        print("walllet Data");
+        notifyListeners();
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        print(error.toString());
+        print(stackTrace.toString());
+      });
+    }
   }
 
 //Function to fetch referral data
-  Future<void> getReferralData() async {
+  Future<void> getReferralData(BuildContext context) async {
     setLoading(true);
-    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
-    await _myRepo
-        .getReferralDataRequest(api: AppUrl.referral, bearerToken: token)
-        .then((value) {
-      referralList = value.data;
-      print(referralList.length);
+
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
       setLoading(false);
-      notifyListeners();
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      print(error.toString());
-      print(stackTrace.toString());
-    });
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+      await _myRepo
+          .getReferralDataRequest(api: AppUrl.referral, bearerToken: token)
+          .then((value) {
+        referralList = value.data;
+        print(referralList.length);
+        setLoading(false);
+        notifyListeners();
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        print(error.toString());
+        print(stackTrace.toString());
+      });
+    }
   }
 
 //Function to fetch subscription data
-  Future<void> getSubscriptionData() async {
-    setLoading(true);
-    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
-    await _myRepo
-        .getSubscriptionDataRequest(
-            api: AppUrl.subscription, bearerToken: token)
-        .then((value) {
-      subscriptionList = value.data;
-      print(subscriptionList.length);
+  Future<void> getSubscriptionData(BuildContext context) async {
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
       setLoading(false);
-      notifyListeners();
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      print(error.toString());
-      print(stackTrace.toString());
-    });
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      setLoading(true);
+      var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+      await _myRepo
+          .getSubscriptionDataRequest(
+              api: AppUrl.subscription, bearerToken: token)
+          .then((value) {
+        subscriptionList = value.data;
+        print(subscriptionList.length);
+        setLoading(false);
+        notifyListeners();
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        print(error.toString());
+        print(stackTrace.toString());
+      });
+    }
   }
 }

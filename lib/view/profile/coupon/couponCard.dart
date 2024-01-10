@@ -89,15 +89,25 @@ couponCard({required context, required CouponList coupon}) {
               const SizedBox(
                 height: 10,
               ),
-              Text(
-                "${coupon.discount}%",
-                style: TextStyle(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
+              coupon.discountType == "percentage"
+                  ? Text(
+                      "${coupon.discount}%",
+                      style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    )
+                  : Text(
+                      "${coupon.maxDiscount}",
+                      style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
               const SizedBox(
                 height: 15,
               ),
@@ -126,6 +136,8 @@ couponCard({required context, required CouponList coupon}) {
                     ],
                   ),
                   InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () async {
                       await Clipboard.setData(ClipboardData(text: coupon.code));
                       Utils.showFlushBarWithMessage(

@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
@@ -6,6 +7,7 @@ import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/toast_message.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
@@ -25,15 +27,25 @@ cartCard(
       padding: const EdgeInsets.only(left: 10.0, top: 8, right: 10, bottom: 8),
       child: Container(
         decoration: BoxDecoration(
+            // image: DecorationImage(image: NetworkImage(model.images.first)),
             borderRadius: const BorderRadius.all(Radius.circular(10)),
-            // gradient: LinearGradient(
-            //   colors: [
-            //     colors.boxGradient1.withOpacity(1),
-            //     Colors.transparent,
-            //   ],
-            //   begin: Alignment.topCenter,
-            //   end: Alignment.bottomCenter,
-            // ),
+            gradient: Theme.of(context).brightness == Brightness.dark
+                ? LinearGradient(
+                    colors: [
+                      colors.boxGradient1.withOpacity(1),
+                      Colors.transparent,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  )
+                : LinearGradient(
+                    colors: [
+                      Color(0xFFE4E2ED),
+                      Colors.white,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
             border: Border.all(
                 color: Theme.of(context).brightness == Brightness.dark
                     ? colors.boxBorder
@@ -46,29 +58,39 @@ cartCard(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   InkWell(
+                    // highlightColor: Colors.transparent,
+                    // splashColor: Colors.transparent,
                     onTap: () {
                       Routes.navigateToProductDetailPageScreen(
                           context, model.slug);
                     },
-                    child: Image.network(
-                      model.images[0],
-                      width: 110,
-                      height: 140,
-                      errorBuilder: (context, error, stackTrace) => SizedBox(
-                          height: 140, width: 110, child: ErrorImageWidget()),
+                    child: CachedNetworkImage(
+                      imageUrl: model.thumbnail,
+                      errorWidget: (context, url, error) => ErrorImageWidget(),
+                      height: size_80,
+                      width: size_80,
                     ),
+                    //  Image.network(
+                    //   model.images[0],
+                    //   width: 110,
+                    //   height: 140,
+                    //   errorBuilder: (context, error, stackTrace) => SizedBox(
+                    //       height: 140, width: 110, child: ErrorImageWidget()),
+                    // ),
                   ),
                   const SizedBox(width: 30),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
                         onTap: () {
                           Routes.navigateToProductDetailPageScreen(
                               context, model.slug);
                         },
                         child: SizedBox(
-                          width: MediaQuery.of(context).size.width - 220,
+                          width: MediaQuery.of(context).size.width - 200,
                           child: Text(
                             model.name,
                             maxLines: 1,
@@ -206,6 +228,12 @@ cartCard(
                           ),
                         ),
                       ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
                     ],
                   ),
                 ],
@@ -213,6 +241,8 @@ cartCard(
               Row(
                 children: [
                   InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       Map data = {'product_id': model.id.toString()};
                       cartProvider.addToSaveLater(data, context);
@@ -259,6 +289,8 @@ cartCard(
                                     ? colors.boxBorder
                                     : colors.lightBorder)),
                     child: InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
                       onTap: () {
                         Map data = {'key': model.cartId.toString()};
                         cartProvider.removeFromCart(data, context);

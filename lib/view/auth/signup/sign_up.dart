@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
@@ -5,6 +6,7 @@ import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
@@ -69,18 +71,25 @@ class _SignUPState extends State<SignUP> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(
-                          height: 100,
+                          height: size_100,
                         ),
                         Theme.of(context).brightness == Brightness.dark
-                            ? Image.asset(
-                                Images.logoWithoutText,
-                                height: 90,
-                                width: 120,
+                            ? Padding(
+                                padding: const EdgeInsets.only(left: 20.0),
+                                child: Image.asset(
+                                  Images.logoWithoutText,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                  // width: 120,
+                                ),
                               )
-                            : Image.asset(
-                                "assets/images/loogo_black.png",
-                                height: 90,
-                                width: 120,
+                            : Padding(
+                                padding: const EdgeInsets.only(left: 20.0),
+                                child: Image.asset(
+                                  "assets/images/loogo_black.png",
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                ),
                               ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
@@ -120,6 +129,13 @@ class _SignUPState extends State<SignUP> {
                                     horizontal: 20, vertical: 10),
                                 child: TextFormField(
                                   keyboardType: TextInputType.text,
+                                  maxLength: 50,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.deny(
+                                        RegExp(r'\d+')),
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp(r'[a-zA-Z\s]')), ////
+                                  ],
                                   controller: nameController,
                                   validator: validateName,
                                   decoration: InputDecoration(
@@ -137,9 +153,6 @@ class _SignUPState extends State<SignUP> {
                                       color: colors.labelColor,
                                     ),
                                   ),
-                                  // decoration: commonInputDecoration(
-                                  //   labelText: translation(context).fullname,
-                                  // ),
                                   style: TextStyle(
                                       color: Theme.of(context).brightness ==
                                               Brightness.dark
@@ -154,6 +167,12 @@ class _SignUPState extends State<SignUP> {
                                   keyboardType: TextInputType.emailAddress,
                                   controller: emailController,
                                   validator: validateEmail,
+                                  inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.allow(RegExp(
+                                        r'[a-zA-Z0-9@.]')), // Allow only alphanumeric characters
+
+                                    /// You can add additional formatters if needed
+                                  ],
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Theme.of(context).brightness ==
@@ -419,10 +438,13 @@ class _SignUPState extends State<SignUP> {
                                                           .currencyID) ??
                                                   "3";
 
-                                              final bool emailValid = RegExp(
-                                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                                  .hasMatch(
-                                                      emailController.text);
+                                              final bool emailValid =
+                                                  RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+                                                          .hasMatch(
+                                                              emailController
+                                                                  .text) &&
+                                                      !emailController.text
+                                                          .startsWith('.');
                                               if (emailValid) {
                                                 Map data = {
                                                   "f_name": nameController.text,

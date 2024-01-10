@@ -22,6 +22,8 @@ recommendedProductCard(
       children: List.generate(model.length, (index) {
         var card = model[index];
         return InkWell(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
           onTap: () {
             Routes.navigateToProductDetailPageScreen(
                 context, model[index].slug);
@@ -167,6 +169,8 @@ recommendedProductCard(
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       Map data;
                       if (!card.isCart) {

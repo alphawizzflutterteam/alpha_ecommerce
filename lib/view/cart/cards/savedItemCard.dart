@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
@@ -11,11 +13,29 @@ import 'package:flutter/material.dart';
 savedItemCard(
     WishlistItemProduct model, BuildContext context, CartViewModel provider) {
   return Container(
-    height: MediaQuery.of(context).size.height * .24,
-    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    height: MediaQuery.of(context).size.height * .255,
+    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        // image: DecorationImage(image: NetworkImage(model.images.first)),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        gradient: Theme.of(context).brightness == Brightness.dark
+            ? LinearGradient(
+                colors: [
+                  colors.boxGradient1.withOpacity(1),
+                  Colors.transparent,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )
+            : LinearGradient(
+                colors: [
+                  Color(0xFFE4E2ED),
+                  Colors.white,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
         border: Border.all(
             color: Theme.of(context).brightness == Brightness.dark
                 ? colors.boxBorder
@@ -27,8 +47,10 @@ savedItemCard(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.only(left: 12.0, right: 12, bottom: 12),
               child: InkWell(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {
                   Routes.navigateToProductDetailPageScreen(context, model.slug);
                 },
@@ -48,13 +70,15 @@ savedItemCard(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     Routes.navigateToProductDetailPageScreen(
                         context, model.slug);
                   },
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
-                        maxWidth: MediaQuery.of(context).size.width * .46),
+                        maxWidth: MediaQuery.of(context).size.width * .48),
                     child: Text(
                       model.name,
                       maxLines: 2,
@@ -103,6 +127,8 @@ savedItemCard(
         Row(
           children: [
             InkWell(
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               onTap: () async {
                 Map data = {
                   'product_id': model.id.toString(),
@@ -128,13 +154,15 @@ savedItemCard(
                       color: Theme.of(context).brightness == Brightness.dark
                           ? colors.textColor
                           : colors.greyText,
-                      fontSize: 12,
+                      fontSize: Platform.isAndroid ? 10 : 12,
                       fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
               ),
             ),
             InkWell(
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               onTap: () async {
                 Map data = {
                   'id': model.id.toString(),

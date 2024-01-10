@@ -16,6 +16,8 @@ productForYouCard(
   return Column(
     children: [
       InkWell(
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
         onTap: () {
           Routes.navigateToProductDetailPageScreen(context, model.slug);
         },
@@ -95,7 +97,7 @@ productForYouCard(
                           return AppUtils.appUtilsInstance.nothing();
                         }
                       },
-                      size: size_20,
+                      size: size_10,
                       isLiked: model.isFavorite,
                       circleColor:
                           const CircleColor(start: Colors.red, end: Colors.red),
@@ -117,7 +119,7 @@ productForYouCard(
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10,
-                  vertical: 5,
+                  vertical: 2,
                 ),
                 child: Text(
                   model.name,
@@ -162,6 +164,8 @@ productForYouCard(
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     var isLoggedIn =
                         SharedPref.shared.pref?.getString(PrefKeys.isLoggedIn);

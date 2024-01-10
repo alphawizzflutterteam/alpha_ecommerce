@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import '../../model/category.dart';
 import '../../utils/routes.dart';
 
-vendorDetailCard({required BuildContext context,required categoryIndex, required categoryListIndex}) {
+vendorDetailCard(
+    {required BuildContext context,
+    required categoryIndex,
+    required categoryListIndex}) {
   return InkWell(
+    highlightColor: Colors.transparent,
+    splashColor: Colors.transparent,
     onTap: () {
       Routes.navigateToCategoryDetailScreen(context);
     },

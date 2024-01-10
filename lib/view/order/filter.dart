@@ -58,7 +58,7 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
                         orderProvider: orderProvider,
                       ),
                       const SizedBox(
-                        height: 30,
+                        height: 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -92,9 +92,15 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
                                 orderProvider.getOrderList(context);
                                 Routes.navigateToPreviousScreen(context);
                               },
-                              child: const Text(
+                              child: Text(
                                 'CANCEL',
-                                style: TextStyle(fontSize: 12),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
                               ),
                             ),
                           ),
@@ -170,6 +176,8 @@ class _CancelApplyyBButttonState extends State<CancelApplyyBButtton> {
                 fontSize: 18),
           ),
           InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onTap: () {
               widget.orderProvider.status = "";
               widget.orderProvider.categorie = "";
@@ -221,9 +229,12 @@ class _FilterClassCategoryState extends State<FilterClassCategory> {
                     children: [
                       SizedBox(
                         height:
-                            widget.orderProvider.filters.categories!.length /
-                                3 *
-                                70,
+                            widget.orderProvider.filters.categories!.length > 3
+                                ? widget.orderProvider.filters.categories!
+                                        .length /
+                                    3 *
+                                    100
+                                : 70,
                         child: GridView.builder(
                           shrinkWrap: true,
                           padding: const EdgeInsets.symmetric(vertical: 0),
@@ -240,6 +251,8 @@ class _FilterClassCategoryState extends State<FilterClassCategory> {
                           itemBuilder: (context, j) {
                             return
                                 // InkWell(
+                                // highlightColor: Colors.transparent,
+                                // splashColor: Colors.transparent,
                                 //   onTap: () {
                                 //     widget.orderProvider.categorie = widget
                                 //         .orderProvider.filters.categories![j].title!
@@ -293,6 +306,8 @@ class _FilterClassCategoryState extends State<FilterClassCategory> {
                                 border: Border.all(color: Colors.grey),
                               ),
                               child: InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
                                 onTap: () {
                                   widget.orderProvider.categorie = widget
                                       .orderProvider
@@ -414,6 +429,8 @@ class _FilterClassStatusState extends State<FilterClassStatus> {
                                 border: Border.all(color: Colors.grey),
                               ),
                               child: InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
                                 onTap: () {
                                   widget.orderProvider.status = widget
                                       .orderProvider.filters.status![j].title!;
