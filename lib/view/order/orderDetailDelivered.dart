@@ -1,8 +1,15 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/order/productListBuilder.dart';
 import 'package:alpha_ecommerce_18oct/view/order/returnOrderPopup.dart';
 import 'package:alpha_ecommerce_18oct/view/order/writeReviewPopup.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
@@ -62,6 +69,10 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
 
   @override
   Widget build(BuildContext context) {
+    var model =
+        jsonDecode(SharedPref.shared.pref!.getString(PrefKeys.userDetails)!);
+
+    ProfileModel user = ProfileModel.fromJson(model);
     detailProvider = Provider.of<OrderViewModel>(context);
     return detailProvider.isLoading
         ? appLoader()
@@ -116,7 +127,9 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                 Brightness.dark
                                             ? Colors.white
                                             : Colors.black,
-                                        fontSize: 14,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14,
                                       ),
                                     ),
                                     Text(
@@ -126,7 +139,9 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                 Brightness.dark
                                             ? Colors.white
                                             : Colors.black,
-                                        fontSize: 14,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14,
                                       ),
                                     ),
                                   ],
@@ -151,7 +166,9 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14),
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -164,19 +181,25 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         Text(
                                           "MRP (1 item)",
                                           style: TextStyle(
-                                              color: colors.greyText,
-                                              fontSize: 12),
+                                            color: colors.greyText,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                         ),
                                         Text(
                                           detailProvider.detail.orderAmount
                                               .toString(),
                                           style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: 12),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -191,19 +214,25 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         Text(
                                           "Delivery fee",
                                           style: TextStyle(
-                                              color: colors.greyText,
-                                              fontSize: 12),
+                                            color: colors.greyText,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                         ),
                                         Text(
                                           detailProvider.detail.deliveryCharge
                                               .toString(),
                                           style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: 12),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -218,19 +247,25 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         Text(
                                           "Discount",
                                           style: TextStyle(
-                                              color: colors.greyText,
-                                              fontSize: 12),
+                                            color: colors.greyText,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                         ),
                                         Text(
                                           detailProvider.detail.discountAmount
                                               .toString(),
                                           style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: 12),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -256,14 +291,18 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                       Brightness.dark
                                                   ? Colors.white
                                                   : Colors.black,
-                                              fontSize: 14),
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                         ),
                                         Text(
                                           detailProvider.detail.subtotal
                                               .toString(),
                                           style: TextStyle(
                                               color: colors.buttonColor,
-                                              fontSize: 14),
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                         ),
                                       ],
                                     ),
@@ -360,7 +399,9 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                       Brightness.dark
                                                   ? Colors.white
                                                   : Colors.black,
-                                              fontSize: 14),
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                         ),
                                       ],
                                     ),
@@ -377,7 +418,9 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14),
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -392,7 +435,9 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14),
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -407,7 +452,9 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14),
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -421,7 +468,9 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14),
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -434,7 +483,9 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14),
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14),
                                     ),
                                   ),
                                 ],
@@ -443,62 +494,187 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                             const SizedBox(
                               height: 10,
                             ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 10),
-                              color: colors.homeBGGradient1.withOpacity(0.3),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  RatingBar.builder(
-                                    initialRating: rating,
-                                    minRating: 1,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: false,
-                                    itemCount: 5,
-                                    itemSize: 30,
-                                    itemPadding:
-                                        const EdgeInsets.only(right: 5),
-                                    itemBuilder: (context, _) => const Icon(
-                                      Icons.star,
-                                      color: Colors.orange,
-                                    ),
-                                    onRatingUpdate: (newRating) {
-                                      rating = newRating;
-                                    },
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.edit_outlined,
-                                        color: colors.homeBGGradient1,
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      InkWell(
-                                        highlightColor: Colors.transparent,
-                                        splashColor: Colors.transparent,
-                                        onTap: () {
-                                          writeReview(
-                                              context,
-                                              detailProvider
-                                                  .detail.products[0].productId
-                                                  .toString());
-                                        },
-                                        child: const Text(
-                                          "Write Review",
-                                          style: TextStyle(
-                                              color: colors.homeBGGradient1),
+                            detailProvider.detail.orderReviews.isEmpty
+                                ? Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 10),
+                                    color:
+                                        colors.homeBGGradient1.withOpacity(0.3),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        RatingBar.builder(
+                                          initialRating: rating,
+                                          minRating: 1,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: false,
+                                          itemCount: 5,
+                                          itemSize: 30,
+                                          itemPadding:
+                                              const EdgeInsets.only(right: 5),
+                                          itemBuilder: (context, _) =>
+                                              const Icon(
+                                            Icons.star,
+                                            color: Colors.orange,
+                                          ),
+                                          onRatingUpdate: (newRating) {
+                                            rating = newRating;
+                                          },
                                         ),
-                                      )
-                                    ],
+                                        Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.edit_outlined,
+                                              color: colors.homeBGGradient1,
+                                            ),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            InkWell(
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              splashColor: Colors.transparent,
+                                              onTap: () {
+                                                writeReview(
+                                                    context,
+                                                    detailProvider.detail
+                                                        .products[0].productId
+                                                        .toString());
+                                              },
+                                              child: const Text(
+                                                "Write Review",
+                                                style: TextStyle(
+                                                    color:
+                                                        colors.homeBGGradient1),
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   )
-                                ],
-                              ),
-                            ),
+                                : Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Theme.of(context).brightness !=
+                                                Brightness.dark
+                                            ? const Color.fromARGB(
+                                                255, 231, 231, 231)
+                                            : colors.darkBG,
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Container(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    width:
+                                                        size_40, // Set your desired width
+                                                    height:
+                                                        size_40, // Set your desired height
+                                                    child: ClipOval(
+                                                      child: CachedNetworkImage(
+                                                        imageUrl:
+                                                            user.data[0].image,
+                                                        fit: BoxFit.cover,
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            ClipOval(
+                                                          child: Image.asset(
+                                                            Images
+                                                                .defaultProfile,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20.0),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          user.data[0].fName,
+                                                          style: TextStyle(
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? Colors.white
+                                                                : Colors.black,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width -
+                                                              150,
+                                                          child: Text(
+                                                            detailProvider
+                                                                .detail
+                                                                .orderReviews[0]
+                                                                .comment!,
+                                                            style: TextStyle(
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.star,
+                                                    size: size_18,
+                                                    color: Colors.orange,
+                                                  ),
+                                                  Text(
+                                                    detailProvider.detail
+                                                        .orderReviews[0].rating
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                             const SizedBox(
                               height: 20,
                             ),
@@ -630,25 +806,25 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
-                                  //       fontSize: 14),
+                                  //       fontSize: Platform.isAndroid ? size_12 : size_14),
                                   //   headingDateTextStyle: TextStyle(
                                   //       color: Theme.of(context).brightness ==
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
-                                  //       fontSize: 14),
+                                  //       fontSize: Platform.isAndroid ? size_12 : size_14),
                                   //   subTitleTextStyle: TextStyle(
                                   //       color: Theme.of(context).brightness ==
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
-                                  //       fontSize: 14),
+                                  //       fontSize: Platform.isAndroid ? size_12 : size_14),
                                   //   subDateTextStyle: TextStyle(
                                   //       color: Theme.of(context).brightness ==
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
-                                  //       fontSize: 14),
+                                  //       fontSize: Platform.isAndroid ? size_12 : size_14),
                                   // ),
                                 ],
                               ),
@@ -670,7 +846,8 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                               width: MediaQuery.of(context).size.width * 0.8,
                               child: CommonButton(
                                 text: "RETURN ORDER",
-                                fontSize: 14,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
                                 onClick: () {
                                   showCancelDialog();
                                 },
@@ -769,7 +946,7 @@ class _ReturnDialogWidgetState extends State<ReturnDialogWidget> {
               color: Theme.of(context).brightness == Brightness.dark
                   ? Colors.white
                   : Colors.black,
-              fontSize: 20.0,
+              fontSize: Platform.isAndroid ? size_18 : size_20,
             ),
           ),
           const SizedBox(height: 20),

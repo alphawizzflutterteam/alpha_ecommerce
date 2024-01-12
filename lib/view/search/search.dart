@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/theme.dart';
@@ -148,7 +150,7 @@ class _SearchState extends State<Search> {
                       children: [
                         SizedBox(
                           height: 40,
-                          width: MediaQuery.of(context).size.width * 0.8,
+                          width: MediaQuery.of(context).size.width * 0.9,
                           child: TextFormField(
                             onChanged: (value) {
                               searchProvider.getProductsListNew(
@@ -232,35 +234,35 @@ class _SearchState extends State<Search> {
                         //                 Brightness.dark
                         //             ? Colors.white
                         //             : Colors.black)),
-                        isListening
-                            ? InkWell(
-                                highlightColor: Colors.transparent,
-                                splashColor: Colors.transparent,
-                                onTap: () {
-                                  _speech.stop();
-                                  isListening = false;
-                                  setState(() {});
-                                },
-                                child: Image.asset(
-                                  "assets/images/microphone_gif.gif",
-                                  height: 25,
-                                  width: 25,
-                                ),
-                              )
-                            : InkWell(
-                                highlightColor: Colors.transparent,
-                                splashColor: Colors.transparent,
-                                onTap: () {
-                                  _listen();
-                                },
-                                child: Image.asset(Images.smallMic,
-                                    height: 25,
-                                    width: 25,
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black),
-                              )
+                        // isListening
+                        //     ? InkWell(
+                        //         highlightColor: Colors.transparent,
+                        //         splashColor: Colors.transparent,
+                        //         onTap: () {
+                        //           _speech.stop();
+                        //           isListening = false;
+                        //           setState(() {});
+                        //         },
+                        //         child: Image.asset(
+                        //           "assets/images/microphone_gif.gif",
+                        //           height: 25,
+                        //           width: 25,
+                        //         ),
+                        //       )
+                        //     : InkWell(
+                        //         highlightColor: Colors.transparent,
+                        //         splashColor: Colors.transparent,
+                        //         onTap: () {
+                        //           _listen();
+                        //         },
+                        //         child: Image.asset(Images.smallMic,
+                        //             height: 25,
+                        //             width: 25,
+                        //             color: Theme.of(context).brightness ==
+                        //                     Brightness.dark
+                        //                 ? Colors.white
+                        //                 : Colors.black),
+                        //       )
                       ],
                     ),
                   ),
@@ -376,9 +378,11 @@ class _SearchState extends State<Search> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              const DefaultTextStyle(
+                              DefaultTextStyle(
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
+                                    color: Colors.white,
+                                    fontSize:
+                                        Platform.isAndroid ? size_14 : size_16),
                                 child: Text('Filter'),
                               ),
                             ],
@@ -421,9 +425,12 @@ class _SearchState extends State<Search> {
                                   const SizedBox(
                                     width: 5,
                                   ),
-                                  const DefaultTextStyle(
+                                  DefaultTextStyle(
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 16),
+                                        color: Colors.white,
+                                        fontSize: Platform.isAndroid
+                                            ? size_14
+                                            : size_16),
                                     child: Text('Category'),
                                   ),
                                 ],
@@ -467,9 +474,12 @@ class _SearchState extends State<Search> {
                                   const SizedBox(
                                     width: 5,
                                   ),
-                                  const DefaultTextStyle(
+                                  DefaultTextStyle(
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 16),
+                                        color: Colors.white,
+                                        fontSize: Platform.isAndroid
+                                            ? size_14
+                                            : size_16),
                                     child: Text('Sort'),
                                   ),
                                 ],
@@ -517,21 +527,23 @@ class _SearchState extends State<Search> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
+                  Text(
                     'Allow microphone',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20.0,
+                      fontSize: Platform.isAndroid ? size_18 : size_20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
+                  Text(
                     'Lorem Ipsum is simply dummy text',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: colors.greyText, fontSize: 14),
+                    style: TextStyle(
+                        color: colors.greyText,
+                        fontSize: Platform.isAndroid ? size_12 : size_14),
                   ),
                   const SizedBox(
                     height: 20,
@@ -562,9 +574,11 @@ class _SearchState extends State<Search> {
                           onPressed: () {
                             Routes.navigateToPreviousScreen(context);
                           },
-                          child: const Text(
+                          child: Text(
                             'CANCEL',
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(
+                              fontSize: Platform.isAndroid ? size_10 : size_12,
+                            ),
                           ),
                         ),
                       ),
@@ -590,9 +604,11 @@ class _SearchState extends State<Search> {
                             await Permission.microphone.request();
                             Routes.navigateToPreviousScreen(context);
                           },
-                          child: const Text(
+                          child: Text(
                             'ALLOW',
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(
+                              fontSize: Platform.isAndroid ? size_10 : size_12,
+                            ),
                           ),
                         ),
                       ),

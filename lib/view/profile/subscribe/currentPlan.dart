@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/color.dart';
 import '../../../utils/routes.dart';
@@ -52,11 +55,13 @@ class _CurrentPlanState extends State<CurrentPlan> {
                               padding: EdgeInsets.only(
                                   right:
                                       MediaQuery.of(context).size.width * 0.1),
-                              child: const Text(
+                              child: Text(
                                 "Subscription Plan",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+                                    color: Colors.white,
+                                    fontSize:
+                                        Platform.isAndroid ? size_18 : size_20),
                               ),
                             ),
                           ),
@@ -100,7 +105,7 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Column(
+                                      Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         crossAxisAlignment:
@@ -109,7 +114,9 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                           Text(
                                             "PREMIUM",
                                             style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_18
+                                                  : size_20,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white,
                                             ),
@@ -175,10 +182,13 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                                       .navigateToCurrentPlanScreen(
                                                           context);
                                                 },
-                                                child: const Text(
+                                                child: Text(
                                                   'CURRENT PLAN',
                                                   style: TextStyle(
-                                                      fontSize: 12,
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_10
+                                                              : size_12,
                                                       color: Colors.white),
                                                 ),
                                               ),
@@ -196,7 +206,7 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                 ),
                                 const SizedBox(height: 15),
                                 for (int i = 0; i < 21; i++)
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.only(bottom: 5, top: 5),
                                     child: Row(
                                       children: [
@@ -209,8 +219,11 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                         Text(
                                           "Lorem Ipsum is simply dummy text",
                                           style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12),
+                                            color: Colors.white,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                         ),
                                       ],
                                     ),

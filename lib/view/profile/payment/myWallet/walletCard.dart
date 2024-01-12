@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myWallet/model/walletModel.dart';
@@ -43,11 +45,13 @@ walletCart(
                               Text(
                                 data.createdAt,
                                 style: TextStyle(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontSize: 12),
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_10 : size_12,
+                                ),
                               ),
                               const SizedBox(
                                 height: 15,
@@ -59,7 +63,8 @@ walletCart(
                                             Brightness.dark
                                         ? Colors.white
                                         : Colors.black,
-                                    fontSize: 20),
+                                    fontSize:
+                                        Platform.isAndroid ? size_18 : size_20),
                               )
                             ],
                           ),
@@ -76,7 +81,7 @@ walletCart(
                       Text(
                         "Transaction ID :\n ${data.transactionId}",
                         style: TextStyle(
-                          fontSize: size_10,
+                          fontSize: Platform.isAndroid ? size_8 : size_10,
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
                               : Colors.black,

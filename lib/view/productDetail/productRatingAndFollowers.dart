@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
@@ -8,6 +10,7 @@ import '../../utils/images.dart';
 
 productRatingAndFollowersCard(
     Shop shop, BuildContext ctx, ProductDetailViewModel model) {
+  bool isFollowing = shop.isFollowing == "0" ? false : true;
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -75,9 +78,9 @@ productRatingAndFollowersCard(
                         ),
                         Text(
                           shop.rating,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.orange,
-                            fontSize: 14,
+                            fontSize: Platform.isAndroid ? size_12 : size_14,
                           ),
                         ),
                       ],
@@ -108,7 +111,7 @@ productRatingAndFollowersCard(
                             color: Theme.of(ctx).brightness == Brightness.dark
                                 ? Colors.white
                                 : Colors.black,
-                            fontSize: 14,
+                            fontSize: Platform.isAndroid ? size_12 : size_14,
                           ),
                         ),
                       ],
@@ -132,7 +135,7 @@ productRatingAndFollowersCard(
               splashColor: Colors.transparent,
               onTap: () {
                 Map data = {'shop_id': shop.id.toString()};
-                model.isFollowing = !model.isFollowing;
+                isFollowing = !isFollowing;
                 model.followVendor(data, ctx);
               },
               child: Container(
@@ -144,7 +147,7 @@ productRatingAndFollowersCard(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       color: colors.buttonColor,
                       shape: BoxShape.rectangle),
-                  child: Text(model.isFollowing ? "Unfollow" : "Follow",
+                  child: Text(isFollowing ? "Unfollow" : "Follow",
                       style: TextStyle(color: Colors.white))),
               //  Icon(
               //   Icons.arrow_forward_ios_outlined,

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/language/language.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/languageViewModel.dart';
@@ -73,8 +76,9 @@ class _LanguageWidgetState extends State<LanguageWidget> {
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             hintText: 'Search',
-            hintStyle:
-                const TextStyle(color: colors.lightTextColor, fontSize: 16),
+            hintStyle: TextStyle(
+                color: colors.lightTextColor,
+                fontSize: Platform.isAndroid ? size_14 : size_16),
             prefixIcon: const Icon(
               Icons.search,
               color: colors.lightTextColor,
@@ -124,7 +128,9 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                     },
                     title: Text(
                       selected.value[index].name,
-                      style: const TextStyle(fontSize: 14, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: Platform.isAndroid ? size_12 : size_14,
+                          color: Colors.white),
                     ),
                     trailing: selected.value[index].name == selectedValue
                         ? const Icon(

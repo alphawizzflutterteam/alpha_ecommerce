@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +47,7 @@ class _WalletSuccessState extends State<WalletSuccess> {
             onTap: () {
               showAlertDialog(context);
             },
-            child: const Center(
+            child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,14 +83,18 @@ class _WalletSuccessState extends State<WalletSuccess> {
                     padding: EdgeInsets.only(top: 10, bottom: 5),
                     child: Text(
                       "",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: Platform.isAndroid ? size_14 : size_16),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(5),
                     child: Text(
                       "",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: Platform.isAndroid ? size_14 : size_16),
                     ),
                   )
                 ],

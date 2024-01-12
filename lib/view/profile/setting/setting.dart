@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/setting/changeTheme.dart';
@@ -140,7 +143,9 @@ class _SettingState extends State<Setting> {
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : colors.bodyBackgroundDark,
-                                            fontSize: 14),
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14),
                                       ),
                                       trailing: const Icon(
                                         Icons.arrow_forward_ios_rounded,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/filtersModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
@@ -102,7 +104,7 @@ class _FilterClassState extends State<FilterClass> {
                       color: Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
                           : Colors.black,
-                      fontSize: 18),
+                      fontSize: Platform.isAndroid ? size_16 : size_18),
                 ),
               ),
             ),
@@ -129,7 +131,7 @@ class _FilterClassState extends State<FilterClass> {
                         color: Theme.of(context).brightness == Brightness.dark
                             ? Colors.white
                             : Colors.black,
-                        fontSize: 18),
+                        fontSize: Platform.isAndroid ? size_13 : size_15),
                   ),
                 ),
               ),
@@ -197,7 +199,7 @@ class _FilterClassState extends State<FilterClass> {
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
                               : Colors.black,
-                          fontSize: 14),
+                          fontSize: Platform.isAndroid ? size_12 : size_14),
                     ),
                     SizedBox(
                       height: 40,
@@ -433,9 +435,22 @@ class _FilterClassState extends State<FilterClass> {
                                                 },
                                                 child: widget.filter[i].title ==
                                                         "Color"
-                                                    ? const SizedBox(
+                                                    ? Container(
                                                         width: size_25,
                                                         height: size_10,
+                                                        child: widget.model
+                                                                    .color ==
+                                                                widget
+                                                                    .filter[i]
+                                                                    .fields![j]
+                                                                    .value!
+                                                                    .toString()
+                                                            ? const Icon(
+                                                                Icons.check,
+                                                                color: Colors
+                                                                    .white,
+                                                              )
+                                                            : SizedBox(),
                                                       )
                                                     : Center(
                                                         child: Text(
@@ -503,7 +518,7 @@ class _FilterClassState extends State<FilterClass> {
                     child: Text(
                       'CANCEL',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: Platform.isAndroid ? size_10 : size_12,
                         color: Theme.of(context).brightness == Brightness.dark
                             ? Colors.white
                             : Colors.black,
@@ -536,9 +551,11 @@ class _FilterClassState extends State<FilterClass> {
                       Routes.navigateToPreviousScreen(context);
                       widget.model.getProductsListNew(context, "25", "1");
                     },
-                    child: const Text(
+                    child: Text(
                       'APPLY',
-                      style: TextStyle(fontSize: 12, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: Platform.isAndroid ? size_10 : size_12,
+                          color: Colors.white),
                     ),
                   ),
                 ),

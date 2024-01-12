@@ -72,7 +72,9 @@ const double size_110 = 100.0;
 const double size_120 = 120.0;
 const double size_150 = 150.0;
 const double size_200 = 200.0;
+const double size_220 = 220.0;
 const double size_300 = 300.0;
+const double size_240 = 240.0;
 
 // used for the media query dimens
 const double mediaQueryHeight_02 = .02;

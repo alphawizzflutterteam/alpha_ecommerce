@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/constant.dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
@@ -69,8 +72,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                             child: Text(
                               translation(context).changepassword,
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 20),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize:
+                                      Platform.isAndroid ? size_18 : size_20),
                             ),
                           ),
                         ),
@@ -97,13 +102,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                       fontWeight: FontWeight.w500),
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: Text(
                   changePassword2,
                   style: TextStyle(
                       color: colors.lightTextColor,
-                      fontSize: 15,
+                      fontSize: Platform.isAndroid ? size_13 : size_15,
                       fontWeight: FontWeight.w400),
                 ),
               ),
@@ -136,9 +141,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                               color: colors.labelColor,
                             ),
                           ),
-                          labelStyle: const TextStyle(
+                          labelStyle: TextStyle(
                             color: colors.labelColor,
-                            fontSize: 14,
+                            fontSize: Platform.isAndroid ? size_12 : size_14,
                           ),
                           hintStyle: const TextStyle(
                             color: colors.labelColor,
@@ -204,9 +209,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                               color: colors.labelColor,
                             ),
                           ),
-                          labelStyle: const TextStyle(
+                          labelStyle: TextStyle(
                             color: colors.labelColor,
-                            fontSize: 14,
+                            fontSize: Platform.isAndroid ? size_12 : size_14,
                           ),
                           hintStyle: const TextStyle(
                             color: colors.labelColor,
@@ -253,7 +258,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                               width: double.infinity,
                               child: CommonButton(
                                 text: "Reset Password",
-                                fontSize: 18,
+                                fontSize:
+                                    Platform.isAndroid ? size_16 : size_18,
                                 onClick: () {
                                   if (_formKey.currentState!.validate()) {
                                     if (authViewModel.matchPassword(
@@ -285,18 +291,21 @@ class _ResetPasswordState extends State<ResetPassword> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(signIn4,
+                        Text(signIn4,
                             style: TextStyle(
-                                fontSize: 14, color: colors.lightTextColor)),
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
+                                color: colors.lightTextColor)),
                         InkWell(
                           highlightColor: Colors.transparent,
                           splashColor: Colors.transparent,
                           onTap: () {
                             Routes.navigateToVerifyNumberScreen(context, true);
                           },
-                          child: const Text('Sign up',
+                          child: Text('Sign up',
                               style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
                                   color: colors.buttonColor,
                                   decoration: TextDecoration.underline)),
                         ),

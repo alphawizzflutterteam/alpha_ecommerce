@@ -1,10 +1,12 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import '../../utils/color.dart';
-import '../../utils/constant.dart';
 import '../widget_common/commonBackground.dart';
 import '../profile/common_header.dart';
 
@@ -77,11 +79,14 @@ class _TermAndConditionState extends State<TermAndCondition> {
                                 padding: EdgeInsets.only(
                                     right: MediaQuery.of(context).size.width *
                                         0.1),
-                                child: const Text(
+                                child: Text(
                                   "Terms & Condition",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                      color: Colors.white,
+                                      fontSize: Platform.isAndroid
+                                          ? size_18
+                                          : size_20),
                                 ),
                               ),
                             ),

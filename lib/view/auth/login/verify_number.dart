@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
@@ -96,7 +99,8 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                           Brightness.dark
                                       ? Colors.white
                                       : Colors.black,
-                                  fontSize: 20,
+                                  fontSize:
+                                      Platform.isAndroid ? size_18 : size_20,
                                   fontWeight: FontWeight.w600),
                             ),
                           ),
@@ -166,7 +170,8 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                             Brightness.dark
                                         ? colors.textColor
                                         : Colors.black,
-                                    fontSize: 14,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
                                   ),
                                   hintStyle: const TextStyle(
                                       color: colors.textFieldColor),
@@ -311,7 +316,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                             width: double.infinity,
                             child: CommonButton(
                               text: translation(context).send,
-                              fontSize: 18,
+                              fontSize: Platform.isAndroid ? size_16 : size_18,
                               onClick: () {
                                 Map data = {
                                   'phone': authViewModel.mobileController.text
@@ -343,7 +348,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                             ? translation(context).alreadyhaveanaccount
                             : translation(context).dontHaveanaccount,
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: Platform.isAndroid ? size_12 : size_14,
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
                               : colors.greyText,
@@ -362,8 +367,8 @@ class _VerifyNumberState extends State<VerifyNumber> {
                           widget.forSignUp
                               ? translation(context).signIn
                               : translation(context).signUp,
-                          style: const TextStyle(
-                            fontSize: 14,
+                          style: TextStyle(
+                            fontSize: Platform.isAndroid ? size_12 : size_14,
                             color: colors.buttonColor,
                             decoration: TextDecoration.underline,
                           ),

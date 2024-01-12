@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
@@ -12,7 +15,7 @@ class DashboardHeader extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
-        padding: const EdgeInsets.only(top: 35),
+        padding: const EdgeInsets.only(top: 45),
         height: 110,
         width: MediaQuery.of(context).size.width,
         child: Center(
@@ -83,22 +86,23 @@ class InternalPageHeader extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
-        padding: const EdgeInsets.only(top: 35),
+        padding: const EdgeInsets.only(top: 48),
         height: 110,
         width: MediaQuery.of(context).size.width,
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    onTap: () {
-                      Routes.navigateToPreviousScreen(context);
-                    },
-                    child: Icon(Icons.arrow_back_ios, color: Colors.white)),
+              InkWell(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                onTap: () {
+                  Routes.navigateToPreviousScreen(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Icon(Icons.arrow_back_ios, color: Colors.white),
+                ),
               ),
               Expanded(
                 child: Padding(
@@ -125,7 +129,7 @@ class InternalDetailPageHeader extends StatelessWidget {
       alignment: Alignment.topCenter,
       child: Container(
         width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.only(top: 35),
+        padding: const EdgeInsets.only(top: 50),
         height: 100,
         child: Center(
             child: Row(
@@ -151,45 +155,54 @@ class InternalDetailPageHeader extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
                 child: Text(
                   text,
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: Platform.isAndroid ? size_18 : size_20,
                       fontWeight: FontWeight.bold),
                 )),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-              child: Visibility(
-                child: Row(
-                  children: [
-                    InkWell(
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      onTap: () {
-                        Routes.navigateToSearchScreen(context);
-                      },
-                      child: Image.asset(
-                        Images.search,
-                        height: 25,
-                        width: 25,
+            Visibility(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+                child: Visibility(
+                  child: Row(
+                    children: [
+                      Visibility(
+                        visible: false,
+                        child: InkWell(
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          onTap: () {
+                            Routes.navigateToSearchScreen(context);
+                          },
+                          child: Image.asset(
+                            Images.search,
+                            height: 25,
+                            width: 25,
+                          ),
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    InkWell(
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      onTap: () {
-                        Routes.navigateToBottomNavScreen(
-                            context, 0); // const BottomNavPage(index: 0);
-                      },
-                      child: Image.asset(
-                        Images.headerCart,
-                        height: 30,
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Container(
                         width: 30,
-                      ),
-                    ),
-                  ],
+                      )
+                      // InkWell(
+                      //   highlightColor: Colors.transparent,
+                      //   splashColor: Colors.transparent,
+                      //   onTap: () {
+                      //     Routes.navigateToBottomNavScreen(
+                      //         context, 0); // const BottomNavPage(index: 0);
+                      //   },
+                      //   child: Image.asset(
+                      //     Images.headerCart,
+                      //     height: 30,
+                      //     width: 30,
+                      //   ),
+                      // ),
+                    ],
+                  ),
                 ),
               ),
             )

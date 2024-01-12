@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 
@@ -14,9 +17,9 @@ InputDecoration commonInputDecoration({
     fillColor: colors.textFieldBG,
     labelText: labelText,
     hintText: hintText,
-    labelStyle: const TextStyle(
+    labelStyle: TextStyle(
       color: colors.labelColor,
-      fontSize: 14,
+      fontSize: Platform.isAndroid ? size_12 : size_14,
     ),
     hintStyle: const TextStyle(
       color: colors.labelColor,

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/constant.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
@@ -96,7 +99,8 @@ class _OTPVerificationState extends State<OTPVerification> {
                                         Brightness.dark
                                     ? colors.textColor
                                     : Colors.black,
-                                fontSize: 20),
+                                fontSize:
+                                    Platform.isAndroid ? size_18 : size_20),
                           ),
                         ),
                       ),
@@ -145,7 +149,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                     color: Theme.of(context).brightness == Brightness.dark
                         ? colors.lightTextColor
                         : colors.greyText,
-                    fontSize: 16,
+                    fontSize: Platform.isAndroid ? size_14 : size_16,
                   ),
                 ),
               ),
@@ -210,7 +214,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                             width: double.infinity,
                             child: CommonButton(
                               text: translation(context).verify,
-                              fontSize: 18,
+                              fontSize: Platform.isAndroid ? size_16 : size_18,
                               onClick: () {
                                 if (_formKey.currentState!.validate()) {
                                   var enterdOTp = authViewModel
@@ -233,8 +237,10 @@ class _OTPVerificationState extends State<OTPVerification> {
                               children: [
                                 Text(
                                   translation(context).didntReceivedOTP,
-                                  style: const TextStyle(
-                                      fontSize: 14,
+                                  style: TextStyle(
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
                                       color: colors.lightTextColor),
                                 ),
                                 InkWell(
@@ -255,8 +261,10 @@ class _OTPVerificationState extends State<OTPVerification> {
                                   },
                                   child: Text(
                                     translation(context).resendOTP,
-                                    style: const TextStyle(
-                                        fontSize: 14,
+                                    style: TextStyle(
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14,
                                         color: colors.buttonColor,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -279,7 +287,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                         ? translation(context).alreadyhaveanaccount
                         : translation(context).dontHaveanaccount,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: Platform.isAndroid ? size_12 : size_14,
                       color: Theme.of(context).brightness == Brightness.dark
                           ? colors.textColor
                           : colors.greyText,
@@ -297,8 +305,8 @@ class _OTPVerificationState extends State<OTPVerification> {
                       widget.isComingForLogin
                           ? translation(context).signIn
                           : translation(context).signUp,
-                      style: const TextStyle(
-                        fontSize: 14,
+                      style: TextStyle(
+                        fontSize: Platform.isAndroid ? size_12 : size_14,
                         color: colors.buttonColor,
                         decoration: TextDecoration.underline,
                       ),

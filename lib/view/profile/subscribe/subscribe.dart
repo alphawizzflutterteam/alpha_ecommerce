@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:flutter/material.dart';
@@ -102,7 +105,7 @@ class _SubscribeState extends State<Subscribe> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             showHeader
-                                ? const Column(
+                                ? Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -123,7 +126,10 @@ class _SubscribeState extends State<Subscribe> {
                                       Text(
                                         "Your Plans & benefits",
                                         style: TextStyle(
-                                            fontSize: 16, color: Colors.white),
+                                            fontSize: Platform.isAndroid
+                                                ? size_14
+                                                : size_16,
+                                            color: Colors.white),
                                       ),
                                       SizedBox(
                                         height: 30,
@@ -312,7 +318,10 @@ class _SubscribeState extends State<Subscribe> {
                                                             Text(
                                                               "CURRENT PLAN",
                                                               style: TextStyle(
-                                                                  fontSize: 12,
+                                                                  fontSize: Platform
+                                                                          .isAndroid
+                                                                      ? size_10
+                                                                      : size_12,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
@@ -337,7 +346,10 @@ class _SubscribeState extends State<Subscribe> {
                                                                   .createdAt
                                                                   .toString(),
                                                           style: TextStyle(
-                                                            fontSize: 12,
+                                                            fontSize: Platform
+                                                                    .isAndroid
+                                                                ? size_10
+                                                                : size_12,
                                                             color: Colors.white,
                                                           ),
                                                         )
@@ -390,7 +402,10 @@ class _SubscribeState extends State<Subscribe> {
                                                             Text(
                                                               "CURRENT PLAN",
                                                               style: TextStyle(
-                                                                  fontSize: 12,
+                                                                  fontSize: Platform
+                                                                          .isAndroid
+                                                                      ? size_10
+                                                                      : size_12,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
@@ -415,7 +430,10 @@ class _SubscribeState extends State<Subscribe> {
                                                                   .createdAt
                                                                   .toString(),
                                                           style: TextStyle(
-                                                            fontSize: 12,
+                                                            fontSize: Platform
+                                                                    .isAndroid
+                                                                ? size_10
+                                                                : size_12,
                                                             color: Colors.white,
                                                           ),
                                                         )
@@ -500,8 +518,10 @@ class _SubscribeState extends State<Subscribe> {
                 borderRadius: BorderRadius.circular(10))),
         child: Text(
           label,
-          style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: Platform.isAndroid ? size_16 : size_18,
+              color: Colors.white),
         ),
       ),
     );
@@ -538,7 +558,9 @@ class UpgradePlanWidget extends StatelessWidget {
         },
         child: Text(
           showHeader ? 'SUBSCRIBE NOW' : 'UPGRADE PLAN',
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: Platform.isAndroid ? size_10 : size_12,
+              fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -663,7 +685,8 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                             ? const Text(
 //                                     //                                 'SUBSCRIBE NOW',
 //                                     //                                 style: TextStyle(
-//                                     //                                     fontSize: 12,
+//                                     //                                     fontSize:
+                                //    Platform.isAndroid ? size_10 : size_12,,
 //                                     //                                     color: Colors
 //                                     //                                         .white),
 //                                     //                               )
@@ -741,7 +764,8 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                         "Lorem Ipsum is simply dummy text",
 //                                     //                         style: TextStyle(
 //                                     //                             color: Colors.white,
-//                                     //                             fontSize: 12),
+//                                     //                             fontSize:
+                               //     Platform.isAndroid ? size_10 : size_12,),
 //                                     //                       ),
 //                                     //                     ],
 //                                     //                   ),

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/order/productListBuilder.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
@@ -59,14 +62,16 @@ class _OrderReturnedState extends State<OrderReturned> {
                                 "Order ID - ${orderProvider.detail.orderId}",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 14,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
                                 ),
                               ),
                               Text(
                                 "SOLD BY : ${orderProvider.detail.seller!.name}",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 14,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
                                 ),
                               ),
                             ],
@@ -110,7 +115,7 @@ class _OrderReturnedState extends State<OrderReturned> {
                       //                 "Dettol Refresh Long Lasting",
                       //                 style: TextStyle(
                       //                   color: Colors.white,
-                      //                   fontSize: 20,
+                      //                   fontSize: Platform.isAndroid ? size_18 : size_20,
                       //                 ),
                       //               ),
                       //             ),
@@ -121,7 +126,7 @@ class _OrderReturnedState extends State<OrderReturned> {
                       //               "\$120.00",
                       //               style: TextStyle(
                       //                 color: colors.buttonColor,
-                      //                 fontSize: 20,
+                      //                 fontSize: Platform.isAndroid ? size_18 : size_20,
                       //               ),
                       //             ),
                       //           ],
@@ -160,7 +165,7 @@ class _OrderReturnedState extends State<OrderReturned> {
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: const Row(
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Icon(Icons.check_circle, color: Colors.deepPurple),
@@ -174,8 +179,11 @@ class _OrderReturnedState extends State<OrderReturned> {
                                     style: TextStyle(color: colors.textColor)),
                                 Text("15 Oct, 2023",
                                     style: TextStyle(
-                                        color: colors.lightTextColor,
-                                        fontSize: 12)),
+                                      color: colors.lightTextColor,
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
+                                    )),
                               ],
                             )
                           ],
@@ -226,7 +234,10 @@ class _OrderReturnedState extends State<OrderReturned> {
                             Text(
                               "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
                               style: TextStyle(
-                                  color: colors.lightTextColor, fontSize: 12),
+                                color: colors.lightTextColor,
+                                fontSize:
+                                    Platform.isAndroid ? size_10 : size_12,
+                              ),
                             )
                           ],
                         ),

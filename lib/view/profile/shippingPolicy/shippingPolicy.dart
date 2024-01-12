@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -71,11 +74,14 @@ class _ShippingPolicyState extends State<ShippingPolicy> {
                                 padding: EdgeInsets.only(
                                     right: MediaQuery.of(context).size.width *
                                         0.1),
-                                child: const Text(
+                                child: Text(
                                   "Shipping & Delivery",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                      color: Colors.white,
+                                      fontSize: Platform.isAndroid
+                                          ? size_18
+                                          : size_20),
                                 ),
                               ),
                             ),

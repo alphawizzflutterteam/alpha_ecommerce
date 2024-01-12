@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +92,9 @@ class _ChatState extends State<Chat> {
                                                 Brightness.dark
                                             ? Colors.white
                                             : colors.buttonColor,
-                                        fontSize: size_15,
+                                        fontSize: Platform.isAndroid
+                                            ? size_13
+                                            : size_15,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -104,11 +108,13 @@ class _ChatState extends State<Chat> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Text(
                                         "Alpha Chatbot",
                                         style: TextStyle(
-                                            fontSize: size_18,
+                                            fontSize: Platform.isAndroid
+                                                ? size_16
+                                                : size_18,
                                             color: Colors.white,
                                             fontWeight: FontWeight.w600),
                                       ),
@@ -162,8 +168,11 @@ class _ChatState extends State<Chat> {
                                   children: [
                                     Text(
                                       homeProvider.chatListt[index].message,
-                                      style: const TextStyle(
-                                          fontSize: 15, color: Colors.white),
+                                      style: TextStyle(
+                                          fontSize: Platform.isAndroid
+                                              ? size_13
+                                              : size_15,
+                                          color: Colors.white),
                                     ),
                                   ],
                                 ),

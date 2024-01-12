@@ -261,7 +261,8 @@ class _EditProfileState extends State<EditProfile> {
                                         Brightness.dark
                                     ? colors.labelColor
                                     : colors.textFieldBG,
-                                fontSize: 14,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
                               ),
                               hintStyle: const TextStyle(
                                 color: colors.labelColor,
@@ -310,7 +311,8 @@ class _EditProfileState extends State<EditProfile> {
                                         Brightness.dark
                                     ? colors.labelColor
                                     : colors.textFieldBG,
-                                fontSize: 14,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
                               ),
                               hintStyle: const TextStyle(
                                 color: colors.labelColor,
@@ -358,7 +360,8 @@ class _EditProfileState extends State<EditProfile> {
                                         Brightness.dark
                                     ? colors.labelColor
                                     : colors.textFieldBG,
-                                fontSize: 14,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
                               ),
                               hintStyle: const TextStyle(
                                 color: colors.labelColor,
@@ -418,6 +421,7 @@ class _EditProfileState extends State<EditProfile> {
                                     child: Text(
                                       value,
                                       style: TextStyle(
+                                          fontWeight: FontWeight.w400,
                                           color: Theme.of(context).brightness ==
                                                   Brightness.dark
                                               ? colors.textColor
@@ -451,7 +455,8 @@ class _EditProfileState extends State<EditProfile> {
                                         Brightness.dark
                                     ? colors.labelColor
                                     : colors.textFieldBG,
-                                fontSize: 14,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
                               ),
                               hintStyle: const TextStyle(
                                 color: colors.labelColor,
@@ -489,7 +494,8 @@ class _EditProfileState extends State<EditProfile> {
                                         Brightness.dark
                                     ? colors.labelColor
                                     : colors.textFieldBG,
-                                fontSize: 14,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
                               ),
                               hintStyle: const TextStyle(
                                 color: colors.labelColor,
@@ -527,7 +533,8 @@ class _EditProfileState extends State<EditProfile> {
                                         Brightness.dark
                                     ? colors.labelColor
                                     : colors.textFieldBG,
-                                fontSize: 14,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
                               ),
                               hintStyle: const TextStyle(
                                 color: colors.labelColor,
@@ -570,7 +577,8 @@ class _EditProfileState extends State<EditProfile> {
                                         Brightness.dark
                                     ? colors.labelColor
                                     : colors.textFieldBG,
-                                fontSize: 14,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
                               ),
                               hintStyle: const TextStyle(
                                 color: colors.labelColor,
@@ -609,7 +617,7 @@ class _EditProfileState extends State<EditProfile> {
                           width: double.infinity,
                           child: CommonButton(
                               text: "SAVE CHANGES",
-                              fontSize: 14,
+                              fontSize: Platform.isAndroid ? size_12 : size_14,
                               onClick: () {
                                 final bool emailValid =
                                     RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 
@@ -30,7 +33,7 @@ class _CommonRadioTileState extends State<CommonRadioTile> {
             widget.name,
             style: TextStyle(
               color: widget.color,
-              fontSize: 14,
+              fontSize: Platform.isAndroid ? size_12 : size_14,
             ),
             softWrap: false,
           ),

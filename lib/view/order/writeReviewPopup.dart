@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
@@ -66,7 +69,7 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
                           color: Theme.of(context).brightness == Brightness.dark
                               ? colors.textColor
                               : Colors.black,
-                          fontSize: 20),
+                          fontSize: Platform.isAndroid ? size_18 : size_20),
                     ),
                   ),
                 ),
@@ -137,18 +140,21 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
               },
               maxLines: 3,
               style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? colors.textColor
-                      : Colors.black,
-                  fontSize: 12),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? colors.textColor
+                    : Colors.black,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Theme.of(context).brightness == Brightness.dark
                     ? colors.textFieldBG
                     : Colors.white,
                 hintText: "Write here...",
-                hintStyle:
-                    const TextStyle(color: colors.lightTextColor, fontSize: 12),
+                hintStyle: TextStyle(
+                  color: colors.lightTextColor,
+                  fontSize: Platform.isAndroid ? size_10 : size_12,
+                ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: const BorderSide(
@@ -218,9 +224,11 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
                     // Routes.navigateToOrderCancelledScreen(
                     //     context, widget.order_id);
                   },
-                  child: const Text(
+                  child: Text(
                     'Submit Review',
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(
+                      fontSize: Platform.isAndroid ? size_10 : size_12,
+                    ),
                   ),
                 ),
               ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
@@ -75,12 +77,14 @@ class _AddressListScreenState extends State<AddressListScreen> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(width: 5),
                           Text('Add new Address',
-                              style: TextStyle(fontSize: 14)),
+                              style: TextStyle(
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14)),
                         ],
                       ),
                     ),

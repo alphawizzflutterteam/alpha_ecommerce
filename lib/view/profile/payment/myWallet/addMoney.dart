@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../../utils/color.dart';
@@ -85,7 +88,8 @@ class _AddMoneyState extends State<AddMoney> {
                                         Brightness.dark
                                     ? colors.greyText
                                     : Colors.black,
-                                fontSize: 14,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
                               ),
                               hintStyle: TextStyle(
                                 color: Theme.of(context).brightness ==
@@ -156,7 +160,8 @@ class _AddMoneyState extends State<AddMoney> {
                                 width: double.infinity,
                                 child: CommonButton(
                                     text: "CONTINUE",
-                                    fontSize: 14,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
                                     onClick: () {
                                       FocusManager.instance.primaryFocus
                                           ?.unfocus();

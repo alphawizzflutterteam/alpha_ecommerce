@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
@@ -116,7 +118,8 @@ class _SignUPState extends State<SignUP> {
                                         Brightness.dark
                                     ? colors.lightTextColor
                                     : colors.greyText,
-                                fontSize: 15),
+                                fontSize:
+                                    Platform.isAndroid ? size_13 : size_15),
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -145,9 +148,11 @@ class _SignUPState extends State<SignUP> {
                                         ? colors.textFieldBG
                                         : Colors.white,
                                     labelText: translation(context).fullname,
-                                    labelStyle: const TextStyle(
+                                    labelStyle: TextStyle(
                                       color: colors.labelColor,
-                                      fontSize: 14,
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
                                     ),
                                     hintStyle: const TextStyle(
                                       color: colors.labelColor,
@@ -180,9 +185,11 @@ class _SignUPState extends State<SignUP> {
                                         ? colors.textFieldBG
                                         : Colors.white,
                                     labelText: translation(context).email,
-                                    labelStyle: const TextStyle(
+                                    labelStyle: TextStyle(
                                       color: colors.labelColor,
-                                      fontSize: 14,
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
                                     ),
                                     hintStyle: const TextStyle(
                                       color: colors.labelColor,
@@ -228,9 +235,11 @@ class _SignUPState extends State<SignUP> {
                                             : Colors.black,
                                       ),
                                     ),
-                                    labelStyle: const TextStyle(
+                                    labelStyle: TextStyle(
                                       color: colors.labelColor,
-                                      fontSize: 14,
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
                                     ),
                                     hintStyle: const TextStyle(
                                       color: colors.labelColor,
@@ -307,9 +316,11 @@ class _SignUPState extends State<SignUP> {
                                             : Colors.black,
                                       ),
                                     ),
-                                    labelStyle: const TextStyle(
+                                    labelStyle: TextStyle(
                                       color: colors.labelColor,
-                                      fontSize: 14,
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
                                     ),
                                     hintStyle: const TextStyle(
                                       color: colors.labelColor,
@@ -367,9 +378,10 @@ class _SignUPState extends State<SignUP> {
                                   ? colors.textFieldBG
                                   : Colors.white,
                               labelText: translation(context).referralcode,
-                              labelStyle: const TextStyle(
+                              labelStyle: TextStyle(
                                 color: colors.labelColor,
-                                fontSize: 14,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
                               ),
                               hintStyle: const TextStyle(
                                 color: colors.labelColor,
@@ -420,7 +432,9 @@ class _SignUPState extends State<SignUP> {
                                       child: CommonButton(
                                           text: translation(context)
                                               .createaccount,
-                                          fontSize: 18,
+                                          fontSize: Platform.isAndroid
+                                              ? size_16
+                                              : size_18,
                                           onClick: () {
                                             if (_formKey.currentState!
                                                 .validate()) {

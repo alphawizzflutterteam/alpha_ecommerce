@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myWallet/walletCard.dart';
@@ -89,7 +91,9 @@ class _WalletState extends State<Wallet> {
                                   Text(
                                     'Available Balance :  $walletBalance',
                                     style: TextStyle(
-                                      fontSize: 14.0,
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
                                       color: Theme.of(context).brightness ==
                                               Brightness.dark
                                           ? Colors.white
@@ -105,7 +109,9 @@ class _WalletState extends State<Wallet> {
                                         width: 120,
                                         child: CommonButton(
                                             text: "ADD MONEY",
-                                            fontSize: 12,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
                                             onClick: () {
                                               Routes.navigateToAddMoneyScreen(
                                                   context);

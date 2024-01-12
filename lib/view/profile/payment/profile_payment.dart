@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:flutter/material.dart';
 import '../../../model/paymentType.dart';
@@ -86,7 +89,9 @@ class _ProfilePaymentState extends State<ProfilePayment> {
                                                 Brightness.dark
                                             ? Colors.white
                                             : Colors.black,
-                                        fontSize: 14),
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14),
                                   ),
                                   trailing: Icon(
                                     Icons.arrow_forward_ios_rounded,

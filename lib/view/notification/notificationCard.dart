@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:flutter/material.dart';
 
@@ -28,9 +31,9 @@ notificationCard(Map<String, dynamic> notifications) {
                 children: [
                   Text(
                     notifications['text'],
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 14,
+                      fontSize: Platform.isAndroid ? size_12 : size_14,
                     ),
                   ),
                   const SizedBox(
@@ -40,9 +43,9 @@ notificationCard(Map<String, dynamic> notifications) {
                     width: 200,
                     child: Text(
                       notifications['subText'],
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: colors.greyText,
-                        fontSize: 12,
+                        fontSize: Platform.isAndroid ? size_10 : size_12,
                       ),
                     ),
                   ),
@@ -57,9 +60,9 @@ notificationCard(Map<String, dynamic> notifications) {
               children: [
                 Text(
                   notifications['date'],
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: colors.greyText,
-                    fontSize: 12,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
                   ),
                 ),
               ],

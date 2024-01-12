@@ -1,13 +1,12 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/profile/address/model/addressModel.dart';
-import 'package:alpha_ecommerce_18oct/view/wishlist/model/wishlistModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
-import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 addressItemCard(AddressList model, BuildContext context,
@@ -20,6 +19,15 @@ addressItemCard(AddressList model, BuildContext context,
       provider.deleteAddress(context, model.id.toString());
     } else {}
   }
+
+  try {
+    print(SharedPref.shared.pref?.getString(PrefKeys.billingAddressID));
+
+    provider.selectedId = int.parse(
+        SharedPref.shared.pref?.getString(PrefKeys.billingAddressID) ?? "0");
+
+    print(provider.selectedId.toString() + "skenf");
+  } catch (stacktrace) {}
 
   return Padding(
     padding: const EdgeInsets.all(12.0),
@@ -57,7 +65,7 @@ addressItemCard(AddressList model, BuildContext context,
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
-                            fontSize: size_12),
+                            fontSize: Platform.isAndroid ? size_10 : size_12),
                       ),
                       const SizedBox(
                         height: size_10,
@@ -73,7 +81,7 @@ addressItemCard(AddressList model, BuildContext context,
                                       Brightness.dark
                                   ? Colors.white
                                   : Colors.black,
-                              fontSize: size_10),
+                              fontSize: Platform.isAndroid ? size_8 : size_10),
                         ),
                       ),
                       const SizedBox(
@@ -86,7 +94,7 @@ addressItemCard(AddressList model, BuildContext context,
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
-                            fontSize: size_10),
+                            fontSize: Platform.isAndroid ? size_8 : size_10),
                       )
                     ],
                   ),

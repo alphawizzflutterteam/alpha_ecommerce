@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/referralModel.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -71,11 +74,14 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
                                 padding: EdgeInsets.only(
                                     right: MediaQuery.of(context).size.width *
                                         0.1),
-                                child: const Text(
+                                child: Text(
                                   "Referall Member",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                      color: Colors.white,
+                                      fontSize: Platform.isAndroid
+                                          ? size_18
+                                          : size_20),
                                 ),
                               ),
                             ),
@@ -122,13 +128,15 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
                                           shape: BoxShape.circle,
                                           color: Color(0x6B969696),
                                         ),
-                                        child: const Center(
+                                        child: Center(
                                           child: Text(
                                             "AS",
                                             style: TextStyle(
                                               color: Colors
                                                   .white, // Set the text color
-                                              fontSize: 14, // Set the text size
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14, // Set the text size
                                               fontWeight: FontWeight
                                                   .bold, // Set the text weight
                                             ),
@@ -151,7 +159,9 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                                fontSize: 14),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_12
+                                                    : size_14),
                                           ),
                                           SizedBox(
                                             height: 5,
@@ -160,8 +170,11 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
                                               widget.referralList[i].createdAt
                                                   .toString(),
                                               style: TextStyle(
-                                                  color: colors.lightTextColor,
-                                                  fontSize: 12))
+                                                color: colors.lightTextColor,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ))
                                         ],
                                       ),
                                     ],
@@ -173,7 +186,9 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
                                                 Brightness.dark
                                             ? Colors.white
                                             : Colors.black,
-                                        fontSize: 14,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +65,7 @@ class _SortClassState extends State<SortClass> {
                     color: Theme.of(context).brightness == Brightness.dark
                         ? Colors.white
                         : Colors.black,
-                    fontSize: 20,
+                    fontSize: Platform.isAndroid ? size_18 : size_20,
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -135,7 +138,7 @@ class _SortClassState extends State<SortClass> {
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
-                            fontSize: 14,
+                            fontSize: Platform.isAndroid ? size_12 : size_14,
                             fontWeight: FontWeight.bold),
                       ),
                       Visibility(

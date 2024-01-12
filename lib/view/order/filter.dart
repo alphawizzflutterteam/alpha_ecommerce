@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/ordersModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
@@ -49,7 +51,8 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
                                           Brightness.dark
                                       ? Colors.white
                                       : Colors.black,
-                                  fontSize: 18),
+                                  fontSize:
+                                      Platform.isAndroid ? size_16 : size_18),
                             ),
                           ],
                         ),
@@ -95,7 +98,8 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
                               child: Text(
                                 'CANCEL',
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize:
+                                      Platform.isAndroid ? size_10 : size_12,
                                   color: Theme.of(context).brightness ==
                                           Brightness.dark
                                       ? Colors.white
@@ -130,7 +134,8 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
                               child: Text(
                                 'APPLY',
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize:
+                                      Platform.isAndroid ? size_10 : size_12,
                                   color: Theme.of(context).brightness ==
                                           Brightness.dark
                                       ? Colors.black
@@ -173,7 +178,7 @@ class _CancelApplyyBButttonState extends State<CancelApplyyBButtton> {
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.white
                     : Colors.black,
-                fontSize: 18),
+                fontSize: Platform.isAndroid ? size_16 : size_18),
           ),
           InkWell(
             highlightColor: Colors.transparent,
@@ -188,10 +193,11 @@ class _CancelApplyyBButttonState extends State<CancelApplyyBButtton> {
             child: Text(
               "Clear filter",
               style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
             ),
           ),
         ],
@@ -287,7 +293,8 @@ class _FilterClassCategoryState extends State<FilterClassCategory> {
                                 //           widget.orderProvider.filters
                                 //               .categories![j].value!,
                                 //           style: TextStyle(
-                                //               fontSize: 12.0, color: Colors.white),
+                                //               fontSize:
+                                //    Platform.isAndroid ? size_10 : size_12,.0, color: Colors.white),
                                 //         ),
                                 //       ],
                                 //     ),
@@ -348,7 +355,9 @@ class _FilterClassCategoryState extends State<FilterClassCategory> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: size_12,
+                                          fontSize: Platform.isAndroid
+                                              ? size_10
+                                              : size_12,
                                         ),
                                       ),
                                     ),
@@ -466,7 +475,9 @@ class _FilterClassStatusState extends State<FilterClassStatus> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: size_12,
+                                          fontSize: Platform.isAndroid
+                                              ? size_10
+                                              : size_12,
                                         ),
                                       ),
                                     ),

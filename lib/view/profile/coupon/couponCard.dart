@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/coupon/model/couponListModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/toast_message.dart';
@@ -17,171 +20,182 @@ couponCard({required context, required CouponList coupon}) {
     width: MediaQuery.of(context).size.width * 0.98,
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width * 0.1,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15),
-              bottomLeft: Radius.circular(15),
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width * 0.1,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15),
+                bottomLeft: Radius.circular(15),
+              ),
+              color: Colors.yellow,
             ),
-            color: Colors.yellow,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RotatedBox(
-                quarterTurns: -1,
-                child: Text(
-                  coupon.title,
-                  style: const TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.bold,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RotatedBox(
+                  quarterTurns: -1,
+                  child: Text(
+                    coupon.title,
+                    style: TextStyle(
+                      fontSize: Platform.isAndroid ? size_12 : size_14,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Image.asset(
-                Images.offer,
-                height: 20,
-                width: 20,
-              )
-            ],
-          ),
-        ),
-        Container(
-          width: MediaQuery.of(context).size.width * 0.75,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(15),
-              bottomRight: Radius.circular(15),
+                const SizedBox(
+                  height: 10,
+                ),
+                Image.asset(
+                  Images.offer,
+                  height: 20,
+                  width: 20,
+                )
+              ],
             ),
-            border: Border.all(
-              color: colors.boxBorder,
-            ),
-            color: Theme.of(context).brightness == Brightness.dark
-                ? Colors.transparent
-                : Color.fromARGB(255, 235, 233, 233),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                coupon.title,
-                style: TextStyle(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : Colors.black,
-                    fontSize: 12),
+          Container(
+              width: MediaQuery.of(context).size.width * 0.75,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(15),
+                  bottomRight: Radius.circular(15),
+                ),
+                border: Border.all(
+                  color: colors.boxBorder,
+                ),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : Color.fromARGB(255, 235, 233, 233),
               ),
-              // const SizedBox(
-              //   height: 5,
-              // ),
-              // const Text(
-              //   'Your One-Stop Grocery Destination!',
-              //   style: TextStyle(color: Colors.white, fontSize: 12),
-              // ),
-              const SizedBox(
-                height: 10,
-              ),
-              coupon.discountType == "percentage"
-                  ? Text(
-                      "${coupon.discount}%",
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      coupon.title,
                       style: TextStyle(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    )
-                  : Text(
-                      "${coupon.maxDiscount}",
-                      style: TextStyle(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: Platform.isAndroid ? size_10 : size_12,
+                      ),
                     ),
-              const SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Expires',
-                        style: TextStyle(color: colors.greyText, fontSize: 12),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "${parseDate.day} ${getMonth(parseDate.month.toString())} ${parseDate.year}",
-                        style: TextStyle(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                            fontSize: 14),
-                      ),
-                    ],
-                  ),
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    onTap: () async {
-                      await Clipboard.setData(ClipboardData(text: coupon.code));
-                      Utils.showFlushBarWithMessage(
-                          "Alert", "Coupon Copied", context);
-
-                      // showToastMessage("Coupon Copied");
-                    },
-                    child: DottedBorder(
-                      color: colors.greyText,
-                      strokeWidth: 1,
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: const BoxDecoration(),
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.file_copy,
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black,
-                            ), // Replace with your desired icon
-                            Text(
-                              coupon.code,
-                              style: TextStyle(
-                                fontSize: 16,
+                    // const SizedBox(
+                    //   height: 5,
+                    // ),
+                    // const Text(
+                    //   'Your One-Stop Grocery Destination!',
+                    //   style: TextStyle(color: Colors.white, fontSize:
+                    //                   Platform.isAndroid ? size_10 : size_12,),
+                    // ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    coupon.discountType == "percentage"
+                        ? Text(
+                            "${coupon.discount}%",
+                            style: TextStyle(
                                 color: Theme.of(context).brightness ==
                                         Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
+                                fontSize:
+                                    Platform.isAndroid ? size_16 : size_18,
+                                fontWeight: FontWeight.bold),
+                          )
+                        : Text(
+                            "${coupon.maxDiscount}",
+                            style: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize:
+                                    Platform.isAndroid ? size_16 : size_18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Expires',
+                              style: TextStyle(
+                                color: colors.greyText,
+                                fontSize:
+                                    Platform.isAndroid ? size_10 : size_12,
                               ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "${parseDate.day} ${getMonth(parseDate.month.toString())} ${parseDate.year}",
+                              style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14),
                             ),
                           ],
                         ),
-                      ),
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-      ],
-    ),
+                        InkWell(
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          onTap: () async {
+                            await Clipboard.setData(
+                                ClipboardData(text: coupon.code));
+                            Utils.showFlushBarWithMessage(
+                                "Alert", "Coupon Copied", context);
+
+                            // showToastMessage("Coupon Copied");
+                          },
+                          child: DottedBorder(
+                            color: colors.greyText,
+                            strokeWidth: 1,
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(),
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.file_copy,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ), // Replace with your desired icon
+                                  Text(
+                                    coupon.code,
+                                    style: TextStyle(
+                                      fontSize: Platform.isAndroid
+                                          ? size_14
+                                          : size_16,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  ]))
+        ]),
   );
 }
 

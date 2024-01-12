@@ -1,5 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import '../../utils/color.dart';
@@ -22,9 +25,11 @@ Future<void> share(context, String referralCode) async {
                 const SizedBox(
                   height: 20,
                 ),
-                const Text(
+                Text(
                   "Share",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: Platform.isAndroid ? size_16 : size_18),
                 ),
                 const SizedBox(
                   height: 20,
@@ -59,8 +64,11 @@ Future<void> share(context, String referralCode) async {
                                 ),
                                 Text(
                                   sharingApp[i].appName,
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 14),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14),
                                 )
                               ],
                             )

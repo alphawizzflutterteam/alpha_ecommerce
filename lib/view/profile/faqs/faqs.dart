@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/faqsViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -77,11 +80,14 @@ class _FAQsState extends State<FAQs> {
                                 padding: EdgeInsets.only(
                                     right: MediaQuery.of(context).size.width *
                                         0.1),
-                                child: const Text(
+                                child: Text(
                                   "FAQs",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                      color: Colors.white,
+                                      fontSize: Platform.isAndroid
+                                          ? size_18
+                                          : size_20),
                                 ),
                               ),
                             ),

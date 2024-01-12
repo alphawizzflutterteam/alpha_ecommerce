@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/refund/model/refundHistoryModel.dart';
 import 'package:flutter/material.dart';
@@ -29,16 +32,19 @@ refundHistoryCard({required context, required DatumRefund data}) {
                       children: [
                         Text(
                           data.createdAt,
-                          style: const TextStyle(
-                              color: colors.textColor, fontSize: 12),
+                          style: TextStyle(
+                            color: colors.textColor,
+                            fontSize: Platform.isAndroid ? size_10 : size_12,
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
                           data.amount,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 20),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: Platform.isAndroid ? size_18 : size_20),
                         )
                       ],
                     ),
@@ -49,16 +55,21 @@ refundHistoryCard({required context, required DatumRefund data}) {
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
+                Text(
                   "Transaction ID",
-                  style: TextStyle(color: colors.textColor, fontSize: 12),
+                  style: TextStyle(
+                    color: colors.textColor,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 Text(
                   data.orderId.toString(),
-                  style: const TextStyle(color: Colors.white, fontSize: 14),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: Platform.isAndroid ? size_12 : size_14),
                 )
               ],
             ),

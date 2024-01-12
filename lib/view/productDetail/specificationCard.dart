@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/cart/model/cartModel.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/model/productDetailModel.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +25,7 @@ specificationCard({required context, required ProductListDetail productData}) {
               color: Theme.of(context).brightness == Brightness.dark
                   ? Colors.white
                   : Colors.black,
-              fontSize: 14),
+              fontSize: Platform.isAndroid ? size_12 : size_14),
         ),
         SizedBox(
           height: 20,
@@ -33,18 +36,20 @@ specificationCard({required context, required ProductListDetail productData}) {
             Text(
               "Weight",
               style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.grey.shade300
-                      : Colors.black87,
-                  fontSize: 12),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey.shade300
+                    : Colors.black87,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
             ),
             Text(
               productData.weight,
               style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 12),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
             ),
           ],
         ),
@@ -57,18 +62,20 @@ specificationCard({required context, required ProductListDetail productData}) {
             Text(
               "Made IN",
               style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.grey.shade300
-                      : Colors.black87,
-                  fontSize: 12),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey.shade300
+                    : Colors.black87,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
             ),
             Text(
               productData.made_in,
               style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 12),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
             ),
           ],
         ),
@@ -81,18 +88,20 @@ specificationCard({required context, required ProductListDetail productData}) {
             Text(
               "Warranty",
               style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.grey.shade300
-                      : Colors.black87,
-                  fontSize: 12),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey.shade300
+                    : Colors.black87,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
             ),
             Text(
               productData.warranty,
               style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 12),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
             ),
           ],
         ),
@@ -105,18 +114,20 @@ specificationCard({required context, required ProductListDetail productData}) {
             Text(
               "Manufacturing Date",
               style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.grey.shade300
-                      : Colors.black87,
-                  fontSize: 12),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey.shade300
+                    : Colors.black87,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
             ),
             Text(
               productData.manufacturing_date,
               style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 12),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
             ),
           ],
         ),
@@ -129,23 +140,23 @@ specificationCard({required context, required ProductListDetail productData}) {
             Text(
               "Refundable",
               style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.grey.shade300
-                      : Colors.black87,
-                  fontSize: 12),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey.shade300
+                    : Colors.black87,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
             ),
             Text(
               productData.refundable,
               style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 12),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
             ),
           ],
         ),
-
-
         SizedBox(
           height: 15,
         ),
@@ -155,18 +166,20 @@ specificationCard({required context, required ProductListDetail productData}) {
             Text(
               "Cancellable",
               style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.grey.shade300
-                      : Colors.black87,
-                  fontSize: 12),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey.shade300
+                    : Colors.black87,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
             ),
             Text(
               "Till received",
               style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 12),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
             ),
           ],
         ),

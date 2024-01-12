@@ -38,9 +38,14 @@ class ProductDetailViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  setFolllowing(bool value) {
+    isFollowing = value;
+    notifyListeners();
+  }
+
   Future<void> getDetails(
       BuildContext context, dynamic data, String productName) async {
-    setLoading(true);
+    // setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
     var userId = SharedPref.shared.pref!.getString(PrefKeys.userId)!;
     print(token);
@@ -49,7 +54,7 @@ class ProductDetailViewModel with ChangeNotifier {
 
     var isInternetAvailable = await networkProvider.checkInternetAvailability();
     if (!isInternetAvailable) {
-      setLoading(false);
+      // setLoading(false);
 
       Utils.showFlushBarWithMessage("", "No Internet Connection", context);
     } else {
@@ -190,7 +195,7 @@ class ProductDetailViewModel with ChangeNotifier {
 
   Future<bool> removeFromCart(
       dynamic data, BuildContext context, String slug) async {
-    setLoading(true);
+    // setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
     print(data);
@@ -234,7 +239,7 @@ class ProductDetailViewModel with ChangeNotifier {
 
   Future<bool> addToCart(
       Map<String, String> data, BuildContext context, String slug) async {
-    setLoading(true);
+    // setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
     var data2 = data;
@@ -279,14 +284,14 @@ class ProductDetailViewModel with ChangeNotifier {
   }
 
   Future<bool> addToWishlist(dynamic data, BuildContext context) async {
-    setLoading(true);
+    // setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
     NetworkViewModel networkProvider =
         Provider.of<NetworkViewModel>(context, listen: false);
 
     var isInternetAvailable = await networkProvider.checkInternetAvailability();
     if (!isInternetAvailable) {
-      setLoading(false);
+      // setLoading(false);
 
       Utils.showFlushBarWithMessage("", "No Internet Connection", context);
     } else {
@@ -315,14 +320,14 @@ class ProductDetailViewModel with ChangeNotifier {
   }
 
   Future<bool> removeFromWishlist(dynamic data, BuildContext context) async {
-    setLoading(true);
+    //setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
     NetworkViewModel networkProvider =
         Provider.of<NetworkViewModel>(context, listen: false);
 
     var isInternetAvailable = await networkProvider.checkInternetAvailability();
     if (!isInternetAvailable) {
-      setLoading(false);
+      // setLoading(false);
 
       Utils.showFlushBarWithMessage("", "No Internet Connection", context);
     } else {
@@ -334,7 +339,7 @@ class ProductDetailViewModel with ChangeNotifier {
       _myRepo
           .removeFromWishlist(AppUrl.removeFromWishlist, token, data)
           .then((value) {
-        setLoading(false);
+        // setLoading(false);
 
         Utils.showFlushBarWithMessage("Alert", value.message, context);
         getDetails(context, data, slugProdduct);
@@ -353,14 +358,14 @@ class ProductDetailViewModel with ChangeNotifier {
   }
 
   Future<bool> followVendor(dynamic data, BuildContext context) async {
-    setLoading(true);
+    //setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
     NetworkViewModel networkProvider =
         Provider.of<NetworkViewModel>(context, listen: false);
 
     var isInternetAvailable = await networkProvider.checkInternetAvailability();
     if (!isInternetAvailable) {
-      setLoading(false);
+      // setLoading(false);
 
       Utils.showFlushBarWithMessage("", "No Internet Connection", context);
     } else {
@@ -370,10 +375,12 @@ class ProductDetailViewModel with ChangeNotifier {
         return false;
       }
       _myRepo.followvendor(AppUrl.followVendor, token, data).then((value) {
-        setLoading(false);
+        //  setLoading(false);
 
         Utils.showFlushBarWithMessage("Alert", value.message, context);
-        isFollowing = !isFollowing;
+        getDetails(context, data, model.first.slug);
+        setFolllowing(!isFollowing);
+        notifyListeners();
 
         return true;
       }).onError((error, stackTrace) {

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/order/productListBuilder.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
@@ -95,7 +98,9 @@ class _OrderCancelledState extends State<OrderCancelled> {
                                                 Brightness.dark
                                             ? Colors.white
                                             : Colors.black,
-                                        fontSize: 14,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14,
                                       ),
                                     ),
                                     Text(
@@ -105,7 +110,9 @@ class _OrderCancelledState extends State<OrderCancelled> {
                                                 Brightness.dark
                                             ? Colors.white
                                             : Colors.black,
-                                        fontSize: 14,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14,
                                       ),
                                     ),
                                   ],
@@ -238,7 +245,8 @@ class _OrderCancelledState extends State<OrderCancelled> {
                             //                           Brightness.dark
                             //                       ? colors.lightTextColor
                             //                       : Colors.black54,
-                            //                   fontSize: 12)),
+                            //                   fontSize:
+                            //     Platform.isAndroid ? size_10 : size_12,)),
                             //         ],
                             //       )
                             //     ],

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
@@ -74,11 +77,14 @@ class _ChangePasswordState extends State<ChangePassword> {
                                 padding: EdgeInsets.only(
                                     right: MediaQuery.of(context).size.width *
                                         0.05),
-                                child: const Text(
+                                child: Text(
                                   "Change Password",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                      color: Colors.white,
+                                      fontSize: Platform.isAndroid
+                                          ? size_18
+                                          : size_20),
                                 ),
                               ),
                             ),
@@ -130,9 +136,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                                         .labelColor, // Change the color of the icon
                                   ),
                                 ),
-                                labelStyle: const TextStyle(
+                                labelStyle: TextStyle(
                                   color: colors.labelColor,
-                                  fontSize: 14,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
                                 ),
                                 hintStyle: const TextStyle(
                                   color: colors.labelColor,
@@ -202,9 +209,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                                         .labelColor, // Change the color of the icon
                                   ),
                                 ),
-                                labelStyle: const TextStyle(
+                                labelStyle: TextStyle(
                                   color: colors.labelColor,
-                                  fontSize: 14,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
                                 ),
                                 hintStyle: const TextStyle(
                                   color: colors.labelColor,
@@ -274,9 +282,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                                         .labelColor, // Change the color of the icon
                                   ),
                                 ),
-                                labelStyle: const TextStyle(
+                                labelStyle: TextStyle(
                                   color: colors.labelColor,
-                                  fontSize: 14,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
                                 ),
                                 hintStyle: const TextStyle(
                                   color: colors.labelColor,
@@ -342,7 +351,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                             width: double.infinity,
                             child: CommonButton(
                                 text: "CHANGE PASSWORD",
-                                fontSize: 18,
+                                fontSize:
+                                    Platform.isAndroid ? size_16 : size_18,
                                 onClick: () {
                                   if (_formKey.currentState!.validate()) {
                                     if (authViewModel.matchPassword(

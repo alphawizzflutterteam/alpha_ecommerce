@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
@@ -18,8 +20,9 @@ cartCard(
 ) {
   List<String> quantity = [];
   String? selectedValue;
+  int availabllleStoclk = model.currentStock > 7 ? 8 : model.currentStock + 1;
 
-  for (int i = 1; i < model.currentStock + 1; i++) {
+  for (int i = 1; i < availabllleStoclk; i++) {
     quantity.add("$i");
   }
 
@@ -67,8 +70,9 @@ cartCard(
                     child: CachedNetworkImage(
                       imageUrl: model.thumbnail,
                       errorWidget: (context, url, error) => ErrorImageWidget(),
-                      height: size_80,
-                      width: size_80,
+                      height: size_100,
+                      fit: BoxFit.contain,
+                      width: size_90,
                     ),
                     //  Image.network(
                     //   model.images[0],
@@ -91,17 +95,10 @@ cartCard(
                         },
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width - 200,
-                          child: Text(
-                            model.name,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.textColor
-                                    : Colors.black,
-                                fontSize: 14),
-                          ),
+                          child: Text(model.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.bodyMedium!),
                         ),
                       ),
                       const SizedBox(
@@ -109,31 +106,51 @@ cartCard(
                       ),
                       Row(
                         children: [
-                          Text(
-                            model.specialPrice,
-                            style: const TextStyle(
-                                color: colors.buttonColor, fontSize: 16),
-                          ),
+                          Text(model.specialPrice,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
+                                      color: Colors.cyan,
+                                      fontWeight: FontWeight.w600)),
+                          //),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              model.unitPrice.toString(),
-                              style: const TextStyle(
-                                  decoration: TextDecoration.lineThrough,
-                                  color: colors.greyText,
-                                  fontSize: 14),
-                            ),
+                            child: Text(model.unitPrice.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14,
+                                        color: colors.greyText,
+                                        decoration: TextDecoration.lineThrough,
+                                        fontWeight: FontWeight.w600)),
+                            //   style: const TextStyle(
+                            //       decoration: TextDecoration.lineThrough,
+                            //       color: colors.greyText,
+                            //       fontSize: Platform.isAndroid ? size_12 : size_14),
+                            // ),
                           ),
                         ],
                       ),
                       const SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        model.code,
-                        style: const TextStyle(
-                            color: colors.greyText, fontSize: 12),
-                      ),
+                      Text(model.code,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  fontSize:
+                                      Platform.isAndroid ? size_10 : size_12,
+                                  color: colors.greyText,
+                                  fontWeight: FontWeight.w600)),
+                      // ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -156,29 +173,45 @@ cartCard(
                                 borderRadius: BorderRadius.zero,
                                 borderSide: BorderSide.none),
                           ),
-                          hint: Text(
-                            'Qty ${model.selectedQuantity}',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black87,
-                            ),
-                          ),
+                          hint: Text('Qty ${model.selectedQuantity}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? colors.textColor
+                                          : Colors.black87,
+                                      fontWeight: FontWeight.w600)),
+                          //  style: TextStyle(
+                          //   fontSize:
+                          //       Platform.isAndroid ? size_10 : size_12,,
+                          //   color: Theme.of(context).brightness ==
+                          //           Brightness.dark
+                          //       ? colors.textColor
+                          //       : Colors.black87,
+                          // ),
+                          //  ),
                           items: quantity
                               .map((item) => DropdownMenuItem<String>(
                                     value: item,
-                                    child: Text(
-                                      "Qty $item",
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? colors.textColor
-                                            : Colors.black87,
-                                      ),
-                                    ),
+                                    child: Text("Qty $item",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textColor
+                                                    : Colors.black87,
+                                                fontWeight: FontWeight.w600)),
                                   ))
                               .toList(),
                           validator: (value) {
@@ -239,6 +272,7 @@ cartCard(
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
                     highlightColor: Colors.transparent,
@@ -263,14 +297,23 @@ cartCard(
                                   : colors.lightBorder)),
                       child: Text(
                         "Save for later",
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            fontSize: Platform.isAndroid ? size_10 : size_12,
                             color:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textColor
-                                    : colors.greyText,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12),
+                                    : Colors.black,
+                            fontWeight: FontWeight.w500),
                         textAlign: TextAlign.center,
+                        // style: TextStyle(
+                        //     color:
+                        //         Theme.of(context).brightness == Brightness.dark
+                        //             ? colors.textColor
+                        //             : colors.greyText,
+                        //     fontWeight: FontWeight.bold,
+                        //     fontSize:
+                        //          Platform.isAndroid ? size_10 : size_12,),
+                        // textAlign: TextAlign.center,
                       ),
                     ),
                   ),
@@ -297,13 +340,13 @@ cartCard(
                       },
                       child: Text(
                         "Remove from cart",
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            fontSize: Platform.isAndroid ? size_10 : size_12,
                             color:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textColor
-                                    : colors.greyText,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold),
+                                    : Colors.black,
+                            fontWeight: FontWeight.w500),
                         textAlign: TextAlign.center,
                       ),
                     ),

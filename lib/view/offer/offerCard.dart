@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +27,12 @@ offerCard(context) {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const RotatedBox(
+              RotatedBox(
                 quarterTurns: -1,
                 child: Text(
                   'DISCOUNT',
                   style: TextStyle(
-                    fontSize: 18.0,
+                    fontSize: Platform.isAndroid ? size_16 : size_18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -61,25 +64,29 @@ offerCard(context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Everyday Savings, Fresh Delights:',
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: Platform.isAndroid ? size_12 : size_14),
               ),
               const SizedBox(
                 height: 5,
               ),
-              const Text(
+              Text(
                 'Your One-Stop Grocery Destination!',
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: Platform.isAndroid ? size_12 : size_14),
               ),
               const SizedBox(
                 height: 10,
               ),
-              const Text(
+              Text(
                 '50% off',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: Platform.isAndroid ? size_18 : size_20,
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(
@@ -88,19 +95,24 @@ offerCard(context) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Expires',
-                        style: TextStyle(color: colors.greyText, fontSize: 12),
+                        style: TextStyle(
+                          color: colors.greyText,
+                          fontSize: Platform.isAndroid ? size_10 : size_12,
+                        ),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
                         '30 Jul 2019',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: Platform.isAndroid ? size_12 : size_14),
                       ),
                     ],
                   ),
@@ -110,14 +122,17 @@ offerCard(context) {
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       decoration: const BoxDecoration(),
-                      child: const Row(
+                      child: Row(
                         children: <Widget>[
                           Icon(Icons.file_copy,
                               color: Colors
                                   .white), // Replace with your desired icon
                           Text(
                             'CP16533',
-                            style: TextStyle(fontSize: 16, color: Colors.white),
+                            style: TextStyle(
+                                fontSize:
+                                    Platform.isAndroid ? size_14 : size_16,
+                                color: Colors.white),
                           ),
                         ],
                       ),

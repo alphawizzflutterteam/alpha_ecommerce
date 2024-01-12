@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
@@ -55,7 +56,7 @@ savedItemCard(
                   Routes.navigateToProductDetailPageScreen(context, model.slug);
                 },
                 child: Image.network(
-                  model.images[0],
+                  model.thumbnail,
                   errorBuilder: (context, error, stackTrace) => Image.asset(
                     Images.defaultProductImg,
                     width: 100,
@@ -79,16 +80,10 @@ savedItemCard(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
                         maxWidth: MediaQuery.of(context).size.width * .48),
-                    child: Text(
-                      model.name,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? colors.textColor
-                              : Colors.black,
-                          fontSize: 14),
-                    ),
+                    child: Text(model.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyMedium!),
                   ),
                 ),
                 const SizedBox(
@@ -98,17 +93,18 @@ savedItemCard(
                   children: [
                     Text(
                       model.specialPrice,
-                      style: const TextStyle(
-                          color: colors.buttonColor, fontSize: 16),
+                      style: TextStyle(
+                          color: colors.buttonColor,
+                          fontSize: Platform.isAndroid ? size_14 : size_16),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: Text(
                         model.unitPrice,
-                        style: const TextStyle(
+                        style: TextStyle(
                             decoration: TextDecoration.lineThrough,
                             color: colors.greyText,
-                            fontSize: 14),
+                            fontSize: Platform.isAndroid ? size_12 : size_14),
                       ),
                     ),
                   ],
@@ -118,7 +114,10 @@ savedItemCard(
                 ),
                 Text(
                   model.weight,
-                  style: const TextStyle(color: colors.greyText, fontSize: 12),
+                  style: TextStyle(
+                    color: colors.greyText,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
                 ),
               ],
             ),
@@ -189,9 +188,10 @@ savedItemCard(
                 child: Text(
                   "Add to Cart",
                   style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12),
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),

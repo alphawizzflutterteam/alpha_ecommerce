@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/brandsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
@@ -39,10 +42,11 @@ brandCard(
             const SizedBox(
               height: size_5,
             ),
-            Text(
-              model.name,
-              style: const TextStyle(color: Colors.black, fontSize: size_10),
-            )
+            Text(model.name,
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                    color: colors.darkColor2,
+                    fontWeight: FontWeight.w500)),
           ],
         ),
       ));

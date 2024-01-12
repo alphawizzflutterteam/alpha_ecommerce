@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/order/productListBuilder.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
@@ -116,7 +118,9 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                 Brightness.dark
                                             ? Colors.white
                                             : Colors.black,
-                                        fontSize: 14,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14,
                                       ),
                                     ),
                                     Text(
@@ -126,7 +130,9 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                 Brightness.dark
                                             ? Colors.white
                                             : Colors.black,
-                                        fontSize: 14,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14,
                                       ),
                                     ),
                                   ],
@@ -170,7 +176,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                             //                 "Dettol Refresh Long Lasting",
                             //                 style: TextStyle(
                             //                   color: Colors.white,
-                            //                   fontSize: 20,
+                            //                   fontSize: Platform.isAndroid ? size_18 : size_20,
                             //                 ),
                             //               ),
                             //             ),
@@ -181,7 +187,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                             //               "\$120.00",
                             //               style: TextStyle(
                             //                 color: colors.buttonColor,
-                            //                 fontSize: 20,
+                            //                 fontSize: Platform.isAndroid ? size_18 : size_20,
                             //               ),
                             //             ),
                             //           ],
@@ -206,7 +212,9 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14),
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -219,19 +227,25 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                         Text(
                                           "MRP ",
                                           style: TextStyle(
-                                              color: colors.greyText,
-                                              fontSize: 12),
+                                            color: colors.greyText,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                         ),
                                         Text(
                                           detailProvider.detail.subtotal
                                               .toString(),
                                           style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: 12),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -243,22 +257,28 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        const Text(
+                                        Text(
                                           "Delivery fee",
                                           style: TextStyle(
-                                              color: colors.greyText,
-                                              fontSize: 12),
+                                            color: colors.greyText,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                         ),
                                         Text(
                                           detailProvider.detail.deliveryCharge
                                               .toString(),
                                           style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: 12),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -273,8 +293,11 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                         Text(
                                           "Discount",
                                           style: TextStyle(
-                                              color: colors.greyText,
-                                              fontSize: 12),
+                                            color: colors.greyText,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                         ),
                                         Text(
                                           "- " +
@@ -282,12 +305,15 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                   .detail.discountAmount
                                                   .toString(),
                                           style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: 12),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -313,14 +339,18 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                       Brightness.dark
                                                   ? Colors.white
                                                   : Colors.black,
-                                              fontSize: 14),
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                         ),
                                         Text(
                                           detailProvider.detail.orderAmount
                                               .toString(),
                                           style: TextStyle(
                                               color: colors.buttonColor,
-                                              fontSize: 14),
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                         ),
                                       ],
                                     ),
@@ -362,7 +392,9 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                       Brightness.dark
                                                   ? Colors.white
                                                   : Colors.black,
-                                              fontSize: 14),
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                         ),
                                       ],
                                     ),
@@ -379,7 +411,9 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14),
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -394,7 +428,9 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14),
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -409,7 +445,9 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14),
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -423,7 +461,9 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14),
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -436,7 +476,9 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14),
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14),
                                     ),
                                   ),
                                 ],
@@ -576,25 +618,25 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
-                                  //       fontSize: 14),
+                                  //       fontSize: Platform.isAndroid ? size_12 : size_14),
                                   //   headingDateTextStyle: TextStyle(
                                   //       color: Theme.of(context).brightness ==
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
-                                  //       fontSize: 14),
+                                  //       fontSize: Platform.isAndroid ? size_12 : size_14),
                                   //   subTitleTextStyle: TextStyle(
                                   //       color: Theme.of(context).brightness ==
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
-                                  //       fontSize: 14),
+                                  //       fontSize: Platform.isAndroid ? size_12 : size_14),
                                   //   subDateTextStyle: TextStyle(
                                   //       color: Theme.of(context).brightness ==
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
-                                  //       fontSize: 14),
+                                  //       fontSize: Platform.isAndroid ? size_12 : size_14),
                                   // ),
                                 ],
                               ),
@@ -685,8 +727,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                               image: NetworkImage(
                                                 detailProvider
                                                     .RecommendedProducts[index]
-                                                    .images
-                                                    .first,
+                                                    .thumbnail,
                                               ),
                                               fit: BoxFit.cover,
                                               onError:
@@ -711,9 +752,11 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                             children: [
                                               Text(
                                                 "${detailProvider.RecommendedProducts[index].discount}% Off",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: Colors.orange,
-                                                  fontSize: 12,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_10
+                                                      : size_12,
                                                 ),
                                               ),
                                               LikeButton(
@@ -769,7 +812,9 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                       Brightness.dark
                                                   ? Colors.white
                                                   : Colors.black,
-                                              fontSize: 12,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_10
+                                                  : size_12,
                                             ),
                                           ),
                                         ),
@@ -784,9 +829,11 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                 detailProvider
                                                     .RecommendedProducts[index]
                                                     .unitPrice,
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: Colors.cyan,
-                                                  fontSize: 12,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_10
+                                                      : size_12,
                                                 ),
                                               ),
                                               const SizedBox(
@@ -796,11 +843,13 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                 detailProvider
                                                     .RecommendedProducts[index]
                                                     .purchasePrice,
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: colors.lightTextColor,
                                                   decoration: TextDecoration
                                                       .lineThrough,
-                                                  fontSize: 12,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_10
+                                                      : size_12,
                                                 ),
                                               ),
                                             ],
@@ -886,7 +935,9 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                             Brightness.dark
                                                         ? colors.textColor
                                                         : Colors.black,
-                                                    fontSize: size_12),
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_10
+                                                        : size_12),
                                                 textAlign: TextAlign.center,
                                               ),
                                             ),
@@ -917,7 +968,8 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                               width: MediaQuery.of(context).size.width * 0.8,
                               child: CommonButton(
                                 text: "CANCEL ORDER",
-                                fontSize: 14,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
                                 onClick: () {
                                   showCancelDialog();
                                 },
@@ -935,7 +987,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
   Future<void> showCancelDialog() async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
             contentPadding: EdgeInsets.zero,
@@ -996,7 +1048,7 @@ class _CancelOrderDialogWidgetState extends State<CancelOrderDialogWidget> {
               color: Theme.of(context).brightness == Brightness.dark
                   ? Colors.white
                   : Colors.black,
-              fontSize: 20.0,
+              fontSize: Platform.isAndroid ? size_18 : size_20,
             ),
           ),
           const SizedBox(height: 20),
@@ -1010,30 +1062,26 @@ class _CancelOrderDialogWidgetState extends State<CancelOrderDialogWidget> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: reasons.length,
                 itemBuilder: (context, i) {
-                  return Expanded(
-                    child: Material(
-                      color: Colors.transparent,
-                      child: RadioListTile(
-                        title: Text(
-                          reasons[i],
-                          style: TextStyle(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                            fontSize: 14,
-                          ),
-                          softWrap: false,
+                  return Material(
+                    color: Colors.transparent,
+                    child: RadioListTile(
+                      title: Text(
+                        reasons[i],
+                        style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                          fontSize: Platform.isAndroid ? size_12 : size_14,
                         ),
-                        activeColor: colors.buttonColor,
-                        value: reasons[i],
-                        groupValue: selectedReason,
-                        onChanged: (value) {
-                          handleOptionChange(value.toString());
-                        },
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 0),
+                        softWrap: false,
                       ),
+                      activeColor: colors.buttonColor,
+                      value: reasons[i],
+                      groupValue: selectedReason,
+                      onChanged: (value) {
+                        handleOptionChange(value.toString());
+                      },
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 0),
                     ),
                   );
 

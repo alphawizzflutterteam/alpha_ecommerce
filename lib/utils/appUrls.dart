@@ -71,7 +71,11 @@ class AppUrl {
 
   static const String addressList = "${baseURL}customer/address/list";
   static const String addAddressList = "${baseURL}customer/address/add";
+  static const String countries = "${baseURL}countries";
+  static const String states = "${baseURL}states?country_id=";
   static const String updateAddressList = "${baseURL}customer/address/update";
+  static const String city = "${baseURL}cities?state_id=";
+
   static const String deleteAddress = "${baseURL}customer/address?address_id=";
 
   static const String orderList = "${baseURL}customer/order/list";

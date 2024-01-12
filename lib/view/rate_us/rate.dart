@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -33,11 +36,11 @@ class _RateUsState extends State<RateUs> {
           const SizedBox(
             height: 10,
           ),
-          const Text(
+          Text(
             'Rate Us!',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20.0,
+              fontSize: Platform.isAndroid ? size_18 : size_20,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -76,7 +79,7 @@ class _RateUsState extends State<RateUs> {
             width: 150,
             child: CommonButton(
                 text: "RATE US",
-                fontSize: 14,
+                fontSize: Platform.isAndroid ? size_12 : size_14,
                 onClick: () {
                   Routes.navigateToPreviousScreen(context);
                 }),

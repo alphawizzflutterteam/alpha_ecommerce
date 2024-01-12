@@ -39,6 +39,7 @@ class DetailsData {
     required this.seller,
     required this.products,
     required this.orderStatusHistory,
+    required this.orderReviews,
     required this.orderAmount,
     required this.subtotal,
     required this.discountAmount,
@@ -54,6 +55,7 @@ class DetailsData {
   final Seller? seller;
   final List<Product> products;
   final List<OrderStatusHistory> orderStatusHistory;
+  final List<OrderRatings> orderReviews;
   final String? orderAmount;
   final String? subtotal;
   final String? discountAmount;
@@ -76,6 +78,10 @@ class DetailsData {
           ? []
           : List<OrderStatusHistory>.from(json["order_status_history"]!
               .map((x) => OrderStatusHistory.fromJson(x))),
+      orderReviews: json["order_review"] == null
+          ? []
+          : List<OrderRatings>.from(
+              json["order_review"]!.map((x) => OrderRatings.fromJson(x))),
       orderAmount: json["order_amount"],
       subtotal: json["subtotal"],
       discountAmount: json["discount_amount"],
@@ -105,6 +111,36 @@ class DetailsData {
         "expected_delivery_date": expectedDeliveryDate,
         "order_note": orderNote,
         "shipping_address_data": shippingAddress?.toJson(),
+      };
+}
+
+// "order_review": [
+//           {
+//               "comment": "This is testing",
+//               "rating": 4
+//           }
+//       ]
+//   },
+
+class OrderRatings {
+  OrderRatings({
+    required this.comment,
+    required this.rating,
+  });
+
+  final String? comment;
+  final int? rating;
+
+  factory OrderRatings.fromJson(Map<String, dynamic> json) {
+    return OrderRatings(
+      comment: json["comment"],
+      rating: json["rating"],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "comment": comment,
+        "rating": rating,
       };
 }
 

@@ -143,7 +143,7 @@ class _IntroSliderState extends State<IntroSlider> {
                               ? TextScaler.linear(0.8)
                               : TextScaler.linear(1),
                           style: TextStyle(
-                              fontSize: size_20,
+                              fontSize: Platform.isAndroid ? size_18 : size_20,
                               color: Theme.of(context).brightness ==
                                       Brightness.dark
                                   ? colors.textColor
@@ -161,7 +161,7 @@ class _IntroSliderState extends State<IntroSlider> {
                     //     child: Text(
                     //       'Lorem Ipsum is simply dummy text of the printing and typesetting',
                     //       style: TextStyle(
-                    //         fontSize: 14,
+                    //         fontSize: Platform.isAndroid ? size_12 : size_14,
                     //         color:
                     //             Theme.of(context).brightness == Brightness.dark
                     //                 ? colors.textColor

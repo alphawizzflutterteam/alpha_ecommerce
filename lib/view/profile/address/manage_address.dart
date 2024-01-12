@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +42,7 @@ class _ManageAddressState extends State<ManageAddress> {
     selectedOption = "";
     addressProvider.latitude = "";
     addressProvider.longitude = "";
+    addressProvider.getCountries(context, "", false);
   }
 
   @override
@@ -93,7 +97,7 @@ class _ManageAddressState extends State<ManageAddress> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
@@ -102,7 +106,10 @@ class _ManageAddressState extends State<ManageAddress> {
                                 ),
                                 SizedBox(width: 5),
                                 Text('Use my location',
-                                    style: TextStyle(fontSize: 14)),
+                                    style: TextStyle(
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14)),
                               ],
                             ),
                           ),
@@ -120,7 +127,8 @@ class _ManageAddressState extends State<ManageAddress> {
                                           Brightness.dark
                                       ? Colors.white
                                       : Colors.black,
-                                  fontSize: 14,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -145,7 +153,9 @@ class _ManageAddressState extends State<ManageAddress> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
                                         ),
                                         softWrap: false, // Add this line
                                       ),
@@ -170,7 +180,9 @@ class _ManageAddressState extends State<ManageAddress> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
                                         ),
                                         softWrap: false, // Add this line
                                       ),
@@ -196,7 +208,9 @@ class _ManageAddressState extends State<ManageAddress> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
                                         ),
                                         softWrap: false, // Add this line
                                       ),
@@ -235,7 +249,7 @@ class _ManageAddressState extends State<ManageAddress> {
                       //     Text(
                       //       'OR',
                       //       style: TextStyle(
-                      //         fontSize: 16,
+                      //         Platform.isAndroid ? size_14 : size_16,
                       //         color: Colors.white,
                       //       ),
                       //     ),
@@ -273,9 +287,9 @@ class _ManageAddressState extends State<ManageAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Name',
-                            labelStyle: const TextStyle(
+                            labelStyle: TextStyle(
                               color: colors.labelColor,
-                              fontSize: 14,
+                              fontSize: Platform.isAndroid ? size_12 : size_14,
                             ),
                             hintStyle: const TextStyle(
                               color: colors.labelColor,
@@ -314,9 +328,9 @@ class _ManageAddressState extends State<ManageAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Mobile Number',
-                            labelStyle: const TextStyle(
+                            labelStyle: TextStyle(
                               color: colors.labelColor,
-                              fontSize: 14,
+                              fontSize: Platform.isAndroid ? size_12 : size_14,
                             ),
                             hintStyle: const TextStyle(
                               color: colors.labelColor,
@@ -356,9 +370,9 @@ class _ManageAddressState extends State<ManageAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Alternate Mobile Number',
-                            labelStyle: const TextStyle(
+                            labelStyle: TextStyle(
                               color: colors.labelColor,
-                              fontSize: 14,
+                              fontSize: Platform.isAndroid ? size_12 : size_14,
                             ),
                             hintStyle: const TextStyle(
                               color: colors.labelColor,
@@ -392,9 +406,9 @@ class _ManageAddressState extends State<ManageAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'House no, Building Name',
-                            labelStyle: const TextStyle(
+                            labelStyle: TextStyle(
                               color: colors.labelColor,
-                              fontSize: 14,
+                              fontSize: Platform.isAndroid ? size_12 : size_14,
                             ),
                             hintStyle: const TextStyle(
                               color: colors.labelColor,
@@ -427,9 +441,9 @@ class _ManageAddressState extends State<ManageAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Road name, Area Colony',
-                            labelStyle: const TextStyle(
+                            labelStyle: TextStyle(
                               color: colors.labelColor,
-                              fontSize: 14,
+                              fontSize: Platform.isAndroid ? size_12 : size_14,
                             ),
                             hintStyle: const TextStyle(
                               color: colors.labelColor,
@@ -446,117 +460,165 @@ class _ManageAddressState extends State<ManageAddress> {
                         ),
                       ),
                       Container(
+                        width: MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textFieldBG
+                              : Colors.white,
+                          border: Border.all(
+                            // Set the border color and width
+                            color: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? colors.white10
+                                : colors
+                                    .greyText, // Replace with your desired border color
+                            width:
+                                2.0, // Replace with your desired border width
+                          ),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        child: TextFormField(
-                          controller: addressProvider.countryController,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.deny(RegExp(r'\d+')),
-                          ],
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor:
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 12.0, right: 12),
+                          child: DropdownButton<String>(
+                            underline: Container(),
+                            isExpanded: true,
+                            dropdownColor:
                                 Theme.of(context).brightness == Brightness.dark
-                                    ? colors.textFieldBG
+                                    ? colors.darkBG
                                     : Colors.white,
-                            labelText: 'Country',
-                            labelStyle: const TextStyle(
-                              color: colors.labelColor,
-                              fontSize: 14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            value: addressProvider.selectedCountry,
+                            onChanged: (value) {
+                              setState(() {
+                                addressProvider.selectedCountry = value!;
+                                addressProvider.countryController.text = value;
+
+                                for (int i = 0;
+                                    i < addressProvider.countryList.length;
+                                    i++) {
+                                  if (addressProvider.countryList[i].name ==
+                                      addressProvider.selectedCountry) {
+                                    addressProvider.getStatesList(
+                                      context,
+                                      addressProvider.countryList[i].id
+                                          .toString(),
+                                    );
+                                  }
+                                }
+                              });
+                            },
+                            items: addressProvider.countryList
+                                .map((country) => DropdownMenuItem<String>(
+                                      value: country.name,
+                                      child: Text(country.name),
+                                    ))
+                                .toList(),
+                            hint: Text('Select a country'),
                           ),
-                          // decoration: commonInputDecoration(
-                          //   labelText: translation(context).fullname,
-                          // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
                         ),
                       ),
                       Container(
+                        width: MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textFieldBG
+                              : Colors.white,
+                          border: Border.all(
+                            // Set the border color and width
+                            color: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? colors.white10
+                                : colors
+                                    .greyText, // Replace with your desired border color
+                            width:
+                                2.0, // Replace with your desired border width
+                          ),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        child: TextFormField(
-                          controller: addressProvider.stateController,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.deny(RegExp(r'\d+')),
-                          ],
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor:
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 12.0, right: 12),
+                          child: DropdownButton<String>(
+                            underline: Container(),
+                            isExpanded: true,
+                            dropdownColor:
                                 Theme.of(context).brightness == Brightness.dark
-                                    ? colors.textFieldBG
+                                    ? colors.darkBG
                                     : Colors.white,
-                            labelText: 'State',
-                            labelStyle: const TextStyle(
-                              color: colors.labelColor,
-                              fontSize: 14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            value: addressProvider.selectedState,
+                            onChanged: (value) {
+                              setState(() {
+                                addressProvider.selectedState = value!;
+                                addressProvider.stateController.text = value;
+                                for (int i = 0;
+                                    i < addressProvider.stateList.length;
+                                    i++) {
+                                  if (addressProvider.stateList[i].name ==
+                                      addressProvider.selectedState) {
+                                    addressProvider.getCity(
+                                        context,
+                                        addressProvider.stateList[i].id
+                                            .toString());
+                                  }
+                                }
+                              });
+                            },
+                            items: addressProvider.stateList
+                                .map((state) => DropdownMenuItem<String>(
+                                      value: state.name,
+                                      child: Text(state.name!),
+                                    ))
+                                .toList(),
+                            hint: Text('Select a state'),
                           ),
-                          // decoration: commonInputDecoration(
-                          //   labelText: translation(context).fullname,
-                          // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
                         ),
                       ),
                       Container(
+                        width: MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textFieldBG
+                              : Colors.white,
+                          border: Border.all(
+                            // Set the border color and width
+                            color: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? colors.white10
+                                : colors
+                                    .greyText, // Replace with your desired border color
+                            width:
+                                2.0, // Replace with your desired border width
+                          ),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        child: TextFormField(
-                          controller: addressProvider.cityController,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.deny(RegExp(r'\d+')),
-                          ],
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor:
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 12.0, right: 12),
+                          child: DropdownButton<String>(
+                            underline: Container(),
+                            isExpanded: true,
+                            dropdownColor:
                                 Theme.of(context).brightness == Brightness.dark
-                                    ? colors.textFieldBG
+                                    ? colors.darkBG
                                     : Colors.white,
-                            labelText: 'City',
-                            labelStyle: const TextStyle(
-                              color: colors.labelColor,
-                              fontSize: 14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            value: addressProvider.selectedCity,
+                            onChanged: (value) {
+                              setState(() {
+                                addressProvider.selectedCity = value!;
+                                addressProvider.cityController.text = value;
+                              });
+                            },
+                            items: addressProvider.cityList
+                                .map((city) => DropdownMenuItem<String>(
+                                      value: city.name,
+                                      child: Text(city.name!),
+                                    ))
+                                .toList(),
+                            hint: Text('Select a city'),
                           ),
-                          // decoration: commonInputDecoration(
-                          //   labelText: translation(context).fullname,
-                          // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
                         ),
                       ),
                       Container(
@@ -580,9 +642,9 @@ class _ManageAddressState extends State<ManageAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Pincode',
-                            labelStyle: const TextStyle(
+                            labelStyle: TextStyle(
                               color: colors.labelColor,
-                              fontSize: 14,
+                              fontSize: Platform.isAndroid ? size_12 : size_14,
                             ),
                             hintStyle: const TextStyle(
                               color: colors.labelColor,
@@ -642,7 +704,8 @@ class _ManageAddressState extends State<ManageAddress> {
                             width: double.infinity,
                             child: CommonButton(
                                 text: "SAVE ADDRESS",
-                                fontSize: 14,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
                                 onClick: () {
                                   try {
                                     Map data = {

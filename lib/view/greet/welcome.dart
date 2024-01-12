@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +51,7 @@ class _WelcomeState extends State<Welcome> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+                children: [
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Image(
@@ -62,7 +65,7 @@ class _WelcomeState extends State<Welcome> {
                       "Alphawizz e-commerce",
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: Platform.isAndroid ? size_18 : size_20,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -72,7 +75,7 @@ class _WelcomeState extends State<Welcome> {
                   //     "Welcome's you",
                   //     style: TextStyle(
                   //         color: Colors.white,
-                  //         fontSize: 20,
+                  //         fontSize: Platform.isAndroid ? size_18 : size_20,
                   //         fontWeight: FontWeight.bold),
                   //   ),
                   // ),
@@ -82,7 +85,9 @@ class _WelcomeState extends State<Welcome> {
                       child: Text(
                         textAlign: TextAlign.center,
                         "Unlock Your World: Seamless Access to Orders,Wishlists, and Tailored Recommendations Wishlists, and Tailored Recommendations",
-                        style: TextStyle(color: Colors.white, fontSize: 17),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: Platform.isAndroid ? size_15 : size_17),
                       ),
                     ),
                   ),

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/color.dart';
 import '../../../utils/constant.dart';
@@ -88,7 +91,8 @@ class _ContactUsState extends State<ContactUs> {
                                         Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
-                                fontSize: 14),
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 15, bottom: 30),
@@ -128,7 +132,9 @@ class _ContactUsState extends State<ContactUs> {
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: 14),
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14),
                                       )
                                     ],
                                   ),
@@ -155,7 +161,9 @@ class _ContactUsState extends State<ContactUs> {
                                                       Brightness.dark
                                                   ? Colors.white
                                                   : Colors.black,
-                                              fontSize: 14))
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14))
                                     ],
                                   )
                                 ],
@@ -169,7 +177,8 @@ class _ContactUsState extends State<ContactUs> {
                                         Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
-                                fontSize: 14),
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14),
                           ),
                           const SizedBox(
                             height: 10,
@@ -181,7 +190,8 @@ class _ContactUsState extends State<ContactUs> {
                                         Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
-                                fontSize: 16),
+                                fontSize:
+                                    Platform.isAndroid ? size_14 : size_16),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 15, bottom: 30),
@@ -213,7 +223,9 @@ class _ContactUsState extends State<ContactUs> {
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: 14),
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14),
                                       ),
                                       SizedBox(
                                         height: 10,
@@ -225,7 +237,9 @@ class _ContactUsState extends State<ContactUs> {
                                                       Brightness.dark
                                                   ? Colors.white
                                                   : Colors.black,
-                                              fontSize: 14)),
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14)),
                                       Text(
                                         "12:00 PM To 04:00 PM",
                                         style: TextStyle(
@@ -234,7 +248,9 @@ class _ContactUsState extends State<ContactUs> {
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: 14),
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14),
                                       ),
                                       Text("05:00 PM To 09:00 PM",
                                           style: TextStyle(
@@ -243,7 +259,9 @@ class _ContactUsState extends State<ContactUs> {
                                                       Brightness.dark
                                                   ? Colors.white
                                                   : Colors.black,
-                                              fontSize: 14))
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14))
                                     ],
                                   ),
                                 ],
@@ -275,7 +293,7 @@ class _ContactUsState extends State<ContactUs> {
                                       Brightness.dark
                                   ? Colors.white
                                   : Colors.black,
-                              fontSize: 14),
+                              fontSize: Platform.isAndroid ? size_12 : size_14),
                         ),
                       ),
                     ],

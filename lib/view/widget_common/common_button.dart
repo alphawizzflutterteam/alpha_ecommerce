@@ -18,17 +18,22 @@ class CommonButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var color = whitePrimary ?? false;
     return ElevatedButton(
-      onPressed: () {
-        onClick();
-      },
-      style: ElevatedButton.styleFrom(
-        primary: color ? Colors.white : colors.buttonColor,
-        onPrimary: color ? colors.buttonColor : Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+        onPressed: () {
+          onClick();
+        },
+        style: ElevatedButton.styleFrom(
+          primary: color ? Colors.white : colors.buttonColor,
+          onPrimary: color ? colors.buttonColor : Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
         ),
-      ),
-      child: Text(text, style: TextStyle(fontSize: fontSize)),
-    );
+        child: Text(
+          text,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall!
+              .copyWith(fontSize: fontSize),
+        ));
   }
 }

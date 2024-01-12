@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/provider/theme_provider.dart';
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
@@ -50,7 +52,7 @@ Future<void> changeTheme(context) async {
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textColor
                                     : Colors.black,
-                            fontSize: 18),
+                            fontSize: Platform.isAndroid ? size_16 : size_18),
                       )
                     ],
                   ),
@@ -83,7 +85,7 @@ Future<void> changeTheme(context) async {
                                       Brightness.dark
                                   ? colors.textColor
                                   : Colors.black,
-                              fontSize: 18))
+                              fontSize: Platform.isAndroid ? size_16 : size_18))
                     ],
                   ),
                 ),

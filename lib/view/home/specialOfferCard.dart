@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
@@ -34,10 +36,15 @@ specialOfferCard(SpecialOffersList model, BuildContext context,
               ),
               Text(
                 model.title,
-                style: const TextStyle(
-                    fontSize: size_13,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: Platform.isAndroid ? size_11 : size_13,
                     color: colors.buttonColor,
                     fontWeight: FontWeight.bold),
+                // style: const TextStyle(
+                //     fontSize:
+                //  Platform.isAndroid ? size_11 : size_13,
+                //     color: colors.buttonColor,
+                //     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -50,7 +57,7 @@ specialOfferCard(SpecialOffersList model, BuildContext context,
               width: MediaQuery.of(context).size.width * 0.27,
               child: CommonButton(
                   text: "Shop now",
-                  fontSize: size_10,
+                  fontSize: Platform.isAndroid ? size_8 : size_10,
                   whitePrimary: true,
                   onClick: () {})),
         ],

@@ -55,7 +55,6 @@ class OrderViewModel with ChangeNotifier {
                   searchText.text,
               token)
           .then((value) {
-        //orderList.clear();
         orderList = value.data!;
         filters = value.filters!;
         setLoading(false);
@@ -121,8 +120,10 @@ class OrderViewModel with ChangeNotifier {
               order_id: order_id,
               amount: amount,
               refund_reason: reason)
-          .then((value) =>
-              {Utils.showFlushBarWithMessage("", value.message, context)});
+          .then((value) {
+        Utils.showFlushBarWithMessage("", value.message, context);
+        getOrderList(context);
+      });
     }
   }
 
@@ -142,7 +143,11 @@ class OrderViewModel with ChangeNotifier {
     } else {
       await _myRepo
           .orderCancelRequest(
-              api: AppUrl.orderReturn,
+              api: AppUrl.orderCancel +
+                  "?order_id=" +
+                  order_id +
+                  "&remarks=" +
+                  reason,
               bearerToken: token,
               order_id: order_id,
               cancel_reason: reason)
@@ -156,6 +161,36 @@ class OrderViewModel with ChangeNotifier {
         Utils.showFlushBarWithMessage("", value.message, context);
       });
     }
+  }
+
+  Future<bool> cancelOrder(
+      {required String order_id,
+      required String reason,
+      required BuildContext context}) async {
+    setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+
+    _myRepo
+        .cancelOrder(
+            AppUrl.orderCancel + "?order_id=" + order_id + "&remarks=" + reason,
+            token)
+        .then((value) {
+      setLoading(false);
+      Navigator.pop(context);
+      Navigator.pop(context);
+      Utils.showFlushBarWithMessage("Alert", value.message, context);
+      getOrderList(context);
+
+      print(value.message);
+
+      return true;
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(error.toString());
+      Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+      return false;
+    });
+    return false;
   }
 
 //Funcation to submit order review

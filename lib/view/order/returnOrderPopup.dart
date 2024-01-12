@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
@@ -28,7 +31,9 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
-        color: colors.overlayBG,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? colors.overlayBG
+            : Colors.white,
       ),
       height: 260,
       width: MediaQuery.of(context).size.width,
@@ -56,11 +61,11 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
           const SizedBox(
             height: 10,
           ),
-          const Text(
+          Text(
             'Are you sure?',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20.0,
+              fontSize: Platform.isAndroid ? size_18 : size_20,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -101,9 +106,14 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
                   onPressed: () {
                     Routes.navigateToPreviousScreen(context);
                   },
-                  child: const Text(
+                  child: Text(
                     'CANCEL',
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(
+                      fontSize: Platform.isAndroid ? size_10 : size_12,
+                      color: Theme.of(context).brightness != Brightness.dark
+                          ? colors.overlayBG
+                          : Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -132,12 +142,16 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
                         amount: widget.amount,
                         reason: widget.refund_reason,
                         context: context);
-                    Navigator.pop(context);
-                    Routes.navigateToOrderReturnedDetailScreen(context);
+                    Routes.navigateToPreviousScreen(context);
                   },
-                  child: const Text(
+                  child: Text(
                     'RETURN ORDER',
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(
+                      fontSize: Platform.isAndroid ? size_10 : size_12,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? colors.overlayBG
+                          : Colors.white,
+                    ),
                   ),
                 ),
               ),

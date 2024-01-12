@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/color.dart';
@@ -53,11 +56,13 @@ class _SingleRefundState extends State<SingleRefund> {
                               padding: EdgeInsets.only(
                                   right:
                                       MediaQuery.of(context).size.width * 0.1),
-                              child: const Text(
+                              child: Text(
                                 "Refund Detail",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+                                    color: Colors.white,
+                                    fontSize:
+                                        Platform.isAndroid ? size_18 : size_20),
                               ),
                             ),
                           ),
@@ -109,7 +114,7 @@ class _SingleRefundState extends State<SingleRefund> {
                                   onPrimary: colors.textColor,
                                 ),
                                 onPressed: () {},
-                                child: const Row(
+                                child: Row(
                                   children: [
                                     Icon(
                                       Icons.check_circle,
@@ -120,7 +125,11 @@ class _SingleRefundState extends State<SingleRefund> {
                                     ),
                                     Text(
                                       "Transaction Successful",
-                                      style: TextStyle(fontSize: 12),
+                                      style: TextStyle(
+                                        fontSize: Platform.isAndroid
+                                            ? size_10
+                                            : size_12,
+                                      ),
                                     ),
                                   ],
                                 )),
@@ -154,14 +163,17 @@ class _SingleRefundState extends State<SingleRefund> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     "Order ID",
                                     style: TextStyle(
-                                        color: colors.lightTextColor,
-                                        fontSize: 12),
+                                      color: colors.lightTextColor,
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 3,
@@ -169,7 +181,9 @@ class _SingleRefundState extends State<SingleRefund> {
                                   Text("OID2345678912",
                                       style: TextStyle(
                                           color: colors.textColor,
-                                          fontSize: 14,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
                                           fontWeight: FontWeight.bold))
                                 ],
                               ),
@@ -177,7 +191,7 @@ class _SingleRefundState extends State<SingleRefund> {
                             ],
                           ),
                           const SizedBox(height: 20),
-                          const Row(
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -187,8 +201,11 @@ class _SingleRefundState extends State<SingleRefund> {
                                   Text(
                                     "Transaction ID",
                                     style: TextStyle(
-                                        color: colors.lightTextColor,
-                                        fontSize: 12),
+                                      color: colors.lightTextColor,
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 3,
@@ -196,14 +213,16 @@ class _SingleRefundState extends State<SingleRefund> {
                                   Text("OID2345678912",
                                       style: TextStyle(
                                           color: colors.textColor,
-                                          fontSize: 14,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
                                           fontWeight: FontWeight.bold))
                                 ],
                               )
                             ],
                           ),
                           const SizedBox(height: 20),
-                          const Row(
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -213,8 +232,11 @@ class _SingleRefundState extends State<SingleRefund> {
                                   Text(
                                     "Transaction Type",
                                     style: TextStyle(
-                                        color: colors.lightTextColor,
-                                        fontSize: 12),
+                                      color: colors.lightTextColor,
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 3,
@@ -222,14 +244,16 @@ class _SingleRefundState extends State<SingleRefund> {
                                   Text("Bank Transfer",
                                       style: TextStyle(
                                           color: colors.textColor,
-                                          fontSize: 14,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
                                           fontWeight: FontWeight.bold))
                                 ],
                               )
                             ],
                           ),
                           const SizedBox(height: 20),
-                          const Row(
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -239,8 +263,11 @@ class _SingleRefundState extends State<SingleRefund> {
                                   Text(
                                     "Type",
                                     style: TextStyle(
-                                        color: colors.lightTextColor,
-                                        fontSize: 12),
+                                      color: colors.lightTextColor,
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 3,
@@ -248,7 +275,9 @@ class _SingleRefundState extends State<SingleRefund> {
                                   Text("Product Purchase",
                                       style: TextStyle(
                                           color: colors.textColor,
-                                          fontSize: 14,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
                                           fontWeight: FontWeight.bold))
                                 ],
                               )

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +54,7 @@ Future<void> logOut(context) async {
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.white
                     : Colors.black,
-                fontSize: 20.0,
+                fontSize: Platform.isAndroid ? size_18 : size_20,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -65,7 +68,7 @@ Future<void> logOut(context) async {
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
                       : Colors.black54,
-                  fontSize: 14),
+                  fontSize: Platform.isAndroid ? size_12 : size_14),
             ),
             const SizedBox(
               height: 20,
@@ -106,10 +109,11 @@ Future<void> logOut(context) async {
                     child: Text(
                       'CANCEL',
                       style: TextStyle(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 12),
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: Platform.isAndroid ? size_10 : size_12,
+                      ),
                     ),
                   ),
                 ),
@@ -143,7 +147,10 @@ Future<void> logOut(context) async {
                     },
                     child: Text(
                       'LOGOUT',
-                      style: TextStyle(color: Colors.white, fontSize: 12),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: Platform.isAndroid ? size_10 : size_12,
+                      ),
                     ),
                   ),
                 ),

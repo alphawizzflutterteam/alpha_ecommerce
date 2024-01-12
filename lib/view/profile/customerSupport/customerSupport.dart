@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/textfield_validation.dart';
@@ -113,9 +116,11 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                         ? colors.textFieldBG
                                         : Colors.white,
                                     labelText: "Subject",
-                                    labelStyle: const TextStyle(
+                                    labelStyle: TextStyle(
                                       color: colors.labelColor,
-                                      fontSize: 14,
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
                                     ),
                                     hintStyle: const TextStyle(
                                       color: colors.labelColor,
@@ -154,9 +159,11 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                           ? colors.textFieldBG
                                           : Colors.white,
                                       labelText: "Description",
-                                      labelStyle: const TextStyle(
+                                      labelStyle: TextStyle(
                                         color: colors.labelColor,
-                                        fontSize: 14,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14,
                                       ),
                                       hintStyle: const TextStyle(
                                         color: colors.labelColor,
@@ -189,7 +196,9 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                           width: 120,
                                           child: CommonButton(
                                               text: translation(context).send,
-                                              fontSize: 18,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_16
+                                                  : size_18,
                                               onClick: () {
                                                 if (_formKey.currentState!
                                                     .validate()) {

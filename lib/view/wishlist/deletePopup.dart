@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -41,21 +44,23 @@ class _DeletePopupState extends State<DeletePopup> {
           const SizedBox(
             height: 10,
           ),
-          const Text(
+          Text(
             'Are you sure?',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20.0,
+              fontSize: Platform.isAndroid ? size_18 : size_20,
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(
             height: 10,
           ),
-          const Text(
+          Text(
             'Do you want to remove this from your cart?',
             textAlign: TextAlign.center,
-            style: TextStyle(color: colors.greyText, fontSize: 14),
+            style: TextStyle(
+                color: colors.greyText,
+                fontSize: Platform.isAndroid ? size_12 : size_14),
           ),
           const SizedBox(
             height: 20,
@@ -86,9 +91,11 @@ class _DeletePopupState extends State<DeletePopup> {
                   onPressed: () {
                     Routes.navigateToPreviousScreen(context);
                   },
-                  child: const Text(
+                  child: Text(
                     'CANCEL',
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(
+                      fontSize: Platform.isAndroid ? size_10 : size_12,
+                    ),
                   ),
                 ),
               ),
@@ -115,9 +122,11 @@ class _DeletePopupState extends State<DeletePopup> {
                       widget.delete();
                     });
                   },
-                  child: const Text(
+                  child: Text(
                     'REMOVE',
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(
+                      fontSize: Platform.isAndroid ? size_10 : size_12,
+                    ),
                   ),
                 ),
               ),

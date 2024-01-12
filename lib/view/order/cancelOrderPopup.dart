@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
@@ -54,11 +57,11 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
           const SizedBox(
             height: 10,
           ),
-          const Text(
+          Text(
             'Are you sure?',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20.0,
+              fontSize: Platform.isAndroid ? size_18 : size_20,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -99,9 +102,11 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
                   onPressed: () {
                     Routes.navigateToPreviousScreen(context);
                   },
-                  child: const Text(
+                  child: Text(
                     'CANCEL',
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(
+                      fontSize: Platform.isAndroid ? size_10 : size_12,
+                    ),
                   ),
                 ),
               ),
@@ -124,14 +129,16 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
                     ),
                   ),
                   onPressed: () async {
-                    await pInstance.getOrderCancelRequest(
+                    await pInstance.cancelOrder(
                         order_id: widget.order_id,
                         reason: widget.reason,
                         context: context);
                   },
-                  child: const Text(
+                  child: Text(
                     'CANCEL ORDER',
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(
+                      fontSize: Platform.isAndroid ? size_10 : size_12,
+                    ),
                   ),
                 ),
               ),

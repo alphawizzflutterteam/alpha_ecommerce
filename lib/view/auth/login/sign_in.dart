@@ -114,7 +114,7 @@ class _SignInState extends State<SignIn> {
           children: [
             Text(translation(context).dontHaveanaccount,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: Platform.isAndroid ? size_12 : size_14,
                   color: Theme.of(context).brightness == Brightness.dark
                       ? colors.lightTextColor
                       : colors.greyText,
@@ -128,8 +128,8 @@ class _SignInState extends State<SignIn> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 5.0),
                 child: Text(translation(context).signUp,
-                    style: const TextStyle(
-                        fontSize: 14,
+                    style: TextStyle(
+                        fontSize: Platform.isAndroid ? size_12 : size_14,
                         color: colors.buttonColor,
                         decoration: TextDecoration.underline)),
               ),
@@ -187,7 +187,7 @@ class _SignInState extends State<SignIn> {
                         color: Theme.of(context).brightness == Brightness.dark
                             ? colors.textColor
                             : Colors.black,
-                        fontSize: size_24,
+                        fontSize: Platform.isAndroid ? size_22 : size_14,
                         fontWeight: FontWeight.w700),
                   ),
                 ),
@@ -202,7 +202,7 @@ class _SignInState extends State<SignIn> {
                         color: Theme.of(context).brightness == Brightness.dark
                             ? colors.textColor
                             : Colors.black,
-                        fontSize: size_14,
+                        fontSize: Platform.isAndroid ? size_12 : size_14,
                         fontWeight: FontWeight.w400),
                   ),
                 ),
@@ -237,7 +237,7 @@ class _SignInState extends State<SignIn> {
                                         Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
-                            fontSize: 12.0,
+                            fontSize: Platform.isAndroid ? size_10 : size_12,
                           ),
                         ),
                       ),
@@ -269,7 +269,7 @@ class _SignInState extends State<SignIn> {
                                         Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
-                            fontSize: 12.0,
+                            fontSize: Platform.isAndroid ? size_10 : size_12,
                           ),
                         ),
                       ),
@@ -348,9 +348,10 @@ class _SignInState extends State<SignIn> {
                                           : Colors.black,
                                     ),
                                   ),
-                                  labelStyle: const TextStyle(
+                                  labelStyle: TextStyle(
                                     color: colors.labelColor,
-                                    fontSize: 14,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
                                   ),
                                   hintStyle: const TextStyle(
                                     color: colors.labelColor,
@@ -460,8 +461,10 @@ class _SignInState extends State<SignIn> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(translation(context).login,
-                                              style: const TextStyle(
-                                                  fontSize: 18)),
+                                              style: TextStyle(
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_16
+                                                      : size_18)),
                                           const SizedBox(width: 10),
                                           const Icon(Icons.arrow_forward,
                                               size: 23),
@@ -482,7 +485,9 @@ class _SignInState extends State<SignIn> {
                                     child: Text(
                                       translation(context).forgotPassword,
                                       style: TextStyle(
-                                        fontSize: size_14,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14,
                                         color: Theme.of(context).brightness ==
                                                 Brightness.dark
                                             ? colors.lightTextColor
@@ -508,8 +513,9 @@ class _SignInState extends State<SignIn> {
                                 ),
                                 Text(
                                   translation(context).or,
-                                  style: const TextStyle(
-                                    fontSize: 16,
+                                  style: TextStyle(
+                                    fontSize:
+                                        Platform.isAndroid ? size_14 : size_16,
                                     color: colors.textColor,
                                   ),
                                 ),
@@ -573,7 +579,9 @@ class _SignInState extends State<SignIn> {
                                     },
                                     child: Text(translation(context).guestUser,
                                         style: TextStyle(
-                                          fontSize: 14,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
                                           color: Theme.of(context).brightness ==
                                                   Brightness.dark
                                               ? Colors.white

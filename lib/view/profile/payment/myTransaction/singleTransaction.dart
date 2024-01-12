@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/model/transactionHistoryModel.dart';
 import 'package:flutter/material.dart';
 import '../../../../utils/color.dart';
@@ -68,7 +71,9 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                               Brightness.dark
                                           ? Colors.white
                                           : Colors.white,
-                                      fontSize: 20),
+                                      fontSize: Platform.isAndroid
+                                          ? size_18
+                                          : size_20),
                                 ),
                               ),
                             ),
@@ -137,7 +142,9 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                     Text(
                                       "Transaction Successful",
                                       style: TextStyle(
-                                        fontSize: 13,
+                                        fontSize: Platform.isAndroid
+                                            ? size_11
+                                            : size_13,
                                         color: Theme.of(context).brightness ==
                                                 Brightness.dark
                                             ? Colors.white
@@ -186,11 +193,14 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                   Text(
                                     "Order ID",
                                     style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? colors.lightTextColor
-                                            : colors.boxBorder,
-                                        fontSize: 12),
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? colors.lightTextColor
+                                          : colors.boxBorder,
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 3,
@@ -201,7 +211,9 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                                   Brightness.dark
                                               ? colors.lightTextColor
                                               : colors.boxBorder,
-                                          fontSize: 14,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
                                           fontWeight: FontWeight.bold))
                                 ],
                               ),
@@ -221,11 +233,14 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                   Text(
                                     "Transaction ID",
                                     style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? colors.lightTextColor
-                                            : colors.boxBorder,
-                                        fontSize: 12),
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? colors.lightTextColor
+                                          : colors.boxBorder,
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 3,
@@ -236,7 +251,9 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                                   Brightness.dark
                                               ? colors.lightTextColor
                                               : colors.boxBorder,
-                                          fontSize: 14,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
                                           fontWeight: FontWeight.bold))
                                 ],
                               )
@@ -253,11 +270,14 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                   Text(
                                     "Transaction Type",
                                     style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? colors.lightTextColor
-                                            : colors.boxBorder,
-                                        fontSize: 12),
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? colors.lightTextColor
+                                          : colors.boxBorder,
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 3,
@@ -268,7 +288,9 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                                   Brightness.dark
                                               ? colors.lightTextColor
                                               : colors.boxBorder,
-                                          fontSize: 14,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
                                           fontWeight: FontWeight.bold))
                                 ],
                               )
@@ -285,11 +307,14 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                   Text(
                                     "Type",
                                     style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? colors.lightTextColor
-                                            : colors.boxBorder,
-                                        fontSize: 12),
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? colors.lightTextColor
+                                          : colors.boxBorder,
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 3,
@@ -300,7 +325,9 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                                   Brightness.dark
                                               ? colors.lightTextColor
                                               : colors.boxBorder,
-                                          fontSize: 14,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
                                           fontWeight: FontWeight.bold))
                                 ],
                               )

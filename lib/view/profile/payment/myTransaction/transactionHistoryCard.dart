@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/model/transactionHistoryModel.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +32,10 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
                       children: [
                         Text(
                           data.createdAt,
-                          style: const TextStyle(
-                              color: Color.fromARGB(255, 165, 165, 165),
-                              fontSize: 12),
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 165, 165, 165),
+                            fontSize: Platform.isAndroid ? size_10 : size_12,
+                          ),
                         ),
                         const SizedBox(
                           height: 15,
@@ -43,7 +47,7 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
                                       Brightness.dark
                                   ? Colors.white
                                   : Colors.black,
-                              fontSize: 20),
+                              fontSize: Platform.isAndroid ? size_18 : size_20),
                         )
                       ],
                     ),
@@ -60,11 +64,12 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           "Order ID",
                           style: TextStyle(
-                              color: Color.fromARGB(255, 165, 165, 165),
-                              fontSize: 12),
+                            color: Color.fromARGB(255, 165, 165, 165),
+                            fontSize: Platform.isAndroid ? size_10 : size_12,
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
@@ -76,18 +81,19 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
                                       Brightness.dark
                                   ? Colors.white
                                   : Colors.black,
-                              fontSize: 14),
+                              fontSize: Platform.isAndroid ? size_12 : size_14),
                         )
                       ],
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           "Transaction ID",
                           style: TextStyle(
-                              color: Color.fromARGB(255, 165, 165, 165),
-                              fontSize: 12),
+                            color: Color.fromARGB(255, 165, 165, 165),
+                            fontSize: Platform.isAndroid ? size_10 : size_12,
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
@@ -99,7 +105,7 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
                                       Brightness.dark
                                   ? Colors.white
                                   : Colors.black,
-                              fontSize: 14),
+                              fontSize: Platform.isAndroid ? size_12 : size_14),
                         )
                       ],
                     ),

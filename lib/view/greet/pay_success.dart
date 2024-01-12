@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +40,7 @@ class _PaySuccessState extends State<PaySuccess> {
           key: _scaffoldKey,
           extendBody: true,
           backgroundColor: Colors.transparent,
-          body: const Center(
+          body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,16 +66,18 @@ class _PaySuccessState extends State<PaySuccess> {
                   padding: EdgeInsets.all(5),
                   child: Text(
                     "",
-                    style:
-                        TextStyle(color: colors.lightTextColor, fontSize: 16),
+                    style: TextStyle(
+                        color: colors.lightTextColor,
+                        fontSize: Platform.isAndroid ? size_14 : size_16),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(5),
                   child: Text(
                     "",
-                    style:
-                        TextStyle(color: colors.lightTextColor, fontSize: 16),
+                    style: TextStyle(
+                        color: colors.lightTextColor,
+                        fontSize: Platform.isAndroid ? size_14 : size_16),
                   ),
                 )
               ],

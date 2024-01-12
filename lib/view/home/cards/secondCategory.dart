@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/categoryModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
@@ -44,13 +47,14 @@ secondCategoryCard(CategoryList model, BuildContext context,
           ),
           SizedBox(
             width: size_70,
-            child: Text(
-              model.name!,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.black, fontSize: size_10),
-            ),
+            child: Text(model.name!,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                    color: colors.darkColor2,
+                    fontWeight: FontWeight.w500)),
           ),
         ],
       ),

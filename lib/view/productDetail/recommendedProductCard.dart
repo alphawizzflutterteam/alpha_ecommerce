@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/app_utils.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
@@ -13,9 +15,10 @@ import '../../utils/color.dart';
 recommendedProductCard(
     {required context,
     required List<ProductList> model,
-    required ProductDetailViewModel provider}) {
+    required ProductDetailViewModel provider,
+    required String productSlug}) {
   return Container(
-    height: MediaQuery.of(context).size.height * 0.35,
+    height: MediaQuery.of(context).size.height * 0.325,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     child: ListView(
       scrollDirection: Axis.horizontal,
@@ -29,7 +32,7 @@ recommendedProductCard(
                 context, model[index].slug);
           },
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.3,
+            height: MediaQuery.of(context).size.height * 0.26,
             width: MediaQuery.of(context).size.width * 0.44,
             margin: const EdgeInsets.only(right: 10),
             decoration: BoxDecoration(
@@ -56,163 +59,181 @@ recommendedProductCard(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.14,
-                  width: MediaQuery.of(context).size.width * 0.44,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: CachedNetworkImage(
-                    imageUrl: card.images.first,
-                    fit: BoxFit.fitWidth,
-                    errorWidget: (context, url, error) => Image.asset(
-                      Images.defaultProductImg,
-                      fit: BoxFit.contain,
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.12,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                      image: DecorationImage(
+                          image: NetworkImage(model.first.thumbnail),
+                          fit: BoxFit.cover),
                     ),
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.0005),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "${card.discount}% Off",
-                        style: const TextStyle(
-                          color: Colors.orange,
-                          fontSize: 12,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 2,
                         ),
-                      ),
-                      LikeButton(
-                        onTap: (isLiked) {
-                          var isLoggedIn = SharedPref.shared.pref
-                              ?.getString(PrefKeys.isLoggedIn);
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "${card.discount}% Off",
+                              style: TextStyle(
+                                color: Colors.orange,
+                                fontSize:
+                                    Platform.isAndroid ? size_10 : size_12,
+                              ),
+                            ),
+                            LikeButton(
+                              onTap: (isLiked) {
+                                var isLoggedIn = SharedPref.shared.pref
+                                    ?.getString(PrefKeys.isLoggedIn);
 
-                          if (isLoggedIn == "1") {
-                            Map data = {'product_id': card.id.toString()};
-                            if (isLiked) {
-                              return provider.removeFromWishlist(data, context);
-                            } else {
-                              return provider.addToWishlist(data, context);
-                            }
-                          } else {
-                            return AppUtils.appUtilsInstance.nothing();
-                          }
-                        },
-                        size: size_20,
-                        isLiked: card.isFavorite,
-                        circleColor: const CircleColor(
-                            start: Colors.red, end: Colors.red),
-                        bubblesColor: const BubblesColor(
-                          dotPrimaryColor: Colors.red,
-                          dotSecondaryColor: Colors.red,
-                        ),
-                        likeBuilder: (bool isLiked) {
-                          return Icon(
-                            Icons.favorite,
-                            color: card.isFavorite ? Colors.pink : Colors.grey,
-                            size: 20,
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
-                  ),
-                  child: Text(
-                    card.name,
-                    maxLines: 2,
-                    style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        card.unitPrice,
-                        style: const TextStyle(
-                          color: Colors.cyan,
-                          fontSize: 12,
+                                if (isLoggedIn == "1") {
+                                  Map data = {'product_id': card.id.toString()};
+                                  if (isLiked) {
+                                    return provider.removeFromWishlist(
+                                        data, context);
+                                  } else {
+                                    return provider.addToWishlist(
+                                        data, context);
+                                  }
+                                } else {
+                                  return AppUtils.appUtilsInstance.nothing();
+                                }
+                              },
+                              size: size_20,
+                              isLiked: card.isFavorite,
+                              circleColor: const CircleColor(
+                                  start: Colors.red, end: Colors.red),
+                              bubblesColor: const BubblesColor(
+                                dotPrimaryColor: Colors.red,
+                                dotSecondaryColor: Colors.red,
+                              ),
+                              likeBuilder: (bool isLiked) {
+                                return Icon(
+                                  Icons.favorite,
+                                  color: card.isFavorite
+                                      ? Colors.pink
+                                      : Colors.grey,
+                                  size: 20,
+                                );
+                              },
+                            )
+                          ],
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        card.purchasePrice,
-                        style: const TextStyle(
-                          color: colors.lightTextColor,
-                          decoration: TextDecoration.lineThrough,
-                          fontSize: 12,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 0,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    onTap: () {
-                      Map data;
-                      if (!card.isCart) {
-                        data = {
-                          'id': card.id.toString(),
-                          'quantity': "1",
-                          'color': card.colorImage.isNotEmpty
-                              ? "#" + card.colorImage[0].color
-                              : "",
-                          'choice_2': card.choiceOptions.isNotEmpty
-                              ? card.choiceOptions[0].options[0]
-                              : ""
-                        };
-                      } else {
-                        data = {
-                          'key': card.cart_id.toString(),
-                        };
-                      }
-                      print(data);
-                      // card.isCart
-                      //     ? homeProvider.removeFromCart(data, context)
-                      //     : homeProvider.addToCart(data, context);
-                    },
-                    child: Container(
-                      height: 30,
-                      width: MediaQuery.of(context).size.width,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5)),
-                          border: Border.all(color: colors.boxBorder)),
-                      child: Text(
-                        card.isCart ? "Remove From Cart" : "Add to Cart",
-                        style: TextStyle(
+                        child: Text(
+                          card.name,
+                          maxLines: 2,
+                          style: TextStyle(
                             color:
                                 Theme.of(context).brightness == Brightness.dark
-                                    ? colors.textColor
+                                    ? Colors.white
                                     : Colors.black,
-                            fontSize: size_12),
-                        textAlign: TextAlign.center,
+                            fontSize: Platform.isAndroid ? size_10 : size_12,
+                          ),
+                        ),
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              card.unitPrice,
+                              style: TextStyle(
+                                color: Colors.cyan,
+                                fontSize:
+                                    Platform.isAndroid ? size_10 : size_12,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              card.purchasePrice,
+                              style: TextStyle(
+                                color: colors.lightTextColor,
+                                decoration: TextDecoration.lineThrough,
+                                fontSize:
+                                    Platform.isAndroid ? size_10 : size_12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          onTap: () {
+                            Map<String, String> data;
+                            if (!card.isCart) {
+                              data = {
+                                'id': card.id.toString(),
+                                'quantity': "1",
+                                'color': card.colorImage.isNotEmpty
+                                    ? "#" + card.colorImage[0].color
+                                    : "",
+                                'choice_2': card.choiceOptions.isNotEmpty
+                                    ? card.choiceOptions[0].options[0]
+                                    : ""
+                              };
+                            } else {
+                              data = {
+                                'key': card.cart_id.toString(),
+                              };
+                            }
+                            print(data);
+                            card.isCart
+                                ? provider.removeFromCart(
+                                    data, context, productSlug)
+                                : provider.addToCart(
+                                    data, context, productSlug);
+                          },
+                          child: Container(
+                            height: 30,
+                            width: MediaQuery.of(context).size.width,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(5)),
+                                border: Border.all(color: colors.boxBorder)),
+                            child: Text(
+                              card.isCart ? "Remove From Cart" : "Add to Cart",
+                              style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_10 : size_12),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

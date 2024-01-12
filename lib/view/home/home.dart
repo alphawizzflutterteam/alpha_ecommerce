@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
@@ -161,6 +162,8 @@ class _HomeState extends State<Home> {
           semanticsValue: 'Refresh',
           onRefresh: () async {
             await Future.delayed(Duration(seconds: 2));
+            searchProvider.selectedFilter.clear();
+            searchProvider.clearFilters();
             checkInternetAvailability();
           },
           child: Scaffold(
@@ -242,7 +245,7 @@ class _HomeState extends State<Home> {
                                             children: [
                                               Image.asset(
                                                 "assets/images/Group 738.png",
-                                                height: size_30,
+                                                height: size_50,
                                               ),
                                               // Icon(
                                               //   Icons.arrow_forward,
@@ -252,14 +255,25 @@ class _HomeState extends State<Home> {
                                               Padding(
                                                 padding: EdgeInsets.only(
                                                     top: 4.0, bottom: 8),
-                                                child: Text(
-                                                  "View All",
-                                                  style: TextStyle(
-                                                      color: colors.darkColor2,
-                                                      fontSize: size_12,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                ),
+                                                child: Text("View All",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall!
+                                                        .copyWith(
+                                                            fontSize: Platform
+                                                                    .isAndroid
+                                                                ? size_10
+                                                                : size_12,
+                                                            color: colors
+                                                                .darkColor2,
+                                                            fontWeight:
+                                                                FontWeight.w600)
+                                                    //  TextStyle(
+                                                    //     color: colors.darkColor2,
+                                                    //      fontSize: Platform.isAndroid ? size_10 : size_12,
+                                                    //     fontWeight:
+                                                    //         FontWeight.w500),
+                                                    ),
                                               )
                                             ],
                                           ),
@@ -280,7 +294,8 @@ class _HomeState extends State<Home> {
                       Column(
                         children: [
                           SizedBox(
-                            height: 240,
+                            width: double.infinity,
+                            height: 200,
                             child: CarouselSlider(
                               items: homeProvider.imageList.map((item) {
                                 return InkWell(
@@ -310,7 +325,7 @@ class _HomeState extends State<Home> {
                                     width: double.infinity,
                                     child: CachedNetworkImage(
                                       imageUrl: item,
-                                      fit: BoxFit.fill,
+                                      fit: BoxFit.cover,
                                       placeholder: (context, url) =>
                                           appLoader(),
                                       errorWidget: (context, url, error) =>
@@ -330,6 +345,9 @@ class _HomeState extends State<Home> {
                                 },
                               ),
                             ),
+                          ),
+                          SizedBox(
+                            height: size_5,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -391,7 +409,7 @@ class _HomeState extends State<Home> {
                                             children: [
                                               Image.asset(
                                                 "assets/images/Group 738.png",
-                                                height: size_30,
+                                                height: size_50,
                                               ),
                                               // Icon(
                                               //   Icons.arrow_forward,
@@ -401,14 +419,20 @@ class _HomeState extends State<Home> {
                                               Padding(
                                                 padding: EdgeInsets.only(
                                                     top: 4.0, bottom: 8),
-                                                child: Text(
-                                                  "View All",
-                                                  style: TextStyle(
-                                                      color: colors.darkColor2,
-                                                      fontSize: size_12,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                ),
+                                                child: Text("View All",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall!
+                                                        .copyWith(
+                                                            fontSize: Platform
+                                                                    .isAndroid
+                                                                ? size_10
+                                                                : size_12,
+                                                            color: colors
+                                                                .darkColor2,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600)),
                                               )
                                             ],
                                           ),
@@ -462,6 +486,8 @@ class _HomeState extends State<Home> {
                                         highlightColor: Colors.transparent,
                                         splashColor: Colors.transparent,
                                         onTap: () {
+                                          homeProvider.isScrolled = false;
+
                                           Routes.navigateToCartScreen(context);
                                         },
                                         child: Row(
@@ -486,11 +512,22 @@ class _HomeState extends State<Home> {
                                                     .navigateToBottomNavScreen(
                                                         context, 0);
                                               },
-                                              child: const Text(
-                                                "VIEW ALL",
-                                                style: TextStyle(
-                                                    color: colors.buttonColor),
-                                              ),
+                                              child: Text("VIEW ALL",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                          fontSize:
+                                                              Platform.isAndroid
+                                                                  ? size_10
+                                                                  : size_12,
+                                                          color: colors
+                                                              .buttonColor,
+                                                          fontWeight:
+                                                              FontWeight.w600)),
+                                              // style: TextStyle(
+                                              //     color: colors.buttonColor),
+                                              // ),
                                             ),
                                           ],
                                         ),
@@ -536,7 +573,7 @@ class _HomeState extends State<Home> {
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  const Row(
+                                  Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -558,7 +595,9 @@ class _HomeState extends State<Home> {
                                           "Special Offer",
                                           style: TextStyle(
                                               color: colors.textColor,
-                                              fontSize: 20,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_18
+                                                  : size_20,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -631,12 +670,20 @@ class _HomeState extends State<Home> {
                                             },
                                             child: Row(
                                               children: [
-                                                const Text(
-                                                  "VIEW ALL",
-                                                  style: TextStyle(
-                                                      color:
-                                                          colors.buttonColor),
-                                                ),
+                                                Text("VIEW ALL",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall!
+                                                        .copyWith(
+                                                            fontSize: Platform
+                                                                    .isAndroid
+                                                                ? size_10
+                                                                : size_12,
+                                                            color: colors
+                                                                .buttonColor,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600)),
                                               ],
                                             ),
                                           ),
@@ -715,7 +762,7 @@ class _HomeState extends State<Home> {
                           children: [
                             spaceOfHeight(),
                             spaceOfHeight(),
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -731,13 +778,20 @@ class _HomeState extends State<Home> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Text(
-                                    "Daily Deals",
-                                    style: TextStyle(
-                                        color: colors.textColor,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                  child: Text("Daily Deals",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              fontSize: Platform.isAndroid
+                                                  ? size_18
+                                                  : size_20,
+                                              color: colors.textColor,
+                                              fontWeight: FontWeight.w600)),
+                                  // style: TextStyle(
+                                  //     color: colors.textColor,
+                                  //     fontSize: Platform.isAndroid ? size_18 : size_20,
+                                  //     fontWeight: FontWeight.bold),
                                 ),
                                 Expanded(
                                   child: Padding(
@@ -795,10 +849,15 @@ class _HomeState extends State<Home> {
                                   homeProvider.modelBanners.data!
                                       .topDealProduct!.title!,
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: Platform.isAndroid
+                                              ? size_16
+                                              : size_18),
                                 )),
                             Container(
                               padding:
@@ -859,18 +918,23 @@ class _HomeState extends State<Home> {
                                         width: 30,
                                       ),
                                       SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.5,
-                                          child: Text(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
+                                        child: Text(
                                             homeProvider.modelBanners.data!
                                                 .giftSection!.giftTitle!,
-                                            style: TextStyle(
-                                                color: colors.textColor,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold),
-                                          ))
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                    color: colors.textColor,
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_18
+                                                        : size_20,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                      )
                                     ],
                                   ),
                                   spaceOfHeight(),
@@ -952,7 +1016,7 @@ class _HomeState extends State<Home> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 20),
                           height: MediaQuery.of(context).size.height *
-                              0.35 *
+                              0.32 *
                               searchProvider.searchResults.length /
                               1.8,
                           child: GridView.builder(
@@ -1036,14 +1100,7 @@ class FilterBar extends StatelessWidget {
                 const SizedBox(
                   width: 5,
                 ),
-                Text(
-                  'Filter',
-                  style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                      fontSize: 16),
-                )
+                Text('Filter', style: Theme.of(context).textTheme.bodyMedium!)
               ],
             ),
           ),
@@ -1084,14 +1141,13 @@ class FilterBar extends StatelessWidget {
                 const SizedBox(
                   width: 5,
                 ),
-                Text(
-                  'Category',
-                  style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                      fontSize: 16),
-                )
+                Text('Category', style: Theme.of(context).textTheme.bodyMedium!
+                    //   style: TextStyle(
+                    //       color: Theme.of(context).brightness == Brightness.dark
+                    //           ? Colors.white
+                    //           : Colors.black,
+                    //       Platform.isAndroid ? size_14 : size_16),
+                    )
               ],
             ),
           ),
@@ -1132,14 +1188,7 @@ class FilterBar extends StatelessWidget {
                 const SizedBox(
                   width: 5,
                 ),
-                Text(
-                  'Sort',
-                  style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                      fontSize: 16),
-                )
+                Text('Sort', style: Theme.of(context).textTheme.bodyMedium!)
               ],
             ),
           ),

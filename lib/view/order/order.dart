@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/order/filter.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,8 @@ class _OrderState extends State<Order> {
         return colors.orderCancelledDark;
       case 'delivered':
         return colors.deliveredDark;
-
+      case 'confirmed':
+        return Colors.white;
       case 'pending':
         return colors.returnedDark;
       default:
@@ -242,7 +244,9 @@ class _OrderState extends State<Order> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 16),
+                                          fontSize: Platform.isAndroid
+                                              ? size_14
+                                              : size_16),
                                     )
                                   ],
                                 ),
@@ -252,7 +256,7 @@ class _OrderState extends State<Order> {
                         ),
                       ),
                       orderProvider.isLoading
-                          ? Container()
+                          ? Center(child: appLoader())
                           : orderProvider.orderList.isEmpty
                               ? Center(
                                   child: Padding(
@@ -264,7 +268,9 @@ class _OrderState extends State<Order> {
                                                 Brightness.dark
                                             ? Colors.white
                                             : Colors.black,
-                                        fontSize: size_18),
+                                        fontSize: Platform.isAndroid
+                                            ? size_16
+                                            : size_18),
                                   ),
                                 ))
                               : SizedBox(
@@ -390,8 +396,7 @@ class _OrderState extends State<Order> {
                                             //   height: height * .18,
                                             // ),
                                             title: Text(
-                                              data.product!.name! +
-                                                  data.product!.name!,
+                                              data.product!.name!,
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
@@ -422,7 +427,10 @@ class _OrderState extends State<Order> {
                                                               Brightness.dark
                                                           ? colors.greyText
                                                           : Colors.black,
-                                                      fontSize: size_10),
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_8
+                                                              : size_10),
                                                 ),
                                                 SizedBox(height: 10),
                                                 Container(
@@ -447,7 +455,10 @@ class _OrderState extends State<Order> {
                                                     style: TextStyle(
                                                         color: getTextColor(
                                                             data.orderStatus!),
-                                                        fontSize: size_12),
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_10
+                                                                : size_12),
                                                   ),
                                                 ),
                                               ],
@@ -510,7 +521,7 @@ class _OrderState extends State<Order> {
                                             //   data.product!.name!,
                                             //   style: const TextStyle(
                                             //       color: Colors.white,
-                                            //       fontSize: 14),
+                                            //       fontSize: Platform.isAndroid ? size_12 : size_14),
                                             // ),
 //                                           ),
 //                                           const SizedBox(
@@ -525,7 +536,8 @@ class _OrderState extends State<Order> {
                                             //   data.product!.shop!.name!,
                                             //   style: const TextStyle(
                                             //       color: colors.greyText,
-                                            //       fontSize: 12),
+                                            //       fontSize:
+                                  //  Platform.isAndroid ? size_10 : size_12,),
                                             // ),
 //                                           ),
 //                                           const SizedBox(
@@ -552,7 +564,8 @@ class _OrderState extends State<Order> {
                                             //   style: TextStyle(
                                             //       color: getTextColor(
                                             //           data.orderStatus!),
-                                            //       fontSize: 10),
+                                            //       fontSize:
+                              //      Platform.isAndroid ? size_8 : size_10,),
                                             // ),
 //                                           ),
 //                                         ],

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
@@ -32,22 +34,34 @@ dailyDealCard(DailyDealsModelList model, BuildContext context,
               const SizedBox(
                 height: size_8,
               ),
-              Text(
-                model.title,
-                style: const TextStyle(
-                    fontSize: size_16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
+              Text(model.title,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: Platform.isAndroid ? size_14 : size_16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold)),
+              // style: const TextStyle(
+              //     fontSize:
+              //  Platform.isAndroid ? size_14 : size_16,
+              //     color: Colors.white,
+              //     fontWeight: FontWeight.bold),
+              // textAlign: TextAlign.center,
+              //  ),
               Padding(
                 padding: const EdgeInsets.only(top: 3.0),
                 child: Text(
                   model.description,
-                  style: const TextStyle(
-                      fontSize: size_8,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: Platform.isAndroid ? size_6 : size_8,
                       color: Colors.white,
-                      fontWeight: FontWeight.normal),
+                      fontWeight: FontWeight.w600),
+                  // style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  //     fontSize: size_8,
+                  //     color: Colors.white,
+                  //     fontWeight: FontWeight.w600),
+                  // // style: const TextStyle(
+                  // //     fontSize: size_8,
+                  // //     color: Colors.white,
+                  //     fontWeight: FontWeight.normal),
                   textAlign: TextAlign.center,
                 ),
               ),

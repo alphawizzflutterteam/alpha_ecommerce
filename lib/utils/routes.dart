@@ -701,16 +701,16 @@ class Routes {
     );
   }
 
-  static navigateToPlaceOrderScreen(BuildContext context) {
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const PlaceOrder(),
-        transitionDuration: Duration.zero,
-        reverseTransitionDuration: Duration.zero,
-      ),
-    );
-  }
+  // static navigateToPlaceOrderScreen(BuildContext context) {
+  //   Navigator.push(
+  //     context,
+  //     PageRouteBuilder(
+  //       pageBuilder: (context, animation1, animation2) =>  PlaceOrder(),
+  //       transitionDuration: Duration.zero,
+  //       reverseTransitionDuration: Duration.zero,
+  //     ),
+  //   );
+  // }
 
   static navigateToOffersScreen(BuildContext context) {
     Navigator.push(

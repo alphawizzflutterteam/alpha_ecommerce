@@ -67,25 +67,41 @@ class OrderRepository {
   }
 
 //Function for order canccel request
-  Future<SuccessModel> orderCancelRequest(
+  Future<SuccessModel2> orderCancelRequest(
       {required String api,
       required String bearerToken,
       required String order_id,
       required String cancel_reason}) async {
     print(cancel_reason + " " + order_id);
-    final url = Uri.parse(api).replace(queryParameters: {
-      'order_id': order_id,
-      'remarks': cancel_reason,
-    });
+    final url = Uri.parse(api);
+    print(api + " ");
+
     final http.Response res;
-    res = await http.post(url, headers: {
+    res = await http.get(url, headers: {
       'Authorization': 'Bearer $bearerToken',
     });
     print(api);
     print(res.body);
     var asn = await json.decode(res.body);
 
-    return SuccessModel.fromJson(asn);
+    return SuccessModel2.fromJson(asn);
+  }
+
+  Future<SuccessModel2> cancelOrder(
+    String api,
+    String bearerToken,
+  ) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.get(url, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return successModel2FromJson(res.body);
   }
 
 //Function for order review

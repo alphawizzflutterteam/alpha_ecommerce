@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/model/productDetailModel.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
@@ -37,7 +40,7 @@ deliveryCard(BuildContext context, {required ProductListDetail model}) {
                   "Free Delivery",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 12,
+                      fontSize: Platform.isAndroid ? size_10 : size_12,
                       color: Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
                           : Colors.black),
@@ -67,7 +70,7 @@ deliveryCard(BuildContext context, {required ProductListDetail model}) {
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 12,
+                          fontSize: Platform.isAndroid ? size_10 : size_12,
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
                               : Colors.black),
@@ -95,7 +98,7 @@ deliveryCard(BuildContext context, {required ProductListDetail model}) {
                       "Top Brand",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 12,
+                          fontSize: Platform.isAndroid ? size_10 : size_12,
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
                               : Colors.black),
@@ -124,7 +127,7 @@ deliveryCard(BuildContext context, {required ProductListDetail model}) {
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 12,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
                     color: Theme.of(context).brightness == Brightness.dark
                         ? Colors.white
                         : Colors.black),

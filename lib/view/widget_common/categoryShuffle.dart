@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/category/categoryCard.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/categoryModel.dart';
@@ -126,7 +128,7 @@ class _CategoryFilterState extends State<CategoryFilter> {
                   color: Theme.of(context).brightness != Brightness.dark
                       ? Colors.black
                       : Colors.white,
-                  fontSize: 20,
+                  fontSize: Platform.isAndroid ? size_18 : size_20,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -262,7 +264,9 @@ class _CategoryFilterState extends State<CategoryFilter> {
                                               ? Colors.white
                                               : Colors.black,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 18),
+                                          fontSize: Platform.isAndroid
+                                              ? size_16
+                                              : size_18),
                                     ),
                                     const SizedBox(height: 10),
                                     SizedBox(
@@ -345,9 +349,9 @@ class _CategoryFilterState extends State<CategoryFilter> {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: size_12,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
                     color: Colors.white),
               ),
             ),

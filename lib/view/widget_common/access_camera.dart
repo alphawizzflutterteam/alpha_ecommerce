@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/color.dart';
@@ -27,9 +30,11 @@ Future<void> accessCamera(context) async {
                     const SizedBox(
                       width: 20,
                     ),
-                    const Text(
+                    Text(
                       "Camera",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: Platform.isAndroid ? size_16 : size_18),
                     )
                   ],
                 ),
@@ -47,8 +52,10 @@ Future<void> accessCamera(context) async {
                     const SizedBox(
                       width: 20,
                     ),
-                    const Text("Gallery",
-                        style: TextStyle(color: Colors.white, fontSize: 18))
+                    Text("Gallery",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: Platform.isAndroid ? size_16 : size_18))
                   ],
                 )
               ],

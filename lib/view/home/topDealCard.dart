@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
@@ -66,11 +68,13 @@ topDealCard(context, ProductList2 products) {
                         child: Text(
                           products.name,
                           maxLines: 1,
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Colors.white,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: size_12,
-                          ),
                         ),
                       ),
                       Padding(
@@ -79,10 +83,16 @@ topDealCard(context, ProductList2 products) {
                           products.specialPrice.toString(),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Colors.white,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
+                                  ),
+                          // style: TextStyle(
+                          //   color: Colors.white,
+                          //   fontSize: Platform.isAndroid ? size_12 : size_14,
+                          // ),
                         ),
                       ),
                     ],

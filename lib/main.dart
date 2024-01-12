@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
@@ -27,6 +30,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'utils/color.dart';
 import 'utils/constant.dart';
@@ -206,13 +210,41 @@ class _MyAppState extends State<MyApp> {
           fontFamily: 'ubuntu',
           brightness: Brightness.light,
           textTheme: TextTheme(
-            titleLarge: TextStyle(
-              color: Theme.of(context).colorScheme.fontColor,
-              fontWeight: FontWeight.w600,
+            titleLarge: GoogleFonts.nunito(
+              textStyle: TextStyle(
+                color: Theme.of(context).colorScheme.fontColor,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-            titleMedium: TextStyle(
-              color: Theme.of(context).colorScheme.fontColor,
-              fontWeight: FontWeight.bold,
+            titleMedium: GoogleFonts.nunito(
+              textStyle: TextStyle(
+                color: Theme.of(context).colorScheme.fontColor,
+                //fontWeight: FontWeight.bold,
+              ),
+            ),
+            titleSmall: GoogleFonts.nunito(
+              textStyle: TextStyle(
+                color: Theme.of(context).colorScheme.fontColor,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+            bodyMedium: GoogleFonts.nunito(
+              textStyle: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: Platform.isAndroid ? size_12 : size_14,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+              ),
+            ),
+            bodySmall: GoogleFonts.nunito(
+              textStyle: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? colors.textColor
+                    : Colors.black,
+              ),
             ),
           ).apply(
             bodyColor: Theme.of(context).colorScheme.fontColor,
@@ -223,9 +255,9 @@ class _MyAppState extends State<MyApp> {
             ),
             filled: true,
             fillColor: Colors.white,
-            labelStyle: const TextStyle(
+            labelStyle: TextStyle(
               color: colors.labelColor,
-              fontSize: 14,
+              fontSize: Platform.isAndroid ? size_12 : size_14,
             ),
             hintStyle: const TextStyle(
               color: colors.labelColor,
@@ -289,9 +321,9 @@ class _MyAppState extends State<MyApp> {
           ),
           filled: true,
           fillColor: colors.textFieldBG,
-          labelStyle: const TextStyle(
+          labelStyle: TextStyle(
             color: colors.labelColor,
-            fontSize: 14,
+            fontSize: Platform.isAndroid ? size_12 : size_14,
           ),
           hintStyle: const TextStyle(
             color: colors.labelColor,
@@ -326,13 +358,41 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         textTheme: TextTheme(
-          titleLarge: TextStyle(
-            color: Theme.of(context).colorScheme.fontColor,
-            fontWeight: FontWeight.w600,
+          titleLarge: GoogleFonts.nunito(
+            textStyle: TextStyle(
+              color: Theme.of(context).colorScheme.fontColor,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-          titleMedium: TextStyle(
-            color: Theme.of(context).colorScheme.fontColor,
-            fontWeight: FontWeight.bold,
+          titleMedium: GoogleFonts.nunito(
+            textStyle: TextStyle(
+              color: Theme.of(context).colorScheme.fontColor,
+              //fontWeight: FontWeight.bold,
+            ),
+          ),
+          titleSmall: GoogleFonts.nunito(
+            textStyle: TextStyle(
+              color: Theme.of(context).colorScheme.fontColor,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+          bodyMedium: GoogleFonts.nunito(
+            textStyle: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: Platform.isAndroid ? size_12 : size_14,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+            ),
+          ),
+          bodySmall: GoogleFonts.nunito(
+            textStyle: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: Platform.isAndroid ? size_10 : size_12,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? colors.textColor
+                  : Colors.black,
+            ),
           ),
         ).apply(
           bodyColor: Theme.of(context).colorScheme.fontColor,

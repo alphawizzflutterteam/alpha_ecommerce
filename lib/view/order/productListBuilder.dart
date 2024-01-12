@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
@@ -79,17 +81,18 @@ class ProductListBuilder extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                        fontSize: 12),
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: Platform.isAndroid ? size_10 : size_12,
+                    ),
                   ),
                   const SizedBox(height: 5),
                   Text(
                     productList[index].price.toString(),
                     style: TextStyle(
                       color: colors.buttonColor,
-                      fontSize: 12,
+                      fontSize: Platform.isAndroid ? size_10 : size_12,
                     ),
                   ),
                 ],

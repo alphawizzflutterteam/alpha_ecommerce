@@ -78,7 +78,7 @@
 //                                               model.,
 //                                               style: const TextStyle(
 //                                                   color: Colors.white,
-//                                                   fontSize: 14),
+//                                                   fontSize: Platform.isAndroid ? size_12 : size_14),
 //                                             ),
 //                                           ),
 //                                           const SizedBox(
@@ -93,7 +93,8 @@
 //                                               orderItems[i]['subText'],
 //                                               style: const TextStyle(
 //                                                   color: colors.greyText,
-//                                                   fontSize: 12),
+//                                                   fontSize:
+                             //       Platform.isAndroid ? size_10 : size_12,),
 //                                             ),
 //                                           ),
 //                                           const SizedBox(
@@ -120,7 +121,8 @@
 //                                               style: TextStyle(
 //                                                   color: getTextColor(
 //                                                       orderItems[i]['status']),
-//                                                   fontSize: 10),
+//                                                   fontSize:
+                                //    Platform.isAndroid ? size_8 : size_10,),
 //                                             ),
 //                                           ),
 //                                         ],

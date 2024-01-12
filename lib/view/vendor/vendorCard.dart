@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/model/vendorModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
@@ -64,7 +65,7 @@ vendorCard(context, VendorDatum model) {
                                       Brightness.dark
                                   ? colors.textColor
                                   : Colors.black,
-                              fontSize: 15,
+                              fontSize: Platform.isAndroid ? size_13 : size_15,
                             ),
                           ),
                         ),
@@ -84,7 +85,7 @@ vendorCard(context, VendorDatum model) {
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textColor
                                     : Colors.black,
-                            fontSize: 14,
+                            fontSize: Platform.isAndroid ? size_12 : size_14,
                           ),
                         ),
                       ],
@@ -99,7 +100,7 @@ vendorCard(context, VendorDatum model) {
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textColor
                                     : Colors.black,
-                            fontSize: 15),
+                            fontSize: Platform.isAndroid ? size_13 : size_15),
                       ),
                       VerticalDivider(
                         color: Colors.transparent,
@@ -112,7 +113,7 @@ vendorCard(context, VendorDatum model) {
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textColor
                                     : Colors.black54,
-                            fontSize: 14),
+                            fontSize: Platform.isAndroid ? size_12 : size_14),
                       ),
                     ],
                   ),

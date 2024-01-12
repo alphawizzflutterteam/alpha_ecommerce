@@ -160,14 +160,20 @@ class _VendorDetailsState extends State<VendorDetails> {
                                       height: size_60,
                                     )),
                                 VerticalDivider(color: Colors.transparent),
-                                Text(
-                                  widget.model.name,
-                                  style: TextStyle(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? colors.greyText
-                                        : Colors.black,
-                                    fontSize: 15,
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.26,
+                                  child: Text(
+                                    widget.model.name + widget.model.name,
+                                    style: TextStyle(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? colors.greyText
+                                          : Colors.black,
+                                      fontSize: Platform.isAndroid
+                                          ? size_13
+                                          : size_15,
+                                    ),
                                   ),
                                 ),
                                 Spacer(),
@@ -179,7 +185,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                       text: !categoryProvider.isFollowing
                                           ? "Follow"
                                           : "Unfollow",
-                                      fontSize: Platform.isAndroid ? 12 : 14,
+                                      fontSize: Platform.isAndroid ? 11 : 14,
                                       onClick: () {
                                         Map data = {
                                           'shop_id': widget.model.id.toString()
@@ -212,9 +218,11 @@ class _VendorDetailsState extends State<VendorDetails> {
                                         ),
                                         Text(
                                           widget.model.rating,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: Colors.orange,
-                                            fontSize: 14,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
                                           ),
                                         ),
                                       ],
@@ -241,7 +249,9 @@ class _VendorDetailsState extends State<VendorDetails> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 15),
+                                          fontSize: Platform.isAndroid
+                                              ? size_13
+                                              : size_15),
                                     ),
                                     Text(
                                       "Follower",
@@ -250,7 +260,9 @@ class _VendorDetailsState extends State<VendorDetails> {
                                                   Brightness.dark
                                               ? colors.greyText
                                               : Colors.black,
-                                          fontSize: 14),
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14),
                                     ),
                                   ],
                                 ),
@@ -286,11 +298,13 @@ class _VendorDetailsState extends State<VendorDetails> {
                             Text(
                               widget.model.address,
                               style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontSize: 12),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize:
+                                    Platform.isAndroid ? size_10 : size_12,
+                              ),
                             ),
                             widget.model.contact != ""
                                 ? const SizedBox(
@@ -300,11 +314,13 @@ class _VendorDetailsState extends State<VendorDetails> {
                             Text(
                               widget.model.contact,
                               style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontSize: 12),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize:
+                                    Platform.isAndroid ? size_10 : size_12,
+                              ),
                             ),
                           ],
                         ),
@@ -481,7 +497,10 @@ class _VendorDetailsState extends State<VendorDetails> {
                                                                 : Colors.black,
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontSize: 18),
+                                                            fontSize: Platform
+                                                                    .isAndroid
+                                                                ? size_16
+                                                                : size_18),
                                                       ),
                                                       const SizedBox(
                                                           height: 10),
@@ -580,7 +599,7 @@ class _VendorDetailsState extends State<VendorDetails> {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 12,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
                 color: isSelected
                     ? Colors.white
                     : Theme.of(context).brightness == Brightness.dark

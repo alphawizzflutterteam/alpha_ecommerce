@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,9 +51,12 @@ class _BottomNavPageState extends State<BottomNavPage> {
       resizeToAvoidBottomInset: false,
       body: _pages[_currentIndex],
       bottomNavigationBar: AnimatedContainer(
-        duration: const Duration(milliseconds: 0),
-        height:
-            homeProvider.isScrolled ? kBottomNavigationBarHeight * 1.54 : 0.0,
+        duration: const Duration(milliseconds: 200),
+        height: homeProvider.isScrolled
+            ? Platform.isAndroid
+                ? kBottomNavigationBarHeight * 1.4
+                : kBottomNavigationBarHeight * 1.54
+            : 0.0,
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
@@ -72,7 +78,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
                   _currentIndex = index;
                 });
               },
-              selectedLabelStyle: const TextStyle(fontSize: 12),
+              selectedLabelStyle: TextStyle(
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+              ),
               selectedItemColor: Theme.of(context).brightness == Brightness.dark
                   ? colors.textColor
                   : colors.buttonColor,

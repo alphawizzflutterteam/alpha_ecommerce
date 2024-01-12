@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
@@ -210,7 +213,9 @@ class _PaymentState extends State<Payment> {
                                                 Brightness.dark
                                             ? Colors.black
                                             : Colors.white,
-                                        fontSize: 14),
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14),
                                   ),
                                   trailing: Theme(
                                     data: ThemeData(
@@ -268,7 +273,9 @@ class _PaymentState extends State<Payment> {
                                     width: double.infinity,
                                     child: CommonButton(
                                         text: "CONTINUE",
-                                        fontSize: 14,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14,
                                         onClick: () async {
                                           if (widget.isComingFor == "wallet") {
                                             openCheckout(widget.couponCode);

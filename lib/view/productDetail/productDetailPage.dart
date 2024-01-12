@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/app_utils.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
@@ -150,7 +152,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     CarouselSlider(
                                       items: productModel.imageList.map((item) {
                                         return SizedBox(
-                                          height: 100,
+                                          height: size_120,
                                           width: double.infinity,
                                           child: Image.network(
                                             item,
@@ -217,9 +219,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 children: [
                                   Text(
                                     "${productModel.model.first.discount} %",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         color: Colors.orange,
-                                        fontSize: 16,
+                                        fontSize: Platform.isAndroid
+                                            ? size_14
+                                            : size_16,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   LikeButton(
@@ -289,7 +293,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: size_16,
+                                          fontSize: Platform.isAndroid
+                                              ? size_14
+                                              : size_16,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -318,7 +324,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                         Brightness.dark
                                                     ? colors.textColor
                                                     : Colors.black,
-                                                fontSize: 14,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_12
+                                                    : size_14,
                                               ),
                                             ),
                                           ],
@@ -342,7 +350,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                               Brightness.dark
                                           ? Colors.white
                                           : Colors.black,
-                                      fontSize: 18,
+                                      fontSize: Platform.isAndroid
+                                          ? size_16
+                                          : size_18,
                                     ),
                                   ),
 
@@ -351,9 +361,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   ),
                                   Text(
                                     productModel.model.first.unitPrice,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: colors.lightTextColor,
-                                      fontSize: 12,
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
                                       decoration: TextDecoration.lineThrough,
                                     ),
                                   ),
@@ -366,7 +378,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   //                 Brightness.dark
                                   //             ? Colors.white
                                   //             : Colors.black,
-                                  //         fontSize: 14,
+                                  //         fontSize: Platform.isAndroid ? size_12 : size_14,
                                   //       ),
                                   //     ),
                                   // Row(
@@ -388,7 +400,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   //                 Brightness.dark
                                   //             ? Colors.white
                                   //             : Colors.black,
-                                  //         fontSize: 14,
+                                  //         fontSize: Platform.isAndroid ? size_12 : size_14,
                                   //       ),
                                   //     ),
                                   //   ],
@@ -821,48 +833,51 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: 12,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   ),
-                                  InkWell(
-                                    highlightColor: Colors.transparent,
-                                    splashColor: Colors.transparent,
-                                    onTap: () {
-                                      showAlertDialog(context);
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.4,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 10),
-                                      margin: const EdgeInsets.only(right: 10),
-                                      decoration: BoxDecoration(
-                                          color: Colors.transparent,
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              width: 1)),
-                                      child: Text(
-                                        "View 360",
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
+                                  // InkWell(
+                                  //   highlightColor: Colors.transparent,
+                                  //   splashColor: Colors.transparent,
+                                  //   onTap: () {
+                                  //     showAlertDialog(context);
+                                  //   },
+                                  //   child: Container(
+                                  //     alignment: Alignment.center,
+                                  //     width: MediaQuery.of(context).size.width *
+                                  //         0.4,
+                                  //     padding: const EdgeInsets.symmetric(
+                                  //         horizontal: 10, vertical: 10),
+                                  //     margin: const EdgeInsets.only(right: 10),
+                                  //     decoration: BoxDecoration(
+                                  //         color: Colors.transparent,
+                                  //         borderRadius:
+                                  //             BorderRadius.circular(5),
+                                  //         border: Border.all(
+                                  //             color: Theme.of(context)
+                                  //                         .brightness ==
+                                  //                     Brightness.dark
+                                  //                 ? Colors.white
+                                  //                 : Colors.black,
+                                  //             width: 1)),
+                                  //     child: Text(
+                                  //       "View 360",
+                                  //       style: TextStyle(
+                                  //           color:
+                                  //               Theme.of(context).brightness ==
+                                  //                       Brightness.dark
+                                  //                   ? Colors.white
+                                  //                   : Colors.black,
+                                  //           fontSize:
+                                  //   Platform.isAndroid ? size_10 : size_12,,
+                                  //           fontWeight: FontWeight.bold),
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -890,7 +905,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                       Brightness.dark
                                                   ? Colors.white
                                                   : Colors.black,
-                                              fontSize: 14),
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                         ),
                                         const SizedBox(
                                           height: 10,
@@ -899,128 +916,132 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           productModel
                                               .model.first.metaDescription,
                                           style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? colors.textColor
-                                                  : Colors.black,
-                                              fontSize: 12),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textColor
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
-                            Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Use pincode to check delivery info",
-                                    style: TextStyle(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.white
-                                          : Colors.black,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: SizedBox(
-                                          height: 40,
-                                          child: TextField(
-                                            keyboardType: const TextInputType
-                                                .numberWithOptions(
-                                                signed: true, decimal: false),
-                                            controller:
-                                                productModel.pinController,
-                                            textAlign: TextAlign.start,
-                                            inputFormatters: [
-                                              LengthLimitingTextInputFormatter(
-                                                  6)
-                                            ],
-                                            style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                            decoration: InputDecoration(
-                                              filled: true,
-                                              fillColor: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? colors.textFieldBG
-                                                  : Colors.white,
-                                              contentPadding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 10,
-                                                      horizontal: 15),
-                                              hintText: 'Enter pincode',
-                                              hintStyle: TextStyle(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                  fontSize: 12),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: const BorderSide(
-                                                  color: colors.textFieldColor,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: const BorderSide(
-                                                  color: colors.textFieldColor,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      SizedBox(
-                                          height: 40,
-                                          width: 100,
-                                          child: CommonButton(
-                                              text: "Submit",
-                                              fontSize: 14,
-                                              onClick: () {
-                                                if (productModel.pinController
-                                                    .text.isEmpty) {
-                                                  return Utils
-                                                      .showFlushBarWithMessage(
-                                                          "Alert",
-                                                          "Please enter valid pincode",
-                                                          context);
-                                                }
-                                                Map data = {
-                                                  'pincode': productModel
-                                                      .pinController.text
-                                                };
-                                                productModel
-                                                    .pincodeAvailabilityCheck(
-                                                        data, context);
-                                              })),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            //  recommendedAccessoryCard(context: context),
+                            // Container(
+                            //   margin: const EdgeInsets.symmetric(
+                            //       horizontal: 20, vertical: 10),
+                            //   child: Column(
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Text(
+                            //         "Use pincode to check delivery info",
+                            //         style: TextStyle(
+                            //           color: Theme.of(context).brightness ==
+                            //                   Brightness.dark
+                            //               ? Colors.white
+                            //               : Colors.black,
+                            //         ),
+                            //       ),
+                            //       const SizedBox(
+                            //         height: 10,
+                            //       ),
+                            //       Row(
+                            //         mainAxisAlignment:
+                            //             MainAxisAlignment.spaceBetween,
+                            //         children: [
+                            //           Expanded(
+                            //             child: SizedBox(
+                            //               height: 40,
+                            //               child: TextField(
+                            //                 keyboardType: const TextInputType
+                            //                     .numberWithOptions(
+                            //                     signed: true, decimal: false),
+                            //                 controller:
+                            //                     productModel.pinController,
+                            //                 textAlign: TextAlign.start,
+                            //                 inputFormatters: [
+                            //                   LengthLimitingTextInputFormatter(
+                            //                       6)
+                            //                 ],
+                            //                 style: TextStyle(
+                            //                   color: Theme.of(context)
+                            //                               .brightness ==
+                            //                           Brightness.dark
+                            //                       ? Colors.white
+                            //                       : Colors.black,
+                            //                 ),
+                            //                 decoration: InputDecoration(
+                            //                   filled: true,
+                            //                   fillColor: Theme.of(context)
+                            //                               .brightness ==
+                            //                           Brightness.dark
+                            //                       ? colors.textFieldBG
+                            //                       : Colors.white,
+                            //                   contentPadding:
+                            //                       const EdgeInsets.symmetric(
+                            //                           vertical: 10,
+                            //                           horizontal: 15),
+                            //                   hintText: 'Enter pincode',
+                            //                   hintStyle: TextStyle(
+                            //                       color: Theme.of(context)
+                            //                                   .brightness ==
+                            //                               Brightness.dark
+                            //                           ? Colors.white
+                            //                           : Colors.black,
+                            //                       fontSize:
+                            //       Platform.isAndroid ? size_10 : size_12,),
+                            //                   focusedBorder: OutlineInputBorder(
+                            //                     borderSide: const BorderSide(
+                            //                       color: colors.textFieldColor,
+                            //                     ),
+                            //                     borderRadius:
+                            //                         BorderRadius.circular(10),
+                            //                   ),
+                            //                   enabledBorder: OutlineInputBorder(
+                            //                     borderSide: const BorderSide(
+                            //                       color: colors.textFieldColor,
+                            //                     ),
+                            //                     borderRadius:
+                            //                         BorderRadius.circular(10),
+                            //                   ),
+                            //                 ),
+                            //               ),
+                            //             ),
+                            //           ),
+                            //           const SizedBox(
+                            //             width: 10,
+                            //           ),
+                            //           SizedBox(
+                            //               height: 40,
+                            //               width: 100,
+                            //               child: CommonButton(
+                            //                   text: "Submit",
+                            //                   fontSize: Platform.isAndroid ? size_12 : size_14,
+                            //                   onClick: () {
+                            //                     if (productModel.pinController
+                            //                         .text.isEmpty) {
+                            //                       return Utils
+                            //                           .showFlushBarWithMessage(
+                            //                               "Alert",
+                            //                               "Please enter valid pincode",
+                            //                               context);
+                            //                     }
+                            //                     Map data = {
+                            //                       'pincode': productModel
+                            //                           .pinController.text
+                            //                     };
+                            //                     productModel
+                            //                         .pincodeAvailabilityCheck(
+                            //                             data, context);
+                            //                   })),
+                            //         ],
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            // //  recommendedAccessoryCard(context: context),
                             deliveryCard(
                               context,
                               model: productModel.model.first,
@@ -1052,7 +1073,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 : recommendedProductCard(
                                     context: context,
                                     model: productModel.relatedProducts,
-                                    provider: productModel),
+                                    provider: productModel,
+                                    productSlug: productModel.model.first.slug,
+                                  ),
 
                             productModel.model.first.reviews.isNotEmpty
                                 ? Padding(
@@ -1176,7 +1199,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           ? 'REMOVE FROM CART'
                                           : 'ADD TO CART',
                                       style: TextStyle(
-                                        fontSize: 12,
+                                        fontSize: Platform.isAndroid
+                                            ? size_10
+                                            : size_12,
                                         color: Theme.of(context).brightness ==
                                                 Brightness.dark
                                             ? Colors.white
@@ -1220,9 +1245,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                             'quantity': "1",
                                             'color': productModel.model.first
                                                     .colorsFormatted.isNotEmpty
-                                                ? "#" +
-                                                    productModel
-                                                        .selectedColorCode
+                                                ? productModel.selectedColorCode
                                                 : "",
                                             'choice_2': productModel.model.first
                                                     .choiceOptions.isNotEmpty
@@ -1242,10 +1265,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                             .showLoginAlertDialog(context);
                                       }
                                     },
-                                    child: const Text(
+                                    child: Text(
                                       'BUY NOW',
                                       style: TextStyle(
-                                          fontSize: 12, color: Colors.white),
+                                          fontSize: Platform.isAndroid
+                                              ? size_10
+                                              : size_12,
+                                          color: Colors.white),
                                     ),
                                   ),
                                 ),

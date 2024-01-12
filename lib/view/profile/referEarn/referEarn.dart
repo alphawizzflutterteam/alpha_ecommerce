@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
@@ -89,11 +91,14 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                 padding: EdgeInsets.only(
                                     right: MediaQuery.of(context).size.width *
                                         0.1),
-                                child: const Text(
+                                child: Text(
                                   "Refer and Earn",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                      color: Colors.white,
+                                      fontSize: Platform.isAndroid
+                                          ? size_18
+                                          : size_20),
                                 ),
                               ),
                             ),
@@ -198,7 +203,9 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                             Text(
                                               "You referral code",
                                               style: TextStyle(
-                                                fontSize: 10,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_8
+                                                    : size_10,
                                                 color: Theme.of(context)
                                                             .brightness ==
                                                         Brightness.dark
@@ -212,7 +219,9 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                             Text(
                                               user.data[0].referralCode,
                                               style: TextStyle(
-                                                  fontSize: 20,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_18
+                                                      : size_20,
                                                   color: Theme.of(context)
                                                               .brightness ==
                                                           Brightness.dark
@@ -245,7 +254,9 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                           child: Text(
                                             "Copy\nCode",
                                             style: TextStyle(
-                                              fontSize: 12,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_10
+                                                  : size_12,
                                               height: 1.5,
                                               color: Theme.of(context)
                                                           .brightness ==
@@ -268,7 +279,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             onTap: () {
                               share(context, user.data[0].referralCode);
                             },
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -283,7 +294,10 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                 Text(
                                   "Share Code",
                                   style: TextStyle(
-                                      color: Colors.orange, fontSize: 16),
+                                      color: Colors.orange,
+                                      fontSize: Platform.isAndroid
+                                          ? size_14
+                                          : size_16),
                                 )
                               ],
                             ),
@@ -307,7 +321,8 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                         Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
-                                fontSize: 18),
+                                fontSize:
+                                    Platform.isAndroid ? size_16 : size_18),
                           ),
                           InkWell(
                             highlightColor: Colors.transparent,
@@ -316,11 +331,12 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                               Routes.navigateToViewAllReferallScreen(
                                   context, profileProvider.referralList);
                             },
-                            child: const Text(
+                            child: Text(
                               "View all",
                               style: TextStyle(
                                   color: colors.buttonColor,
-                                  fontSize: 14,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
                                   fontWeight: FontWeight.bold),
                             ),
                           )
@@ -397,7 +413,9 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                                           Brightness.dark
                                                       ? Colors.white
                                                       : Colors.black,
-                                                  fontSize: 14),
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14),
                                             ),
                                             SizedBox(
                                               height: 5,
@@ -407,9 +425,11 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                                     .referralList[i].createdAt
                                                     .toString(),
                                                 style: TextStyle(
-                                                    color:
-                                                        colors.lightTextColor,
-                                                    fontSize: 12))
+                                                  color: colors.lightTextColor,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_10
+                                                      : size_12,
+                                                ))
                                           ],
                                         ),
                                       ],
@@ -422,7 +442,9 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                                   Brightness.dark
                                               ? Colors.white
                                               : Colors.black,
-                                          fontSize: 14,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
                                           fontWeight: FontWeight.bold),
                                     )
                                   ],

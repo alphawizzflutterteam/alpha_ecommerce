@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/brandsModel.dart';
@@ -65,7 +68,10 @@ class BrandsListScreen extends StatelessWidget {
                           Divider(color: Colors.transparent),
                           Text(
                             brandsModel[index].name,
-                            style: TextStyle(fontSize: 16, color: Colors.black),
+                            style: TextStyle(
+                                fontSize:
+                                    Platform.isAndroid ? size_14 : size_16,
+                                color: Colors.black),
                           ),
                           Divider(color: Colors.transparent),
                           GestureDetector(
@@ -89,7 +95,9 @@ class BrandsListScreen extends StatelessWidget {
                                 child: Text(
                                   "View Products",
                                   style: TextStyle(
-                                      fontSize: 10, color: Colors.white),
+                                      fontSize:
+                                          Platform.isAndroid ? size_8 : size_10,
+                                      color: Colors.white),
                                 ),
                               ),
                             ),
