@@ -43,11 +43,11 @@ class AppUtils {
                 children: [
                   Text(
                     'Alert',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: Platform.isAndroid ? size_18 : size_20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Colors.white,
+                          fontSize: Platform.isAndroid ? size_18 : size_20,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   const SizedBox(
                     height: 15,
@@ -55,7 +55,7 @@ class AppUtils {
                   Text(
                     'Please login first to continue',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: colors.greyText,
                         fontSize: Platform.isAndroid ? size_12 : size_14),
                   ),
@@ -90,9 +90,13 @@ class AppUtils {
                           },
                           child: Text(
                             'CANCEL',
-                            style: TextStyle(
-                              fontSize: Platform.isAndroid ? size_10 : size_12,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  fontSize:
+                                      Platform.isAndroid ? size_10 : size_12,
+                                ),
                           ),
                         ),
                       ),
@@ -119,9 +123,13 @@ class AppUtils {
                           },
                           child: Text(
                             'LOGIN',
-                            style: TextStyle(
-                              fontSize: Platform.isAndroid ? size_10 : size_12,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  fontSize:
+                                      Platform.isAndroid ? size_10 : size_12,
+                                ),
                           ),
                         ),
                       ),

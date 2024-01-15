@@ -15,6 +15,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:order_tracker/order_tracker.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
 import '../../utils/routes.dart';
@@ -122,27 +123,35 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                   children: [
                                     Text(
                                       "Order ID - ${detailProvider.detail.orderId}",
-                                      style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: Platform.isAndroid
-                                            ? size_12
-                                            : size_14,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                          ),
                                     ),
                                     Text(
                                       "SOLD BY : ${detailProvider.detail.seller?.name}",
-                                      style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: Platform.isAndroid
-                                            ? size_12
-                                            : size_14,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -161,14 +170,18 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         horizontal: 10, vertical: 10),
                                     child: Text(
                                       "Price Detail",
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -180,26 +193,32 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                       children: [
                                         Text(
                                           "MRP (1 item)",
-                                          style: TextStyle(
-                                            color: colors.greyText,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                         Text(
                                           detailProvider.detail.orderAmount
                                               .toString(),
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                       ],
                                     ),
@@ -213,26 +232,32 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                       children: [
                                         Text(
                                           "Delivery fee",
-                                          style: TextStyle(
-                                            color: colors.greyText,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                         Text(
                                           detailProvider.detail.deliveryCharge
                                               .toString(),
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                       ],
                                     ),
@@ -246,26 +271,32 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                       children: [
                                         Text(
                                           "Discount",
-                                          style: TextStyle(
-                                            color: colors.greyText,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                         Text(
                                           detailProvider.detail.discountAmount
                                               .toString(),
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                       ],
                                     ),
@@ -285,24 +316,30 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                       children: [
                                         Text(
                                           "Total Amount",
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_12
-                                                  : size_14),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14),
                                         ),
                                         Text(
                                           detailProvider.detail.subtotal
                                               .toString(),
-                                          style: TextStyle(
-                                              color: colors.buttonColor,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_12
-                                                  : size_14),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: colors.buttonColor,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14),
                                         ),
                                       ],
                                     ),
@@ -342,9 +379,12 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                       ),
                                       Text(
                                         "Download Invoice",
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black),
@@ -354,8 +394,16 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                   InkWell(
                                     highlightColor: Colors.transparent,
                                     splashColor: Colors.transparent,
-                                    onTap: () {
-                                      showToastMessage("Invoice Downloaded");
+                                    onTap: () async {
+                                      final Uri url = Uri.parse(
+                                          'https://alpha-ecom.developmentalphawizz.com/generate-invoice/' +
+                                              widget.order_id);
+                                      if (!await launchUrl(url,
+                                          mode:
+                                              LaunchMode.externalApplication)) {
+                                        throw Exception(
+                                            'Could not launch $url');
+                                      }
                                     },
                                     child: Icon(
                                       Icons.download_for_offline_sharp,
@@ -393,15 +441,18 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         ),
                                         Text(
                                           "Shipping address",
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_12
-                                                  : size_14),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14),
                                         ),
                                       ],
                                     ),
@@ -413,14 +464,18 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                       detailProvider
                                           .detail.shippingAddress!.address
                                           .toString(),
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -430,14 +485,18 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                       detailProvider.detail.shippingAddress!
                                           .contactPersonName
                                           .toString(),
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -447,14 +506,18 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                       detailProvider
                                           .detail.shippingAddress!.city
                                           .toString(),
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -463,14 +526,18 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                     child: Text(
                                       detailProvider.detail.shippingAddress!.zip
                                           .toString(),
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -478,14 +545,18 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                         horizontal: 10, vertical: 5),
                                     child: Text(
                                       "Phone Number: ${detailProvider.detail.shippingAddress!.phone.toString()}",
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                     ),
                                   ),
                                 ],
@@ -510,6 +581,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                           minRating: 1,
                                           direction: Axis.horizontal,
                                           allowHalfRating: false,
+                                          updateOnDrag: false,
                                           itemCount: 5,
                                           itemSize: 30,
                                           itemPadding:
@@ -543,11 +615,14 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                         .products[0].productId
                                                         .toString());
                                               },
-                                              child: const Text(
+                                              child: Text(
                                                 "Write Review",
-                                                style: TextStyle(
-                                                    color:
-                                                        colors.homeBGGradient1),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        color: colors
+                                                            .homeBGGradient1),
                                               ),
                                             )
                                           ],
@@ -586,14 +661,14 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                       child: CachedNetworkImage(
                                                         imageUrl:
                                                             user.data[0].image,
-                                                        fit: BoxFit.cover,
+                                                        fit: BoxFit.contain,
                                                         errorWidget: (context,
                                                                 url, error) =>
                                                             ClipOval(
                                                           child: Image.asset(
                                                             Images
                                                                 .defaultProfile,
-                                                            fit: BoxFit.cover,
+                                                            fit: BoxFit.fill,
                                                           ),
                                                         ),
                                                       ),
@@ -610,14 +685,19 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                       children: [
                                                         Text(
                                                           user.data[0].fName,
-                                                          style: TextStyle(
-                                                            color: Theme.of(context)
-                                                                        .brightness ==
-                                                                    Brightness
-                                                                        .dark
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                          ),
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .titleSmall!
+                                                                  .copyWith(
+                                                                    color: Theme.of(context).brightness ==
+                                                                            Brightness
+                                                                                .dark
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Colors
+                                                                            .black,
+                                                                  ),
                                                         ),
                                                         SizedBox(
                                                           width: MediaQuery.of(
@@ -630,15 +710,20 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                                 .detail
                                                                 .orderReviews[0]
                                                                 .comment!,
-                                                            style: TextStyle(
-                                                              color: Theme.of(context)
-                                                                          .brightness ==
-                                                                      Brightness
-                                                                          .dark
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                            ),
+                                                            style:
+                                                                Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .titleSmall!
+                                                                    .copyWith(
+                                                                      color: Theme.of(context).brightness ==
+                                                                              Brightness
+                                                                                  .dark
+                                                                          ? Colors
+                                                                              .white
+                                                                          : Colors
+                                                                              .black,
+                                                                    ),
                                                           ),
                                                         )
                                                       ],
@@ -659,13 +744,17 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                     detailProvider.detail
                                                         .orderReviews[0].rating
                                                         .toString(),
-                                                    style: TextStyle(
-                                                      color: Theme.of(context)
-                                                                  .brightness ==
-                                                              Brightness.dark
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                    ),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall!
+                                                        .copyWith(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                        ),
                                                   ),
                                                 ],
                                               )
@@ -688,9 +777,12 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                     "Arrived " +
                                         detailProvider
                                             .detail.expectedDeliveryDate!,
-                                    style: TextStyle(
-                                        color: colors.buttonColor,
-                                        fontSize: 25),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color: colors.buttonColor,
+                                            fontSize: 25),
                                   ),
                                   const SizedBox(height: 20),
                                   detailProvider.detail.expectedDeliveryDate ==
@@ -743,13 +835,17 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                         .orderStatusHistory[i]
                                                         .status!,
                                                     //  "Ordered Saturday, 6 Oct",
-                                                    style: TextStyle(
-                                                      color: Theme.of(context)
-                                                                  .brightness ==
-                                                              Brightness.dark
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                    ),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall!
+                                                        .copyWith(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                        ),
                                                   ),
                                                   Text(
                                                     convertTimestampToFormattedDate(
@@ -759,13 +855,17 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                                 i]
                                                             .updatedAt
                                                             .toString()),
-                                                    style: TextStyle(
-                                                      color: Theme.of(context)
-                                                                  .brightness ==
-                                                              Brightness.dark
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                    ),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall!
+                                                        .copyWith(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                        ),
                                                   ),
                                                 ],
                                               )
@@ -801,25 +901,41 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                   //   outOfDeliveryTitleAndDateList:
                                   //       outOfDeliveryList,
                                   //   deliveredTitleAndDateList: deliveredList,
-                                  //   headingTitleStyle: TextStyle(
+                                  //   headingTitlestyle: Theme.of(context)
+                                  // .textTheme
+                                  // .titleSmall!
+                                  // .copyWith(
+
                                   //       color: Theme.of(context).brightness ==
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
                                   //       fontSize: Platform.isAndroid ? size_12 : size_14),
-                                  //   headingDateTextStyle: TextStyle(
+                                  // //   headingDateTextstyle: Theme.of(context)
+                                  //                   .textTheme
+                                  //                   .titleSmall!
+                                  //                   .copyWith(
+
                                   //       color: Theme.of(context).brightness ==
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
                                   //       fontSize: Platform.isAndroid ? size_12 : size_14),
-                                  //   subTitleTextStyle: TextStyle(
+                                  //   subTitleTextstyle: Theme.of(context)
+                                  // .textTheme
+                                  // .titleSmall!
+                                  // .copyWith(
+
                                   //       color: Theme.of(context).brightness ==
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
                                   //       fontSize: Platform.isAndroid ? size_12 : size_14),
-                                  //   subDateTextStyle: TextStyle(
+                                  //   subDateTextstyle: Theme.of(context)
+                                  // .textTheme
+                                  // .titleSmall!
+                                  // .copyWith(
+
                                   //       color: Theme.of(context).brightness ==
                                   //               Brightness.dark
                                   //           ? Colors.white
@@ -928,8 +1044,8 @@ class _ReturnDialogWidgetState extends State<ReturnDialogWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 700,
-      height: 80 * reasons.length.toDouble(),
+      width: MediaQuery.of(context).size.width,
+      height: 82 * reasons.length.toDouble(),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
         color: Theme.of(context).brightness == Brightness.dark
@@ -942,35 +1058,93 @@ class _ReturnDialogWidgetState extends State<ReturnDialogWidget> {
         children: [
           Text(
             'Return order reason',
-            style: TextStyle(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.black,
-              fontSize: Platform.isAndroid ? size_18 : size_20,
-            ),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: Platform.isAndroid ? size_18 : size_20,
+                ),
           ),
           const SizedBox(height: 20),
           SizedBox(
-            height: 57 * reasons.length.toDouble(),
-            child: Theme(
-              data: ThemeData(unselectedWidgetColor: colors.greyText),
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: reasons.length,
-                itemBuilder: (context, i) {
-                  return CommonRadioTile(
-                      options: selectedReason,
-                      name: reasons[i],
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.black
-                          : Colors.white,
-                      onChanged: handleOptionChange);
-                },
+              height: 57 * reasons.length.toDouble(),
+              child: Material(
+                color: Colors.transparent,
+                child: Column(
+                  children: [
+                    for (int i = 0; i < reasons.length; i++)
+                      RadioListTile(
+                        title: Text(
+                          reasons[i],
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
+                                  ),
+                          softWrap: false,
+                        ),
+                        activeColor: colors.buttonColor,
+                        value: reasons[i],
+                        groupValue: selectedReason,
+                        onChanged: (value) {
+                          handleOptionChange(value.toString());
+                        },
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 0),
+                      ),
+                  ],
+                ),
+              )
+
+              // Theme(
+              //   data: ThemeData(unselectedWidgetColor: Colors.white),
+              //   child: ListView.builder(
+              //     padding: EdgeInsets.zero,
+              //     shrinkWrap: true,
+              //     physics: const NeverScrollableScrollPhysics(),
+              //     itemCount: reasons.length,
+              //     itemBuilder: (context, i) {
+              //       return
+              //       Material(
+              //         color: Colors.transparent,
+              //         child: RadioListTile(
+              //           title: Text(
+              //             reasons[i],
+              //             style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              //                   color: Theme.of(context).brightness ==
+              //                           Brightness.dark
+              //                       ? Colors.white
+              //                       : Colors.black,
+              //                   fontSize: Platform.isAndroid ? size_12 : size_14,
+              //                 ),
+              //             softWrap: false,
+              //           ),
+              //           activeColor: colors.buttonColor,
+              //           value: reasons[i],
+              //           groupValue: selectedReason,
+              //           onChanged: (value) {
+              //             handleOptionChange(value.toString());
+              //           },
+              //           contentPadding: const EdgeInsets.symmetric(horizontal: 0),
+              //         ),
+              //       );
+
+              //       // CommonRadioTile(
+              //       //     options: selectedReason,
+              //       //     name: reasons[i],
+              //       //     color: Theme.of(context).brightness == Brightness.dark
+              //       //         ? Colors.black
+              //       //         : Colors.white,
+              //       //     onChanged: handleOptionChange);
+              //       // return RadioListTile(value: value, groupValue: opt, onChanged: (value) => handleOptionChange("hj"),);
+              //   },
+              //  ),
+              //),
               ),
-            ),
-          ),
           SizedBox(
             width: 200,
             child: ElevatedButton(
@@ -982,8 +1156,6 @@ class _ReturnDialogWidgetState extends State<ReturnDialogWidget> {
                 ),
               ),
               onPressed: () {
-                // Routes.navigateToPreviousScreen(context);
-                Navigator.pop(context);
                 showDialog<void>(
                   context: context,
                   barrierDismissible: false,

@@ -162,12 +162,15 @@ class _PaymentState extends State<Payment> {
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
                           "Select payment method",
-                          style: TextStyle(
-                              color: Theme.of(context).brightness !=
-                                      Brightness.dark
-                                  ? Colors.black
-                                  : Colors.white,
-                              fontWeight: FontWeight.bold),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness !=
+                                          Brightness.dark
+                                      ? Colors.black
+                                      : Colors.white,
+                                  fontWeight: FontWeight.bold),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -208,14 +211,18 @@ class _PaymentState extends State<Payment> {
                                   ),
                                   title: Text(
                                     paymentMethods[i].paymentMethodName,
-                                    style: TextStyle(
-                                        color: Theme.of(context).brightness !=
-                                                Brightness.dark
-                                            ? Colors.black
-                                            : Colors.white,
-                                        fontSize: Platform.isAndroid
-                                            ? size_12
-                                            : size_14),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color:
+                                                Theme.of(context).brightness !=
+                                                        Brightness.dark
+                                                    ? Colors.black
+                                                    : Colors.white,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14),
                                   ),
                                   trailing: Theme(
                                     data: ThemeData(
@@ -304,8 +311,9 @@ class _PaymentState extends State<Payment> {
                                                   "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
 
                                               var amout = cartProvider
-                                                  .model.data.total
-                                                  .replaceFirst("₹ ", "");
+                                                      .model.data.subtotal
+                                                  // .replaceFirst("₹ ", "")
+                                                  ;
                                               print(amout);
                                               openCheckout(amout);
                                             } else if (selectedPaymentMethod !=

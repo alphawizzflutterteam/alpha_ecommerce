@@ -98,13 +98,16 @@ class _SignUPState extends State<SignUP> {
                               horizontal: 20, vertical: 0),
                           child: Text(
                             translation(context).createyouraccount,
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.lightTextColor
-                                    : colors.greyText,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.lightTextColor
+                                        : colors.greyText,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold),
                           ),
                         ),
                         Padding(
@@ -154,9 +157,12 @@ class _SignUPState extends State<SignUP> {
                                           ? size_12
                                           : size_14,
                                     ),
-                                    hintStyle: const TextStyle(
-                                      color: colors.labelColor,
-                                    ),
+                                    hintStyle: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: colors.labelColor,
+                                        ),
                                   ),
                                   style: TextStyle(
                                       color: Theme.of(context).brightness ==
@@ -191,9 +197,12 @@ class _SignUPState extends State<SignUP> {
                                           ? size_12
                                           : size_14,
                                     ),
-                                    hintStyle: const TextStyle(
-                                      color: colors.labelColor,
-                                    ),
+                                    hintStyle: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: colors.labelColor,
+                                        ),
                                   ),
                                   // decoration: commonInputDecoration(
                                   //   labelText: translation(context).fullname,
@@ -241,9 +250,12 @@ class _SignUPState extends State<SignUP> {
                                           ? size_12
                                           : size_14,
                                     ),
-                                    hintStyle: const TextStyle(
-                                      color: colors.labelColor,
-                                    ),
+                                    hintStyle: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: colors.labelColor,
+                                        ),
                                     focusedErrorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                       borderSide: const BorderSide(
@@ -322,9 +334,12 @@ class _SignUPState extends State<SignUP> {
                                           ? size_12
                                           : size_14,
                                     ),
-                                    hintStyle: const TextStyle(
-                                      color: colors.labelColor,
-                                    ),
+                                    hintStyle: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: colors.labelColor,
+                                        ),
                                     focusedErrorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                       borderSide: const BorderSide(
@@ -383,9 +398,12 @@ class _SignUPState extends State<SignUP> {
                                 fontSize:
                                     Platform.isAndroid ? size_12 : size_14,
                               ),
-                              hintStyle: const TextStyle(
-                                color: colors.labelColor,
-                              ),
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: colors.labelColor,
+                                  ),
                             ),
                             // decoration: commonInputDecoration(
                             //   labelText: translation(context).fullname,

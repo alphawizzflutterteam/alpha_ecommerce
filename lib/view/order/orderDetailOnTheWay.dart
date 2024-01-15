@@ -113,27 +113,35 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                   children: [
                                     Text(
                                       "Order ID - ${detailProvider.detail.orderId}",
-                                      style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: Platform.isAndroid
-                                            ? size_12
-                                            : size_14,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                          ),
                                     ),
                                     Text(
                                       "SOLD BY : ${detailProvider.detail.seller!.name}",
-                                      style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: Platform.isAndroid
-                                            ? size_12
-                                            : size_14,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -174,7 +182,11 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                             //                   0.59,
                             //               child: const Text(
                             //                 "Dettol Refresh Long Lasting",
-                            //                 style: TextStyle(
+                            //                 style: Theme.of(context)
+                            // .textTheme
+                            // .titleSmall!
+                            // .copyWith(
+
                             //                   color: Colors.white,
                             //                   fontSize: Platform.isAndroid ? size_18 : size_20,
                             //                 ),
@@ -185,7 +197,11 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                             //             ),
                             //             const Text(
                             //               "\$120.00",
-                            //               style: TextStyle(
+                            //               style: Theme.of(context)
+                            // .textTheme
+                            // .titleSmall!
+                            // .copyWith(
+
                             //                 color: colors.buttonColor,
                             //                 fontSize: Platform.isAndroid ? size_18 : size_20,
                             //               ),
@@ -207,14 +223,18 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                         horizontal: 10, vertical: 10),
                                     child: Text(
                                       "Price Detail",
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -226,26 +246,32 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                       children: [
                                         Text(
                                           "MRP ",
-                                          style: TextStyle(
-                                            color: colors.greyText,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                         Text(
                                           detailProvider.detail.subtotal
                                               .toString(),
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                       ],
                                     ),
@@ -259,26 +285,32 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                       children: [
                                         Text(
                                           "Delivery fee",
-                                          style: TextStyle(
-                                            color: colors.greyText,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                         Text(
                                           detailProvider.detail.deliveryCharge
                                               .toString(),
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                       ],
                                     ),
@@ -292,28 +324,34 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                       children: [
                                         Text(
                                           "Discount",
-                                          style: TextStyle(
-                                            color: colors.greyText,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                         Text(
                                           "- " +
                                               detailProvider
                                                   .detail.discountAmount
                                                   .toString(),
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                       ],
                                     ),
@@ -333,24 +371,30 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                       children: [
                                         Text(
                                           "Total Amount",
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_12
-                                                  : size_14),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14),
                                         ),
                                         Text(
                                           detailProvider.detail.orderAmount
                                               .toString(),
-                                          style: TextStyle(
-                                              color: colors.buttonColor,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_12
-                                                  : size_14),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: colors.buttonColor,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14),
                                         ),
                                       ],
                                     ),
@@ -386,15 +430,18 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                         ),
                                         Text(
                                           "Shipping address",
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_12
-                                                  : size_14),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14),
                                         ),
                                       ],
                                     ),
@@ -406,14 +453,18 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                       detailProvider
                                           .detail.shippingAddress!.address
                                           .toString(),
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -423,14 +474,18 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                       detailProvider.detail.shippingAddress!
                                           .contactPersonName
                                           .toString(),
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -440,14 +495,18 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                       detailProvider
                                           .detail.shippingAddress!.city
                                           .toString(),
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -456,14 +515,18 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                     child: Text(
                                       detailProvider.detail.shippingAddress!.zip
                                           .toString(),
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                     ),
                                   ),
                                   Padding(
@@ -471,14 +534,18 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                         horizontal: 10, vertical: 5),
                                     child: Text(
                                       "Phone Number: ${detailProvider.detail.shippingAddress!.phone.toString()}",
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
                                     ),
                                   ),
                                 ],
@@ -501,9 +568,12 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                           "Arriving " +
                                               detailProvider
                                                   .detail.expectedDeliveryDate!,
-                                          style: TextStyle(
-                                              color: colors.buttonColor,
-                                              fontSize: 25),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: colors.buttonColor,
+                                                  fontSize: 25),
                                         ),
                                   detailProvider.detail.expectedDeliveryDate ==
                                           ""
@@ -555,13 +625,17 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                         .orderStatusHistory[i]
                                                         .status!,
                                                     //  "Ordered Saturday, 6 Oct",
-                                                    style: TextStyle(
-                                                      color: Theme.of(context)
-                                                                  .brightness ==
-                                                              Brightness.dark
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                    ),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall!
+                                                        .copyWith(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                        ),
                                                   ),
                                                   Text(
                                                     convertTimestampToFormattedDate(
@@ -571,13 +645,17 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                                 i]
                                                             .updatedAt
                                                             .toString()),
-                                                    style: TextStyle(
-                                                      color: Theme.of(context)
-                                                                  .brightness ==
-                                                              Brightness.dark
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                    ),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall!
+                                                        .copyWith(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                        ),
                                                   ),
                                                 ],
                                               )
@@ -613,25 +691,41 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                   //   outOfDeliveryTitleAndDateList:
                                   //       outOfDeliveryList,
                                   //   deliveredTitleAndDateList: deliveredList,
-                                  //   headingTitleStyle: TextStyle(
+                                  //   headingTitlestyle: Theme.of(context)
+                                  // .textTheme
+                                  // .titleSmall!
+                                  // .copyWith(
+
                                   //       color: Theme.of(context).brightness ==
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
                                   //       fontSize: Platform.isAndroid ? size_12 : size_14),
-                                  //   headingDateTextStyle: TextStyle(
+                                  //   headingDateTextstyle: Theme.of(context)
+                                  // .textTheme
+                                  // .titleSmall!
+                                  // .copyWith(
+
                                   //       color: Theme.of(context).brightness ==
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
                                   //       fontSize: Platform.isAndroid ? size_12 : size_14),
-                                  //   subTitleTextStyle: TextStyle(
+                                  //   subTitleTextstyle: Theme.of(context)
+                                  // .textTheme
+                                  // .titleSmall!
+                                  // .copyWith(
+
                                   //       color: Theme.of(context).brightness ==
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
                                   //       fontSize: Platform.isAndroid ? size_12 : size_14),
-                                  //   subDateTextStyle: TextStyle(
+                                  //   subDateTextstyle: Theme.of(context)
+                                  // .textTheme
+                                  // .titleSmall!
+                                  // .copyWith(
+
                                   //       color: Theme.of(context).brightness ==
                                   //               Brightness.dark
                                   //           ? Colors.white
@@ -646,17 +740,20 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                   horizontal: 20, vertical: 10),
                               child: Text(
                                 "Recommended Product",
-                                style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
                               ),
                             ),
                             Container(
                               height:
-                                  MediaQuery.of(context).size.height * 0.325,
+                                  MediaQuery.of(context).size.height * 0.335,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
                               child: ListView.builder(
@@ -729,7 +826,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                     .RecommendedProducts[index]
                                                     .thumbnail,
                                               ),
-                                              fit: BoxFit.cover,
+                                              fit: BoxFit.fill,
                                               onError:
                                                   (exception, stackTrace) =>
                                                       ErrorImageWidget(),
@@ -752,24 +849,44 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                             children: [
                                               Text(
                                                 "${detailProvider.RecommendedProducts[index].discount}% Off",
-                                                style: TextStyle(
-                                                  color: Colors.orange,
-                                                  fontSize: Platform.isAndroid
-                                                      ? size_10
-                                                      : size_12,
-                                                ),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                      color: Colors.orange,
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_10
+                                                              : size_12,
+                                                    ),
                                               ),
                                               LikeButton(
-                                                // onTap: (isLiked) {
-                                                //   Map data = {'product_id': detailProvider.RecommendedProducts[index].id.toString()};
-                                                //   if (isLiked) {
-                                                //     return true;
-                                                //     //homeProvider.removeFromWishlist(data, context);
-                                                //   } else {
-                                                //     return false;
-                                                //     //  homeProvider.addToWishlist(data, context);
-                                                //   }
-                                                // },
+                                                onTap: (isLiked) {
+                                                  Map<dynamic, dynamic> data = {
+                                                    'product_id': detailProvider
+                                                        .RecommendedProducts[
+                                                            index]
+                                                        .id
+                                                        .toString()
+                                                  };
+                                                  if (isLiked) {
+                                                    return detailProvider
+                                                        .removeFromWishlist(
+                                                            data,
+                                                            context,
+                                                            detailProvider
+                                                                .detail.orderId
+                                                                .toString());
+                                                  } else {
+                                                    return detailProvider
+                                                        .addToWishlist(
+                                                            data,
+                                                            context,
+                                                            detailProvider
+                                                                .detail.orderId
+                                                                .toString());
+                                                  }
+                                                },
                                                 size: size_20,
                                                 isLiked: detailProvider
                                                     .RecommendedProducts[index]
@@ -806,16 +923,19 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                 .name,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_10
-                                                  : size_12,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_10
+                                                      : size_12,
+                                                ),
                                           ),
                                         ),
                                         Padding(
@@ -829,12 +949,16 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                 detailProvider
                                                     .RecommendedProducts[index]
                                                     .unitPrice,
-                                                style: TextStyle(
-                                                  color: Colors.cyan,
-                                                  fontSize: Platform.isAndroid
-                                                      ? size_10
-                                                      : size_12,
-                                                ),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                      color: Colors.cyan,
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_10
+                                                              : size_12,
+                                                    ),
                                               ),
                                               const SizedBox(
                                                 width: 10,
@@ -843,14 +967,22 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                 detailProvider
                                                     .RecommendedProducts[index]
                                                     .purchasePrice,
-                                                style: TextStyle(
-                                                  color: colors.lightTextColor,
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
-                                                  fontSize: Platform.isAndroid
-                                                      ? size_10
-                                                      : size_12,
-                                                ),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                      color:
+                                                          colors.lightTextColor,
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
+                                                      decorationColor:
+                                                          Colors.black,
+                                                      decorationThickness: 3,
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_10
+                                                              : size_12,
+                                                    ),
                                               ),
                                             ],
                                           ),
@@ -875,14 +1007,13 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                   'color': detailProvider
                                                           .RecommendedProducts[
                                                               index]
-                                                          .colorImage
+                                                          .colorsFormatted
                                                           .isNotEmpty
-                                                      ? "#" +
-                                                          detailProvider
-                                                              .RecommendedProducts[
-                                                                  index]
-                                                              .colorImage[0]
-                                                              .color
+                                                      ? detailProvider
+                                                          .RecommendedProducts[
+                                                              index]
+                                                          .colorsFormatted[0]
+                                                          .code
                                                       : "",
                                                   'choice_2': detailProvider
                                                           .RecommendedProducts[
@@ -906,9 +1037,15 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                 };
                                               }
                                               print(data);
-                                              // detailProvider.RecommendedProducts[index].isCart
-                                              //     ? homeProvider.removeFromCart(data, context)
-                                              //     : homeProvider.addToCart(data, context);
+                                              detailProvider
+                                                      .RecommendedProducts[
+                                                          index]
+                                                      .isCart
+                                                  ? detailProvider
+                                                      .removeFromCart(
+                                                          data, context)
+                                                  : detailProvider.addToCart(
+                                                      data, context);
                                             },
                                             child: Container(
                                               height: 30,
@@ -929,15 +1066,19 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                         .isCart
                                                     ? "Remove From Cart"
                                                     : "Add to Cart",
-                                                style: TextStyle(
-                                                    color: Theme.of(context)
-                                                                .brightness ==
-                                                            Brightness.dark
-                                                        ? colors.textColor
-                                                        : Colors.black,
-                                                    fontSize: Platform.isAndroid
-                                                        ? size_10
-                                                        : size_12),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? colors.textColor
+                                                            : Colors.black,
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_10
+                                                                : size_12),
                                                 textAlign: TextAlign.center,
                                               ),
                                             ),
@@ -955,25 +1096,30 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                     ),
               detailProvider.isLoading
                   ? Container()
-                  : Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: 80,
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? colors.textFieldBG
-                            : Color.fromARGB(255, 227, 227, 227),
-                        child: Center(
-                          child: SizedBox(
-                              height: 40,
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              child: CommonButton(
-                                text: "CANCEL ORDER",
-                                fontSize:
-                                    Platform.isAndroid ? size_12 : size_14,
-                                onClick: () {
-                                  showCancelDialog();
-                                },
-                              )),
+                  : Visibility(
+                      visible:
+                          detailProvider.detail.orderStatus!.toLowerCase() !=
+                              "returned",
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          height: 80,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textFieldBG
+                              : Color.fromARGB(255, 227, 227, 227),
+                          child: Center(
+                            child: SizedBox(
+                                height: 40,
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                child: CommonButton(
+                                  text: "CANCEL ORDER",
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                  onClick: () {
+                                    showCancelDialog();
+                                  },
+                                )),
+                          ),
                         ),
                       ),
                     ),
@@ -1044,59 +1190,93 @@ class _CancelOrderDialogWidgetState extends State<CancelOrderDialogWidget> {
         children: [
           Text(
             'Cancel order reason',
-            style: TextStyle(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.black,
-              fontSize: Platform.isAndroid ? size_18 : size_20,
-            ),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: Platform.isAndroid ? size_18 : size_20,
+                ),
           ),
           const SizedBox(height: 20),
           SizedBox(
-            height: 59 * reasons.length.toDouble(),
-            child: Theme(
-              data: ThemeData(unselectedWidgetColor: colors.greyText),
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: reasons.length,
-                itemBuilder: (context, i) {
-                  return Material(
-                    color: Colors.transparent,
-                    child: RadioListTile(
-                      title: Text(
-                        reasons[i],
-                        style: TextStyle(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: Platform.isAndroid ? size_12 : size_14,
+              height: 59 * reasons.length.toDouble(),
+              child: Material(
+                color: Colors.transparent,
+                child: Column(
+                  children: [
+                    for (int i = 0; i < reasons.length; i++)
+                      RadioListTile(
+                        title: Text(
+                          reasons[i],
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
+                                  ),
+                          softWrap: false,
                         ),
-                        softWrap: false,
+                        activeColor: colors.buttonColor,
+                        value: reasons[i],
+                        groupValue: selectedReason,
+                        onChanged: (value) {
+                          handleOptionChange(value.toString());
+                        },
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 0),
                       ),
-                      activeColor: colors.buttonColor,
-                      value: reasons[i],
-                      groupValue: selectedReason,
-                      onChanged: (value) {
-                        handleOptionChange(value.toString());
-                      },
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-                    ),
-                  );
+                  ],
+                ),
+              )
 
-                  // CommonRadioTile(
-                  //     options: selectedReason,
-                  //     name: reasons[i],
-                  //     color: Theme.of(context).brightness == Brightness.dark
-                  //         ? Colors.black
-                  //         : Colors.white,
-                  //     onChanged: handleOptionChange);
-                  // return RadioListTile(value: value, groupValue: opt, onChanged: (value) => handleOptionChange("hj"),);
-                },
+              // Theme(
+              //   data: ThemeData(unselectedWidgetColor: Colors.white),
+              //   child: ListView.builder(
+              //     padding: EdgeInsets.zero,
+              //     shrinkWrap: true,
+              //     physics: const NeverScrollableScrollPhysics(),
+              //     itemCount: reasons.length,
+              //     itemBuilder: (context, i) {
+              //       return
+              //       Material(
+              //         color: Colors.transparent,
+              //         child: RadioListTile(
+              //           title: Text(
+              //             reasons[i],
+              //             style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              //                   color: Theme.of(context).brightness ==
+              //                           Brightness.dark
+              //                       ? Colors.white
+              //                       : Colors.black,
+              //                   fontSize: Platform.isAndroid ? size_12 : size_14,
+              //                 ),
+              //             softWrap: false,
+              //           ),
+              //           activeColor: colors.buttonColor,
+              //           value: reasons[i],
+              //           groupValue: selectedReason,
+              //           onChanged: (value) {
+              //             handleOptionChange(value.toString());
+              //           },
+              //           contentPadding: const EdgeInsets.symmetric(horizontal: 0),
+              //         ),
+              //       );
+
+              //       // CommonRadioTile(
+              //       //     options: selectedReason,
+              //       //     name: reasons[i],
+              //       //     color: Theme.of(context).brightness == Brightness.dark
+              //       //         ? Colors.black
+              //       //         : Colors.white,
+              //       //     onChanged: handleOptionChange);
+              //       // return RadioListTile(value: value, groupValue: opt, onChanged: (value) => handleOptionChange("hj"),);
+              //   },
+              //  ),
+              //),
               ),
-            ),
-          ),
           SizedBox(
             width: 200,
             child: ElevatedButton(

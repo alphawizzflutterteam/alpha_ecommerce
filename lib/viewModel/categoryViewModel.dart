@@ -35,6 +35,7 @@ class CategoryViewModel extends ChangeNotifier {
         print(value.message);
 
         data = value.data!;
+
         print(data.length.toString() + "Category length");
         setLoading(false);
       }).onError((error, stackTrace) {

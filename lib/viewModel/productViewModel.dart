@@ -1,6 +1,7 @@
 import 'package:alpha_ecommerce_18oct/repository/cartRepository.dart';
 import 'package:alpha_ecommerce_18oct/repository/productRepository.dart';
 import 'package:alpha_ecommerce_18oct/utils/appUrls.dart';
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
@@ -88,6 +89,7 @@ class ProductDetailViewModel with ChangeNotifier {
         isCart = model.first.isCart;
         imageList = model.first.images;
         variationList = model.first.variation;
+        relatedProducts.clear();
         relatedProducts = value.relatedProducts!;
         setLoading(false);
         notifyListeners();
@@ -137,7 +139,7 @@ class ProductDetailViewModel with ChangeNotifier {
   }
 
   Future<bool> addToSaveLater(dynamic data, BuildContext context) async {
-    setLoading(true);
+    //setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
     NetworkViewModel networkProvider =
         Provider.of<NetworkViewModel>(context, listen: false);
@@ -237,8 +239,8 @@ class ProductDetailViewModel with ChangeNotifier {
     return data;
   }
 
-  Future<bool> addToCart(
-      Map<String, String> data, BuildContext context, String slug) async {
+  Future<bool> addToCart(Map<String, String> data, BuildContext context,
+      String slug, bool isComingForBuy) async {
     // setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
@@ -265,9 +267,12 @@ class ProductDetailViewModel with ChangeNotifier {
 
         if (value.message == "Successfully added!") {
           isCart = !isCart;
-          getDetails(context, "", slug);
-
-          Utils.showFlushBarWithMessage("Alert", value.message, context);
+          if (isComingForBuy) {
+            Routes.navigateToDashboardScreen(context, 0);
+          } else {
+            getDetails(context, "", slug);
+            Utils.showFlushBarWithMessage("Alert", value.message, context);
+          }
         } else {
           Utils.showFlushBarWithMessage("Alert", value.message, context);
         }
@@ -305,6 +310,7 @@ class ProductDetailViewModel with ChangeNotifier {
         setLoading(false);
 
         Utils.showFlushBarWithMessage("Alert", value.message, context);
+        getDetails(context, data, slugProdduct);
 
         print(value.message);
 

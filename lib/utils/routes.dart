@@ -777,11 +777,16 @@ class Routes {
     );
   }
 
-  static navigateToOrderReturnedDetailScreen(BuildContext context) {
+  static navigateToOrderReturnedDetailScreen(
+      BuildContext context, String order_id, String image, String name) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const OrderReturned(),
+        pageBuilder: (context, animation1, animation2) => OrderReturned(
+          order_id: order_id,
+          image: image,
+          name: name,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

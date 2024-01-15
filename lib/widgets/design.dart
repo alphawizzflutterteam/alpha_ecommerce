@@ -73,7 +73,7 @@ class DesignConfiguration {
     return Center(
       child: Text(
         getTranslated(context, 'noItem')!,
-        style: TextStyle(
+        style: Theme.of(context).textTheme.titleSmall!.copyWith(
             fontFamily: 'ubuntu',
             color: Theme.of(context).colorScheme.fontColor),
       ),
@@ -145,8 +145,8 @@ class DesignConfiguration {
 }
 
 class GetDiscountLabel extends StatelessWidget {
- final double discount;
- const GetDiscountLabel({Key? key, required this.discount}) : super(key: key);
+  final double discount;
+  const GetDiscountLabel({Key? key, required this.discount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -159,12 +159,12 @@ class GetDiscountLabel extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
         child: Text(
           '${discount.round().toStringAsFixed(2)}%',
-          style: const TextStyle(
-            color: colors.whiteTemp,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'ubuntu',
-            fontSize: textFontSize10,
-          ),
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                color: colors.whiteTemp,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'ubuntu',
+                fontSize: textFontSize10,
+              ),
         ),
       ),
     );

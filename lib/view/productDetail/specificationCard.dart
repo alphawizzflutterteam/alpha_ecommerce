@@ -21,7 +21,7 @@ specificationCard({required context, required ProductListDetail productData}) {
       children: [
         Text(
           "Specification",
-          style: TextStyle(
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
               color: Theme.of(context).brightness == Brightness.dark
                   ? Colors.white
                   : Colors.black,
@@ -35,21 +35,21 @@ specificationCard({required context, required ProductListDetail productData}) {
           children: [
             Text(
               "Weight",
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.grey.shade300
-                    : Colors.black87,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey.shade300
+                        : Colors.black87,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
             ),
             Text(
               productData.weight,
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
             ),
           ],
         ),
@@ -61,21 +61,21 @@ specificationCard({required context, required ProductListDetail productData}) {
           children: [
             Text(
               "Made IN",
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.grey.shade300
-                    : Colors.black87,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey.shade300
+                        : Colors.black87,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
             ),
             Text(
               productData.made_in,
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
             ),
           ],
         ),
@@ -87,21 +87,21 @@ specificationCard({required context, required ProductListDetail productData}) {
           children: [
             Text(
               "Warranty",
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.grey.shade300
-                    : Colors.black87,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey.shade300
+                        : Colors.black87,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
             ),
             Text(
               productData.warranty,
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
             ),
           ],
         ),
@@ -113,21 +113,21 @@ specificationCard({required context, required ProductListDetail productData}) {
           children: [
             Text(
               "Manufacturing Date",
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.grey.shade300
-                    : Colors.black87,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey.shade300
+                        : Colors.black87,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
             ),
             Text(
               productData.manufacturing_date,
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
             ),
           ],
         ),
@@ -139,21 +139,21 @@ specificationCard({required context, required ProductListDetail productData}) {
           children: [
             Text(
               "Refundable",
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.grey.shade300
-                    : Colors.black87,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey.shade300
+                        : Colors.black87,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
             ),
             Text(
               productData.refundable,
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
             ),
           ],
         ),
@@ -165,21 +165,21 @@ specificationCard({required context, required ProductListDetail productData}) {
           children: [
             Text(
               "Cancellable",
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.grey.shade300
-                    : Colors.black87,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey.shade300
+                        : Colors.black87,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
             ),
             Text(
               "Till received",
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
             ),
           ],
         ),

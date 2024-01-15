@@ -39,10 +39,10 @@ couponCard({required context, required CouponList coupon}) {
                   quarterTurns: -1,
                   child: Text(
                     coupon.title,
-                    style: TextStyle(
-                      fontSize: Platform.isAndroid ? size_12 : size_14,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontSize: Platform.isAndroid ? size_12 : size_14,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                 ),
                 const SizedBox(
@@ -76,19 +76,24 @@ couponCard({required context, required CouponList coupon}) {
                   children: [
                     Text(
                       coupon.title,
-                      style: TextStyle(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                        fontSize: Platform.isAndroid ? size_10 : size_12,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                            fontSize: Platform.isAndroid ? size_10 : size_12,
+                          ),
                     ),
                     // const SizedBox(
                     //   height: 5,
                     // ),
                     // const Text(
                     //   'Your One-Stop Grocery Destination!',
-                    //   style: TextStyle(color: Colors.white, fontSize:
+                    //   style: Theme.of(context)
+                    // .textTheme
+                    // .titleSmall!
+                    // .copyWith(
+                    //    color: Colors.white, fontSize:
                     //                   Platform.isAndroid ? size_10 : size_12,),
                     // ),
                     const SizedBox(
@@ -97,25 +102,35 @@ couponCard({required context, required CouponList coupon}) {
                     coupon.discountType == "percentage"
                         ? Text(
                             "${coupon.discount}%",
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontSize:
-                                    Platform.isAndroid ? size_16 : size_18,
-                                fontWeight: FontWeight.bold),
+                            style:
+                                Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: Platform.isAndroid
+                                            ? size_16
+                                            : size_18,
+                                        fontWeight: FontWeight.bold),
                           )
                         : Text(
                             "${coupon.maxDiscount}",
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontSize:
-                                    Platform.isAndroid ? size_16 : size_18,
-                                fontWeight: FontWeight.bold),
+                            style:
+                                Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: Platform.isAndroid
+                                            ? size_16
+                                            : size_18,
+                                        fontWeight: FontWeight.bold),
                           ),
                     const SizedBox(
                       height: 15,
@@ -128,24 +143,31 @@ couponCard({required context, required CouponList coupon}) {
                           children: [
                             Text(
                               'Expires',
-                              style: TextStyle(
-                                color: colors.greyText,
-                                fontSize:
-                                    Platform.isAndroid ? size_10 : size_12,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: colors.greyText,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                             ),
                             const SizedBox(
                               height: 5,
                             ),
                             Text(
                               "${parseDate.day} ${getMonth(parseDate.month.toString())} ${parseDate.year}",
-                              style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontSize:
-                                      Platform.isAndroid ? size_12 : size_14),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14),
                             ),
                           ],
                         ),
@@ -177,15 +199,18 @@ couponCard({required context, required CouponList coupon}) {
                                   ), // Replace with your desired icon
                                   Text(
                                     coupon.code,
-                                    style: TextStyle(
-                                      fontSize: Platform.isAndroid
-                                          ? size_14
-                                          : size_16,
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.white
-                                          : Colors.black,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          fontSize: Platform.isAndroid
+                                              ? size_14
+                                              : size_16,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
                                   ),
                                 ],
                               ),

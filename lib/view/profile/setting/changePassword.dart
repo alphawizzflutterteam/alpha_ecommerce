@@ -70,7 +70,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   onTap: () {
                                     Routes.navigateToPreviousScreen(context);
                                   },
-                                  child: const Icon(Icons.arrow_back_ios)),
+                                  child: const Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white,
+                                  )),
                             ),
                             Expanded(
                               child: Padding(
@@ -141,9 +144,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   fontSize:
                                       Platform.isAndroid ? size_12 : size_14,
                                 ),
-                                hintStyle: const TextStyle(
-                                  color: colors.labelColor,
-                                ),
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      color: colors.labelColor,
+                                    ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: const BorderSide(
@@ -214,9 +220,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   fontSize:
                                       Platform.isAndroid ? size_12 : size_14,
                                 ),
-                                hintStyle: const TextStyle(
-                                  color: colors.labelColor,
-                                ),
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      color: colors.labelColor,
+                                    ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: const BorderSide(
@@ -287,9 +296,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   fontSize:
                                       Platform.isAndroid ? size_12 : size_14,
                                 ),
-                                hintStyle: const TextStyle(
-                                  color: colors.labelColor,
-                                ),
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      color: colors.labelColor,
+                                    ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: const BorderSide(

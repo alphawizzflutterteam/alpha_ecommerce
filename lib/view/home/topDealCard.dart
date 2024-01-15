@@ -39,7 +39,8 @@ topDealCard(context, ProductList2 products) {
                 width: double.infinity,
                 child: Center(
                   child: CachedNetworkImage(
-                    imageUrl: products.images.first,
+                    imageUrl: products.thumbnail,
+                    fit: BoxFit.fill,
                     errorWidget: (context, url, error) => ErrorImageWidget(),
                     height: size_70,
                     width: size_70,
@@ -89,7 +90,11 @@ topDealCard(context, ProductList2 products) {
                                     fontSize:
                                         Platform.isAndroid ? size_12 : size_14,
                                   ),
-                          // style: TextStyle(
+                          // style: Theme.of(context)
+                          // .textTheme
+                          // .titleSmall!
+                          // .copyWith(
+
                           //   color: Colors.white,
                           //   fontSize: Platform.isAndroid ? size_12 : size_14,
                           // ),

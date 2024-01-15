@@ -152,7 +152,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                     borderRadius: BorderRadius.circular(8),
                                     child: CachedNetworkImage(
                                       imageUrl: widget.model.image,
-                                      fit: BoxFit.cover,
+                                      fit: BoxFit.contain,
                                       errorWidget: (context, url, error) {
                                         return ErrorImageWidget();
                                       },
@@ -165,15 +165,18 @@ class _VendorDetailsState extends State<VendorDetails> {
                                       MediaQuery.of(context).size.width * 0.26,
                                   child: Text(
                                     widget.model.name + widget.model.name,
-                                    style: TextStyle(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? colors.greyText
-                                          : Colors.black,
-                                      fontSize: Platform.isAndroid
-                                          ? size_13
-                                          : size_15,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? colors.greyText
+                                              : Colors.black,
+                                          fontSize: Platform.isAndroid
+                                              ? size_13
+                                              : size_15,
+                                        ),
                                   ),
                                 ),
                                 Spacer(),
@@ -185,7 +188,14 @@ class _VendorDetailsState extends State<VendorDetails> {
                                       text: !categoryProvider.isFollowing
                                           ? "Follow"
                                           : "Unfollow",
-                                      fontSize: Platform.isAndroid ? 11 : 14,
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
+                                      colorsText:
+                                          Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                       onClick: () {
                                         Map data = {
                                           'shop_id': widget.model.id.toString()
@@ -239,7 +249,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                   ],
                                 ),
                                 VerticalDivider(
-                                    color: Colors.transparent, width: 40),
+                                    color: Colors.transparent, width: size_40),
                                 Column(
                                   children: [
                                     Text(
@@ -272,7 +282,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                         alignment: Alignment.centerRight,
                                         child: Image.asset(
                                           Images.trusted,
-                                          height: 30,
+                                          height: size_30,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -283,7 +293,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                               ],
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: size_10,
                             ),
                             Divider(
                               color: Theme.of(context).brightness ==
@@ -293,7 +303,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                               height: 1,
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: size_10,
                             ),
                             Text(
                               widget.model.address,
@@ -325,7 +335,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: size_20),
                       categoryProvider.isLoading
                           ? appLoader()
                           : Row(
@@ -448,8 +458,11 @@ class _VendorDetailsState extends State<VendorDetails> {
                                                                     Colors.grey,
                                                                 width: 1)),
                                               ),
-                                              style: const TextStyle(
-                                                  color: Colors.white),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                      color: Colors.white),
                                             ),
                                           ),
                                           const SizedBox(

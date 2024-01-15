@@ -31,6 +31,7 @@ class _AllCategoryState extends State<AllCategory> {
   late SearchViewModel searchProvider;
 
   List<Childes> listItem = [];
+  bool isFirstTym = true;
 
   @override
   void initState() {
@@ -51,7 +52,9 @@ class _AllCategoryState extends State<AllCategory> {
   Future<void> getCategory() async {
     await categoryProvider.getCategories(context);
     //listItem = categoryProvider.data[0].childes!;
-    searchText("");
+    setState(() {
+      searchText("");
+    });
   }
 
   void searchText(String text) {
@@ -92,6 +95,11 @@ class _AllCategoryState extends State<AllCategory> {
   Widget build(BuildContext context) {
     categoryProvider = Provider.of<CategoryViewModel>(context);
     searchProvider = Provider.of<SearchViewModel>(context);
+
+    if (searchProvider.selectedIndexFromHome != null && isFirstTym) {
+      isFirstTym = false;
+      searchText("");
+    }
 
     return Stack(
       children: [
@@ -146,14 +154,18 @@ class _AllCategoryState extends State<AllCategory> {
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: Text(
                                 "Explore Categories",
-                                style: TextStyle(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontSize:
-                                        Platform.isAndroid ? size_18 : size_20,
-                                    fontWeight: FontWeight.bold),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: Platform.isAndroid
+                                            ? size_18
+                                            : size_20,
+                                        fontWeight: FontWeight.bold),
                               ),
                             ),
                             Divider(
@@ -167,10 +179,10 @@ class _AllCategoryState extends State<AllCategory> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(
+                                      Container(
                                         height:
                                             MediaQuery.of(context).size.height *
-                                                0.68,
+                                                0.72,
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.32,
@@ -233,13 +245,18 @@ class _AllCategoryState extends State<AllCategory> {
                                                           : Colors.white,
                                                       filled: true,
                                                       hintText: 'Search',
-                                                      hintStyle: TextStyle(
-                                                        color: Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.dark
-                                                            ? Colors.white
-                                                            : Colors.black,
-                                                      ),
+                                                      hintStyle: Theme.of(
+                                                              context)
+                                                          .textTheme
+                                                          .titleSmall!
+                                                          .copyWith(
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? Colors.white
+                                                                : Colors.black,
+                                                          ),
                                                       prefixIcon: Icon(
                                                         Icons.search,
                                                         color: Theme.of(context)
@@ -295,13 +312,17 @@ class _AllCategoryState extends State<AllCategory> {
                                                                       width:
                                                                           1)),
                                                     ),
-                                                    style: TextStyle(
-                                                      color: Theme.of(context)
-                                                                  .brightness ==
-                                                              Brightness.dark
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                    ),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall!
+                                                        .copyWith(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                        ),
                                                   ),
                                                 ),
                                                 const SizedBox(
@@ -342,7 +363,7 @@ class _AllCategoryState extends State<AllCategory> {
                                                                   .data[searchProvider
                                                                       .selectedIndex]
                                                                   .name!,
-                                                              style: TextStyle(
+                                                              style: Theme.of(context).textTheme.titleSmall!.copyWith(
                                                                   color: Theme.of(context)
                                                                               .brightness ==
                                                                           Brightness
@@ -385,7 +406,7 @@ class _AllCategoryState extends State<AllCategory> {
                                                                   mainAxisSpacing:
                                                                       2,
                                                                   childAspectRatio:
-                                                                      0.7,
+                                                                      0.85,
                                                                 ),
                                                                 itemCount:
                                                                     listItem
@@ -467,7 +488,7 @@ class _AllCategoryState extends State<AllCategory> {
             textAlign: TextAlign.left,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
                 fontWeight: FontWeight.bold,
                 fontSize: Platform.isAndroid ? size_10 : size_12,
                 color: isSelected

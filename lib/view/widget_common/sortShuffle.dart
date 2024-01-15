@@ -61,7 +61,7 @@ class _SortClassState extends State<SortClass> {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               child: Text(
                 "Sort by",
-                style: TextStyle(
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Theme.of(context).brightness == Brightness.dark
                         ? Colors.white
                         : Colors.black,
@@ -133,7 +133,7 @@ class _SortClassState extends State<SortClass> {
                     children: [
                       Text(
                         sort[i]['text'],
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             color:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.white

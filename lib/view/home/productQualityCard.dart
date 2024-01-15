@@ -30,7 +30,10 @@ productQualityCard(TopDealsModel modelBanners, BuildContext context) {
                       fontSize: Platform.isAndroid ? size_7 : size_9,
                       color: Colors.black,
                       fontWeight: FontWeight.bold)
-                  // style: TextStyle(fontSize: size_9, fontWeight: FontWeight.bold),
+                  // style: Theme.of(context)
+                  // .textTheme
+                  // .titleSmall!
+                  // .copyWith(fontSize: size_9, fontWeight: FontWeight.bold),
                   )),
         ],
       ),

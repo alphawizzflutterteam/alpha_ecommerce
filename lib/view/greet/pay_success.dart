@@ -56,7 +56,7 @@ class _PaySuccessState extends State<PaySuccess> {
                   padding: EdgeInsets.all(5),
                   child: Text(
                     "Order Placed Successfully",
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: Colors.white,
                         fontSize: 24,
                         fontWeight: FontWeight.bold),
@@ -66,7 +66,7 @@ class _PaySuccessState extends State<PaySuccess> {
                   padding: EdgeInsets.all(5),
                   child: Text(
                     "",
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: colors.lightTextColor,
                         fontSize: Platform.isAndroid ? size_14 : size_16),
                   ),
@@ -75,7 +75,7 @@ class _PaySuccessState extends State<PaySuccess> {
                   padding: EdgeInsets.all(5),
                   child: Text(
                     "",
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: colors.lightTextColor,
                         fontSize: Platform.isAndroid ? size_14 : size_16),
                   ),

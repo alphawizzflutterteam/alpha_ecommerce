@@ -66,7 +66,7 @@ class _WishlistState extends State<Wishlist> {
                       const SizedBox(height: 30),
                       SizedBox(
                         height:
-                            190 * homeProvider.wishlistModel.length.toDouble(),
+                            180 * homeProvider.wishlistModel.length.toDouble(),
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,

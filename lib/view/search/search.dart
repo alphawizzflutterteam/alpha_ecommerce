@@ -45,6 +45,7 @@ class _SearchState extends State<Search> {
     homeProvider = Provider.of<HomeViewModel>(context, listen: false);
     categoryProvider = Provider.of<CategoryViewModel>(context, listen: false);
     _speech = stt.SpeechToText();
+    //searchProvider.clearFilters();
   }
 
   void _listen() async {
@@ -169,11 +170,14 @@ class _SearchState extends State<Search> {
                                   : Colors.white,
                               filled: true,
                               hintText: 'Search',
-                              hintStyle: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black),
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black),
                               prefixIcon: Icon(Icons.search,
                                   color: Theme.of(context).brightness ==
                                           Brightness.dark
@@ -213,12 +217,15 @@ class _SearchState extends State<Search> {
                                   borderSide: const BorderSide(
                                       color: colors.textFieldColor, width: 1)),
                             ),
-                            style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
                           ),
                         ),
                         // InkWell(
@@ -284,22 +291,28 @@ class _SearchState extends State<Search> {
                             ),
                             Text(
                               "No Result Found.",
-                              style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black),
                             ),
                             const SizedBox(
                               height: size_5,
                             ),
                             Text(
                               "Try searching with some other keyword",
-                              style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black),
                             )
                           ],
                         )
@@ -379,10 +392,14 @@ class _SearchState extends State<Search> {
                                 width: 5,
                               ),
                               DefaultTextStyle(
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize:
-                                        Platform.isAndroid ? size_14 : size_16),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Colors.white,
+                                        fontSize: Platform.isAndroid
+                                            ? size_14
+                                            : size_16),
                                 child: Text('Filter'),
                               ),
                             ],
@@ -426,11 +443,14 @@ class _SearchState extends State<Search> {
                                     width: 5,
                                   ),
                                   DefaultTextStyle(
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: Platform.isAndroid
-                                            ? size_14
-                                            : size_16),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color: Colors.white,
+                                            fontSize: Platform.isAndroid
+                                                ? size_14
+                                                : size_16),
                                     child: Text('Category'),
                                   ),
                                 ],
@@ -475,11 +495,14 @@ class _SearchState extends State<Search> {
                                     width: 5,
                                   ),
                                   DefaultTextStyle(
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: Platform.isAndroid
-                                            ? size_14
-                                            : size_16),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color: Colors.white,
+                                            fontSize: Platform.isAndroid
+                                                ? size_14
+                                                : size_16),
                                     child: Text('Sort'),
                                   ),
                                 ],
@@ -529,11 +552,11 @@ class _SearchState extends State<Search> {
                   ),
                   Text(
                     'Allow microphone',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: Platform.isAndroid ? size_18 : size_20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Colors.white,
+                          fontSize: Platform.isAndroid ? size_18 : size_20,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -541,7 +564,7 @@ class _SearchState extends State<Search> {
                   Text(
                     'Lorem Ipsum is simply dummy text',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: colors.greyText,
                         fontSize: Platform.isAndroid ? size_12 : size_14),
                   ),
@@ -576,9 +599,13 @@ class _SearchState extends State<Search> {
                           },
                           child: Text(
                             'CANCEL',
-                            style: TextStyle(
-                              fontSize: Platform.isAndroid ? size_10 : size_12,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  fontSize:
+                                      Platform.isAndroid ? size_10 : size_12,
+                                ),
                           ),
                         ),
                       ),
@@ -606,9 +633,13 @@ class _SearchState extends State<Search> {
                           },
                           child: Text(
                             'ALLOW',
-                            style: TextStyle(
-                              fontSize: Platform.isAndroid ? size_10 : size_12,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  fontSize:
+                                      Platform.isAndroid ? size_10 : size_12,
+                                ),
                           ),
                         ),
                       ),

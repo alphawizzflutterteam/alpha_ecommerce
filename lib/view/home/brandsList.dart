@@ -68,10 +68,13 @@ class BrandsListScreen extends StatelessWidget {
                           Divider(color: Colors.transparent),
                           Text(
                             brandsModel[index].name,
-                            style: TextStyle(
-                                fontSize:
-                                    Platform.isAndroid ? size_14 : size_16,
-                                color: Colors.black),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    fontSize:
+                                        Platform.isAndroid ? size_14 : size_16,
+                                    color: Colors.black),
                           ),
                           Divider(color: Colors.transparent),
                           GestureDetector(
@@ -94,10 +97,14 @@ class BrandsListScreen extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   "View Products",
-                                  style: TextStyle(
-                                      fontSize:
-                                          Platform.isAndroid ? size_8 : size_10,
-                                      color: Colors.white),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          fontSize: Platform.isAndroid
+                                              ? size_8
+                                              : size_10,
+                                          color: Colors.white),
                                 ),
                               ),
                             ),

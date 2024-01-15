@@ -50,13 +50,13 @@ Future<void> logOut(context) async {
             ),
             Text(
               'Logout',
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-                fontSize: Platform.isAndroid ? size_18 : size_20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: Platform.isAndroid ? size_18 : size_20,
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
             const SizedBox(
               height: 10,
@@ -64,7 +64,7 @@ Future<void> logOut(context) async {
             Text(
               'Are you sure, that you want to logout?',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
                       : Colors.black54,
@@ -108,12 +108,13 @@ Future<void> logOut(context) async {
                     },
                     child: Text(
                       'CANCEL',
-                      style: TextStyle(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                        fontSize: Platform.isAndroid ? size_10 : size_12,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                            fontSize: Platform.isAndroid ? size_10 : size_12,
+                          ),
                     ),
                   ),
                 ),
@@ -147,10 +148,10 @@ Future<void> logOut(context) async {
                     },
                     child: Text(
                       'LOGOUT',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: Platform.isAndroid ? size_10 : size_12,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color: Colors.white,
+                            fontSize: Platform.isAndroid ? size_10 : size_12,
+                          ),
                     ),
                   ),
                 ),

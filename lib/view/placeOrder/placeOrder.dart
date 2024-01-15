@@ -75,7 +75,11 @@
 //                               ),
 //                               Text(
 //                                 "25% Off saved so far",
-//                                 style: TextStyle(
+//                                 style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     color: Colors.orange,
 //                                     Platform.isAndroid ? size_14 : size_16,
 //                                     fontWeight: FontWeight.bold),
@@ -109,7 +113,11 @@
 //                                   ),
 //                                   Text(
 //                                     "Maggie Masala",
-//                                     style: TextStyle(
+//                                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                         color: Colors.white, fontSize: Platform.isAndroid ? size_12 : size_14),
 //                                   ),
 //                                   SizedBox(
@@ -119,7 +127,11 @@
 //                                     children: [
 //                                       Text(
 //                                         "\$120.00",
-//                                         style: TextStyle(
+//                                         style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                             color: colors.buttonColor,
 //                                             Platform.isAndroid ? size_14 : size_16),
 //                                       ),
@@ -127,7 +139,11 @@
 //                                         padding: EdgeInsets.only(left: 10),
 //                                         child: Text(
 //                                           "\$200",
-//                                           style: TextStyle(
+//                                           style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                               color: colors.greyText,
 //                                               fontSize: Platform.isAndroid ? size_12 : size_14),
 //                                         ),
@@ -139,7 +155,11 @@
 //                                   ),
 //                                   Text(
 //                                     "190ml",
-//                                     style: TextStyle(
+//                                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                       color: colors.greyText,
 //                                       fontSize: Platform.isAndroid
 //                                           ? size_10
@@ -168,7 +188,11 @@
 //                                         width: 3)),
 //                                 child: const Text(
 //                                   "Save for later",
-//                                   style: TextStyle(
+//                                   style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     color: Colors.white,
 //                                     fontSize:
 //                                         Platform.isAndroid ? size_10 : size_12,
@@ -198,7 +222,11 @@
 //                                           width: 3)),
 //                                   child: const Text(
 //                                     "Remove from wishlist",
-//                                     style: TextStyle(
+//                                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                       color: Colors.white,
 //                                       fontSize: Platform.isAndroid
 //                                           ? size_10
@@ -222,7 +250,11 @@
 //                             padding: EdgeInsets.only(left: 20, top: 20),
 //                             child: Text(
 //                               "Delivery type",
-//                               style: TextStyle(
+//                               style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                   color: Colors.white,
 //                                   fontSize: Platform.isAndroid ? size_12 : size_14,
 //                                   fontWeight: FontWeight.bold),
@@ -273,7 +305,11 @@
 //                                   horizontal: 10, vertical: 10),
 //                               child: Text(
 //                                 "Price Detail",
-//                                 style: TextStyle(
+//                                 style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     color: Colors.white, fontSize: Platform.isAndroid ? size_12 : size_14),
 //                               ),
 //                             ),
@@ -286,7 +322,11 @@
 //                                 children: [
 //                                   Text(
 //                                     "MRP (4 items)",
-//                                     style: TextStyle(
+//                                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                       color: colors.greyText,
 //                                       fontSize: Platform.isAndroid
 //                                           ? size_10
@@ -295,7 +335,11 @@
 //                                   ),
 //                                   Text(
 //                                     "\$480.00",
-//                                     style: TextStyle(
+//                                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                       color: Colors.white,
 //                                       fontSize: Platform.isAndroid
 //                                           ? size_10
@@ -314,7 +358,11 @@
 //                                 children: [
 //                                   Text(
 //                                     "Delivery fee",
-//                                     style: TextStyle(
+//                                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                       color: colors.greyText,
 //                                       fontSize: Platform.isAndroid
 //                                           ? size_10
@@ -323,7 +371,11 @@
 //                                   ),
 //                                   Text(
 //                                     "\$20.00",
-//                                     style: TextStyle(
+//                                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                       color: Colors.white,
 //                                       fontSize: Platform.isAndroid
 //                                           ? size_10
@@ -342,7 +394,11 @@
 //                                 children: [
 //                                   Text(
 //                                     "Discount",
-//                                     style: TextStyle(
+//                                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                       color: colors.greyText,
 //                                       fontSize: Platform.isAndroid
 //                                           ? size_10
@@ -351,7 +407,11 @@
 //                                   ),
 //                                   Text(
 //                                     "\$80.00",
-//                                     style: TextStyle(
+//                                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                       color: Colors.white,
 //                                       fontSize: Platform.isAndroid
 //                                           ? size_10
@@ -377,12 +437,20 @@
 //                                 children: [
 //                                   Text(
 //                                     "Total Amount",
-//                                     style: TextStyle(
+//                                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                         color: Colors.white, fontSize: Platform.isAndroid ? size_12 : size_14),
 //                                   ),
 //                                   Text(
 //                                     "\$600.00",
-//                                     style: TextStyle(
+//                                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                         color: colors.buttonColor,
 //                                         fontSize: Platform.isAndroid ? size_12 : size_14),
 //                                   ),
@@ -404,7 +472,11 @@
 //                                   horizontal: 10, vertical: 10),
 //                               child: Text(
 //                                 "You will save Rs. 80 in this order",
-//                                 style: TextStyle(
+// //                                 style: Theme.of(context)
+//                                                     .textTheme
+//                                                     .titleSmall!
+//                                                     .copyWith(
+                                                      
 //                                     color: Colors.green, fontSize: Platform.isAndroid ? size_12 : size_14),
 //                               ),
 //                             ),
@@ -423,7 +495,11 @@
 //                                   children: [
 //                                     const Text(
 //                                       "Offer & Benefits",
-//                                       style: TextStyle(
+//                                       style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                           color: Colors.white, fontSize: Platform.isAndroid ? size_12 : size_14),
 //                                     ),
 //                                     Row(
@@ -436,7 +512,11 @@
 //                                         const SizedBox(width: 10),
 //                                         const Text(
 //                                           "View Offer",
-//                                           style: TextStyle(
+//                                           style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                               color: Colors.white,
 //                                               fontSize: Platform.isAndroid ? size_12 : size_14),
 //                                         )
@@ -463,7 +543,7 @@
 //                                               const EdgeInsets.symmetric(
 //                                                   vertical: 10, horizontal: 10),
 //                                           hintText: 'Voucher Number',
-//                                           hintStyle: const TextStyle(
+//                                           hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
 //                                               color: colors.greyText),
 //                                           focusedBorder: OutlineInputBorder(
 //                                             borderSide: const BorderSide(
@@ -534,7 +614,11 @@
 //                                     ),
 //                                     Text(
 //                                       "Add Address",
-//                                       style: TextStyle(
+//                                       style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                           color: Colors.white, Platform.isAndroid ? size_14 : size_16),
 //                                     ),
 //                                   ],
@@ -561,7 +645,11 @@
 //                                 children: [
 //                                   const Text(
 //                                     "\$120 - 10",
-//                                     style: TextStyle(
+//                                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                       color: colors.textColor,
 //                                       fontWeight: FontWeight.bold,
 //                                       fontSize: 28,

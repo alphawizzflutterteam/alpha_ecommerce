@@ -87,16 +87,20 @@ class _ChatState extends State<Chat> {
                                   child: Center(
                                     child: Text(
                                       "AC",
-                                      style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : colors.buttonColor,
-                                        fontSize: Platform.isAndroid
-                                            ? size_13
-                                            : size_15,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : colors.buttonColor,
+                                            fontSize: Platform.isAndroid
+                                                ? size_13
+                                                : size_15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -111,12 +115,15 @@ class _ChatState extends State<Chat> {
                                     children: [
                                       Text(
                                         "Alpha Chatbot",
-                                        style: TextStyle(
-                                            fontSize: Platform.isAndroid
-                                                ? size_16
-                                                : size_18,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontSize: Platform.isAndroid
+                                                    ? size_16
+                                                    : size_18,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -168,11 +175,14 @@ class _ChatState extends State<Chat> {
                                   children: [
                                     Text(
                                       homeProvider.chatListt[index].message,
-                                      style: TextStyle(
-                                          fontSize: Platform.isAndroid
-                                              ? size_13
-                                              : size_15,
-                                          color: Colors.white),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              fontSize: Platform.isAndroid
+                                                  ? size_13
+                                                  : size_15,
+                                              color: Colors.white),
                                     ),
                                   ],
                                 ),
@@ -226,19 +236,25 @@ class _ChatState extends State<Chat> {
                             //         ? Colors.white
                             //         : Colors.white,
                             hintText: "Type message",
-                            hintStyle: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black),
                             contentPadding: EdgeInsets.all(8.0),
                             border: InputBorder.none,
                           ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black),
                           textAlign: TextAlign.start,
                         ),
                       ),

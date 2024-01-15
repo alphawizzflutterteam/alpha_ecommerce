@@ -102,9 +102,12 @@ class _ProfileState extends State<Profile> {
                         SizedBox(
                           height: size_200,
                         ),
-                        const Text(
+                        Text(
                           "Please login First to continue",
-                          style: TextStyle(color: Colors.white),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: Colors.white),
                         ),
                         SizedBox(
                           height: size_20,
@@ -140,10 +143,13 @@ class _ProfileState extends State<Profile> {
                             },
                             child: Text(
                               'Login',
-                              style: TextStyle(
-                                fontSize:
-                                    Platform.isAndroid ? size_10 : size_12,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                             ),
                           ),
                         ),
@@ -186,17 +192,17 @@ class _ProfileState extends State<Profile> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    width: 85.0, // Set your desired width
-                                    height: 85.0, // Set your desired height
+                                    width: size_85, // Set your desired width
+                                    height: size_85, // Set your desired height
                                     child: ClipOval(
                                       child: CachedNetworkImage(
                                         imageUrl: image,
-                                        fit: BoxFit.cover,
+                                        fit: BoxFit.fill,
                                         errorWidget: (context, url, error) =>
                                             ClipOval(
                                           child: Image.asset(
                                             Images.defaultProfile,
-                                            fit: BoxFit.cover,
+                                            fit: BoxFit.fill,
                                           ),
                                         ),
                                       ),
@@ -222,17 +228,21 @@ class _ProfileState extends State<Profile> {
                                             children: [
                                               Text(
                                                 name,
-                                                style: TextStyle(
-                                                    color: Theme.of(context)
-                                                                .brightness ==
-                                                            Brightness.dark
-                                                        ? Colors.white
-                                                        : Colors.black,
-                                                    fontSize: Platform.isAndroid
-                                                        ? size_16
-                                                        : size_18,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium!
+                                                    .copyWith(
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_16
+                                                                : size_18,
+                                                        fontWeight:
+                                                            FontWeight.bold),
                                               ),
                                               Container(
                                                 width: 30,
@@ -284,7 +294,11 @@ class _ProfileState extends State<Profile> {
                                               // ),
                                               // Text(
                                               //   loyaltyPoint,
-                                              //   style: TextStyle(
+                                              //   style: Theme.of(context)
+                                              // .textTheme
+                                              // .titleSmall!
+                                              // .copyWith(
+
                                               //     color: Theme.of(context)
                                               //                 .brightness ==
                                               //             Brightness.dark
@@ -313,17 +327,22 @@ class _ProfileState extends State<Profile> {
                                               ),
                                               Text(
                                                 walletBalance,
-                                                style: TextStyle(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                  fontSize: Platform.isAndroid
-                                                      ? size_14
-                                                      : size_16,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_14
+                                                              : size_16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
                                               ),
                                             ],
                                           ),
@@ -366,12 +385,15 @@ class _ProfileState extends State<Profile> {
                                           ),
                                           Text(
                                             "ALPHA Membership",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_10
-                                                  : size_12,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_10
+                                                      : size_12,
+                                                ),
                                           )
                                         ],
                                       ),
@@ -385,10 +407,11 @@ class _ProfileState extends State<Profile> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Divider(color: Colors.transparent, height: 20),
+                              Divider(
+                                  color: Colors.transparent, height: size_20),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: size_10),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -442,15 +465,18 @@ class _ProfileState extends State<Profile> {
                                                   child: Center(
                                                     child: Text(
                                                       "8",
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize:
-                                                            Platform.isAndroid
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall!
+                                                          .copyWith(
+                                                            color: Colors.white,
+                                                            fontSize: Platform
+                                                                    .isAndroid
                                                                 ? size_8
                                                                 : size_10,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
                                                     ),
                                                   ),
                                                 ),
@@ -479,19 +505,23 @@ class _ProfileState extends State<Profile> {
                                                   ),
                                                   Text(
                                                     "My Order",
-                                                    style: TextStyle(
-                                                      color: Theme.of(context)
-                                                                  .brightness ==
-                                                              Brightness.dark
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                      fontSize:
-                                                          Platform.isAndroid
-                                                              ? size_12
-                                                              : size_14,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall!
+                                                        .copyWith(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                          fontSize:
+                                                              Platform.isAndroid
+                                                                  ? size_12
+                                                                  : size_14,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
                                                   ),
                                                 ],
                                               )
@@ -556,17 +586,22 @@ class _ProfileState extends State<Profile> {
                                                 ),
                                                 Text(
                                                   "My Wishlist",
-                                                  style: TextStyle(
-                                                    color: Theme.of(context)
-                                                                .brightness ==
-                                                            Brightness.dark
-                                                        ? Colors.white
-                                                        : Colors.black,
-                                                    fontSize: Platform.isAndroid
-                                                        ? size_12
-                                                        : size_14,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_12
+                                                                : size_14,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
                                                 ),
                                               ],
                                             )
@@ -627,15 +662,18 @@ class _ProfileState extends State<Profile> {
                                           ),
                                           title: Text(
                                             profile[i].profileText,
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontSize: Platform.isAndroid
-                                                    ? size_12
-                                                    : size_14),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_12
+                                                        : size_14),
                                           ),
                                           trailing: Icon(
                                             Icons.arrow_forward_ios_rounded,

@@ -63,7 +63,7 @@ class _WalletSuccessState extends State<WalletSuccess> {
                     padding: EdgeInsets.all(5),
                     child: Text(
                       "Money added to wallet",
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold),
@@ -73,7 +73,7 @@ class _WalletSuccessState extends State<WalletSuccess> {
                     padding: EdgeInsets.all(5),
                     child: Text(
                       "successfully",
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold),
@@ -83,7 +83,7 @@ class _WalletSuccessState extends State<WalletSuccess> {
                     padding: EdgeInsets.only(top: 10, bottom: 5),
                     child: Text(
                       "",
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: Colors.white,
                           fontSize: Platform.isAndroid ? size_14 : size_16),
                     ),
@@ -92,7 +92,7 @@ class _WalletSuccessState extends State<WalletSuccess> {
                     padding: EdgeInsets.all(5),
                     child: Text(
                       "",
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: Colors.white,
                           fontSize: Platform.isAndroid ? size_14 : size_16),
                     ),

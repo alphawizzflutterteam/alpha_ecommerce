@@ -108,7 +108,11 @@
 //                                 ),
 //                                 const Text(
 //                                   'Filter',
-//                                   style: TextStyle(
+//                                   style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                       color: Colors.white, Platform.isAndroid ? size_14 : size_16),
 //                                 )
 //                               ],
@@ -145,7 +149,11 @@
 //                                 ),
 //                                 const Text(
 //                                   'Sort',
-//                                   style: TextStyle(
+//                                   style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                       color: Colors.white, Platform.isAndroid ? size_14 : size_16),
 //                                 )
 //                               ],

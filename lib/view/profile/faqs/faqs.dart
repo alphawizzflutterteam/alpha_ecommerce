@@ -73,7 +73,10 @@ class _FAQsState extends State<FAQs> {
                                   onTap: () {
                                     Routes.navigateToPreviousScreen(context);
                                   },
-                                  child: const Icon(Icons.arrow_back_ios)),
+                                  child: const Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white,
+                                  )),
                             ),
                             Expanded(
                               child: Padding(
@@ -83,11 +86,14 @@ class _FAQsState extends State<FAQs> {
                                 child: Text(
                                   "FAQs",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: Platform.isAndroid
-                                          ? size_18
-                                          : size_20),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontSize: Platform.isAndroid
+                                              ? size_18
+                                              : size_20),
                                 ),
                               ),
                             ),
@@ -132,7 +138,10 @@ class _FAQsState extends State<FAQs> {
                                 collapsedIconColor: Colors.white,
                                 title: Text(
                                   faqProvider.faqList[i].question,
-                                  style: const TextStyle(color: Colors.white),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(color: Colors.white),
                                 ),
                                 children: [
                                   SizedBox(
@@ -149,8 +158,11 @@ class _FAQsState extends State<FAQs> {
                                               alignment: Alignment.centerLeft,
                                               child: Text(
                                                 "${faqProvider.faqList[i].answer}",
-                                                style: const TextStyle(
-                                                    color: Colors.white),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        color: Colors.white),
                                               ),
                                             ),
                                           ),

@@ -20,7 +20,7 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
               color: Theme.of(context).brightness == Brightness.dark
                   ? colors.textFieldBG
                   : Colors.white,
-              height: 420,
+              height: 430,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -46,13 +46,17 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
                           children: [
                             Text(
                               "Category",
-                              style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontSize:
-                                      Platform.isAndroid ? size_16 : size_18),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: Platform.isAndroid
+                                          ? size_16
+                                          : size_18),
                             ),
                           ],
                         ),
@@ -61,7 +65,7 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
                         orderProvider: orderProvider,
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -97,14 +101,18 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
                               },
                               child: Text(
                                 'CANCEL',
-                                style: TextStyle(
-                                  fontSize:
-                                      Platform.isAndroid ? size_10 : size_12,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
                               ),
                             ),
                           ),
@@ -133,14 +141,18 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
                               },
                               child: Text(
                                 'APPLY',
-                                style: TextStyle(
-                                  fontSize:
-                                      Platform.isAndroid ? size_10 : size_12,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.black
-                                      : Colors.white,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.black
+                                          : Colors.white,
+                                    ),
                               ),
                             ),
                           ),
@@ -174,7 +186,7 @@ class _CancelApplyyBButttonState extends State<CancelApplyyBButtton> {
         children: [
           Text(
             "Filter",
-            style: TextStyle(
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.white
                     : Colors.black,
@@ -190,13 +202,16 @@ class _CancelApplyyBButttonState extends State<CancelApplyyBButtton> {
               widget.orderProvider.getOrderList(context);
               Routes.navigateToPreviousScreen(context);
             },
-            child: Text(
-              "Clear filter",
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Clear filter",
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: Platform.isAndroid ? size_10 : size_12,
+                    ),
               ),
             ),
           ),
@@ -292,7 +307,11 @@ class _FilterClassCategoryState extends State<FilterClassCategory> {
                                 //         Text(
                                 //           widget.orderProvider.filters
                                 //               .categories![j].value!,
-                                //           style: TextStyle(
+                                //           style: Theme.of(context)
+                                // .textTheme
+                                // .titleSmall!
+                                // .copyWith(
+
                                 //               fontSize:
                                 //    Platform.isAndroid ? size_10 : size_12,.0, color: Colors.white),
                                 //         ),
@@ -350,15 +369,19 @@ class _FilterClassCategoryState extends State<FilterClassCategory> {
                                             .categories![j].value!,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_10
-                                              : size_12,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_10
+                                                  : size_12,
+                                            ),
                                       ),
                                     ),
                                   ],
@@ -470,15 +493,19 @@ class _FilterClassStatusState extends State<FilterClassStatus> {
                                             .value!,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_10
-                                              : size_12,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_10
+                                                  : size_12,
+                                            ),
                                       ),
                                     ),
                                   ],

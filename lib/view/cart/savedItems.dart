@@ -51,7 +51,7 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                     },
                     child: Text(
                       cartList[widget.i].productName,
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: colors.textColor,
                           fontSize: Platform.isAndroid ? size_12 : size_14),
                     ),
@@ -63,7 +63,7 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                     children: [
                       Text(
                         cartList[widget.i].productPrice,
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             color: colors.buttonColor,
                             fontSize: Platform.isAndroid ? size_14 : size_16),
                       ),
@@ -71,10 +71,16 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                         padding: const EdgeInsets.only(left: 10),
                         child: Text(
                           cartList[widget.i].productDiscount,
-                          style: TextStyle(
-                              decoration: TextDecoration.lineThrough,
-                              color: colors.greyText,
-                              fontSize: Platform.isAndroid ? size_12 : size_14),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  decoration: TextDecoration.lineThrough,
+                                  color: colors.greyText,
+                                  decorationColor: Colors.black,
+                                  decorationThickness: 3,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14),
                         ),
                       ),
                     ],
@@ -84,10 +90,10 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                   ),
                   Text(
                     cartList[widget.i].productWeight,
-                    style: TextStyle(
-                      color: colors.greyText,
-                      fontSize: Platform.isAndroid ? size_10 : size_12,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: colors.greyText,
+                          fontSize: Platform.isAndroid ? size_10 : size_12,
+                        ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -108,10 +114,10 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                     border: Border.all(color: colors.boxBorder)),
                 child: Text(
                   "Remove from Saved Items",
-                  style: TextStyle(
-                    color: colors.textColor,
-                    fontSize: Platform.isAndroid ? size_10 : size_12,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: colors.textColor,
+                        fontSize: Platform.isAndroid ? size_10 : size_12,
+                      ),
                   textAlign: TextAlign.center,
                 ),
               ),

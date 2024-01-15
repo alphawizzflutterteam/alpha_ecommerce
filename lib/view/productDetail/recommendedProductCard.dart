@@ -18,7 +18,7 @@ recommendedProductCard(
     required ProductDetailViewModel provider,
     required String productSlug}) {
   return Container(
-    height: MediaQuery.of(context).size.height * 0.325,
+    height: MediaQuery.of(context).size.height * 0.36,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     child: ListView(
       scrollDirection: Axis.horizontal,
@@ -69,8 +69,9 @@ recommendedProductCard(
                         topRight: Radius.circular(10),
                       ),
                       image: DecorationImage(
-                          image: NetworkImage(model.first.thumbnail),
-                          fit: BoxFit.cover),
+                        image: NetworkImage(model.first.thumbnail),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ),
@@ -89,11 +90,14 @@ recommendedProductCard(
                           children: [
                             Text(
                               "${card.discount}% Off",
-                              style: TextStyle(
-                                color: Colors.orange,
-                                fontSize:
-                                    Platform.isAndroid ? size_10 : size_12,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: Colors.orange,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                             ),
                             LikeButton(
                               onTap: (isLiked) {
@@ -142,13 +146,15 @@ recommendedProductCard(
                         child: Text(
                           card.name,
                           maxLines: 2,
-                          style: TextStyle(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                            fontSize: Platform.isAndroid ? size_10 : size_12,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                         ),
                       ),
                       Padding(
@@ -160,23 +166,31 @@ recommendedProductCard(
                           children: [
                             Text(
                               card.unitPrice,
-                              style: TextStyle(
-                                color: Colors.cyan,
-                                fontSize:
-                                    Platform.isAndroid ? size_10 : size_12,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: Colors.cyan,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                             ),
                             const SizedBox(
                               width: 10,
                             ),
                             Text(
                               card.purchasePrice,
-                              style: TextStyle(
-                                color: colors.lightTextColor,
-                                decoration: TextDecoration.lineThrough,
-                                fontSize:
-                                    Platform.isAndroid ? size_10 : size_12,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: colors.lightTextColor,
+                                    decoration: TextDecoration.lineThrough,
+                                    decorationColor: Colors.black,
+                                    decorationThickness: 3,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                             ),
                           ],
                         ),
@@ -189,15 +203,21 @@ recommendedProductCard(
                           onTap: () {
                             Map<String, String> data;
                             if (!card.isCart) {
+                              try {
+                                Map<String, String> map = {
+                                  card.choiceOptions[0].name:
+                                      card.choiceOptions[0].options[0]
+                                };
+
+                                provider.selectedVariationMap.add(map);
+                              } catch (err) {}
+
                               data = {
                                 'id': card.id.toString(),
                                 'quantity': "1",
-                                'color': card.colorImage.isNotEmpty
-                                    ? "#" + card.colorImage[0].color
+                                'color': card.colorsFormatted.isNotEmpty
+                                    ? card.colorsFormatted[0].code
                                     : "",
-                                'choice_2': card.choiceOptions.isNotEmpty
-                                    ? card.choiceOptions[0].options[0]
-                                    : ""
                               };
                             } else {
                               data = {
@@ -209,7 +229,7 @@ recommendedProductCard(
                                 ? provider.removeFromCart(
                                     data, context, productSlug)
                                 : provider.addToCart(
-                                    data, context, productSlug);
+                                    data, context, productSlug, false);
                           },
                           child: Container(
                             height: 30,
@@ -221,13 +241,17 @@ recommendedProductCard(
                                 border: Border.all(color: colors.boxBorder)),
                             child: Text(
                               card.isCart ? "Remove From Cart" : "Add to Cart",
-                              style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? colors.textColor
-                                      : Colors.black,
-                                  fontSize:
-                                      Platform.isAndroid ? size_10 : size_12),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? colors.textColor
+                                          : Colors.black,
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12),
                               textAlign: TextAlign.center,
                             ),
                           ),

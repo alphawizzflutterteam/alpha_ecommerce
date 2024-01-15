@@ -142,13 +142,17 @@ class _IntroSliderState extends State<IntroSlider> {
                           textScaler: Platform.isAndroid
                               ? TextScaler.linear(0.8)
                               : TextScaler.linear(1),
-                          style: TextStyle(
-                              fontSize: Platform.isAndroid ? size_18 : size_20,
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black,
-                              fontWeight: FontWeight.w500),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  fontSize:
+                                      Platform.isAndroid ? size_18 : size_20,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black,
+                                  fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
@@ -160,7 +164,11 @@ class _IntroSliderState extends State<IntroSlider> {
                     //     width: MediaQuery.of(context).size.width * 0.75,
                     //     child: Text(
                     //       'Lorem Ipsum is simply dummy text of the printing and typesetting',
-                    //       style: TextStyle(
+                    //       style: Theme.of(context)
+                    // .textTheme
+                    // .titleSmall!
+                    // .copyWith(
+
                     //         fontSize: Platform.isAndroid ? size_12 : size_14,
                     //         color:
                     //             Theme.of(context).brightness == Brightness.dark

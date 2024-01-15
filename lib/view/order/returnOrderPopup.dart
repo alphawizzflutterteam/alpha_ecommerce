@@ -35,7 +35,7 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
             ? colors.overlayBG
             : Colors.white,
       ),
-      height: 260,
+      height: 270,
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
       child: Column(
@@ -63,19 +63,22 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
           ),
           Text(
             'Are you sure?',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: Platform.isAndroid ? size_18 : size_20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Colors.white,
+                  fontSize: Platform.isAndroid ? size_18 : size_20,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           const SizedBox(
             height: 10,
           ),
-          const Text(
+          Text(
             'Are you sure, that you want to return Order',
             textAlign: TextAlign.center,
-            style: TextStyle(color: colors.greyText),
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall!
+                .copyWith(color: colors.greyText),
           ),
           const SizedBox(
             height: 20,
@@ -108,12 +111,12 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
                   },
                   child: Text(
                     'CANCEL',
-                    style: TextStyle(
-                      fontSize: Platform.isAndroid ? size_10 : size_12,
-                      color: Theme.of(context).brightness != Brightness.dark
-                          ? colors.overlayBG
-                          : Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontSize: Platform.isAndroid ? size_10 : size_12,
+                          color: Theme.of(context).brightness != Brightness.dark
+                              ? colors.overlayBG
+                              : Colors.white,
+                        ),
                   ),
                 ),
               ),
@@ -142,16 +145,15 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
                         amount: widget.amount,
                         reason: widget.refund_reason,
                         context: context);
-                    Routes.navigateToPreviousScreen(context);
                   },
                   child: Text(
                     'RETURN ORDER',
-                    style: TextStyle(
-                      fontSize: Platform.isAndroid ? size_10 : size_12,
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? colors.overlayBG
-                          : Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontSize: Platform.isAndroid ? size_10 : size_12,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.overlayBG
+                              : Colors.white,
+                        ),
                   ),
                 ),
               ),

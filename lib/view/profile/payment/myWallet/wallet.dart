@@ -90,16 +90,19 @@ class _WalletState extends State<Wallet> {
                                 children: [
                                   Text(
                                     'Available Balance :  $walletBalance',
-                                    style: TextStyle(
-                                      fontSize: Platform.isAndroid
-                                          ? size_12
-                                          : size_14,
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(

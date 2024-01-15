@@ -59,7 +59,7 @@ cartCard(HomeProduct model, BuildContext context) {
                       ),
                       image: DecorationImage(
                           image: NetworkImage(model.thumbnail),
-                          fit: BoxFit.contain),
+                          fit: BoxFit.fill),
                     ),
                   ),
                 ),
@@ -75,10 +75,12 @@ cartCard(HomeProduct model, BuildContext context) {
                         ),
                         child: Text(
                           "${model.discount}% Off",
-                          style: TextStyle(
-                            color: Colors.orange,
-                            fontSize: Platform.isAndroid ? size_10 : size_12,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: Colors.orange,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                         ),
                       ),
                       Padding(
@@ -90,13 +92,15 @@ cartCard(HomeProduct model, BuildContext context) {
                           model.name,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? colors.textColor
-                                    : Colors.black,
-                            fontSize: Platform.isAndroid ? size_10 : size_12,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                         ),
                       ),
                       Padding(
@@ -108,23 +112,31 @@ cartCard(HomeProduct model, BuildContext context) {
                           children: [
                             Text(
                               model.specialPrice,
-                              style: TextStyle(
-                                color: Colors.cyan,
-                                fontSize:
-                                    Platform.isAndroid ? size_10 : size_12,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: Colors.cyan,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                             ),
                             const SizedBox(
                               width: 10,
                             ),
                             Text(
                               model.unitPrice,
-                              style: TextStyle(
-                                color: colors.lightTextColor,
-                                fontSize:
-                                    Platform.isAndroid ? size_10 : size_12,
-                                decoration: TextDecoration.lineThrough,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: colors.lightTextColor,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                    decoration: TextDecoration.lineThrough,
+                                    decorationColor: Colors.black,
+                                    decorationThickness: 3,
+                                  ),
                             ),
                           ],
                         ),

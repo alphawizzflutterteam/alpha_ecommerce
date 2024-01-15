@@ -93,27 +93,35 @@ class _OrderCancelledState extends State<OrderCancelled> {
                                   children: [
                                     Text(
                                       "Order ID - ${detailProvider.detail.orderId}",
-                                      style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: Platform.isAndroid
-                                            ? size_12
-                                            : size_14,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                          ),
                                     ),
                                     Text(
                                       "SOLD BY : ${detailProvider.detail.seller!.name}",
-                                      style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: Platform.isAndroid
-                                            ? size_12
-                                            : size_14,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -167,13 +175,16 @@ class _OrderCancelledState extends State<OrderCancelled> {
                                                   .orderStatusHistory[i]
                                                   .status!,
                                               //  "Ordered Saturday, 6 Oct",
-                                              style: TextStyle(
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                  ),
                                             ),
                                             Text(
                                                 convertTimestampToFormattedDate(
@@ -231,7 +242,11 @@ class _OrderCancelledState extends State<OrderCancelled> {
                             //             CrossAxisAlignment.start,
                             //         children: [
                             //           Text("Ordered Saturday, 6 Oct",
-                            //               style: TextStyle(
+                            //               style: Theme.of(context)
+                            // .textTheme
+                            // .titleSmall!
+                            // .copyWith(
+
                             //                 color:
                             //                     Theme.of(context).brightness ==
                             //                             Brightness.dark
@@ -239,7 +254,11 @@ class _OrderCancelledState extends State<OrderCancelled> {
                             //                         : Colors.black,
                             //               )),
                             //           Text("Changed my mind",
-                            //               style: TextStyle(
+                            //               style: Theme.of(context)
+                            // .textTheme
+                            // .titleSmall!
+                            // .copyWith(
+
                             //                   color: Theme.of(context)
                             //                               .brightness ==
                             //                           Brightness.dark

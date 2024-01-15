@@ -56,6 +56,7 @@ class _CartState extends State<Cart> {
 
   callAddress() async {
     await addressProvider.getAddressList(context);
+    //  setState(() {});
   }
 
   @override
@@ -133,7 +134,11 @@ class _CartState extends State<Cart> {
                                               : size_16,
                                           color: colors.buttonColor,
                                           fontWeight: FontWeight.w600),
-                                  // style: TextStyle(
+                                  // style: Theme.of(context)
+                                  // .textTheme
+                                  // .titleSmall!
+                                  // .copyWith(
+
                                   //     color: Theme.of(context).brightness ==
                                   //             Brightness.dark
                                   //         ? colors.textColor
@@ -147,15 +152,18 @@ class _CartState extends State<Cart> {
                                   ? Center(
                                       child: Text(
                                         "Nothing in cart list...",
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? colors.textColor
                                                     : colors.greyText,
-                                            fontSize: Platform.isAndroid
-                                                ? size_14
-                                                : size_16),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_14
+                                                    : size_16),
                                       ),
                                     )
                                   : Container(
@@ -199,7 +207,11 @@ class _CartState extends State<Cart> {
                                                         : Colors.black,
                                                     fontWeight:
                                                         FontWeight.w600),
-                                            // style: TextStyle(
+                                            // style: Theme.of(context)
+                                            // .textTheme
+                                            // .titleSmall!
+                                            // .copyWith(
+
                                             //     color: Theme.of(context)
                                             //                 .brightness ==
                                             //             Brightness.dark
@@ -244,7 +256,11 @@ class _CartState extends State<Cart> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500),
-                                                        // style: TextStyle(
+                                                        // style: Theme.of(context)
+                                                        // .textTheme
+                                                        // .titleSmall!
+                                                        // .copyWith(
+
                                                         //   color: Theme.of(context)
                                                         //               .brightness ==
                                                         //           Brightness
@@ -357,7 +373,11 @@ class _CartState extends State<Cart> {
                                                           : Colors.black,
                                                       fontWeight:
                                                           FontWeight.w600),
-                                              // style: TextStyle(
+                                              // style: Theme.of(context)
+                                              // .textTheme
+                                              // .titleSmall!
+                                              // .copyWith(
+
                                               //     color: Theme.of(context)
                                               //                 .brightness ==
                                               //             Brightness.dark
@@ -379,33 +399,43 @@ class _CartState extends State<Cart> {
                                                         2
                                                     ? Text(
                                                         "MRP (${cartProvider.model.data.totalItems} item)",
-                                                        style: TextStyle(
-                                                            color: Theme.of(context)
-                                                                        .brightness ==
-                                                                    Brightness
-                                                                        .dark
-                                                                ? colors
-                                                                    .textColor
-                                                                : Colors.black,
-                                                            fontSize: Platform
-                                                                    .isAndroid
-                                                                ? size_10
-                                                                : size_12),
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleSmall!
+                                                            .copyWith(
+                                                                color: Theme.of(
+                                                                                context)
+                                                                            .brightness ==
+                                                                        Brightness
+                                                                            .dark
+                                                                    ? colors
+                                                                        .textColor
+                                                                    : Colors
+                                                                        .black,
+                                                                fontSize: Platform
+                                                                        .isAndroid
+                                                                    ? size_10
+                                                                    : size_12),
                                                       )
                                                     : Text(
                                                         "MRP (${cartProvider.model.data.totalItems} items)",
-                                                        style: TextStyle(
-                                                          color: Theme.of(context)
-                                                                      .brightness ==
-                                                                  Brightness
-                                                                      .dark
-                                                              ? colors.textColor
-                                                              : Colors.black,
-                                                          fontSize:
-                                                              Platform.isAndroid
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleSmall!
+                                                            .copyWith(
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? colors
+                                                                      .textColor
+                                                                  : Colors
+                                                                      .black,
+                                                              fontSize: Platform
+                                                                      .isAndroid
                                                                   ? size_10
                                                                   : size_12,
-                                                        ),
+                                                            ),
                                                       ),
                                                 Text(
                                                   cartProvider.model.data.mrp,
@@ -455,7 +485,11 @@ class _CartState extends State<Cart> {
                                                               : Colors.black54,
                                                           fontWeight:
                                                               FontWeight.w500),
-                                                  // style: TextStyle(
+                                                  // style: Theme.of(context)
+                                                  // .textTheme
+                                                  // .titleSmall!
+                                                  // .copyWith(
+
                                                   //     color: Theme.of(context)
                                                   //                 .brightness ==
                                                   //             Brightness.dark
@@ -582,7 +616,11 @@ class _CartState extends State<Cart> {
                                                               : Colors.black,
                                                           fontWeight:
                                                               FontWeight.w500),
-                                                  // style: TextStyle(
+                                                  // style: Theme.of(context)
+                                                  // .textTheme
+                                                  // .titleSmall!
+                                                  // .copyWith(
+
                                                   //     color: Theme.of(context)
                                                   //                 .brightness ==
                                                   //             Brightness.dark
@@ -641,7 +679,11 @@ class _CartState extends State<Cart> {
                                                               .buttonColor,
                                                           fontWeight:
                                                               FontWeight.w600),
-                                                  // style: TextStyle(
+                                                  // style: Theme.of(context)
+                                                  // .textTheme
+                                                  // .titleSmall!
+                                                  // .copyWith(
+
                                                   //     color: colors.buttonColor,
                                                   //     fontSize: Platform.isAndroid ? size_12 : size_14),
                                                 ),
@@ -662,15 +704,18 @@ class _CartState extends State<Cart> {
                                         children: [
                                           Text(
                                             "Offer & Benefits",
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? colors.textColor
-                                                    : Colors.black,
-                                                fontSize: Platform.isAndroid
-                                                    ? size_12
-                                                    : size_14),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.textColor
+                                                        : Colors.black,
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_12
+                                                        : size_14),
                                           ),
                                           Row(
                                             children: [
@@ -692,16 +737,20 @@ class _CartState extends State<Cart> {
                                                 },
                                                 child: Text(
                                                   "View Offer",
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                                  .brightness ==
-                                                              Brightness.dark
-                                                          ? colors.textColor
-                                                          : Colors.black,
-                                                      fontSize:
-                                                          Platform.isAndroid
-                                                              ? size_12
-                                                              : size_14),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? colors.textColor
+                                                              : Colors.black,
+                                                          fontSize:
+                                                              Platform.isAndroid
+                                                                  ? size_12
+                                                                  : size_14),
                                                 ),
                                               )
                                             ],
@@ -724,18 +773,20 @@ class _CartState extends State<Cart> {
                                               child: TextField(
                                                 controller: cartProvider
                                                     .couponController,
-                                                style: TextStyle(
-                                                    color: Theme.of(context)
-                                                                .brightness ==
-                                                            Brightness.dark
-                                                        ? Colors.white
-                                                        : Colors.black),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? Colors.white
+                                                            : Colors.black),
                                                 cursorColor: Colors.white,
                                                 textAlign: TextAlign.start,
                                                 decoration: InputDecoration(
                                                   contentPadding:
-                                                      const EdgeInsets
-                                                          .symmetric(
+                                                      EdgeInsets.symmetric(
                                                           vertical: 10,
                                                           horizontal: 10),
                                                   hintText: 'Voucher Number',
@@ -794,7 +845,7 @@ class _CartState extends State<Cart> {
                                     ),
                               cartProvider.savedModel.isEmpty
                                   ? SizedBox(
-                                      height: size_200 * 1.35,
+                                      height: size_200 * 0.85,
                                     )
                                   : Container(),
                               cartProvider.savedModel.isNotEmpty
@@ -803,15 +854,18 @@ class _CartState extends State<Cart> {
                                           horizontal: 20, vertical: 10),
                                       child: Text(
                                         "Saved Items",
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? colors.textColor
                                                     : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_12
-                                                : size_14),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_12
+                                                    : size_14),
                                       ),
                                     )
                                   : Container(),
@@ -885,18 +939,23 @@ class _CartState extends State<Cart> {
                                                       },
                                                       child: Text(
                                                         "Add Address",
-                                                        style: TextStyle(
-                                                            color: Theme.of(context)
-                                                                        .brightness ==
-                                                                    Brightness
-                                                                        .dark
-                                                                ? colors
-                                                                    .textColor
-                                                                : Colors.black,
-                                                            fontSize: Platform
-                                                                    .isAndroid
-                                                                ? size_14
-                                                                : size_16),
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleSmall!
+                                                            .copyWith(
+                                                                color: Theme.of(
+                                                                                context)
+                                                                            .brightness ==
+                                                                        Brightness
+                                                                            .dark
+                                                                    ? colors
+                                                                        .textColor
+                                                                    : Colors
+                                                                        .black,
+                                                                fontSize: Platform
+                                                                        .isAndroid
+                                                                    ? size_14
+                                                                    : size_16),
                                                       ),
                                                     )
                                                   : SizedBox(
@@ -908,18 +967,23 @@ class _CartState extends State<Cart> {
                                                       child: Text(
                                                         addressProvider
                                                             .selectedAddress,
-                                                        style: TextStyle(
-                                                            color: Theme.of(context)
-                                                                        .brightness ==
-                                                                    Brightness
-                                                                        .dark
-                                                                ? colors
-                                                                    .textColor
-                                                                : Colors.black,
-                                                            fontSize: Platform
-                                                                    .isAndroid
-                                                                ? size_10
-                                                                : size_12),
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleSmall!
+                                                            .copyWith(
+                                                                color: Theme.of(
+                                                                                context)
+                                                                            .brightness ==
+                                                                        Brightness
+                                                                            .dark
+                                                                    ? colors
+                                                                        .textColor
+                                                                    : Colors
+                                                                        .black,
+                                                                fontSize: Platform
+                                                                        .isAndroid
+                                                                    ? size_10
+                                                                    : size_12),
                                                         maxLines: 1,
                                                         overflow: TextOverflow
                                                             .ellipsis,
@@ -941,13 +1005,17 @@ class _CartState extends State<Cart> {
                                                           child: SizedBox(
                                                             child: Text(
                                                               "(Change)",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .green,
-                                                                  fontSize: Platform
-                                                                          .isAndroid
-                                                                      ? size_13
-                                                                      : size_15),
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .titleSmall!
+                                                                  .copyWith(
+                                                                      color: Colors
+                                                                          .green,
+                                                                      fontSize: Platform
+                                                                              .isAndroid
+                                                                          ? size_13
+                                                                          : size_15),
                                                               maxLines: 1,
                                                               overflow:
                                                                   TextOverflow
@@ -983,17 +1051,22 @@ class _CartState extends State<Cart> {
                                               children: [
                                                 Text(
                                                   cartProvider.model.data.total,
-                                                  style: TextStyle(
-                                                    fontSize: Platform.isAndroid
-                                                        ? size_18
-                                                        : size_20,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Theme.of(context)
-                                                                .brightness ==
-                                                            Brightness.dark
-                                                        ? colors.textColor
-                                                        : Colors.black,
-                                                  ),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_18
+                                                                : size_20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? colors.textColor
+                                                            : Colors.black,
+                                                      ),
                                                 ),
                                                 SizedBox(
                                                     height:

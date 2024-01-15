@@ -32,19 +32,25 @@ refundHistoryCard({required context, required DatumRefund data}) {
                       children: [
                         Text(
                           data.createdAt,
-                          style: TextStyle(
-                            color: colors.textColor,
-                            fontSize: Platform.isAndroid ? size_10 : size_12,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: colors.textColor,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
                           data.amount,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: Platform.isAndroid ? size_18 : size_20),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Colors.white,
+                                  fontSize:
+                                      Platform.isAndroid ? size_18 : size_20),
                         )
                       ],
                     ),
@@ -57,17 +63,17 @@ refundHistoryCard({required context, required DatumRefund data}) {
                 ),
                 Text(
                   "Transaction ID",
-                  style: TextStyle(
-                    color: colors.textColor,
-                    fontSize: Platform.isAndroid ? size_10 : size_12,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: colors.textColor,
+                        fontSize: Platform.isAndroid ? size_10 : size_12,
+                      ),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 Text(
                   data.orderId.toString(),
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: Colors.white,
                       fontSize: Platform.isAndroid ? size_12 : size_14),
                 )

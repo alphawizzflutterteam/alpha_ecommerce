@@ -60,13 +60,17 @@ vendorCard(context, VendorDatum model) {
                             model.name,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
-                            style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black,
-                              fontSize: Platform.isAndroid ? size_13 : size_15,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_13 : size_15,
+                                ),
                           ),
                         ),
                         Spacer(),
@@ -80,13 +84,15 @@ vendorCard(context, VendorDatum model) {
                         ),
                         Text(
                           model.rating,
-                          style: TextStyle(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? colors.textColor
-                                    : Colors.black,
-                            fontSize: Platform.isAndroid ? size_12 : size_14,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
+                                  ),
                         ),
                       ],
                     ),
@@ -95,10 +101,10 @@ vendorCard(context, VendorDatum model) {
                     children: [
                       Text(
                         model.followers,
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             color:
                                 Theme.of(context).brightness == Brightness.dark
-                                    ? colors.textColor
+                                    ? Colors.white
                                     : Colors.black,
                             fontSize: Platform.isAndroid ? size_13 : size_15),
                       ),
@@ -108,12 +114,12 @@ vendorCard(context, VendorDatum model) {
                       ),
                       Text(
                         "Follower",
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             color:
                                 Theme.of(context).brightness == Brightness.dark
-                                    ? colors.textColor
-                                    : Colors.black54,
-                            fontSize: Platform.isAndroid ? size_12 : size_14),
+                                    ? Colors.white
+                                    : Colors.black,
+                            fontSize: Platform.isAndroid ? size_12 : size_12),
                       ),
                     ],
                   ),
@@ -126,9 +132,13 @@ vendorCard(context, VendorDatum model) {
                         padding: EdgeInsets.only(left: 20),
                         child: Text(
                           "View Details",
-                          style: TextStyle(
-                              color: colors.buttonColor,
-                              fontSize: Platform.isAndroid ? 12 : 14),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                  color: colors.buttonColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_12),
                         ),
                       ),
                     ],

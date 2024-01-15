@@ -83,20 +83,26 @@ class _AddMoneyState extends State<AddMoney> {
                                   : Colors.white,
                               labelText: "Amount",
                               hintText: "Amount",
-                              labelStyle: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.greyText
-                                    : Colors.black,
-                                fontSize:
-                                    Platform.isAndroid ? size_12 : size_14,
-                              ),
-                              hintStyle: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.labelColor
-                                    : Colors.black,
-                              ),
+                              labelStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.greyText
+                                        : Colors.black,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
+                                  ),
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.labelColor
+                                        : Colors.black,
+                                  ),
                               focusedErrorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: const BorderSide(
@@ -126,14 +132,17 @@ class _AddMoneyState extends State<AddMoney> {
                                 ),
                               ),
                             ),
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black),
                             //    commonInputDecoration(
                             //       labelText: 'Amount', context: context),
-                            //   style: const TextStyle(color: colors.textColor),
+                            //   style: Theme.of(context).textTheme.titleSmall!.copyWith(color: colors.textColor),
                           ),
                         ),
                       ],

@@ -115,21 +115,27 @@ class _SubscribeState extends State<Subscribe> {
                                       ),
                                       Text(
                                         "Review your detail",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 24,
-                                            color: Colors.white),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 24,
+                                                color: Colors.white),
                                       ),
                                       SizedBox(
                                         height: 10,
                                       ),
                                       Text(
                                         "Your Plans & benefits",
-                                        style: TextStyle(
-                                            fontSize: Platform.isAndroid
-                                                ? size_14
-                                                : size_16,
-                                            color: Colors.white),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontSize: Platform.isAndroid
+                                                    ? size_14
+                                                    : size_16,
+                                                color: Colors.white),
                                       ),
                                       SizedBox(
                                         height: 30,
@@ -208,28 +214,42 @@ class _SubscribeState extends State<Subscribe> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                isYearlyTabSelected
-                                                    ? subscriptionProvider
-                                                        .subscriptionList[0]
-                                                        .yearly[index]
-                                                        .title
-                                                        .toString()
-                                                    : subscriptionProvider
-                                                        .subscriptionList[0]
-                                                        .monthly[index]
-                                                        .title
-                                                        .toString(),
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      20, // Adjust the size as needed
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? Colors.white
-                                                      : Colors
-                                                          .black, // Customize the color
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2.3,
+                                                child: Text(
+                                                  isYearlyTabSelected
+                                                      ? subscriptionProvider
+                                                          .subscriptionList[0]
+                                                          .yearly[index]
+                                                          .title
+                                                          .toString()
+                                                      : subscriptionProvider
+                                                          .subscriptionList[0]
+                                                          .monthly[index]
+                                                          .title
+                                                          .toString(),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                        fontSize: Platform
+                                                                .isAndroid
+                                                            ? size_18
+                                                            : size_20, // Adjust the size as needed
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? Colors.white
+                                                            : Colors
+                                                                .black, // Customize the color
+                                                      ),
                                                 ),
                                               ),
                                               SizedBox(
@@ -238,17 +258,21 @@ class _SubscribeState extends State<Subscribe> {
                                               Text.rich(
                                                 TextSpan(
                                                   text: '', // The dollar sign
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        18, // Adjust the size as needed
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Theme.of(context)
-                                                                .brightness ==
-                                                            Brightness.dark
-                                                        ? Colors.white
-                                                        : Colors
-                                                            .black87, // Customize the color
-                                                  ),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                        fontSize:
+                                                            18, // Adjust the size as needed
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? Colors.white
+                                                            : Colors
+                                                                .black, // Customize the color
+                                                      ),
                                                   children: <TextSpan>[
                                                     TextSpan(
                                                       text: isYearlyTabSelected
@@ -264,35 +288,44 @@ class _SubscribeState extends State<Subscribe> {
                                                               .monthly[index]
                                                               .priceWithCurrency
                                                               .toString(),
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            24, // Adjust the size as needed
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.dark
-                                                            ? Colors.white
-                                                            : Colors
-                                                                .black, //Customize the color
-                                                      ),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall!
+                                                          .copyWith(
+                                                            fontSize:
+                                                                24, // Adjust the size as needed
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? Colors.white
+                                                                : Colors
+                                                                    .black, //Customize the color
+                                                          ),
                                                     ),
                                                     TextSpan(
                                                       text: isYearlyTabSelected
                                                           ? "/ year"
                                                           : ' / month',
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            18, // Adjust the size as needed
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        color: Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.dark
-                                                            ? Colors.white
-                                                            : Colors
-                                                                .black, // Customize the color
-                                                      ),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall!
+                                                          .copyWith(
+                                                            fontSize:
+                                                                18, // Adjust the size as needed
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? Colors.white
+                                                                : Colors
+                                                                    .black, // Customize the color
+                                                          ),
                                                     ),
                                                   ],
                                                 ),
@@ -317,16 +350,20 @@ class _SubscribeState extends State<Subscribe> {
                                                             SizedBox(width: 5),
                                                             Text(
                                                               "CURRENT PLAN",
-                                                              style: TextStyle(
-                                                                  fontSize: Platform
-                                                                          .isAndroid
-                                                                      ? size_10
-                                                                      : size_12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white),
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .titleSmall!
+                                                                  .copyWith(
+                                                                      fontSize: Platform
+                                                                              .isAndroid
+                                                                          ? size_10
+                                                                          : size_12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white),
                                                             ),
                                                           ],
                                                         ),
@@ -345,13 +382,18 @@ class _SubscribeState extends State<Subscribe> {
                                                                       index]
                                                                   .createdAt
                                                                   .toString(),
-                                                          style: TextStyle(
-                                                            fontSize: Platform
-                                                                    .isAndroid
-                                                                ? size_10
-                                                                : size_12,
-                                                            color: Colors.white,
-                                                          ),
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .titleSmall!
+                                                                  .copyWith(
+                                                                    fontSize: Platform
+                                                                            .isAndroid
+                                                                        ? size_10
+                                                                        : size_12,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
                                                         )
                                                       ],
                                                     )
@@ -401,16 +443,20 @@ class _SubscribeState extends State<Subscribe> {
                                                             SizedBox(width: 5),
                                                             Text(
                                                               "CURRENT PLAN",
-                                                              style: TextStyle(
-                                                                  fontSize: Platform
-                                                                          .isAndroid
-                                                                      ? size_10
-                                                                      : size_12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white),
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .titleSmall!
+                                                                  .copyWith(
+                                                                      fontSize: Platform
+                                                                              .isAndroid
+                                                                          ? size_10
+                                                                          : size_12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white),
                                                             ),
                                                           ],
                                                         ),
@@ -429,13 +475,18 @@ class _SubscribeState extends State<Subscribe> {
                                                                       index]
                                                                   .createdAt
                                                                   .toString(),
-                                                          style: TextStyle(
-                                                            fontSize: Platform
-                                                                    .isAndroid
-                                                                ? size_10
-                                                                : size_12,
-                                                            color: Colors.white,
-                                                          ),
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .titleSmall!
+                                                                  .copyWith(
+                                                                    fontSize: Platform
+                                                                            .isAndroid
+                                                                        ? size_10
+                                                                        : size_12,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
                                                         )
                                                       ],
                                                     )
@@ -486,6 +537,15 @@ class _SubscribeState extends State<Subscribe> {
                                                 .subscriptionList[0]
                                                 .monthly[index]
                                                 .description,
+                                        style: {
+                                          "body": Style(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                          ),
+                                        },
                                       )
                                     ],
                                   ),
@@ -518,7 +578,7 @@ class _SubscribeState extends State<Subscribe> {
                 borderRadius: BorderRadius.circular(10))),
         child: Text(
           label,
-          style: TextStyle(
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
               fontWeight: FontWeight.bold,
               fontSize: Platform.isAndroid ? size_16 : size_18,
               color: Colors.white),
@@ -558,7 +618,7 @@ class UpgradePlanWidget extends StatelessWidget {
         },
         child: Text(
           showHeader ? 'SUBSCRIBE NOW' : 'UPGRADE PLAN',
-          style: TextStyle(
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
               fontSize: Platform.isAndroid ? size_10 : size_12,
               fontWeight: FontWeight.bold),
         ),
@@ -621,7 +681,11 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                       children: [
 //                                     //                         Text(
 //                                     //                           "ALPHA GOLD",
-//                                     //                           style: TextStyle(
+//                                     //                           style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     //                             fontSize:
 //                                     //                                 20, // Adjust the size as needed
 //                                     //                             fontWeight:
@@ -637,7 +701,11 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                           TextSpan(
 //                                     //                             text:
 //                                     //                                 '\$', // The dollar sign
-//                                     //                             style: TextStyle(
+//                                     //                             style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     //                               fontSize:
 //                                     //                                   18, // Adjust the size as needed
 //                                     //                               fontWeight:
@@ -648,7 +716,11 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                             children: <TextSpan>[
 //                                     //                               TextSpan(
 //                                     //                                 text: '9.99',
-//                                     //                                 style: TextStyle(
+//                                     //                                 style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     //                                   fontSize:
 //                                     //                                       24, // Adjust the size as needed
 //                                     //                                   fontWeight:
@@ -660,7 +732,11 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                               ),
 //                                     //                               TextSpan(
 //                                     //                                 text: ' / month',
-//                                     //                                 style: TextStyle(
+//                                     //                                 style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     //                                   fontSize:
 //                                     //                                       18, // Adjust the size as needed
 //                                     //                                   fontWeight:
@@ -684,7 +760,11 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                         child: showHeader
 //                                     //                             ? const Text(
 //                                     //                                 'SUBSCRIBE NOW',
-//                                     //                                 style: TextStyle(
+//                                     //                                 style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     //                                     fontSize:
                                 //    Platform.isAndroid ? size_10 : size_12,,
 //                                     //                                     color: Colors
@@ -715,7 +795,11 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                                         child:
 //                                     //                                             const Text(
 //                                     //                                           'CURRENT PLAN',
-//                                     //                                           style: TextStyle(
+//                                     //                                           style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     //                                               fontSize:
 //                                     //                                                   12,
 //                                     //                                               color:
@@ -729,7 +813,11 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                                   ),
 //                                     //                                   const Text(
 //                                     //                                     'Expiring by 02 Feb, 2023',
-//                                     //                                     style: TextStyle(
+//                                     //                                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     //                                         fontSize:
 //                                     //                                             12,
 //                                     //                                         color: Colors
@@ -762,7 +850,11 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                       SizedBox(width: 10),
 //                                     //                       Text(
 //                                     //                         "Lorem Ipsum is simply dummy text",
-//                                     //                         style: TextStyle(
+//                                     //                         style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     //                             color: Colors.white,
 //                                     //                             fontSize:
                                //     Platform.isAndroid ? size_10 : size_12,),
@@ -810,7 +902,11 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //           children: [
 //                                     //             Text(
 //                                     //               "ALPHA BASIC",
-//                                     //               style: TextStyle(
+//                                     //               style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     //                 fontSize:
 //                                     //                     20, // Adjust the size as needed
 //                                     //                 fontWeight: FontWeight.bold,
@@ -824,7 +920,11 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //             Text.rich(
 //                                     //               TextSpan(
 //                                     //                 text: '\$', // The dollar sign
-//                                     //                 style: TextStyle(
+//                                     //                 style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     //                   fontSize:
 //                                     //                       18, // Adjust the size as needed
 //                                     //                   fontWeight: FontWeight.bold,
@@ -834,7 +934,11 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                 children: <TextSpan>[
 //                                     //                   TextSpan(
 //                                     //                     text: '0.00',
-//                                     //                     style: TextStyle(
+//                                     //                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     //                       fontSize:
 //                                     //                           24, // Adjust the size as needed
 //                                     //                       fontWeight: FontWeight.bold,
@@ -844,7 +948,11 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                   ),
 //                                     //                   TextSpan(
 //                                     //                     text: ' / month',
-//                                     //                     style: TextStyle(
+//                                     //                     style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                     //                       fontSize:
 //                                     //                           18, // Adjust the size as needed
 //                                     //                       fontWeight: FontWeight.normal,

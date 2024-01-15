@@ -94,10 +94,13 @@ class _SelectLanguageWidgetState extends State<SelectionCurrencyWidget> {
                         ),
                         Text(
                           widget.label ?? 'Choose your Currency ',
-                          style: const TextStyle(
-                              fontSize: 24,
-                              color: colors.textColor,
-                              fontWeight: FontWeight.bold),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  fontSize: 24,
+                                  color: colors.textColor,
+                                  fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(
                           height: 20,
@@ -123,10 +126,13 @@ class _SelectLanguageWidgetState extends State<SelectionCurrencyWidget> {
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 10),
                             hintText: 'Search',
-                            hintStyle: TextStyle(
-                                color: colors.lightTextColor,
-                                fontSize:
-                                    Platform.isAndroid ? size_14 : size_16),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: colors.lightTextColor,
+                                    fontSize:
+                                        Platform.isAndroid ? size_14 : size_16),
                             prefixIcon: const Icon(
                               Icons.search,
                               color: colors.lightTextColor,
@@ -148,7 +154,10 @@ class _SelectLanguageWidgetState extends State<SelectionCurrencyWidget> {
                                 borderSide: const BorderSide(
                                     color: colors.textFieldColor, width: 1)),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: colors.textColor),
                         ),
                         const SizedBox(
                           height: 20,
@@ -182,11 +191,14 @@ class _SelectLanguageWidgetState extends State<SelectionCurrencyWidget> {
                                           },
                                           title: Text(
                                             "${selected.value[index].symbol} ${selected.value[index].name}",
-                                            style: TextStyle(
-                                                fontSize: Platform.isAndroid
-                                                    ? size_12
-                                                    : size_14,
-                                                color: colors.textColor),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_12
+                                                        : size_14,
+                                                    color: colors.textColor),
                                           ),
                                           trailing:
                                               selected.value[index].name ==

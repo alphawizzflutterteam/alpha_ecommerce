@@ -32,28 +32,20 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   late ProfileViewModel profileProvider;
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController genderController = TextEditingController();
-  final TextEditingController mobileController = TextEditingController();
-  final TextEditingController countryController = TextEditingController();
-  final TextEditingController stateController = TextEditingController();
-  final TextEditingController cityController = TextEditingController();
-  final TextEditingController pinCodeController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String selectedGender = 'Male'; // Default selected gender
   late ProfileModel user;
   // List of gender options
   List<String> genderOptions = ['Male', 'Female', 'Other'];
   void assignTextFields(Datum user) {
-    nameController.text = user.fName;
-    emailController.text = user.email;
-    mobileController.text = user.phone;
+    profileProvider.nameController.text = user.fName;
+    profileProvider.emailController.text = user.email;
+    profileProvider.mobileController.text = user.phone;
     // genderController.text = user.gender;
-    countryController.text = user.country;
-    stateController.text = user.state;
-    cityController.text = user.city;
-    pinCodeController.text = user.zip;
+    profileProvider.countryController.text = user.country;
+    profileProvider.stateController.text = user.state;
+    profileProvider.cityController.text = user.city;
+    profileProvider.pinCodeController.text = user.zip;
     if (user.gender.toLowerCase() == "male") {
       selectedGender = 'Male';
     } else if (user.gender.toLowerCase() == "female") {
@@ -61,6 +53,9 @@ class _EditProfileState extends State<EditProfile> {
     } else {
       selectedGender = 'Other';
     }
+
+    profileProvider.getCountries(
+        context, profileProvider.stateController.text, true);
   }
 
   @override
@@ -112,11 +107,11 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 title: Text(
                   'Choose from Gallery',
-                  style: TextStyle(
-                    color: Theme.of(context).brightness != Brightness.dark
-                        ? colors.darkBG
-                        : Colors.white,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: Theme.of(context).brightness != Brightness.dark
+                            ? colors.darkBG
+                            : Colors.white,
+                      ),
                 ),
                 onTap: () {
                   _pickImage(ImageSource.gallery);
@@ -132,11 +127,11 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 title: Text(
                   'Take a Picture',
-                  style: TextStyle(
-                    color: Theme.of(context).brightness != Brightness.dark
-                        ? colors.darkBG
-                        : Colors.white,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: Theme.of(context).brightness != Brightness.dark
+                            ? colors.darkBG
+                            : Colors.white,
+                      ),
                 ),
                 onTap: () {
                   _pickImage(ImageSource.camera);
@@ -242,13 +237,14 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                           child: TextFormField(
                             keyboardType: TextInputType.text,
-                            maxLength: 50,
                             inputFormatters: [
                               FilteringTextInputFormatter.deny(RegExp(r'\d+')),
                               FilteringTextInputFormatter.allow(
-                                  RegExp(r'[a-zA-Z\s]')), //
+                                  RegExp(r'[a-zA-Z\s]')),
+                              LengthLimitingTextInputFormatter(50),
+//
                             ],
-                            controller: nameController,
+                            controller: profileProvider.nameController,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Theme.of(context).brightness ==
@@ -256,26 +252,35 @@ class _EditProfileState extends State<EditProfile> {
                                   ? colors.textFieldBG
                                   : Colors.white,
                               labelText: translation(context).fullname,
-                              labelStyle: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.labelColor
-                                    : colors.textFieldBG,
-                                fontSize:
-                                    Platform.isAndroid ? size_12 : size_14,
-                              ),
-                              hintStyle: const TextStyle(
-                                color: colors.labelColor,
-                              ),
+                              labelStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.labelColor
+                                        : colors.textFieldBG,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
+                                  ),
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: colors.labelColor,
+                                  ),
                             ),
                             // decoration: commonInputDecoration(
                             //   labelText: translation(context).fullname,
                             // ),
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.textColor
-                                    : Colors.black),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.textColor
+                                        : Colors.black),
                           ),
                         ),
                         Container(
@@ -288,14 +293,17 @@ class _EditProfileState extends State<EditProfile> {
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: TextFormField(
-                            enabled: emailController.text == "" ? true : false,
+                            enabled: profileProvider.emailController.text == ""
+                                ? true
+                                : false,
                             keyboardType: TextInputType.emailAddress,
-                            controller: emailController,
-                            maxLength: 50,
+                            controller: profileProvider.emailController,
+
                             validator: validateEmail,
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.allow(RegExp(
                                   r'[a-zA-Z0-9@.]')), // Allow only alphanumeric characters
+                              LengthLimitingTextInputFormatter(50),
 
                               /// You can add additional formatters if needed
                             ],
@@ -306,26 +314,35 @@ class _EditProfileState extends State<EditProfile> {
                                   ? colors.textFieldBG
                                   : Colors.white,
                               labelText: translation(context).email,
-                              labelStyle: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.labelColor
-                                    : colors.textFieldBG,
-                                fontSize:
-                                    Platform.isAndroid ? size_12 : size_14,
-                              ),
-                              hintStyle: const TextStyle(
-                                color: colors.labelColor,
-                              ),
+                              labelStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.labelColor
+                                        : colors.textFieldBG,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
+                                  ),
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: colors.labelColor,
+                                  ),
                             ),
                             // decoration: commonInputDecoration(
                             //   labelText: translation(context).fullname,
                             // ),
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.textColor
-                                    : Colors.black),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.textColor
+                                        : Colors.black),
                           ),
                         ),
                         Container(
@@ -346,8 +363,10 @@ class _EditProfileState extends State<EditProfile> {
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(RegExp(r'\d+')),
                             ],
-                            controller: mobileController,
-                            enabled: mobileController.text == "" ? true : false,
+                            controller: profileProvider.mobileController,
+                            enabled: profileProvider.mobileController.text == ""
+                                ? true
+                                : false,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Theme.of(context).brightness ==
@@ -355,23 +374,32 @@ class _EditProfileState extends State<EditProfile> {
                                   ? colors.textFieldBG
                                   : Colors.white,
                               labelText: "Phone",
-                              labelStyle: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.labelColor
-                                    : colors.textFieldBG,
-                                fontSize:
-                                    Platform.isAndroid ? size_12 : size_14,
-                              ),
-                              hintStyle: const TextStyle(
-                                color: colors.labelColor,
-                              ),
+                              labelStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.labelColor
+                                        : colors.textFieldBG,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
+                                  ),
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: colors.labelColor,
+                                  ),
                             ),
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.textColor
-                                    : Colors.black),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.textColor
+                                        : Colors.black),
                           ),
                         ),
                         Container(
@@ -420,12 +448,16 @@ class _EditProfileState extends State<EditProfile> {
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: Text(
                                       value,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? colors.textColor
-                                              : Colors.black),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w400,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.textColor
+                                                  : Colors.black),
                                     ),
                                   ),
                                 );
@@ -434,120 +466,206 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ),
                         Container(
+                          width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
-                            color: colors
-                                .textFieldBG, // Change this color to your desired background color
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
+                            border: Border.all(
+                              // Set the border color and width
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.white10
+                                  : colors
+                                      .greyText, // Replace with your desired border color
+                              width:
+                                  2.0, // Replace with your desired border width
+                            ),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          child: TextFormField(
-                            controller: countryController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Theme.of(context).brightness ==
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(left: 12.0, right: 12),
+                            child: DropdownButton<String>(
+                              underline: Container(),
+                              isExpanded: true,
+                              dropdownColor: Theme.of(context).brightness ==
                                       Brightness.dark
-                                  ? colors.textFieldBG
+                                  ? colors.darkBG
                                   : Colors.white,
-                              labelText: 'Country',
-                              labelStyle: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.labelColor
-                                    : colors.textFieldBG,
-                                fontSize:
-                                    Platform.isAndroid ? size_12 : size_14,
-                              ),
-                              hintStyle: const TextStyle(
-                                color: colors.labelColor,
-                              ),
+                              value: profileProvider.selectedCountry,
+                              onChanged: (value) {
+                                setState(() {
+                                  profileProvider.selectedCountry = value!;
+                                  profileProvider.countryController.text =
+                                      value;
+                                  for (int i = 0;
+                                      i < profileProvider.countryList.length;
+                                      i++) {
+                                    if (profileProvider.countryList[i].name ==
+                                        profileProvider.selectedCountry) {
+                                      profileProvider.getStatesList(
+                                          context,
+                                          profileProvider.countryList[i].id
+                                              .toString());
+                                    }
+                                  }
+                                });
+                              },
+                              items: profileProvider.countryList
+                                  .map((country) => DropdownMenuItem<String>(
+                                        value: country.name,
+                                        child: Text(
+                                          country.name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? colors.textColor
+                                                      : Colors.black),
+                                        ),
+                                      ))
+                                  .toList(),
+                              hint: Text('Select a country'),
                             ),
-                            // decoration: commonInputDecoration(
-                            //   labelText: translation(context).fullname,
-                            // ),
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.textColor
-                                    : Colors.black),
                           ),
                         ),
                         Container(
+                          width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
-                            color: colors
-                                .textFieldBG, // Change this color to your desired background color
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
+                            border: Border.all(
+                              // Set the border color and width
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.white10
+                                  : colors
+                                      .greyText, // Replace with your desired border color
+                              width:
+                                  2.0, // Replace with your desired border width
+                            ),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          child: TextFormField(
-                            controller: stateController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Theme.of(context).brightness ==
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(left: 12.0, right: 12),
+                            child: DropdownButton<String>(
+                              underline: Container(),
+                              isExpanded: true,
+                              dropdownColor: Theme.of(context).brightness ==
                                       Brightness.dark
-                                  ? colors.textFieldBG
+                                  ? colors.darkBG
                                   : Colors.white,
-                              labelText: 'State',
-                              labelStyle: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.labelColor
-                                    : colors.textFieldBG,
-                                fontSize:
-                                    Platform.isAndroid ? size_12 : size_14,
-                              ),
-                              hintStyle: const TextStyle(
-                                color: colors.labelColor,
-                              ),
+                              value: profileProvider.selectedState,
+                              onChanged: (value) {
+                                setState(() {
+                                  profileProvider.selectedState = value!;
+                                  profileProvider.stateController.text = value;
+                                  for (int i = 0;
+                                      i < profileProvider.stateList.length;
+                                      i++) {
+                                    if (profileProvider.stateList[i].name ==
+                                        profileProvider.selectedState) {
+                                      profileProvider.getCity(
+                                          context,
+                                          profileProvider.stateList[i].id
+                                              .toString());
+                                    }
+                                  }
+                                });
+                              },
+                              items: profileProvider.stateList
+                                  .map((state) => DropdownMenuItem<String>(
+                                        value: state.name,
+                                        child: Text(
+                                          state.name!,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? colors.textColor
+                                                      : Colors.black),
+                                        ),
+                                      ))
+                                  .toList(),
+                              hint: Text('Select a state'),
                             ),
-                            // decoration: commonInputDecoration(
-                            //   labelText: translation(context).fullname,
-                            // ),
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.textColor
-                                    : Colors.black),
                           ),
                         ),
                         Container(
+                          width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
-                            color: colors
-                                .textFieldBG, // Change this color to your desired background color
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
+                            border: Border.all(
+                              // Set the border color and width
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.white10
+                                  : colors
+                                      .greyText, // Replace with your desired border color
+                              width:
+                                  2.0, // Replace with your desired border width
+                            ),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          child: TextFormField(
-                            controller: cityController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Theme.of(context).brightness ==
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(left: 12.0, right: 12),
+                            child: DropdownButton<String>(
+                              underline: Container(),
+                              isExpanded: true,
+                              dropdownColor: Theme.of(context).brightness ==
                                       Brightness.dark
-                                  ? colors.textFieldBG
+                                  ? colors.darkBG
                                   : Colors.white,
-                              labelText: 'City',
-                              labelStyle: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.labelColor
-                                    : colors.textFieldBG,
-                                fontSize:
-                                    Platform.isAndroid ? size_12 : size_14,
-                              ),
-                              hintStyle: const TextStyle(
-                                color: colors.labelColor,
-                              ),
+                              value: profileProvider.selectedCity,
+                              onChanged: (value) {
+                                setState(() {
+                                  profileProvider.selectedCity = value!;
+                                  profileProvider.cityController.text = value;
+                                });
+                              },
+                              items: profileProvider.cityList
+                                  .map((city) => DropdownMenuItem<String>(
+                                        value: city.name,
+                                        child: Text(
+                                          city.name!,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black),
+                                        ),
+                                      ))
+                                  .toList(),
+                              hint: Text('Select a city'),
                             ),
-                            // decoration: commonInputDecoration(
-                            //   labelText: translation(context).fullname,
-                            // ),
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.textColor
-                                    : Colors.black),
                           ),
                         ),
                         Container(
@@ -564,7 +682,7 @@ class _EditProfileState extends State<EditProfile> {
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(RegExp(r'\d+')),
                             ],
-                            controller: pinCodeController,
+                            controller: profileProvider.pinCodeController,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Theme.of(context).brightness ==
@@ -572,26 +690,35 @@ class _EditProfileState extends State<EditProfile> {
                                   ? colors.textFieldBG
                                   : Colors.white,
                               labelText: 'Pincode',
-                              labelStyle: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.labelColor
-                                    : colors.textFieldBG,
-                                fontSize:
-                                    Platform.isAndroid ? size_12 : size_14,
-                              ),
-                              hintStyle: const TextStyle(
-                                color: colors.labelColor,
-                              ),
+                              labelStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.labelColor
+                                        : colors.textFieldBG,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
+                                  ),
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: colors.labelColor,
+                                  ),
                             ),
                             // decoration: commonInputDecoration(
                             //   labelText: translation(context).fullname,
                             // ),
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.textColor
-                                    : Colors.black),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.textColor
+                                        : Colors.black),
                           ),
                         ),
                       ],
@@ -621,18 +748,25 @@ class _EditProfileState extends State<EditProfile> {
                               onClick: () {
                                 final bool emailValid =
                                     RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
-                                            .hasMatch(emailController.text) &&
-                                        !emailController.text.startsWith('.');
+                                            .hasMatch(profileProvider
+                                                .emailController.text) &&
+                                        !profileProvider.emailController.text
+                                            .startsWith('.');
                                 if (emailValid) {
                                   Map data = {
-                                    "f_name": nameController.text,
-                                    "phone": mobileController.text,
+                                    "f_name":
+                                        profileProvider.nameController.text,
+                                    "phone":
+                                        profileProvider.mobileController.text,
                                     "password": "",
                                     "gender": selectedGender,
-                                    "country": countryController.text,
-                                    "state": stateController.text,
-                                    "city": cityController.text,
-                                    "pin_code": pinCodeController.text
+                                    "country":
+                                        profileProvider.countryController.text,
+                                    "state":
+                                        profileProvider.stateController.text,
+                                    "city": profileProvider.cityController.text,
+                                    "pin_code":
+                                        profileProvider.pinCodeController.text
                                   };
                                   print(data);
                                   profileProvider.updateProfile(context, data);

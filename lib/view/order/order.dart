@@ -165,12 +165,15 @@ class _OrderState extends State<Order> {
                                       : Colors.white,
                                   filled: true,
                                   hintText: 'Search',
-                                  hintStyle: TextStyle(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                   prefixIcon: Icon(
                                     Icons.search,
                                     color: Theme.of(context).brightness ==
@@ -199,12 +202,15 @@ class _OrderState extends State<Order> {
                                       borderSide: const BorderSide(
                                           color: Colors.grey, width: 1)),
                                 ),
-                                style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
                               ),
                             ),
                             Container(
@@ -239,14 +245,18 @@ class _OrderState extends State<Order> {
                                     ),
                                     Text(
                                       'Filter',
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_14
-                                              : size_16),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_14
+                                                  : size_16),
                                     )
                                   ],
                                 ),
@@ -263,14 +273,18 @@ class _OrderState extends State<Order> {
                                   padding: const EdgeInsets.only(top: 30.0),
                                   child: Text(
                                     "No order found",
-                                    style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: Platform.isAndroid
-                                            ? size_16
-                                            : size_18),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_16
+                                                : size_18),
                                   ),
                                 ))
                               : SizedBox(
@@ -302,6 +316,15 @@ class _OrderState extends State<Order> {
                                                 .navigateToOrderDetailDeliveredDetailScreen(
                                                     context,
                                                     data.orderId.toString());
+                                          } else if (data.orderStatus!
+                                                  .toLowerCase() ==
+                                              "returned") {
+                                            Routes
+                                                .navigateToOrderReturnedDetailScreen(
+                                                    context,
+                                                    data.id.toString(),
+                                                    data.product!.thumbnail!,
+                                                    data.product!.name!);
                                           } else {
                                             print("here");
 
@@ -370,7 +393,7 @@ class _OrderState extends State<Order> {
                                             leading: CachedNetworkImage(
                                               imageUrl:
                                                   data.product!.thumbnail!,
-                                              fit: BoxFit.cover,
+                                              fit: BoxFit.contain,
                                               errorWidget:
                                                   (context, url, error) {
                                                 return Image.asset(
@@ -399,16 +422,21 @@ class _OrderState extends State<Order> {
                                               data.product!.name!,
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                  fontSize: Platform.isAndroid
-                                                      ? size_10
-                                                      : size_12),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_10
+                                                              : size_12),
                                             ),
                                             subtitle: Column(
                                               mainAxisSize: MainAxisSize.min,
@@ -421,16 +449,20 @@ class _OrderState extends State<Order> {
                                                 Text(
                                                   data.product!.shop!.name!,
                                                   maxLines: 1,
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                                  .brightness ==
-                                                              Brightness.dark
-                                                          ? colors.greyText
-                                                          : Colors.black,
-                                                      fontSize:
-                                                          Platform.isAndroid
-                                                              ? size_8
-                                                              : size_10),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? colors.greyText
+                                                              : Colors.black,
+                                                          fontSize:
+                                                              Platform.isAndroid
+                                                                  ? size_8
+                                                                  : size_10),
                                                 ),
                                                 SizedBox(height: 10),
                                                 Container(
@@ -452,11 +484,15 @@ class _OrderState extends State<Order> {
                                                   ),
                                                   child: Text(
                                                     data.orderStatus!,
-                                                    style: TextStyle(
-                                                        color: getTextColor(
-                                                            data.orderStatus!),
-                                                        fontSize:
-                                                            Platform.isAndroid
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall!
+                                                        .copyWith(
+                                                            color: getTextColor(
+                                                                data
+                                                                    .orderStatus!),
+                                                            fontSize: Platform
+                                                                    .isAndroid
                                                                 ? size_10
                                                                 : size_12),
                                                   ),
@@ -519,7 +555,7 @@ class _OrderState extends State<Order> {
 //                                                 0.5,
                                             // child: Text(
                                             //   data.product!.name!,
-                                            //   style: const TextStyle(
+                                            //   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                                             //       color: Colors.white,
                                             //       fontSize: Platform.isAndroid ? size_12 : size_14),
                                             // ),
@@ -534,7 +570,7 @@ class _OrderState extends State<Order> {
 //                                                 0.5,
                                             // child: Text(
                                             //   data.product!.shop!.name!,
-                                            //   style: const TextStyle(
+                                            //   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                                             //       color: colors.greyText,
                                             //       fontSize:
                                   //  Platform.isAndroid ? size_10 : size_12,),
@@ -561,7 +597,11 @@ class _OrderState extends State<Order> {
                                           //   ),
                                             // child: Text(
                                             //   data.orderStatus!,
-                                            //   style: TextStyle(
+                                            //   style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
                                             //       color: getTextColor(
                                             //           data.orderStatus!),
                                             //       fontSize:

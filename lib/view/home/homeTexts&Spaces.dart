@@ -9,7 +9,7 @@ productForUText(BuildContext ctx) {
     alignment: Alignment.centerLeft,
     child: Text(
       "Product for you",
-      style: TextStyle(
+      style: Theme.of(ctx).textTheme.titleSmall!.copyWith(
           fontWeight: FontWeight.bold,
           fontSize: Platform.isAndroid ? size_14 : size_16,
           color: Theme.of(ctx).brightness == Brightness.dark

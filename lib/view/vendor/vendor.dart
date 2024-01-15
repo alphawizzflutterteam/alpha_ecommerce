@@ -80,13 +80,17 @@ class _VendorState extends State<Vendor> {
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
                           "Vendor List",
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black,
-                              fontSize: Platform.isAndroid ? size_16 : size_18,
-                              fontWeight: FontWeight.bold),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_16 : size_18,
+                                  fontWeight: FontWeight.bold),
                         ),
                       ),
                       Divider(color: Colors.transparent, height: 5),

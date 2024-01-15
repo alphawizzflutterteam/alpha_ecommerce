@@ -48,7 +48,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
           alignment: Alignment.centerLeft,
           child: Text(
             widget.label,
-            style: const TextStyle(
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
                 fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
@@ -100,7 +100,10 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                 borderSide:
                     const BorderSide(color: colors.textFieldColor, width: 1)),
           ),
-          style: const TextStyle(color: Colors.white),
+          style: Theme.of(context)
+              .textTheme
+              .titleSmall!
+              .copyWith(color: Colors.white),
         ),
         const SizedBox(
           height: 20,

@@ -106,8 +106,9 @@ class AddressViewModel with ChangeNotifier {
         notifyListeners();
 
         var id = SharedPref.shared.pref?.getString(PrefKeys.billingAddressID);
+        print(id.toString() + "BILLING ID");
 
-        if (id == "0" || id == "") {
+        if (id == "0" || id == "" || id == null) {
           try {
             setselected(0, addressList[0], false, context);
 
@@ -223,13 +224,17 @@ class AddressViewModel with ChangeNotifier {
           .then((value) async {
         Utils.showFlushBarWithMessage("Alert", value.message, context);
 
-        getAddressList(context);
-        clearTextt();
-        setLoading(false);
-        Future.delayed(Duration(seconds: 2), () {
-          Routes.navigateToPreviousScreen(context);
-          // Routes.navigateToPreviousScreen(context);
-        });
+        print(value.message);
+
+        if (value.status) {
+          getAddressList(context);
+          clearTextt();
+          setLoading(false);
+          Future.delayed(Duration(seconds: 2), () {
+            Routes.navigateToPreviousScreen(context);
+            // Routes.navigateToPreviousScreen(context);
+          });
+        }
       }).onError((error, stackTrace) {
         setLoading(false);
         print(error.toString());
@@ -443,6 +448,7 @@ class AddressViewModel with ChangeNotifier {
     cityController.text = placemark[0].locality!;
     countryController.text = placemark[0].country!;
     houseController.text = placemark[0].name!;
+
     // Mapping of Indian state abbreviations to full names
     Map<String, String> stateAbbreviationMap = {
       'AP': 'Andhra Pradesh',
@@ -485,6 +491,10 @@ class AddressViewModel with ChangeNotifier {
 
     stateController.text =
         stateAbbreviationMap[placemark[0].administrativeArea] ?? '';
+
+    print(stateController.text + "STATE NAME");
+
+    getCountries(context, stateController.text, true);
 
     print(
         "${placemark[0].street}, ${placemark[0].subLocality}, ${placemark[0].locality}");

@@ -77,11 +77,14 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
                                 child: Text(
                                   "Referall Member",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: Platform.isAndroid
-                                          ? size_18
-                                          : size_20),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontSize: Platform.isAndroid
+                                              ? size_18
+                                              : size_20),
                                 ),
                               ),
                             ),
@@ -131,15 +134,18 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
                                         child: Center(
                                           child: Text(
                                             "AS",
-                                            style: TextStyle(
-                                              color: Colors
-                                                  .white, // Set the text color
-                                              fontSize: Platform.isAndroid
-                                                  ? size_12
-                                                  : size_14, // Set the text size
-                                              fontWeight: FontWeight
-                                                  .bold, // Set the text weight
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  color: Colors
+                                                      .white, // Set the text color
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14, // Set the text size
+                                                  fontWeight: FontWeight
+                                                      .bold, // Set the text weight
+                                                ),
                                           ),
                                         ),
                                       ),
@@ -153,15 +159,18 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
                                           Text(
                                             widget.referralList[i].description
                                                 .toString(),
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontSize: Platform.isAndroid
-                                                    ? size_12
-                                                    : size_14),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_12
+                                                        : size_14),
                                           ),
                                           SizedBox(
                                             height: 5,
@@ -169,27 +178,35 @@ class _ViewAllReferallState extends State<ViewAllReferall> {
                                           Text(
                                               widget.referralList[i].createdAt
                                                   .toString(),
-                                              style: TextStyle(
-                                                color: colors.lightTextColor,
-                                                fontSize: Platform.isAndroid
-                                                    ? size_10
-                                                    : size_12,
-                                              ))
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                    color:
+                                                        colors.lightTextColor,
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_10
+                                                        : size_12,
+                                                  ))
                                         ],
                                       ),
                                     ],
                                   ),
                                   Text(
                                     widget.referralList[i].balance.toString(),
-                                    style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: Platform.isAndroid
-                                            ? size_12
-                                            : size_14,
-                                        fontWeight: FontWeight.bold),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                            fontWeight: FontWeight.bold),
                                   )
                                 ],
                               ),

@@ -10,7 +10,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 secondCategoryCard(CategoryList model, BuildContext context,
-    SearchViewModel searchProvider, int index) {
+    SearchViewModel searchProvider, int index, List<CategoryList> model2) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 6),
     child: InkWell(
@@ -19,7 +19,11 @@ secondCategoryCard(CategoryList model, BuildContext context,
       onTap: () {
         searchProvider.categoryId = model.id.toString();
         searchProvider.isHome = false;
-        searchProvider.selectedIndexFromHome = index;
+        for (int i = 0; i < model2.length; i++) {
+          if (model.id == model2[i].id) {
+            searchProvider.selectedIndexFromHome = i;
+          }
+        }
         Routes.navigateToDashboardScreen(context, 1);
         // searchProvider.getProductsListNew(context, "25", "1");
         // Routes.navigateToSearchScreen(context);
@@ -34,7 +38,7 @@ secondCategoryCard(CategoryList model, BuildContext context,
                 child: ClipOval(
                   child: CachedNetworkImage(
                     imageUrl: model.icon!,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                     errorWidget: (context, url, error) =>
                         ClipOval(child: ErrorImageWidget()),
                   ),
@@ -63,7 +67,7 @@ secondCategoryCard(CategoryList model, BuildContext context,
 }
 
 Row secondCategoryListCard(BuildContext context, List<CategoryList> model,
-        SearchViewModel searchProvider) =>
+        SearchViewModel searchProvider, List<CategoryList> model2) =>
     Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -72,7 +76,7 @@ Row secondCategoryListCard(BuildContext context, List<CategoryList> model,
             children: List.generate(
               model.length > 10 ? 10 : model.length,
               (index) => secondCategoryCard(
-                  model[index], context, searchProvider, index),
+                  model[index], context, searchProvider, index, model2),
             ),
           ),
         )

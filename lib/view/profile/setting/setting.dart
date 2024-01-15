@@ -137,15 +137,18 @@ class _SettingState extends State<Setting> {
                                       ),
                                       title: Text(
                                         settings[i].settingName,
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : colors.bodyBackgroundDark,
-                                            fontSize: Platform.isAndroid
-                                                ? size_12
-                                                : size_14),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_12
+                                                    : size_14),
                                       ),
                                       trailing: const Icon(
                                         Icons.arrow_forward_ios_rounded,

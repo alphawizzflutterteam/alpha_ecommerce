@@ -32,22 +32,28 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
                       children: [
                         Text(
                           data.createdAt,
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 165, 165, 165),
-                            fontSize: Platform.isAndroid ? size_10 : size_12,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: Color.fromARGB(255, 165, 165, 165),
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                         ),
                         const SizedBox(
                           height: 15,
                         ),
                         Text(
                           data.orderAmount,
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: Platform.isAndroid ? size_18 : size_20),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_18 : size_20),
                         )
                       ],
                     ),
@@ -66,22 +72,28 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
                       children: [
                         Text(
                           "Order ID",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 165, 165, 165),
-                            fontSize: Platform.isAndroid ? size_10 : size_12,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: Color.fromARGB(255, 165, 165, 165),
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
                           data.orderId.toString(),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: Platform.isAndroid ? size_12 : size_14),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14),
                         )
                       ],
                     ),
@@ -90,22 +102,28 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
                       children: [
                         Text(
                           "Transaction ID",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 165, 165, 165),
-                            fontSize: Platform.isAndroid ? size_10 : size_12,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: Color.fromARGB(255, 165, 165, 165),
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
                           data.transactionId,
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: Platform.isAndroid ? size_12 : size_14),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14),
                         )
                       ],
                     ),
@@ -150,7 +168,7 @@ Widget buildCustom(bool isSuccess, String status) {
     ),
     child: Text(
       status,
-      style: TextStyle(color: textColor),
+      // style: Theme.of(context).textTheme.titleSmall!.copyWith(color: textColor),
     ),
   );
 }

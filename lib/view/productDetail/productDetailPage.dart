@@ -146,17 +146,17 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     end: Alignment.bottomCenter,
                                   ),
                                 ),
-                                height: MediaQuery.of(context).size.height * .3,
+                                //  height: MediaQuery.of(context).size.height * .3,
                                 child: Column(
                                   children: [
                                     CarouselSlider(
                                       items: productModel.imageList.map((item) {
-                                        return SizedBox(
-                                          height: size_120,
+                                        return Container(
+                                          //  height: size_120,
                                           width: double.infinity,
                                           child: Image.network(
                                             item,
-                                            fit: BoxFit.cover,
+                                            fit: BoxFit.contain,
                                             errorBuilder: (context, error,
                                                     stackTrace) =>
                                                 Image.asset(
@@ -166,6 +166,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       }).toList(),
                                       options: CarouselOptions(
                                         enableInfiniteScroll: false,
+                                        viewportFraction: 1,
                                         autoPlay: true,
                                         enlargeCenterPage: true,
                                         onPageChanged: (index, reason) {
@@ -219,12 +220,15 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 children: [
                                   Text(
                                     "${productModel.model.first.discount} %",
-                                    style: TextStyle(
-                                        color: Colors.orange,
-                                        fontSize: Platform.isAndroid
-                                            ? size_14
-                                            : size_16,
-                                        fontWeight: FontWeight.bold),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color: Colors.orange,
+                                            fontSize: Platform.isAndroid
+                                                ? size_14
+                                                : size_16,
+                                            fontWeight: FontWeight.bold),
                                   ),
                                   LikeButton(
                                     onTap: (isLiked) {
@@ -288,15 +292,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       productModel.model.first.name,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_14
-                                              : size_16,
-                                          fontWeight: FontWeight.bold),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_14
+                                                  : size_16,
+                                              fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   productModel.model.first.rating.isNotEmpty
@@ -318,16 +326,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                           .substring(0, 3) ??
                                                       ""
                                                   : "",
-                                              style: TextStyle(
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? colors.textColor
-                                                    : Colors.black,
-                                                fontSize: Platform.isAndroid
-                                                    ? size_12
-                                                    : size_14,
-                                              ),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.textColor
+                                                        : Colors.black,
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_12
+                                                        : size_14,
+                                                  ),
                                             ),
                                           ],
                                         )
@@ -345,15 +356,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 children: [
                                   Text(
                                     productModel.selectedPrice,
-                                    style: TextStyle(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontSize: Platform.isAndroid
-                                          ? size_16
-                                          : size_18,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: Platform.isAndroid
+                                              ? size_16
+                                              : size_18,
+                                        ),
                                   ),
 
                                   const SizedBox(
@@ -361,19 +375,29 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   ),
                                   Text(
                                     productModel.model.first.unitPrice,
-                                    style: TextStyle(
-                                      color: colors.lightTextColor,
-                                      fontSize: Platform.isAndroid
-                                          ? size_10
-                                          : size_12,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: colors.lightTextColor,
+                                          fontSize: Platform.isAndroid
+                                              ? size_10
+                                              : size_12,
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                          decorationColor: Colors.black,
+                                          decorationThickness: 3,
+                                        ),
                                   ),
                                   // Row(
                                   //   children: [
                                   //     Text(
                                   //       "or Pay \$${productModel.model.first.amount_after_coin_use} + ",
-                                  //       style: TextStyle(
+                                  // //       style: Theme.of(context)
+                                  //                   .textTheme
+                                  //                   .titleSmall!
+                                  //                   .copyWith(
+
                                   //         color: Theme.of(context).brightness ==
                                   //                 Brightness.dark
                                   //             ? Colors.white
@@ -394,7 +418,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   //     Text(
                                   //       productModel.model.first
                                   //           .use_coins_with_amount,
-                                  //       style: TextStyle(
+                                  //       style: Theme.of(context)
+                                  // .textTheme
+                                  // .titleSmall!
+                                  // .copyWith(
+
                                   //         color: Theme.of(context)
                                   //                     .brightness ==
                                   //                 Brightness.dark
@@ -406,7 +434,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   //   ],
                                   // ),
                                   //  ],
-                                  //  ),
                                 ],
                               ),
                             ),
@@ -419,12 +446,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                         horizontal: 20.0),
                                     child: Text(
                                       "Colors",
-                                      style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                          ),
                                     ),
                                   )
                                 : Container(),
@@ -542,7 +573,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                               overflow:
                                                                   TextOverflow
                                                                       .ellipsis,
-                                                              style: TextStyle(
+                                                              style: Theme.of(context).textTheme.titleSmall!.copyWith(
                                                                   color: Theme.of(context)
                                                                               .brightness ==
                                                                           Brightness
@@ -600,13 +631,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           Text(
                                             productModel.model.first
                                                 .choiceOptions[i].title,
-                                            style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                ),
                                           ),
                                           const SizedBox(
                                             height: 10,
@@ -738,39 +772,33 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                                         width: 2)
                                                                     : Border.all(color: isValuePresent(productModel.selectedVariationMap, productModel.model.first.choiceOptions[i].options[j]) ? colors.buttonColor : colors.lightBorder, width: 2),
                                                               ),
-                                                              child: SizedBox(
-                                                                width: productModel
-                                                                            .model
-                                                                            .first
-                                                                            .choiceOptions[i]
-                                                                            .options[j]
-                                                                            .length <
-                                                                        10
-                                                                    ? size_30
-                                                                    : size_100,
-                                                                child: Center(
-                                                                  child: Text(
-                                                                    productModel
-                                                                        .model
-                                                                        .first
-                                                                        .choiceOptions[
-                                                                            i]
-                                                                        .options[j],
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    style: TextStyle(
-                                                                        color: Theme.of(context).brightness == Brightness.dark
-                                                                            ? const Color.fromARGB(
-                                                                                255,
-                                                                                214,
-                                                                                208,
-                                                                                208)
-                                                                            : Colors
-                                                                                .black,
-                                                                        fontSize:
-                                                                            size_12),
-                                                                  ),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  productModel
+                                                                      .model
+                                                                      .first
+                                                                      .choiceOptions[
+                                                                          i]
+                                                                      .options[
+                                                                          j]
+                                                                      .trim(),
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                                                      color: Theme.of(context).brightness ==
+                                                                              Brightness
+                                                                                  .dark
+                                                                          ? const Color
+                                                                              .fromARGB(
+                                                                              255,
+                                                                              214,
+                                                                              208,
+                                                                              208)
+                                                                          : Colors
+                                                                              .black,
+                                                                      fontSize:
+                                                                          size_12),
                                                                 ),
                                                               ),
                                                             ),
@@ -827,16 +855,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                               width: 1)),
                                       child: Text(
                                         "Save for later",
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                            fontWeight: FontWeight.bold),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                                fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   ),
@@ -866,7 +897,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   //             width: 1)),
                                   //     child: Text(
                                   //       "View 360",
-                                  //       style: TextStyle(
+                                  //       style: Theme.of(context)
+                                  // .textTheme
+                                  // .titleSmall!
+                                  // .copyWith(
+
                                   //           color:
                                   //               Theme.of(context).brightness ==
                                   //                       Brightness.dark
@@ -899,15 +934,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       children: [
                                         Text(
                                           "Description",
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_12
-                                                  : size_14),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14),
                                         ),
                                         const SizedBox(
                                           height: 10,
@@ -915,16 +953,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                         Text(
                                           productModel
                                               .model.first.metaDescription,
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? colors.textColor
                                                     : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                       ],
                                     ),
@@ -937,7 +978,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             //     children: [
                             //       Text(
                             //         "Use pincode to check delivery info",
-                            //         style: TextStyle(
+                            //         style: Theme.of(context)
+                            // .textTheme
+                            // .titleSmall!
+                            // .copyWith(
+
                             //           color: Theme.of(context).brightness ==
                             //                   Brightness.dark
                             //               ? Colors.white
@@ -965,7 +1010,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             //                   LengthLimitingTextInputFormatter(
                             //                       6)
                             //                 ],
-                            //                 style: TextStyle(
+                            //                 style: Theme.of(context)
+                            // .textTheme
+                            // .titleSmall!
+                            // .copyWith(
+
                             //                   color: Theme.of(context)
                             //                               .brightness ==
                             //                           Brightness.dark
@@ -984,7 +1033,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             //                           vertical: 10,
                             //                           horizontal: 15),
                             //                   hintText: 'Enter pincode',
-                            //                   hintStyle: TextStyle(
+                            //                   hintstyle: Theme.of(context)
+                            // .textTheme
+                            // .titleSmall!
+                            // .copyWith(
+
                             //                       color: Theme.of(context)
                             //                                   .brightness ==
                             //                               Brightness.dark
@@ -1060,12 +1113,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                         horizontal: 20, vertical: 10),
                                     child: Text(
                                       "Recommended Product",
-                                      style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                          ),
                                     ),
                                   ),
                             productModel.relatedProducts.isEmpty
@@ -1083,12 +1140,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                         horizontal: 20, vertical: 0),
                                     child: Text(
                                       "Reviews",
-                                      style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                          ),
                                     ),
                                   )
                                 : Container(),
@@ -1171,9 +1232,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                             'quantity': "1",
                                             'color': productModel.model.first
                                                     .colorsFormatted.isNotEmpty
-                                                ? "#" +
-                                                    productModel
-                                                        .selectedColorCode
+                                                ? productModel.selectedColorCode
                                                 : "",
                                           };
                                         } else {
@@ -1187,8 +1246,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                         productModel.isCart
                                             ? productModel.removeFromCart(
                                                 data, context, widget.slug)
-                                            : productModel.addToCart(
-                                                data, context, widget.slug);
+                                            : productModel.addToCart(data,
+                                                context, widget.slug, false);
                                       } else {
                                         AppUtils.appUtilsInstance
                                             .showLoginAlertDialog(context);
@@ -1198,15 +1257,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       productModel.isCart
                                           ? 'REMOVE FROM CART'
                                           : 'ADD TO CART',
-                                      style: TextStyle(
-                                        fontSize: Platform.isAndroid
-                                            ? size_10
-                                            : size_12,
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -1247,15 +1310,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                     .colorsFormatted.isNotEmpty
                                                 ? productModel.selectedColorCode
                                                 : "",
-                                            'choice_2': productModel.model.first
-                                                    .choiceOptions.isNotEmpty
-                                                ? productModel.model.first
-                                                    .choiceOptions[0].options[0]
-                                                : ""
                                           };
 
                                           productModel.addToCart(
-                                              data, context, widget.slug);
+                                              data, context, widget.slug, true);
                                         } else {
                                           Routes.navigateToDashboardScreen(
                                               context, 0);
@@ -1267,11 +1325,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     },
                                     child: Text(
                                       'BUY NOW',
-                                      style: TextStyle(
-                                          fontSize: Platform.isAndroid
-                                              ? size_10
-                                              : size_12,
-                                          color: Colors.white),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              fontSize: Platform.isAndroid
+                                                  ? size_10
+                                                  : size_12,
+                                              color: Colors.white),
                                     ),
                                   ),
                                 ),
@@ -1323,7 +1384,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                   Image.asset(
                     Images.powder,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                     height: 200,
                     width: MediaQuery.of(context).size.width * 0.9,
                   ),

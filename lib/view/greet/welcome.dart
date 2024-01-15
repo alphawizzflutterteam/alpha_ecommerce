@@ -63,7 +63,7 @@ class _WelcomeState extends State<Welcome> {
                     padding: EdgeInsets.symmetric(vertical: 5),
                     child: Text(
                       "Alphawizz e-commerce",
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: Colors.white,
                           fontSize: Platform.isAndroid ? size_18 : size_20,
                           fontWeight: FontWeight.bold),
@@ -73,7 +73,11 @@ class _WelcomeState extends State<Welcome> {
                   //   padding: EdgeInsets.symmetric(vertical: 5),
                   //   child: Text(
                   //     "Welcome's you",
-                  //     style: TextStyle(
+                  //     style: Theme.of(context)
+                  // .textTheme
+                  // .titleSmall!
+                  // .copyWith(
+
                   //         color: Colors.white,
                   //         fontSize: Platform.isAndroid ? size_18 : size_20,
                   //         fontWeight: FontWeight.bold),
@@ -85,7 +89,7 @@ class _WelcomeState extends State<Welcome> {
                       child: Text(
                         textAlign: TextAlign.center,
                         "Unlock Your World: Seamless Access to Orders,Wishlists, and Tailored Recommendations Wishlists, and Tailored Recommendations",
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             color: Colors.white,
                             fontSize: Platform.isAndroid ? size_15 : size_17),
                       ),

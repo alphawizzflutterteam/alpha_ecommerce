@@ -42,7 +42,7 @@ productRatingAndFollowersCard(
                 ),
                 Text(
                   shop.name,
-                  style: TextStyle(
+                  style: Theme.of(ctx).textTheme.titleSmall!.copyWith(
                       color: Theme.of(ctx).brightness == Brightness.dark
                           ? Colors.white
                           : Colors.black),
@@ -78,10 +78,11 @@ productRatingAndFollowersCard(
                         ),
                         Text(
                           shop.rating,
-                          style: TextStyle(
-                            color: Colors.orange,
-                            fontSize: Platform.isAndroid ? size_12 : size_14,
-                          ),
+                          style: Theme.of(ctx).textTheme.titleSmall!.copyWith(
+                                color: Colors.orange,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
+                              ),
                         ),
                       ],
                     ),
@@ -90,7 +91,7 @@ productRatingAndFollowersCard(
                     ),
                     Text(
                       "Rating",
-                      style: TextStyle(
+                      style: Theme.of(ctx).textTheme.titleSmall!.copyWith(
                           color: Theme.of(ctx).brightness == Brightness.dark
                               ? Colors.white
                               : Colors.black),
@@ -107,12 +108,14 @@ productRatingAndFollowersCard(
                       children: [
                         Text(
                           shop.followers,
-                          style: TextStyle(
-                            color: Theme.of(ctx).brightness == Brightness.dark
-                                ? Colors.white
-                                : Colors.black,
-                            fontSize: Platform.isAndroid ? size_12 : size_14,
-                          ),
+                          style: Theme.of(ctx).textTheme.titleSmall!.copyWith(
+                                color:
+                                    Theme.of(ctx).brightness == Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
+                              ),
                         ),
                       ],
                     ),
@@ -121,7 +124,7 @@ productRatingAndFollowersCard(
                     ),
                     Text(
                       "Followers",
-                      style: TextStyle(
+                      style: Theme.of(ctx).textTheme.titleSmall!.copyWith(
                           color: Theme.of(ctx).brightness == Brightness.dark
                               ? Colors.white
                               : Colors.black),
@@ -148,7 +151,9 @@ productRatingAndFollowersCard(
                       color: colors.buttonColor,
                       shape: BoxShape.rectangle),
                   child: Text(isFollowing ? "Unfollow" : "Follow",
-                      style: TextStyle(color: Colors.white))),
+                      style: Theme.of(ctx).textTheme.titleSmall!.copyWith(
+                          color: Colors.white,
+                          fontSize: Platform.isAndroid ? size_10 : size_12))),
               //  Icon(
               //   Icons.arrow_forward_ios_outlined,
               //   color: colors.textColor,

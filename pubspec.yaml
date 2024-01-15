@@ -50,6 +50,7 @@ dependencies:
   google_fonts: ^4.0.4
   dropdown_button2: ^2.1.4
   another_flushbar: ^1.12.30
+  flutter_local_notifications: ^13.0.0
   http: ^1.1.0
   google_sign_in: ^5.2.1
   file_picker: ^6.1.1
@@ -69,6 +70,9 @@ dependencies:
   razorpay_flutter: ^1.1.1
   image_picker: ^1.0.6
   flutter_network_connectivity: ^0.0.6
+  path_provider: ^2.0.3
+  open_file: ^3.2.1
+  chat_bubbles: ^1.5.0
 
   flutter_localizations:
     sdk: flutter

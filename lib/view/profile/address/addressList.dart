@@ -82,9 +82,13 @@ class _AddressListScreenState extends State<AddressListScreen> {
                         children: [
                           SizedBox(width: 5),
                           Text('Add new Address',
-                              style: TextStyle(
-                                  fontSize:
-                                      Platform.isAndroid ? size_12 : size_14)),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14)),
                         ],
                       ),
                     ),

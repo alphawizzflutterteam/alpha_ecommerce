@@ -3,7 +3,8 @@ class AppUrl {
   //https://alpha-ecom.developmentalphawizz.com
   //https://test-alpha-ecom.developmentalphawizz.com
 
-  static const baseURL = "https://alpha-ecom.developmentalphawizz.com/api/v1/";
+  static const baseURL =
+      "https://test-alpha-ecom.developmentalphawizz.com/api/v1/";
   static String sendLoginOtp = "${baseURL}auth/send-login-otp";
   static String socialLogin = "${baseURL}auth/social-login";
   static String sendRegisterOtp = "${baseURL}auth/send-otp";
@@ -35,7 +36,7 @@ class AppUrl {
   static const String chatList =
       "${baseURL}customer/chat/get-admin-messages/admin/1?limit=10&offset=0";
 
-  static const String categories = "${baseURL}categories";
+  static const String categories = "${baseURL}categories?vendor_id=&is_home=";
   static const String banners = "${baseURL}banners?banner_type=";
 
   static const String wishlist = "${baseURL}customer/wish-list";
@@ -80,6 +81,8 @@ class AppUrl {
 
   static const String orderList = "${baseURL}customer/order/list";
   static const String orderDetail = "${baseURL}customer/order/details";
+  static const String orderReturnDetail =
+      "${baseURL}customer/order/refund-details?id=";
   static const String orderReturn = "${baseURL}customer/order/refund-store";
   static const String orderCancel = "${baseURL}order/cancel-order";
 

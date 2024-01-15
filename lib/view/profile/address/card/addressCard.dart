@@ -60,7 +60,7 @@ addressItemCard(AddressList model, BuildContext context,
                     children: [
                       Text(
                         model.contactPersonName,
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             color:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.white
@@ -76,12 +76,16 @@ addressItemCard(AddressList model, BuildContext context,
                           "${model.address}, ${model.address1}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: Platform.isAndroid ? size_8 : size_10),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_8 : size_10),
                         ),
                       ),
                       const SizedBox(
@@ -89,7 +93,7 @@ addressItemCard(AddressList model, BuildContext context,
                       ),
                       Text(
                         model.phone,
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             color:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.white
@@ -123,22 +127,24 @@ addressItemCard(AddressList model, BuildContext context,
                     value: 'edit',
                     child: Text(
                       'Edit',
-                      style: TextStyle(
-                        color: Theme.of(context).brightness != Brightness.dark
-                            ? colors.darkBG
-                            : Colors.white,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color:
+                                Theme.of(context).brightness != Brightness.dark
+                                    ? colors.darkBG
+                                    : Colors.white,
+                          ),
                     ),
                   ),
                   PopupMenuItem(
                     value: 'delete',
                     child: Text(
                       'Delete',
-                      style: TextStyle(
-                        color: Theme.of(context).brightness != Brightness.dark
-                            ? colors.darkBG
-                            : Colors.white,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color:
+                                Theme.of(context).brightness != Brightness.dark
+                                    ? colors.darkBG
+                                    : Colors.white,
+                          ),
                     ),
                   )
                 ];

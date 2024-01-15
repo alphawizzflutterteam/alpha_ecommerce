@@ -83,7 +83,12 @@ savedItemCard(
                     child: Text(model.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyMedium!),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            )),
                   ),
                 ),
                 const SizedBox(
@@ -93,7 +98,7 @@ savedItemCard(
                   children: [
                     Text(
                       model.specialPrice,
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: colors.buttonColor,
                           fontSize: Platform.isAndroid ? size_14 : size_16),
                     ),
@@ -101,7 +106,7 @@ savedItemCard(
                       padding: const EdgeInsets.only(left: 10),
                       child: Text(
                         model.unitPrice,
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             decoration: TextDecoration.lineThrough,
                             color: colors.greyText,
                             fontSize: Platform.isAndroid ? size_12 : size_14),
@@ -114,10 +119,10 @@ savedItemCard(
                 ),
                 Text(
                   model.weight,
-                  style: TextStyle(
-                    color: colors.greyText,
-                    fontSize: Platform.isAndroid ? size_10 : size_12,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: colors.greyText,
+                        fontSize: Platform.isAndroid ? size_10 : size_12,
+                      ),
                 ),
               ],
             ),
@@ -149,7 +154,7 @@ savedItemCard(
                             : colors.lightBorder)),
                 child: Text(
                   "Remove from Saved Items",
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: Theme.of(context).brightness == Brightness.dark
                           ? colors.textColor
                           : colors.greyText,
@@ -187,11 +192,11 @@ savedItemCard(
                 ),
                 child: Text(
                   "Add to Cart",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: Platform.isAndroid ? size_10 : size_12,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: Platform.isAndroid ? size_10 : size_12,
+                      ),
                   textAlign: TextAlign.center,
                 ),
               ),

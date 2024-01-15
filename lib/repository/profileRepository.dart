@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/view/profile/address/model/cityModel.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/address/model/countryModel.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/address/model/stateModel.dart';
 import 'package:http_parser/http_parser.dart';
 
 import 'package:alpha_ecommerce_18oct/view/home/models/successModel.dart';
@@ -166,5 +169,55 @@ class ProfileRepository {
 
     print(res.body);
     return json;
+  }
+
+  Future<StateModel> stateList(
+    String api,
+  ) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.get(
+      url,
+    );
+
+    print(res.body);
+    var asn = await json.decode(res.body);
+
+    return StateModel.fromJson(asn);
+  }
+
+  Future<CityModel> cityList(
+    String api,
+  ) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.get(
+      url,
+    );
+
+    print(res.body);
+    var asn = await json.decode(res.body);
+
+    return CityModel.fromJson(asn);
+  }
+
+  Future<CountryModel> countryList(
+    String api,
+  ) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.get(
+      url,
+    );
+
+    print(res.body);
+
+    return countryModelFromJson(res.body);
   }
 }

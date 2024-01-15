@@ -47,7 +47,11 @@
 //               children: [
 //                  Text(
 //                   '35% Off',
-//                   style: TextStyle(
+//                   style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                     color: Colors.orange,
 //                     fontSize:
 //                                     Platform.isAndroid ? size_10 : size_12,,
@@ -79,7 +83,11 @@
 //             ),
 //             child: Text(
 //               'Dettol refresh longi...',
-//               style: TextStyle(
+//               style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                 color: Colors.white,
 //                 fontSize:
 //                                     Platform.isAndroid ? size_10 : size_12,,
@@ -95,7 +103,11 @@
 //               children: const [
 //                 Text(
 //                   '120.00',
-//                   style: TextStyle(
+//                   style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                     color: Colors.cyan,
 //                     fontSize:
 //                                     Platform.isAndroid ? size_10 : size_12,,
@@ -106,7 +118,11 @@
 //                 ),
 //                 Text(
 //                   "\$200",
-//                   style: TextStyle(
+//                   style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                     color: colors.lightTextColor,
 //                     decoration: TextDecoration.lineThrough,
 //                     fontSize:

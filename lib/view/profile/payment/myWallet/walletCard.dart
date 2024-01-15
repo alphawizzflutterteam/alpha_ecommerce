@@ -44,27 +44,35 @@ walletCart(
                             children: [
                               Text(
                                 data.createdAt,
-                                style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontSize:
-                                      Platform.isAndroid ? size_10 : size_12,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: Platform.isAndroid
+                                          ? size_10
+                                          : size_12,
+                                    ),
                               ),
                               const SizedBox(
                                 height: 15,
                               ),
                               Text(
                                 data.transactionType,
-                                style: TextStyle(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontSize:
-                                        Platform.isAndroid ? size_18 : size_20),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: Platform.isAndroid
+                                            ? size_18
+                                            : size_20),
                               )
                             ],
                           ),
@@ -80,12 +88,13 @@ walletCart(
                       ),
                       Text(
                         "Transaction ID :\n ${data.transactionId}",
-                        style: TextStyle(
-                          fontSize: Platform.isAndroid ? size_8 : size_10,
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black,
-                        ),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              fontSize: Platform.isAndroid ? size_8 : size_10,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
                       )
                     ],
                   ),
@@ -114,7 +123,10 @@ Widget buildCustom(
         ),
         child: Text(
           isSuccess ? "Credit" : "Debit",
-          style: TextStyle(color: textColor),
+          style: Theme.of(context)
+              .textTheme
+              .titleSmall!
+              .copyWith(color: textColor),
         ),
       ),
       SizedBox(
@@ -122,7 +134,7 @@ Widget buildCustom(
       ),
       Text(
         isSuccess ? "+ $credit" : " $debit",
-        style: TextStyle(
+        style: Theme.of(context).textTheme.titleSmall!.copyWith(
             color: Theme.of(context).brightness == Brightness.dark
                 ? Colors.white
                 : Colors.black,

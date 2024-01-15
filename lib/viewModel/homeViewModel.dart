@@ -33,6 +33,8 @@ class HomeViewModel with ChangeNotifier {
 
   List<SpecialOffersList> specialOffersModel = [];
 
+  List<Map<String, dynamic>> selectedVariationMap = [];
+
   List<BannersList> bannersListTop = [];
   List<DailyDealsModelList> dailyDealsModel = [];
   List<CategoryList> categoriesModel = [];
@@ -134,10 +136,12 @@ class HomeViewModel with ChangeNotifier {
     });
   }
 
-  Future<void> getCategoriesList(BuildContext context) async {
+  Future<void> getCategoriesList(BuildContext context, int isHome) async {
     setLoading(true);
 
-    await _myRepo.categoryListRequest(AppUrl.categories).then((value) {
+    await _myRepo
+        .categoryListRequest(AppUrl.categories + isHome.toString())
+        .then((value) {
       categoriesModel = value.data!;
       notifyListeners();
 
@@ -210,7 +214,7 @@ class HomeViewModel with ChangeNotifier {
   }
 
   Future<bool> addToWishlist(dynamic data, BuildContext context) async {
-    setLoading(true);
+    //  setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
     if (token == null || token == "") {
@@ -241,7 +245,7 @@ class HomeViewModel with ChangeNotifier {
   }
 
   Future<bool> removeFromWishlist(dynamic data, BuildContext context) async {
-    setLoading(true);
+    //setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
     if (token == null || token == "") {
@@ -272,8 +276,18 @@ class HomeViewModel with ChangeNotifier {
     return false;
   }
 
-  Future<bool> addToCart(dynamic data, BuildContext context) async {
-    setLoading(true);
+  Map<String, String> addMapListToData(
+      Map<String, String> data, List<Map<String, dynamic>> mapList) {
+    for (var map in mapList) {
+      map.forEach((key, value) {
+        data[key] = value;
+      });
+    }
+    return data;
+  }
+
+  Future<bool> addToCart(Map<String, String> data, BuildContext context) async {
+    // setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
     if (token == null || token == "") {
@@ -281,7 +295,10 @@ class HomeViewModel with ChangeNotifier {
 
       return false;
     }
-    _myRepo.addToCart(AppUrl.addToCart, token, data).then((value) {
+    var data2 = data;
+    data2 = addMapListToData(data2, selectedVariationMap);
+
+    _myRepo.addToCart(AppUrl.addToCart, token, data2).then((value) {
       setLoading(false);
 
       if (value.message == "Successfully added!") {
@@ -289,6 +306,7 @@ class HomeViewModel with ChangeNotifier {
       } else {
         Utils.showFlushBarWithMessage("Alert", value.message, context);
       }
+      selectedVariationMap.clear();
 
       SearchViewModel searchProvider =
           Provider.of<SearchViewModel>(context, listen: false);
@@ -307,7 +325,7 @@ class HomeViewModel with ChangeNotifier {
   }
 
   Future<bool> removeFromCart(dynamic data, BuildContext context) async {
-    setLoading(true);
+    //setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
     print(data);

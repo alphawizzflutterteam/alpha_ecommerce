@@ -83,8 +83,16 @@ class _HomeState extends State<Home> {
 
   callApis() async {
     await homeProvider.getHomeBanners(context);
-    await homeProvider.getCategoriesList(context);
+    await homeProvider.getCategoriesList(context, 1);
     await homeProvider.getBannersList(context);
+
+    searchProvider.selectedIndexFromHome = 0;
+    searchProvider.selectedIndex = 0;
+    searchProvider.selectedType = "";
+
+    searchProvider.clearFilters();
+    await homeProvider.getProductFilters(context);
+    await searchProvider.getProductsListNew(context, "25", "1");
 
     try {
       var phone = SharedPref.shared.pref!.getString(PrefKeys.mobile);
@@ -98,20 +106,14 @@ class _HomeState extends State<Home> {
     await homeProvider.getCartListItem(context);
     await homeProvider.getWishlistItem(context);
 
-    searchProvider.selectedIndexFromHome = 0;
-    searchProvider.selectedIndex = 0;
-    searchProvider.selectedType = "";
     getCategory();
-
-    searchProvider.clearFilters();
-    await homeProvider.getProductFilters(context);
-    await searchProvider.getProductsListNew(context, "25", "1");
-
-    await homeProvider.getChatlist(context);
+    homeProvider.getChatlist(context);
   }
 
   Future<void> getCategory() async {
-    await categoryProvider.getCategories(context);
+    searchProvider.selectedIndex = 0;
+    searchProvider.selectedIndexFromHome = 0;
+    categoryProvider.getCategories(context);
     //listItem = categoryProvider.data[0].childes!;
   }
 
@@ -285,7 +287,8 @@ class _HomeState extends State<Home> {
                                   child: secondCategoryListCard(
                                       context,
                                       homeProvider.categoriesModel,
-                                      searchProvider),
+                                      searchProvider,
+                                      categoryProvider.data),
                                 ),
                               ],
                             )),
@@ -293,9 +296,9 @@ class _HomeState extends State<Home> {
 
                       Column(
                         children: [
-                          SizedBox(
+                          Container(
                             width: double.infinity,
-                            height: 200,
+                            // height: 200,
                             child: CarouselSlider(
                               items: homeProvider.imageList.map((item) {
                                 return InkWell(
@@ -325,7 +328,7 @@ class _HomeState extends State<Home> {
                                     width: double.infinity,
                                     child: CachedNetworkImage(
                                       imageUrl: item,
-                                      fit: BoxFit.cover,
+                                      fit: BoxFit.fill,
                                       placeholder: (context, url) =>
                                           appLoader(),
                                       errorWidget: (context, url, error) =>
@@ -496,12 +499,15 @@ class _HomeState extends State<Home> {
                                           children: [
                                             Text(
                                               "View your cart Items",
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? colors.textColor
-                                                      : Colors.black),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? colors.textColor
+                                                          : Colors.black),
                                             ),
                                             InkWell(
                                               highlightColor:
@@ -525,8 +531,12 @@ class _HomeState extends State<Home> {
                                                               .buttonColor,
                                                           fontWeight:
                                                               FontWeight.w600)),
-                                              // style: TextStyle(
-                                              //     color: colors.buttonColor),
+                                              // style: Theme.of(context)
+                                              //       .textTheme
+                                              //       .titleSmall!
+                                              //       .copyWith(
+
+                                              // //     color: colors.buttonColor),
                                               // ),
                                             ),
                                           ],
@@ -593,12 +603,15 @@ class _HomeState extends State<Home> {
                                             horizontal: 15),
                                         child: Text(
                                           "Special Offer",
-                                          style: TextStyle(
-                                              color: colors.textColor,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_18
-                                                  : size_20,
-                                              fontWeight: FontWeight.bold),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: colors.textColor,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_18
+                                                      : size_20,
+                                                  fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                       Expanded(
@@ -654,12 +667,15 @@ class _HomeState extends State<Home> {
                                         children: [
                                           Text(
                                             "Your wishlist items",
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? colors.textColor
-                                                    : Colors.black),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.textColor
+                                                        : Colors.black),
                                           ),
                                           InkWell(
                                             highlightColor: Colors.transparent,
@@ -733,105 +749,115 @@ class _HomeState extends State<Home> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.25,
-                        decoration: BoxDecoration(
-                            gradient:
-                                // Theme.of(context).brightness == Brightness.dark
-                                //     ?
-                                LinearGradient(
-                          colors: [
-                            colors.homeGradient3.withOpacity(0.7),
-                            colors.homeGradient4.withOpacity(0.4),
-                            colors.homeGradient3.withOpacity(0.7),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.centerRight,
-                        )
-                            // : LinearGradient(
-                            //     colors: [
-                            //       colors.homeGradient3.withOpacity(0.7),
-                            //       colors.homeGradient4.withOpacity(0.4),
-                            //       colors.homeGradient3.withOpacity(0.7),
-                            //     ],
-                            //     begin: Alignment.topLeft,
-                            //     end: Alignment.centerRight,
-                            //   ),
+                      homeProvider.dailyDealsModel.isEmpty
+                          ? Container()
+                          : Container(
+                              height: MediaQuery.of(context).size.height * 0.25,
+                              decoration: BoxDecoration(
+                                  gradient:
+                                      // Theme.of(context).brightness == Brightness.dark
+                                      //     ?
+                                      LinearGradient(
+                                colors: [
+                                  colors.homeGradient3.withOpacity(0.7),
+                                  colors.homeGradient4.withOpacity(0.4),
+                                  colors.homeGradient3.withOpacity(0.7),
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.centerRight,
+                              )
+                                  // : LinearGradient(
+                                  //     colors: [
+                                  //       colors.homeGradient3.withOpacity(0.7),
+                                  //       colors.homeGradient4.withOpacity(0.4),
+                                  //       colors.homeGradient3.withOpacity(0.7),
+                                  //     ],
+                                  //     begin: Alignment.topLeft,
+                                  //     end: Alignment.centerRight,
+                                  //   ),
+                                  ),
+                              child: Column(
+                                children: [
+                                  spaceOfHeight(),
+                                  spaceOfHeight(),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(left: 60),
+                                          child: Divider(
+                                            height: 1,
+                                            color: colors.homeDivider,
+                                            thickness: 3,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 15),
+                                        child: Text("Daily Deals",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_18
+                                                        : size_20,
+                                                    color: colors.textColor,
+                                                    fontWeight:
+                                                        FontWeight.w600)),
+                                        // // style: Theme.of(context)
+                                        //                   .textTheme
+                                        //                   .titleSmall!
+                                        //                   .copyWith(
+
+                                        //     color: colors.textColor,
+                                        //     fontSize: Platform.isAndroid ? size_18 : size_20,
+                                        //     fontWeight: FontWeight.bold),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(right: 60),
+                                          child: Divider(
+                                            height: 1,
+                                            color: colors.homeDivider,
+                                            thickness: 3,
+                                            indent: 3,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  spaceOfHeight(),
+                                  SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Container(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 2.0),
+                                          child: dailyDealListCard(
+                                              context,
+                                              homeProvider.dailyDealsModel,
+                                              searchProvider),
+                                        ),
+                                      )),
+                                  // SizedBox(
+                                  //   height: MediaQuery.of(context).size.height * 0.15,
+                                  //   child: ListView(
+                                  //     padding: const EdgeInsets.symmetric(
+                                  //         horizontal: 10, vertical: 0),
+                                  //     scrollDirection: Axis.horizontal,
+                                  //     children: List.generate(3, (index) {
+                                  //       return dailyDealCard();
+                                  //     }),
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
                             ),
-                        child: Column(
-                          children: [
-                            spaceOfHeight(),
-                            spaceOfHeight(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 60),
-                                    child: Divider(
-                                      height: 1,
-                                      color: colors.homeDivider,
-                                      thickness: 3,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Text("Daily Deals",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall!
-                                          .copyWith(
-                                              fontSize: Platform.isAndroid
-                                                  ? size_18
-                                                  : size_20,
-                                              color: colors.textColor,
-                                              fontWeight: FontWeight.w600)),
-                                  // style: TextStyle(
-                                  //     color: colors.textColor,
-                                  //     fontSize: Platform.isAndroid ? size_18 : size_20,
-                                  //     fontWeight: FontWeight.bold),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(right: 60),
-                                    child: Divider(
-                                      height: 1,
-                                      color: colors.homeDivider,
-                                      thickness: 3,
-                                      indent: 3,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            spaceOfHeight(),
-                            SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 2.0),
-                                    child: dailyDealListCard(
-                                        context,
-                                        homeProvider.dailyDealsModel,
-                                        searchProvider),
-                                  ),
-                                )),
-                            // SizedBox(
-                            //   height: MediaQuery.of(context).size.height * 0.15,
-                            //   child: ListView(
-                            //     padding: const EdgeInsets.symmetric(
-                            //         horizontal: 10, vertical: 0),
-                            //     scrollDirection: Axis.horizontal,
-                            //     children: List.generate(3, (index) {
-                            //       return dailyDealCard();
-                            //     }),
-                            //   ),
-                            // ),
-                          ],
-                        ),
-                      ),
                       Container(
                         width: double.infinity,
                         decoration: const BoxDecoration(
@@ -939,56 +965,61 @@ class _HomeState extends State<Home> {
                                   ),
                                   spaceOfHeight(),
                                   // spaceOfHeight(),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      for (int i = 0;
-                                          i <
-                                              homeProvider
-                                                  .modelBanners
-                                                  .data!
-                                                  .giftSection!
-                                                  .products!
-                                                  .length;
-                                          i++)
-                                        Row(
-                                          children: [
-                                            InkWell(
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              splashColor: Colors.transparent,
-                                              onTap: () {
-                                                Routes
-                                                    .navigateToProductDetailPageScreen(
-                                                        context,
-                                                        homeProvider
-                                                            .modelBanners
-                                                            .data!
-                                                            .giftSection!
-                                                            .products![i]
-                                                            .slug!);
-                                              },
-                                              child: CachedNetworkImage(
-                                                imageUrl: homeProvider
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        for (int i = 0;
+                                            i <
+                                                homeProvider
                                                     .modelBanners
                                                     .data!
                                                     .giftSection!
-                                                    .products![i]
-                                                    .thumbnail!,
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Image.asset(Images
-                                                            .defaultProductImg),
-                                                height: 110,
-                                                width: 100,
+                                                    .products!
+                                                    .length;
+                                            i++)
+                                          Row(
+                                            children: [
+                                              InkWell(
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                splashColor: Colors.transparent,
+                                                onTap: () {
+                                                  Routes
+                                                      .navigateToProductDetailPageScreen(
+                                                          context,
+                                                          homeProvider
+                                                              .modelBanners
+                                                              .data!
+                                                              .giftSection!
+                                                              .products![i]
+                                                              .slug!);
+                                                },
+                                                child: CachedNetworkImage(
+                                                  imageUrl: homeProvider
+                                                      .modelBanners
+                                                      .data!
+                                                      .giftSection!
+                                                      .products![i]
+                                                      .thumbnail!,
+                                                  fit: BoxFit.fill,
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      Image.asset(Images
+                                                          .defaultProductImg),
+                                                  height: 110,
+                                                  width: 100,
+                                                ),
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                          ],
-                                        ),
-                                    ],
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                            ],
+                                          ),
+                                      ],
+                                    ),
                                   )
                                 ],
                               )),
@@ -1008,7 +1039,7 @@ class _HomeState extends State<Home> {
                       VisibilityDetector(
                         key: Key("unique key"),
                         onVisibilityChanged: (VisibilityInfo info) {
-                          isWidgetVisible = info.visibleFraction > 0.182;
+                          isWidgetVisible = info.visibleFraction > 0.172;
                           debugPrint(
                               "${info.visibleFraction} of my widget is visible");
                         },
@@ -1016,7 +1047,7 @@ class _HomeState extends State<Home> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 20),
                           height: MediaQuery.of(context).size.height *
-                              0.32 *
+                              0.33 *
                               searchProvider.searchResults.length /
                               1.8,
                           child: GridView.builder(
@@ -1039,9 +1070,12 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       spaceOfHeight(),
-                      const Text(
+                      Text(
                         "Alpha Product: All rights reserved",
-                        style: TextStyle(color: colors.textColor),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(color: colors.textColor),
                       ),
                       spaceOfHeight(),
                     ],
@@ -1100,7 +1134,12 @@ class FilterBar extends StatelessWidget {
                 const SizedBox(
                   width: 5,
                 ),
-                Text('Filter', style: Theme.of(context).textTheme.bodyMedium!)
+                Text('Filter',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                        ))
               ],
             ),
           ),
@@ -1141,8 +1180,17 @@ class FilterBar extends StatelessWidget {
                 const SizedBox(
                   width: 5,
                 ),
-                Text('Category', style: Theme.of(context).textTheme.bodyMedium!
-                    //   style: TextStyle(
+                Text('Category',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                        )
+                    //   style: Theme.of(context)
+                    // .textTheme
+                    // .titleSmall!
+                    // .copyWith(
+
                     //       color: Theme.of(context).brightness == Brightness.dark
                     //           ? Colors.white
                     //           : Colors.black,
@@ -1188,7 +1236,12 @@ class FilterBar extends StatelessWidget {
                 const SizedBox(
                   width: 5,
                 ),
-                Text('Sort', style: Theme.of(context).textTheme.bodyMedium!)
+                Text('Sort',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                        ))
               ],
             ),
           ),

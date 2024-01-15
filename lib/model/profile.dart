@@ -44,7 +44,7 @@ List<ProfileList> profile = [
       navigationScreen: const FollowingVendorList()),
   ProfileList(
       profileIcon: Images.setting,
-      profileText: 'Setting',
+      profileText: 'Settings',
       navigationScreen: const Setting()),
   ProfileList(
       profileIcon: Images.subscribe,

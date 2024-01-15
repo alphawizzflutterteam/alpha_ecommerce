@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/fcm_helper.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
@@ -20,12 +21,14 @@ import 'package:alpha_ecommerce_18oct/viewModel/faqsViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/languageViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/networkViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/orderReturnViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/productViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/splashViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/vendorViewModel.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -39,8 +42,14 @@ import 'utils/shared_pref..dart';
 import 'utils/string.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  FCMHelper.shared.listenNotificationInBackground(message);
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FCMHelper.shared.intializeFirebase();
+
   await SharedPref.shared.getPref();
 
   ErrorWidget.builder = (FlutterErrorDetails details) {
@@ -86,6 +95,8 @@ void main() async {
         ),
         ChangeNotifierProvider<UserProvider>(
             create: (context) => UserProvider()),
+        ChangeNotifierProvider<OrderReturnViewModel>(
+            create: (context) => OrderReturnViewModel()),
         ChangeNotifierProvider<NetworkViewModel>(
             create: (context) => NetworkViewModel()),
         ChangeNotifierProvider<AuthViewModel>(
@@ -157,6 +168,32 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void _handleMessage(RemoteMessage message) {
+    print("_handleMessage : ${message.data}");
+  }
+
+  firebaseSetup() async {
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+
+    if (initialMessage != null) {
+      _handleMessage(initialMessage);
+    }
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.data}');
+        await FirebaseMessaging.instance
+            .setForegroundNotificationPresentationOptions(
+          alert: true, // Required to display a heads up notification
+          badge: true,
+          sound: true,
+        );
+      }
+    });
+  }
+
   @override
   void didChangeDependencies() {
     getLocale().then((locale) => {setLocale(locale)});
@@ -167,6 +204,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     dashboardPageState = GlobalKey<DashboardState>();
+    firebaseSetup();
   }
 
   @override
@@ -360,19 +398,25 @@ class _MyAppState extends State<MyApp> {
         textTheme: TextTheme(
           titleLarge: GoogleFonts.nunito(
             textStyle: TextStyle(
-              color: Theme.of(context).colorScheme.fontColor,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
               fontWeight: FontWeight.w600,
             ),
           ),
           titleMedium: GoogleFonts.nunito(
             textStyle: TextStyle(
-              color: Theme.of(context).colorScheme.fontColor,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
               //fontWeight: FontWeight.bold,
             ),
           ),
           titleSmall: GoogleFonts.nunito(
             textStyle: TextStyle(
-              color: Theme.of(context).colorScheme.fontColor,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
               fontWeight: FontWeight.w300,
             ),
           ),

@@ -69,7 +69,10 @@ class _AboutUsState extends State<AboutUs> {
                                   onTap: () {
                                     Routes.navigateToPreviousScreen(context);
                                   },
-                                  child: const Icon(Icons.arrow_back_ios)),
+                                  child: const Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white,
+                                  )),
                             ),
                             Expanded(
                               child: Padding(
@@ -79,11 +82,14 @@ class _AboutUsState extends State<AboutUs> {
                                 child: Text(
                                   "About Us",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: Platform.isAndroid
-                                          ? size_18
-                                          : size_20),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontSize: Platform.isAndroid
+                                              ? size_18
+                                              : size_20),
                                 ),
                               ),
                             ),
@@ -110,23 +116,29 @@ class _AboutUsState extends State<AboutUs> {
                             children: [
                               Text(
                                 "Website link - ",
-                                style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
                               ),
                               InkWell(
                                 highlightColor: Colors.transparent,
                                 splashColor: Colors.transparent,
                                 onTap: _launchURL,
-                                child: const Text(
+                                child: Text(
                                   'https://www.alphawizz.com',
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    decoration: TextDecoration.underline,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                        color: Colors.blue,
+                                        decoration: TextDecoration.underline,
+                                      ),
                                 ),
                               ),
                             ],

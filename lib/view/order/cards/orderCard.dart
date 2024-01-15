@@ -76,7 +76,7 @@
 //                                                 0.5,
 //                                             child: Text(
 //                                               model.,
-//                                               style: const TextStyle(
+//                                               style: Theme.of(context).textTheme.titleSmall!.copyWith(
 //                                                   color: Colors.white,
 //                                                   fontSize: Platform.isAndroid ? size_12 : size_14),
 //                                             ),
@@ -91,7 +91,7 @@
 //                                                 0.5,
 //                                             child: Text(
 //                                               orderItems[i]['subText'],
-//                                               style: const TextStyle(
+//                                               style: Theme.of(context).textTheme.titleSmall!.copyWith(
 //                                                   color: colors.greyText,
 //                                                   fontSize:
                              //       Platform.isAndroid ? size_10 : size_12,),
@@ -118,7 +118,11 @@
 //                                             ),
 //                                             child: Text(
 //                                               orderItems[i]['status'],
-//                                               style: TextStyle(
+//                                               style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                                   color: getTextColor(
 //                                                       orderItems[i]['status']),
 //                                                   fontSize:

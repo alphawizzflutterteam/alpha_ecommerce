@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -18,21 +19,21 @@ class ThemeProvider extends ChangeNotifier {
       get == '' || get == DEFAULT_SYSTEM
           ? getTranslated(context, 'SYSTEM_DEFAULT')
           : get == LIGHT
-          ? getTranslated(context, 'LIGHT_THEME')
-          : getTranslated(context, 'DARK_THEME'),
+              ? getTranslated(context, 'LIGHT_THEME')
+              : getTranslated(context, 'DARK_THEME'),
     );
 
     notifyListeners();
   }
 
   void changeTheme(
-      int index,
-      String value,
-      BuildContext context,
-      ) async {
+    int index,
+    String value,
+    BuildContext context,
+  ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     ThemeNotifier themeNotifier =
-    Provider.of<ThemeNotifier>(context, listen: false);
+        Provider.of<ThemeNotifier>(context, listen: false);
     if (value == getTranslated(context, 'SYSTEM_DEFAULT')) {
       themeNotifier.setThemeMode(ThemeMode.system);
       prefs.setString(APP_THEME, DEFAULT_SYSTEM);
@@ -74,6 +75,7 @@ class ThemeNotifier with ChangeNotifier {
 
   setThemeMode(ThemeMode mode) async {
     _themeMode = mode;
+
     notifyListeners();
   }
 }

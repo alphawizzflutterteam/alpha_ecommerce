@@ -88,7 +88,7 @@ class _CustomerSupportState extends State<CustomerSupport> {
                               //     validator: validateName,
                               //     decoration: commonInputDecoration(
                               //       labelText: 'Select Type',
-                              //     style: const TextStyle(color: colors.textColor),
+                              //     style: Theme.of(context).textTheme.titleSmall!.copyWith(color: colors.textColor),
                               //   ),
                               // ),
                               // Padding(
@@ -100,7 +100,7 @@ class _CustomerSupportState extends State<CustomerSupport> {
                               //     decoration: commonInputDecoration(
                               //       labelText: 'Email',
                               //     ),
-                              //     style: const TextStyle(color: colors.textColor),
+                              //     style: Theme.of(context).textTheme.titleSmall!.copyWith(color: colors.textColor),
                               //   ),
                               // ),
                               Padding(
@@ -116,28 +116,37 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                         ? colors.textFieldBG
                                         : Colors.white,
                                     labelText: "Subject",
-                                    labelStyle: TextStyle(
-                                      color: colors.labelColor,
-                                      fontSize: Platform.isAndroid
-                                          ? size_12
-                                          : size_14,
-                                    ),
-                                    hintStyle: const TextStyle(
-                                      color: colors.labelColor,
-                                    ),
+                                    labelStyle: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: colors.labelColor,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
+                                        ),
+                                    hintStyle: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: colors.labelColor,
+                                        ),
                                   ),
                                   // decoration: commonInputDecoration(
                                   //   labelText: translation(context).fullname,
                                   // ),
-                                  style: TextStyle(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? colors.textColor
-                                          : Colors.black),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? colors.textColor
+                                              : Colors.black),
                                   // decoration: commonInputDecoration(
                                   //   labelText: 'Subject',
                                   // ),
-                                  // style: const TextStyle(color: colors.textColor),
+                                  // style: Theme.of(context).textTheme.titleSmall!.copyWith(color: colors.textColor),
                                 ),
                               ),
                               Padding(
@@ -159,28 +168,38 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                           ? colors.textFieldBG
                                           : Colors.white,
                                       labelText: "Description",
-                                      labelStyle: TextStyle(
-                                        color: colors.labelColor,
-                                        fontSize: Platform.isAndroid
-                                            ? size_12
-                                            : size_14,
-                                      ),
-                                      hintStyle: const TextStyle(
-                                        color: colors.labelColor,
-                                      ),
+                                      labelStyle: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color: colors.labelColor,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                          ),
+                                      hintStyle: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color: colors.labelColor,
+                                          ),
                                     ),
                                     // decoration: commonInputDecoration(
                                     //   labelText: translation(context).fullname,
                                     // ),
-                                    style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? colors.textColor
-                                            : Colors.black),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textColor
+                                                    : Colors.black),
                                     // decoration: commonInputDecoration(
                                     //     labelText: 'Description', hintText: '\n'),
                                     // style:
-                                    //     const TextStyle(color: colors.textColor),
+                                    //     Theme.of(context).textTheme.titleSmall!.copyWith(color: colors.textColor),
                                   ),
                                 ),
                               ),

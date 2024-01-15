@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:alpha_ecommerce_18oct/view/home/models/successModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/orderDetailModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/ordersModel.dart';
+import 'package:alpha_ecommerce_18oct/view/order/model/returnOrderModel.dart';
 import 'package:http/http.dart' as http;
 
 class OrderRepository {
@@ -39,6 +40,21 @@ class OrderRepository {
     print(order_id);
     var asn = await json.decode(res.body);
     return OrderDetailsModel.fromJson(asn);
+  }
+
+  Future<ReturnOrderModel> orderDetailReturnRequest(
+      String api, String bearerToken) async {
+    final url = Uri.parse(api);
+
+    final http.Response res;
+    res = await http.get(url, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(api);
+
+    print(res.body);
+    return returnOrderModelFromJson(res.body);
   }
 
 //Function for order return request
@@ -130,5 +146,65 @@ class OrderRepository {
     var ans = jsonDecode(res.body);
 
     return SuccessModel.fromJson(ans);
+  }
+
+  Future<SuccessModel> removeFromWishlist(
+      String api, String bearerToken, dynamic data) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.delete(url, body: data, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return successModelFromJson(res.body);
+  }
+
+  Future<SuccessModel> addToWishlist(
+      String api, String bearerToken, dynamic data) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.post(url, body: data, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return successModelFromJson(res.body);
+  }
+
+  Future<SuccessModel> addToCart(
+      String api, String bearerToken, dynamic data) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.post(url, body: data, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return successModelFromJson(res.body);
+  }
+
+  Future<SuccessModel> removeFromCart(
+      String api, String bearerToken, dynamic data) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.delete(url, body: data, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return successModelFromJson(res.body);
   }
 }

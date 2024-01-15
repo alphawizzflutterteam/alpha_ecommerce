@@ -96,7 +96,10 @@ class _CurrencyWidgetState extends State<CurrencyWidget> {
                 borderSide:
                     const BorderSide(color: colors.textFieldColor, width: 1)),
           ),
-          style: const TextStyle(color: colors.textColor),
+          style: Theme.of(context)
+              .textTheme
+              .titleSmall!
+              .copyWith(color: colors.textColor),
         ),
         const SizedBox(
           height: 20,

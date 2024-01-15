@@ -73,7 +73,10 @@ class _PaymentFormState extends State<PaymentForm> {
                           decoration: commonInputDecoration(
                             labelText: 'Name on Card',
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: colors.textColor),
                         ),
                       ),
                       Container(
@@ -92,13 +95,20 @@ class _PaymentFormState extends State<PaymentForm> {
                               Icons.credit_card_outlined,
                               color: colors.labelColor,
                             ),
-                            labelStyle: TextStyle(
-                              color: colors.labelColor,
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: const BorderSide(
@@ -128,7 +138,10 @@ class _PaymentFormState extends State<PaymentForm> {
                               ),
                             ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: colors.textColor),
                         ),
                       ),
                       Container(
@@ -144,7 +157,10 @@ class _PaymentFormState extends State<PaymentForm> {
                           decoration: commonInputDecoration(
                             labelText: 'Expiry Date',
                           ),
-                          style: const TextStyle(color: colors.greyText),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: colors.greyText),
                         ),
                       ),
                       Container(
@@ -160,7 +176,10 @@ class _PaymentFormState extends State<PaymentForm> {
                           decoration: commonInputDecoration(
                             labelText: 'CVV',
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: colors.textColor),
                         ),
                       )
                     ],

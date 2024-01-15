@@ -20,7 +20,7 @@ class ProductListBuilder extends StatelessWidget {
       splashColor: Colors.transparent,
       onTap: () {},
       child: Container(
-        height: MediaQuery.of(context).size.height * .23,
+        height: MediaQuery.of(context).size.height * .24,
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: ListView.builder(
           itemCount: productList.length,
@@ -33,9 +33,9 @@ class ProductListBuilder extends StatelessWidget {
                   context, productList[index].productDetails!.slug!);
             },
             child: Container(
-              width: MediaQuery.of(context).size.width * .4,
+              width: MediaQuery.of(context).size.width * .35,
               margin: const EdgeInsets.only(right: 15),
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                   // image: DecorationImage(image: NetworkImage(model.images.first)),
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -62,37 +62,59 @@ class ProductListBuilder extends StatelessWidget {
                           : colors.lightBorder)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: CachedNetworkImage(
-                      imageUrl: productList[index].productDetails!.thumbnail!,
-                      height: size_100,
-                      errorWidget: (context, url, error) => Image.asset(
-                        Images.defaultProductImg,
-                        height: size_100,
-                      ),
-                      fit: BoxFit.fitWidth,
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.12,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            ),
+                            image: DecorationImage(
+                                image: NetworkImage(productList[index]
+                                    .productDetails!
+                                    .thumbnail!),
+                                fit: BoxFit.fill),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Text(
-                    productList[index].productDetails!.name.toString(),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                      fontSize: Platform.isAndroid ? size_10 : size_12,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    productList[index].price.toString(),
-                    style: TextStyle(
-                      color: colors.buttonColor,
-                      fontSize: Platform.isAndroid ? size_10 : size_12,
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          productList[index].productDetails!.name.toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          productList[index].price.toString(),
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: colors.buttonColor,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

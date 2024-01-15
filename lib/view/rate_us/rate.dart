@@ -38,18 +38,21 @@ class _RateUsState extends State<RateUs> {
           ),
           Text(
             'Rate Us!',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: Platform.isAndroid ? size_18 : size_20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Colors.white,
+                  fontSize: Platform.isAndroid ? size_18 : size_20,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           const SizedBox(
             height: 10,
           ),
-          const Text(
+          Text(
             'How would you love this app?',
-            style: TextStyle(color: colors.greyText),
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall!
+                .copyWith(color: colors.greyText),
           ),
           SizedBox(
             height: 20,

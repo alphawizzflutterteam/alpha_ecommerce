@@ -48,7 +48,10 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                 onTap: () {
                                   Routes.navigateToPreviousScreen(context);
                                 },
-                                child: const Icon(Icons.arrow_back_ios)),
+                                child: const Icon(
+                                  Icons.arrow_back_ios,
+                                  color: Colors.white,
+                                )),
                           ),
                           Expanded(
                             child: Padding(
@@ -58,10 +61,14 @@ class _CurrentPlanState extends State<CurrentPlan> {
                               child: Text(
                                 "Subscription Plan",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize:
-                                        Platform.isAndroid ? size_18 : size_20),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Colors.white,
+                                        fontSize: Platform.isAndroid
+                                            ? size_18
+                                            : size_20),
                               ),
                             ),
                           ),
@@ -113,13 +120,16 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                         children: [
                                           Text(
                                             "PREMIUM",
-                                            style: TextStyle(
-                                              fontSize: Platform.isAndroid
-                                                  ? size_18
-                                                  : size_20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_18
+                                                      : size_20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
                                           ),
                                           SizedBox(
                                             height: 10,
@@ -127,34 +137,44 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                           Text.rich(
                                             TextSpan(
                                               text: '\$', // The dollar sign
-                                              style: TextStyle(
-                                                fontSize:
-                                                    18, // Adjust the size as needed
-                                                fontWeight: FontWeight.bold,
-                                                color: colors
-                                                    .lightTextColor, // Customize the color
-                                              ),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                    fontSize:
+                                                        18, // Adjust the size as needed
+                                                    fontWeight: FontWeight.bold,
+                                                    color: colors
+                                                        .lightTextColor, // Customize the color
+                                                  ),
                                               children: <TextSpan>[
                                                 TextSpan(
                                                   text: '9.99',
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        24, // Adjust the size as needed
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors
-                                                        .white, // Customize the color
-                                                  ),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                        fontSize:
+                                                            24, // Adjust the size as needed
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors
+                                                            .white, // Customize the color
+                                                      ),
                                                 ),
                                                 TextSpan(
                                                   text: ' / month',
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        18, // Adjust the size as needed
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    color: Colors
-                                                        .white, // Customize the color
-                                                  ),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                        fontSize:
+                                                            18, // Adjust the size as needed
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        color: Colors
+                                                            .white, // Customize the color
+                                                      ),
                                                 ),
                                               ],
                                             ),
@@ -184,12 +204,15 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                                 },
                                                 child: Text(
                                                   'CURRENT PLAN',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          Platform.isAndroid
-                                                              ? size_10
-                                                              : size_12,
-                                                      color: Colors.white),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                          fontSize:
+                                                              Platform.isAndroid
+                                                                  ? size_10
+                                                                  : size_12,
+                                                          color: Colors.white),
                                                 ),
                                               ),
                                             ],
@@ -218,12 +241,15 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                         SizedBox(width: 10),
                                         Text(
                                           "Lorem Ipsum is simply dummy text",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Colors.white,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                       ],
                                     ),

@@ -100,7 +100,7 @@ class _FilterClassState extends State<FilterClass> {
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Text(
                   "Filter",
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
                           : Colors.black,
@@ -118,20 +118,28 @@ class _FilterClassState extends State<FilterClass> {
                 child: InkWell(
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
-                  onTap: () {
+                  onTap: () async {
                     widget.model.selectedFilter.clear();
                     widget.model.clearFilters();
+                    widget.model.minPriceController.text = "";
+                    widget.model.maxPriceController.text = "";
+                    widget.model.maxPrice = "";
+                    widget.model.minPrice = "";
+                    Routes.navigateToPreviousScreen(context);
                     widget.model.getProductsListNew(context, "25", "1");
 
                     setState(() {});
                   },
-                  child: Text(
-                    "Clear Filters",
-                    style: TextStyle(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                        fontSize: Platform.isAndroid ? size_13 : size_15),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Clear Filters",
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                          fontSize: Platform.isAndroid ? size_13 : size_15),
+                    ),
                   ),
                 ),
               ),
@@ -143,19 +151,19 @@ class _FilterClassState extends State<FilterClass> {
                 children: [
                   Text(
                     "Min Price",
-                    style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                        ),
                   ),
                   Text(
                     "Max Price",
-                    style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                        ),
                   )
                 ],
               ),
@@ -186,16 +194,17 @@ class _FilterClassState extends State<FilterClass> {
                                   vertical: 5, horizontal: 10),
                               hintText: "Min",
                             ),
-                        style: TextStyle(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black,
-                        ),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
                       ),
                     ),
                     Text(
                       "to",
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
                               : Colors.black,
@@ -220,11 +229,12 @@ class _FilterClassState extends State<FilterClass> {
                                   vertical: 5, horizontal: 10),
                               hintText: "Max",
                             ),
-                        style: TextStyle(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black,
-                        ),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
                       ),
                     ),
                   ],
@@ -249,12 +259,15 @@ class _FilterClassState extends State<FilterClass> {
                               children: [
                                 Text(
                                   widget.filter[i].title!,
-                                  style: TextStyle(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                 ),
                                 const SizedBox(
                                   height: 10,
@@ -320,8 +333,7 @@ class _FilterClassState extends State<FilterClass> {
                                                                       .brightness ==
                                                                   Brightness
                                                                       .dark
-                                                              ? Colors
-                                                                  .transparent
+                                                              ? Colors.white
                                                               : Colors.black
                                                           : const Color(
                                                               0x14E9E9E9),
@@ -458,16 +470,21 @@ class _FilterClassState extends State<FilterClass> {
                                                               .filter[i]
                                                               .fields![j]
                                                               .title!,
-                                                          style: TextStyle(
-                                                              color: Theme.of(context)
-                                                                          .brightness ==
-                                                                      Brightness
-                                                                          .dark
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                              fontSize:
-                                                                  size_12),
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .titleSmall!
+                                                              .copyWith(
+                                                                  color: Theme.of(context)
+                                                                              .brightness ==
+                                                                          Brightness
+                                                                              .dark
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black,
+                                                                  fontSize:
+                                                                      size_12),
                                                         ),
                                                       ),
                                               ),
@@ -517,12 +534,13 @@ class _FilterClassState extends State<FilterClass> {
                     },
                     child: Text(
                       'CANCEL',
-                      style: TextStyle(
-                        fontSize: Platform.isAndroid ? size_10 : size_12,
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            fontSize: Platform.isAndroid ? size_10 : size_12,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                          ),
                     ),
                   ),
                 ),
@@ -553,7 +571,7 @@ class _FilterClassState extends State<FilterClass> {
                     },
                     child: Text(
                       'APPLY',
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontSize: Platform.isAndroid ? size_10 : size_12,
                           color: Colors.white),
                     ),

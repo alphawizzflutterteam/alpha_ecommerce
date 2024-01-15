@@ -84,14 +84,18 @@ class _ProfilePaymentState extends State<ProfilePayment> {
                                   ),
                                   title: Text(
                                     paymentType[i].paymentTypeName,
-                                    style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: Platform.isAndroid
-                                            ? size_12
-                                            : size_14),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14),
                                   ),
                                   trailing: Icon(
                                     Icons.arrow_forward_ios_rounded,

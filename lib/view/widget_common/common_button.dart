@@ -6,12 +6,14 @@ class CommonButton extends StatelessWidget {
   final String text;
   final double fontSize;
   final bool? whitePrimary;
+  final Color? colorsText;
   const CommonButton(
       {Key? key,
       required this.text,
       required this.onClick,
       this.whitePrimary,
-      required this.fontSize})
+      required this.fontSize,
+      this.colorsText})
       : super(key: key);
 
   @override
@@ -33,7 +35,7 @@ class CommonButton extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodySmall!
-              .copyWith(fontSize: fontSize),
+              .copyWith(fontSize: fontSize, color: Colors.white),
         ));
   }
 }

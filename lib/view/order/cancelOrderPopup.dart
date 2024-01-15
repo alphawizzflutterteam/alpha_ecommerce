@@ -59,19 +59,22 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
           ),
           Text(
             'Are you sure?',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: Platform.isAndroid ? size_18 : size_20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Colors.white,
+                  fontSize: Platform.isAndroid ? size_18 : size_20,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           const SizedBox(
             height: 10,
           ),
-          const Text(
+          Text(
             'Are you sure, that you want to Cancel Order?',
             textAlign: TextAlign.center,
-            style: TextStyle(color: colors.greyText),
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall!
+                .copyWith(color: colors.greyText),
           ),
           const SizedBox(
             height: 20,
@@ -104,9 +107,9 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
                   },
                   child: Text(
                     'CANCEL',
-                    style: TextStyle(
-                      fontSize: Platform.isAndroid ? size_10 : size_12,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontSize: Platform.isAndroid ? size_10 : size_12,
+                        ),
                   ),
                 ),
               ),
@@ -136,9 +139,9 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
                   },
                   child: Text(
                     'CANCEL ORDER',
-                    style: TextStyle(
-                      fontSize: Platform.isAndroid ? size_10 : size_12,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontSize: Platform.isAndroid ? size_10 : size_12,
+                        ),
                   ),
                 ),
               ),

@@ -94,11 +94,14 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                 child: Text(
                                   "Refer and Earn",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: Platform.isAndroid
-                                          ? size_18
-                                          : size_20),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontSize: Platform.isAndroid
+                                              ? size_18
+                                              : size_20),
                                 ),
                               ),
                             ),
@@ -142,25 +145,31 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                 ),
                                 Text(
                                   user.data[0].loyaltyPoint,
-                                  style: TextStyle(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold),
                                 )
                               ],
                             ),
                           ),
                           Text(
                             "Referral Points",
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                                height: 1.5),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                    height: 1.5),
                             textAlign: TextAlign.center,
                           ),
                           Container(
@@ -202,32 +211,40 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                           children: [
                                             Text(
                                               "You referral code",
-                                              style: TextStyle(
-                                                fontSize: Platform.isAndroid
-                                                    ? size_8
-                                                    : size_10,
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : colors.greyText,
-                                              ),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_8
+                                                        : size_10,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : colors.greyText,
+                                                  ),
                                             ),
                                             const SizedBox(
                                               height: 5,
                                             ),
                                             Text(
                                               user.data[0].referralCode,
-                                              style: TextStyle(
-                                                  fontSize: Platform.isAndroid
-                                                      ? size_18
-                                                      : size_20,
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                  fontWeight: FontWeight.bold),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_18
+                                                              : size_20,
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                             ),
                                           ],
                                         ),
@@ -253,17 +270,20 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                           },
                                           child: Text(
                                             "Copy\nCode",
-                                            style: TextStyle(
-                                              fontSize: Platform.isAndroid
-                                                  ? size_10
-                                                  : size_12,
-                                              height: 1.5,
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_10
+                                                      : size_12,
+                                                  height: 1.5,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                ),
                                           ),
                                         )
                                       ],
@@ -293,11 +313,14 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                 ),
                                 Text(
                                   "Share Code",
-                                  style: TextStyle(
-                                      color: Colors.orange,
-                                      fontSize: Platform.isAndroid
-                                          ? size_14
-                                          : size_16),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Colors.orange,
+                                          fontSize: Platform.isAndroid
+                                              ? size_14
+                                              : size_16),
                                 )
                               ],
                             ),
@@ -316,13 +339,18 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                         children: [
                           Text(
                             "Referall Member & Amount",
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontSize:
-                                    Platform.isAndroid ? size_16 : size_18),
+                            style:
+                                Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: Platform.isAndroid
+                                            ? size_16
+                                            : size_18),
                           ),
                           InkWell(
                             highlightColor: Colors.transparent,
@@ -333,11 +361,15 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             },
                             child: Text(
                               "View all",
-                              style: TextStyle(
-                                  color: colors.buttonColor,
-                                  fontSize:
-                                      Platform.isAndroid ? size_12 : size_14,
-                                  fontWeight: FontWeight.bold),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: colors.buttonColor,
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
+                                      fontWeight: FontWeight.bold),
                             ),
                           )
                         ],
@@ -381,18 +413,21 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                           child: Center(
                                             child: Text(
                                               "AS",
-                                              style: TextStyle(
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors
-                                                        .black, // Set the text color
-                                                fontSize:
-                                                    14, // Set the text size
-                                                fontWeight: FontWeight
-                                                    .bold, // Set the text weight
-                                              ),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors
+                                                            .black, // Set the text color
+                                                    fontSize:
+                                                        14, // Set the text size
+                                                    fontWeight: FontWeight
+                                                        .bold, // Set the text weight
+                                                  ),
                                             ),
                                           ),
                                         ),
@@ -407,15 +442,19 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                               profileProvider
                                                   .referralList[i].description
                                                   .toString(),
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                  fontSize: Platform.isAndroid
-                                                      ? size_12
-                                                      : size_14),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_12
+                                                              : size_14),
                                             ),
                                             SizedBox(
                                               height: 5,
@@ -424,12 +463,17 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                                 profileProvider
                                                     .referralList[i].createdAt
                                                     .toString(),
-                                                style: TextStyle(
-                                                  color: colors.lightTextColor,
-                                                  fontSize: Platform.isAndroid
-                                                      ? size_10
-                                                      : size_12,
-                                                ))
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                      color:
+                                                          colors.lightTextColor,
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_10
+                                                              : size_12,
+                                                    ))
                                           ],
                                         ),
                                       ],
@@ -437,15 +481,19 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                     Text(
                                       profileProvider.referralList[i].balance
                                           .toString(),
-                                      style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                          fontWeight: FontWeight.bold),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                              fontWeight: FontWeight.bold),
                                     )
                                   ],
                                 ),

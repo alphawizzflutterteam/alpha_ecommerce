@@ -94,14 +94,18 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                   ? translation(context).verifyNumber
                                   : translation(context).forgotPassword,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontSize:
-                                      Platform.isAndroid ? size_18 : size_20,
-                                  fontWeight: FontWeight.w600),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: Platform.isAndroid
+                                          ? size_18
+                                          : size_20,
+                                      fontWeight: FontWeight.w600),
                             ),
                           ),
                         ),
@@ -173,8 +177,10 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                     fontSize:
                                         Platform.isAndroid ? size_12 : size_14,
                                   ),
-                                  hintStyle: const TextStyle(
-                                      color: colors.textFieldColor),
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(color: colors.textFieldColor),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: const BorderSide(
@@ -271,17 +277,23 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                           },
                                           child: Text(
                                             translation(context).termsofservice,
-                                            style: const TextStyle(
-                                              color: colors.buttonColor,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  color: colors.buttonColor,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
                                           ),
                                         ),
                                         Text(
                                           translation(context).and,
-                                          style: const TextStyle(
-                                              color: colors.lightTextColor),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: colors.lightTextColor),
                                         ),
                                         InkWell(
                                           highlightColor: Colors.transparent,
@@ -293,12 +305,15 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                           },
                                           child: Text(
                                             translation(context).privacypolicy,
-                                            style: const TextStyle(
-                                              color: colors
-                                                  .buttonColor, // Change the color to your preferred color
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  color: colors
+                                                      .buttonColor, // Change the color to your preferred color
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
                                           ),
                                         ),
                                       ],

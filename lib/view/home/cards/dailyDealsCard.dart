@@ -39,7 +39,7 @@ dailyDealCard(DailyDealsModelList model, BuildContext context,
                       fontSize: Platform.isAndroid ? size_14 : size_16,
                       color: Colors.white,
                       fontWeight: FontWeight.bold)),
-              // style: const TextStyle(
+              // style: Theme.of(context).textTheme.titleSmall!.copyWith(
               //     fontSize:
               //  Platform.isAndroid ? size_14 : size_16,
               //     color: Colors.white,
@@ -58,7 +58,7 @@ dailyDealCard(DailyDealsModelList model, BuildContext context,
                   //     fontSize: size_8,
                   //     color: Colors.white,
                   //     fontWeight: FontWeight.w600),
-                  // // style: const TextStyle(
+                  // // style: Theme.of(context).textTheme.titleSmall!.copyWith(
                   // //     fontSize: size_8,
                   // //     color: Colors.white,
                   //     fontWeight: FontWeight.normal),

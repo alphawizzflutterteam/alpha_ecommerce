@@ -35,12 +35,15 @@ specialOfferCard(SpecialOffersList model, BuildContext context,
                 height: MediaQuery.of(context).size.height * 0.14,
               ),
               Text(
-                model.title,
+                model.title.length > 12
+                    ? model.title.substring(0, 12) + '...'
+                    : model.title,
+
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     fontSize: Platform.isAndroid ? size_11 : size_13,
                     color: colors.buttonColor,
                     fontWeight: FontWeight.bold),
-                // style: const TextStyle(
+                // style: Theme.of(context).textTheme.titleSmall!.copyWith(
                 //     fontSize:
                 //  Platform.isAndroid ? size_11 : size_13,
                 //     color: colors.buttonColor,
@@ -59,7 +62,14 @@ specialOfferCard(SpecialOffersList model, BuildContext context,
                   text: "Shop now",
                   fontSize: Platform.isAndroid ? size_8 : size_10,
                   whitePrimary: true,
-                  onClick: () {})),
+                  onClick: () {
+                    searchProvider.clearFilters();
+
+                    searchProvider.offerId = model.id.toString();
+                    searchProvider.isHome = false;
+                    Routes.navigateToSearchScreen(context);
+                    searchProvider.getProductsListNew(context, "25", "1");
+                  })),
         ],
       ),
     ),

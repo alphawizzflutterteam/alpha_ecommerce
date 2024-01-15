@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/constant.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
@@ -35,11 +36,11 @@ class _SignInState extends State<SignIn> {
         return AlertDialog(
           title: Text(
             'Password Requirements',
-            style: TextStyle(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.black,
-            ),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
           ),
           content: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,35 +51,35 @@ class _SignInState extends State<SignIn> {
               ),
               Text(
                 '• Password must be at least 8 characters.\n',
-                style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                ),
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
               ),
               Text(
                 '• Password must contain at least one lowercase letter & one uppercase letter.\n',
-                style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                ),
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
               ),
               Text(
                 '• Password must contain at least one number.\n',
-                style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                ),
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
               ),
               Text(
                 '• Password must contain at least one special character.\n',
-                style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                ),
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
               ),
             ],
           ),
@@ -89,11 +90,11 @@ class _SignInState extends State<SignIn> {
               },
               child: Text(
                 'OK',
-                style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                ),
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
               ),
             ),
           ],
@@ -113,12 +114,12 @@ class _SignInState extends State<SignIn> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(translation(context).dontHaveanaccount,
-                style: TextStyle(
-                  fontSize: Platform.isAndroid ? size_12 : size_14,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? colors.lightTextColor
-                      : colors.greyText,
-                )),
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      fontSize: Platform.isAndroid ? size_12 : size_14,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? colors.lightTextColor
+                          : colors.greyText,
+                    )),
             InkWell(
               highlightColor: Colors.transparent,
               splashColor: Colors.transparent,
@@ -128,7 +129,7 @@ class _SignInState extends State<SignIn> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 5.0),
                 child: Text(translation(context).signUp,
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontSize: Platform.isAndroid ? size_12 : size_14,
                         color: colors.buttonColor,
                         decoration: TextDecoration.underline)),
@@ -183,7 +184,7 @@ class _SignInState extends State<SignIn> {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   child: Text(
                     translation(context).signInToYourAccount,
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: Theme.of(context).brightness == Brightness.dark
                             ? colors.textColor
                             : Colors.black,
@@ -198,7 +199,7 @@ class _SignInState extends State<SignIn> {
                     textScaler: Platform.isAndroid
                         ? TextScaler.linear(0.8)
                         : TextScaler.linear(1),
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: Theme.of(context).brightness == Brightness.dark
                             ? colors.textColor
                             : Colors.black,
@@ -230,15 +231,17 @@ class _SignInState extends State<SignIn> {
                         ),
                         child: Text(
                           translation(context).loginViaPhone,
-                          style: TextStyle(
-                            color: authViewModel.isLoggingViaPhone
-                                ? colors.buttonColor
-                                : Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                            fontSize: Platform.isAndroid ? size_10 : size_12,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: authViewModel.isLoggingViaPhone
+                                        ? colors.buttonColor
+                                        : Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                         ),
                       ),
                     ),
@@ -262,15 +265,17 @@ class _SignInState extends State<SignIn> {
                         ),
                         child: Text(
                           translation(context).loginviaEmail,
-                          style: TextStyle(
-                            color: !authViewModel.isLoggingViaPhone
-                                ? colors.buttonColor
-                                : Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                            fontSize: Platform.isAndroid ? size_10 : size_12,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: !authViewModel.isLoggingViaPhone
+                                        ? colors.buttonColor
+                                        : Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                         ),
                       ),
                     ),
@@ -309,11 +314,14 @@ class _SignInState extends State<SignIn> {
                                     ? translation(context).mobileno
                                     : translation(context).emailid,
                               ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       authViewModel.isLoggingViaPhone
@@ -353,9 +361,12 @@ class _SignInState extends State<SignIn> {
                                     fontSize:
                                         Platform.isAndroid ? size_12 : size_14,
                                   ),
-                                  hintStyle: const TextStyle(
-                                    color: colors.labelColor,
-                                  ),
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                        color: colors.labelColor,
+                                      ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: const BorderSide(
@@ -385,11 +396,14 @@ class _SignInState extends State<SignIn> {
                                     ),
                                   ),
                                 ),
-                                style: TextStyle(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? colors.textColor
-                                        : Colors.black),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? colors.textColor
+                                            : Colors.black),
                               ),
                             ),
                       Padding(
@@ -406,10 +420,12 @@ class _SignInState extends State<SignIn> {
                                       onPressed: () {
                                         Map data = {};
                                         if (authViewModel.isLoggingViaPhone) {
+                                          var fcm = SharedPref.shared.pref!
+                                              .getString("FCMToken");
                                           data = {
                                             'phone': authViewModel
                                                 .mobileOrEmailController.text,
-                                            'fcm_id': ""
+                                            'fcm_id': fcm ?? ""
                                           };
                                         } else {
                                           final bool emailValid = RegExp(
@@ -419,12 +435,14 @@ class _SignInState extends State<SignIn> {
                                                   .text);
 
                                           if (emailValid) {
+                                            var fcm = SharedPref.shared.pref!
+                                                .getString("FCMToken");
                                             data = {
                                               'email': authViewModel
                                                   .mobileOrEmailController.text,
                                               'password': authViewModel
                                                   .passwordController.text,
-                                              'fcm_id': ""
+                                              'fcm_id': fcm ?? ""
                                             };
                                           } else {
                                             Utils.showFlushBarWithMessage(
@@ -461,10 +479,19 @@ class _SignInState extends State<SignIn> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(translation(context).login,
-                                              style: TextStyle(
-                                                  fontSize: Platform.isAndroid
-                                                      ? size_16
-                                                      : size_18)),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_16
+                                                              : size_18,
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.white
+                                                          : Colors.white)),
                                           const SizedBox(width: 10),
                                           const Icon(Icons.arrow_forward,
                                               size: 23),
@@ -484,16 +511,21 @@ class _SignInState extends State<SignIn> {
                                     },
                                     child: Text(
                                       translation(context).forgotPassword,
-                                      style: TextStyle(
-                                        fontSize: Platform.isAndroid
-                                            ? size_12
-                                            : size_14,
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? colors.lightTextColor
-                                            : colors.greyText,
-                                        decoration: TextDecoration.underline,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? colors.lightTextColor
+                                                    : colors.greyText,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
                                     ),
                                   ),
                                 ],
@@ -513,11 +545,15 @@ class _SignInState extends State<SignIn> {
                                 ),
                                 Text(
                                   translation(context).or,
-                                  style: TextStyle(
-                                    fontSize:
-                                        Platform.isAndroid ? size_14 : size_16,
-                                    color: colors.textColor,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                        fontSize: Platform.isAndroid
+                                            ? size_14
+                                            : size_16,
+                                        color: colors.textColor,
+                                      ),
                                 ),
                                 const Expanded(
                                   child: Padding(

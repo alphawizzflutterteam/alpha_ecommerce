@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -32,6 +33,8 @@ class _ShippingPolicyState extends State<ShippingPolicy> {
 
   @override
   Widget build(BuildContext context) {
+    profileModelProvider = Provider.of<ProfileViewModel>(context);
+
     return Stack(children: [
       const LightBackGround(),
       Scaffold(
@@ -67,7 +70,10 @@ class _ShippingPolicyState extends State<ShippingPolicy> {
                                   onTap: () {
                                     Routes.navigateToPreviousScreen(context);
                                   },
-                                  child: const Icon(Icons.arrow_back_ios)),
+                                  child: const Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white,
+                                  )),
                             ),
                             Expanded(
                               child: Padding(
@@ -77,11 +83,14 @@ class _ShippingPolicyState extends State<ShippingPolicy> {
                                 child: Text(
                                   "Shipping & Delivery",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: Platform.isAndroid
-                                          ? size_18
-                                          : size_20),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontSize: Platform.isAndroid
+                                              ? size_18
+                                              : size_20),
                                 ),
                               ),
                             ),
@@ -93,31 +102,35 @@ class _ShippingPolicyState extends State<ShippingPolicy> {
                 ],
               ),
             ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Html(
-                    data: profileModelProvider.privacyPolicyData.data!
-                        .shippingDeliveryPolicy!.content,
-                    style: {
-                      'p': Style(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                        fontSize: FontSize(14),
+            profileModelProvider.isLoading
+                ? appLoader()
+                : Expanded(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Html(
+                          data: profileModelProvider.privacyPolicyData.data!
+                              .shippingDeliveryPolicy!.content,
+                          style: {
+                            'p': Style(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: FontSize(14),
+                            ),
+                            'li': Style(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: FontSize(14),
+                            ),
+                          },
+                        ),
                       ),
-                      'li': Style(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                        fontSize: FontSize(14),
-                      ),
-                    },
+                    ),
                   ),
-                ),
-              ),
-            ),
           ],
         ),
       )

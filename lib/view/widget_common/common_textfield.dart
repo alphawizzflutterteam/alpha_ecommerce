@@ -21,9 +21,9 @@ InputDecoration commonInputDecoration({
       color: colors.labelColor,
       fontSize: Platform.isAndroid ? size_12 : size_14,
     ),
-    hintStyle: const TextStyle(
-      color: colors.labelColor,
-    ),
+    // hintStyle: Theme.of(context!).textTheme.titleSmall!.copyWith(
+    //       color: colors.labelColor,
+    //     ),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
       borderSide: const BorderSide(

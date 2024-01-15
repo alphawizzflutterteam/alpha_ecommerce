@@ -39,7 +39,6 @@ class _ManageAddressState extends State<ManageAddress> {
     addressProvider.stateController.text = "";
     addressProvider.cityController.text = "";
     addressProvider.pinCodeController.text = "";
-    selectedOption = "";
     addressProvider.latitude = "";
     addressProvider.longitude = "";
     addressProvider.getCountries(context, "", false);
@@ -106,10 +105,13 @@ class _ManageAddressState extends State<ManageAddress> {
                                 ),
                                 SizedBox(width: 5),
                                 Text('Use my location',
-                                    style: TextStyle(
-                                        fontSize: Platform.isAndroid
-                                            ? size_12
-                                            : size_14)),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14)),
                               ],
                             ),
                           ),
@@ -122,14 +124,18 @@ class _ManageAddressState extends State<ManageAddress> {
                             padding: EdgeInsets.only(left: 20, top: 20),
                             child: Text(
                               "Select Delivery type",
-                              style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontSize:
-                                      Platform.isAndroid ? size_12 : size_14,
-                                  fontWeight: FontWeight.bold),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
+                                      fontWeight: FontWeight.bold),
                             ),
                           ),
                           Padding(
@@ -148,15 +154,19 @@ class _ManageAddressState extends State<ManageAddress> {
                                       activeColor: colors.buttonColor,
                                       title: Text(
                                         'Home',
-                                        style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                            ),
                                         softWrap: false, // Add this line
                                       ),
                                       value: 'Home',
@@ -175,15 +185,19 @@ class _ManageAddressState extends State<ManageAddress> {
                                     child: RadioListTile(
                                       title: Text(
                                         'Office',
-                                        style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                            ),
                                         softWrap: false, // Add this line
                                       ),
                                       activeColor: colors.buttonColor,
@@ -203,15 +217,19 @@ class _ManageAddressState extends State<ManageAddress> {
                                     child: RadioListTile(
                                       title: Text(
                                         'Other',
-                                        style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                            ),
                                         softWrap: false, // Add this line
                                       ),
                                       value: 'Other',
@@ -248,7 +266,11 @@ class _ManageAddressState extends State<ManageAddress> {
                       //     ),
                       //     Text(
                       //       'OR',
-                      //       style: TextStyle(
+                      //       style: Theme.of(context)
+                      // .textTheme
+                      // .titleSmall!
+                      // .copyWith(
+
                       //         Platform.isAndroid ? size_14 : size_16,
                       //         color: Colors.white,
                       //       ),
@@ -287,22 +309,32 @@ class _ManageAddressState extends State<ManageAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Name',
-                            labelStyle: TextStyle(
-                              color: colors.labelColor,
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
                           // decoration: commonInputDecoration(
                           //   labelText: translation(context).fullname,
                           // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       Container(
@@ -328,22 +360,32 @@ class _ManageAddressState extends State<ManageAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Mobile Number',
-                            labelStyle: TextStyle(
-                              color: colors.labelColor,
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
                           // decoration: commonInputDecoration(
                           //   labelText: translation(context).fullname,
                           // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       Container(
@@ -370,22 +412,32 @@ class _ManageAddressState extends State<ManageAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Alternate Mobile Number',
-                            labelStyle: TextStyle(
-                              color: colors.labelColor,
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
                           // decoration: commonInputDecoration(
                           //   labelText: translation(context).fullname,
                           // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       Container(
@@ -398,7 +450,9 @@ class _ManageAddressState extends State<ManageAddress> {
                         ),
                         child: TextFormField(
                           controller: addressProvider.houseController,
-
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(50),
+                          ],
                           decoration: InputDecoration(
                             filled: true,
                             fillColor:
@@ -406,22 +460,32 @@ class _ManageAddressState extends State<ManageAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'House no, Building Name',
-                            labelStyle: TextStyle(
-                              color: colors.labelColor,
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
                           // decoration: commonInputDecoration(
                           //   labelText: translation(context).fullname,
                           // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       Container(
@@ -433,7 +497,9 @@ class _ManageAddressState extends State<ManageAddress> {
                         ),
                         child: TextFormField(
                           controller: addressProvider.roadController,
-
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(100),
+                          ],
                           decoration: InputDecoration(
                             filled: true,
                             fillColor:
@@ -441,22 +507,32 @@ class _ManageAddressState extends State<ManageAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Road name, Area Colony',
-                            labelStyle: TextStyle(
-                              color: colors.labelColor,
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
                           // decoration: commonInputDecoration(
                           //   labelText: translation(context).fullname,
                           // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       Container(
@@ -511,7 +587,19 @@ class _ManageAddressState extends State<ManageAddress> {
                             items: addressProvider.countryList
                                 .map((country) => DropdownMenuItem<String>(
                                       value: country.name,
-                                      child: Text(country.name),
+                                      child: Text(
+                                        country.name,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black),
+                                      ),
                                     ))
                                 .toList(),
                             hint: Text('Select a country'),
@@ -568,7 +656,19 @@ class _ManageAddressState extends State<ManageAddress> {
                             items: addressProvider.stateList
                                 .map((state) => DropdownMenuItem<String>(
                                       value: state.name,
-                                      child: Text(state.name!),
+                                      child: Text(
+                                        state.name!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black),
+                                      ),
                                     ))
                                 .toList(),
                             hint: Text('Select a state'),
@@ -614,7 +714,19 @@ class _ManageAddressState extends State<ManageAddress> {
                             items: addressProvider.cityList
                                 .map((city) => DropdownMenuItem<String>(
                                       value: city.name,
-                                      child: Text(city.name!),
+                                      child: Text(
+                                        city.name!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black),
+                                      ),
                                     ))
                                 .toList(),
                             hint: Text('Select a city'),
@@ -642,164 +754,146 @@ class _ManageAddressState extends State<ManageAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Pincode',
-                            labelStyle: TextStyle(
-                              color: colors.labelColor,
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
                           // decoration: commonInputDecoration(
                           //   labelText: translation(context).fullname,
                           // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-              InkWell(
-                highlightColor: Colors.transparent,
-                splashColor: Colors.transparent,
-                onTap: () {
-                  Map data = {
-                    "contact_person_name": addressProvider.nameController.text,
-                    "phone": addressProvider.mobileController.text,
-                    "alt_phone": addressProvider.alternateMobileController.text,
-                    "address": addressProvider.houseController.text,
-                    "address1": addressProvider.roadController.text,
-                    "country": addressProvider.countryController.text,
-                    "state": addressProvider.stateController.text,
-                    "city": addressProvider.cityController.text,
-                    "zip": addressProvider.pinCodeController.text,
-                    "latitude": addressProvider.latitude.toString(),
-                    "longitude": addressProvider.longitude.toString(),
-                    "address_type": selectedOption,
-                    "is_billing": "1"
-                  };
-                  print(data);
-                  addressProvider.addAddress(context, data);
-                },
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: 80,
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? colors.textFieldBG
-                        : Colors.white,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 15,
-                        ),
-                        child: SizedBox(
-                            height: 50,
-                            width: double.infinity,
-                            child: CommonButton(
-                                text: "SAVE ADDRESS",
-                                fontSize:
-                                    Platform.isAndroid ? size_12 : size_14,
-                                onClick: () {
-                                  try {
-                                    Map data = {
-                                      "contact_person_name":
-                                          addressProvider.nameController.text,
-                                      "phone":
-                                          addressProvider.mobileController.text,
-                                      "alt_phone": addressProvider
-                                          .alternateMobileController.text,
-                                      "address":
-                                          addressProvider.houseController.text,
-                                      "address1":
-                                          addressProvider.roadController.text,
-                                      "country": addressProvider
-                                          .countryController.text,
-                                      "state":
-                                          addressProvider.stateController.text,
-                                      "city":
-                                          addressProvider.cityController.text,
-                                      "zip": addressProvider
-                                          .pinCodeController.text,
-                                      "latitude": addressProvider.latitude
-                                                  .toString() ==
-                                              ""
-                                          ? "0.0"
-                                          : addressProvider.latitude.toString(),
-                                      "longitude": addressProvider.longitude
-                                                  .toString() ==
-                                              ""
-                                          ? "0.0"
-                                          : addressProvider.longitude
-                                              .toString(),
-                                      "address_type": selectedOption,
-                                      "is_billing": "1"
-                                    };
-                                    if (addressProvider.nameController.text ==
-                                        "") {
-                                      addressProvider.showAlert(
-                                          context, "Name");
-                                      return;
-                                    } else if (addressProvider
-                                            .mobileController.text ==
-                                        "") {
-                                      addressProvider.showAlert(
-                                          context, "Mobile Number");
-                                      return;
-                                    } else if (addressProvider
-                                            .houseController.text ==
-                                        "") {
-                                      addressProvider.showAlert(
-                                          context, "House number");
-                                      return;
-                                    } else if (addressProvider
-                                            .roadController.text ==
-                                        "") {
-                                      addressProvider.showAlert(
-                                          context, "Road name");
-                                      return;
-                                    } else if (addressProvider
-                                            .countryController.text ==
-                                        "") {
-                                      addressProvider.showAlert(
-                                          context, "Country name");
-                                      return;
-                                    } else if (addressProvider
-                                            .stateController.text ==
-                                        "") {
-                                      addressProvider.showAlert(
-                                          context, "State name");
-                                      return;
-                                    } else if (addressProvider
-                                            .cityController.text ==
-                                        "") {
-                                      addressProvider.showAlert(
-                                          context, "City name");
-                                      return;
-                                    } else if (addressProvider
-                                            .pinCodeController.text ==
-                                        "") {
-                                      addressProvider.showAlert(
-                                          context, "Pincode");
-                                      return;
-                                    }
-                                    print(data);
-
-                                    addressProvider.addAddress(context, data);
-                                  } catch (vat) {
-                                    print(vat.toString());
-                                  }
-                                  //print(data);
-
-                                  // Routes.navigateToPreviousScreen(context);
-                                })),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: 80,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? colors.textFieldBG
+                      : Colors.white,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 15,
                       ),
+                      child: SizedBox(
+                          height: 50,
+                          width: double.infinity,
+                          child: CommonButton(
+                              text: "SAVE ADDRESS",
+                              fontSize: Platform.isAndroid ? size_12 : size_14,
+                              onClick: () {
+                                try {
+                                  Map data = {
+                                    "contact_person_name":
+                                        addressProvider.nameController.text,
+                                    "phone":
+                                        addressProvider.mobileController.text,
+                                    "alt_phone": addressProvider
+                                        .alternateMobileController.text,
+                                    "address":
+                                        addressProvider.houseController.text,
+                                    "address1":
+                                        addressProvider.roadController.text,
+                                    "country":
+                                        addressProvider.countryController.text,
+                                    "state":
+                                        addressProvider.stateController.text,
+                                    "city": addressProvider.cityController.text,
+                                    "zip":
+                                        addressProvider.pinCodeController.text,
+                                    "latitude": addressProvider.latitude
+                                                .toString() ==
+                                            ""
+                                        ? "0.0"
+                                        : addressProvider.latitude.toString(),
+                                    "longitude": addressProvider.longitude
+                                                .toString() ==
+                                            ""
+                                        ? "0.0"
+                                        : addressProvider.longitude.toString(),
+                                    "address_type": selectedOption,
+                                    "is_billing": "1"
+                                  };
+                                  if (addressProvider.nameController.text ==
+                                      "") {
+                                    addressProvider.showAlert(context, "Name");
+                                    return;
+                                  } else if (addressProvider
+                                          .mobileController.text ==
+                                      "") {
+                                    addressProvider.showAlert(
+                                        context, "Mobile Number");
+                                    return;
+                                  } else if (addressProvider
+                                          .houseController.text ==
+                                      "") {
+                                    addressProvider.showAlert(
+                                        context, "House number");
+                                    return;
+                                  } else if (addressProvider
+                                          .roadController.text ==
+                                      "") {
+                                    addressProvider.showAlert(
+                                        context, "Road name");
+                                    return;
+                                  } else if (addressProvider
+                                          .countryController.text ==
+                                      "") {
+                                    addressProvider.showAlert(
+                                        context, "Country name");
+                                    return;
+                                  } else if (addressProvider
+                                          .stateController.text ==
+                                      "") {
+                                    addressProvider.showAlert(
+                                        context, "State name");
+                                    return;
+                                  } else if (addressProvider
+                                          .cityController.text ==
+                                      "") {
+                                    addressProvider.showAlert(
+                                        context, "City name");
+                                    return;
+                                  } else if (addressProvider
+                                          .pinCodeController.text ==
+                                      "") {
+                                    addressProvider.showAlert(
+                                        context, "Pincode");
+                                    return;
+                                  } else if (selectedOption == "") print(data);
+
+                                  addressProvider.addAddress(context, data);
+                                } catch (vat) {
+                                  print(vat.toString());
+                                }
+                                //print(data);
+
+                                // Routes.navigateToPreviousScreen(context);
+                              })),
                     ),
                   ),
                 ),

@@ -56,7 +56,10 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                   onTap: () {
                                     Routes.navigateToPreviousScreen(context);
                                   },
-                                  child: const Icon(Icons.arrow_back_ios)),
+                                  child: const Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white,
+                                  )),
                             ),
                             Expanded(
                               child: Padding(
@@ -66,14 +69,17 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                 child: Text(
                                   "Transaction Detail",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.white
-                                          : Colors.white,
-                                      fontSize: Platform.isAndroid
-                                          ? size_18
-                                          : size_20),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.white,
+                                          fontSize: Platform.isAndroid
+                                              ? size_18
+                                              : size_20),
                                 ),
                               ),
                             ),
@@ -102,19 +108,25 @@ class _SingleTransactionState extends State<SingleTransaction> {
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Text(
                               widget.data.orderAmount,
-                              style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold),
                             ),
                           ),
                           Text(
                             widget.data.createdAt,
-                            style: TextStyle(
-                                color: colors.lightTextColor, height: 1.5),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: colors.lightTextColor, height: 1.5),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(
@@ -141,15 +153,19 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                     ),
                                     Text(
                                       "Transaction Successful",
-                                      style: TextStyle(
-                                        fontSize: Platform.isAndroid
-                                            ? size_11
-                                            : size_13,
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            fontSize: Platform.isAndroid
+                                                ? size_11
+                                                : size_13,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -192,29 +208,36 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                 children: [
                                   Text(
                                     "Order ID",
-                                    style: TextStyle(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? colors.lightTextColor
-                                          : colors.boxBorder,
-                                      fontSize: Platform.isAndroid
-                                          ? size_10
-                                          : size_12,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 3,
-                                  ),
-                                  Text(widget.data.orderId.toString(),
-                                      style: TextStyle(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
                                           color: Theme.of(context).brightness ==
                                                   Brightness.dark
                                               ? colors.lightTextColor
                                               : colors.boxBorder,
                                           fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                          fontWeight: FontWeight.bold))
+                                              ? size_10
+                                              : size_12,
+                                        ),
+                                  ),
+                                  SizedBox(
+                                    height: 3,
+                                  ),
+                                  Text(widget.data.orderId.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.lightTextColor
+                                                  : colors.boxBorder,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                              fontWeight: FontWeight.bold))
                                 ],
                               ),
                               buildCustom(
@@ -232,29 +255,36 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                 children: [
                                   Text(
                                     "Transaction ID",
-                                    style: TextStyle(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? colors.lightTextColor
-                                          : colors.boxBorder,
-                                      fontSize: Platform.isAndroid
-                                          ? size_10
-                                          : size_12,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 3,
-                                  ),
-                                  Text(widget.data.transactionId.toString(),
-                                      style: TextStyle(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
                                           color: Theme.of(context).brightness ==
                                                   Brightness.dark
                                               ? colors.lightTextColor
                                               : colors.boxBorder,
                                           fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                          fontWeight: FontWeight.bold))
+                                              ? size_10
+                                              : size_12,
+                                        ),
+                                  ),
+                                  SizedBox(
+                                    height: 3,
+                                  ),
+                                  Text(widget.data.transactionId.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.lightTextColor
+                                                  : colors.boxBorder,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                              fontWeight: FontWeight.bold))
                                 ],
                               )
                             ],
@@ -269,29 +299,36 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                 children: [
                                   Text(
                                     "Transaction Type",
-                                    style: TextStyle(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? colors.lightTextColor
-                                          : colors.boxBorder,
-                                      fontSize: Platform.isAndroid
-                                          ? size_10
-                                          : size_12,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 3,
-                                  ),
-                                  Text(widget.data.paymentMethod,
-                                      style: TextStyle(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
                                           color: Theme.of(context).brightness ==
                                                   Brightness.dark
                                               ? colors.lightTextColor
                                               : colors.boxBorder,
                                           fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                          fontWeight: FontWeight.bold))
+                                              ? size_10
+                                              : size_12,
+                                        ),
+                                  ),
+                                  SizedBox(
+                                    height: 3,
+                                  ),
+                                  Text(widget.data.paymentMethod,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.lightTextColor
+                                                  : colors.boxBorder,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                              fontWeight: FontWeight.bold))
                                 ],
                               )
                             ],
@@ -306,29 +343,36 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                 children: [
                                   Text(
                                     "Type",
-                                    style: TextStyle(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? colors.lightTextColor
-                                          : colors.boxBorder,
-                                      fontSize: Platform.isAndroid
-                                          ? size_10
-                                          : size_12,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 3,
-                                  ),
-                                  Text("Product Purchase",
-                                      style: TextStyle(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
                                           color: Theme.of(context).brightness ==
                                                   Brightness.dark
                                               ? colors.lightTextColor
                                               : colors.boxBorder,
                                           fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                          fontWeight: FontWeight.bold))
+                                              ? size_10
+                                              : size_12,
+                                        ),
+                                  ),
+                                  SizedBox(
+                                    height: 3,
+                                  ),
+                                  Text("Product Purchase",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.lightTextColor
+                                                  : colors.boxBorder,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                              fontWeight: FontWeight.bold))
                                 ],
                               )
                             ],
@@ -359,7 +403,8 @@ class _SingleTransactionState extends State<SingleTransaction> {
       ),
       child: Text(
         status,
-        style: TextStyle(color: textColor),
+        style:
+            Theme.of(context).textTheme.titleSmall!.copyWith(color: textColor),
       ),
     );
   }

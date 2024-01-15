@@ -39,7 +39,7 @@ deliveryCard(BuildContext context, {required ProductListDetail model}) {
                 Text(
                   "Free Delivery",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       fontSize: Platform.isAndroid ? size_10 : size_12,
                       color: Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
@@ -69,7 +69,7 @@ deliveryCard(BuildContext context, {required ProductListDetail model}) {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontSize: Platform.isAndroid ? size_10 : size_12,
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
@@ -97,7 +97,7 @@ deliveryCard(BuildContext context, {required ProductListDetail model}) {
                     Text(
                       "Top Brand",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontSize: Platform.isAndroid ? size_10 : size_12,
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
@@ -126,7 +126,7 @@ deliveryCard(BuildContext context, {required ProductListDetail model}) {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     fontSize: Platform.isAndroid ? size_10 : size_12,
                     color: Theme.of(context).brightness == Brightness.dark
                         ? Colors.white

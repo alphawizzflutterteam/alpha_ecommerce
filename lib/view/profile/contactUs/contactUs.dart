@@ -56,7 +56,10 @@ class _ContactUsState extends State<ContactUs> {
                                   onTap: () {
                                     Routes.navigateToPreviousScreen(context);
                                   },
-                                  child: const Icon(Icons.arrow_back_ios)),
+                                  child: const Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white,
+                                  )),
                             ),
                             Expanded(
                               child: Padding(
@@ -86,13 +89,18 @@ class _ContactUsState extends State<ContactUs> {
                         children: [
                           Text(
                             term1,
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontSize:
-                                    Platform.isAndroid ? size_12 : size_14),
+                            style:
+                                Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 15, bottom: 30),
@@ -126,15 +134,18 @@ class _ContactUsState extends State<ContactUs> {
                                       ),
                                       Text(
                                         "9330011773",
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_12
-                                                : size_14),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_12
+                                                    : size_14),
                                       )
                                     ],
                                   ),
@@ -155,15 +166,18 @@ class _ContactUsState extends State<ContactUs> {
                                         width: 10,
                                       ),
                                       Text("Support@alphawizz.com",
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_12
-                                                  : size_14))
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14))
                                     ],
                                   )
                                 ],
@@ -172,26 +186,36 @@ class _ContactUsState extends State<ContactUs> {
                           ),
                           Text(
                             "Areas we deliver",
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontSize:
-                                    Platform.isAndroid ? size_12 : size_14),
+                            style:
+                                Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14),
                           ),
                           const SizedBox(
                             height: 10,
                           ),
                           Text(
                             "Pan India",
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontSize:
-                                    Platform.isAndroid ? size_14 : size_16),
+                            style:
+                                Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: Platform.isAndroid
+                                            ? size_14
+                                            : size_16),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 15, bottom: 30),
@@ -217,51 +241,63 @@ class _ContactUsState extends State<ContactUs> {
                                     children: [
                                       Text(
                                         "Delivery Timings",
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_12
-                                                : size_14),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_12
+                                                    : size_14),
                                       ),
                                       SizedBox(
                                         height: 10,
                                       ),
                                       Text("7:00 AM To 11:00 AM",
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_12
-                                                  : size_14)),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14)),
                                       Text(
                                         "12:00 PM To 04:00 PM",
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_12
-                                                : size_14),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_12
+                                                    : size_14),
                                       ),
                                       Text("05:00 PM To 09:00 PM",
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_12
-                                                  : size_14))
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14))
                                     ],
                                   ),
                                 ],
@@ -288,12 +324,16 @@ class _ContactUsState extends State<ContactUs> {
                         width: double.infinity,
                         child: Text(
                           "Note: You can order for maximum 7 days in advance. We deliver in minutes.",
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: Platform.isAndroid ? size_12 : size_14),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14),
                         ),
                       ),
                     ],

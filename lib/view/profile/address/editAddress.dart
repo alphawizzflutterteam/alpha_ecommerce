@@ -88,11 +88,15 @@ class _EditAddressState extends State<EditAddress> {
                             padding: EdgeInsets.only(left: 20, top: 20),
                             child: Text(
                               "Select Delivery type",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      Platform.isAndroid ? size_12 : size_14,
-                                  fontWeight: FontWeight.bold),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Colors.white,
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
+                                      fontWeight: FontWeight.bold),
                             ),
                           ),
                           Padding(
@@ -111,15 +115,19 @@ class _EditAddressState extends State<EditAddress> {
                                       activeColor: colors.buttonColor,
                                       title: Text(
                                         'Home',
-                                        style: TextStyle(
-                                          color: Theme.of(context).brightness !=
-                                                  Brightness.dark
-                                              ? colors.textFieldBG
-                                              : Colors.white,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness !=
+                                                      Brightness.dark
+                                                  ? colors.textFieldBG
+                                                  : Colors.white,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                            ),
                                         softWrap: false, // Add this line
                                       ),
                                       value: 'home',
@@ -138,15 +146,19 @@ class _EditAddressState extends State<EditAddress> {
                                     child: RadioListTile(
                                       title: Text(
                                         'Office',
-                                        style: TextStyle(
-                                          color: Theme.of(context).brightness !=
-                                                  Brightness.dark
-                                              ? colors.textFieldBG
-                                              : Colors.white,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness !=
+                                                      Brightness.dark
+                                                  ? colors.textFieldBG
+                                                  : Colors.white,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                            ),
                                         softWrap: false, // Add this line
                                       ),
                                       activeColor: colors.buttonColor,
@@ -166,15 +178,19 @@ class _EditAddressState extends State<EditAddress> {
                                     child: RadioListTile(
                                       title: Text(
                                         'Other',
-                                        style: TextStyle(
-                                          color: Theme.of(context).brightness !=
-                                                  Brightness.dark
-                                              ? colors.textFieldBG
-                                              : Colors.white,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness !=
+                                                      Brightness.dark
+                                                  ? colors.textFieldBG
+                                                  : Colors.white,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                            ),
                                         softWrap: false, // Add this line
                                       ),
                                       value: 'other',
@@ -205,12 +221,15 @@ class _EditAddressState extends State<EditAddress> {
                         child: TextFormField(
                           controller: addressProvider.nameController,
                           keyboardType: TextInputType.text,
-                          maxLength: 50,
-
+                          // inputFormatters: [
+                          //   LengthLimitingTextInputFormatter(50),
+                          // ],
                           inputFormatters: [
                             FilteringTextInputFormatter.deny(RegExp(r'\d+')),
-                            FilteringTextInputFormatter.allow(RegExp(
-                                r'[a-zA-Z]')), // Allow only alphanumeric characters
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'[a-zA-Z]')),
+                            LengthLimitingTextInputFormatter(50),
+// Allow only alphanumeric characters
                           ],
                           decoration: InputDecoration(
                             filled: true,
@@ -219,22 +238,32 @@ class _EditAddressState extends State<EditAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Name',
-                            labelStyle: TextStyle(
-                              color: colors.labelColor,
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
                           // decoration: commonInputDecoration(
                           //   labelText: translation(context).fullname,
                           // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       Container(
@@ -260,22 +289,32 @@ class _EditAddressState extends State<EditAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Mobile Number',
-                            labelStyle: TextStyle(
-                              color: colors.labelColor,
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
                           // decoration: commonInputDecoration(
                           //   labelText: translation(context).fullname,
                           // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       Container(
@@ -302,22 +341,32 @@ class _EditAddressState extends State<EditAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Alternate Mobile Number',
-                            labelStyle: TextStyle(
-                              color: colors.labelColor,
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
                           // decoration: commonInputDecoration(
                           //   labelText: translation(context).fullname,
                           // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       Container(
@@ -332,7 +381,9 @@ class _EditAddressState extends State<EditAddress> {
                         ),
                         child: TextFormField(
                           controller: addressProvider.houseController,
-                          maxLength: 50,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(50),
+                          ],
                           decoration: InputDecoration(
                             filled: true,
                             fillColor:
@@ -340,22 +391,32 @@ class _EditAddressState extends State<EditAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'House no, Building Name',
-                            labelStyle: TextStyle(
-                              color: colors.labelColor,
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
                           // decoration: commonInputDecoration(
                           //   labelText: translation(context).fullname,
                           // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       Container(
@@ -370,8 +431,10 @@ class _EditAddressState extends State<EditAddress> {
                         ),
                         child: TextFormField(
                           controller: addressProvider.roadController,
-                          maxLength: 100,
-
+                          //  maxLength: 100,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(100),
+                          ],
                           decoration: InputDecoration(
                             filled: true,
                             fillColor:
@@ -379,22 +442,32 @@ class _EditAddressState extends State<EditAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Road name, Area Colony',
-                            labelStyle: TextStyle(
-                              color: colors.labelColor,
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
                           // decoration: commonInputDecoration(
                           //   labelText: translation(context).fullname,
                           // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       Container(
@@ -447,7 +520,19 @@ class _EditAddressState extends State<EditAddress> {
                             items: addressProvider.countryList
                                 .map((country) => DropdownMenuItem<String>(
                                       value: country.name,
-                                      child: Text(country.name),
+                                      child: Text(
+                                        country.name,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textColor
+                                                    : Colors.black),
+                                      ),
                                     ))
                                 .toList(),
                             hint: Text('Select a country'),
@@ -504,7 +589,19 @@ class _EditAddressState extends State<EditAddress> {
                             items: addressProvider.stateList
                                 .map((state) => DropdownMenuItem<String>(
                                       value: state.name,
-                                      child: Text(state.name!),
+                                      child: Text(
+                                        state.name!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textColor
+                                                    : Colors.black),
+                                      ),
                                     ))
                                 .toList(),
                             hint: Text('Select a state'),
@@ -550,7 +647,19 @@ class _EditAddressState extends State<EditAddress> {
                             items: addressProvider.cityList
                                 .map((city) => DropdownMenuItem<String>(
                                       value: city.name,
-                                      child: Text(city.name!),
+                                      child: Text(
+                                        city.name!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black),
+                                      ),
                                     ))
                                 .toList(),
                             hint: Text('Select a city'),
@@ -578,22 +687,32 @@ class _EditAddressState extends State<EditAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Pincode',
-                            labelStyle: TextStyle(
-                              color: colors.labelColor,
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
                           // decoration: commonInputDecoration(
                           //   labelText: translation(context).fullname,
                           // ),
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                     ],

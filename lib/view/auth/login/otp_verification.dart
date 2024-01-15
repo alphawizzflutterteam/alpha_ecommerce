@@ -94,13 +94,18 @@ class _OTPVerificationState extends State<OTPVerification> {
                           child: Text(
                             translation(context).otpverification,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.textColor
-                                    : Colors.black,
-                                fontSize:
-                                    Platform.isAndroid ? size_18 : size_20),
+                            style:
+                                Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? colors.textColor
+                                            : Colors.black,
+                                        fontSize: Platform.isAndroid
+                                            ? size_18
+                                            : size_20),
                           ),
                         ),
                       ),
@@ -132,7 +137,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                 child: Text(
                   translation(context).enterverificationcode,
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: Theme.of(context).brightness == Brightness.dark
                           ? colors.textColor
                           : Colors.black,
@@ -145,12 +150,12 @@ class _OTPVerificationState extends State<OTPVerification> {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Text(
                   "${translation(context).entertheotpsentto} $mobile",
-                  style: TextStyle(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? colors.lightTextColor
-                        : colors.greyText,
-                    fontSize: Platform.isAndroid ? size_14 : size_16,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? colors.lightTextColor
+                            : colors.greyText,
+                        fontSize: Platform.isAndroid ? size_14 : size_16,
+                      ),
                 ),
               ),
               const SizedBox(height: 10),
@@ -191,11 +196,14 @@ class _OTPVerificationState extends State<OTPVerification> {
                                     TextStyle(color: colors.textFieldColor),
                               ),
                               keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? colors.textColor
-                                      : Colors.black),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? colors.textColor
+                                          : Colors.black),
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(1)
                               ], // Limit to one character
@@ -237,11 +245,14 @@ class _OTPVerificationState extends State<OTPVerification> {
                               children: [
                                 Text(
                                   translation(context).didntReceivedOTP,
-                                  style: TextStyle(
-                                      fontSize: Platform.isAndroid
-                                          ? size_12
-                                          : size_14,
-                                      color: colors.lightTextColor),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
+                                          color: colors.lightTextColor),
                                 ),
                                 InkWell(
                                   highlightColor: Colors.transparent,
@@ -261,12 +272,15 @@ class _OTPVerificationState extends State<OTPVerification> {
                                   },
                                   child: Text(
                                     translation(context).resendOTP,
-                                    style: TextStyle(
-                                        fontSize: Platform.isAndroid
-                                            ? size_12
-                                            : size_14,
-                                        color: colors.buttonColor,
-                                        fontWeight: FontWeight.bold),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                            color: colors.buttonColor,
+                                            fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ],
@@ -286,12 +300,12 @@ class _OTPVerificationState extends State<OTPVerification> {
                     widget.isComingForLogin
                         ? translation(context).alreadyhaveanaccount
                         : translation(context).dontHaveanaccount,
-                    style: TextStyle(
-                      fontSize: Platform.isAndroid ? size_12 : size_14,
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? colors.textColor
-                          : colors.greyText,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontSize: Platform.isAndroid ? size_12 : size_14,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textColor
+                              : colors.greyText,
+                        ),
                   ),
                   InkWell(
                     highlightColor: Colors.transparent,
@@ -305,11 +319,11 @@ class _OTPVerificationState extends State<OTPVerification> {
                       widget.isComingForLogin
                           ? translation(context).signIn
                           : translation(context).signUp,
-                      style: TextStyle(
-                        fontSize: Platform.isAndroid ? size_12 : size_14,
-                        color: colors.buttonColor,
-                        decoration: TextDecoration.underline,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            fontSize: Platform.isAndroid ? size_12 : size_14,
+                            color: colors.buttonColor,
+                            decoration: TextDecoration.underline,
+                          ),
                     ),
                   ),
                 ],

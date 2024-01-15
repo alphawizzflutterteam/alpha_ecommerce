@@ -318,7 +318,7 @@ class CartViewModel with ChangeNotifier {
       print(stackTrace.toString());
       couponController.text = "";
 
-      Utils.showFlushBarWithMessage("Alert", "Invaid Coupon", context);
+      Utils.showFlushBarWithMessage("Alert", "Invalid Coupon", context);
 
       return false;
     });

@@ -63,7 +63,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                               onTap: () {
                                 Routes.navigateToPreviousScreen(context);
                               },
-                              child: const Icon(Icons.arrow_back_ios)),
+                              child: const Icon(
+                                Icons.arrow_back_ios,
+                              )),
                         ),
                         Expanded(
                           child: Padding(
@@ -72,10 +74,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                             child: Text(
                               translation(context).changepassword,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      Platform.isAndroid ? size_18 : size_20),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Colors.white,
+                                      fontSize: Platform.isAndroid
+                                          ? size_18
+                                          : size_20),
                             ),
                           ),
                         ),
@@ -92,11 +98,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                 height: 90,
                 width: 120,
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                 child: Text(
                   changePassword1,
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: colors.textColor,
                       fontSize: 25,
                       fontWeight: FontWeight.w500),
@@ -106,7 +112,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: Text(
                   changePassword2,
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: colors.lightTextColor,
                       fontSize: Platform.isAndroid ? size_13 : size_15,
                       fontWeight: FontWeight.w400),
@@ -145,9 +151,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                             color: colors.labelColor,
                             fontSize: Platform.isAndroid ? size_12 : size_14,
                           ),
-                          hintStyle: const TextStyle(
-                            color: colors.labelColor,
-                          ),
+                          hintStyle:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: colors.labelColor,
+                                  ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(
@@ -177,7 +184,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                             ),
                           ),
                         ),
-                        style: const TextStyle(color: colors.textColor),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(color: colors.textColor),
                       ),
                     ),
                     Padding(
@@ -209,13 +219,16 @@ class _ResetPasswordState extends State<ResetPassword> {
                               color: colors.labelColor,
                             ),
                           ),
-                          labelStyle: TextStyle(
-                            color: colors.labelColor,
-                            fontSize: Platform.isAndroid ? size_12 : size_14,
-                          ),
-                          hintStyle: const TextStyle(
-                            color: colors.labelColor,
-                          ),
+                          labelStyle:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: colors.labelColor,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
+                                  ),
+                          hintStyle:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: colors.labelColor,
+                                  ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(
@@ -245,7 +258,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                             ),
                           ),
                         ),
-                        style: const TextStyle(color: colors.textColor),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(color: colors.textColor),
                       ),
                     ),
                     Padding(

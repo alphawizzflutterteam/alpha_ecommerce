@@ -63,7 +63,7 @@ wishlistCard(WishlistItemProduct model, BuildContext context) {
                       ),
                       image: DecorationImage(
                           image: NetworkImage(model.thumbnail),
-                          fit: BoxFit.cover),
+                          fit: BoxFit.fill),
                     ),
                   ),
                 ),
@@ -121,7 +121,7 @@ wishlistCard(WishlistItemProduct model, BuildContext context) {
                                         color: Colors.cyan,
                                         fontWeight: FontWeight.w600)),
                             const SizedBox(
-                              width: 10,
+                              width: 5,
                             ),
                             Text(model.unitPrice,
                                 style: Theme.of(context)
@@ -129,9 +129,11 @@ wishlistCard(WishlistItemProduct model, BuildContext context) {
                                     .titleSmall!
                                     .copyWith(
                                         fontSize: Platform.isAndroid
-                                            ? size_10
-                                            : size_12,
+                                            ? size_9
+                                            : size_11,
                                         decoration: TextDecoration.lineThrough,
+                                        decorationColor: Colors.black,
+                                        decorationThickness: 3,
                                         color: colors.lightTextColor,
                                         fontWeight: FontWeight.w600)),
                           ],

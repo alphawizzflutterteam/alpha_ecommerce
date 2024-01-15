@@ -53,17 +53,17 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.network(
-                  model.images[0],
+                  model.thumbnail,
                   errorBuilder: (context, error, stackTrace) => Image.asset(
                     Images.defaultProductImg,
-                    width: MediaQuery.of(context).size.width * .25,
+                    width: MediaQuery.of(context).size.width * .24,
                   ),
-                  width: MediaQuery.of(context).size.width * .25,
+                  width: MediaQuery.of(context).size.width * .24,
                   // height: MediaQuery.of(context).size.height * .15,
                 ),
               ],
             ),
-            const SizedBox(width: 30),
+            const SizedBox(width: 18),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -71,12 +71,12 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                   height: 10,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * .5,
+                  width: MediaQuery.of(context).size.width * .52,
                   child: Text(
                     model.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: Theme.of(context).brightness == Brightness.dark
                             ? Colors.white
                             : Colors.black,
@@ -90,7 +90,7 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                   children: [
                     Text(
                       model.unitPrice,
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: colors.buttonColor,
                           fontSize: Platform.isAndroid ? size_14 : size_16),
                     ),
@@ -98,13 +98,16 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                       padding: const EdgeInsets.only(left: 10),
                       child: Text(
                         model.specialPrice,
-                        style: TextStyle(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? colors.greyText
-                              : Colors.black,
-                          fontSize: Platform.isAndroid ? size_12 : size_14,
-                          decoration: TextDecoration.lineThrough,
-                        ),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.greyText
+                                  : Colors.black,
+                              fontSize: Platform.isAndroid ? size_12 : size_14,
+                              decoration: TextDecoration.lineThrough,
+                              decorationColor: Colors.black,
+                              decorationThickness: 3,
+                            ),
                       ),
                     ),
                   ],
@@ -114,12 +117,12 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                 ),
                 Text(
                   model.code,
-                  style: TextStyle(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? colors.greyText
-                        : Colors.black,
-                    fontSize: Platform.isAndroid ? size_10 : size_12,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? colors.greyText
+                            : Colors.black,
+                        fontSize: Platform.isAndroid ? size_10 : size_12,
+                      ),
                 ),
                 const SizedBox(
                   height: 10,
@@ -138,7 +141,7 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                         },
                         child: Container(
                           height: 30,
-                          width: MediaQuery.of(context).size.width * 0.18,
+                          width: MediaQuery.of(context).size.width * 0.16,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               borderRadius:
@@ -151,14 +154,18 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                               )),
                           child: Text(
                             "DELETE",
-                            style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w500,
-                              fontSize: Platform.isAndroid ? size_10 : size_12,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize:
+                                      Platform.isAndroid ? size_10 : size_12,
+                                ),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -167,7 +174,7 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,
                         onTap: () async {
-                          Map data;
+                          Map<String, String> data;
 
                           if (model.isCart) {
                             data = {
@@ -180,7 +187,7 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                               'id': model.id.toString(),
                               'quantity': "1",
                               'color': model.colorImage.isNotEmpty
-                                  ? "#" + model.colorImage[0].color
+                                  ? model.colorImage[0].color
                                   : "",
                               'choice_2': model.choiceOptions.isNotEmpty
                                   ? model.choiceOptions[0].options[0]
@@ -204,14 +211,18 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                               )),
                           child: Text(
                             model.isCart ? "Remove From Cart" : "Add To Cart",
-                            style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w500,
-                              fontSize: Platform.isAndroid ? size_10 : size_12,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize:
+                                      Platform.isAndroid ? size_10 : size_12,
+                                ),
                             textAlign: TextAlign.center,
                           ),
                         ),

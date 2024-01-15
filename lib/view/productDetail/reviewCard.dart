@@ -35,11 +35,12 @@ reviewCard(Review rating, BuildContext context) {
                   children: [
                     Text(
                       rating.customer.name,
-                      style: TextStyle(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                          ),
                     ),
                     RatingBar.builder(
                       initialRating: rating.rating.toDouble(),
@@ -66,12 +67,12 @@ reviewCard(Review rating, BuildContext context) {
             ),
             Text(
               rating.comment,
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
             ),
             const SizedBox(
               height: 5,

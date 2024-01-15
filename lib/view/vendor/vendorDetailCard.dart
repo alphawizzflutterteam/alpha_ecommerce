@@ -35,10 +35,10 @@ vendorDetailCard(
                 .categoryList[categoryListIndex]
                 .categoryName,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: Platform.isAndroid ? size_10 : size_12,
-            ),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Colors.white,
+                  fontSize: Platform.isAndroid ? size_10 : size_12,
+                ),
           ),
         ],
       ),

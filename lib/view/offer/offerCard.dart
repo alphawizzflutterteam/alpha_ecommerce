@@ -31,10 +31,10 @@ offerCard(context) {
                 quarterTurns: -1,
                 child: Text(
                   'DISCOUNT',
-                  style: TextStyle(
-                    fontSize: Platform.isAndroid ? size_16 : size_18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        fontSize: Platform.isAndroid ? size_16 : size_18,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
               ),
               const SizedBox(
@@ -66,7 +66,7 @@ offerCard(context) {
             children: [
               Text(
                 'Everyday Savings, Fresh Delights:',
-                style: TextStyle(
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Colors.white,
                     fontSize: Platform.isAndroid ? size_12 : size_14),
               ),
@@ -75,7 +75,7 @@ offerCard(context) {
               ),
               Text(
                 'Your One-Stop Grocery Destination!',
-                style: TextStyle(
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Colors.white,
                     fontSize: Platform.isAndroid ? size_12 : size_14),
               ),
@@ -84,7 +84,7 @@ offerCard(context) {
               ),
               Text(
                 '50% off',
-                style: TextStyle(
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Colors.white,
                     fontSize: Platform.isAndroid ? size_18 : size_20,
                     fontWeight: FontWeight.bold),
@@ -100,17 +100,17 @@ offerCard(context) {
                     children: [
                       Text(
                         'Expires',
-                        style: TextStyle(
-                          color: colors.greyText,
-                          fontSize: Platform.isAndroid ? size_10 : size_12,
-                        ),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              color: colors.greyText,
+                              fontSize: Platform.isAndroid ? size_10 : size_12,
+                            ),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
                         '30 Jul 2019',
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             color: Colors.white,
                             fontSize: Platform.isAndroid ? size_12 : size_14),
                       ),
@@ -129,10 +129,13 @@ offerCard(context) {
                                   .white), // Replace with your desired icon
                           Text(
                             'CP16533',
-                            style: TextStyle(
-                                fontSize:
-                                    Platform.isAndroid ? size_14 : size_16,
-                                color: Colors.white),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    fontSize:
+                                        Platform.isAndroid ? size_14 : size_16,
+                                    color: Colors.white),
                           ),
                         ],
                       ),

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:alpha_ecommerce_18oct/provider/theme_provider.dart';
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/utils/string.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,6 +33,7 @@ Future<void> changeTheme(context) async {
                   splashColor: Colors.transparent,
                   onTap: () {
                     theme.setThemeMode(ThemeMode.dark);
+                    SharedPref.shared.pref?.setString(PrefKeys.appTheme, DARK);
                   },
                   child: Row(
                     children: [
@@ -47,10 +50,10 @@ Future<void> changeTheme(context) async {
                       ),
                       Text(
                         "Dark",
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             color:
                                 Theme.of(context).brightness == Brightness.dark
-                                    ? colors.textColor
+                                    ? Colors.white
                                     : Colors.black,
                             fontSize: Platform.isAndroid ? size_16 : size_18),
                       )
@@ -66,6 +69,7 @@ Future<void> changeTheme(context) async {
                   splashColor: Colors.transparent,
                   onTap: () {
                     theme.setThemeMode(ThemeMode.light);
+                    SharedPref.shared.pref?.setString(PrefKeys.appTheme, LIGHT);
                   },
                   child: Row(
                     children: [
@@ -80,12 +84,16 @@ Future<void> changeTheme(context) async {
                         width: 20,
                       ),
                       Text("Light",
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black,
-                              fontSize: Platform.isAndroid ? size_16 : size_18))
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_16 : size_18))
                     ],
                   ),
                 ),

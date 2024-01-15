@@ -49,7 +49,10 @@ class _SingleRefundState extends State<SingleRefund> {
                                 onTap: () {
                                   Routes.navigateToPreviousScreen(context);
                                 },
-                                child: const Icon(Icons.arrow_back_ios)),
+                                child: const Icon(
+                                  Icons.arrow_back_ios,
+                                  color: Colors.white,
+                                )),
                           ),
                           Expanded(
                             child: Padding(
@@ -59,10 +62,14 @@ class _SingleRefundState extends State<SingleRefund> {
                               child: Text(
                                 "Refund Detail",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize:
-                                        Platform.isAndroid ? size_18 : size_20),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Colors.white,
+                                        fontSize: Platform.isAndroid
+                                            ? size_18
+                                            : size_20),
                               ),
                             ),
                           ),
@@ -86,20 +93,26 @@ class _SingleRefundState extends State<SingleRefund> {
                           const SizedBox(
                             height: 20,
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Text(
                               "\$ 2562",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Colors.white,
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold),
                             ),
                           ),
-                          const Text(
+                          Text(
                             "2 Oct 2023 04:45 PM",
-                            style: TextStyle(
-                                color: colors.lightTextColor, height: 1.5),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: colors.lightTextColor, height: 1.5),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(
@@ -125,11 +138,14 @@ class _SingleRefundState extends State<SingleRefund> {
                                     ),
                                     Text(
                                       "Transaction Successful",
-                                      style: TextStyle(
-                                        fontSize: Platform.isAndroid
-                                            ? size_10
-                                            : size_12,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
                                     ),
                                   ],
                                 )),
@@ -168,23 +184,29 @@ class _SingleRefundState extends State<SingleRefund> {
                                 children: [
                                   Text(
                                     "Order ID",
-                                    style: TextStyle(
-                                      color: colors.lightTextColor,
-                                      fontSize: Platform.isAndroid
-                                          ? size_10
-                                          : size_12,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: colors.lightTextColor,
+                                          fontSize: Platform.isAndroid
+                                              ? size_10
+                                              : size_12,
+                                        ),
                                   ),
                                   SizedBox(
                                     height: 3,
                                   ),
                                   Text("OID2345678912",
-                                      style: TextStyle(
-                                          color: colors.textColor,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                          fontWeight: FontWeight.bold))
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: colors.textColor,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                              fontWeight: FontWeight.bold))
                                 ],
                               ),
                               buildCustomButton(true)
@@ -200,23 +222,29 @@ class _SingleRefundState extends State<SingleRefund> {
                                 children: [
                                   Text(
                                     "Transaction ID",
-                                    style: TextStyle(
-                                      color: colors.lightTextColor,
-                                      fontSize: Platform.isAndroid
-                                          ? size_10
-                                          : size_12,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: colors.lightTextColor,
+                                          fontSize: Platform.isAndroid
+                                              ? size_10
+                                              : size_12,
+                                        ),
                                   ),
                                   SizedBox(
                                     height: 3,
                                   ),
                                   Text("OID2345678912",
-                                      style: TextStyle(
-                                          color: colors.textColor,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                          fontWeight: FontWeight.bold))
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: colors.textColor,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                              fontWeight: FontWeight.bold))
                                 ],
                               )
                             ],
@@ -231,23 +259,29 @@ class _SingleRefundState extends State<SingleRefund> {
                                 children: [
                                   Text(
                                     "Transaction Type",
-                                    style: TextStyle(
-                                      color: colors.lightTextColor,
-                                      fontSize: Platform.isAndroid
-                                          ? size_10
-                                          : size_12,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: colors.lightTextColor,
+                                          fontSize: Platform.isAndroid
+                                              ? size_10
+                                              : size_12,
+                                        ),
                                   ),
                                   SizedBox(
                                     height: 3,
                                   ),
                                   Text("Bank Transfer",
-                                      style: TextStyle(
-                                          color: colors.textColor,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                          fontWeight: FontWeight.bold))
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: colors.textColor,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                              fontWeight: FontWeight.bold))
                                 ],
                               )
                             ],
@@ -262,23 +296,29 @@ class _SingleRefundState extends State<SingleRefund> {
                                 children: [
                                   Text(
                                     "Type",
-                                    style: TextStyle(
-                                      color: colors.lightTextColor,
-                                      fontSize: Platform.isAndroid
-                                          ? size_10
-                                          : size_12,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: colors.lightTextColor,
+                                          fontSize: Platform.isAndroid
+                                              ? size_10
+                                              : size_12,
+                                        ),
                                   ),
                                   SizedBox(
                                     height: 3,
                                   ),
                                   Text("Product Purchase",
-                                      style: TextStyle(
-                                          color: colors.textColor,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                          fontWeight: FontWeight.bold))
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: colors.textColor,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                              fontWeight: FontWeight.bold))
                                 ],
                               )
                             ],

@@ -65,7 +65,7 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
                     alignment: Alignment.center,
                     child: Text(
                       "Write Review",
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: Theme.of(context).brightness == Brightness.dark
                               ? colors.textColor
                               : Colors.black,
@@ -94,11 +94,11 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
             ),
             Text(
               'Review',
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? colors.textColor
-                    : Colors.black,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? colors.textColor
+                        : Colors.black,
+                  ),
             ),
             const SizedBox(
               height: 10,
@@ -122,10 +122,14 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
             const SizedBox(
               height: 20,
             ),
-            const Text(
+            Text(
               'Description',
               textAlign: TextAlign.center,
-              style: TextStyle(color: colors.textColor),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? colors.textColor
+                        : Colors.black,
+                  ),
             ),
             const SizedBox(
               height: 10,
@@ -139,22 +143,23 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
                   return null;
               },
               maxLines: 3,
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? colors.textColor
-                    : Colors.black,
-                fontSize: Platform.isAndroid ? size_10 : size_12,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? colors.textColor
+                        : Colors.black,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                  ),
+              maxLength: 120,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Theme.of(context).brightness == Brightness.dark
                     ? colors.textFieldBG
                     : Colors.white,
                 hintText: "Write here...",
-                hintStyle: TextStyle(
-                  color: colors.lightTextColor,
-                  fontSize: Platform.isAndroid ? size_10 : size_12,
-                ),
+                hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: colors.lightTextColor,
+                      fontSize: Platform.isAndroid ? size_10 : size_12,
+                    ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: const BorderSide(
@@ -186,7 +191,7 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: size_20,
             ),
             Center(
               child: SizedBox(
@@ -220,15 +225,18 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
                           product_id: widget.product_id,
                           context: context);
                     }
-                    Routes.navigateToPreviousScreen(context);
+                    // Routes.navigateToPreviousScreen(context);
                     // Routes.navigateToOrderCancelledScreen(
                     //     context, widget.order_id);
                   },
                   child: Text(
                     'Submit Review',
-                    style: TextStyle(
-                      fontSize: Platform.isAndroid ? size_10 : size_12,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textColor
+                              : Colors.white,
+                          fontSize: Platform.isAndroid ? size_10 : size_12,
+                        ),
                   ),
                 ),
               ),

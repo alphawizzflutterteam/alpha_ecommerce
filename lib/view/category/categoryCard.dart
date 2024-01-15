@@ -43,6 +43,7 @@ categoryCard(
             imageUrl: model.icon!,
             height: 70,
             width: 90,
+            fit: BoxFit.fill,
             errorWidget: (context, url, error) => ErrorImageWidget(),
           ),
           const SizedBox(
@@ -51,12 +52,12 @@ categoryCard(
           Text(
             model.name!,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.black,
-              fontSize: Platform.isAndroid ? size_10 : size_12,
-            ),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: Platform.isAndroid ? size_10 : size_12,
+                ),
           ),
         ],
       ),

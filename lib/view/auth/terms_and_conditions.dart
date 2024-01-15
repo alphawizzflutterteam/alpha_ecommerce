@@ -22,7 +22,6 @@ class _TermAndConditionState extends State<TermAndCondition> {
   late ProfileViewModel profileModelProvider;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     profileModelProvider =
         Provider.of<ProfileViewModel>(context, listen: false);
@@ -31,6 +30,7 @@ class _TermAndConditionState extends State<TermAndCondition> {
 
   callApi() async {
     await profileModelProvider.getPrivacyPolicyData(context);
+    setState(() {});
   }
 
   @override
@@ -72,7 +72,10 @@ class _TermAndConditionState extends State<TermAndCondition> {
                                   onTap: () {
                                     Routes.navigateToPreviousScreen(context);
                                   },
-                                  child: const Icon(Icons.arrow_back_ios)),
+                                  child: const Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white,
+                                  )),
                             ),
                             Expanded(
                               child: Padding(
@@ -82,11 +85,14 @@ class _TermAndConditionState extends State<TermAndCondition> {
                                 child: Text(
                                   "Terms & Condition",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: Platform.isAndroid
-                                          ? size_18
-                                          : size_20),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontSize: Platform.isAndroid
+                                              ? size_18
+                                              : size_20),
                                 ),
                               ),
                             ),

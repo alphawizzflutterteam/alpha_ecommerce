@@ -1,5 +1,8 @@
 import 'dart:ffi';
 import 'dart:io';
+import 'package:alpha_ecommerce_18oct/view/profile/address/model/cityModel.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/address/model/countryModel.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/address/model/stateModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/networkViewModel.dart';
 import 'package:http_parser/http_parser.dart';
 
@@ -20,10 +23,25 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProfileViewModel with ChangeNotifier {
+  List<CountryList> countryList = [];
   bool isLoading = false;
+  List<StateData> stateList = [];
+  List<CityData> cityList = [];
+  String selectedCountry = "India";
+  String selectedState = "Select a state";
+  String selectedCity = "Select a city";
   bool get loading => isLoading;
   final _myRepo = ProfileRepository();
   late PrivacyPolicyModel privacyPolicyData;
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController genderController = TextEditingController();
+  final TextEditingController mobileController = TextEditingController();
+  final TextEditingController countryController = TextEditingController();
+  final TextEditingController stateController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController pinCodeController = TextEditingController();
 
   List<DatumTrasaction> transactionDatta = [];
   List<DatumRefund> refundData = [];
@@ -291,6 +309,181 @@ class ProfileViewModel with ChangeNotifier {
         setLoading(false);
         print(error.toString());
         print(stackTrace.toString());
+      });
+    }
+  }
+
+  Future<void> getCountries(
+      BuildContext context, String data, bool forEditing) async {
+    setLoading(true);
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      print(countryController.text + "Country name");
+      await _myRepo.countryList(AppUrl.countries).then((value) async {
+        countryList = value.data;
+        if (countryList.isNotEmpty) {
+          for (int i = 0; i < countryList.length; i++) {
+            if (countryList[i].name == countryController.text) {
+              print(countryList[i].id.toString() + "Countryid");
+
+              selectedCountry = countryList[i].name;
+              countryController.text = selectedCountry;
+              getStates(
+                context,
+                countryList[i].id.toString(),
+              );
+            }
+          }
+
+          if (!forEditing) {
+            //  selectedState = "";
+            getStatesList(
+              context,
+              "101",
+            );
+          }
+        } else {
+          countryController.text = "";
+          selectedCountry = "Select a Country";
+        }
+        setLoading(false);
+      }).onError((error, stackTrace) {
+        setLoading(false);
+
+        print(stackTrace.toString());
+        Utils.showFlushBarWithMessage(
+            "Alert", "Something went wrong.", context);
+      });
+    }
+  }
+
+  Future<void> getStatesList(
+    BuildContext context,
+    String data,
+  ) async {
+    setLoading(true);
+
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo.stateList(AppUrl.states + data).then((value) async {
+        stateList = value.data;
+        if (stateList.isNotEmpty) {
+          selectedState = stateList[0].name!;
+          stateController.text = selectedState;
+          getCity(context, stateList[0].id.toString());
+        } else {
+          selectedCity = "Select a city";
+          selectedState = "Select a state";
+          stateController.text = "";
+          cityList.clear();
+          cityController.text = "";
+        }
+
+        setLoading(false);
+      }).onError((error, stackTrace) {
+        setLoading(false);
+
+        print(stackTrace.toString());
+        Utils.showFlushBarWithMessage(
+            "Alert", "Something went wrong.", context);
+      });
+    }
+  }
+
+  Future<void> getStates(
+    BuildContext context,
+    String data,
+  ) async {
+    setLoading(true);
+
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo.stateList(AppUrl.states + data).then((value) async {
+        stateList = value.data;
+        if (stateList.isNotEmpty) {
+          print(stateController.text + "state name");
+
+          for (int i = 0; i < stateList.length; i++) {
+            if (stateList[i].name.toString() == stateController.text) {
+              selectedState = stateList[i].name!;
+              stateController.text = selectedState;
+              getCity(context, stateList[i].id.toString());
+            }
+          }
+        } else {
+          selectedCity = "Select a city";
+          selectedState = "Select a state";
+          stateController.text = "";
+          cityList.clear();
+          cityController.text = "";
+        }
+
+        setLoading(false);
+      }).onError((error, stackTrace) {
+        setLoading(false);
+
+        print(stackTrace.toString());
+        Utils.showFlushBarWithMessage(
+            "Alert", "Something went wrong.", context);
+      });
+    }
+  }
+
+  Future<void> getCity(BuildContext context, String data) async {
+    setLoading(true);
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo.cityList(AppUrl.city + data).then((value) async {
+        cityList = value.data;
+        if (cityList.isNotEmpty) {
+          selectedCity = cityList[0].name!;
+          //  cityController.text = selectedCity;
+          for (int i = 0; i < cityList.length; i++) {
+            if (cityList[i].name.toString() == cityController.text) {
+              selectedCity = cityList[i].name!;
+              cityController.text = selectedCity;
+            }
+          }
+        } else {
+          selectedCity = "Select a City";
+          cityController.text = "";
+        }
+
+        setLoading(false);
+      }).onError((error, stackTrace) {
+        setLoading(false);
+
+        print(stackTrace.toString());
+        Utils.showFlushBarWithMessage(
+            "Alert", "Something went wrong.", context);
       });
     }
   }

@@ -55,16 +55,24 @@ productForYouCardSearch(ProductList model, BuildContext context,
             children: [
               Expanded(
                 flex: 2,
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.14,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
+                child: InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  onTap: () {
+                    Routes.navigateToProductDetailPageScreen(
+                        context, model.slug);
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.14,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                      image: DecorationImage(
+                          image: NetworkImage(model.thumbnail),
+                          fit: BoxFit.fill),
                     ),
-                    image: DecorationImage(
-                        image: NetworkImage(model.thumbnail),
-                        fit: BoxFit.cover),
                   ),
                 ),
               ),
@@ -131,7 +139,13 @@ productForYouCardSearch(ProductList model, BuildContext context,
                       child: Text(model.name,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodySmall!),
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                  )),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -158,9 +172,8 @@ productForYouCardSearch(ProductList model, BuildContext context,
                                   .textTheme
                                   .titleSmall!
                                   .copyWith(
-                                      fontSize: Platform.isAndroid
-                                          ? size_10
-                                          : size_12,
+                                      fontSize:
+                                          Platform.isAndroid ? size_9 : size_11,
                                       decoration: TextDecoration.lineThrough,
                                       color: colors.lightTextColor,
                                       fontWeight: FontWeight.w600)),
@@ -173,17 +186,23 @@ productForYouCardSearch(ProductList model, BuildContext context,
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,
                         onTap: () {
-                          Map data;
+                          Map<String, String> data;
                           if (!model.isCart) {
+                            try {
+                              Map<String, String> map = {
+                                model.choiceOptions[0].name:
+                                    model.choiceOptions[0].options[0]
+                              };
+
+                              homeProvider.selectedVariationMap.add(map);
+                            } catch (err) {}
+
                             data = {
                               'id': model.id.toString(),
                               'quantity': "1",
-                              'color': model.colorImage.isNotEmpty
-                                  ? "#" + model.colorImage[0].color
+                              'color': model.colorsFormatted.isNotEmpty
+                                  ? model.colorsFormatted[0].code
                                   : "",
-                              'choice_2': model.choiceOptions.isNotEmpty
-                                  ? model.choiceOptions[0].options[0]
-                                  : ""
                             };
                           } else {
                             data = {
@@ -248,7 +267,11 @@ productForYouCardSearch(ProductList model, BuildContext context,
 //       child: Center(
 //         child: Text(
 //           items[index],
-//           style: TextStyle(fontSize: Platform.isAndroid
+//           style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                    //   fontSize: Platform.isAndroid
                                                   // ? size_16
                                                   // : size_18.0, color: Colors.white),
 //         ),

@@ -124,7 +124,7 @@ class _CategoryFilterState extends State<CategoryFilter> {
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               "Explore Categories",
-              style: TextStyle(
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
                   color: Theme.of(context).brightness != Brightness.dark
                       ? Colors.black
                       : Colors.white,

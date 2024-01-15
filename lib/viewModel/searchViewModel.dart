@@ -70,6 +70,7 @@ class SearchViewModel with ChangeNotifier {
     sortBy = "";
     orderBy = "";
     isHome = true;
+    reviewFilter = "";
   }
 
   Future<void> getProductsList(
