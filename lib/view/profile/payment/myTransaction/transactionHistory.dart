@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/transactionHistoryCard.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
@@ -58,23 +59,48 @@ class _TransactionHistoryState extends State<TransactionHistory> {
               ),
               profileModelProvider.isLoading
                   ? appLoader()
-                  : Expanded(
-                      child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 30,
+                  : profileModelProvider.transactionDatta.isEmpty
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 50,
+                              ),
+                              Image.asset(
+                                'assets/images/Group 3021.png',
+                                height: size_150,
+                              ),
+                              Text(
+                                "No transactions yet.",
+                                style: TextStyle(
+                                  color: colors.greyText,
+                                ),
+                              )
+                            ],
                           ),
-                          for (int i = 0;
-                              i < profileModelProvider.transactionDatta.length;
-                              i++)
-                            transactionHistoryCard(
-                                context: context,
-                                data: profileModelProvider.transactionDatta[i]),
-                        ],
-                      ),
-                    )),
+                        )
+                      : Expanded(
+                          child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              for (int i = 0;
+                                  i <
+                                      profileModelProvider
+                                          .transactionDatta.length;
+                                  i++)
+                                transactionHistoryCard(
+                                    context: context,
+                                    data: profileModelProvider
+                                        .transactionDatta[i]),
+                            ],
+                          ),
+                        )),
             ],
           ),
         ),

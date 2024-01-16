@@ -189,13 +189,17 @@ productForYouCardSearch(ProductList model, BuildContext context,
                           Map<String, String> data;
                           if (!model.isCart) {
                             try {
-                              Map<String, String> map = {
-                                model.choiceOptions[0].name:
-                                    model.choiceOptions[0].options[0]
-                              };
+                              for (int i = 0;
+                                  i < model.choiceOptions.length;
+                                  i++) {
+                                Map<String, String> map = {
+                                  model.choiceOptions[i].name:
+                                      model.choiceOptions[i].options[0]
+                                };
 
-                              homeProvider.selectedVariationMap.add(map);
-                            } catch (err) {}
+                                homeProvider.selectedVariationMap.add(map);
+                              }
+                            } catch (stacktrace) {}
 
                             data = {
                               'id': model.id.toString(),
@@ -209,7 +213,6 @@ productForYouCardSearch(ProductList model, BuildContext context,
                               'key': model.cart_id.toString(),
                             };
                           }
-                          print(data);
                           model.isCart
                               ? homeProvider.removeFromCart(data, context)
                               : homeProvider.addToCart(data, context);

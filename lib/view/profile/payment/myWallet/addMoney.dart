@@ -169,6 +169,7 @@ class _AddMoneyState extends State<AddMoney> {
                                 width: double.infinity,
                                 child: CommonButton(
                                     text: "CONTINUE",
+                                    colorsText: Colors.white,
                                     fontSize:
                                         Platform.isAndroid ? size_12 : size_14,
                                     onClick: () {

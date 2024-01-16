@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../utils/color.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/routes.dart';
@@ -132,40 +133,13 @@ class _ContactUsState extends State<ContactUs> {
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      Text(
-                                        "9330011773",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontSize: Platform.isAndroid
-                                                    ? size_12
-                                                    : size_14),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.mail,
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        size: 20,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text("Support@alphawizz.com",
+                                      GestureDetector(
+                                        onTap: () {
+                                          const url = "tel:9876543210";
+                                          launchUrl(Uri.parse(url));
+                                        },
+                                        child: Text(
+                                          "9876543210",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall!
@@ -177,8 +151,58 @@ class _ContactUsState extends State<ContactUs> {
                                                       : Colors.black,
                                                   fontSize: Platform.isAndroid
                                                       ? size_12
-                                                      : size_14))
+                                                      : size_14),
+                                        ),
+                                      )
                                     ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      final Uri params = Uri(
+                                        scheme: 'mailto',
+                                        path: 'support@alpha.com',
+                                        query:
+                                            'subject=Contact&body=', //add subject and body here
+                                      );
+
+                                      var url = params.toString();
+                                      if (await canLaunch(url)) {
+                                        await launch(url);
+                                      } else {
+                                        throw 'Could not launch $url';
+                                      }
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.mail,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          size: 20,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text("support@alpha.com",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_12
+                                                        : size_14))
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),

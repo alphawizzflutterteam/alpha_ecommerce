@@ -164,7 +164,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.26,
                                   child: Text(
-                                    widget.model.name + widget.model.name,
+                                    widget.model.name,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall!
@@ -191,11 +191,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                       fontSize: Platform.isAndroid
                                           ? size_10
                                           : size_12,
-                                      colorsText:
-                                          Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
+                                      colorsText: Colors.white,
                                       onClick: () {
                                         Map data = {
                                           'shop_id': widget.model.id.toString()

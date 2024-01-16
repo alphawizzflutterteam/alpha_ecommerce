@@ -55,7 +55,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
     super.initState();
     print(widget.order_id);
     detailProvider = Provider.of<OrderViewModel>(context, listen: false);
-    detailProvider.getOrderDetail(context, widget.order_id);
+    detailProvider.getOrderDetail(context, widget.order_id, true);
   }
 
   String convertTimestampToFormattedDate(String timestamp) {
@@ -159,6 +159,53 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                             ),
                             ProductListBuilder(
                                 productList: detailProvider.detail.products),
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Container(
+                                height: 40,
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Payment Method - ${detailProvider.detail.payment_method ?? ""}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                          ),
+                                    ),
+                                    Text(
+                                      "Status : ${detailProvider.detail.paymentStatus}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                             Container(
                               margin: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 10),

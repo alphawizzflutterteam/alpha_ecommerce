@@ -55,6 +55,7 @@ class _CartState extends State<Cart> {
   }
 
   callAddress() async {
+    apiHitted = true;
     await addressProvider.getAddressList(context);
     //  setState(() {});
   }
@@ -123,28 +124,52 @@ class _CartState extends State<Cart> {
                               const SizedBox(height: 20),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20),
-                                child: Text(
-                                  "Cart List",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall!
-                                      .copyWith(
-                                          fontSize: Platform.isAndroid
-                                              ? size_14
-                                              : size_16,
-                                          color: colors.buttonColor,
-                                          fontWeight: FontWeight.w600),
-                                  // style: Theme.of(context)
-                                  // .textTheme
-                                  // .titleSmall!
-                                  // .copyWith(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Cart List",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              fontSize: Platform.isAndroid
+                                                  ? size_14
+                                                  : size_16,
+                                              color: colors.buttonColor,
+                                              fontWeight: FontWeight.w600),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Routes.navigateToDashboardScreen(
+                                            context, 2);
+                                      },
+                                      child: Text(
+                                        "Back",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontSize: Platform.isAndroid
+                                                    ? size_14
+                                                    : size_16,
+                                                color: colors.buttonColor,
+                                                fontWeight: FontWeight.w600),
+                                        // style: Theme.of(context)
+                                        // .textTheme
+                                        // .titleSmall!
+                                        // .copyWith(
 
-                                  //     color: Theme.of(context).brightness ==
-                                  //             Brightness.dark
-                                  //         ? colors.textColor
-                                  //         : Colors.black,
-                                  //     fontSize: Platform.isAndroid ? size_18 : size_20,
-                                  //     fontWeight: FontWeight.bold),
+                                        //     color: Theme.of(context).brightness ==
+                                        //             Brightness.dark
+                                        //         ? colors.textColor
+                                        //         : Colors.black,
+                                        //     fontSize: Platform.isAndroid ? size_18 : size_20,
+                                        //     fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               const SizedBox(height: 10),
@@ -1078,13 +1103,14 @@ class _CartState extends State<Cart> {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
-                                                            .34,
+                                                            .35,
                                                     child: CommonButton(
                                                       text: "PLACE ORDER",
                                                       fontSize:
                                                           Platform.isAndroid
                                                               ? size_10
                                                               : size_12,
+                                                      colorsText: Colors.white,
                                                       onClick: () async {
                                                         if (!addressProvider
                                                             .addressList

@@ -82,4 +82,8 @@ List<ProfileList> profile = [
       profileIcon: Images.logOut,
       profileText: 'Logout',
       navigationScreen: "functionOpen"),
+  ProfileList(
+      profileIcon: Images.logOut,
+      profileText: 'Delete Account',
+      navigationScreen: "functionOpen2"),
 ];

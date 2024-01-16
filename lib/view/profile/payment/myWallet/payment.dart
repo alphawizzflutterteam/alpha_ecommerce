@@ -280,6 +280,7 @@ class _PaymentState extends State<Payment> {
                                     width: double.infinity,
                                     child: CommonButton(
                                         text: "CONTINUE",
+                                        colorsText: Colors.white,
                                         fontSize: Platform.isAndroid
                                             ? size_12
                                             : size_14,

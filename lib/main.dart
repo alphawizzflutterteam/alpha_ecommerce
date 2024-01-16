@@ -21,6 +21,7 @@ import 'package:alpha_ecommerce_18oct/viewModel/faqsViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/languageViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/networkViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/notificationViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderReturnViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/productViewModel.dart';
@@ -101,6 +102,8 @@ void main() async {
             create: (context) => NetworkViewModel()),
         ChangeNotifierProvider<AuthViewModel>(
             create: (context) => AuthViewModel()),
+        ChangeNotifierProvider<NotificationViewModel>(
+            create: (context) => NotificationViewModel()),
         ChangeNotifierProvider<HomeViewModel>(
             create: (context) => HomeViewModel()),
         ChangeNotifierProvider<VendorViewModel>(

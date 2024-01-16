@@ -3,8 +3,7 @@ class AppUrl {
   //https://alpha-ecom.developmentalphawizz.com
   //https://test-alpha-ecom.developmentalphawizz.com
 
-  static const baseURL =
-      "https://test-alpha-ecom.developmentalphawizz.com/api/v1/";
+  static const baseURL = "https://alpha-ecom.developmentalphawizz.com/api/v1/";
   static String sendLoginOtp = "${baseURL}auth/send-login-otp";
   static String socialLogin = "${baseURL}auth/social-login";
   static String sendRegisterOtp = "${baseURL}auth/send-otp";
@@ -15,6 +14,7 @@ class AppUrl {
 
   static const String getProfile = "${baseURL}customer/info";
   static const String updateProfile = "${baseURL}customer/update-profile";
+  static String deleteAccount = "${baseURL}customer/account-delete/";
 
   static String addWallet = "${baseURL}customer/wallet/add-wallet";
   static String subscribe = "${baseURL}customer/purchase-plan";
@@ -66,6 +66,7 @@ class AppUrl {
   static const String contact = "${baseURL}contact/store";
 
   static String vendorList = "${baseURL}seller/all";
+  static String notifications = "${baseURL}notifications";
   static String followedVendor = "${baseURL}customer/followed-vendor";
   static String vendorCategories = "${baseURL}categories?vendor_id=";
   static const String followVendor = "${baseURL}seller/follow";

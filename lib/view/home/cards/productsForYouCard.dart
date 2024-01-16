@@ -18,7 +18,7 @@ productForYouCard(
   return Column(
     children: [
       Container(
-        height: MediaQuery.of(context).size.height * 0.30,
+        height: MediaQuery.of(context).size.height * 0.32,
         width: MediaQuery.of(context).size.width * 0.44,
         decoration: BoxDecoration(
             // image: DecorationImage(image: NetworkImage(model.images.first)),
@@ -170,8 +170,8 @@ productForYouCard(
                     // ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: model.specialPrice.length > 10 ? 6 : 8,
                       vertical: 5,
                     ),
                     child: Row(
@@ -192,7 +192,7 @@ productForYouCard(
                         // ),
                         //  ),
                         const SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
                         Text(model.unitPrice,
                             style: Theme.of(context)
@@ -200,7 +200,7 @@ productForYouCard(
                                 .titleSmall!
                                 .copyWith(
                                     fontSize:
-                                        Platform.isAndroid ? size_10 : size_12,
+                                        Platform.isAndroid ? size_8 : size_10,
                                     decoration: TextDecoration.lineThrough,
                                     decorationColor: Colors.black,
                                     decorationThickness: 3,
@@ -229,13 +229,17 @@ productForYouCard(
                           Map<String, String> data;
                           if (!model.isCart) {
                             try {
-                              Map<String, String> map = {
-                                model.choiceOptions[0].name:
-                                    model.choiceOptions[0].options[0]
-                              };
+                              for (int i = 0;
+                                  i < model.choiceOptions.length;
+                                  i++) {
+                                Map<String, String> map = {
+                                  model.choiceOptions[i].name:
+                                      model.choiceOptions[i].options[0]
+                                };
 
-                              homeProvider.selectedVariationMap.add(map);
-                            } catch (err) {}
+                                homeProvider.selectedVariationMap.add(map);
+                              }
+                            } catch (stacktrace) {}
 
                             data = {
                               'id': model.id.toString(),

@@ -19,7 +19,7 @@ cartCard(HomeProduct model, BuildContext context) {
           },
           child: Container(
             height: MediaQuery.of(context).size.height * 0.25,
-            width: size_150,
+            width: size_150 * 1.01,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 gradient: Theme.of(context).brightness == Brightness.dark
@@ -104,8 +104,8 @@ cartCard(HomeProduct model, BuildContext context) {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: model.specialPrice.length > 10 ? 6 : 8,
                           vertical: 5,
                         ),
                         child: Row(
@@ -122,7 +122,7 @@ cartCard(HomeProduct model, BuildContext context) {
                                   ),
                             ),
                             const SizedBox(
-                              width: 10,
+                              width: 5,
                             ),
                             Text(
                               model.unitPrice,
@@ -132,7 +132,7 @@ cartCard(HomeProduct model, BuildContext context) {
                                   .copyWith(
                                     color: colors.lightTextColor,
                                     fontSize:
-                                        Platform.isAndroid ? size_10 : size_12,
+                                        Platform.isAndroid ? size_8 : size_10,
                                     decoration: TextDecoration.lineThrough,
                                     decorationColor: Colors.black,
                                     decorationThickness: 3,

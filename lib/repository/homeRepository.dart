@@ -224,6 +224,23 @@ class HomeRepository {
     return successModel2FromJson(res.body);
   }
 
+  Future<SuccessModel2> deleteaccount(
+    String api,
+    String bearerToken,
+  ) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.get(url, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return successModel2FromJson(res.body);
+  }
+
   Future<SuccessModel> addToCart(
       String api, String bearerToken, dynamic data) async {
     final url = Uri.parse(api);

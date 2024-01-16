@@ -30,6 +30,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
     addressProvider.setText();
   }
 
+//
   @override
   Widget build(BuildContext context) {
     addressProvider = Provider.of<AddressViewModel>(context);
@@ -94,19 +95,44 @@ class _AddressListScreenState extends State<AddressListScreen> {
                     ),
                   ),
                 ),
-                Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Container(
-                          child: Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
-                              child: addressCardsRow(
-                                  context,
-                                  addressProvider.addressList,
-                                  addressProvider,
-                                  widget.isComingForSelection)),
-                        ))),
+                addressProvider.addressList.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: size_50,
+                            ),
+                            Image.asset(
+                              'assets/images/empty address.png',
+                              height: size_150,
+                            ),
+                            SizedBox(
+                              height: size_10,
+                            ),
+                            Text(
+                              "No address yet.",
+                              style: TextStyle(
+                                color: colors.greyText,
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    : Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: Container(
+                              child: Padding(
+                                  padding: const EdgeInsets.only(top: 2.0),
+                                  child: addressCardsRow(
+                                      context,
+                                      addressProvider.addressList,
+                                      addressProvider,
+                                      widget.isComingForSelection)),
+                            ))),
               ],
             ),
           ))

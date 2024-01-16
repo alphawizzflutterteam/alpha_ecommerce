@@ -46,7 +46,7 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
             ? colors.overlayBG
             : Colors.white,
       ),
-      height: MediaQuery.of(context).size.height * 0.45,
+      height: MediaQuery.of(context).size.height * 0.48,
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
       child: Form(

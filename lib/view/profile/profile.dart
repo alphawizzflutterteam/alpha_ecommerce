@@ -504,7 +504,7 @@ class _ProfileState extends State<Profile> {
                                                         : Colors.black,
                                                   ),
                                                   Text(
-                                                    "My Order",
+                                                    "My Orders",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .titleSmall!
@@ -636,7 +636,13 @@ class _ProfileState extends State<Profile> {
                                                 .navigationScreen
                                                 .runtimeType ==
                                             String) {
-                                          logOut(context);
+                                          if (profile[i].profileText ==
+                                              "Logout") {
+                                            logOut(context);
+                                          } else {
+                                            deleteAccount(
+                                                context, homeProvider);
+                                          }
                                         } else {
                                           Navigator.push(
                                             context,

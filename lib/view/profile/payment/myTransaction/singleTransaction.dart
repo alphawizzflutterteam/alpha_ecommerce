@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/model/transactionHistoryModel.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../../../utils/color.dart';
 import '../../../../utils/routes.dart';
 import '../../../widget_common/commonBackground.dart';
@@ -18,6 +19,15 @@ class SingleTransaction extends StatefulWidget {
 
 class _SingleTransactionState extends State<SingleTransaction> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  String convertTimestampToFormattedDate(String timestamp) {
+    // Parse the timestamp string into a DateTime object
+    DateTime dateTime = DateTime.parse(timestamp);
+
+    // Format the DateTime object as "dd Month name yyyy"
+    String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
+
+    return formattedDate;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +131,8 @@ class _SingleTransactionState extends State<SingleTransaction> {
                             ),
                           ),
                           Text(
-                            widget.data.createdAt,
+                            convertTimestampToFormattedDate(
+                                widget.data.createdAt),
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!

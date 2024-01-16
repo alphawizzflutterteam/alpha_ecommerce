@@ -204,6 +204,7 @@ class _PaymentFormState extends State<PaymentForm> {
                               width: double.infinity,
                               child: CommonButton(
                                 text: "PAY NOW",
+                                colorsText: Colors.white,
                                 fontSize:
                                     Platform.isAndroid ? size_13 : size_15,
                                 onClick: () {

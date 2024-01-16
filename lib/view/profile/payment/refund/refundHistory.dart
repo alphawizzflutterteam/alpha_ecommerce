@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/refund/refundHistoryCard.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
@@ -60,23 +61,48 @@ class _RefundHistoryState extends State<RefundHistory> {
               ),
               profileModelProvider.isLoading
                   ? appLoader()
-                  : Expanded(
-                      child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 30,
+                  : profileModelProvider.refundData.isEmpty
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 50,
+                              ),
+                              Image.asset(
+                                'assets/images/Group 3021.png',
+                                height: size_150,
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "No refund history yet.",
+                                style: TextStyle(
+                                  color: colors.greyText,
+                                ),
+                              )
+                            ],
                           ),
-                          for (int i = 0;
-                              i < profileModelProvider.refundData.length;
-                              i++)
-                            refundHistoryCard(
-                                context: context,
-                                data: profileModelProvider.refundData[i]),
-                        ],
-                      ),
-                    )),
+                        )
+                      : Expanded(
+                          child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              for (int i = 0;
+                                  i < profileModelProvider.refundData.length;
+                                  i++)
+                                refundHistoryCard(
+                                    context: context,
+                                    data: profileModelProvider.refundData[i]),
+                            ],
+                          ),
+                        )),
             ],
           ),
         ),

@@ -29,7 +29,7 @@ class _OrderCancelledState extends State<OrderCancelled> {
   void initState() {
     super.initState();
     detailProvider = Provider.of<OrderViewModel>(context, listen: false);
-    detailProvider.getOrderDetail(context, widget.order_id);
+    detailProvider.getOrderDetail(context, widget.order_id, true);
   }
 
   String convertTimestampToFormattedDate(String timestamp) {
@@ -129,6 +129,54 @@ class _OrderCancelledState extends State<OrderCancelled> {
                             ),
                             ProductListBuilder(
                                 productList: detailProvider.detail.products),
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Container(
+                                height: 40,
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Payment Method - ${detailProvider.detail.payment_method ?? ""}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                          ),
+                                    ),
+                                    Text(
+                                      "Payment Status : ${detailProvider.detail.paymentStatus}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
                             const SizedBox(
                               height: 10,
                             ),

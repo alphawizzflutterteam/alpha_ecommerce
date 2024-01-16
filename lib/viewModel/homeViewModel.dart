@@ -297,6 +297,7 @@ class HomeViewModel with ChangeNotifier {
     }
     var data2 = data;
     data2 = addMapListToData(data2, selectedVariationMap);
+    print(data2.toString());
 
     _myRepo.addToCart(AppUrl.addToCart, token, data2).then((value) {
       setLoading(false);
@@ -520,6 +521,40 @@ class HomeViewModel with ChangeNotifier {
       print(stackTrace.toString());
       Utils.showFlushBarWithMessage(
           "Alert", "Email or phone has already been taken.", context);
+      //  Utils.showFlushBarWithMessage("Alert", error.toString(), context);
+    });
+  }
+
+  Future<void> deleteAccount(BuildContext context) async {
+    // setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    var userID = SharedPref.shared.pref!.getString(PrefKeys.userId)!;
+
+    _myRepo
+        .deleteaccount(
+      AppUrl.deleteAccount + userID,
+      token,
+    )
+        .then((value) async {
+      Routes.navigateToSignInScreen(context);
+
+      Utils.showFlushBarWithMessage("Alert", value.message, context);
+
+      if (value.status == true) {
+        SharedPref.shared.pref?.setString(PrefKeys.mobile, "");
+        SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "0");
+        SharedPref.shared.pref?.setString(PrefKeys.jwtToken, "");
+        SharedPref.shared.removeUserPRef();
+        Future.delayed(Duration(seconds: 2), () {
+          Routes.navigateToSignInScreen(context);
+        });
+      }
+
+      // setLoading(false);
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      print(stackTrace.toString());
+      Utils.showFlushBarWithMessage("Alert", "Something went wrong.", context);
       //  Utils.showFlushBarWithMessage("Alert", error.toString(), context);
     });
   }

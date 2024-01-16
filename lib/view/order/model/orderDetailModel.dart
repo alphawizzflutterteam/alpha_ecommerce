@@ -45,6 +45,7 @@ class DetailsData {
     required this.discountAmount,
     required this.deliveryCharge,
     required this.orderStatus,
+    required this.payment_method,
     required this.paymentStatus,
     required this.expectedDeliveryDate,
     required this.orderNote,
@@ -61,6 +62,7 @@ class DetailsData {
   final String? discountAmount;
   final String? deliveryCharge;
   final String? orderStatus;
+  final String? payment_method;
   final String? paymentStatus;
   final String? expectedDeliveryDate;
   final String? orderNote;
@@ -87,6 +89,7 @@ class DetailsData {
       discountAmount: json["discount_amount"],
       deliveryCharge: json["delivery_charge"],
       orderStatus: json["order_status"],
+      payment_method: json["payment_method"] ?? "",
       paymentStatus: json["payment_status"],
       expectedDeliveryDate: json["expected_delivery_date"],
       orderNote: json["order_note"],
@@ -107,6 +110,7 @@ class DetailsData {
         "discount_amount": discountAmount,
         "delivery_charge": deliveryCharge,
         "order_status": orderStatus,
+        "payment_method": payment_method,
         "payment_status": paymentStatus,
         "expected_delivery_date": expectedDeliveryDate,
         "order_note": orderNote,

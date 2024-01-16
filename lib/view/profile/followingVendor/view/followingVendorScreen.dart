@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/common_header.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/vendorCard.dart';
@@ -59,26 +60,49 @@ class _FollowingVendorListState extends State<FollowingVendorList> {
               ),
               vendorProvider.isLoading
                   ? appLoader()
-                  : Expanded(
-                      child: SingleChildScrollView(
-                        child: SizedBox(
-                          height: 130 *
-                              vendorProvider.followedvendorModel.length
-                                  .toDouble(),
-                          child: ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount:
-                                vendorProvider.followedvendorModel.length,
-                            itemBuilder: (context, i) {
-                              var model = vendorProvider.followedvendorModel[i];
-                              return vendorCard(context, model);
-                            },
+                  : vendorProvider.followedvendorModel.isEmpty
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 50,
+                              ),
+                              Image.asset(
+                                'assets/images/Followed vendor.png',
+                                height: size_150,
+                              ),
+                              Text(
+                                "There is no vendor you have followed",
+                                style: TextStyle(
+                                  color: colors.greyText,
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      : Expanded(
+                          child: SingleChildScrollView(
+                            child: SizedBox(
+                              height: 130 *
+                                  vendorProvider.followedvendorModel.length
+                                      .toDouble(),
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount:
+                                    vendorProvider.followedvendorModel.length,
+                                itemBuilder: (context, i) {
+                                  var model =
+                                      vendorProvider.followedvendorModel[i];
+                                  return vendorCard(context, model);
+                                },
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
             ],
           ),
         ),

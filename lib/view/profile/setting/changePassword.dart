@@ -363,6 +363,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             width: double.infinity,
                             child: CommonButton(
                                 text: "CHANGE PASSWORD",
+                                colorsText: Colors.white,
                                 fontSize:
                                     Platform.isAndroid ? size_16 : size_18,
                                 onClick: () {

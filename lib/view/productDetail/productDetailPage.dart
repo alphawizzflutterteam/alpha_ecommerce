@@ -1171,172 +1171,188 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ? Container()
                   : Align(
                       alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * .08,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Color(0xFF040D12)
-                              : Colors.white,
-                          boxShadow: [
-                            BoxShadow(color: Colors.black12, blurRadius: 20)
-                          ],
-                        ),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 15),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                SizedBox(
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.resolveWith(
-                                              (states) {
-                                        if (states.contains(
-                                                MaterialState.hovered) ||
-                                            states.contains(
-                                                MaterialState.pressed)) {
-                                          return colors.buttonColor;
-                                        }
-                                        return Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.transparent
-                                            : Colors.white; // Default color
-                                      }),
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: Platform.isAndroid ? 0 : 8.0),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * .08,
+                          decoration: BoxDecoration(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Color(0xFF040D12)
+                                    : Colors.white,
+                            boxShadow: [
+                              BoxShadow(color: Colors.black12, blurRadius: 20)
+                            ],
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  SizedBox(
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.resolveWith(
+                                                (states) {
+                                          if (states.contains(
+                                                  MaterialState.hovered) ||
+                                              states.contains(
+                                                  MaterialState.pressed)) {
+                                            return colors.buttonColor;
+                                          }
+                                          return Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.transparent
+                                              : Colors.white; // Default color
+                                        }),
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
                                         ),
+                                        side: MaterialStateProperty.all(
+                                            BorderSide(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : colors.lightBorder,
+                                                width: 1)),
                                       ),
-                                      side: MaterialStateProperty.all(
-                                          BorderSide(
+                                      onPressed: () {
+                                        var isLoggedIn = SharedPref.shared.pref
+                                            ?.getString(PrefKeys.isLoggedIn);
+                                        if (isLoggedIn == "1") {
+                                          Map<String, String> data;
+                                          if (!productModel
+                                              .model.first.isCart) {
+                                            data = {
+                                              'id': productModel.model.first.id
+                                                  .toString(),
+                                              'quantity': "1",
+                                              'color': productModel
+                                                      .model
+                                                      .first
+                                                      .colorsFormatted
+                                                      .isNotEmpty
+                                                  ? productModel
+                                                      .selectedColorCode
+                                                  : "",
+                                            };
+                                          } else {
+                                            data = {
+                                              'key': productModel
+                                                  .model.first.cart_id
+                                                  .toString(),
+                                            };
+                                          }
+                                          print(data);
+                                          productModel.isCart
+                                              ? productModel.removeFromCart(
+                                                  data, context, widget.slug)
+                                              : productModel.addToCart(data,
+                                                  context, widget.slug, false);
+                                        } else {
+                                          AppUtils.appUtilsInstance
+                                              .showLoginAlertDialog(context);
+                                        }
+                                      },
+                                      child: Text(
+                                        productModel.isCart
+                                            ? 'REMOVE FROM CART'
+                                            : 'ADD TO CART',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              fontSize: Platform.isAndroid
+                                                  ? size_10
+                                                  : size_12,
                                               color: Theme.of(context)
                                                           .brightness ==
                                                       Brightness.dark
                                                   ? Colors.white
-                                                  : colors.lightBorder,
-                                              width: 1)),
-                                    ),
-                                    onPressed: () {
-                                      var isLoggedIn = SharedPref.shared.pref
-                                          ?.getString(PrefKeys.isLoggedIn);
-                                      if (isLoggedIn == "1") {
-                                        Map<String, String> data;
-                                        if (!productModel.model.first.isCart) {
-                                          data = {
-                                            'id': productModel.model.first.id
-                                                .toString(),
-                                            'quantity': "1",
-                                            'color': productModel.model.first
-                                                    .colorsFormatted.isNotEmpty
-                                                ? productModel.selectedColorCode
-                                                : "",
-                                          };
-                                        } else {
-                                          data = {
-                                            'key': productModel
-                                                .model.first.cart_id
-                                                .toString(),
-                                          };
-                                        }
-                                        print(data);
-                                        productModel.isCart
-                                            ? productModel.removeFromCart(
-                                                data, context, widget.slug)
-                                            : productModel.addToCart(data,
-                                                context, widget.slug, false);
-                                      } else {
-                                        AppUtils.appUtilsInstance
-                                            .showLoginAlertDialog(context);
-                                      }
-                                    },
-                                    child: Text(
-                                      productModel.isCart
-                                          ? 'REMOVE FROM CART'
-                                          : 'ADD TO CART',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall!
-                                          .copyWith(
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.resolveWith(
-                                              (states) {
-                                        if (states.contains(
-                                                MaterialState.hovered) ||
-                                            states.contains(
-                                                MaterialState.pressed)) {
-                                          return colors.buttonColor;
-                                        }
-                                        return colors.buttonColor;
-                                      }),
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                        ),
+                                                  : Colors.black,
+                                            ),
                                       ),
                                     ),
-                                    onPressed: () {
-                                      var isLoggedIn = SharedPref.shared.pref
-                                          ?.getString(PrefKeys.isLoggedIn);
-                                      if (isLoggedIn == "1") {
-                                        Map<String, String> data;
-                                        if (!productModel.model.first.isCart) {
-                                          data = {
-                                            'id': productModel.model.first.id
-                                                .toString(),
-                                            'quantity': "1",
-                                            'color': productModel.model.first
-                                                    .colorsFormatted.isNotEmpty
-                                                ? productModel.selectedColorCode
-                                                : "",
-                                          };
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.resolveWith(
+                                                (states) {
+                                          if (states.contains(
+                                                  MaterialState.hovered) ||
+                                              states.contains(
+                                                  MaterialState.pressed)) {
+                                            return colors.buttonColor;
+                                          }
+                                          return colors.buttonColor;
+                                        }),
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        var isLoggedIn = SharedPref.shared.pref
+                                            ?.getString(PrefKeys.isLoggedIn);
+                                        if (isLoggedIn == "1") {
+                                          Map<String, String> data;
+                                          if (!productModel
+                                              .model.first.isCart) {
+                                            data = {
+                                              'id': productModel.model.first.id
+                                                  .toString(),
+                                              'quantity': "1",
+                                              'color': productModel
+                                                      .model
+                                                      .first
+                                                      .colorsFormatted
+                                                      .isNotEmpty
+                                                  ? productModel
+                                                      .selectedColorCode
+                                                  : "",
+                                            };
 
-                                          productModel.addToCart(
-                                              data, context, widget.slug, true);
+                                            productModel.addToCart(data,
+                                                context, widget.slug, true);
+                                          } else {
+                                            Routes.navigateToDashboardScreen(
+                                                context, 0);
+                                          }
                                         } else {
-                                          Routes.navigateToDashboardScreen(
-                                              context, 0);
+                                          AppUtils.appUtilsInstance
+                                              .showLoginAlertDialog(context);
                                         }
-                                      } else {
-                                        AppUtils.appUtilsInstance
-                                            .showLoginAlertDialog(context);
-                                      }
-                                    },
-                                    child: Text(
-                                      'BUY NOW',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall!
-                                          .copyWith(
-                                              fontSize: Platform.isAndroid
-                                                  ? size_10
-                                                  : size_12,
-                                              color: Colors.white),
+                                      },
+                                      child: Text(
+                                        'BUY NOW',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                                color: Colors.white),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),

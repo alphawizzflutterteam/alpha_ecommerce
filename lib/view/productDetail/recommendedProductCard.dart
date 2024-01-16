@@ -189,7 +189,7 @@ recommendedProductCard(
                                     decorationColor: Colors.black,
                                     decorationThickness: 3,
                                     fontSize:
-                                        Platform.isAndroid ? size_10 : size_12,
+                                        Platform.isAndroid ? size_9 : size_11,
                                   ),
                             ),
                           ],
@@ -204,13 +204,17 @@ recommendedProductCard(
                             Map<String, String> data;
                             if (!card.isCart) {
                               try {
-                                Map<String, String> map = {
-                                  card.choiceOptions[0].name:
-                                      card.choiceOptions[0].options[0]
-                                };
+                                for (int i = 0;
+                                    i < card.choiceOptions.length;
+                                    i++) {
+                                  Map<String, String> map = {
+                                    card.choiceOptions[i].name:
+                                        card.choiceOptions[i].options[0]
+                                  };
 
-                                provider.selectedVariationMap.add(map);
-                              } catch (err) {}
+                                  provider.selectedVariationMap.add(map);
+                                }
+                              } catch (stacktrace) {}
 
                               data = {
                                 'id': card.id.toString(),

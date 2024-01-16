@@ -35,7 +35,7 @@ class CommonButton extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodySmall!
-              .copyWith(fontSize: fontSize, color: Colors.white),
+              .copyWith(fontSize: fontSize, color: colorsText),
         ));
   }
 }

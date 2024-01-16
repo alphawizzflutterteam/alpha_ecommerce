@@ -4,10 +4,21 @@ import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/model/transactionHistoryModel.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../../../model/transaction.dart';
 import '../../../../utils/color.dart';
 
 transactionHistoryCard({required context, required DatumTrasaction data}) {
+  String convertTimestampToFormattedDate(String timestamp) {
+    // Parse the timestamp string into a DateTime object
+    DateTime dateTime = DateTime.parse(timestamp);
+
+    // Format the DateTime object as "dd Month name yyyy"
+    String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
+
+    return formattedDate;
+  }
+
   return Column(
     children: [
       Padding(
@@ -19,7 +30,7 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
             Routes.navigateToSingleTransactionScreen(context, data);
           },
           child: SizedBox(
-            height: 115,
+            height: size_120,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -31,7 +42,7 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          data.createdAt,
+                          convertTimestampToFormattedDate(data.createdAt),
                           style:
                               Theme.of(context).textTheme.titleSmall!.copyWith(
                                     color: Color.fromARGB(255, 165, 165, 165),
@@ -40,7 +51,7 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
                                   ),
                         ),
                         const SizedBox(
-                          height: 15,
+                          height: 10,
                         ),
                         Text(
                           data.orderAmount,
@@ -138,7 +149,7 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
         ),
       ),
       const SizedBox(
-        height: 20,
+        height: 10,
       ),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),

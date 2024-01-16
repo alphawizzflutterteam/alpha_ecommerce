@@ -34,7 +34,9 @@ reviewCard(Review rating, BuildContext context) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      rating.customer.name,
+                      rating.customer.name == ""
+                          ? "Anonyms"
+                          : rating.customer.name,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             color:
                                 Theme.of(context).brightness == Brightness.dark

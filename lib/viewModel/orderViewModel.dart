@@ -27,6 +27,8 @@ class OrderViewModel with ChangeNotifier {
   bool isLoading = false;
   Filters filters = Filters();
   var status = "";
+  List<Map<String, dynamic>> selectedVariationMap = [];
+
   TextEditingController searchText = TextEditingController();
   var categorie = "";
 
@@ -76,8 +78,11 @@ class OrderViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> getOrderDetail(BuildContext context, String order_id) async {
-    setLoading(true);
+  Future<void> getOrderDetail(
+      BuildContext context, String order_id, bool showLoader) async {
+    if (showLoader) {
+      setLoading(true);
+    }
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
     print(token);
     print(order_id + "ID");
@@ -266,7 +271,7 @@ class OrderViewModel with ChangeNotifier {
           context,
         );
         Utils.showFlushBarWithMessage("", value.message, context);
-        await getOrderDetail(context, order_id);
+        await getOrderDetail(context, order_id, true);
       });
     }
   }
@@ -287,7 +292,7 @@ class OrderViewModel with ChangeNotifier {
       if (token == null || token == "") {
         Utils.showFlushBarWithMessage("Alert", "Please login first.", context);
 
-        getOrderDetail(context, orderID);
+        getOrderDetail(context, orderID, false);
         return false;
       }
       _myRepo.addToWishlist(AppUrl.addToWishlist, token, data).then((value) {
@@ -333,7 +338,7 @@ class OrderViewModel with ChangeNotifier {
 
         Utils.showFlushBarWithMessage("Alert", value.message, context);
 
-        getOrderDetail(context, orderID);
+        getOrderDetail(context, orderID, false);
 
         print(value.message);
 
@@ -348,7 +353,18 @@ class OrderViewModel with ChangeNotifier {
     return false;
   }
 
-  Future<bool> addToCart(dynamic data, BuildContext context) async {
+  Map<String, String> addMapListToData(
+      Map<String, String> data, List<Map<String, dynamic>> mapList) {
+    for (var map in mapList) {
+      map.forEach((key, value) {
+        data[key] = value;
+      });
+    }
+    return data;
+  }
+
+  Future<bool> addToCart(
+      dynamic data, BuildContext context, String orderId) async {
     // setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
@@ -357,11 +373,16 @@ class OrderViewModel with ChangeNotifier {
 
       return false;
     }
-    _myRepo.addToCart(AppUrl.addToCart, token, data).then((value) {
+
+    var data2 = data;
+    data2 = addMapListToData(data2, selectedVariationMap);
+
+    _myRepo.addToCart(AppUrl.addToCart, token, data2).then((value) {
       setLoading(false);
 
       if (value.message == "Successfully added!") {
         Utils.showFlushBarWithMessage("Alert", value.message, context);
+        getOrderDetail(context, orderId, false);
       } else {
         Utils.showFlushBarWithMessage("Alert", value.message, context);
       }
@@ -376,7 +397,8 @@ class OrderViewModel with ChangeNotifier {
     return false;
   }
 
-  Future<bool> removeFromCart(dynamic data, BuildContext context) async {
+  Future<bool> removeFromCart(
+      dynamic data, BuildContext context, String orderId) async {
     //setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
@@ -385,6 +407,7 @@ class OrderViewModel with ChangeNotifier {
       setLoading(false);
       Utils.showFlushBarWithMessage("Alert", value.message, context);
 
+      getOrderDetail(context, orderId, false);
       print(value.message);
 
       return true;

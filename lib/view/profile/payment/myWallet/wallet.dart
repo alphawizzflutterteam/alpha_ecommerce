@@ -81,7 +81,7 @@ class _WalletState extends State<Wallet> {
                                     ? colors.overlayBG
                                     : Colors.white,
                             elevation:
-                                5.0, // Set the elevation value to control the shadow intensity
+                                2.0, // Set the elevation value to control the shadow intensity
                             child: Padding(
                               padding: EdgeInsets.all(12.0),
                               child: Row(
@@ -95,8 +95,8 @@ class _WalletState extends State<Wallet> {
                                         .titleSmall!
                                         .copyWith(
                                           fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
+                                              ? size_11
+                                              : size_13,
                                           color: Theme.of(context).brightness ==
                                                   Brightness.dark
                                               ? Colors.white
@@ -109,12 +109,13 @@ class _WalletState extends State<Wallet> {
                                         top: 8, bottom: 8),
                                     child: SizedBox(
                                         height: 35,
-                                        width: 120,
+                                        width: size_150 * 0.9,
                                         child: CommonButton(
                                             text: "ADD MONEY",
                                             fontSize: Platform.isAndroid
                                                 ? size_10
                                                 : size_12,
+                                            colorsText: Colors.white,
                                             onClick: () {
                                               Routes.navigateToAddMoneyScreen(
                                                   context);
@@ -124,27 +125,54 @@ class _WalletState extends State<Wallet> {
                               ),
                             )),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.7,
-                            child: ListView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              physics: const AlwaysScrollableScrollPhysics(),
-                              itemCount: provider.walletHistory.length,
-                              itemBuilder: (context, i) {
-                                return walletCart(
-                                    context: context,
-                                    data: provider.walletHistory[i]);
-                              },
-                            ),
-                          ),
-                        ],
-                      )
+                      provider.walletHistory.isEmpty
+                          ? Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 50,
+                                  ),
+                                  Image.asset(
+                                    'assets/images/Group 3021.png',
+                                    height: size_150,
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    "No transactions yet.",
+                                    style: TextStyle(
+                                      color: colors.greyText,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const SizedBox(height: 10),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.7,
+                                  child: ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
+                                    itemCount: provider.walletHistory.length,
+                                    itemBuilder: (context, i) {
+                                      return walletCart(
+                                          context: context,
+                                          data: provider.walletHistory[i]);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            )
                     ]),
               )
             ],

@@ -49,7 +49,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
   void initState() {
     super.initState();
     detailProvider = Provider.of<OrderViewModel>(context, listen: false);
-    detailProvider.getOrderDetail(context, widget.order_id);
+    detailProvider.getOrderDetail(context, widget.order_id, true);
   }
 
   String convertTimestampToFormattedDate(String timestamp) {
@@ -149,6 +149,54 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                             ),
                             ProductListBuilder(
                                 productList: detailProvider.detail.products),
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              child: Container(
+                                height: 30,
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Payment Method - ${detailProvider.detail.payment_method ?? ""}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
+                                    ),
+                                    Text(
+                                      "Payment Status : ${detailProvider.detail.paymentStatus}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
                             // Container(
                             //   padding: const EdgeInsets.symmetric(horizontal: 20),
                             //   child: Container(
@@ -993,10 +1041,37 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                             highlightColor: Colors.transparent,
                                             splashColor: Colors.transparent,
                                             onTap: () {
-                                              Map data;
+                                              Map<String, String> data;
                                               if (!detailProvider
                                                   .RecommendedProducts[index]
                                                   .isCart) {
+                                                try {
+                                                  for (int i = 0;
+                                                      i <
+                                                          detailProvider
+                                                              .RecommendedProducts[
+                                                                  index]
+                                                              .choiceOptions
+                                                              .length;
+                                                      i++) {
+                                                    Map<String, String> map = {
+                                                      detailProvider
+                                                              .RecommendedProducts[
+                                                                  index]
+                                                              .choiceOptions[i]
+                                                              .name:
+                                                          detailProvider
+                                                              .RecommendedProducts[
+                                                                  index]
+                                                              .choiceOptions[i]
+                                                              .options[0]
+                                                    };
+
+                                                    detailProvider
+                                                        .selectedVariationMap
+                                                        .add(map);
+                                                  }
+                                                } catch (stacktrace) {}
                                                 data = {
                                                   'id': detailProvider
                                                       .RecommendedProducts[
@@ -1015,17 +1090,6 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                           .colorsFormatted[0]
                                                           .code
                                                       : "",
-                                                  'choice_2': detailProvider
-                                                          .RecommendedProducts[
-                                                              index]
-                                                          .choiceOptions
-                                                          .isNotEmpty
-                                                      ? detailProvider
-                                                          .RecommendedProducts[
-                                                              index]
-                                                          .choiceOptions[0]
-                                                          .options[0]
-                                                      : ""
                                                 };
                                               } else {
                                                 data = {
@@ -1043,9 +1107,13 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                       .isCart
                                                   ? detailProvider
                                                       .removeFromCart(
-                                                          data, context)
+                                                          data,
+                                                          context,
+                                                          widget.order_id)
                                                   : detailProvider.addToCart(
-                                                      data, context);
+                                                      data,
+                                                      context,
+                                                      widget.order_id);
                                             },
                                             child: Container(
                                               height: 30,
