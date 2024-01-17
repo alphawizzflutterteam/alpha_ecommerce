@@ -298,7 +298,7 @@ class _HomeState extends State<Home> {
                         children: [
                           Container(
                             width: double.infinity,
-                            // height: 200,
+                            height: size_200 * 0.95,
                             child: CarouselSlider(
                               items: homeProvider.imageList.map((item) {
                                 return InkWell(
@@ -1039,7 +1039,7 @@ class _HomeState extends State<Home> {
                       VisibilityDetector(
                         key: Key("unique key"),
                         onVisibilityChanged: (VisibilityInfo info) {
-                          isWidgetVisible = info.visibleFraction > 0.172;
+                          isWidgetVisible = info.visibleFraction > 0.15;
                           debugPrint(
                               "${info.visibleFraction} of my widget is visible");
                         },

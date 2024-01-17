@@ -176,21 +176,42 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                 : size_12,
                                           ),
                                     ),
-                                    Text(
-                                      "Payment Status : ${detailProvider.detail.paymentStatus}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall!
-                                          .copyWith(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Payment Status : ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_10
-                                                : size_12,
-                                          ),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                        Text(
+                                          "${detailProvider.detail.paymentStatus}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: detailProvider.detail
+                                                              .paymentStatus!
+                                                              .toLowerCase() ==
+                                                          "paid"
+                                                      ? Colors.green
+                                                      : Colors.red,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_13
+                                                      : size_15,
+                                                  fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -748,7 +769,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
-                                  //       fontSize: Platform.isAndroid ? size_12 : size_14),
+                                  //       fontSize: Platform.isAndroid ? size_14 : size_14),
                                   //   headingDateTextstyle: Theme.of(context)
                                   // .textTheme
                                   // .titleSmall!
@@ -758,7 +779,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
-                                  //       fontSize: Platform.isAndroid ? size_12 : size_14),
+                                  //       fontSize: Platform.isAndroid ? size_14 : size_14),
                                   //   subTitleTextstyle: Theme.of(context)
                                   // .textTheme
                                   // .titleSmall!
@@ -768,7 +789,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
-                                  //       fontSize: Platform.isAndroid ? size_12 : size_14),
+                                  //       fontSize: Platform.isAndroid ? size_14 : size_14),
                                   //   subDateTextstyle: Theme.of(context)
                                   // .textTheme
                                   // .titleSmall!
@@ -778,7 +799,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                   //               Brightness.dark
                                   //           ? Colors.white
                                   //           : Colors.black,
-                                  //       fontSize: Platform.isAndroid ? size_12 : size_14),
+                                  //       fontSize: Platform.isAndroid ? size_14 : size_14),
                                   // ),
                                 ],
                               ),
@@ -1181,6 +1202,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: CommonButton(
                                   text: "CANCEL ORDER",
+                                  colorsText: Colors.white,
                                   fontSize:
                                       Platform.isAndroid ? size_12 : size_14,
                                   onClick: () {
@@ -1319,7 +1341,7 @@ class _CancelOrderDialogWidgetState extends State<CancelOrderDialogWidget> {
               //                           Brightness.dark
               //                       ? Colors.white
               //                       : Colors.black,
-              //                   fontSize: Platform.isAndroid ? size_12 : size_14,
+              //                   fontSize: Platform.isAndroid ? size_14 : size_14,
               //                 ),
               //             softWrap: false,
               //           ),

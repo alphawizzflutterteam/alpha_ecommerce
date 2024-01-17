@@ -132,7 +132,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                     title: Text(
                       selected.value[index].name,
                       style: TextStyle(
-                          fontSize: Platform.isAndroid ? size_12 : size_14,
+                          fontSize: Platform.isAndroid ? size_14 : size_14,
                           color: Colors.white),
                     ),
                     trailing: selected.value[index].name == selectedValue

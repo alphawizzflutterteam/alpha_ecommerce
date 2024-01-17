@@ -53,7 +53,7 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                       cartList[widget.i].productName,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: colors.textColor,
-                          fontSize: Platform.isAndroid ? size_12 : size_14),
+                          fontSize: Platform.isAndroid ? size_14 : size_14),
                     ),
                   ),
                   const SizedBox(

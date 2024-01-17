@@ -804,7 +804,8 @@ class _ManageAddressState extends State<ManageAddress> {
                           width: double.infinity,
                           child: CommonButton(
                               text: "SAVE ADDRESS",
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
+                              colorsText: Colors.white,
+                              fontSize: Platform.isAndroid ? size_14 : size_14,
                               onClick: () {
                                 try {
                                   Map data = {

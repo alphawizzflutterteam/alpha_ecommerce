@@ -140,8 +140,8 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
                   child: Text(
                     'CANCEL ORDER',
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          fontSize: Platform.isAndroid ? size_10 : size_12,
-                        ),
+                        fontSize: Platform.isAndroid ? size_10 : size_12,
+                        color: Colors.white),
                   ),
                 ),
               ),

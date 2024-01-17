@@ -80,7 +80,7 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                         color: Theme.of(context).brightness == Brightness.dark
                             ? Colors.white
                             : Colors.black,
-                        fontSize: Platform.isAndroid ? size_12 : size_14),
+                        fontSize: Platform.isAndroid ? size_14 : size_14),
                   ),
                 ),
                 const SizedBox(
@@ -103,7 +103,7 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
                                       Brightness.dark
                                   ? colors.greyText
                                   : Colors.black,
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
+                              fontSize: Platform.isAndroid ? size_14 : size_14,
                               decoration: TextDecoration.lineThrough,
                               decorationColor: Colors.black,
                               decorationThickness: 3,

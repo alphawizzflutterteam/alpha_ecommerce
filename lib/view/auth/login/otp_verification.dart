@@ -154,7 +154,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                         color: Theme.of(context).brightness == Brightness.dark
                             ? colors.lightTextColor
                             : colors.greyText,
-                        fontSize: Platform.isAndroid ? size_14 : size_16,
+                        fontSize: Platform.isAndroid ? size_15 : size_16,
                       ),
                 ),
               ),
@@ -222,7 +222,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                             width: double.infinity,
                             child: CommonButton(
                               text: translation(context).verify,
-                              fontSize: Platform.isAndroid ? size_16 : size_18,
+                              fontSize: Platform.isAndroid ? size_15 : size_18,
                               onClick: () {
                                 if (_formKey.currentState!.validate()) {
                                   var enterdOTp = authViewModel
@@ -301,7 +301,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                         ? translation(context).alreadyhaveanaccount
                         : translation(context).dontHaveanaccount,
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          fontSize: Platform.isAndroid ? size_12 : size_14,
+                          fontSize: Platform.isAndroid ? size_15 : size_14,
                           color: Theme.of(context).brightness == Brightness.dark
                               ? colors.textColor
                               : colors.greyText,
@@ -320,7 +320,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                           ? translation(context).signIn
                           : translation(context).signUp,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                            fontSize: Platform.isAndroid ? size_12 : size_14,
+                            fontSize: Platform.isAndroid ? size_13 : size_14,
                             color: colors.buttonColor,
                             decoration: TextDecoration.underline,
                           ),

@@ -47,7 +47,7 @@ class _NoInternetScreenState extends State<NoInternetScreen> {
             //             width: size_150,
             //             child: CommonButton(
             //                 text: "TRY AGAIN",
-            //                 fontSize: Platform.isAndroid ? size_12 : size_14,
+            //                 fontSize: Platform.isAndroid ? size_14 : size_14,
             //                 onClick: () {
             //                   _checkInternetAvailability();
             //                 }))))

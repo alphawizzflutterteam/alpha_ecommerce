@@ -744,7 +744,7 @@ class _EditProfileState extends State<EditProfile> {
                           width: double.infinity,
                           child: CommonButton(
                               text: "SAVE CHANGES",
-                              fontSize: Platform.isAndroid ? size_12 : size_14,
+                              fontSize: Platform.isAndroid ? size_14 : size_14,
                               onClick: () {
                                 final bool emailValid =
                                     RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')

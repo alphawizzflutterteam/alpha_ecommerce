@@ -40,7 +40,7 @@ couponCard({required context, required CouponList coupon}) {
                   child: Text(
                     coupon.title,
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          fontSize: Platform.isAndroid ? size_12 : size_14,
+                          fontSize: Platform.isAndroid ? size_14 : size_14,
                           fontWeight: FontWeight.bold,
                         ),
                   ),

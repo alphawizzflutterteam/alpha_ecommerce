@@ -109,7 +109,7 @@ savedItemCard(
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             decoration: TextDecoration.lineThrough,
                             color: colors.greyText,
-                            fontSize: Platform.isAndroid ? size_12 : size_14),
+                            fontSize: Platform.isAndroid ? size_14 : size_14),
                       ),
                     ),
                   ],

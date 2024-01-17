@@ -106,7 +106,7 @@ vendorCard(context, VendorDatum model) {
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
-                            fontSize: Platform.isAndroid ? size_13 : size_15),
+                            fontSize: Platform.isAndroid ? size_14 : size_15),
                       ),
                       VerticalDivider(
                         color: Colors.transparent,
@@ -119,7 +119,7 @@ vendorCard(context, VendorDatum model) {
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
-                            fontSize: Platform.isAndroid ? size_12 : size_12),
+                            fontSize: Platform.isAndroid ? size_14 : size_12),
                       ),
                     ],
                   ),

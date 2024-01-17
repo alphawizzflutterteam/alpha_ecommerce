@@ -242,7 +242,7 @@ class _CartState extends State<Cart> {
                                             //             Brightness.dark
                                             //         ? colors.textColor
                                             //         : Colors.black,
-                                            //     fontSize: Platform.isAndroid ? size_12 : size_14,
+                                            //     fontSize: Platform.isAndroid ? size_14 : size_14,
                                             //     fontWeight: FontWeight.bold),
                                           ),
                                         ),
@@ -292,7 +292,7 @@ class _CartState extends State<Cart> {
                                                         //               .light
                                                         //       ? Colors.black
                                                         //       : Colors.white,
-                                                        //   fontSize: Platform.isAndroid ? size_12 : size_14,
+                                                        //   fontSize: Platform.isAndroid ? size_14 : size_14,
                                                         // ),
                                                         softWrap: false,
                                                       ),
@@ -408,7 +408,7 @@ class _CartState extends State<Cart> {
                                               //             Brightness.dark
                                               //         ? colors.textColor
                                               //         : Colors.black,
-                                              //     fontSize: Platform.isAndroid ? size_12 : size_14),
+                                              //     fontSize: Platform.isAndroid ? size_14 : size_14),
                                             ),
                                           ),
                                           Padding(
@@ -710,7 +710,7 @@ class _CartState extends State<Cart> {
                                                   // .copyWith(
 
                                                   //     color: colors.buttonColor,
-                                                  //     fontSize: Platform.isAndroid ? size_12 : size_14),
+                                                  //     fontSize: Platform.isAndroid ? size_14 : size_14),
                                                 ),
                                               ],
                                             ),

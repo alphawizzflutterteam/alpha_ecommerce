@@ -156,24 +156,241 @@ class _OrderCancelledState extends State<OrderCancelled> {
                                                 : size_14,
                                           ),
                                     ),
-                                    Text(
-                                      "Payment Status : ${detailProvider.detail.paymentStatus}",
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Payment Status : ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                        Text(
+                                          "${detailProvider.detail.paymentStatus}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: detailProvider.detail
+                                                              .paymentStatus!
+                                                              .toLowerCase() ==
+                                                          "paid"
+                                                      ? Colors.green
+                                                      : Colors.red,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_13
+                                                      : size_15,
+                                                  fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Text(
+                                      "Price Detail",
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall!
                                           .copyWith(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "MRP ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                        Text(
+                                          detailProvider.detail.subtotal
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? Colors.white
                                                     : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_12
-                                                : size_14,
-                                          ),
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Delivery fee",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                        Text(
+                                          detailProvider.detail.deliveryCharge
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Discount",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                        Text(
+                                          "- " +
+                                              detailProvider
+                                                  .detail.discountAmount
+                                                  .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Divider(
+                                    height: 5,
+                                    color: colors.greyText,
+                                    indent: 10,
+                                    endIndent: 10,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Total Amount",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14),
+                                        ),
+                                        Text(
+                                          detailProvider.detail.orderAmount
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: colors.buttonColor,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Divider(
+                                    height: 5,
+                                    color: colors.greyText,
+                                    indent: 10,
+                                    endIndent: 10,
+                                  ),
+                                ],
                               ),
                             ),
 

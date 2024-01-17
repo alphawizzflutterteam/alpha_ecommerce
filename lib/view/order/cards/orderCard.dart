@@ -78,7 +78,7 @@
 //                                               model.,
 //                                               style: Theme.of(context).textTheme.titleSmall!.copyWith(
 //                                                   color: Colors.white,
-//                                                   fontSize: Platform.isAndroid ? size_12 : size_14),
+//                                                   fontSize: Platform.isAndroid ? size_14 : size_14),
 //                                             ),
 //                                           ),
 //                                           const SizedBox(

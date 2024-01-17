@@ -331,7 +331,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                             width: double.infinity,
                             child: CommonButton(
                               text: translation(context).send,
-                              fontSize: Platform.isAndroid ? size_16 : size_18,
+                              fontSize: Platform.isAndroid ? size_17 : size_18,
                               onClick: () {
                                 Map data = {
                                   'phone': authViewModel.mobileController.text
@@ -363,7 +363,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                             ? translation(context).alreadyhaveanaccount
                             : translation(context).dontHaveanaccount,
                         style: TextStyle(
-                          fontSize: Platform.isAndroid ? size_12 : size_14,
+                          fontSize: Platform.isAndroid ? size_14 : size_14,
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
                               : colors.greyText,
@@ -383,7 +383,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                               ? translation(context).signIn
                               : translation(context).signUp,
                           style: TextStyle(
-                            fontSize: Platform.isAndroid ? size_12 : size_14,
+                            fontSize: Platform.isAndroid ? size_14 : size_14,
                             color: colors.buttonColor,
                             decoration: TextDecoration.underline,
                           ),

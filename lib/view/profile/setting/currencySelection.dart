@@ -124,7 +124,7 @@ class _CurrencyWidgetState extends State<CurrencyWidget> {
                     title: Text(
                       selected.value[index],
                       style: TextStyle(
-                          fontSize: Platform.isAndroid ? size_12 : size_14,
+                          fontSize: Platform.isAndroid ? size_14 : size_14,
                           color: colors.textColor),
                     ),
                     trailing: selected.value[index] == selectedValue

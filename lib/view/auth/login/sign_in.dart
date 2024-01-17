@@ -115,7 +115,7 @@ class _SignInState extends State<SignIn> {
           children: [
             Text(translation(context).dontHaveanaccount,
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      fontSize: Platform.isAndroid ? size_12 : size_14,
+                      fontSize: Platform.isAndroid ? size_14 : size_14,
                       color: Theme.of(context).brightness == Brightness.dark
                           ? colors.lightTextColor
                           : colors.greyText,
@@ -130,7 +130,7 @@ class _SignInState extends State<SignIn> {
                 padding: const EdgeInsets.only(left: 5.0),
                 child: Text(translation(context).signUp,
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                        fontSize: Platform.isAndroid ? size_12 : size_14,
+                        fontSize: Platform.isAndroid ? size_14 : size_14,
                         color: colors.buttonColor,
                         decoration: TextDecoration.underline)),
               ),
@@ -203,7 +203,7 @@ class _SignInState extends State<SignIn> {
                         color: Theme.of(context).brightness == Brightness.dark
                             ? colors.textColor
                             : Colors.black,
-                        fontSize: Platform.isAndroid ? size_12 : size_14,
+                        fontSize: Platform.isAndroid ? size_14 : size_14,
                         fontWeight: FontWeight.w400),
                   ),
                 ),

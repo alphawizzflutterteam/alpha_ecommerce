@@ -169,7 +169,7 @@ class _IntroSliderState extends State<IntroSlider> {
                     // .titleSmall!
                     // .copyWith(
 
-                    //         fontSize: Platform.isAndroid ? size_12 : size_14,
+                    //         fontSize: Platform.isAndroid ? size_14 : size_14,
                     //         color:
                     //             Theme.of(context).brightness == Brightness.dark
                     //                 ? colors.textColor

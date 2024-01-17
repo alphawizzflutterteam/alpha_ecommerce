@@ -25,7 +25,7 @@ specificationCard({required context, required ProductListDetail productData}) {
               color: Theme.of(context).brightness == Brightness.dark
                   ? Colors.white
                   : Colors.black,
-              fontSize: Platform.isAndroid ? size_12 : size_14),
+              fontSize: Platform.isAndroid ? size_14 : size_14),
         ),
         SizedBox(
           height: 20,

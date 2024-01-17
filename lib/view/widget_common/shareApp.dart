@@ -29,7 +29,7 @@ Future<void> share(context, String referralCode) async {
                   "Share",
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: Colors.white,
-                      fontSize: Platform.isAndroid ? size_16 : size_18),
+                      fontSize: Platform.isAndroid ? size_17 : size_18),
                 ),
                 const SizedBox(
                   height: 20,
