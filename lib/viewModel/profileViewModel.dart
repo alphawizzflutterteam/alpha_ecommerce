@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:alpha_ecommerce_18oct/view/profile/address/model/cityModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/address/model/countryModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/address/model/stateModel.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/customerSupport/customerSupportModel.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/customerSupport/supportChatModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/networkViewModel.dart';
 import 'package:http_parser/http_parser.dart';
 
@@ -49,6 +51,8 @@ class ProfileViewModel with ChangeNotifier {
   List<ReferralData> referralList = [];
   List<SubscriptionData> subscriptionList = [];
   File? selecteddUserImage;
+  List<SupportData> queries = [];
+  List<ChatData> supportChats = [];
 
   setLoading(bool value) {
     isLoading = value;
@@ -486,5 +490,42 @@ class ProfileViewModel with ChangeNotifier {
             "Alert", "Something went wrong.", context);
       });
     }
+  }
+
+//Function to get Support Query Data
+  Future<void> getSupportQuerys() async {
+    isLoading = true;
+    var token = SharedPref.shared.pref?.getString(PrefKeys.jwtToken);
+    print(token);
+    queries.clear();
+    await _myRepo
+        .supportQueryListGetRequest(
+            api: AppUrl.supportTickets, token: token.toString())
+        .then((value) {
+      queries = value.data;
+      print(queries.length);
+      setLoading(false);
+    }).onError((error, stackTrace) => setLoading(false));
+  }
+
+//Function to get Support Query Chat Data
+  Future<void> getSupportQueryChats(
+      {required String TicketId, required BuildContext ctx}) async {
+    // isLoading = true;
+    var token = SharedPref.shared.pref?.getString(PrefKeys.jwtToken);
+    print(token);
+    print(TicketId);
+    await _myRepo
+        .supportChatGetRequest(
+            api: "${AppUrl.supportQuries}$TicketId", token: token.toString())
+        .then((value) {
+      if (value.status == true) {
+        supportChats = value.data;
+        print(supportChats.length);
+        setLoading(false);
+      } else {
+        Utils.showFlushBarWithMessage("", "Something went wrong!", ctx);
+      }
+    }).onError((error, stackTrace) => setLoading(false));
   }
 }

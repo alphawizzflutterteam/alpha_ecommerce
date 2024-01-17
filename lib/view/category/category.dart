@@ -182,7 +182,7 @@ class _AllCategoryState extends State<AllCategory> {
                                       Container(
                                         height:
                                             MediaQuery.of(context).size.height *
-                                                0.70,
+                                                0.68,
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.32,

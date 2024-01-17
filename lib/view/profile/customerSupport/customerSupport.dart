@@ -1,19 +1,15 @@
-import 'dart:io';
-
-import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
-import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
-import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
-import 'package:alpha_ecommerce_18oct/view/widget_common/textfield_validation.dart';
-import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
+import 'package:alpha_ecommerce_18oct/utils/color.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/common_header.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/customerSupport/createQuery.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/customerSupport/queryDetail.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/commonBackground.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/common_header.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../../../utils/color.dart';
-import '../../../utils/routes.dart';
-import '../../widget_common/commonBackground.dart';
-import '../../widget_common/common_button.dart';
-import '../../widget_common/common_header.dart';
-import '../../widget_common/common_textfield.dart';
-import '../common_header.dart';
 
 class CustomerSupport extends StatefulWidget {
   const CustomerSupport({Key? key}) : super(key: key);
@@ -25,20 +21,26 @@ class CustomerSupport extends StatefulWidget {
 class _CustomerSupportState extends State<CustomerSupport> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late HomeViewModel homeProvider;
+  late ProfileViewModel profileP;
+  String formatDaate(String dateString) {
+    // Parse the date string
+    DateTime dateTime = DateTime.parse(dateString);
 
-  final TextEditingController typeController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
+    // Format the date
+    String formattedDate = DateFormat('dd MMM yyyy, h:mm a').format(dateTime);
+    return formattedDate;
+  }
+
   @override
   void initState() {
+    profileP = Provider.of<ProfileViewModel>(context, listen: false);
+    profileP.getSupportQuerys();
     super.initState();
-    homeProvider = Provider.of<HomeViewModel>(context, listen: false);
   }
 
   @override
   Widget build(BuildContext context) {
-    homeProvider = Provider.of<HomeViewModel>(context);
-
+    profileP = Provider.of<ProfileViewModel>(context);
     return Stack(
       children: [
         const LightBackGround(),
@@ -64,210 +66,153 @@ class _CustomerSupportState extends State<CustomerSupport> {
                   ],
                 ),
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    onTap: () {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                    },
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 10),
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              // Padding(
-                              //   padding: const EdgeInsets.symmetric(
-                              //       horizontal: 20, vertical: 10),
-                              //   child: TextFormField(
-                              //     controller: typeController,
-                              //     validator: validateName,
-                              //     decoration: commonInputDecoration(
-                              //       labelText: 'Select Type',
-                              //     style: Theme.of(context).textTheme.titleSmall!.copyWith(color: colors.textColor),
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.symmetric(
-                              //       horizontal: 20, vertical: 10),
-                              //   child: TextFormField(
-                              //     controller: emailController,
-                              //     validator: validateEmail,
-                              //     decoration: commonInputDecoration(
-                              //       labelText: 'Email',
-                              //     ),
-                              //     style: Theme.of(context).textTheme.titleSmall!.copyWith(color: colors.textColor),
-                              //   ),
-                              // ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                child: TextFormField(
-                                  controller: homeProvider.subjectController,
-                                  validator: validateName,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? colors.textFieldBG
-                                        : Colors.white,
-                                    labelText: "Subject",
-                                    labelStyle: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall!
-                                        .copyWith(
-                                          color: colors.labelColor,
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                        ),
-                                    hintStyle: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall!
-                                        .copyWith(
-                                          color: colors.labelColor,
-                                        ),
-                                  ),
-                                  // decoration: commonInputDecoration(
-                                  //   labelText: translation(context).fullname,
-                                  // ),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall!
-                                      .copyWith(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? colors.textColor
-                                              : Colors.black),
-                                  // decoration: commonInputDecoration(
-                                  //   labelText: 'Subject',
-                                  // ),
-                                  // style: Theme.of(context).textTheme.titleSmall!.copyWith(color: colors.textColor),
-                                ),
+              profileP.isLoading
+                  ? appLoader()
+                  : SizedBox(
+                      height: MediaQuery.of(context).size.height * .6,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: ListView.builder(
+                          itemCount: profileP.queries.length,
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => QueryDetailScreen(
+                                    queryDetails: profileP.queries[index]),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                child: SizedBox(
-                                  height: 150,
-                                  child: TextFormField(
-                                    keyboardType: TextInputType.multiline,
-                                    maxLines: null,
-                                    controller:
-                                        homeProvider.descriptionController,
-                                    validator: validateName,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      hintText: "\n",
-                                      fillColor: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? colors.textFieldBG
-                                          : Colors.white,
-                                      labelText: "Description",
-                                      labelStyle: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall!
-                                          .copyWith(
-                                            color: colors.labelColor,
-                                            fontSize: Platform.isAndroid
-                                                ? size_12
-                                                : size_14,
-                                          ),
-                                      hintStyle: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall!
-                                          .copyWith(
-                                            color: colors.labelColor,
-                                          ),
-                                    ),
-                                    // decoration: commonInputDecoration(
-                                    //   labelText: translation(context).fullname,
-                                    // ),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall!
-                                        .copyWith(
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.dark
-                                                    ? colors.textColor
-                                                    : Colors.black),
-                                    // decoration: commonInputDecoration(
-                                    //     labelText: 'Description', hintText: '\n'),
-                                    // style:
-                                    //     Theme.of(context).textTheme.titleSmall!.copyWith(color: colors.textColor),
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 15),
-                                  child: Column(
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: colors.lightGrey,
+                                  borderRadius: BorderRadius.circular(10)),
+                              padding: const EdgeInsets.all(16),
+                              margin: const EdgeInsets.only(bottom: 16),
+                              child: Column(
+                                children: [
+                                  Row(
                                     children: [
-                                      SizedBox(
-                                          height: 50,
-                                          width: 120,
-                                          child: CommonButton(
-                                              text: translation(context).send,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_16
-                                                  : size_18,
-                                              onClick: () {
-                                                if (_formKey.currentState!
-                                                    .validate()) {
-                                                  FocusManager
-                                                      .instance.primaryFocus
-                                                      ?.unfocus();
-
-                                                  var name = SharedPref
-                                                      .shared.pref!
-                                                      .getString(
-                                                          PrefKeys.name)!;
-                                                  var mobile = SharedPref
-                                                      .shared.pref!
-                                                      .getString(
-                                                          PrefKeys.mobile)!;
-
-                                                  var email = SharedPref
-                                                      .shared.pref!
-                                                      .getString(
-                                                          PrefKeys.email)!;
-
-                                                  Map datta = {
-                                                    "name": name,
-                                                    "email": email,
-                                                    "mobile_number": mobile,
-                                                    "subject": homeProvider
-                                                        .subjectController.text,
-                                                    "message": homeProvider
-                                                        .descriptionController
-                                                        .text
-                                                  };
-
-                                                  homeProvider.customerSupport(
-                                                      datta, context);
-                                                }
-                                              })),
+                                      Image.network(
+                                        profileP.queries[index].customerImage
+                                            .toString(),
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                ErrorImageWidget(),
+                                        height: 60,
+                                        width: 60,
+                                      ),
+                                      VerticalDivider(
+                                          color: Colors.transparent),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .5,
+                                            child: Text(
+                                              profileP.queries[index].subject
+                                                  .toString(),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                          ),
+                                          Text(
+                                            profileP
+                                                .queries[index].customerEmail
+                                                .toString(),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                                color: colors.greyText),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
-                                ),
-                              )
-                            ],
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Date & Time",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                                color: colors.greyText),
+                                          ),
+                                          Text(
+                                            formatDaate(profileP
+                                                .queries[index].createdAt
+                                                .toString()),
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 5, horizontal: 16),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Color(0xFFF9ECAC),
+                                        ),
+                                        child: Text(
+                                          profileP.queries[index].status
+                                              .toString()
+                                              .toUpperCase(),
+                                          style: TextStyle(
+                                              color: Color(0xFFD89C01)),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ),
             ],
           ),
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ElevatedButton(
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CreateQueryScreen(),
+                    )),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: colors.buttonColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    fixedSize: Size(double.maxFinite, 50)),
+                child: Text(
+                  "CREATE QUERY",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                )),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
         ),
       ],
     );

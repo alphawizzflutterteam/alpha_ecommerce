@@ -104,4 +104,7 @@ class AppUrl {
       "${baseURL}customer/wallet/list?limit=25&offset=0";
   static const String referral = "${baseURL}customer/referrer-list";
   static const String subscription = "${baseURL}customer/plans";
+  static const String supportTickets = "${baseURL}customer/support-ticket/get";
+  static const String supportQuries = "${baseURL}customer/support-ticket/conv/";
+  static const String createTicket = "${baseURL}customer/support-ticket/create";
 }
