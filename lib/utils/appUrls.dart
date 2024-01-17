@@ -64,7 +64,7 @@ class AppUrl {
   static const String couponList = "${baseURL}coupon";
 
   static const String faq = "${baseURL}faq";
-  static const String contact = "${baseURL}contact/store";
+  static const String contact = "${baseURL}customer/support-ticket/create";
 
   static String vendorList = "${baseURL}seller/all";
   static String notifications = "${baseURL}notifications";

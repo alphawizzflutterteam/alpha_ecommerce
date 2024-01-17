@@ -271,7 +271,7 @@ class HomeRepository {
     return successModelFromJson(res.body);
   }
 
-  Future<SuccessModel> contactSuupporttt(
+  Future<SuccessModel2> contactSuupporttt(
       String api, String bearerToken, dynamic data) async {
     final url = Uri.parse(api);
 
@@ -283,6 +283,6 @@ class HomeRepository {
 
     print(res.body);
 
-    return successModelFromJson(res.body);
+    return successModel2FromJson(res.body);
   }
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/order/productListBuilder.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/customerSupport/createQuery.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
@@ -176,7 +177,6 @@ class _OrderCancelledState extends State<OrderCancelled> {
                                 ),
                               ),
                             ),
-
                             const SizedBox(
                               height: 10,
                             ),
@@ -264,61 +264,32 @@ class _OrderCancelledState extends State<OrderCancelled> {
                                   ],
                                 ),
                               ),
-                            // Container(
-                            //   padding:
-                            //       const EdgeInsets.symmetric(horizontal: 20),
-                            //   height: 80,
-                            //   child: const VerticalDivider(
-                            //     color: Colors.grey,
-                            //     thickness: 1,
-                            //     indent: 10,
-                            //     endIndent: 10,
-                            //   ),
-                            // ),
-                            // Container(
-                            //   padding:
-                            //       const EdgeInsets.symmetric(horizontal: 20),
-                            //   child: Row(
-                            //     crossAxisAlignment: CrossAxisAlignment.start,
-                            //     children: [
-                            //       Icon(Icons.check_circle, color: Colors.red),
-                            //       SizedBox(
-                            //         width: 10,
-                            //       ),
-                            //       Column(
-                            //         crossAxisAlignment:
-                            //             CrossAxisAlignment.start,
-                            //         children: [
-                            //           Text("Ordered Saturday, 6 Oct",
-                            //               style: Theme.of(context)
-                            // .textTheme
-                            // .titleSmall!
-                            // .copyWith(
-
-                            //                 color:
-                            //                     Theme.of(context).brightness ==
-                            //                             Brightness.dark
-                            //                         ? Colors.white
-                            //                         : Colors.black,
-                            //               )),
-                            //           Text("Changed my mind",
-                            //               style: Theme.of(context)
-                            // .textTheme
-                            // .titleSmall!
-                            // .copyWith(
-
-                            //                   color: Theme.of(context)
-                            //                               .brightness ==
-                            //                           Brightness.dark
-                            //                       ? colors.lightTextColor
-                            //                       : Colors.black54,
-                            //                   fontSize:
-                            //     Platform.isAndroid ? size_10 : size_12,)),
-                            //         ],
-                            //       )
-                            //     ],
-                            //   ),
-                            // )
+                            const Divider(
+                              color: colors.greyText,
+                            ),
+                            GestureDetector(
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CreateQueryScreen(
+                                        orderId: detailProvider.detail.orderId
+                                            .toString()),
+                                  )),
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Need help?",
+                                  style: TextStyle(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Divider(color: Colors.grey),
                           ],
                         ),
                       ),

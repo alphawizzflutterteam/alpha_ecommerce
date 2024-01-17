@@ -6,6 +6,7 @@ import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/order/productListBuilder.dart';
 import 'package:alpha_ecommerce_18oct/view/order/returnOrderPopup.dart';
 import 'package:alpha_ecommerce_18oct/view/order/writeReviewPopup.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/customerSupport/createQuery.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
@@ -989,6 +990,35 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                   //           : Colors.black,
                                   //       fontSize: Platform.isAndroid ? size_12 : size_14),
                                   // ),
+                                  const Divider(
+                                    color: colors.greyText,
+                                  ),
+
+                                  GestureDetector(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              CreateQueryScreen(
+                                                  orderId: detailProvider
+                                                      .detail.orderId
+                                                      .toString()),
+                                        )),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Need help?",
+                                        style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Divider(color: Colors.grey),
                                 ],
                               ),
                             ),

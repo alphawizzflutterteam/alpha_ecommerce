@@ -14,8 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CreateQueryScreen extends StatefulWidget {
-  const CreateQueryScreen({super.key});
-
+  const CreateQueryScreen({super.key, required this.orderId});
+  final String orderId;
   @override
   State<CreateQueryScreen> createState() => _CreateQueryScreenState();
 }
@@ -26,11 +26,90 @@ class _CreateQueryScreenState extends State<CreateQueryScreen> {
   late HomeViewModel homeProvider;
 
   final TextEditingController typeController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController orderId = TextEditingController();
+  List<DropdownMenuItem<String>> dropItems = [
+    DropdownMenuItem(
+      value: "Order Status Inquiry",
+      child: Text("Order Status Inquiry", style: TextStyle(color: Colors.grey)),
+    ),
+    DropdownMenuItem(
+      value: "Product Information",
+      child: Text(
+        "Product Information",
+        style: TextStyle(color: Colors.grey),
+      ),
+    ),
+    DropdownMenuItem(
+        value: "Billing and Payment Issues",
+        child: Text(
+          "Billing and Payment Issues",
+          style: TextStyle(color: Colors.grey),
+        )),
+    DropdownMenuItem(
+        value: "Returns and Exchanges",
+        child: Text(
+          "Returns and Exchanges",
+          style: TextStyle(color: Colors.grey),
+        )),
+    DropdownMenuItem(
+        value: "Technical Issues",
+        child: Text(
+          "Technical Issues",
+          style: TextStyle(color: Colors.grey),
+        )),
+    DropdownMenuItem(
+        value: "Promotions and Discounts",
+        child: Text(
+          "Promotions and Discounts",
+          style: TextStyle(color: Colors.grey),
+        )),
+    DropdownMenuItem(
+        value: "Account Managemen",
+        child: Text(
+          "Account Managemen",
+          style: TextStyle(color: Colors.grey),
+        )),
+    DropdownMenuItem(
+        value: "Shipping and Delivery Issues",
+        child: Text(
+          "Shipping and Delivery Issues",
+          style: TextStyle(color: Colors.grey),
+        )),
+    DropdownMenuItem(
+        value: "Communication Preferences",
+        child: Text(
+          "Communication Preferences",
+          style: TextStyle(color: Colors.grey),
+        )),
+    DropdownMenuItem(
+      value: "Security Concerns",
+      child: Text(
+        "Security Concerns",
+        style: TextStyle(color: Colors.grey),
+      ),
+    ),
+    DropdownMenuItem(
+      value: "Product Complaints or Defects",
+      child: Text(
+        "Product Complaints or Defects",
+        style: TextStyle(color: Colors.grey),
+      ),
+    ),
+    DropdownMenuItem(
+      value: "General Inquiries",
+      child: Text(
+        "General Inquiries",
+        style: TextStyle(color: Colors.grey),
+      ),
+    ),
+  ];
+  String? selVal;
   @override
   void initState() {
     super.initState();
     homeProvider = Provider.of<HomeViewModel>(context, listen: false);
+    print("OrderId- ${widget.orderId}");
+    orderId.text = widget.orderId;
   }
 
   @override
@@ -77,29 +156,97 @@ class _CreateQueryScreenState extends State<CreateQueryScreen> {
                           key: _formKey,
                           child: Column(
                             children: [
-                              // Padding(
-                              //   padding: const EdgeInsets.symmetric(
-                              //       horizontal: 20, vertical: 10),
-                              //   child: TextFormField(
-                              //     controller: typeController,
-                              //     validator: validateName,
-                              //     decoration: commonInputDecoration(
-                              //       labelText: 'Select Type',
-                              //     style: Theme.of(context).textTheme.titleSmall!.copyWith(color: colors.textColor),
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.symmetric(
-                              //       horizontal: 20, vertical: 10),
-                              //   child: TextFormField(
-                              //     controller: emailController,
-                              //     validator: validateEmail,
-                              //     decoration: commonInputDecoration(
-                              //       labelText: 'Email',
-                              //     ),
-                              //     style: Theme.of(context).textTheme.titleSmall!.copyWith(color: colors.textColor),
-                              //   ),
-                              // ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                child: TextFormField(
+                                  controller: orderId,
+                                  enabled: false,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.textFieldBG
+                                        : Colors.white,
+                                    labelText: "OrderID",
+                                    labelStyle: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: colors.labelColor,
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
+                                        ),
+                                    hintStyle: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: colors.labelColor,
+                                        ),
+                                  ),
+                                  // decoration: commonInputDecoration(
+                                  //   labelText: translation(context).fullname,
+                                  // ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? colors.textColor
+                                              : Colors.black),
+                                  // decoration: commonInputDecoration(
+                                  //   labelText: 'Subject',
+                                  // ),
+                                  // style: Theme.of(context).textTheme.titleSmall!.copyWith(color: colors.textColor),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                child: Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.grey.shade700
+                                            : colors.boxBorder,
+                                      )),
+                                  child: DropdownButton<String>(
+                                    underline: Container(),
+                                    isExpanded: true,
+                                    dropdownColor:
+                                        Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? colors.boxBorder
+                                            : Colors.white,
+                                    value: selVal,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selVal = value;
+                                      });
+                                    },
+                                    items: dropItems,
+                                    hint: Text(
+                                      'Select Query Type',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            color: colors.labelColor,
+                                            fontSize: Platform.isAndroid
+                                                ? size_12
+                                                : size_14,
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 10),
@@ -237,14 +384,14 @@ class _CreateQueryScreenState extends State<CreateQueryScreen> {
                                                           PrefKeys.email)!;
 
                                                   Map datta = {
-                                                    "name": name,
-                                                    "email": email,
-                                                    "mobile_number": mobile,
+                                                    "order_id": widget.orderId,
+                                                    "type": selVal,
                                                     "subject": homeProvider
                                                         .subjectController.text,
-                                                    "message": homeProvider
+                                                    "description": homeProvider
                                                         .descriptionController
-                                                        .text
+                                                        .text,
+                                                    "priority": "High",
                                                   };
 
                                                   homeProvider.customerSupport(

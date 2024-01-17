@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/order/productListBuilder.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/customerSupport/createQuery.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
@@ -599,10 +600,6 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                 ],
                               ),
                             ),
-                            const Divider(
-                              height: 5,
-                              color: colors.greyText,
-                            ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 20),
@@ -783,6 +780,33 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                 ],
                               ),
                             ),
+                            const Divider(
+                              color: colors.greyText,
+                            ),
+
+                            GestureDetector(
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CreateQueryScreen(
+                                        orderId: detailProvider.detail.orderId
+                                            .toString()),
+                                  )),
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Need help?",
+                                  style: TextStyle(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Divider(color: Colors.grey),
                             Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),

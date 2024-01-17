@@ -69,7 +69,7 @@ class _CustomerSupportState extends State<CustomerSupport> {
               profileP.isLoading
                   ? appLoader()
                   : SizedBox(
-                      height: MediaQuery.of(context).size.height * .6,
+                      height: MediaQuery.of(context).size.height * .8,
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: ListView.builder(
@@ -189,30 +189,6 @@ class _CustomerSupportState extends State<CustomerSupport> {
                     ),
             ],
           ),
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ElevatedButton(
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CreateQueryScreen(),
-                    )),
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: colors.buttonColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    fixedSize: Size(double.maxFinite, 50)),
-                child: Text(
-                  "CREATE QUERY",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
-                )),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
         ),
       ],
     );
