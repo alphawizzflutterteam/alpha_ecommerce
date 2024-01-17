@@ -82,7 +82,7 @@ class _RateUsState extends State<RateUs> {
             width: 150,
             child: CommonButton(
                 text: "RATE US",
-                fontSize: Platform.isAndroid ? size_12 : size_14,
+                fontSize: Platform.isAndroid ? size_14 : size_14,
                 onClick: () {
                   Routes.navigateToPreviousScreen(context);
                 }),

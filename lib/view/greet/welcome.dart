@@ -91,7 +91,7 @@ class _WelcomeState extends State<Welcome> {
                         "Unlock Your World: Seamless Access to Orders,Wishlists, and Tailored Recommendations Wishlists, and Tailored Recommendations",
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             color: Colors.white,
-                            fontSize: Platform.isAndroid ? size_15 : size_17),
+                            fontSize: Platform.isAndroid ? size_17 : size_17),
                       ),
                     ),
                   ),

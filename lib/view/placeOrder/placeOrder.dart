@@ -118,7 +118,7 @@
                                                     // .titleSmall!
                                                     // .copyWith(
                                                       
-//                                         color: Colors.white, fontSize: Platform.isAndroid ? size_12 : size_14),
+//                                         color: Colors.white, fontSize: Platform.isAndroid ? size_14 : size_14),
 //                                   ),
 //                                   SizedBox(
 //                                     height: 5,
@@ -145,7 +145,7 @@
                                                     // .copyWith(
                                                       
 //                                               color: colors.greyText,
-//                                               fontSize: Platform.isAndroid ? size_12 : size_14),
+//                                               fontSize: Platform.isAndroid ? size_14 : size_14),
 //                                         ),
 //                                       ),
 //                                     ],
@@ -256,7 +256,7 @@
                                                     // .copyWith(
                                                       
 //                                   color: Colors.white,
-//                                   fontSize: Platform.isAndroid ? size_12 : size_14,
+//                                   fontSize: Platform.isAndroid ? size_14 : size_14,
 //                                   fontWeight: FontWeight.bold),
 //                             ),
 //                           ),
@@ -310,7 +310,7 @@
                                                     // .titleSmall!
                                                     // .copyWith(
                                                       
-//                                     color: Colors.white, fontSize: Platform.isAndroid ? size_12 : size_14),
+//                                     color: Colors.white, fontSize: Platform.isAndroid ? size_14 : size_14),
 //                               ),
 //                             ),
 //                             const Padding(
@@ -442,7 +442,7 @@
                                                     // .titleSmall!
                                                     // .copyWith(
                                                       
-//                                         color: Colors.white, fontSize: Platform.isAndroid ? size_12 : size_14),
+//                                         color: Colors.white, fontSize: Platform.isAndroid ? size_14 : size_14),
 //                                   ),
 //                                   Text(
 //                                     "\$600.00",
@@ -452,7 +452,7 @@
                                                     // .copyWith(
                                                       
 //                                         color: colors.buttonColor,
-//                                         fontSize: Platform.isAndroid ? size_12 : size_14),
+//                                         fontSize: Platform.isAndroid ? size_14 : size_14),
 //                                   ),
 //                                 ],
 //                               ),
@@ -477,7 +477,7 @@
 //                                                     .titleSmall!
 //                                                     .copyWith(
                                                       
-//                                     color: Colors.green, fontSize: Platform.isAndroid ? size_12 : size_14),
+//                                     color: Colors.green, fontSize: Platform.isAndroid ? size_14 : size_14),
 //                               ),
 //                             ),
 //                             Container(
@@ -500,7 +500,7 @@
                                                     // .titleSmall!
                                                     // .copyWith(
                                                       
-//                                           color: Colors.white, fontSize: Platform.isAndroid ? size_12 : size_14),
+//                                           color: Colors.white, fontSize: Platform.isAndroid ? size_14 : size_14),
 //                                     ),
 //                                     Row(
 //                                       children: [
@@ -518,7 +518,7 @@
                                                     // .copyWith(
                                                       
 //                                               color: Colors.white,
-//                                               fontSize: Platform.isAndroid ? size_12 : size_14),
+//                                               fontSize: Platform.isAndroid ? size_14 : size_14),
 //                                         )
 //                                       ],
 //                                     )
@@ -571,7 +571,7 @@
 //                                       width: 100,
 //                                       child: CommonButton(
 //                                           text: "APPLY",
-//                                           fontSize: Platform.isAndroid ? size_12 : size_14,
+//                                           fontSize: Platform.isAndroid ? size_14 : size_14,
 //                                           onClick: () {})),
 //                                 ],
 //                               ),
@@ -670,7 +670,7 @@
 //                                   width: 150,
 //                                   child: CommonButton(
 //                                       text: "PLACE ORDER",
-//                                       fontSize: Platform.isAndroid ? size_12 : size_14,
+//                                       fontSize: Platform.isAndroid ? size_14 : size_14,
 //                                       onClick: () {
 //                                         Routes.navigateToPaymentScreen(
 //                                             context, "", "", "", true, "order");

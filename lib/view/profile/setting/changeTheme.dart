@@ -55,7 +55,7 @@ Future<void> changeTheme(context) async {
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
-                            fontSize: Platform.isAndroid ? size_16 : size_18),
+                            fontSize: Platform.isAndroid ? size_17 : size_18),
                       )
                     ],
                   ),

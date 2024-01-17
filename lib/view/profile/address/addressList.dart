@@ -89,7 +89,8 @@ class _AddressListScreenState extends State<AddressListScreen> {
                                   .copyWith(
                                       fontSize: Platform.isAndroid
                                           ? size_12
-                                          : size_14)),
+                                          : size_14,
+                                      color: Colors.white)),
                         ],
                       ),
                     ),

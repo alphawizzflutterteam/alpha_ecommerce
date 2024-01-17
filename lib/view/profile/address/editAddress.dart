@@ -741,6 +741,7 @@ class _EditAddressState extends State<EditAddress> {
                             width: double.infinity,
                             child: CommonButton(
                                 text: "SAVE ADDRESS",
+                                colorsText: Colors.white,
                                 fontSize:
                                     Platform.isAndroid ? size_12 : size_14,
                                 onClick: () async {

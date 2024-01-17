@@ -104,7 +104,7 @@ class _FilterClassState extends State<FilterClass> {
                       color: Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
                           : Colors.black,
-                      fontSize: Platform.isAndroid ? size_16 : size_18),
+                      fontSize: Platform.isAndroid ? size_17 : size_18),
                 ),
               ),
             ),
@@ -138,7 +138,7 @@ class _FilterClassState extends State<FilterClass> {
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
                               : Colors.black,
-                          fontSize: Platform.isAndroid ? size_13 : size_15),
+                          fontSize: Platform.isAndroid ? size_14 : size_15),
                     ),
                   ),
                 ),
@@ -208,7 +208,7 @@ class _FilterClassState extends State<FilterClass> {
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
                               : Colors.black,
-                          fontSize: Platform.isAndroid ? size_12 : size_14),
+                          fontSize: Platform.isAndroid ? size_14 : size_14),
                     ),
                     SizedBox(
                       height: 40,

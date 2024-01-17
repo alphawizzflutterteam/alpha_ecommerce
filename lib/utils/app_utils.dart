@@ -45,7 +45,7 @@ class AppUtils {
                     'Alert',
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: Colors.white,
-                          fontSize: Platform.isAndroid ? size_18 : size_20,
+                          fontSize: Platform.isAndroid ? size_19 : size_20,
                           fontWeight: FontWeight.bold,
                         ),
                   ),
@@ -57,7 +57,7 @@ class AppUtils {
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: colors.greyText,
-                        fontSize: Platform.isAndroid ? size_12 : size_14),
+                        fontSize: Platform.isAndroid ? size_13 : size_14),
                   ),
                   const SizedBox(
                     height: 20,
@@ -95,7 +95,7 @@ class AppUtils {
                                 .titleSmall!
                                 .copyWith(
                                   fontSize:
-                                      Platform.isAndroid ? size_10 : size_12,
+                                      Platform.isAndroid ? size_13 : size_12,
                                 ),
                           ),
                         ),
@@ -128,7 +128,7 @@ class AppUtils {
                                 .titleSmall!
                                 .copyWith(
                                   fontSize:
-                                      Platform.isAndroid ? size_10 : size_12,
+                                      Platform.isAndroid ? size_11 : size_12,
                                 ),
                           ),
                         ),

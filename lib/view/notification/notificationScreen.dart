@@ -161,29 +161,24 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             ],
                           ),
                         )
-                      : Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 87 *
-                                      provider.notificationList.length
-                                          .toDouble(),
-                                  child: ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: provider.notificationList.length,
-                                    itemBuilder: (context, i) {
-                                      return notificationCard(
-                                          provider.notificationList[i],
-                                          context);
-                                    },
-                                  ),
+                      : SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 87 *
+                                    provider.notificationList.length.toDouble(),
+                                child: ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: provider.notificationList.length,
+                                  itemBuilder: (context, i) {
+                                    return notificationCard(
+                                        provider.notificationList[i], context);
+                                  },
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
             ],

@@ -580,7 +580,7 @@ class _SubscribeState extends State<Subscribe> {
           label,
           style: Theme.of(context).textTheme.titleSmall!.copyWith(
               fontWeight: FontWeight.bold,
-              fontSize: Platform.isAndroid ? size_16 : size_18,
+              fontSize: Platform.isAndroid ? size_17 : size_18,
               color: Colors.white),
         ),
       ),

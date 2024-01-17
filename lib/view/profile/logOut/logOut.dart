@@ -70,7 +70,7 @@ Future<void> logOut(context) async {
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
                       : Colors.black54,
-                  fontSize: Platform.isAndroid ? size_12 : size_14),
+                  fontSize: Platform.isAndroid ? size_14 : size_14),
             ),
             const SizedBox(
               height: 20,
@@ -226,7 +226,7 @@ Future<void> deleteAccount(context, HomeViewModel provider) async {
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
                       : Colors.black54,
-                  fontSize: Platform.isAndroid ? size_12 : size_14),
+                  fontSize: Platform.isAndroid ? size_14 : size_14),
             ),
             const SizedBox(
               height: 20,

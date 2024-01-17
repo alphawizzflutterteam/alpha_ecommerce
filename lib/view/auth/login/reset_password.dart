@@ -149,7 +149,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                           ),
                           labelStyle: TextStyle(
                             color: colors.labelColor,
-                            fontSize: Platform.isAndroid ? size_12 : size_14,
+                            fontSize: Platform.isAndroid ? size_13 : size_14,
                           ),
                           hintStyle:
                               Theme.of(context).textTheme.titleSmall!.copyWith(

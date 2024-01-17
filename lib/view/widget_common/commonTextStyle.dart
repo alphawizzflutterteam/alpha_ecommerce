@@ -32,7 +32,7 @@ class Text14 extends StatelessWidget {
     return Text(
       text,
       style: Theme.of(context).textTheme.titleSmall!.copyWith(
-          fontSize: Platform.isAndroid ? size_12 : size_14,
+          fontSize: Platform.isAndroid ? size_14 : size_14,
           color: light ?? colors.textColor,
           fontWeight: bold ?? FontWeight.normal),
     );
@@ -71,7 +71,7 @@ class Text18 extends StatelessWidget {
     return Text(
       text,
       style: Theme.of(context).textTheme.titleSmall!.copyWith(
-          fontSize: Platform.isAndroid ? size_16 : size_18,
+          fontSize: Platform.isAndroid ? size_17 : size_18,
           color: light ?? colors.textColor,
           fontWeight: bold ?? FontWeight.normal),
     );

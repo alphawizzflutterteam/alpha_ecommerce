@@ -32,7 +32,7 @@ class _CommonRadioTileState extends State<CommonRadioTile> {
           widget.name,
           style: Theme.of(context).textTheme.titleSmall!.copyWith(
                 color: widget.color,
-                fontSize: Platform.isAndroid ? size_12 : size_14,
+                fontSize: Platform.isAndroid ? size_14 : size_14,
               ),
           softWrap: false,
         ),

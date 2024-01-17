@@ -31,6 +31,7 @@ class _ProfileState extends State<Profile> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken) ?? "";
   var name = "";
+  var phone = "";
   var image = "";
   var loyaltyPoint = "";
   var walletBalance = "";
@@ -48,6 +49,7 @@ class _ProfileState extends State<Profile> {
 
     ProfileModel user = ProfileModel.fromJson(model);
     name = user.data[0].fName;
+    phone = user.data[0].phone;
     image = user.data[0].image;
     loyaltyPoint = user.data[0].loyaltyPoint;
     walletBalance = user.data[0].walletBalance.toString();
@@ -219,9 +221,6 @@ class _ProfileState extends State<Profile> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -274,8 +273,25 @@ class _ProfileState extends State<Profile> {
                                               )
                                             ],
                                           ),
+                                          Text(
+                                            phone,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_12
+                                                        : size_14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                          ),
                                           const SizedBox(
-                                            height: 8,
+                                            height: 2,
                                           ),
                                           Row(
                                             children: [
@@ -316,7 +332,7 @@ class _ProfileState extends State<Profile> {
                                                 height: MediaQuery.of(context)
                                                         .size
                                                         .height *
-                                                    .025,
+                                                    .02,
                                                 child: Image.asset(
                                                   Images.wallet,
                                                 ),
@@ -338,8 +354,8 @@ class _ProfileState extends State<Profile> {
                                                           : Colors.black,
                                                       fontSize:
                                                           Platform.isAndroid
-                                                              ? size_14
-                                                              : size_16,
+                                                              ? size_12
+                                                              : size_14,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),

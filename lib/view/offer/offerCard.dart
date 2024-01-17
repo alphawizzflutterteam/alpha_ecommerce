@@ -32,7 +32,7 @@ offerCard(context) {
                 child: Text(
                   'DISCOUNT',
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                        fontSize: Platform.isAndroid ? size_16 : size_18,
+                        fontSize: Platform.isAndroid ? size_17 : size_18,
                         fontWeight: FontWeight.bold,
                       ),
                 ),
@@ -68,7 +68,7 @@ offerCard(context) {
                 'Everyday Savings, Fresh Delights:',
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Colors.white,
-                    fontSize: Platform.isAndroid ? size_12 : size_14),
+                    fontSize: Platform.isAndroid ? size_14 : size_14),
               ),
               const SizedBox(
                 height: 5,
@@ -77,7 +77,7 @@ offerCard(context) {
                 'Your One-Stop Grocery Destination!',
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Colors.white,
-                    fontSize: Platform.isAndroid ? size_12 : size_14),
+                    fontSize: Platform.isAndroid ? size_14 : size_14),
               ),
               const SizedBox(
                 height: 10,
@@ -112,7 +112,7 @@ offerCard(context) {
                         '30 Jul 2019',
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             color: Colors.white,
-                            fontSize: Platform.isAndroid ? size_12 : size_14),
+                            fontSize: Platform.isAndroid ? size_14 : size_14),
                       ),
                     ],
                   ),

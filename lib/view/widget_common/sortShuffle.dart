@@ -138,7 +138,7 @@ class _SortClassState extends State<SortClass> {
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
-                            fontSize: Platform.isAndroid ? size_12 : size_14,
+                            fontSize: Platform.isAndroid ? size_14 : size_14,
                             fontWeight: FontWeight.bold),
                       ),
                       Visibility(
