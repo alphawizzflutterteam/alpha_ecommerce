@@ -4,6 +4,8 @@ import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/profile/address/model/cityModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/address/model/countryModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/address/model/stateModel.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/customerSupport/customerSupportModel.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/customerSupport/supportChatModel.dart';
 import 'package:http_parser/http_parser.dart';
 
 import 'package:alpha_ecommerce_18oct/view/home/models/successModel.dart';
@@ -220,4 +222,50 @@ class ProfileRepository {
 
     return countryModelFromJson(res.body);
   }
+
+  //Function to get support query Data
+  Future<CustomerSupportModel> supportQueryListGetRequest(
+      {required api, required String token}) async {
+    try {
+      var url = Uri.parse(api);
+      var res =
+          await http.get(url, headers: {'Authorization': 'Bearer $token'});
+      var ans = jsonDecode(res.body);
+      print(ans);
+      if (res.statusCode == 200) {
+        print(res);
+        return CustomerSupportModel.fromJson(ans);
+      } else {
+        print(res.reasonPhrase);
+        return CustomerSupportModel(status: null, message: null, data: []);
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+//Function to get Customer Support Chat
+  Future<SupportChatModel> supportChatGetRequest({
+    required String api,
+    required String token,
+  }) async {
+    try {
+      var url = Uri.parse(api);
+      http.Response response =
+          await http.get(url, headers: {'Authorization': 'Bearer $token'});
+      var ans = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        print(ans);
+        return SupportChatModel.fromJson(ans);
+      } else {
+        print(response.reasonPhrase);
+        return SupportChatModel.fromJson(ans);
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  supportChatPostRequest(
+      {required String api, required String token, required String chat}) {}
 }

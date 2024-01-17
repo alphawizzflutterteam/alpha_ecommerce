@@ -20,7 +20,7 @@ class ProfileHeader extends StatelessWidget {
             Theme.of(context).brightness == Brightness.dark
                 ? Image.asset(
                     Images.commonHeader,
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
                     width: MediaQuery.of(context).size.width,
                   )
                 : Container(),
