@@ -65,7 +65,7 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
                         orderProvider: orderProvider,
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 0,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -254,7 +254,7 @@ class _FilterClassCategoryState extends State<FilterClassCategory> {
                                 ? widget.orderProvider.filters.categories!
                                         .length /
                                     3 *
-                                    100
+                                    87
                                 : 70,
                         child: GridView.builder(
                           shrinkWrap: true,
