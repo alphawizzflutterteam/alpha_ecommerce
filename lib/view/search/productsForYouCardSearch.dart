@@ -89,7 +89,7 @@ productForYouCardSearch(ProductList model, BuildContext context,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("${model.discount}% Off",
+                          Text("${model.discount_string}",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!

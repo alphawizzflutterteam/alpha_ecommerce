@@ -3,8 +3,9 @@ class AppUrl {
   //https://alpha-ecom.developmentalphawizz.com
   //https://test-alpha-ecom.developmentalphawizz.com
 
-  static const baseURL =
-      "https://test-alpha-ecom.developmentalphawizz.com/api/v1/";
+  static const baseURL = "https://alpha-ecom.developmentalphawizz.com/api/v1/";
+  static const base = "https://test-alpha-ecom.developmentalphawizz.com/";
+  static const inVoiceUrl = base + "generate-invoice/";
   static String sendLoginOtp = "${baseURL}auth/send-login-otp";
   static String socialLogin = "${baseURL}auth/social-login";
   static String sendRegisterOtp = "${baseURL}auth/send-otp";
@@ -96,6 +97,7 @@ class AppUrl {
   static const String privacyPolicyData =
       "${baseURL}config/privacy-policy-pages";
   static const String writeReview = "${baseURL}products/reviews/submit";
+  static const String deleteReview = "${baseURL}products/reviews/delete";
   static const String transactionHistory =
       "${baseURL}customer/get-order-transaction";
 

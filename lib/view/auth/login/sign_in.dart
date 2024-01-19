@@ -203,7 +203,7 @@ class _SignInState extends State<SignIn> {
                         color: Theme.of(context).brightness == Brightness.dark
                             ? colors.textColor
                             : Colors.black,
-                        fontSize: Platform.isAndroid ? size_14 : size_14,
+                        fontSize: Platform.isAndroid ? size_15 : size_15,
                         fontWeight: FontWeight.w400),
                   ),
                 ),
@@ -306,7 +306,7 @@ class _SignInState extends State<SignIn> {
                           //     ? validateMobile
                           //     : validateEmail,
                           maxLength: authViewModel.isLoggingViaPhone ? 10 : 50,
-                          decoration: (const InputDecoration())
+                          decoration: (const InputDecoration(counterText: ''))
                               .applyDefaults(
                                   Theme.of(context).inputDecorationTheme)
                               .copyWith(
@@ -591,42 +591,42 @@ class _SignInState extends State<SignIn> {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    Images.guestUser,
-                                    height: size_22,
-                                    width: size_22,
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white
-                                        : colors.bodyBackgroundDark,
-                                  ),
-                                  const SizedBox(width: 5),
-                                  InkWell(
-                                    highlightColor: Colors.transparent,
-                                    splashColor: Colors.transparent,
-                                    onTap: () {
-                                      Routes.navigateToDashboardScreen(
-                                          context, 2);
-                                    },
-                                    child: Text(translation(context).guestUser,
-                                        style: TextStyle(
-                                          fontSize: Platform.isAndroid
-                                              ? size_12
-                                              : size_14,
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : colors.bodyBackgroundDark,
-                                        )),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.symmetric(vertical: 0),
+                            //   child: Row(
+                            //     mainAxisAlignment: MainAxisAlignment.center,
+                            //     children: [
+                            //       Image.asset(
+                            //         Images.guestUser,
+                            //         height: size_22,
+                            //         width: size_22,
+                            //         color: Theme.of(context).brightness ==
+                            //                 Brightness.dark
+                            //             ? Colors.white
+                            //             : colors.bodyBackgroundDark,
+                            //       ),
+                            //       const SizedBox(width: 5),
+                            //       InkWell(
+                            //         highlightColor: Colors.transparent,
+                            //         splashColor: Colors.transparent,
+                            //         onTap: () {
+                            //           Routes.navigateToDashboardScreen(
+                            //               context, 2);
+                            //         },
+                            //         child: Text(translation(context).guestUser,
+                            //             style: TextStyle(
+                            //               fontSize: Platform.isAndroid
+                            //                   ? size_12
+                            //                   : size_14,
+                            //               color: Theme.of(context).brightness ==
+                            //                       Brightness.dark
+                            //                   ? Colors.white
+                            //                   : colors.bodyBackgroundDark,
+                            //             )),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                           ],
                         ),
                       )

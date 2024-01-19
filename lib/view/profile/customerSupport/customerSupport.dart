@@ -1,4 +1,5 @@
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
+import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/common_header.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/customerSupport/createQuery.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/customerSupport/queryDetail.dart';
@@ -71,7 +72,7 @@ class _CustomerSupportState extends State<CustomerSupport> {
                   : SizedBox(
                       height: MediaQuery.of(context).size.height * .8,
                       child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: ListView.builder(
                           itemCount: profileP.queries.length,
                           itemBuilder: (context, index) => GestureDetector(
@@ -84,7 +85,11 @@ class _CustomerSupportState extends State<CustomerSupport> {
                             ),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: colors.lightGrey,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : const Color.fromARGB(
+                                          255, 230, 228, 228),
                                   borderRadius: BorderRadius.circular(10)),
                               padding: const EdgeInsets.all(16),
                               margin: const EdgeInsets.only(bottom: 16),
@@ -97,7 +102,13 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                             .toString(),
                                         errorBuilder:
                                             (context, error, stackTrace) =>
-                                                ErrorImageWidget(),
+                                                SizedBox(
+                                                    height: 60,
+                                                    width: 60,
+                                                    child: Image.asset(
+                                                      Images.defaultProfile,
+                                                      fit: BoxFit.fill,
+                                                    )),
                                         height: 60,
                                         width: 60,
                                       ),
@@ -119,6 +130,11 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                   fontSize: 16,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? colors.textColor
+                                                      : Colors.black,
                                                   fontWeight: FontWeight.w500),
                                             ),
                                           ),
@@ -136,6 +152,9 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                         ],
                                       ),
                                     ],
+                                  ),
+                                  SizedBox(
+                                    height: 4,
                                   ),
                                   Row(
                                     mainAxisAlignment:
@@ -158,6 +177,11 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                                 .toString()),
                                             style: TextStyle(
                                                 fontSize: 14,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textColor
+                                                    : Colors.black,
                                                 fontWeight: FontWeight.w500),
                                           ),
                                         ],

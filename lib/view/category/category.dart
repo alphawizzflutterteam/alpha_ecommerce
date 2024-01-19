@@ -416,6 +416,7 @@ class _AllCategoryState extends State<AllCategory> {
                                                                         j) {
                                                                   print(listItem
                                                                       .length);
+
                                                                   return categoryCard(
                                                                       context:
                                                                           context,

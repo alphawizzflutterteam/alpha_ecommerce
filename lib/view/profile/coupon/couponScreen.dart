@@ -51,7 +51,7 @@ class _CouponScreenState extends State<CouponScreen> {
                   children: [
                     ProfileHeader(),
                     InternalPageHeader(
-                      text: 'Coupon',
+                      text: 'Coupons',
                     )
                   ],
                 ),

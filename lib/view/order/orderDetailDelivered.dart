@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:alpha_ecommerce_18oct/utils/appUrls.dart';
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/order/productListBuilder.dart';
@@ -38,7 +39,8 @@ class OrderDetailDelivered extends StatefulWidget {
 
 class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  double rating = 4;
+  double rating = 1;
+  String comment = "";
   late OrderViewModel detailProvider;
 
   List<TextDto> orderList = [];
@@ -61,10 +63,11 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
 
   String convertTimestampToFormattedDate(String timestamp) {
     // Parse the timestamp string into a DateTime object
+    print(timestamp);
     DateTime dateTime = DateTime.parse(timestamp);
 
     // Format the DateTime object as "dd Month name yyyy"
-    String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
+    String formattedDate = DateFormat('dd MMM yyyy, h:mm a').format(dateTime);
 
     return "(" + formattedDate + " )";
   }
@@ -465,8 +468,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                     splashColor: Colors.transparent,
                                     onTap: () async {
                                       final Uri url = Uri.parse(
-                                          'https://alpha-ecom.developmentalphawizz.com/generate-invoice/' +
-                                              widget.order_id);
+                                          AppUrl.inVoiceUrl + widget.order_id);
                                       if (!await launchUrl(url,
                                           mode:
                                               LaunchMode.externalApplication)) {
@@ -746,7 +748,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.only(
-                                                            left: 20.0),
+                                                            left: 15.0),
                                                     child: Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -800,23 +802,69 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                   ),
                                                 ],
                                               ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                              Column(
                                                 children: [
-                                                  Icon(
-                                                    Icons.star,
-                                                    size: size_18,
-                                                    color: Colors.orange,
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.star,
+                                                        size: size_18,
+                                                        color: Colors.orange,
+                                                      ),
+                                                      Text(
+                                                        detailProvider
+                                                            .detail
+                                                            .orderReviews[0]
+                                                            .rating
+                                                            .toString(),
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleSmall!
+                                                            .copyWith(
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Text(
-                                                    detailProvider.detail
-                                                        .orderReviews[0].rating
-                                                        .toString(),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleSmall!
-                                                        .copyWith(
+                                                  SizedBox(
+                                                    height: 8,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          rating =
+                                                              detailProvider
+                                                                  .detail
+                                                                  .orderReviews[
+                                                                      0]
+                                                                  .rating!
+                                                                  .toDouble();
+                                                          comment =
+                                                              detailProvider
+                                                                  .detail
+                                                                  .orderReviews[
+                                                                      0]
+                                                                  .comment!;
+                                                          writeReview(
+                                                              context,
+                                                              detailProvider
+                                                                  .detail
+                                                                  .products[0]
+                                                                  .productId
+                                                                  .toString());
+                                                        },
+                                                        child: Icon(
+                                                          Icons.edit,
                                                           color: Theme.of(context)
                                                                       .brightness ==
                                                                   Brightness
@@ -824,7 +872,33 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                               ? Colors.white
                                                               : Colors.black,
                                                         ),
-                                                  ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          detailProvider
+                                                              .deleteReviewRequest(
+                                                                  order_id: widget
+                                                                      .order_id,
+                                                                  context:
+                                                                      context,
+                                                                  id: widget
+                                                                      .order_id);
+                                                        },
+                                                        child: Icon(
+                                                          Icons.delete,
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
                                                 ],
                                               )
                                             ],
@@ -1080,7 +1154,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
   Future<void> showCancelDialog() async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
             contentPadding: EdgeInsets.zero,
@@ -1096,7 +1170,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
   Future<void> writeReview(context, String product_id) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
             contentPadding: EdgeInsets.zero,
@@ -1105,6 +1179,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
               order_id: widget.order_id,
               product_id: product_id,
               rating: rating,
+              comment: comment,
             ));
       },
     );

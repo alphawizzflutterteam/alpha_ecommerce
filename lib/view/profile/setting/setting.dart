@@ -32,11 +32,11 @@ class _SettingState extends State<Setting> {
     // TODO: implement initState
     super.initState();
     settings = [
-      SettingList(
-          settingIcon: Images.currency,
-          settingName: 'Currency',
-          nextNavigation: false,
-          navigationPage: () => currency(context)),
+      // SettingList(
+      //     settingIcon: Images.currency,
+      //     settingName: 'Currency',
+      //     nextNavigation: false,
+      //     navigationPage: () => currency(context)),
       SettingList(
           settingIcon: Images.star,
           settingName: 'Rate Us',
@@ -52,11 +52,11 @@ class _SettingState extends State<Setting> {
           settingName: 'Change Password',
           nextNavigation: true,
           navigationPage: const ChangePassword()),
-      SettingList(
-          settingIcon: Images.changeLanguage,
-          settingName: 'Change Language',
-          nextNavigation: false,
-          navigationPage: () => language(context)),
+      // SettingList(
+      //     settingIcon: Images.changeLanguage,
+      //     settingName: 'Change Language',
+      //     nextNavigation: false,
+      //     navigationPage: () => language(context)),
       SettingList(
           settingIcon: Images.changeTheme,
           settingName: 'Change Theme',

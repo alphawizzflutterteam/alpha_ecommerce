@@ -43,7 +43,7 @@ String? validatePassword(String? value) {
 
 String? validateName(String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter Something';
+    return 'Please enter valid name';
   }
   return null;
 }

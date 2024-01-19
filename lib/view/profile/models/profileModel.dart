@@ -14,23 +14,37 @@ class ProfileModel {
   bool status;
   String message;
   List<Datum> data;
+  int latest_order;
+  int unread_notification;
+  int whishlisted;
 
   ProfileModel({
     required this.status,
     required this.message,
     required this.data,
+    required this.latest_order,
+    required this.unread_notification,
+    required this.whishlisted,
   });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
         status: json["status"],
         message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<Datum>.from(
+          json["data"].map((x) => Datum.fromJson(x)),
+        ),
+        latest_order: json["latest_order"] ?? 0,
+        unread_notification: json["unread_notification"] ?? 0,
+        whishlisted: json["whishlisted"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "message": message,
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "latest_order": latest_order,
+        "unread_notification": unread_notification,
+        "whishlisted": whishlisted,
       };
 }
 

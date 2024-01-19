@@ -11,13 +11,16 @@ import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/orderDetailModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/ordersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/returnOrderModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/networkViewModel.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http_parser/http_parser.dart';
 
 class OrderViewModel with ChangeNotifier {
   List<OrdersList> orderList = [];
@@ -28,6 +31,7 @@ class OrderViewModel with ChangeNotifier {
   Filters filters = Filters();
   var status = "";
   List<Map<String, dynamic>> selectedVariationMap = [];
+  File? selectedImage;
 
   TextEditingController searchText = TextEditingController();
   var categorie = "";
@@ -65,8 +69,14 @@ class OrderViewModel with ChangeNotifier {
                   searchText.text,
               token)
           .then((value) {
-        orderList = value.data!;
-        filters = value.filters!;
+        try {
+          orderList = value.data!;
+          filters = value.filters!;
+          print(orderList.length.toString() + "OORDER LENTH");
+        } catch (stackTrace) {
+          print(stackTrace.toString() + "ORder Error");
+        }
+
         setLoading(false);
 
         notifyListeners();
@@ -276,6 +286,33 @@ class OrderViewModel with ChangeNotifier {
     }
   }
 
+  Future<void> deleteReviewRequest(
+      {required String order_id,
+      required String id,
+      required BuildContext context}) async {
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .deleteReviewRequest(
+        api: AppUrl.deleteReview,
+        bearerToken: token,
+        order_id: order_id,
+      )
+          .then((value) async {
+        Utils.showFlushBarWithMessage("", value.message, context);
+        await getOrderDetail(context, order_id, true);
+      });
+    }
+  }
+
   Future<bool> addToWishlist(
       dynamic data, BuildContext context, String orderID) async {
     // setLoading(true);
@@ -420,27 +457,34 @@ class OrderViewModel with ChangeNotifier {
     return false;
   }
 
-  Future<void> downloadAndOpenFile(String fileUrl) async {
-    try {
-      var response = await http.get(Uri.parse(fileUrl));
+  Future<void> pickFile(BuildContext context,
+      {required String order_id,
+      required String comment,
+      required String rating,
+      required String product_id}) async {
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
 
-      if (response.statusCode == 200) {
-        // Get the directory for storing the file
-        Directory appDocDir = await getApplicationDocumentsDirectory();
-        String savePath = appDocDir.path + '/downloaded_file.pdf';
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
 
-        // Save the file to the specified path
-        File file = File(savePath);
-        await file.writeAsBytes(response.bodyBytes);
-        print('File downloaded and saved to: $savePath');
-
-        // Open the file
-        await OpenFile.open(savePath);
-      } else {
-        print('Failed to download file. Status code: ${response.statusCode}');
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      var res = await _myRepo.multipartRequestReview(
+          AppUrl.writeReview, selectedImage!, MediaType('image', 'jpeg'),
+          order_id: order_id,
+          product_id: product_id,
+          comment: comment,
+          rating: rating);
+      print(res["status"]);
+      if (res['status'] == true) {
+        Routes.navigateToPreviousScreen(
+          context,
+        );
+        Utils.showFlushBarWithMessage("", res['message'], context);
+        await getOrderDetail(context, order_id, true);
       }
-    } catch (error) {
-      print('Error downloading file: $error');
     }
   }
 }

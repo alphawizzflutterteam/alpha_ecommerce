@@ -298,7 +298,7 @@ class _HomeState extends State<Home> {
                         children: [
                           Container(
                             width: double.infinity,
-                            height: size_200 * 0.95,
+                            height: size_200 * 0.85,
                             child: CarouselSlider(
                               items: homeProvider.imageList.map((item) {
                                 return InkWell(
@@ -1069,14 +1069,41 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
+                      searchProvider.searchResults.isEmpty
+                          ? Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  spaceOfHeight(),
+                                  Image.asset(
+                                    'assets/images/Emplty search.png',
+                                    height: size_150,
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    "No result.",
+                                    style: TextStyle(
+                                      color: colors.greyText,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          : Container(),
+                      spaceOfHeight(),
+                      spaceOfHeight(),
                       spaceOfHeight(),
                       Text(
                         "Alpha Product: All rights reserved",
                         style: Theme.of(context)
                             .textTheme
                             .titleSmall!
-                            .copyWith(color: colors.textColor),
+                            .copyWith(color: Colors.black),
                       ),
+                      spaceOfHeight(),
                       spaceOfHeight(),
                     ],
                   ),

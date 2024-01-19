@@ -87,13 +87,13 @@ productForYouCard(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("${model.discount}% Off",
+                        Text("${model.discount_string}",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
                                 .copyWith(
                                     fontSize:
-                                        Platform.isAndroid ? size_10 : size_12,
+                                        Platform.isAndroid ? size_9 : size_11,
                                     color: Colors.orange,
                                     fontWeight: FontWeight.w600)),
                         // style: Theme.of(context).textTheme.titleSmall!.copyWith(
@@ -247,9 +247,6 @@ productForYouCard(
                               'color': model.colorsFormatted.isNotEmpty
                                   ? model.colorsFormatted[0].code
                                   : "",
-                              'choice_2': model.choiceOptions.isNotEmpty
-                                  ? model.choiceOptions[0].options[0]
-                                  : ""
                             };
                           } else {
                             data = {

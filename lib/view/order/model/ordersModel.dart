@@ -255,7 +255,6 @@ class Product {
   int? reviewsCount;
   List<Rating>? rating;
   List<Tags>? tags;
-  List<Null>? translations;
   String? shareLink;
   List<Reviews>? reviews;
   List<ColorsFormatted>? colorsFormatted;
@@ -310,7 +309,6 @@ class Product {
       this.reviewsCount,
       this.rating,
       this.tags,
-      this.translations,
       this.shareLink,
       this.reviews,
       this.colorsFormatted,

@@ -27,6 +27,8 @@ class VendorRepository {
       'Authorization': 'Bearer $bearerToken',
     });
 
+    print(res.body);
+
     return notificationModelFromJson(res.body);
   }
 

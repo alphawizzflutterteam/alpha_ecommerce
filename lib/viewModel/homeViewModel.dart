@@ -29,6 +29,10 @@ class HomeViewModel with ChangeNotifier {
   List<ProductList> productsModel = [];
 
   String banner1 = "";
+  String notificationCount = "";
+  String cartCount = "";
+  String orderCount = "";
+  String wishlistCount = "";
   String banner2 = "";
 
   List<SpecialOffersList> specialOffersModel = [];
@@ -179,6 +183,7 @@ class HomeViewModel with ChangeNotifier {
 
     await _myRepo.cartListRequest(AppUrl.cartList, token).then((value) {
       cartModel = value.data.products;
+      orderCount = cartModel.length.toString();
 
       notifyListeners();
 
@@ -457,7 +462,10 @@ class HomeViewModel with ChangeNotifier {
       setLoading(false);
 
       print(value.data[0].id.toString());
-
+      notificationCount = value.unread_notification.toString();
+      orderCount = value.latest_order.toString();
+      wishlistCount = value.whishlisted.toString();
+      notificationCount = value.unread_notification.toString();
       SharedPref.shared.pref
           ?.setString(PrefKeys.userId, value.data[0].id.toString());
       SharedPref.shared.pref

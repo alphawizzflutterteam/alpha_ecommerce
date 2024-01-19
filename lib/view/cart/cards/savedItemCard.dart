@@ -168,16 +168,27 @@ savedItemCard(
               highlightColor: Colors.transparent,
               splashColor: Colors.transparent,
               onTap: () async {
-                Map data = {
-                  'id': model.id.toString(),
-                  'quantity': "1",
-                  'color': model.colorImage.isNotEmpty
-                      ? "#" + model.colorImage[0].color
-                      : "",
-                  'choice_2': model.choiceOptions.isNotEmpty
-                      ? model.choiceOptions[0].options[0]
-                      : ""
-                };
+                Map<String, String> data;
+                try {
+                  data = {
+                    'id': model.id.toString(),
+                    'quantity': "1",
+                    'color': model.colorImage.isNotEmpty
+                        ? "#" + model.colorImage[0].color
+                        : "",
+                    model.choiceOptions[0].name:
+                        model.choiceOptions[0].options[0]
+                  };
+                } catch (stacktrace) {
+                  data = {
+                    'id': model.id.toString(),
+                    'quantity': "1",
+                    'color': model.colorImage.isNotEmpty
+                        ? "#" + model.colorImage[0].color
+                        : "",
+                  };
+                }
+
                 print(data);
                 await provider.addToCart(data, context);
               },

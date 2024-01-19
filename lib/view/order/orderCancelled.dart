@@ -38,7 +38,7 @@ class _OrderCancelledState extends State<OrderCancelled> {
     DateTime dateTime = DateTime.parse(timestamp);
 
     // Format the DateTime object as "dd Month name yyyy"
-    String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
+    String formattedDate = DateFormat('dd MMM yyyy, h:mm a').format(dateTime);
 
     return "(" + formattedDate + " )";
   }
@@ -141,26 +141,12 @@ class _OrderCancelledState extends State<OrderCancelled> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      "Payment Method - ${detailProvider.detail.payment_method ?? ""}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall!
-                                          .copyWith(
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_12
-                                                : size_14,
-                                          ),
-                                    ),
-                                    Row(
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Payment Status : ",
+                                          "Payment Method",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall!
@@ -176,21 +162,66 @@ class _OrderCancelledState extends State<OrderCancelled> {
                                               ),
                                         ),
                                         Text(
-                                          "${detailProvider.detail.paymentStatus}",
+                                          "${detailProvider.detail.payment_method ?? ""}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall!
                                               .copyWith(
-                                                  color: detailProvider.detail
-                                                              .paymentStatus!
-                                                              .toLowerCase() ==
-                                                          "paid"
-                                                      ? Colors.green
-                                                      : Colors.red,
-                                                  fontSize: Platform.isAndroid
-                                                      ? size_13
-                                                      : size_15,
-                                                  fontWeight: FontWeight.w600),
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              "Payment Status",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_10
+                                                        : size_12,
+                                                  ),
+                                            ),
+                                            Text(
+                                              "${detailProvider.detail.paymentStatus}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                      color: detailProvider
+                                                                  .detail
+                                                                  .paymentStatus!
+                                                                  .toLowerCase() ==
+                                                              "paid"
+                                                          ? Colors.green
+                                                          : Colors.red,
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_12
+                                                              : size_14,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),

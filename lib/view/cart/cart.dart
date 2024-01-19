@@ -44,6 +44,7 @@ class _CartState extends State<Cart> {
     cartProvider = Provider.of<CartViewModel>(context, listen: false);
     addressProvider = Provider.of<AddressViewModel>(context, listen: false);
     callAddress();
+
     if (cartProvider.selectedOption == "Normal Delivery") {
       cartProvider.getCartListItem(context, "", "0", "", "");
     } else {
@@ -64,6 +65,7 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     cartProvider = Provider.of<CartViewModel>(context);
     addressProvider = Provider.of<AddressViewModel>(context);
+    if (cartProvider.couponController.text == "") {}
     if (addressProvider.addressList.isEmpty && !apiHitted) {
       if (cartProvider.isLoading) {
         Future.delayed(Duration(seconds: 3), () {
@@ -121,7 +123,180 @@ class _CartState extends State<Cart> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(height: 20),
+                              const SizedBox(height: 10),
+                              cartProvider.cartModel.isEmpty
+                                  ? Container()
+                                  : Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 20.0),
+                                      child: Text("Shipping Adddress",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? colors.textColor
+                                                      : Colors.black,
+                                                  fontSize: size_11))),
+                              cartProvider.cartModel.isEmpty
+                                  ? Container()
+                                  : Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 5),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: colors.buttonColor,
+// Set your desired border color
+                                            width: 2.0, // Set the border width
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                        ), // Adjust the radius as needed
+
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8, vertical: 5),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      addressProvider
+                                                              .addressList
+                                                              .isEmpty
+                                                          ? const Icon(
+                                                              Icons.location_on,
+                                                              color: colors
+                                                                  .buttonColor,
+                                                            )
+                                                          : Icon(
+                                                              Icons.pin_drop,
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? colors
+                                                                      .textColor
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                      const SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      addressProvider
+                                                              .addressList
+                                                              .isEmpty
+                                                          ? InkWell(
+                                                              onTap: () {
+                                                                Routes
+                                                                    .navigateToManageAddressScreen(
+                                                                        context);
+                                                              },
+                                                              child: Text(
+                                                                "Add new address",
+                                                                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                                                    color: Theme.of(context).brightness ==
+                                                                            Brightness
+                                                                                .dark
+                                                                        ? colors
+                                                                            .textColor
+                                                                        : Colors
+                                                                            .black,
+                                                                    fontSize: Platform
+                                                                            .isAndroid
+                                                                        ? size_14
+                                                                        : size_16),
+                                                              ),
+                                                            )
+                                                          : SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  0.63,
+                                                              child: Text(
+                                                                addressProvider
+                                                                    .selectedAddress,
+                                                                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                                                    color: Theme.of(context).brightness ==
+                                                                            Brightness
+                                                                                .dark
+                                                                        ? colors
+                                                                            .textColor
+                                                                        : Colors
+                                                                            .black,
+                                                                    fontSize: Platform
+                                                                            .isAndroid
+                                                                        ? size_10
+                                                                        : size_12),
+                                                                maxLines: 1,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                              ),
+                                                            ),
+                                                      cartProvider
+                                                              .cartModel.isEmpty
+                                                          ? Container()
+                                                          : addressProvider
+                                                                  .addressList
+                                                                  .isEmpty
+                                                              ? const Icon(Icons
+                                                                  .arrow_forward_ios_rounded)
+                                                              : InkWell(
+                                                                  onTap: () {
+                                                                    Routes.navigateToAddressListScreen(
+                                                                        context,
+                                                                        true);
+                                                                  },
+                                                                  child:
+                                                                      SizedBox(
+                                                                    child: Text(
+                                                                      "(Change)",
+                                                                      style: Theme.of(
+                                                                              context)
+                                                                          .textTheme
+                                                                          .titleSmall!
+                                                                          .copyWith(
+                                                                              color: Colors.green,
+                                                                              fontSize: Platform.isAndroid ? size_13 : size_15),
+                                                                      maxLines:
+                                                                          1,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                              // cartProvider.cartModel.isEmpty
+                              //     ? Container()
+                              //     : Divider(
+                              //         color: Theme.of(context).brightness ==
+                              //                 Brightness.dark
+                              //             ? colors.textColor
+                              //             : Colors.black,
+                              //         height: 1,
+                              //       ),
+                              const SizedBox(height: 10),
+
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20),
                                 child: Row(
@@ -140,55 +315,61 @@ class _CartState extends State<Cart> {
                                               color: colors.buttonColor,
                                               fontWeight: FontWeight.w600),
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Routes.navigateToDashboardScreen(
-                                            context, 2);
-                                      },
-                                      child: Text(
-                                        "Back",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(
-                                                fontSize: Platform.isAndroid
-                                                    ? size_14
-                                                    : size_16,
-                                                color: colors.buttonColor,
-                                                fontWeight: FontWeight.w600),
-                                        // style: Theme.of(context)
-                                        // .textTheme
-                                        // .titleSmall!
-                                        // .copyWith(
+                                    // GestureDetector(
+                                    //   onTap: () {
+                                    //     Routes.navigateToDashboardScreen(
+                                    //         context, 2);
+                                    //   },
+                                    //   child: Text(
+                                    //     "Back",
+                                    //     style: Theme.of(context)
+                                    //         .textTheme
+                                    //         .titleSmall!
+                                    //         .copyWith(
+                                    //             fontSize: Platform.isAndroid
+                                    //                 ? size_14
+                                    //                 : size_16,
+                                    //             color: colors.buttonColor,
+                                    //             fontWeight: FontWeight.w600),
+                                    //     // style: Theme.of(context)
+                                    //     // .textTheme
+                                    //     // .titleSmall!
+                                    //     // .copyWith(
 
-                                        //     color: Theme.of(context).brightness ==
-                                        //             Brightness.dark
-                                        //         ? colors.textColor
-                                        //         : Colors.black,
-                                        //     fontSize: Platform.isAndroid ? size_18 : size_20,
-                                        //     fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
+                                    //     //     color: Theme.of(context).brightness ==
+                                    //     //             Brightness.dark
+                                    //     //         ? colors.textColor
+                                    //     //         : Colors.black,
+                                    //     //     fontSize: Platform.isAndroid ? size_18 : size_20,
+                                    //     //     fontWeight: FontWeight.bold),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),
                               const SizedBox(height: 10),
                               cartProvider.cartModel.isEmpty
                                   ? Center(
-                                      child: Text(
-                                        "Nothing in cart list...",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? colors.textColor
-                                                    : colors.greyText,
-                                                fontSize: Platform.isAndroid
-                                                    ? size_14
-                                                    : size_16),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/Cart_empty.png',
+                                            height: size_150,
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            "No item in cart.",
+                                            style: TextStyle(
+                                              color: colors.greyText,
+                                            ),
+                                          )
+                                        ],
                                       ),
                                     )
                                   : Container(
@@ -316,6 +497,7 @@ class _CartState extends State<Cart> {
                                                   child: Material(
                                                     color: Colors.transparent,
                                                     child: RadioListTile(
+                                                      dense: true,
                                                       title: Text(
                                                         'Alpha Delivery',
                                                         style: Theme.of(context)
@@ -603,7 +785,7 @@ class _CartState extends State<Cart> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  "Discount",
+                                                  "Discount (Product)",
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .titleSmall!
@@ -625,6 +807,68 @@ class _CartState extends State<Cart> {
                                                   "- " +
                                                       cartProvider
                                                           .model.data.discount,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                          fontSize:
+                                                              Platform.isAndroid
+                                                                  ? size_10
+                                                                  : size_12,
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? colors.textColor
+                                                              : Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                  // style: Theme.of(context)
+                                                  // .textTheme
+                                                  // .titleSmall!
+                                                  // .copyWith(
+
+                                                  //     color: Theme.of(context)
+                                                  //                 .brightness ==
+                                                  //             Brightness.dark
+                                                  //         ? colors.textColor
+                                                  //         : Colors.black,
+                                                  //     fontSize: 12),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 5),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Discount (Coupon)",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                          fontSize:
+                                                              Platform.isAndroid
+                                                                  ? size_10
+                                                                  : size_12,
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? colors.greyText
+                                                              : Colors.black54,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                ),
+                                                Text(
+                                                  "- " +
+                                                      cartProvider.model.data
+                                                          .coupon_discount,
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .titleSmall!
@@ -920,7 +1164,7 @@ class _CartState extends State<Cart> {
                         : Align(
                             alignment: Alignment.bottomCenter,
                             child: Container(
-                              height: MediaQuery.of(context).size.height * .125,
+                              height: MediaQuery.of(context).size.height * .066,
                               color: Theme.of(context).brightness ==
                                       Brightness.dark
                                   ? colors.textFieldBG
@@ -928,147 +1172,12 @@ class _CartState extends State<Cart> {
                               child: Center(
                                 child: Column(
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              addressProvider
-                                                      .addressList.isEmpty
-                                                  ? const Icon(
-                                                      Icons.location_on,
-                                                      color: Colors.red,
-                                                    )
-                                                  : Icon(
-                                                      Icons.pin_drop,
-                                                      color: Theme.of(context)
-                                                                  .brightness ==
-                                                              Brightness.dark
-                                                          ? colors.textColor
-                                                          : Colors.black,
-                                                    ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              addressProvider
-                                                      .addressList.isEmpty
-                                                  ? InkWell(
-                                                      onTap: () {
-                                                        Routes
-                                                            .navigateToManageAddressScreen(
-                                                                context);
-                                                      },
-                                                      child: Text(
-                                                        "Add Address",
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleSmall!
-                                                            .copyWith(
-                                                                color: Theme.of(
-                                                                                context)
-                                                                            .brightness ==
-                                                                        Brightness
-                                                                            .dark
-                                                                    ? colors
-                                                                        .textColor
-                                                                    : Colors
-                                                                        .black,
-                                                                fontSize: Platform
-                                                                        .isAndroid
-                                                                    ? size_14
-                                                                    : size_16),
-                                                      ),
-                                                    )
-                                                  : SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.63,
-                                                      child: Text(
-                                                        addressProvider
-                                                            .selectedAddress,
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleSmall!
-                                                            .copyWith(
-                                                                color: Theme.of(
-                                                                                context)
-                                                                            .brightness ==
-                                                                        Brightness
-                                                                            .dark
-                                                                    ? colors
-                                                                        .textColor
-                                                                    : Colors
-                                                                        .black,
-                                                                fontSize: Platform
-                                                                        .isAndroid
-                                                                    ? size_10
-                                                                    : size_12),
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
-                                                    ),
-                                              cartProvider.cartModel.isEmpty
-                                                  ? Container()
-                                                  : addressProvider
-                                                          .addressList.isEmpty
-                                                      ? const Icon(Icons
-                                                          .arrow_forward_ios_rounded)
-                                                      : InkWell(
-                                                          onTap: () {
-                                                            Routes
-                                                                .navigateToAddressListScreen(
-                                                                    context,
-                                                                    true);
-                                                          },
-                                                          child: SizedBox(
-                                                            child: Text(
-                                                              "(Change)",
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .titleSmall!
-                                                                  .copyWith(
-                                                                      color: Colors
-                                                                          .green,
-                                                                      fontSize: Platform
-                                                                              .isAndroid
-                                                                          ? size_13
-                                                                          : size_15),
-                                                              maxLines: 1,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                            ),
-                                                          ),
-                                                        ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    cartProvider.cartModel.isEmpty
-                                        ? Container()
-                                        : Divider(
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.dark
-                                                    ? colors.textColor
-                                                    : Colors.black,
-                                            height: 1,
-                                          ),
                                     cartProvider.cartModel.isEmpty
                                         ? Container()
                                         : Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20, vertical: 10),
-                                            height: 49,
+                                            height: 50,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -1103,7 +1212,7 @@ class _CartState extends State<Cart> {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
-                                                            .35,
+                                                            .37,
                                                     child: CommonButton(
                                                       text: "PLACE ORDER",
                                                       fontSize:

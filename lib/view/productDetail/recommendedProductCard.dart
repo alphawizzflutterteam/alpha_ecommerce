@@ -89,7 +89,7 @@ recommendedProductCard(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "${card.discount}% Off",
+                              "${card.discount_string}",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!
@@ -145,7 +145,8 @@ recommendedProductCard(
                         ),
                         child: Text(
                           card.name,
-                          maxLines: 2,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style:
                               Theme.of(context).textTheme.titleSmall!.copyWith(
                                     color: Theme.of(context).brightness ==

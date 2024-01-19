@@ -149,19 +149,6 @@ cartCard(
                         ],
                       ),
                       const SizedBox(
-                        height: 5,
-                      ),
-                      Text(model.code,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall!
-                              .copyWith(
-                                  fontSize:
-                                      Platform.isAndroid ? size_10 : size_12,
-                                  color: colors.greyText,
-                                  fontWeight: FontWeight.w600)),
-                      // ),
-                      const SizedBox(
                         height: 10,
                       ),
                       Container(
@@ -280,6 +267,9 @@ cartCard(
                     ],
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

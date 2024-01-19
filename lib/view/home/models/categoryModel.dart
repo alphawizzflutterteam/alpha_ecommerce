@@ -104,19 +104,20 @@ class Childes {
   String? updatedAt;
   int? homeStatus;
   int? priority;
+  int? sub_category_product_count;
 
-  Childes({
-    this.id,
-    this.name,
-    this.slug,
-    this.icon,
-    this.parentId,
-    this.position,
-    this.createdAt,
-    this.updatedAt,
-    this.homeStatus,
-    this.priority,
-  });
+  Childes(
+      {this.id,
+      this.name,
+      this.slug,
+      this.icon,
+      this.parentId,
+      this.position,
+      this.createdAt,
+      this.updatedAt,
+      this.homeStatus,
+      this.priority,
+      this.sub_category_product_count});
 
   Childes.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -129,6 +130,7 @@ class Childes {
     updatedAt = json['updated_at'];
     homeStatus = json['home_status'];
     priority = json['priority'];
+    sub_category_product_count = json['sub_category_product_count'];
   }
 
   Map<String, dynamic> toJson() {
@@ -143,7 +145,7 @@ class Childes {
     data['updated_at'] = this.updatedAt;
     data['home_status'] = this.homeStatus;
     data['priority'] = this.priority;
-
+    data['sub_category_product_count'] = this.sub_category_product_count;
     return data;
   }
 }

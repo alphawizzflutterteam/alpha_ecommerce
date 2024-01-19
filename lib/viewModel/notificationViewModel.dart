@@ -40,6 +40,7 @@ class NotificationViewModel with ChangeNotifier {
           .notificationListRequest(AppUrl.notifications, token)
           .then((value) {
         notificationList = value.data;
+
         setLoading(false);
 
         notifyListeners();

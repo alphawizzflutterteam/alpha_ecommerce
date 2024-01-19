@@ -139,7 +139,7 @@ class _QueryDetailScreenState extends State<QueryDetailScreen> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Theme.of(context).brightness == Brightness.dark
-                        ? colors.textFieldColor
+                        ? const Color.fromARGB(255, 143, 141, 141)
                         : colors.greyText),
                 height: MediaQuery.of(context).size.height * .475,
                 child: Consumer<ProfileViewModel>(builder: (context, val, _) {

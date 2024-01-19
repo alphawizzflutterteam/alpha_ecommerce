@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/successModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/orderDetailModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/ordersModel.dart';
 import 'package:alpha_ecommerce_18oct/view/order/model/returnOrderModel.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 
 class OrderRepository {
   Future<OrdersModel> orderListRequest(String api, String bearerToken) async {
@@ -148,6 +151,27 @@ class OrderRepository {
     return SuccessModel.fromJson(ans);
   }
 
+  Future<SuccessModel> deleteReviewRequest({
+    required String api,
+    required String bearerToken,
+    required String order_id,
+  }) async {
+    Map para = {
+      'id': order_id,
+    };
+    final url = Uri.parse(api);
+    final http.Response res;
+    res = await http.post(url, body: para, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+    print(api);
+
+    print(res.body);
+    var ans = jsonDecode(res.body);
+
+    return SuccessModel.fromJson(ans);
+  }
+
   Future<SuccessModel> removeFromWishlist(
       String api, String bearerToken, dynamic data) async {
     final url = Uri.parse(api);
@@ -206,5 +230,51 @@ class OrderRepository {
     print(res.body);
 
     return successModelFromJson(res.body);
+  }
+
+  Future<Map<String, dynamic>> multipartRequestReview(
+      String api, File userImage, MediaType mediaType,
+      {required String order_id,
+      required String product_id,
+      required String rating,
+      required String comment}) async {
+    final url = Uri.parse(api);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+
+    print(
+        "========================================================================================================");
+    print(
+        "-------------------------------------------- URL --------------------------------------------");
+    print("$url");
+    print(
+        "-------------------------------------------- PARAMETERS --------------------------------------------");
+    print("${userImage.path.split('/').last}");
+
+    final length = await userImage.length();
+
+    final request = http.MultipartRequest(
+      "POST",
+      url,
+    );
+    request.headers.addAll({
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    }); // request.headers["apipassword"] = APIs.apipassword;
+    // request.headers["Content-type"] = "multipart/form-data";
+    request.fields["product_id"] = product_id.toString();
+    request.fields["comment"] = comment.toString();
+    request.fields["rating"] = rating.toString();
+    request.fields["order_id"] = order_id.toString();
+
+    request.files.add(http.MultipartFile(
+        'fileUpload[]', userImage.readAsBytes().asStream(), length,
+        filename: userImage.path.split('/').last, contentType: mediaType));
+
+    final streamRes = await request.send();
+    final res = await http.Response.fromStream(streamRes);
+    print(res.body);
+
+    final Map<String, dynamic> json = await jsonDecode(res.body);
+
+    return json;
   }
 }

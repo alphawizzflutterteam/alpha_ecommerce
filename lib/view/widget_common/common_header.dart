@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/routes.dart';
 import 'commonTextStyle.dart';
@@ -12,6 +14,8 @@ class DashboardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HomeViewModel provideer =
+        Provider.of<HomeViewModel>(context, listen: false);
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
@@ -57,16 +61,60 @@ class DashboardHeader extends StatelessWidget {
                     width: 12,
                   ),
                   InkWell(
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      onTap: () {
-                        Routes.navigateToNotificationScreen(context);
-                      },
-                      child: Image.asset(
-                        Images.notification,
-                        height: 25,
-                        width: 25,
-                      )),
+                    onTap: () {
+                      Routes.navigateToNotificationScreen(context);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Center(
+                        child: Stack(
+                          children: <Widget>[
+                            Image.asset(
+                              Images.notification,
+                              height: 28,
+                              width: 28,
+                            ),
+                            Visibility(
+                                visible: !(provideer.notificationCount == "" ||
+                                    provideer.notificationCount == "0"),
+                                child: Positioned(
+                                    right: 0,
+                                    child: Container(
+                                      padding:
+                                          EdgeInsets.only(left: 4, right: 4),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      constraints: BoxConstraints(
+                                        minWidth: 8,
+                                        minHeight: 8,
+                                      ),
+                                      child: Text(
+                                        provideer.notificationCount,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: size_13,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )))
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  // InkWell(
+                  //     highlightColor: Colors.transparent,
+                  //     splashColor: Colors.transparent,
+                  //     onTap: () {
+                  //       Routes.navigateToNotificationScreen(context);
+                  //     },
+                  //     child: Image.asset(
+                  //       Images.notification,
+                  //       height: 25,
+                  //       width: 25,
+                  //     )),
                 ],
               ),
             )
@@ -182,25 +230,25 @@ class InternalDetailPageHeader extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                        width: 30,
-                      )
-                      // InkWell(
-                      //   highlightColor: Colors.transparent,
-                      //   splashColor: Colors.transparent,
-                      //   onTap: () {
-                      //     Routes.navigateToBottomNavScreen(
-                      //         context, 0); // const BottomNavPage(index: 0);
-                      //   },
-                      //   child: Image.asset(
-                      //     Images.headerCart,
-                      //     height: 30,
-                      //     width: 30,
-                      //   ),
+                      // const SizedBox(
+                      //   width: 5,
                       // ),
+                      // Container(
+                      //   width: 30,
+                      // ),
+                      InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        onTap: () {
+                          Routes.navigateToBottomNavScreen(
+                              context, 0); // const BottomNavPage(index: 0);
+                        },
+                        child: Image.asset(
+                          Images.headerCart,
+                          height: 30,
+                          width: 30,
+                        ),
+                      ),
                     ],
                   ),
                 ),

@@ -50,7 +50,7 @@ class _OrderReturnedState extends State<OrderReturned> {
     DateTime dateTime = DateTime.parse(timestamp);
 
     // Format the DateTime object as "dd Month name yyyy"
-    String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
+    String formattedDate = DateFormat('dd MMM yyyy, h:mm a').format(dateTime);
 
     return "(" + formattedDate + " )";
   }

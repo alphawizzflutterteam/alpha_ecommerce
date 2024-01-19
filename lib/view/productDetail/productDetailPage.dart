@@ -16,6 +16,7 @@ import 'package:alpha_ecommerce_18oct/viewModel/productViewModel.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:like_button/like_button.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -28,6 +29,18 @@ import '../widget_common/common_header.dart';
 import '../widget_common/toast_message.dart';
 import '../profile/common_header.dart';
 import 'freeDeliveryCard.dart';
+
+extension ColorExtension on String {
+  toColor() {
+    var hexColor = replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF$hexColor";
+    }
+    if (hexColor.length == 8) {
+      return Color(int.parse("0x$hexColor"));
+    }
+  }
+}
 
 class ProductDetailPage extends StatefulWidget {
   final String slug;
@@ -240,15 +253,15 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "${productModel.model.first.discount} %",
+                                      "${productModel.model.first.discount_string}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall!
                                           .copyWith(
                                               color: Colors.orange,
                                               fontSize: Platform.isAndroid
-                                                  ? size_14
-                                                  : size_16,
+                                                  ? size_12
+                                                  : size_14,
                                               fontWeight: FontWeight.bold),
                                     ),
                                     LikeButton(
@@ -306,26 +319,26 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width -
-                                          120,
-                                      child: Text(
-                                        productModel.model.first.name,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontSize: Platform.isAndroid
-                                                    ? size_14
-                                                    : size_16,
-                                                fontWeight: FontWeight.bold),
+                                    Container(
+                                      child: Flexible(
+                                        child: Text(
+                                          productModel.model.first.name,
+                                          //    maxLines: 1,
+                                          //  overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_14
+                                                      : size_16,
+                                                  fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ),
                                     productModel.model.first.rating.isNotEmpty
@@ -540,93 +553,87 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                               .colorsFormatted[
                                                                   j]
                                                               .code;
+
+                                                      // for (int i = 0;
+                                                      //     i <
+                                                      //         productModel
+                                                      //             .model
+                                                      //             .first
+                                                      //             .colorImage
+                                                      //             .length;
+                                                      //     i++) {
+                                                      //   if (productModel
+                                                      //           .model
+                                                      //           .first
+                                                      //           .colorImage[i]
+                                                      //           .color
+                                                      //           .toString()
+                                                      //           .toLowerCase() ==
+                                                      //       productModel
+                                                      //           .selectedColor
+                                                      //           .toLowerCase()) {
+                                                      //     productModel.imageList
+                                                      //         .add(productModel
+                                                      //             .model
+                                                      //             .first
+                                                      //             .colorImage[i]
+                                                      //             .image_name
+                                                      //             .toString());
+                                                      //   }
+                                                      //   }
+
                                                       setState(() {});
                                                     },
                                                     child: Row(
                                                       children: [
                                                         Container(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                                  horizontal:
-                                                                      10,
-                                                                  vertical: 10),
-                                                          margin:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  right: 10),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors
-                                                                .transparent,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5),
-                                                            border: Theme.of(
-                                                                            context)
-                                                                        .brightness ==
-                                                                    Brightness
-                                                                        .dark
-                                                                ? Border.all(
-                                                                    color: productModel.selectedColor == productModel.model.first.colorsFormatted[j].name
-                                                                        ? Colors
-                                                                            .white
-                                                                        : const Color(
-                                                                            0x14E9E9E9),
-                                                                    width: 2)
-                                                                : Border.all(
-                                                                    color: productModel.selectedColor ==
-                                                                            productModel
-                                                                                .model
-                                                                                .first
-                                                                                .colorsFormatted[
-                                                                                    j]
-                                                                                .name
-                                                                        ? colors
-                                                                            .buttonColor
-                                                                        : colors
-                                                                            .lightBorder,
-                                                                    width: 2),
-                                                          ),
-                                                          child: SizedBox(
-                                                            width: productModel
-                                                                        .model
-                                                                        .first
-                                                                        .colorsFormatted
-                                                                        .length <
-                                                                    10
-                                                                ? size_60
-                                                                : size_100,
-                                                            child: Center(
-                                                              child: Text(
-                                                                productModel
-                                                                    .model
-                                                                    .first
-                                                                    .colorsFormatted[
-                                                                        j]
-                                                                    .name,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                                                                    color: Theme.of(context).brightness ==
-                                                                            Brightness
-                                                                                .dark
-                                                                        ? const Color
-                                                                            .fromARGB(
-                                                                            255,
-                                                                            214,
-                                                                            208,
-                                                                            208)
-                                                                        : Colors
-                                                                            .black,
-                                                                    fontSize:
-                                                                        size_12),
-                                                              ),
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                                    horizontal:
+                                                                        10,
+                                                                    vertical:
+                                                                        10),
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    right: 10),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: productModel
+                                                                  .model
+                                                                  .first
+                                                                  .colorsFormatted[
+                                                                      j]
+                                                                  .code
+                                                                  .toColor(),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5),
+                                                              border: Theme.of(
+                                                                              context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? Border.all(
+                                                                      color: productModel.selectedColor == productModel.model.first.colorsFormatted[j].name
+                                                                          ? Colors
+                                                                              .white
+                                                                          : const Color(
+                                                                              0x14E9E9E9),
+                                                                      width: 2)
+                                                                  : Border.all(
+                                                                      color: productModel.selectedColor == productModel.model.first.colorsFormatted[j].name
+                                                                          ? colors
+                                                                              .buttonColor
+                                                                          : colors
+                                                                              .lightBorder,
+                                                                      width: 2),
                                                             ),
-                                                          ),
-                                                        ),
+                                                            child: Container(
+                                                              width: size_25,
+                                                            )),
                                                       ],
                                                     ),
                                                   );
@@ -956,7 +963,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     : Colors.black54,
                                 height: 1,
                               ),
-                              productModel.model.first.metaDescription == ""
+                              productModel.model.first.details == ""
                                   ? Container()
                                   : Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -983,23 +990,45 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text(
-                                            productModel
-                                                .model.first.metaDescription,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleSmall!
-                                                .copyWith(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? colors.textColor
-                                                      : Colors.black,
-                                                  fontSize: Platform.isAndroid
-                                                      ? size_10
-                                                      : size_12,
-                                                ),
+                                          Html(
+                                            data: productModel
+                                                .model.first.details,
+                                            style: {
+                                              'p': Style(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: FontSize(14),
+                                              ),
+                                              'li': Style(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: FontSize(14),
+                                              )
+                                            },
                                           ),
+                                          // Text(
+                                          //   productModel
+                                          //       .model.first.metaDescription,
+                                          //   style: Theme.of(context)
+                                          //       .textTheme
+                                          //       .titleSmall!
+                                          //       .copyWith(
+                                          //         color: Theme.of(context)
+                                          //                     .brightness ==
+                                          //                 Brightness.dark
+                                          //             ? colors.textColor
+                                          //             : Colors.black,
+                                          //         fontSize: Platform.isAndroid
+                                          //             ? size_10
+                                          //             : size_12,
+                                          //       ),
+                                          // ),
                                         ],
                                       ),
                                     ),

@@ -28,7 +28,8 @@ class CartViewModel with ChangeNotifier {
           deliveryCharge: "",
           tax: "",
           total: "",
-          products: []));
+          products: [],
+          coupon_discount: ""));
   bool get loading => isLoading;
   TextEditingController couponController = TextEditingController();
   final _myRepo = CartRepository();

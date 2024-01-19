@@ -14,7 +14,7 @@ transactionHistoryCard({required context, required DatumTrasaction data}) {
     DateTime dateTime = DateTime.parse(timestamp);
 
     // Format the DateTime object as "dd Month name yyyy"
-    String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
+    String formattedDate = DateFormat('dd MMM yyyy, h:mm a').format(dateTime);
 
     return formattedDate;
   }
@@ -179,7 +179,7 @@ Widget buildCustom(bool isSuccess, String status) {
     ),
     child: Text(
       status,
-      // style: Theme.of(context).textTheme.titleSmall!.copyWith(color: textColor),
+      style: TextStyle(color: Colors.white),
     ),
   );
 }

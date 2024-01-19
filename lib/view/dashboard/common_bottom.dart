@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -108,7 +109,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                     : Colors.white,
               ),
               child: BottomNavigationBar(
-                elevation: 10,
+                elevation: 5,
                 currentIndex: _currentIndex,
                 onTap: (index) {
                   setState(() {
@@ -133,11 +134,37 @@ class _BottomNavPageState extends State<BottomNavPage> {
                       height: homeProvider.isScrolled ? 25 : 0,
                       width: homeProvider.isScrolled ? 25 : 0,
                     ),
-                    icon: Image.asset(
-                      Images.buy,
-                      height: homeProvider.isScrolled ? 25 : 0,
-                      width: homeProvider.isScrolled ? 25 : 0,
-                    ),
+                    icon: Stack(children: [
+                      Image.asset(
+                        Images.buy,
+                        height: homeProvider.isScrolled ? 25 : 0,
+                        width: homeProvider.isScrolled ? 25 : 0,
+                      ),
+                      Visibility(
+                        visible: homeProvider.orderCount != "0",
+                        child: Positioned(
+                            right: 0,
+                            child: Container(
+                              padding: EdgeInsets.only(left: 4, right: 4),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              constraints: BoxConstraints(
+                                minWidth: 8,
+                                minHeight: 8,
+                              ),
+                              child: Text(
+                                homeProvider.orderCount,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: size_13,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            )),
+                      )
+                    ]),
                     label: 'Cart',
                   ),
                   BottomNavigationBarItem(

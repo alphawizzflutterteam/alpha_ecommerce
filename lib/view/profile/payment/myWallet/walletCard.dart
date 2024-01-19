@@ -77,7 +77,7 @@ walletCart(
                             ],
                           ),
                           buildCustom(
-                              data.debit.toString() == "0",
+                              data.debit.toString() == "₹0.00",
                               data.credit.toString(),
                               data.debit.toString(),
                               context),
