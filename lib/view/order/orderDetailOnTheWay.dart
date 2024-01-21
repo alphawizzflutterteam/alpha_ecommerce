@@ -707,7 +707,28 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                               .toLowerCase()
                                                               .contains("pend")
                                                           ? Colors.orange
-                                                          : colors.buttonColor),
+                                                          : detailProvider
+                                                                  .detail
+                                                                  .orderStatusHistory[
+                                                                      i]
+                                                                  .status!
+                                                                  .toLowerCase()
+                                                                  .contains(
+                                                                      "pack")
+                                                              ? Color.fromARGB(
+                                                                  255,
+                                                                  226,
+                                                                  152,
+                                                                  42)
+                                                              : detailProvider
+                                                                      .detail
+                                                                      .orderStatusHistory[
+                                                                          i]
+                                                                      .status!
+                                                                      .toLowerCase()
+                                                                      .contains("confir")
+                                                                  ? Color.fromARGB(255, 243, 154, 21)
+                                                                  : colors.buttonColor),
                                               SizedBox(
                                                 width: 10,
                                               ),
@@ -745,13 +766,13 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                         .textTheme
                                                         .titleSmall!
                                                         .copyWith(
-                                                          color: Theme.of(context)
-                                                                      .brightness ==
-                                                                  Brightness
-                                                                      .dark
-                                                              ? Colors.white
-                                                              : Colors.black,
-                                                        ),
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? Colors.white
+                                                                : Colors.black,
+                                                            fontSize: 10),
                                                   ),
                                                 ],
                                               )
@@ -771,8 +792,8 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                   child: const VerticalDivider(
                                                     color: Colors.grey,
                                                     thickness: 1.2,
-                                                    indent: 2,
-                                                    endIndent: 2,
+                                                    indent: 0,
+                                                    endIndent: 0,
                                                   ),
                                                 ),
                                         ],

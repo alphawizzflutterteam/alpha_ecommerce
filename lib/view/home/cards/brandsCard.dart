@@ -22,7 +22,11 @@ brandCard(
 
           searchProvider.brandId = model.id.toString();
           searchProvider.isHome = false;
-          Routes.navigateToSearchScreen(context);
+          searchProvider.offerId = "";
+          searchProvider.offerPercentage = "";
+          searchProvider.categoryId = "";
+          searchProvider.subCategoryId = "";
+          Routes.navigateToSearchScreen(context, false);
           searchProvider.getProductsListNew(context, "25", "1");
         },
         child: Column(

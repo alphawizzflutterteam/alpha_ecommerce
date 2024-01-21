@@ -69,6 +69,9 @@ class _HomeState extends State<Home> {
     categoryProvider = Provider.of<CategoryViewModel>(context, listen: false);
     searchProvider = Provider.of<SearchViewModel>(context, listen: false);
 
+    print(searchProvider.isHome.toString() + "Home initiated");
+    searchProvider.isHome = true;
+    searchProvider.clearFilters();
     checkInternetAvailability();
     _scrollController.addListener(() {
       setState(() {
@@ -100,6 +103,7 @@ class _HomeState extends State<Home> {
       Map data = {'phone': phone};
       await homeProvider.getProfileAPI(data, context);
     } catch (stacktrace) {}
+
     await homeProvider.getBrandsList(context);
     await homeProvider.getSpecialOffersList(context);
     await homeProvider.getDailyDealsList(context);
@@ -320,7 +324,8 @@ class _HomeState extends State<Home> {
                                     }
                                     //  searchProvider.brandId = model.id.toString();
                                     searchProvider.isHome = false;
-                                    Routes.navigateToSearchScreen(context);
+                                    Routes.navigateToSearchScreen(
+                                        context, false);
                                     searchProvider.getProductsListNew(
                                         context, "25", "1");
                                   },
@@ -727,10 +732,15 @@ class _HomeState extends State<Home> {
                           ? Container()
                           : Container(
                               width: MediaQuery.of(context).size.width,
-                              child: Image.network(
-                                homeProvider.banner1 ?? "",
-                                fit: BoxFit.contain,
-                              ),
+                              child: CachedNetworkImage(
+                                  imageUrl: homeProvider.banner1,
+                                  fit: BoxFit.contain,
+                                  errorWidget: (context, url, error) =>
+                                      Container()),
+                              // Image.network(
+                              //   homeProvider.banner1 ?? "",
+                              //   fit: BoxFit.contain,
+                              // ),
                             ),
                       homeProvider.banner1 == ""
                           ? Container()
@@ -741,10 +751,11 @@ class _HomeState extends State<Home> {
                           ? Container()
                           : SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              child: Image.network(
-                                homeProvider.banner2 ?? "",
-                                fit: BoxFit.contain,
-                              ),
+                              child: CachedNetworkImage(
+                                  imageUrl: homeProvider.banner2,
+                                  fit: BoxFit.contain,
+                                  errorWidget: (context, url, error) =>
+                                      Container()),
                             ),
                       const SizedBox(
                         height: 20,
@@ -1098,10 +1109,12 @@ class _HomeState extends State<Home> {
                       spaceOfHeight(),
                       Text(
                         "Alpha Product: All rights reserved",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall!
-                            .copyWith(color: Colors.black),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              color: Theme.of(context).brightness !=
+                                      Brightness.dark
+                                  ? Colors.black
+                                  : Colors.white,
+                            ),
                       ),
                       spaceOfHeight(),
                       spaceOfHeight(),

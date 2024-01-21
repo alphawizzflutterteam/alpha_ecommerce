@@ -37,7 +37,7 @@ class _CartState extends State<Cart> {
   late CartViewModel cartProvider;
   late AddressViewModel addressProvider;
   bool apiHitted = false;
-
+  final ScrollController scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
@@ -61,8 +61,18 @@ class _CartState extends State<Cart> {
     //  setState(() {});
   }
 
+  void _scrollToBottom() {
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeOut,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+
     cartProvider = Provider.of<CartViewModel>(context);
     addressProvider = Provider.of<AddressViewModel>(context);
     if (cartProvider.couponController.text == "") {}
@@ -120,6 +130,7 @@ class _CartState extends State<Cart> {
                     ? appLoader()
                     : Expanded(
                         child: SingleChildScrollView(
+                          controller: scrollController,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -158,7 +169,7 @@ class _CartState extends State<Cart> {
 
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 8, vertical: 5),
+                                              horizontal: 5, vertical: 5),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -267,8 +278,8 @@ class _CartState extends State<Cart> {
                                                                           .textTheme
                                                                           .titleSmall!
                                                                           .copyWith(
-                                                                              color: Colors.green,
-                                                                              fontSize: Platform.isAndroid ? size_13 : size_15),
+                                                                              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : colors.buttonColor,
+                                                                              fontSize: Platform.isAndroid ? size_12 : size_15),
                                                                       maxLines:
                                                                           1,
                                                                       overflow:
@@ -544,9 +555,9 @@ class _CartState extends State<Cart> {
                               cartProvider.cartModel.isEmpty
                                   ? Container()
                                   : Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              .25,
+                                      // height:
+                                      //     MediaQuery.of(context).size.height *
+                                      //         .25,
                                       margin: const EdgeInsets.symmetric(
                                           horizontal: 20, vertical: 10),
                                       decoration: BoxDecoration(
@@ -958,6 +969,9 @@ class _CartState extends State<Cart> {
                                                 ),
                                               ],
                                             ),
+                                          ),
+                                          SizedBox(
+                                            height: size_5,
                                           )
                                         ],
                                       ),
@@ -1040,6 +1054,24 @@ class _CartState extends State<Cart> {
                                             child: SizedBox(
                                               height: 40,
                                               child: TextField(
+                                                onTap: () {
+                                                  _scrollToBottom();
+                                                },
+                                                enabled: double.parse(cartProvider
+                                                                .model
+                                                                .data
+                                                                .coupon_discount
+                                                                .substring(
+                                                                    1,
+                                                                    cartProvider
+                                                                        .model
+                                                                        .data
+                                                                        .coupon_discount
+                                                                        .length))
+                                                            .toInt() ==
+                                                        0
+                                                    ? true
+                                                    : false,
                                                 controller: cartProvider
                                                     .couponController,
                                                 style: Theme.of(context)
@@ -1098,23 +1130,71 @@ class _CartState extends State<Cart> {
                                               height: 40,
                                               width: 110,
                                               child: CommonButton(
-                                                  text: "APPLY",
+                                                  text: double.parse(cartProvider
+                                                                  .model
+                                                                  .data
+                                                                  .coupon_discount
+                                                                  .substring(
+                                                                      1,
+                                                                      cartProvider
+                                                                          .model
+                                                                          .data
+                                                                          .coupon_discount
+                                                                          .length))
+                                                              .toInt() ==
+                                                          0
+                                                      ? "APPLY"
+                                                      : "REMOVE",
                                                   fontSize: Platform.isAndroid
                                                       ? size_12
                                                       : size_14,
+                                                  colorsText: Colors.white,
                                                   onClick: () {
-                                                    cartProvider.applyCoupon(
+                                                    if (cartProvider
+                                                        .couponController
+                                                        .text
+                                                        .isNotEmpty) {
+                                                      if (double.parse(cartProvider
+                                                                  .model
+                                                                  .data
+                                                                  .coupon_discount
+                                                                  .substring(
+                                                                      1,
+                                                                      cartProvider
+                                                                          .model
+                                                                          .data
+                                                                          .coupon_discount
+                                                                          .length))
+                                                              .toInt() ==
+                                                          0) {
+                                                        cartProvider.applyCoupon(
+                                                            cartProvider
+                                                                .couponController
+                                                                .text,
+                                                            context);
+                                                      } else {
                                                         cartProvider
                                                             .couponController
-                                                            .text,
-                                                        context);
+                                                            .text = "";
+                                                        cartProvider
+                                                            .applyCoupon(
+                                                                '', context);
+                                                      }
+                                                    } else {
+                                                      Utils.showFlushBarWithMessage(
+                                                          "",
+                                                          "Please enter coupon code.",
+                                                          context);
+                                                    }
                                                   })),
                                         ],
                                       ),
                                     ),
                               cartProvider.savedModel.isEmpty
                                   ? SizedBox(
-                                      height: size_200 * 0.85,
+                                      height: isKeyboardOpen
+                                          ? size_200 * 0.9
+                                          : size_10,
                                     )
                                   : Container(),
                               cartProvider.savedModel.isNotEmpty
@@ -1164,7 +1244,7 @@ class _CartState extends State<Cart> {
                         : Align(
                             alignment: Alignment.bottomCenter,
                             child: Container(
-                              height: MediaQuery.of(context).size.height * .066,
+                              //  height: MediaQuery.of(context).size.height * .08,
                               color: Theme.of(context).brightness ==
                                       Brightness.dark
                                   ? colors.textFieldBG
@@ -1176,7 +1256,7 @@ class _CartState extends State<Cart> {
                                         ? Container()
                                         : Container(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 20, vertical: 10),
+                                                horizontal: 20, vertical: 5),
                                             height: 50,
                                             child: Row(
                                               mainAxisAlignment:
@@ -1202,79 +1282,97 @@ class _CartState extends State<Cart> {
                                                             : Colors.black,
                                                       ),
                                                 ),
-                                                SizedBox(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            .05,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            .37,
-                                                    child: CommonButton(
-                                                      text: "PLACE ORDER",
-                                                      fontSize:
-                                                          Platform.isAndroid
-                                                              ? size_10
-                                                              : size_12,
-                                                      colorsText: Colors.white,
-                                                      onClick: () async {
-                                                        if (!addressProvider
-                                                            .addressList
-                                                            .isEmpty) {
-                                                          var billingId = SharedPref
-                                                                  .shared.pref!
-                                                                  .getString(
-                                                                      PrefKeys
-                                                                          .billingAddressID) ??
-                                                              addressProvider
-                                                                  .addressList[
-                                                                      0]
-                                                                  .id
-                                                                  .toString();
-                                                          var paymentMethod =
-                                                              "cash_on_delivery";
-                                                          String couponCode =
-                                                              cartProvider
-                                                                  .couponController
-                                                                  .text;
-                                                          String data =
-                                                              "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 0.0),
+                                                  child: SizedBox(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              .2,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              .37,
+                                                      child: CommonButton(
+                                                        text: "PLACE ORDER",
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_11
+                                                                : size_13,
+                                                        colorsText:
+                                                            Colors.white,
+                                                        onClick: () async {
+                                                          if (!addressProvider
+                                                              .addressList
+                                                              .isEmpty) {
+                                                            var billingId = SharedPref
+                                                                    .shared
+                                                                    .pref!
+                                                                    .getString(
+                                                                        PrefKeys
+                                                                            .billingAddressID) ??
+                                                                addressProvider
+                                                                    .addressList[
+                                                                        0]
+                                                                    .id
+                                                                    .toString();
+                                                            var paymentMethod =
+                                                                "cash_on_delivery";
+                                                            String couponCode =
+                                                                cartProvider
+                                                                    .couponController
+                                                                    .text;
+                                                            String data =
+                                                                "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
 
-                                                          var res = await cartProvider
-                                                              .checkDeliveryStatus(
-                                                                  context,
-                                                                  billingId
-                                                                      .toString());
-
-                                                          print(res.toString() +
-                                                              "CHECK AVAILABILITY");
-
-                                                          if (res) {
-                                                            Routes
-                                                                .navigateToPaymentScreen(
+                                                            var res = await cartProvider
+                                                                .checkDeliveryStatus(
                                                                     context,
-                                                                    data,
-                                                                    billingId,
-                                                                    couponCode,
-                                                                    true,
-                                                                    "order");
+                                                                    billingId
+                                                                        .toString());
+
+                                                            print(res
+                                                                    .toString() +
+                                                                "CHECK AVAILABILITY");
+
+                                                            if (res) {
+                                                              Routes.navigateToPaymentScreen(
+                                                                  context,
+                                                                  data,
+                                                                  billingId,
+                                                                  couponCode,
+                                                                  true,
+                                                                  "order",
+                                                                  cartProvider
+                                                                      .model
+                                                                      .data
+                                                                      .coupon_discount
+                                                                      .substring(
+                                                                          1,
+                                                                          cartProvider
+                                                                              .model
+                                                                              .data
+                                                                              .coupon_discount
+                                                                              .length));
+                                                            } else {
+                                                              Utils.showFlushBarWithMessage(
+                                                                  "",
+                                                                  "Delivery not available on this pincode.",
+                                                                  context);
+                                                            }
                                                           } else {
                                                             Utils.showFlushBarWithMessage(
                                                                 "",
-                                                                "Delivery not available on this pincode.",
+                                                                "Please add address first.",
                                                                 context);
                                                           }
-                                                        } else {
-                                                          Utils.showFlushBarWithMessage(
-                                                              "",
-                                                              "Please add address first.",
-                                                              context);
-                                                        }
-                                                      },
-                                                    )),
+                                                        },
+                                                      )),
+                                                ),
                                               ],
                                             ),
                                           ),

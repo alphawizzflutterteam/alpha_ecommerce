@@ -12,6 +12,9 @@ class ErrorImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       Images.defaultProductImg,
+      height: size_80,
+      width: size_80,
+      fit: BoxFit.cover,
     );
   }
 }

@@ -3,7 +3,8 @@ class AppUrl {
   //https://alpha-ecom.developmentalphawizz.com
   //https://test-alpha-ecom.developmentalphawizz.com
 
-  static const baseURL = "https://alpha-ecom.developmentalphawizz.com/api/v1/";
+  static const baseURL =
+      "https://test-alpha-ecom.developmentalphawizz.com/api/v1/";
   static const base = "https://test-alpha-ecom.developmentalphawizz.com/";
   static const inVoiceUrl = base + "generate-invoice/";
   static String sendLoginOtp = "${baseURL}auth/send-login-otp";

@@ -304,6 +304,7 @@ class _ManageAddressState extends State<ManageAddress> {
                           ],
                           decoration: InputDecoration(
                             filled: true,
+                            counterText: '',
                             fillColor:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textFieldBG
@@ -360,6 +361,7 @@ class _ManageAddressState extends State<ManageAddress> {
                                     ? colors.textFieldBG
                                     : Colors.white,
                             labelText: 'Mobile Number',
+                            counterText: '',
                             labelStyle: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
@@ -407,6 +409,7 @@ class _ManageAddressState extends State<ManageAddress> {
 
                           decoration: InputDecoration(
                             filled: true,
+                            counterText: '',
                             fillColor:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textFieldBG
@@ -455,6 +458,7 @@ class _ManageAddressState extends State<ManageAddress> {
                           ],
                           decoration: InputDecoration(
                             filled: true,
+                            counterText: '',
                             fillColor:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textFieldBG
@@ -502,6 +506,7 @@ class _ManageAddressState extends State<ManageAddress> {
                           ],
                           decoration: InputDecoration(
                             filled: true,
+                            counterText: '',
                             fillColor:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textFieldBG
@@ -749,6 +754,7 @@ class _ManageAddressState extends State<ManageAddress> {
                           ],
                           decoration: InputDecoration(
                             filled: true,
+                            counterText: '',
                             fillColor:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textFieldBG

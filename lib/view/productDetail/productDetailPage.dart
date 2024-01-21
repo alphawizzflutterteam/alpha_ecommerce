@@ -13,6 +13,7 @@ import 'package:alpha_ecommerce_18oct/view/productDetail/reviewCard.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/specificationCard.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/productViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -186,13 +187,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           return Container(
                                             //  height: size_120,
                                             width: double.infinity,
-                                            child: Image.network(
-                                              item,
+                                            child: CachedNetworkImage(
+                                              imageUrl: item,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  .2,
                                               fit: BoxFit.contain,
-                                              errorBuilder: (context, error,
-                                                      stackTrace) =>
-                                                  Image.asset(
-                                                      Images.defaultProductImg),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Image.asset(
+                                                Images.defaultProductImg,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    .2,
+                                              ),
                                             ),
                                           );
                                         }).toList(),

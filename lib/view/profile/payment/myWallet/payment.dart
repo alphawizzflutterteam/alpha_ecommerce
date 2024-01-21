@@ -25,6 +25,7 @@ class Payment extends StatefulWidget {
   final String couponCode;
   final bool showCod;
   final String isComingFor;
+  final String couponAmount;
   const Payment({
     super.key,
     required this.data,
@@ -32,6 +33,7 @@ class Payment extends StatefulWidget {
     required this.couponCode,
     required this.showCod,
     required this.isComingFor,
+    required this.couponAmount,
   });
 
   @override

@@ -6,6 +6,7 @@ import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/wishlist/model/wishlistModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 wishlistCard(BuildContext context, WishlistItemProduct model,
@@ -52,14 +53,14 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.network(
-                  model.thumbnail,
-                  errorBuilder: (context, error, stackTrace) => Image.asset(
+                CachedNetworkImage(
+                  imageUrl: model.thumbnail,
+                  width: MediaQuery.of(context).size.width * .24,
+                  fit: BoxFit.contain,
+                  errorWidget: (context, url, error) => Image.asset(
                     Images.defaultProductImg,
                     width: MediaQuery.of(context).size.width * .24,
                   ),
-                  width: MediaQuery.of(context).size.width * .24,
-                  // height: MediaQuery.of(context).size.height * .15,
                 ),
               ],
             ),
@@ -183,15 +184,25 @@ wishlistCard(BuildContext context, WishlistItemProduct model,
 
                             await homeProvider.removeFromCart(data, context);
                           } else {
+                            try {
+                              for (int i = 0;
+                                  i < model.choiceOptions.length;
+                                  i++) {
+                                Map<String, String> map = {
+                                  model.choiceOptions[i].name:
+                                      model.choiceOptions[i].options[0]
+                                };
+
+                                homeProvider.selectedVariationMap.add(map);
+                              }
+                            } catch (stacktrace) {}
+
                             data = {
                               'id': model.id.toString(),
                               'quantity': "1",
-                              'color': model.colorImage.isNotEmpty
-                                  ? model.colorImage[0].color
+                              'color': model.colorsFormatted.isNotEmpty
+                                  ? model.colorsFormatted[0]['code']
                                   : "",
-                              'choice_2': model.choiceOptions.isNotEmpty
-                                  ? model.choiceOptions[0].options[0]
-                                  : ""
                             };
                             await homeProvider.addToCart(data, context);
                           }

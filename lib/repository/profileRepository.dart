@@ -33,7 +33,7 @@ class ProfileRepository {
   Future<PrivacyPolicyModel> getPrivacyPolicyDataRequest(
       {required String api}) async {
     final url = Uri.parse(api);
-
+    print(api);
     final http.Response res;
     res = await http.get(url);
     print(res.body);

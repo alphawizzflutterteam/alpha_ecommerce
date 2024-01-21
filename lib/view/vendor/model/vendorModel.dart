@@ -55,6 +55,7 @@ class VendorDatum {
   String isVerified;
   String isFollowing;
   String banner;
+  String product_count;
 
   VendorDatum({
     required this.id,
@@ -76,6 +77,7 @@ class VendorDatum {
     required this.isVerified,
     required this.isFollowing,
     required this.banner,
+    required this.product_count,
   });
 
   factory VendorDatum.fromJson(Map<String, dynamic> json) => VendorDatum(
@@ -98,6 +100,7 @@ class VendorDatum {
         isVerified: json["is_verified"],
         isFollowing: json["is_following"],
         banner: json["banner"],
+        product_count: json["product_count"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -120,5 +123,6 @@ class VendorDatum {
         "is_verified": isVerified,
         "is_following": isFollowing,
         "banner": banner,
+        "product_count": product_count,
       };
 }

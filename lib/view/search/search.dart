@@ -23,7 +23,8 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 // import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class Search extends StatefulWidget {
-  const Search({Key? key}) : super(key: key);
+  final bool isComingForSearch;
+  const Search({Key? key, required this.isComingForSearch}) : super(key: key);
 
   @override
   State<Search> createState() => _SearchState();
@@ -45,7 +46,11 @@ class _SearchState extends State<Search> {
     homeProvider = Provider.of<HomeViewModel>(context, listen: false);
     categoryProvider = Provider.of<CategoryViewModel>(context, listen: false);
     _speech = stt.SpeechToText();
-    //searchProvider.clearFilters();
+    searchProvider.isHome = false;
+    if (widget.isComingForSearch) {
+      print("Search initiated");
+      searchProvider.clearFilters();
+    }
   }
 
   void _listen() async {
@@ -410,8 +415,10 @@ class _SearchState extends State<Search> {
                             highlightColor: Colors.transparent,
                             splashColor: Colors.transparent,
                             onTap: () {
+                              print(searchProvider.isHome.toString() +
+                                  "SEARCH INITIALISE CATEGORYY");
                               homeCategory(context, categoryProvider,
-                                  searchProvider, true);
+                                  searchProvider, searchProvider.isHome);
                             },
                             child: Container(
                               height: 60,

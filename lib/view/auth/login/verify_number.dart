@@ -56,7 +56,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             onTap: () {
-              FocusManager.instance.primaryFocus?.unfocus();
+              // FocusManager.instance.primaryFocus?.unfocus();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -169,6 +169,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                   border: const OutlineInputBorder(
                                     borderSide: BorderSide(),
                                   ),
+                                  counterText: '',
                                   labelStyle: TextStyle(
                                     color: Theme.of(context).brightness ==
                                             Brightness.dark

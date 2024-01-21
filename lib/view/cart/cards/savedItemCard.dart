@@ -8,13 +8,14 @@ import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
 import 'package:alpha_ecommerce_18oct/view/wishlist/model/wishlistModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 savedItemCard(
     WishlistItemProduct model, BuildContext context, CartViewModel provider) {
   return Container(
-    height: MediaQuery.of(context).size.height * .255,
+    // height: MediaQuery.of(context).size.height * .255,
     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -55,15 +56,16 @@ savedItemCard(
                 onTap: () {
                   Routes.navigateToProductDetailPageScreen(context, model.slug);
                 },
-                child: Image.network(
-                  model.thumbnail,
-                  errorBuilder: (context, error, stackTrace) => Image.asset(
+                child: CachedNetworkImage(
+                  imageUrl: model.thumbnail,
+                  errorWidget: (context, url, error) => Image.asset(
                     Images.defaultProductImg,
                     width: 100,
                     height: 100,
                   ),
-                  width: 100,
-                  height: 100,
+                  height: size_100,
+                  fit: BoxFit.contain,
+                  width: size_90,
                 ),
               ),
             ),
@@ -170,14 +172,24 @@ savedItemCard(
               onTap: () async {
                 Map<String, String> data;
                 try {
+                  for (int i = 0; i < model.choiceOptions.length; i++) {
+                    Map<String, String> map = {
+                      model.choiceOptions[i].name:
+                          model.choiceOptions[i].options[0]
+                    };
+
+                    provider.selectedVariationMap.add(map);
+                  }
+                } catch (stacktrace) {}
+                try {
                   data = {
                     'id': model.id.toString(),
                     'quantity': "1",
                     'color': model.colorImage.isNotEmpty
                         ? "#" + model.colorImage[0].color
                         : "",
-                    model.choiceOptions[0].name:
-                        model.choiceOptions[0].options[0]
+                    // model.choiceOptions[0].name:
+                    //     model.choiceOptions[0].options[0]
                   };
                 } catch (stacktrace) {
                   data = {

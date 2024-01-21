@@ -60,6 +60,7 @@ class SearchViewModel with ChangeNotifier {
   }
 
   void clearFilters() {
+    print("Cleared Filters");
     categoryId = "";
     subCategoryId = "";
     vendorId = "";
@@ -69,7 +70,7 @@ class SearchViewModel with ChangeNotifier {
     color = "";
     sortBy = "";
     orderBy = "";
-    isHome = true;
+    //isHome = true;
     reviewFilter = "";
   }
 

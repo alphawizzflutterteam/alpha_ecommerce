@@ -7,6 +7,7 @@ import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myWallet/walletCard.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../../utils/color.dart';
 import '../../../../utils/routes.dart';

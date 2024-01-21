@@ -17,7 +17,7 @@ dailyDealCard(DailyDealsModelList model, BuildContext context,
       searchProvider.offerId = model.id.toString();
       searchProvider.offerPercentage = model.discount.toString();
       searchProvider.isHome = false;
-      Routes.navigateToSearchScreen(context);
+      Routes.navigateToSearchScreen(context, false);
       searchProvider.getProductsListNew(context, "25", "1");
     }),
     child: Padding(

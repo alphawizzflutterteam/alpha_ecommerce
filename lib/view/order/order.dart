@@ -307,7 +307,7 @@ class _OrderState extends State<Order> {
                                 ),
                               )
                             : SizedBox(
-                                height: height * .8,
+                                height: height * .75,
                                 child: ListView.builder(
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
@@ -415,15 +415,24 @@ class _OrderState extends State<Order> {
                                                       BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
-                                                child: Image.network(
-                                                  "data.product!.thumbnail!",
+                                                child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      data.product!.thumbnail!,
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
                                                       .2,
-                                                  errorBuilder: (context, error,
-                                                          stackTrace) =>
-                                                      Container(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Image.asset(
+                                                    Images.defaultProductImg,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            .2,
+                                                  ),
+                                                  fit: BoxFit.contain,
                                                 ),
                                               ),
                                             ),

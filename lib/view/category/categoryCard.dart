@@ -22,16 +22,21 @@ categoryCard(
     highlightColor: Colors.transparent,
     splashColor: Colors.transparent,
     onTap: () {
-      searchProvider.categoryId = categoryId;
+      // searchProvider.categoryId = categoryId;
       searchProvider.subCategoryId = model.id!.toString();
+      searchProvider.brandId = "";
       print("Category Id ${searchProvider.categoryId}");
       print("Sub Category Id ${searchProvider.subCategoryId}");
 
       searchProvider.isHome = isComingFromHome;
+      print(searchProvider.isHome.toString() + "Searchh isHOME");
       if (isComingFromHome) {
         Routes.navigateToPreviousScreen(context);
       } else {
-        Routes.navigateToSearchScreen(context);
+        searchProvider.offerId = "";
+        searchProvider.offerPercentage = "";
+        searchProvider.brandId = "";
+        Routes.navigateToSearchScreen(context, false);
       }
       searchProvider.getProductsListNew(context, "25", "1");
     },

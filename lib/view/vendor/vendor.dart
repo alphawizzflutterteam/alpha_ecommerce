@@ -4,6 +4,7 @@ import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/vendorCard.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/vendorViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,19 +22,22 @@ class Vendor extends StatefulWidget {
 class _VendorState extends State<Vendor> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late VendorViewModel vendorProvider;
+  late SearchViewModel searchProvider;
 
   @override
   void initState() {
     super.initState();
     vendorProvider = Provider.of<VendorViewModel>(context, listen: false);
-    vendorProvider.getVendorListItem(
-      context,
-    );
+    searchProvider = Provider.of<SearchViewModel>(context, listen: false);
+
+    vendorProvider.getVendorListItem(context);
   }
 
   @override
   Widget build(BuildContext context) {
     vendorProvider = Provider.of<VendorViewModel>(context);
+    searchProvider = Provider.of<SearchViewModel>(context);
+    searchProvider.clearFilters();
 
     return Stack(
       children: [

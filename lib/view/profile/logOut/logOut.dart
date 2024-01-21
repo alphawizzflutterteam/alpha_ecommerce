@@ -190,8 +190,8 @@ Future<void> deleteAccount(context, HomeViewModel provider) async {
               children: [
                 Image.asset(
                   Images.iconBG,
-                  width: 80,
-                  height: 80,
+                  width: size_70,
+                  height: size_70,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(12),
@@ -229,7 +229,7 @@ Future<void> deleteAccount(context, HomeViewModel provider) async {
                   fontSize: Platform.isAndroid ? size_14 : size_14),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -296,7 +296,7 @@ Future<void> deleteAccount(context, HomeViewModel provider) async {
                       ),
                     ),
                     onPressed: () {
-                      Routes.navigateToPreviousScreen(context);
+                      // Routes.navigateToPreviousScreen(context);
 
                       provider.deleteAccount(context);
                     },

@@ -247,14 +247,36 @@ class _VendorDetailsState extends State<VendorDetails> {
                                 VerticalDivider(
                                     color: Colors.transparent, width: size_40),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      widget.model.product_count,
+                                      style: TextStyle(
+                                        color: Colors.orange,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Products",
+                                      style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? colors.greyText
+                                            : Colors.black,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                VerticalDivider(
+                                    color: Colors.transparent, width: size_40),
+                                Column(
                                   children: [
                                     Text(
                                       widget.model.followers,
                                       style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black,
+                                          color: Colors.orange,
                                           fontSize: Platform.isAndroid
                                               ? size_13
                                               : size_15),

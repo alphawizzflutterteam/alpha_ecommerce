@@ -108,13 +108,13 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
                   child: Text(
                     'CANCEL',
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          fontSize: Platform.isAndroid ? size_10 : size_12,
-                        ),
+                        fontSize: Platform.isAndroid ? size_10 : size_12,
+                        color: Colors.white),
                   ),
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.34,
+                width: MediaQuery.of(context).size.width * 0.35,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:
@@ -127,7 +127,7 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
                     }),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                   ),
@@ -140,7 +140,7 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
                   child: Text(
                     'CANCEL ORDER',
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                        fontSize: Platform.isAndroid ? size_10 : size_12,
+                        fontSize: Platform.isAndroid ? size_10 : size_11,
                         color: Colors.white),
                   ),
                 ),

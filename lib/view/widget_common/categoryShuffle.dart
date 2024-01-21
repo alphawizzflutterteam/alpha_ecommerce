@@ -19,6 +19,7 @@ Future<void> homeCategory(context, CategoryViewModel model,
         return DraggableScrollableSheet(
           expand: false,
           builder: (context, scrollController) {
+            print(isComingFromhome.toString() + "CATEGORY BOTTOMSHEET");
             return ClipRRect(
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(15)),
@@ -113,6 +114,7 @@ class _CategoryFilterState extends State<CategoryFilter> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.isComingFromHome.toString() + "Category Shuffle");
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: Column(
@@ -287,6 +289,9 @@ class _CategoryFilterState extends State<CategoryFilter> {
                                         ),
                                         itemCount: listItem.length,
                                         itemBuilder: (context, j) {
+                                          print(widget.isComingFromHome
+                                                  .toString() +
+                                              "Searchh CATEGORY SHUFFLE");
                                           print(listItem.length);
                                           return categoryCard(
                                               context: context,

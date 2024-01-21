@@ -1,3 +1,4 @@
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/common_header.dart';
@@ -8,6 +9,7 @@ import 'package:alpha_ecommerce_18oct/view/widget_common/commonBackground.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/common_header.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -97,20 +99,19 @@ class _CustomerSupportState extends State<CustomerSupport> {
                                 children: [
                                   Row(
                                     children: [
-                                      Image.network(
-                                        profileP.queries[index].customerImage
+                                      CachedNetworkImage(
+                                        imageUrl: profileP
+                                            .queries[index].customerImage
                                             .toString(),
-                                        errorBuilder:
-                                            (context, error, stackTrace) =>
-                                                SizedBox(
-                                                    height: 60,
-                                                    width: 60,
-                                                    child: Image.asset(
-                                                      Images.defaultProfile,
-                                                      fit: BoxFit.fill,
-                                                    )),
-                                        height: 60,
-                                        width: 60,
+                                        height: size_60,
+                                        width: size_60,
+                                        fit: BoxFit.contain,
+                                        errorWidget: (context, url, error) =>
+                                            Image.asset(
+                                          Images.defaultProfile,
+                                          height: size_60,
+                                          width: size_60,
+                                        ),
                                       ),
                                       VerticalDivider(
                                           color: Colors.transparent),

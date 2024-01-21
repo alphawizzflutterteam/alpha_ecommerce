@@ -20,7 +20,7 @@ class DashboardHeader extends StatelessWidget {
       alignment: Alignment.topCenter,
       child: Container(
         padding: const EdgeInsets.only(top: 45),
-        height: 110,
+        height: 100,
         width: MediaQuery.of(context).size.width,
         child: Center(
             child: Row(
@@ -50,7 +50,7 @@ class DashboardHeader extends StatelessWidget {
                       highlightColor: Colors.transparent,
                       splashColor: Colors.transparent,
                       onTap: () {
-                        Routes.navigateToSearchScreen(context);
+                        Routes.navigateToSearchScreen(context, true);
                       },
                       child: Image.asset(
                         Images.search,
@@ -221,7 +221,7 @@ class InternalDetailPageHeader extends StatelessWidget {
                           highlightColor: Colors.transparent,
                           splashColor: Colors.transparent,
                           onTap: () {
-                            Routes.navigateToSearchScreen(context);
+                            Routes.navigateToSearchScreen(context, true);
                           },
                           child: Image.asset(
                             Images.search,

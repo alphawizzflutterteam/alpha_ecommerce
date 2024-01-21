@@ -427,13 +427,13 @@ class _ProfileState extends State<Profile> {
                                 Container(
                                   color: Theme.of(context).brightness ==
                                           Brightness.dark
-                                      ? colors.buttonColor
+                                      ? Colors.transparent
                                       : const Color(0xFFE1F4F4),
                                   height: 10,
                                 )
                               ],
                             ),
-                            !iisSubscribed
+                            iisSubscribed
                                 ? Container()
                                 : Positioned(
                                     bottom: 0,

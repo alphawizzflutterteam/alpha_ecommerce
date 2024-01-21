@@ -796,7 +796,47 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                                               .black,
                                                                     ),
                                                           ),
-                                                        )
+                                                        ),
+                                                        detailProvider
+                                                                .detail
+                                                                .orderReviews[0]
+                                                                .attachment
+                                                                .isNotEmpty
+                                                            ? GestureDetector(
+                                                                onTap: () {
+                                                                  showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (BuildContext
+                                                                            context) {
+                                                                      return FullImageDialog(
+                                                                        image: detailProvider
+                                                                            .detail
+                                                                            .orderReviews[0]
+                                                                            .attachment
+                                                                            .first,
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                },
+                                                                child: Image
+                                                                    .network(
+                                                                  detailProvider
+                                                                      .detail
+                                                                      .orderReviews[
+                                                                          0]
+                                                                      .attachment
+                                                                      .first,
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                  height:
+                                                                      size_80,
+                                                                  width:
+                                                                      size_80,
+                                                                ),
+                                                              )
+                                                            : Container()
                                                       ],
                                                     ),
                                                   ),
@@ -1350,6 +1390,44 @@ class _ReturnDialogWidgetState extends State<ReturnDialogWidget> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class FullImageDialog extends StatefulWidget {
+  final String image;
+
+  const FullImageDialog({super.key, required this.image});
+  @override
+  State<FullImageDialog> createState() => _FullImageDialogState();
+}
+
+class _FullImageDialogState extends State<FullImageDialog> {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: Container(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height - 250,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+              widget.image, // Replace with your image URL
+            ),
+            fit: BoxFit.contain,
+          ),
+        ),
+        child: IconButton(
+          icon: Icon(
+            Icons.close,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
     );
   }

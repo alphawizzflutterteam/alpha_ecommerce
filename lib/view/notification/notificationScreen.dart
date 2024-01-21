@@ -165,12 +165,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           child: Column(
                             children: [
                               SizedBox(
-                                height: 87 *
-                                    provider.notificationList.length.toDouble(),
+                                height:
+                                    MediaQuery.of(context).size.height - 130,
                                 child: ListView.builder(
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
+                                  physics:
+                                      const AlwaysScrollableScrollPhysics(),
                                   itemCount: provider.notificationList.length,
                                   itemBuilder: (context, i) {
                                     return notificationCard(

@@ -30,7 +30,7 @@ class _TermAndConditionState extends State<TermAndCondition> {
 
   callApi() async {
     await profileModelProvider.getPrivacyPolicyData(context);
-    setState(() {});
+    // setState(() {});
   }
 
   @override

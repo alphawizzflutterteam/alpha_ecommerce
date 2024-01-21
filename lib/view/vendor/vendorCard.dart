@@ -4,6 +4,7 @@ import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/model/vendorModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../utils/routes.dart';
@@ -17,7 +18,7 @@ vendorCard(context, VendorDatum model) {
     },
     child: Container(
       height: MediaQuery.of(context).size.height * .14,
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
             ? const Color(0x14E9E9E9)
@@ -36,11 +37,14 @@ vendorCard(context, VendorDatum model) {
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.white,
               ),
-              child: Image.network(
-                model.image,
+              child: CachedNetworkImage(
+                imageUrl: model.image,
                 width: MediaQuery.of(context).size.width * .2,
-                errorBuilder: (context, error, stackTrace) =>
-                    ErrorImageWidget(),
+                fit: BoxFit.contain,
+                errorWidget: (context, url, error) => Image.asset(
+                  Images.defaultProductImg,
+                  width: MediaQuery.of(context).size.width * .2,
+                ),
               ),
             ),
             VerticalDivider(color: Colors.transparent),
@@ -106,7 +110,7 @@ vendorCard(context, VendorDatum model) {
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.white
                                     : Colors.black,
-                            fontSize: Platform.isAndroid ? size_14 : size_15),
+                            fontSize: Platform.isAndroid ? size_11 : size_12),
                       ),
                       VerticalDivider(
                         color: Colors.transparent,

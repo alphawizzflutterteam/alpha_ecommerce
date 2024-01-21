@@ -258,9 +258,12 @@ class _OTPVerificationState extends State<OTPVerification> {
                                   highlightColor: Colors.transparent,
                                   splashColor: Colors.transparent,
                                   onTap: () {
+                                    var fcm = SharedPref.shared.pref!
+                                            .getString("FCMToken") ??
+                                        "";
                                     Map data = {
                                       'phone': mobile,
-                                      'fcm_id': "",
+                                      'fcm_id': fcm,
                                     };
                                     if (!widget.isComingForLogin) {
                                       Map data = {'phone': mobile};

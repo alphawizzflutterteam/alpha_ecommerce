@@ -13,6 +13,16 @@ class CartViewModel with ChangeNotifier {
   List<CartProduct> cartModel = [];
   List<WishlistItem> savedModel = [];
   String selectedOption = 'Normal Delivery';
+  List<Map<String, dynamic>> selectedVariationMap = [];
+  Map<String, String> addMapListToData(
+      Map<String, String> data, List<Map<String, dynamic>> mapList) {
+    for (var map in mapList) {
+      map.forEach((key, value) {
+        data[key] = value;
+      });
+    }
+    return data;
+  }
 
   bool isLoading = false;
   CartModel model = CartModel(
@@ -114,7 +124,11 @@ class CartViewModel with ChangeNotifier {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
-    _myRepo.addToCart(AppUrl.addToCart, token, data).then((value) {
+    var data2 = data;
+    data2 = addMapListToData(data2, selectedVariationMap);
+    print(data2.toString());
+
+    _myRepo.addToCart(AppUrl.addToCart, token, data2).then((value) {
       setLoading(false);
 
       if (value.message == "Successfully added!") {
@@ -310,8 +324,19 @@ class CartViewModel with ChangeNotifier {
         getCartListItem(context, data, "0", "", "");
       } else {
         couponController.text = "";
+        getCartListItem(context, "", "0", "", "");
       }
-      Utils.showFlushBarWithMessage("Alert", value.message, context);
+      if (data == "") {
+        Utils.showFlushBarWithMessage(
+            "Alert", "Coupon Removed Successfully.", context);
+      } else {
+        if (value.status) {
+          Utils.showFlushBarWithMessage(
+              "Alert", "Coupon Applied Successfully", context);
+        } else {
+          Utils.showFlushBarWithMessage("Alert", value.message, context);
+        }
+      }
 
       return true;
     }).onError((error, stackTrace) {
@@ -349,6 +374,10 @@ class CartViewModel with ChangeNotifier {
         // } else {
         //   getCartListItem(context, couponController.text, "0", "0", "");
         // }
+      } else {
+        Routes.navigateToAddMoneyScreen(context);
+        Utils.showFlushBarWithMessage(
+            "Alert", "Please add money in your wallet.", context);
       }
       return true;
     }).onError((error, stackTrace) {

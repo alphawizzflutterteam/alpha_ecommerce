@@ -478,6 +478,11 @@ class _SignUPState extends State<SignUP> {
                                                       !emailController.text
                                                           .startsWith('.');
                                               if (emailValid) {
+                                                var fcm = SharedPref
+                                                        .shared.pref!
+                                                        .getString(
+                                                            "FCMToken") ??
+                                                    "";
                                                 Map data = {
                                                   "f_name": nameController.text,
                                                   'email': emailController.text,
@@ -488,7 +493,7 @@ class _SignUPState extends State<SignUP> {
                                                       referralController.text,
                                                   'language_id': languageID,
                                                   "currency_id": currencyID,
-                                                  "fcm_id": ""
+                                                  "fcm_id": fcm
                                                 };
 
                                                 authViewModel.createAccountApi(

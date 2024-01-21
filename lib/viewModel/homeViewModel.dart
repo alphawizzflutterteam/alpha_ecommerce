@@ -183,7 +183,7 @@ class HomeViewModel with ChangeNotifier {
 
     await _myRepo.cartListRequest(AppUrl.cartList, token).then((value) {
       cartModel = value.data.products;
-      orderCount = cartModel.length.toString();
+      cartCount = cartModel.length.toString();
 
       notifyListeners();
 

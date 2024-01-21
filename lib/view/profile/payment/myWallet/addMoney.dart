@@ -183,7 +183,8 @@ class _AddMoneyState extends State<AddMoney> {
                                             "",
                                             amountController.text,
                                             false,
-                                            "wallet");
+                                            "wallet",
+                                            "");
                                       }
                                     })),
                           ],

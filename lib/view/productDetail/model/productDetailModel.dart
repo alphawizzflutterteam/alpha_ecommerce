@@ -101,7 +101,7 @@ class ProductListDetail {
   String warranty;
   String use_coins_with_amount;
   String amount_after_coin_use;
-  int average_review;
+  dynamic average_review;
   String inhouse_vacation_start_date;
   String inhouse_vacation_end_date;
   bool inhouse_temporary_close;

@@ -153,7 +153,7 @@ class ProfileViewModel with ChangeNotifier {
 //Funcation to fetch All Privacy Policy Data
   Future<void> getPrivacyPolicyData(BuildContext context) async {
     setLoading(true);
-    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)! ?? "";
 
     NetworkViewModel networkProvider =
         Provider.of<NetworkViewModel>(context, listen: false);

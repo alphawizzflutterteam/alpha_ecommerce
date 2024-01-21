@@ -127,24 +127,27 @@ class DetailsData {
 //   },
 
 class OrderRatings {
-  OrderRatings({
-    required this.comment,
-    required this.rating,
-  });
+  OrderRatings(
+      {required this.comment, required this.rating, required this.attachment});
 
   final String? comment;
   final int? rating;
+  final List<String> attachment;
 
   factory OrderRatings.fromJson(Map<String, dynamic> json) {
     return OrderRatings(
       comment: json["comment"],
       rating: json["rating"],
+      attachment: json["attachment"] == null
+          ? []
+          : List<String>.from(json["attachment"]!.map((x) => x)),
     );
   }
 
   Map<String, dynamic> toJson() => {
         "comment": comment,
         "rating": rating,
+        "attachment": attachment.map((x) => x).toList(),
       };
 }
 
@@ -175,7 +178,7 @@ class OrderStatusHistory {
       orderId: json["order_id"],
       userId: json["user_id"],
       userType: json["user_type"],
-      status: json["status"],
+      status: json["status"] ?? "",
       cause: json["cause"],
       createdAt: DateTime.tryParse(json["created_at"] ?? ""),
       updatedAt: DateTime.tryParse(json["updated_at"] ?? ""),

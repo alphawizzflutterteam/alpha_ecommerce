@@ -4,6 +4,17 @@ import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myWallet/model/walletModel.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+String convertTimestampToFormattedDate(String timestamp) {
+  // Parse the timestamp string into a DateTime object
+  DateTime dateTime = DateTime.parse(timestamp);
+
+  // Format the DateTime object as "dd Month name yyyy"
+  String formattedDate = DateFormat('dd MMM yyyy, h:mm a').format(dateTime);
+
+  return formattedDate;
+}
 
 walletCart(
     {required BuildContext context, required WalletTransactioList data}) {
@@ -43,7 +54,7 @@ walletCart(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                data.createdAt,
+                                convertTimestampToFormattedDate(data.createdAt),
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleSmall!

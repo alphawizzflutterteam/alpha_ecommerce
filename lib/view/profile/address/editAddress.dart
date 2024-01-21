@@ -221,6 +221,7 @@ class _EditAddressState extends State<EditAddress> {
                         child: TextFormField(
                           controller: addressProvider.nameController,
                           keyboardType: TextInputType.text,
+
                           // inputFormatters: [
                           //   LengthLimitingTextInputFormatter(50),
                           // ],
@@ -233,6 +234,7 @@ class _EditAddressState extends State<EditAddress> {
                           ],
                           decoration: InputDecoration(
                             filled: true,
+                            counterText: '',
                             fillColor:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textFieldBG

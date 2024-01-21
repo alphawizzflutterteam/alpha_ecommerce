@@ -69,7 +69,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
   @override
   Widget build(BuildContext context) {
     homeProvider = Provider.of<HomeViewModel>(context);
-
+    print(homeProvider.cartCount + "cart COUNT");
     return WillPopScope(
       onWillPop: () async {
         if (_currentIndex == 2) {
@@ -104,12 +104,15 @@ class _BottomNavPageState extends State<BottomNavPage> {
             ),
             child: Theme(
               data: Theme.of(context).copyWith(
-                canvasColor: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.transparent
-                    : Colors.white,
+                // canvasColor: Theme.of(context).brightness == Brightness.dark
+                //     ? Colors.transparent
+                //     : Colors.white,
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
               ),
               child: BottomNavigationBar(
                 elevation: 5,
+                enableFeedback: true,
                 currentIndex: _currentIndex,
                 onTap: (index) {
                   setState(() {
@@ -141,28 +144,35 @@ class _BottomNavPageState extends State<BottomNavPage> {
                         width: homeProvider.isScrolled ? 25 : 0,
                       ),
                       Visibility(
-                        visible: homeProvider.orderCount != "0",
-                        child: Positioned(
-                            right: 0,
-                            child: Container(
-                              padding: EdgeInsets.only(left: 4, right: 4),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              constraints: BoxConstraints(
-                                minWidth: 8,
-                                minHeight: 8,
-                              ),
-                              child: Text(
-                                homeProvider.orderCount,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: size_13,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            )),
+                        visible: homeProvider.cartCount != "",
+                        child: Visibility(
+                          visible: homeProvider.cartCount != "",
+                          child: Visibility(
+                            visible: homeProvider.cartCount != "0",
+                            child: Positioned(
+                                right: 0,
+                                // bottom: 10,
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 3, right: 3),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  constraints: BoxConstraints(
+                                    minWidth: 8,
+                                    minHeight: 8,
+                                  ),
+                                  child: Text(
+                                    homeProvider.cartCount,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: size_12,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )),
+                          ),
+                        ),
                       )
                     ]),
                     label: 'Cart',

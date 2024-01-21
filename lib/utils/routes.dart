@@ -471,13 +471,13 @@ class Routes {
   }
 
   static navigateToPaymentScreen(
-    BuildContext context,
-    String data,
-    String billingId,
-    String couponCode,
-    bool showCod,
-    String isComingFor,
-  ) {
+      BuildContext context,
+      String data,
+      String billingId,
+      String couponCode,
+      bool showCod,
+      String isComingFor,
+      String couponAmout) {
     Navigator.push(
       context,
       PageRouteBuilder(
@@ -487,6 +487,7 @@ class Routes {
           couponCode: couponCode,
           showCod: showCod,
           isComingFor: isComingFor,
+          couponAmount: couponAmout,
         ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
@@ -655,11 +656,13 @@ class Routes {
     );
   }
 
-  static navigateToSearchScreen(BuildContext context) {
+  static navigateToSearchScreen(BuildContext context, bool isComingForSearch) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const Search(),
+        pageBuilder: (context, animation1, animation2) => Search(
+          isComingForSearch: isComingForSearch,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

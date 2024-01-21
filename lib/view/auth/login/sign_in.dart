@@ -29,6 +29,12 @@ class _SignInState extends State<SignIn> {
 
   bool obscureText = true;
 
+  @override
+  void initState() {
+    super.initState();
+    SharedPref.shared.pref?.setString(PrefKeys.jwtToken, "");
+  }
+
   void showPasswordRequirementsDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -106,6 +112,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     final authViewModel = Provider.of<AuthViewModel>(context);
+
     return Scaffold(
       key: _scaffoldKey,
       bottomNavigationBar: Padding(
@@ -421,11 +428,12 @@ class _SignInState extends State<SignIn> {
                                         Map data = {};
                                         if (authViewModel.isLoggingViaPhone) {
                                           var fcm = SharedPref.shared.pref!
-                                              .getString("FCMToken");
+                                                  .getString("FCMToken") ??
+                                              "";
                                           data = {
                                             'phone': authViewModel
                                                 .mobileOrEmailController.text,
-                                            'fcm_id': fcm ?? ""
+                                            'fcm_id': fcm
                                           };
                                         } else {
                                           final bool emailValid = RegExp(

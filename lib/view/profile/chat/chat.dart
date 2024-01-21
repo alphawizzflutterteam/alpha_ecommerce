@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -263,10 +264,15 @@ class _ChatState extends State<Chat> {
                       ),
                       FloatingActionButton(
                         onPressed: () async {
-                          Map data = {'id': "1", 'message': txtMessage.text};
-                          txtMessage.clear();
+                          if (txtMessage.text.isNotEmpty) {
+                            Map data = {'id': "1", 'message': txtMessage.text};
+                            txtMessage.clear();
 
-                          await homeProvider.sendMessage(context, data);
+                            await homeProvider.sendMessage(context, data);
+                          } else {
+                            Utils.showFlushBarWithMessage(
+                                "", "Please type something", context);
+                          }
                         },
                         backgroundColor: colors.buttonColor,
                         elevation: 0,

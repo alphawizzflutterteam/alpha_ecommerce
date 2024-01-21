@@ -4,6 +4,7 @@ import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/productViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../../utils/images.dart';
@@ -29,10 +30,11 @@ productRatingAndFollowersCard(
           children: [
             Row(
               children: [
-                Image.network(
-                  shop.image,
+                CachedNetworkImage(
+                  imageUrl: shop.image,
                   height: size_55,
-                  errorBuilder: (context, error, stackTrace) => Image.asset(
+                  fit: BoxFit.contain,
+                  errorWidget: (context, url, error) => Image.asset(
                     Images.defaultProductImg,
                     height: size_55,
                   ),

@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
+import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/brandsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/common_header.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/commonBackground.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/common_header.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class BrandsListScreen extends StatelessWidget {
@@ -50,7 +52,7 @@ class BrandsListScreen extends StatelessWidget {
                         crossAxisCount: 2,
                         mainAxisSpacing: 10,
                         mainAxisExtent:
-                            MediaQuery.of(context).size.height * .22,
+                            MediaQuery.of(context).size.height * .23,
                         crossAxisSpacing: 10),
                     itemBuilder: (context, index) => Container(
                       padding: const EdgeInsets.all(5),
@@ -63,7 +65,17 @@ class BrandsListScreen extends StatelessWidget {
                           SizedBox(
                             height: MediaQuery.of(context).size.height * .10,
                             width: MediaQuery.of(context).size.width * .35,
-                            child: Image.network(brandsModel[index].image),
+                            child: CachedNetworkImage(
+                              imageUrl: brandsModel[index].image,
+                              errorWidget: (context, url, error) => Image.asset(
+                                Images.defaultProductImg,
+                                width: size_90,
+                                height: size_90,
+                              ),
+                              height: size_90,
+                              fit: BoxFit.contain,
+                              width: size_90,
+                            ),
                           ),
                           Divider(color: Colors.transparent),
                           Text(
@@ -85,7 +97,9 @@ class BrandsListScreen extends StatelessWidget {
                                   brandsModel[index].id.toString();
                               searchViewModel.getProductsListNew(
                                   context, "25", "1");
-                              Routes.navigateToSearchScreen(context);
+                              searchViewModel.offerId = "";
+                              searchViewModel.offerPercentage = "";
+                              Routes.navigateToSearchScreen(context, false);
                             },
                             child: Container(
                               height: 30,
@@ -102,7 +116,7 @@ class BrandsListScreen extends StatelessWidget {
                                       .titleSmall!
                                       .copyWith(
                                           fontSize: Platform.isAndroid
-                                              ? size_8
+                                              ? size_10
                                               : size_10,
                                           color: Colors.white),
                                 ),

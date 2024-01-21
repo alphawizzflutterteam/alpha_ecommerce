@@ -85,11 +85,14 @@ class ProductListBuilder extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white,
                       ),
-                      child: Image.network(
-                        productList[index].productDetails!.thumbnail!,
+                      child: CachedNetworkImage(
+                        imageUrl: productList[index].productDetails!.thumbnail!,
                         width: MediaQuery.of(context).size.width * .2,
-                        errorBuilder: (context, error, stackTrace) =>
-                            ErrorImageWidget(),
+                        errorWidget: (context, url, error) => Image.asset(
+                          Images.defaultProductImg,
+                          width: MediaQuery.of(context).size.width * .2,
+                        ),
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),

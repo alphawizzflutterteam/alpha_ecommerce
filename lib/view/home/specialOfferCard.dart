@@ -19,7 +19,7 @@ specialOfferCard(SpecialOffersList model, BuildContext context,
 
       searchProvider.offerId = model.id.toString();
       searchProvider.isHome = false;
-      Routes.navigateToSearchScreen(context);
+      Routes.navigateToSearchScreen(context, false);
       searchProvider.getProductsListNew(context, "25", "1");
     },
     child: Padding(
@@ -60,14 +60,14 @@ specialOfferCard(SpecialOffersList model, BuildContext context,
               width: MediaQuery.of(context).size.width * 0.27,
               child: CommonButton(
                   text: "Shop now",
-                  fontSize: Platform.isAndroid ? size_8 : size_10,
+                  fontSize: Platform.isAndroid ? size_10 : size_12,
                   whitePrimary: true,
                   onClick: () {
                     searchProvider.clearFilters();
 
                     searchProvider.offerId = model.id.toString();
                     searchProvider.isHome = false;
-                    Routes.navigateToSearchScreen(context);
+                    Routes.navigateToSearchScreen(context, false);
                     searchProvider.getProductsListNew(context, "25", "1");
                   })),
         ],

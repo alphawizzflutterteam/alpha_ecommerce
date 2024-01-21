@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/order/orderDetailDelivered.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -26,7 +28,17 @@ reviewCard(Review rating, BuildContext context) {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(Images.profile),
+                CachedNetworkImage(
+                  imageUrl: rating.customer.image,
+                  height: size_45,
+                  fit: BoxFit.contain,
+                  errorWidget: (context, url, error) => Image.asset(
+                    Images.defaultProductImg,
+                    height: size_45,
+                  ),
+                ),
+
+                //Image.asset(Images.profile),
                 const SizedBox(
                   width: 15,
                 ),
@@ -79,6 +91,31 @@ reviewCard(Review rating, BuildContext context) {
             const SizedBox(
               height: 5,
             ),
+            rating.attachment.isNotEmpty
+                ? GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return FullImageDialog(
+                            image: rating.attachment.first,
+                          );
+                        },
+                      );
+                    },
+                    child: CachedNetworkImage(
+                      imageUrl: rating.attachment.first,
+                      height: size_100,
+                      width: size_100,
+                      fit: BoxFit.contain,
+                      errorWidget: (context, url, error) => Image.asset(
+                        Images.defaultProductImg,
+                        height: size_100,
+                        width: size_100,
+                      ),
+                    ),
+                  )
+                : Container()
           ],
         ),
       ),
