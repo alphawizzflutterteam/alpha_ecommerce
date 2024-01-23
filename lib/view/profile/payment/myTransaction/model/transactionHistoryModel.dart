@@ -38,7 +38,7 @@ class TransactionHistoryModel {
 }
 
 class DatumTrasaction {
-  int sellerId;
+  String sellerId;
   int orderId;
   String orderAmount;
   String sellerAmount;

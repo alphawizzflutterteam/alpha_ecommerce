@@ -1263,27 +1263,34 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                   : Visibility(
                       visible:
                           detailProvider.detail.orderStatus!.toLowerCase() !=
-                              "returned",
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          height: 80,
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? colors.textFieldBG
-                              : Color.fromARGB(255, 227, 227, 227),
-                          child: Center(
-                            child: SizedBox(
-                                height: 40,
-                                width: MediaQuery.of(context).size.width * 0.8,
-                                child: CommonButton(
-                                  text: "CANCEL ORDER",
-                                  colorsText: Colors.white,
-                                  fontSize:
-                                      Platform.isAndroid ? size_12 : size_14,
-                                  onClick: () {
-                                    showCancelDialog();
-                                  },
-                                )),
+                              "failed",
+                      child: Visibility(
+                        visible:
+                            detailProvider.detail.orderStatus!.toLowerCase() !=
+                                "returned",
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            height: 80,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Color.fromARGB(255, 227, 227, 227),
+                            child: Center(
+                              child: SizedBox(
+                                  height: 40,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  child: CommonButton(
+                                    text: "CANCEL ORDER",
+                                    colorsText: Colors.white,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
+                                    onClick: () {
+                                      showCancelDialog();
+                                    },
+                                  )),
+                            ),
                           ),
                         ),
                       ),

@@ -40,7 +40,7 @@ class CouponList {
   String addedBy;
   String couponType;
   String couponBearer;
-  int sellerId;
+  String sellerId;
   int customerId;
   String title;
   String code;

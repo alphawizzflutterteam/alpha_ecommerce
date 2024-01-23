@@ -36,8 +36,8 @@ class VendorModel {
 }
 
 class VendorDatum {
-  int id;
-  int sellerId;
+  String id;
+  String sellerId;
   String name;
   String address;
   String contact;
