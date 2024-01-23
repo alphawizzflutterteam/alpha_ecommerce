@@ -314,8 +314,8 @@ class CategoryId {
 }
 
 class Shop {
-  int id;
-  int sellerId;
+  String id;
+  String sellerId;
   String name;
   String address;
   String contact;
