@@ -148,10 +148,7 @@ Future<void> filter(context, OrderViewModel orderProvider) async {
                                       fontSize: Platform.isAndroid
                                           ? size_10
                                           : size_12,
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.black
-                                          : Colors.white,
+                                      color: Colors.white,
                                     ),
                               ),
                             ),
@@ -207,9 +204,7 @@ class _CancelApplyyBButttonState extends State<CancelApplyyBButtton> {
               child: Text(
                 "Clear filter",
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
+                      color: Colors.white,
                       fontSize: Platform.isAndroid ? size_10 : size_12,
                     ),
               ),
@@ -363,25 +358,27 @@ class _FilterClassCategoryState extends State<FilterClassCategory> {
                                     ),
                                     const SizedBox(width: 2),
                                     SizedBox(
-                                      width: size_80,
-                                      child: Text(
-                                        widget.orderProvider.filters
-                                            .categories![j].value!,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: Platform.isAndroid
-                                                  ? size_10
-                                                  : size_12,
-                                            ),
+                                      width: size_70,
+                                      child: Center(
+                                        child: Text(
+                                          widget.orderProvider.filters
+                                              .categories![j].value!,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
                                       ),
                                     ),
                                   ],

@@ -45,10 +45,12 @@ class _CartState extends State<Cart> {
     addressProvider = Provider.of<AddressViewModel>(context, listen: false);
     callAddress();
 
+    SharedPref.shared.pref!.setString(PrefKeys.groupIDForBUY, "");
+
     if (cartProvider.selectedOption == "Normal Delivery") {
-      cartProvider.getCartListItem(context, "", "0", "", "");
+      cartProvider.getCartListItem(context, "", "0", "", "", "");
     } else {
-      cartProvider.getCartListItem(context, "", "1", "", "");
+      cartProvider.getCartListItem(context, "", "1", "", "", "");
     }
 
     handleOptionChange(cartProvider.selectedOption);
@@ -99,9 +101,9 @@ class _CartState extends State<Cart> {
             await Future.delayed(Duration(seconds: 2));
             callAddress();
             if (cartProvider.selectedOption == "Normal Delivery") {
-              cartProvider.getCartListItem(context, "", "0", "", "");
+              cartProvider.getCartListItem(context, "", "0", "", "", "");
             } else {
-              cartProvider.getCartListItem(context, "", "1", "", "");
+              cartProvider.getCartListItem(context, "", "1", "", "", "");
             }
 
             handleOptionChange(cartProvider.selectedOption);
@@ -1326,8 +1328,15 @@ class _CartState extends State<Cart> {
                                                                 cartProvider
                                                                     .couponController
                                                                     .text;
+                                                            var groupOd = SharedPref
+                                                                    .shared
+                                                                    .pref!
+                                                                    .getString(
+                                                                        PrefKeys
+                                                                            .groupIDForBUY) ??
+                                                                "";
                                                             String data =
-                                                                "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
+                                                                "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount=&coin_used=0&group_id=$groupOd";
 
                                                             var res = await cartProvider
                                                                 .checkDeliveryStatus(
@@ -1359,10 +1368,11 @@ class _CartState extends State<Cart> {
                                                                               .coupon_discount
                                                                               .length));
                                                             } else {
-                                                              Utils.showFlushBarWithMessage(
-                                                                  "",
-                                                                  "Delivery not available on this pincode.",
-                                                                  context);
+                                                              // if (res)
+                                                              //   Utils.showFlushBarWithMessage(
+                                                              //       "",
+                                                              //       "Delivery not available on this pincode.",
+                                                              //       context);
                                                             }
                                                           } else {
                                                             Utils.showFlushBarWithMessage(
@@ -1395,10 +1405,10 @@ class _CartState extends State<Cart> {
       if (value == "Alpha Delivery") {
         print(value);
         cartProvider.getCartListItem(
-            context, cartProvider.couponController.text, "1", "0", "");
+            context, cartProvider.couponController.text, "1", "0", "", "");
       } else {
         cartProvider.getCartListItem(
-            context, cartProvider.couponController.text, "0", "0", "");
+            context, cartProvider.couponController.text, "0", "0", "", "");
       }
     });
   }

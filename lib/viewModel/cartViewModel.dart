@@ -55,7 +55,7 @@ class CartViewModel with ChangeNotifier {
   }
 
   Future<void> getCartListItem(BuildContext context, String coupon,
-      String dType, String isCoinsUsed, String coins) async {
+      String dType, String isCoinsUsed, String coins, String groupId) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
     print(token);
@@ -67,7 +67,7 @@ class CartViewModel with ChangeNotifier {
     }
     await _myRepo
         .cartListRequest(
-            "${AppUrl.cartList}$coupon&delivery_type=$dType&is_coin_used=$isCoinsUsed&coins=",
+            "${AppUrl.cartList}$coupon&delivery_type=$dType&is_coin_used=$isCoinsUsed&coins=&group_id=$groupId",
             token)
         .then((value) {
       model = value;
@@ -109,6 +109,13 @@ class CartViewModel with ChangeNotifier {
         .then((value) {
       res = value.status;
       setLoading(false);
+      if (value.message.contains("stock")) {
+        Utils.showFlushBarWithMessage(
+            "", "Remove out of stock products to place order.", context);
+      } else {
+        Utils.showFlushBarWithMessage(
+            "", "Delivery not available on this pincode.", context);
+      }
       return res;
     }).onError((error, stackTrace) {
       setLoading(false);
@@ -139,9 +146,9 @@ class CartViewModel with ChangeNotifier {
 
       if (selectedOption == "Alpha Delivery") {
         print(value);
-        getCartListItem(context, couponController.text, "1", "0", "");
+        getCartListItem(context, couponController.text, "1", "0", "", "");
       } else {
-        getCartListItem(context, couponController.text, "0", "0", "");
+        getCartListItem(context, couponController.text, "0", "0", "", "");
       }
       getSavedListItem(context);
       return true;
@@ -171,9 +178,9 @@ class CartViewModel with ChangeNotifier {
 
       if (selectedOption == "Alpha Delivery") {
         print(value);
-        getCartListItem(context, couponController.text, "1", "0", "");
+        getCartListItem(context, couponController.text, "1", "0", "", "");
       } else {
-        getCartListItem(context, couponController.text, "0", "0", "");
+        getCartListItem(context, couponController.text, "0", "0", "", "");
       }
       getSavedListItem(context);
       return true;
@@ -197,9 +204,9 @@ class CartViewModel with ChangeNotifier {
 
       if (selectedOption == "Alpha Delivery") {
         print(value);
-        getCartListItem(context, couponController.text, "1", "0", "");
+        getCartListItem(context, couponController.text, "1", "0", "", "");
       } else {
-        getCartListItem(context, couponController.text, "0", "0", "");
+        getCartListItem(context, couponController.text, "0", "0", "", "");
       }
 
       print(value.message);
@@ -227,9 +234,9 @@ class CartViewModel with ChangeNotifier {
       } else {
         if (selectedOption == "Alpha Delivery") {
           print(value);
-          getCartListItem(context, couponController.text, "1", "0", "");
+          getCartListItem(context, couponController.text, "1", "0", "", "");
         } else {
-          getCartListItem(context, couponController.text, "0", "0", "");
+          getCartListItem(context, couponController.text, "0", "0", "", "");
         }
       }
 
@@ -256,15 +263,15 @@ class CartViewModel with ChangeNotifier {
       if (value.status) {
         if (selectedOption == "Alpha Delivery") {
           print(value);
-          getCartListItem(context, couponController.text, "1", "0", "");
+          getCartListItem(context, couponController.text, "1", "0", "", "");
         } else {
-          getCartListItem(context, couponController.text, "0", "0", "");
+          getCartListItem(context, couponController.text, "0", "0", "", "");
         }
         if (selectedOption == "Alpha Delivery") {
           print(value);
-          getCartListItem(context, couponController.text, "1", "0", "");
+          getCartListItem(context, couponController.text, "1", "0", "", "");
         } else {
-          getCartListItem(context, couponController.text, "0", "0", "");
+          getCartListItem(context, couponController.text, "0", "0", "", "");
         }
         getSavedListItem(context);
       }
@@ -290,15 +297,15 @@ class CartViewModel with ChangeNotifier {
       if (value.status) {
         if (selectedOption == "Alpha Delivery") {
           print(value);
-          getCartListItem(context, couponController.text, "1", "0", "");
+          getCartListItem(context, couponController.text, "1", "0", "", "");
         } else {
-          getCartListItem(context, couponController.text, "0", "0", "");
+          getCartListItem(context, couponController.text, "0", "0", "", "");
         }
         if (selectedOption == "Alpha Delivery") {
           print(value);
-          getCartListItem(context, couponController.text, "1", "0", "");
+          getCartListItem(context, couponController.text, "1", "0", "", "");
         } else {
-          getCartListItem(context, couponController.text, "0", "0", "");
+          getCartListItem(context, couponController.text, "0", "0", "", "");
         }
         getSavedListItem(context);
       }
@@ -313,18 +320,23 @@ class CartViewModel with ChangeNotifier {
     return false;
   }
 
-  Future<bool> applyCoupon(String data, BuildContext context) async {
+  Future<bool> applyCoupon(
+    String data,
+    BuildContext context,
+  ) async {
     setLoading(true);
     var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
 
     _myRepo.applyCoupon(AppUrl.applyCoupon + data, token, data).then((value) {
       setLoading(false);
 
+      var groupId =
+          SharedPref.shared.pref!.getString(PrefKeys.groupIDForBUY) ?? "";
       if (value.status) {
-        getCartListItem(context, data, "0", "", "");
+        getCartListItem(context, data, "0", "", "", groupId);
       } else {
         couponController.text = "";
-        getCartListItem(context, "", "0", "", "");
+        getCartListItem(context, "", "0", "", "", groupId);
       }
       if (data == "") {
         Utils.showFlushBarWithMessage(

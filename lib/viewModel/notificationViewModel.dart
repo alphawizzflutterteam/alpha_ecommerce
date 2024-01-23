@@ -50,4 +50,33 @@ class NotificationViewModel with ChangeNotifier {
       });
     }
   }
+
+  Future<void> markRead(BuildContext context, String id, String forall) async {
+    //setLoading(true);
+    var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken)!;
+    print(token);
+
+    NetworkViewModel networkProvider =
+        Provider.of<NetworkViewModel>(context, listen: false);
+
+    var isInternetAvailable = await networkProvider.checkInternetAvailability();
+    if (!isInternetAvailable) {
+      setLoading(false);
+
+      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
+    } else {
+      await _myRepo
+          .markNotificationAsRead(
+              AppUrl.notificationsRead + id + "&all=" + forall, token)
+          .then((value) {
+        getNotificationlist(context);
+        // setLoading(false);
+
+        notifyListeners();
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        print(error.toString());
+      });
+    }
+  }
 }

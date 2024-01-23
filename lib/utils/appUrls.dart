@@ -70,6 +70,7 @@ class AppUrl {
 
   static String vendorList = "${baseURL}seller/all";
   static String notifications = "${baseURL}notifications";
+  static String notificationsRead = "${baseURL}notifications/mark-read?id=";
   static String followedVendor = "${baseURL}customer/followed-vendor";
   static String vendorCategories = "${baseURL}categories?vendor_id=";
   static const String followVendor = "${baseURL}seller/follow";

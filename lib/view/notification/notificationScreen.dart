@@ -3,6 +3,7 @@ import 'package:alpha_ecommerce_18oct/view/notification/notificationCard.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/common_header.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/common_header.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/notificationViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,79 +21,13 @@ class NotificationScreen extends StatefulWidget {
 class _NotificationScreenState extends State<NotificationScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late NotificationViewModel provider;
-
-  List<Map<String, dynamic>> notifications = [
-    // {
-    //   'image': Images.cart,
-    //   'text': 'Your order has been shipped',
-    //   'subText': "Lorem IPsum is simply dummy text",
-    //   'date': "09 May 2023"
-    // },
-    // {
-    //   'image': Images.discount,
-    //   'text': 'Big Sale T-shirts under \$399',
-    //   'subText':
-    //       "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-    //   'date': ""
-    // },
-    // {
-    //   'image': Images.cart,
-    //   'text': 'Your order has been shipped',
-    //   'subText': "Lorem IPsum is simply dummy text",
-    //   'date': "09 May 2023"
-    // },
-    // {
-    //   'image': Images.discount,
-    //   'text': 'Big Sale T-shirts under \$399',
-    //   'subText':
-    //       "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-    //   'date': ""
-    // },
-    // {
-    //   'image': Images.cart,
-    //   'text': 'Your order has been shipped',
-    //   'subText': "Lorem IPsum is simply dummy text",
-    //   'date': "09 May 2023"
-    // },
-    // {
-    //   'image': Images.discount,
-    //   'text': 'Big Sale T-shirts under \$399',
-    //   'subText':
-    //       "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-    //   'date': ""
-    // },
-    // {
-    //   'image': Images.cart,
-    //   'text': 'Your order has been shipped',
-    //   'subText': "Lorem IPsum is simply dummy text",
-    //   'date': "09 May 2023"
-    // },
-    // {
-    //   'image': Images.discount,
-    //   'text': 'Big Sale T-shirts under \$399',
-    //   'subText':
-    //       "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-    //   'date': ""
-    // },
-    // {
-    //   'image': Images.cart,
-    //   'text': 'Your order has been shipped',
-    //   'subText': "Lorem IPsum is simply dummy text",
-    //   'date': "09 May 2023"
-    // },
-    // {
-    //   'image': Images.discount,
-    //   'text': 'Big Sale T-shirts under \$399',
-    //   'subText':
-    //       "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-    //   'date': ""
-    // },
-  ];
+  late HomeViewModel homeProvider;
 
   @override
   void initState() {
     super.initState();
     provider = Provider.of<NotificationViewModel>(context, listen: false);
+    homeProvider = Provider.of<HomeViewModel>(context, listen: false);
 
     provider.getNotificationlist(context);
   }
@@ -100,6 +35,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     provider = Provider.of<NotificationViewModel>(context);
+    homeProvider = Provider.of<HomeViewModel>(context);
 
     return Stack(
       children: [
@@ -164,9 +100,27 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       : SingleChildScrollView(
                           child: Column(
                             children: [
+                              GestureDetector(
+                                onTap: () {
+                                  provider.markRead(context, "", "1");
+                                  homeProvider.getProfileAPI(
+                                    "",
+                                    context,
+                                  );
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: Text("Mark all as read",
+                                          style: TextStyle(
+                                            color: colors.greyText,
+                                          ))),
+                                ),
+                              ),
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height - 130,
+                                    MediaQuery.of(context).size.height - 150,
                                 child: ListView.builder(
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
@@ -175,7 +129,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   itemCount: provider.notificationList.length,
                                   itemBuilder: (context, i) {
                                     return notificationCard(
-                                        provider.notificationList[i], context);
+                                        provider.notificationList[i],
+                                        context,
+                                        provider);
                                   },
                                 ),
                               ),

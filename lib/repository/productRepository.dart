@@ -25,7 +25,7 @@ class ProductRepository with ChangeNotifier {
     return ProductDetailModel.fromJson(asn);
   }
 
-  Future<SuccessModel> addToCart(
+  Future<SuccessModel3> addToCart(
       String api, String bearerToken, dynamic data) async {
     final url = Uri.parse(api);
 
@@ -37,7 +37,7 @@ class ProductRepository with ChangeNotifier {
 
     print(res.body);
 
-    return successModelFromJson(res.body);
+    return successModel3FromJson(res.body);
   }
 
   Future<SuccessModel> removeFromCart(

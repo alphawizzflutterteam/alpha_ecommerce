@@ -151,30 +151,55 @@ cartCard(
                       const SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        height: 40,
-                        width: 100,
-                        // decoration: BoxDecoration(
-                        //     borderRadius:
-                        //         const BorderRadius.all(Radius.circular(5)),
-                        //     border: Border.all(color: colors.boxBorder)),
-                        child: DropdownButtonFormField2<String>(
-                          isExpanded: true,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(vertical: 12),
-                            fillColor:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.transparent
-                                    : Colors.white,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.zero,
-                                borderSide: BorderSide.none),
-                          ),
-                          hint: Text('Qty ${model.selectedQuantity}',
+                      model.currentStock == 0
+                          ? Text("OUT OF STOCK",
                               style: Theme.of(context)
                                   .textTheme
-                                  .titleSmall!
+                                  .bodyMedium!
                                   .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.red
+                                          : Colors.red,
+                                      fontWeight: FontWeight.bold))
+                          : Container(
+                              height: 40,
+                              width: 100,
+                              // decoration: BoxDecoration(
+                              //     borderRadius:
+                              //         const BorderRadius.all(Radius.circular(5)),
+                              //     border: Border.all(color: colors.boxBorder)),
+                              child: DropdownButtonFormField2<String>(
+                                isExpanded: true,
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 12),
+                                  fillColor: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.transparent
+                                      : Colors.white,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.zero,
+                                      borderSide: BorderSide.none),
+                                ),
+                                hint: Text('Qty ${model.selectedQuantity}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            fontSize: Platform.isAndroid
+                                                ? size_10
+                                                : size_12,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textColor
+                                                    : Colors.black87,
+                                            fontWeight: FontWeight.w600)),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
                                       fontSize: Platform.isAndroid
                                           ? size_10
                                           : size_12,
@@ -182,82 +207,76 @@ cartCard(
                                               Brightness.dark
                                           ? colors.textColor
                                           : Colors.black87,
-                                      fontWeight: FontWeight.w600)),
-                          style:
-                              Theme.of(context).textTheme.titleSmall!.copyWith(
-                                    fontSize:
-                                        Platform.isAndroid ? size_10 : size_12,
+                                    ),
+                                items: quantity
+                                    .map((item) => DropdownMenuItem<String>(
+                                          value: item,
+                                          child: Text("Qty $item",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_10
+                                                              : size_12,
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? colors.textColor
+                                                          : Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w600)),
+                                        ))
+                                    .toList(),
+                                validator: (value) {
+                                  if (value == null) {
+                                    return 'Select Quantity.';
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) {
+                                  selectedValue = value.toString();
+                                  Map data = {
+                                    'key': model.cartId.toString(),
+                                    'quantity': selectedValue.toString()
+                                  };
+                                  cartProvider.updateCart(data, context);
+                                  print(selectedValue);
+                                },
+                                onSaved: (value) {
+                                  selectedValue = value.toString();
+                                  // print(selectedValue);
+                                },
+                                buttonStyleData: const ButtonStyleData(
+                                  padding: EdgeInsets.only(right: 8),
+                                ),
+                                iconStyleData: IconStyleData(
+                                  icon: Icon(
+                                    Icons.arrow_drop_down,
                                     color: Theme.of(context).brightness ==
                                             Brightness.dark
                                         ? colors.textColor
-                                        : Colors.black87,
+                                        : Colors.black,
                                   ),
-                          items: quantity
-                              .map((item) => DropdownMenuItem<String>(
-                                    value: item,
-                                    child: Text("Qty $item",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(
-                                                fontSize: Platform.isAndroid
-                                                    ? size_10
-                                                    : size_12,
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? colors.textColor
-                                                    : Colors.black87,
-                                                fontWeight: FontWeight.w600)),
-                                  ))
-                              .toList(),
-                          validator: (value) {
-                            if (value == null) {
-                              return 'Select Quantity.';
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
-                            selectedValue = value.toString();
-                            Map data = {
-                              'key': model.cartId.toString(),
-                              'quantity': selectedValue.toString()
-                            };
-                            cartProvider.updateCart(data, context);
-                            print(selectedValue);
-                          },
-                          onSaved: (value) {
-                            selectedValue = value.toString();
-                            // print(selectedValue);
-                          },
-                          buttonStyleData: const ButtonStyleData(
-                            padding: EdgeInsets.only(right: 8),
-                          ),
-                          iconStyleData: IconStyleData(
-                            icon: Icon(
-                              Icons.arrow_drop_down,
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textColor
-                                  : Colors.black,
+                                  iconSize: 18,
+                                ),
+                                dropdownStyleData: DropdownStyleData(
+                                    elevation: 8,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? colors.boxBorder
+                                          : Colors.white,
+                                      borderRadius: BorderRadius.circular(15),
+                                      border:
+                                          Border.all(color: colors.boxBorder),
+                                    )),
+                                menuItemStyleData: const MenuItemStyleData(
+                                  padding: EdgeInsets.symmetric(horizontal: 16),
+                                ),
+                              ),
                             ),
-                            iconSize: 18,
-                          ),
-                          dropdownStyleData: DropdownStyleData(
-                              elevation: 8,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? colors.boxBorder
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: colors.boxBorder),
-                              )),
-                          menuItemStyleData: const MenuItemStyleData(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                          ),
-                        ),
-                      ),
                       const SizedBox(
                         height: 5,
                       ),

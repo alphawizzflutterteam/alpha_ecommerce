@@ -58,3 +58,36 @@ class SuccessModel2 {
         "message": message,
       };
 }
+
+SuccessModel3 successModel3FromJson(String str) =>
+    SuccessModel3.fromJson(json.decode(str));
+
+String successModel3ToJson(SuccessModel3 data) => json.encode(data.toJson());
+
+class SuccessModel3 {
+  bool status;
+  String message;
+  String group_id;
+  List<dynamic> data;
+
+  SuccessModel3({
+    required this.status,
+    required this.message,
+    required this.data,
+    required this.group_id,
+  });
+
+  factory SuccessModel3.fromJson(Map<String, dynamic> json) => SuccessModel3(
+        status: json["status"],
+        message: json["message"],
+        data: List<dynamic>.from(json["data"].map((x) => x)),
+        group_id: json["group_id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "status": status,
+        "message": message,
+        "data": List<dynamic>.from(data.map((x) => x)),
+        "group_id": group_id,
+      };
+}

@@ -5,11 +5,13 @@ import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/notification/model/notificationModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/notificationViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-notificationCard(DatumNot model, BuildContext context) {
+notificationCard(
+    DatumNot model, BuildContext context, NotificationViewModel provider) {
   String convertTimestampToFormattedDate(String timestamp) {
     // Parse the timestamp string into a DateTime object
     DateTime dateTime = DateTime.parse(timestamp);
@@ -38,6 +40,7 @@ notificationCard(DatumNot model, BuildContext context) {
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         GestureDetector(
           onTap: () {
+            provider.markRead(context, model.id.toString(), "0");
             if (model.type == "order") {
               List<String> parts = model.typeId.split('-');
 

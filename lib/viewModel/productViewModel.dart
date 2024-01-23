@@ -265,10 +265,12 @@ class ProductDetailViewModel with ChangeNotifier {
       _myRepo.addToCart(AppUrl.addToCart, token, data2).then((value) {
         setLoading(false);
 
-        if (value.message == "Successfully added!") {
+        if (value.status) {
           isCart = !isCart;
+          SharedPref.shared.pref!
+              .setString(PrefKeys.groupIDForBUY, value.group_id);
           if (isComingForBuy) {
-            Routes.navigateToDashboardScreen(context, 0);
+            Routes.navigateToPlaceOrderScreen(context);
           } else {
             getDetails(context, "", slug);
             Utils.showFlushBarWithMessage("Alert", value.message, context);

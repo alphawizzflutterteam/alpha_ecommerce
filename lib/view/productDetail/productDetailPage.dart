@@ -1391,29 +1391,24 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                               ?.getString(PrefKeys.isLoggedIn);
                                           if (isLoggedIn == "1") {
                                             Map<String, String> data;
-                                            if (!productModel
-                                                .model.first.isCart) {
-                                              data = {
-                                                'id': productModel
-                                                    .model.first.id
-                                                    .toString(),
-                                                'quantity': "1",
-                                                'color': productModel
-                                                        .model
-                                                        .first
-                                                        .colorsFormatted
-                                                        .isNotEmpty
-                                                    ? productModel
-                                                        .selectedColorCode
-                                                    : "",
-                                              };
 
-                                              productModel.addToCart(data,
-                                                  context, widget.slug, true);
-                                            } else {
-                                              Routes.navigateToDashboardScreen(
-                                                  context, 0);
-                                            }
+                                            data = {
+                                              'id': productModel.model.first.id
+                                                  .toString(),
+                                              'quantity': "1",
+                                              'color': productModel
+                                                      .model
+                                                      .first
+                                                      .colorsFormatted
+                                                      .isNotEmpty
+                                                  ? productModel
+                                                      .selectedColorCode
+                                                  : "",
+                                              'is_cart': '0'
+                                            };
+
+                                            productModel.addToCart(data,
+                                                context, widget.slug, true);
                                           } else {
                                             AppUtils.appUtilsInstance
                                                 .showLoginAlertDialog(context);

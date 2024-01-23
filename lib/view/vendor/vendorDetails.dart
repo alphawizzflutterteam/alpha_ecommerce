@@ -540,7 +540,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                                                                     context)
                                                                 .size
                                                                 .height *
-                                                            0.55,
+                                                            0.5,
                                                         child: GridView.builder(
                                                           shrinkWrap: true,
                                                           padding:

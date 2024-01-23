@@ -1,698 +1,1276 @@
-// import 'dart:io';
+import 'dart:io';
 
-// import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
-// import 'package:alpha_ecommerce_18oct/utils/images.dart';
-// import 'package:alpha_ecommerce_18oct/utils/routes.dart';
-// import 'package:flutter/material.dart';
-// import '../../utils/color.dart';
-// import '../widget_common/commonBackground.dart';
-// import '../widget_common/common_button.dart';
-// import '../widget_common/common_header.dart';
-// import '../widget_common/common_radioButton.dart';
-// import '../widget_common/toast_message.dart';
-// import '../profile/common_header.dart';
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
+import 'package:alpha_ecommerce_18oct/view/cart/cards/cartCard.dart';
+import 'package:alpha_ecommerce_18oct/view/cart/cards/savedItemCard.dart';
+import 'package:alpha_ecommerce_18oct/view/placeOrder/cartCardBuyNow.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../utils/color.dart';
+import '../widget_common/commonBackground.dart';
+import '../widget_common/common_button.dart';
+import '../widget_common/common_header.dart';
+import '../widget_common/common_radioButton.dart';
+import '../widget_common/toast_message.dart';
+import '../profile/common_header.dart';
 
-// class PlaceOrder extends StatefulWidget {
-//   const PlaceOrder({Key? key}) : super(key: key);
+class PlaceOrder extends StatefulWidget {
+  PlaceOrder({Key? key}) : super(key: key);
 
-//   @override
-//   State<PlaceOrder> createState() => _PlaceOrderState();
-// }
+  @override
+  State<PlaceOrder> createState() => _PlaceOrderState();
+}
 
-// class _PlaceOrderState extends State<PlaceOrder> {
-//   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-//   String selectedOption = 'Alpha Delivery';
+class _PlaceOrderState extends State<PlaceOrder> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late CartViewModel cartProvider;
+  late AddressViewModel addressProvider;
+  bool apiHitted = false;
+  final ScrollController scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+    cartProvider = Provider.of<CartViewModel>(context, listen: false);
+    addressProvider = Provider.of<AddressViewModel>(context, listen: false);
+    callAddress();
+    var groupId =
+        SharedPref.shared.pref!.getString(PrefKeys.groupIDForBUY) ?? "";
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Stack(
-//       children: [
-//         const LightBackGround(),
-//         Scaffold(
-//           resizeToAvoidBottomInset: false,
-//           key: _scaffoldKey,
-//           extendBody: true,
-//           backgroundColor: Colors.transparent,
-//           body: Column(
-//             children: [
-//               const Stack(
-//                 children: [
-//                   ProfileHeader(),
-//                   InternalDetailPageHeader(
-//                     text: 'Place Order',
-//                   )
-//                 ],
-//               ),
-//               Expanded(
-//                 child: SingleChildScrollView(
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       const SizedBox(
-//                         height: 20,
-//                       ),
-//                       Container(
-//                         padding: const EdgeInsets.symmetric(horizontal: 20),
-//                         child: Container(
-//                           height: 40,
-//                           margin: const EdgeInsets.symmetric(horizontal: 5.0),
-//                           decoration: BoxDecoration(
-//                             color: Colors.yellow.withOpacity(0.2),
-//                             borderRadius:
-//                                 const BorderRadius.all(Radius.circular(10)),
-//                           ),
-//                           child: const Row(
-//                             children: [
-//                               SizedBox(
-//                                 width: 10,
-//                               ),
-//                               Icon(
-//                                 Icons.monetization_on_sharp,
-//                                 color: Colors.yellow,
-//                               ),
-//                               SizedBox(
-//                                 width: 10,
-//                               ),
-//                               Text(
-//                                 "25% Off saved so far",
-//                                 style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                     color: Colors.orange,
-//                                     Platform.isAndroid ? size_14 : size_16,
-//                                     fontWeight: FontWeight.bold),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                       Container(
-//                         margin: const EdgeInsets.symmetric(
-//                             horizontal: 20, vertical: 10),
-//                         decoration: BoxDecoration(
-//                             borderRadius: BorderRadius.circular(10),
-//                             border: Border.all(
-//                                 color: const Color(0x14E9E9E9), width: 3)),
-//                         child: Column(children: [
-//                           Row(
-//                             mainAxisAlignment: MainAxisAlignment.start,
-//                             children: [
-//                               Image.asset(
-//                                 Images.maggie,
-//                                 width: 100,
-//                                 height: 100,
-//                               ),
-//                               const SizedBox(width: 20),
-//                               const Column(
-//                                 crossAxisAlignment: CrossAxisAlignment.start,
-//                                 children: [
-//                                   SizedBox(
-//                                     height: 10,
-//                                   ),
-//                                   Text(
-//                                     "Maggie Masala",
-//                                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                         color: Colors.white, fontSize: Platform.isAndroid ? size_14 : size_14),
-//                                   ),
-//                                   SizedBox(
-//                                     height: 5,
-//                                   ),
-//                                   Row(
-//                                     children: [
-//                                       Text(
-//                                         "\$120.00",
-//                                         style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                             color: colors.buttonColor,
-//                                             Platform.isAndroid ? size_14 : size_16),
-//                                       ),
-//                                       Padding(
-//                                         padding: EdgeInsets.only(left: 10),
-//                                         child: Text(
-//                                           "\$200",
-//                                           style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                               color: colors.greyText,
-//                                               fontSize: Platform.isAndroid ? size_14 : size_14),
-//                                         ),
-//                                       ),
-//                                     ],
-//                                   ),
-//                                   SizedBox(
-//                                     height: 5,
-//                                   ),
-//                                   Text(
-//                                     "190ml",
-//                                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                       color: colors.greyText,
-//                                       fontSize: Platform.isAndroid
-//                                           ? size_10
-//                                           : size_12,
-//                                     ),
-//                                   ),
-//                                   SizedBox(
-//                                     height: 10,
-//                                   ),
-//                                 ],
-//                               ),
-//                             ],
-//                           ),
-//                           Row(
-//                             mainAxisAlignment: MainAxisAlignment.center,
-//                             children: [
-//                               Container(
-//                                 height: 30,
-//                                 width: MediaQuery.of(context).size.width * 0.35,
-//                                 alignment: Alignment.center,
-//                                 decoration: BoxDecoration(
-//                                     borderRadius: const BorderRadius.all(
-//                                         Radius.circular(5)),
-//                                     border: Border.all(
-//                                         color: const Color(0x14E9E9E9),
-//                                         width: 3)),
-//                                 child: const Text(
-//                                   "Save for later",
-//                                   style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                     color: Colors.white,
-//                                     fontSize:
-//                                         Platform.isAndroid ? size_10 : size_12,
-//                                   ),
-//                                   textAlign: TextAlign.center,
-//                                 ),
-//                               ),
-//                               const SizedBox(
-//                                 width: 15,
-//                               ),
-//                               InkWell(
-//                                 highlightColor: Colors.transparent,
-//                                 splashColor: Colors.transparent,
-//                                 onTap: () {
-//                                   showToastMessage("Item remove from wishlist");
-//                                 },
-//                                 child: Container(
-//                                   height: 30,
-//                                   width:
-//                                       MediaQuery.of(context).size.width * 0.35,
-//                                   alignment: Alignment.center,
-//                                   decoration: BoxDecoration(
-//                                       borderRadius: const BorderRadius.all(
-//                                           Radius.circular(5)),
-//                                       border: Border.all(
-//                                           color: const Color(0x14E9E9E9),
-//                                           width: 3)),
-//                                   child: const Text(
-//                                     "Remove from wishlist",
-//                                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                       color: Colors.white,
-//                                       fontSize: Platform.isAndroid
-//                                           ? size_10
-//                                           : size_12,
-//                                     ),
-//                                     textAlign: TextAlign.center,
-//                                   ),
-//                                 ),
-//                               )
-//                             ],
-//                           ),
-//                           const SizedBox(
-//                             height: 20,
-//                           )
-//                         ]),
-//                       ),
-//                       Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           const Padding(
-//                             padding: EdgeInsets.only(left: 20, top: 20),
-//                             child: Text(
-//                               "Delivery type",
-//                               style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                   color: Colors.white,
-//                                   fontSize: Platform.isAndroid ? size_14 : size_14,
-//                                   fontWeight: FontWeight.bold),
-//                             ),
-//                           ),
-//                           Padding(
-//                             padding: const EdgeInsets.symmetric(
-//                               horizontal: 10,
-//                             ),
-//                             child: Theme(
-//                               data: ThemeData(
-//                                   unselectedWidgetColor: colors.greyText),
-//                               child: Row(
-//                                 mainAxisAlignment: MainAxisAlignment.start,
-//                                 children: <Widget>[
-//                                   CommonRadioTile(
-//                                     color: Theme.of(context).brightness ==
-//                                             Brightness.light
-//                                         ? Colors.black
-//                                         : Colors.white,
-//                                     options: selectedOption,
-//                                     name: 'Normal Delivery',
-//                                     onChanged: handleOptionChange,
-//                                   ),
-//                                   CommonRadioTile(
-//                                     color: Theme.of(context).brightness ==
-//                                             Brightness.light
-//                                         ? Colors.black
-//                                         : Colors.white,
-//                                     options: selectedOption,
-//                                     name: 'Alpha Delivery',
-//                                     onChanged: handleOptionChange,
-//                                   )
-//                                 ],
-//                               ),
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                       Container(
-//                         margin: const EdgeInsets.symmetric(
-//                             horizontal: 10, vertical: 10),
-//                         child: Column(
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: [
-//                             const Padding(
-//                               padding: EdgeInsets.symmetric(
-//                                   horizontal: 10, vertical: 10),
-//                               child: Text(
-//                                 "Price Detail",
-//                                 style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                     color: Colors.white, fontSize: Platform.isAndroid ? size_14 : size_14),
-//                               ),
-//                             ),
-//                             const Padding(
-//                               padding: EdgeInsets.symmetric(
-//                                   horizontal: 10, vertical: 10),
-//                               child: Row(
-//                                 mainAxisAlignment:
-//                                     MainAxisAlignment.spaceBetween,
-//                                 children: [
-//                                   Text(
-//                                     "MRP (4 items)",
-//                                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                       color: colors.greyText,
-//                                       fontSize: Platform.isAndroid
-//                                           ? size_10
-//                                           : size_12,
-//                                     ),
-//                                   ),
-//                                   Text(
-//                                     "\$480.00",
-//                                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                       color: Colors.white,
-//                                       fontSize: Platform.isAndroid
-//                                           ? size_10
-//                                           : size_12,
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                             const Padding(
-//                               padding: EdgeInsets.symmetric(
-//                                   horizontal: 10, vertical: 10),
-//                               child: Row(
-//                                 mainAxisAlignment:
-//                                     MainAxisAlignment.spaceBetween,
-//                                 children: [
-//                                   Text(
-//                                     "Delivery fee",
-//                                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                       color: colors.greyText,
-//                                       fontSize: Platform.isAndroid
-//                                           ? size_10
-//                                           : size_12,
-//                                     ),
-//                                   ),
-//                                   Text(
-//                                     "\$20.00",
-//                                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                       color: Colors.white,
-//                                       fontSize: Platform.isAndroid
-//                                           ? size_10
-//                                           : size_12,
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                             const Padding(
-//                               padding: EdgeInsets.symmetric(
-//                                   horizontal: 10, vertical: 10),
-//                               child: Row(
-//                                 mainAxisAlignment:
-//                                     MainAxisAlignment.spaceBetween,
-//                                 children: [
-//                                   Text(
-//                                     "Discount",
-//                                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                       color: colors.greyText,
-//                                       fontSize: Platform.isAndroid
-//                                           ? size_10
-//                                           : size_12,
-//                                     ),
-//                                   ),
-//                                   Text(
-//                                     "\$80.00",
-//                                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                       color: Colors.white,
-//                                       fontSize: Platform.isAndroid
-//                                           ? size_10
-//                                           : size_12,
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                             const Divider(
-//                               height: 5,
-//                               color: colors.greyText,
-//                               thickness: 1,
-//                               indent: 10,
-//                               endIndent: 10,
-//                             ),
-//                             const Padding(
-//                               padding: EdgeInsets.symmetric(
-//                                   horizontal: 10, vertical: 10),
-//                               child: Row(
-//                                 mainAxisAlignment:
-//                                     MainAxisAlignment.spaceBetween,
-//                                 children: [
-//                                   Text(
-//                                     "Total Amount",
-//                                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                         color: Colors.white, fontSize: Platform.isAndroid ? size_14 : size_14),
-//                                   ),
-//                                   Text(
-//                                     "\$600.00",
-//                                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                         color: colors.buttonColor,
-//                                         fontSize: Platform.isAndroid ? size_14 : size_14),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                             const Divider(
-//                               height: 5,
-//                               color: colors.greyText,
-//                               thickness: 1,
-//                               indent: 10,
-//                               endIndent: 10,
-//                             ),
-//                             const SizedBox(
-//                               height: 10,
-//                             ),
-//                             const Padding(
-//                               padding: EdgeInsets.symmetric(
-//                                   horizontal: 10, vertical: 10),
-//                               child: Text(
-//                                 "You will save Rs. 80 in this order",
-// //                                 style: Theme.of(context)
-//                                                     .textTheme
-//                                                     .titleSmall!
-//                                                     .copyWith(
-                                                      
-//                                     color: Colors.green, fontSize: Platform.isAndroid ? size_14 : size_14),
-//                               ),
-//                             ),
-//                             Container(
-//                               margin: const EdgeInsets.symmetric(
-//                                   horizontal: 10, vertical: 10),
-//                               child: InkWell(
-//                                 highlightColor: Colors.transparent,
-//                                 splashColor: Colors.transparent,
-//                                 onTap: () {
-//                                   Routes.navigateToOffersScreen(context);
-//                                 },
-//                                 child: Row(
-//                                   mainAxisAlignment:
-//                                       MainAxisAlignment.spaceBetween,
-//                                   children: [
-//                                     const Text(
-//                                       "Offer & Benefits",
-//                                       style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                           color: Colors.white, fontSize: Platform.isAndroid ? size_14 : size_14),
-//                                     ),
-//                                     Row(
-//                                       children: [
-//                                         Image.asset(
-//                                           Images.cartOffer,
-//                                           height: 20,
-//                                           width: 20,
-//                                         ),
-//                                         const SizedBox(width: 10),
-//                                         const Text(
-//                                           "View Offer",
-//                                           style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                               color: Colors.white,
-//                                               fontSize: Platform.isAndroid ? size_14 : size_14),
-//                                         )
-//                                       ],
-//                                     )
-//                                   ],
-//                                 ),
-//                               ),
-//                             ),
-//                             Container(
-//                               margin: const EdgeInsets.symmetric(
-//                                   horizontal: 10, vertical: 10),
-//                               child: Row(
-//                                 mainAxisAlignment:
-//                                     MainAxisAlignment.spaceBetween,
-//                                 children: [
-//                                   Expanded(
-//                                     child: SizedBox(
-//                                       height: 40,
-//                                       child: TextField(
-//                                         textAlign: TextAlign.start,
-//                                         decoration: InputDecoration(
-//                                           contentPadding:
-//                                               const EdgeInsets.symmetric(
-//                                                   vertical: 10, horizontal: 10),
-//                                           hintText: 'Voucher Number',
-//                                           hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-//                                               color: colors.greyText),
-//                                           focusedBorder: OutlineInputBorder(
-//                                             borderSide: const BorderSide(
-//                                               color: colors.textFieldColor,
-//                                             ),
-//                                             borderRadius:
-//                                                 BorderRadius.circular(10),
-//                                           ),
-//                                           enabledBorder: OutlineInputBorder(
-//                                             borderSide: const BorderSide(
-//                                               color: colors.textFieldColor,
-//                                             ),
-//                                             borderRadius:
-//                                                 BorderRadius.circular(10),
-//                                           ),
-//                                         ),
-//                                       ),
-//                                     ),
-//                                   ),
-//                                   const SizedBox(
-//                                     width: 10,
-//                                   ),
-//                                   SizedBox(
-//                                       height: 40,
-//                                       width: 100,
-//                                       child: CommonButton(
-//                                           text: "APPLY",
-//                                           fontSize: Platform.isAndroid ? size_14 : size_14,
-//                                           onClick: () {})),
-//                                 ],
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//               Align(
-//                 alignment: Alignment.bottomCenter,
-//                 child: Container(
-//                   height: 130,
-//                   color: colors.textFieldBG,
-//                   child: Center(
-//                     child: Column(
-//                       children: [
-//                         Padding(
-//                           padding: const EdgeInsets.symmetric(
-//                               horizontal: 20, vertical: 15),
-//                           child: InkWell(
-//                             highlightColor: Colors.transparent,
-//                             splashColor: Colors.transparent,
-//                             onTap: () {
-//                               Routes.navigateToManageAddressScreen(context);
-//                             },
-//                             child: const Row(
-//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                               children: [
-//                                 Row(
-//                                   children: [
-//                                     Icon(
-//                                       Icons.location_on,
-//                                       color: Colors.red,
-//                                     ),
-//                                     SizedBox(
-//                                       width: 5,
-//                                     ),
-//                                     Text(
-//                                       "Add Address",
-//                                       style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                           color: Colors.white, Platform.isAndroid ? size_14 : size_16),
-//                                     ),
-//                                   ],
-//                                 ),
-//                                 Icon(Icons.arrow_forward_ios_rounded)
-//                               ],
-//                             ),
-//                           ),
-//                         ),
-//                         const Divider(
-//                           color: Colors.white,
-//                           height: 1,
-//                         ),
-//                         Container(
-//                           padding: const EdgeInsets.symmetric(
-//                               horizontal: 20, vertical: 15),
-//                           height: 70,
-//                           child: Row(
-//                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                             children: [
-//                               Row(
-//                                 mainAxisAlignment:
-//                                     MainAxisAlignment.spaceBetween,
-//                                 children: [
-//                                   const Text(
-//                                     "\$120 - 10",
-//                                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
-//                                       color: colors.textColor,
-//                                       fontWeight: FontWeight.bold,
-//                                       fontSize: 28,
-//                                     ),
-//                                   ),
-//                                   const SizedBox(
-//                                     width: 5,
-//                                   ),
-//                                   Image.asset(
-//                                     Images.rupees,
-//                                     height: 25,
-//                                     width: 25,
-//                                   ),
-//                                 ],
-//                               ),
-//                               SizedBox(
-//                                   height: 40,
-//                                   width: 150,
-//                                   child: CommonButton(
-//                                       text: "PLACE ORDER",
-//                                       fontSize: Platform.isAndroid ? size_14 : size_14,
-//                                       onClick: () {
-//                                         Routes.navigateToPaymentScreen(
-//                                             context, "", "", "", true, "order");
-//                                       })),
-//                             ],
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
+    print(groupId);
 
-//   void handleOptionChange(String value) {
-//     setState(() {
-//       selectedOption = value;
-//     });
-//   }
-// }
+    if (cartProvider.selectedOption == "Normal Delivery") {
+      cartProvider.getCartListItem(context, "", "0", "", "", groupId);
+    } else {
+      cartProvider.getCartListItem(context, "", "1", "", "", groupId);
+    }
+
+    handleOptionChange(cartProvider.selectedOption);
+    //cartProvider.getSavedListItem(context);
+  }
+
+  callAddress() async {
+    apiHitted = true;
+    await addressProvider.getAddressList(context);
+    //  setState(() {});
+  }
+
+  void _scrollToBottom() {
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeOut,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+
+    cartProvider = Provider.of<CartViewModel>(context);
+    addressProvider = Provider.of<AddressViewModel>(context);
+    if (cartProvider.couponController.text == "") {}
+    if (addressProvider.addressList.isEmpty && !apiHitted) {
+      if (cartProvider.isLoading) {
+        Future.delayed(Duration(seconds: 3), () {
+          callAddress();
+        });
+      } else {
+        callAddress();
+      }
+    }
+
+    return Stack(
+      children: [
+        LightBackGround(),
+        Scaffold(
+          resizeToAvoidBottomInset: true,
+          key: _scaffoldKey,
+          extendBody: true,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
+          body: Column(
+            children: [
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: Stack(
+                  children: [
+                    const ProfileHeader(),
+                    const InternalPageHeader(
+                      text: "Place Order",
+                    ),
+                  ],
+                ),
+              ),
+              cartProvider.isLoading
+                  ? appLoader()
+                  : Expanded(
+                      child: SingleChildScrollView(
+                        controller: scrollController,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 10),
+                            cartProvider.cartModel.isEmpty
+                                ? Container()
+                                : Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: Text("Shipping Adddress",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textColor
+                                                    : Colors.black,
+                                                fontSize: size_11))),
+                            cartProvider.cartModel.isEmpty
+                                ? Container()
+                                : Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 5),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: colors.buttonColor,
+// Set your desired border color
+                                          width: 2.0, // Set the border width
+                                        ),
+                                        borderRadius: BorderRadius.circular(6),
+                                      ), // Adjust the radius as needed
+
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5, vertical: 5),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    addressProvider
+                                                            .addressList.isEmpty
+                                                        ? const Icon(
+                                                            Icons.location_on,
+                                                            color: colors
+                                                                .buttonColor,
+                                                          )
+                                                        : Icon(
+                                                            Icons.pin_drop,
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? colors
+                                                                    .textColor
+                                                                : Colors.black,
+                                                          ),
+                                                    const SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    addressProvider
+                                                            .addressList.isEmpty
+                                                        ? InkWell(
+                                                            onTap: () {
+                                                              Routes
+                                                                  .navigateToManageAddressScreen(
+                                                                      context);
+                                                            },
+                                                            child: Text(
+                                                              "Add new address",
+                                                              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                                                  color: Theme.of(context)
+                                                                              .brightness ==
+                                                                          Brightness
+                                                                              .dark
+                                                                      ? colors
+                                                                          .textColor
+                                                                      : Colors
+                                                                          .black,
+                                                                  fontSize: Platform
+                                                                          .isAndroid
+                                                                      ? size_14
+                                                                      : size_16),
+                                                            ),
+                                                          )
+                                                        : SizedBox(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.63,
+                                                            child: Text(
+                                                              addressProvider
+                                                                  .selectedAddress,
+                                                              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                                                  color: Theme.of(context)
+                                                                              .brightness ==
+                                                                          Brightness
+                                                                              .dark
+                                                                      ? colors
+                                                                          .textColor
+                                                                      : Colors
+                                                                          .black,
+                                                                  fontSize: Platform
+                                                                          .isAndroid
+                                                                      ? size_10
+                                                                      : size_12),
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ),
+                                                          ),
+                                                    cartProvider
+                                                            .cartModel.isEmpty
+                                                        ? Container()
+                                                        : addressProvider
+                                                                .addressList
+                                                                .isEmpty
+                                                            ? const Icon(Icons
+                                                                .arrow_forward_ios_rounded)
+                                                            : InkWell(
+                                                                onTap: () {
+                                                                  Routes.navigateToAddressListScreen(
+                                                                      context,
+                                                                      true);
+                                                                },
+                                                                child: SizedBox(
+                                                                  child: Text(
+                                                                    "(Change)",
+                                                                    style: Theme.of(
+                                                                            context)
+                                                                        .textTheme
+                                                                        .titleSmall!
+                                                                        .copyWith(
+                                                                            color: Theme.of(context).brightness == Brightness.dark
+                                                                                ? Colors.white
+                                                                                : colors.buttonColor,
+                                                                            fontSize: Platform.isAndroid ? size_12 : size_15),
+                                                                    maxLines: 1,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                            // cartProvider.cartModel.isEmpty
+                            //     ? Container()
+                            //     : Divider(
+                            //         color: Theme.of(context).brightness ==
+                            //                 Brightness.dark
+                            //             ? colors.textColor
+                            //             : Colors.black,
+                            //         height: 1,
+                            //       ),
+                            const SizedBox(height: 10),
+
+                            cartProvider.cartModel.isEmpty
+                                ? Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/Cart_empty.png',
+                                          height: size_150,
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          "No item in cart.",
+                                          style: TextStyle(
+                                            color: colors.greyText,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                : Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.vertical,
+                                      child: Container(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 2.0),
+                                          child: cartCardRowBuyNow(
+                                              context,
+                                              cartProvider.cartModel,
+                                              cartProvider),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                            cartProvider.cartModel.isEmpty
+                                ? Container()
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.only(left: 20, top: 20),
+                                        child: Text(
+                                          "Delivery type",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? colors.textColor
+                                                      : Colors.black,
+                                                  fontWeight: FontWeight.w600),
+                                          // style: Theme.of(context)
+                                          // .textTheme
+                                          // .titleSmall!
+                                          // .copyWith(
+
+                                          //     color: Theme.of(context)
+                                          //                 .brightness ==
+                                          //             Brightness.dark
+                                          //         ? colors.textColor
+                                          //         : Colors.black,
+                                          //     fontSize: Platform.isAndroid ? size_14 : size_14,
+                                          //     fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                        ),
+                                        child: Theme(
+                                          data: ThemeData(
+                                              unselectedWidgetColor:
+                                                  colors.greyText),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: Material(
+                                                  color: Colors.transparent,
+                                                  child: RadioListTile(
+                                                    title: Text(
+                                                      'Normal Delivery',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall!
+                                                          .copyWith(
+                                                              fontSize: size_14,
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .light
+                                                                  ? Colors.black
+                                                                  : Colors
+                                                                      .white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                      // style: Theme.of(context)
+                                                      // .textTheme
+                                                      // .titleSmall!
+                                                      // .copyWith(
+
+                                                      //   color: Theme.of(context)
+                                                      //               .brightness ==
+                                                      //           Brightness
+                                                      //               .light
+                                                      //       ? Colors.black
+                                                      //       : Colors.white,
+                                                      //   fontSize: Platform.isAndroid ? size_14 : size_14,
+                                                      // ),
+                                                      softWrap: false,
+                                                    ),
+                                                    activeColor:
+                                                        colors.buttonColor,
+                                                    groupValue: cartProvider
+                                                        .selectedOption,
+                                                    onChanged: (value) {
+                                                      handleOptionChange(
+                                                          "Normal Delivery");
+                                                    },
+                                                    contentPadding:
+                                                        const EdgeInsets
+                                                            .symmetric(
+                                                            horizontal: 0),
+                                                    value: 'Normal Delivery',
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Material(
+                                                  color: Colors.transparent,
+                                                  child: RadioListTile(
+                                                    dense: true,
+                                                    title: Text(
+                                                      'Alpha Delivery',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall!
+                                                          .copyWith(
+                                                              fontSize: size_14,
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .light
+                                                                  ? Colors.black
+                                                                  : Colors
+                                                                      .white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                      softWrap: false,
+                                                    ),
+                                                    activeColor:
+                                                        colors.buttonColor,
+                                                    groupValue: cartProvider
+                                                        .selectedOption,
+                                                    onChanged: (value) {
+                                                      handleOptionChange(
+                                                          "Alpha Delivery");
+                                                    },
+                                                    contentPadding:
+                                                        const EdgeInsets
+                                                            .symmetric(
+                                                            horizontal: 0),
+                                                    value: 'Alpha Delivery',
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                            cartProvider.cartModel.isEmpty
+                                ? Container()
+                                : Container(
+                                    // height:
+                                    //     MediaQuery.of(context).size.height *
+                                    //         .25,
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? const Color(0x14E9E9E9)
+                                          : Color(0xFFE3E1EC),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 10),
+                                          child: Text(
+                                            "Price Detail",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_12
+                                                        : size_14,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? colors.textColor
+                                                        : Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                            // style: Theme.of(context)
+                                            // .textTheme
+                                            // .titleSmall!
+                                            // .copyWith(
+
+                                            //     color: Theme.of(context)
+                                            //                 .brightness ==
+                                            //             Brightness.dark
+                                            //         ? colors.textColor
+                                            //         : Colors.black,
+                                            //     fontSize: Platform.isAndroid ? size_14 : size_14),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 5),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              int.parse(cartProvider.model.data
+                                                          .totalItems) <
+                                                      2
+                                                  ? Text(
+                                                      "MRP (${cartProvider.model.data.totalItems} item)",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall!
+                                                          .copyWith(
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? colors
+                                                                      .textColor
+                                                                  : Colors
+                                                                      .black,
+                                                              fontSize: Platform
+                                                                      .isAndroid
+                                                                  ? size_10
+                                                                  : size_12),
+                                                    )
+                                                  : Text(
+                                                      "MRP (${cartProvider.model.data.totalItems} items)",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall!
+                                                          .copyWith(
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? colors
+                                                                    .textColor
+                                                                : Colors.black,
+                                                            fontSize: Platform
+                                                                    .isAndroid
+                                                                ? size_10
+                                                                : size_12,
+                                                          ),
+                                                    ),
+                                              Text(
+                                                cartProvider.model.data.mrp,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_10
+                                                                : size_12,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? colors.textColor
+                                                            : Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 5),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Delivery fee",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_10
+                                                                : size_12,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? colors.greyText
+                                                            : Colors.black54,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                                // style: Theme.of(context)
+                                                // .textTheme
+                                                // .titleSmall!
+                                                // .copyWith(
+
+                                                //     color: Theme.of(context)
+                                                //                 .brightness ==
+                                                //             Brightness.dark
+                                                //         ? colors.greyText
+                                                //         : Colors.black54,
+                                                //     fontSize: 12),
+                                              ),
+                                              Text(
+                                                cartProvider
+                                                    .model.data.deliveryCharge,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_10
+                                                                : size_12,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? colors.textColor
+                                                            : Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 5),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Tax",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_10
+                                                                : size_12,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? colors.greyText
+                                                            : Colors.black54,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                              ),
+                                              Text(
+                                                cartProvider.model.data.tax,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_10
+                                                                : size_12,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? colors.textColor
+                                                            : Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 5),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Discount (Product)",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_10
+                                                                : size_12,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? colors.greyText
+                                                            : Colors.black54,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                              ),
+                                              Text(
+                                                "- " +
+                                                    cartProvider
+                                                        .model.data.discount,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_10
+                                                                : size_12,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? colors.textColor
+                                                            : Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                                // style: Theme.of(context)
+                                                // .textTheme
+                                                // .titleSmall!
+                                                // .copyWith(
+
+                                                //     color: Theme.of(context)
+                                                //                 .brightness ==
+                                                //             Brightness.dark
+                                                //         ? colors.textColor
+                                                //         : Colors.black,
+                                                //     fontSize: 12),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 5),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Discount (Coupon)",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_10
+                                                                : size_12,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? colors.greyText
+                                                            : Colors.black54,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                              ),
+                                              Text(
+                                                "- " +
+                                                    cartProvider.model.data
+                                                        .coupon_discount,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_10
+                                                                : size_12,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? colors.textColor
+                                                            : Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                                // style: Theme.of(context)
+                                                // .textTheme
+                                                // .titleSmall!
+                                                // .copyWith(
+
+                                                //     color: Theme.of(context)
+                                                //                 .brightness ==
+                                                //             Brightness.dark
+                                                //         ? colors.textColor
+                                                //         : Colors.black,
+                                                //     fontSize: 12),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Divider(
+                                          height: 5,
+                                          color: colors.greyText,
+                                          thickness: 1,
+                                          indent: 10,
+                                          endIndent: 10,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 5),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Total Amount",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_12
+                                                                : size_14,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? colors.textColor
+                                                            : Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                              ),
+                                              Text(
+                                                cartProvider.model.data.total,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_12
+                                                                : size_14,
+                                                        color:
+                                                            colors.buttonColor,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                // style: Theme.of(context)
+                                                // .textTheme
+                                                // .titleSmall!
+                                                // .copyWith(
+
+                                                //     color: colors.buttonColor,
+                                                //     fontSize: Platform.isAndroid ? size_14 : size_14),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: size_5,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                            cartProvider.cartModel.isEmpty
+                                ? Container()
+                                : Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Offer & Benefits",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? colors.textColor
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                              Images.cartOffer,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.textColor
+                                                  : Colors.black,
+                                              height: 20,
+                                              width: 20,
+                                            ),
+                                            const SizedBox(width: 10),
+                                            InkWell(
+                                              onTap: () {
+                                                Routes.navigateToCouponScreen(
+                                                    context);
+                                              },
+                                              child: Text(
+                                                "View Offer",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? colors.textColor
+                                                            : Colors.black,
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_12
+                                                                : size_14),
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                            cartProvider.cartModel.isEmpty
+                                ? Container()
+                                : Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: SizedBox(
+                                            height: 40,
+                                            child: TextField(
+                                              onTap: () {
+                                                _scrollToBottom();
+                                              },
+                                              enabled: double.parse(cartProvider
+                                                              .model
+                                                              .data
+                                                              .coupon_discount
+                                                              .substring(
+                                                                  1,
+                                                                  cartProvider
+                                                                      .model
+                                                                      .data
+                                                                      .coupon_discount
+                                                                      .length))
+                                                          .toInt() ==
+                                                      0
+                                                  ? true
+                                                  : false,
+                                              controller:
+                                                  cartProvider.couponController,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                              cursorColor: Colors.white,
+                                              textAlign: TextAlign.start,
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        vertical: 10,
+                                                        horizontal: 10),
+                                                hintText: 'Voucher Number',
+                                                hintStyle: TextStyle(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? colors.greyText
+                                                      : Colors.black45,
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                    color: colors.boxBorder,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                    color:
+                                                        colors.textFieldColor,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        SizedBox(
+                                            height: 40,
+                                            width: 110,
+                                            child: CommonButton(
+                                                text: double.parse(cartProvider
+                                                                .model
+                                                                .data
+                                                                .coupon_discount
+                                                                .substring(
+                                                                    1,
+                                                                    cartProvider
+                                                                        .model
+                                                                        .data
+                                                                        .coupon_discount
+                                                                        .length))
+                                                            .toInt() ==
+                                                        0
+                                                    ? "APPLY"
+                                                    : "REMOVE",
+                                                fontSize: Platform.isAndroid
+                                                    ? size_12
+                                                    : size_14,
+                                                colorsText: Colors.white,
+                                                onClick: () {
+                                                  if (cartProvider
+                                                      .couponController
+                                                      .text
+                                                      .isNotEmpty) {
+                                                    if (double.parse(cartProvider
+                                                                .model
+                                                                .data
+                                                                .coupon_discount
+                                                                .substring(
+                                                                    1,
+                                                                    cartProvider
+                                                                        .model
+                                                                        .data
+                                                                        .coupon_discount
+                                                                        .length))
+                                                            .toInt() ==
+                                                        0) {
+                                                      cartProvider.applyCoupon(
+                                                          cartProvider
+                                                              .couponController
+                                                              .text,
+                                                          context);
+                                                    } else {
+                                                      cartProvider
+                                                          .couponController
+                                                          .text = "";
+                                                      cartProvider.applyCoupon(
+                                                          '', context);
+                                                    }
+                                                  } else {
+                                                    Utils.showFlushBarWithMessage(
+                                                        "",
+                                                        "Please enter coupon code.",
+                                                        context);
+                                                  }
+                                                })),
+                                      ],
+                                    ),
+                                  ),
+                            cartProvider.savedModel.isEmpty
+                                ? SizedBox(
+                                    height: isKeyboardOpen
+                                        ? size_200 * 0.9
+                                        : size_10,
+                                  )
+                                : Container(),
+                          ],
+                        ),
+                      ),
+                    ),
+              cartProvider.isLoading
+                  ? Container()
+                  : cartProvider.cartModel.isEmpty
+                      ? Container()
+                      : Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            //  height: MediaQuery.of(context).size.height * .08,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  cartProvider.cartModel.isEmpty
+                                      ? Container()
+                                      : Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 5),
+                                          height: 50,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                cartProvider.model.data.total,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_18
+                                                              : size_20,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? colors.textColor
+                                                          : Colors.black,
+                                                    ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 0.0),
+                                                child: SizedBox(
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            .2,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            .37,
+                                                    child: CommonButton(
+                                                      text: "PLACE ORDER",
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_11
+                                                              : size_13,
+                                                      colorsText: Colors.white,
+                                                      onClick: () async {
+                                                        if (!addressProvider
+                                                            .addressList
+                                                            .isEmpty) {
+                                                          var billingId = SharedPref
+                                                                  .shared.pref!
+                                                                  .getString(
+                                                                      PrefKeys
+                                                                          .billingAddressID) ??
+                                                              addressProvider
+                                                                  .addressList[
+                                                                      0]
+                                                                  .id
+                                                                  .toString();
+                                                          var paymentMethod =
+                                                              "cash_on_delivery";
+                                                          String couponCode =
+                                                              cartProvider
+                                                                  .couponController
+                                                                  .text;
+                                                          var groupOd = SharedPref
+                                                                  .shared.pref!
+                                                                  .getString(
+                                                                      PrefKeys
+                                                                          .groupIDForBUY) ??
+                                                              "";
+                                                          String data =
+                                                              "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount=&coin_used=0&group_id=$groupOd";
+
+                                                          var res = await cartProvider
+                                                              .checkDeliveryStatus(
+                                                                  context,
+                                                                  billingId
+                                                                      .toString());
+
+                                                          print(res.toString() +
+                                                              "CHECK AVAILABILITY");
+
+                                                          if (res) {
+                                                            Routes
+                                                                .navigateToPaymentScreen(
+                                                              context,
+                                                              data,
+                                                              billingId,
+                                                              couponCode,
+                                                              true,
+                                                              "order",
+                                                              cartProvider
+                                                                  .model
+                                                                  .data
+                                                                  .coupon_discount
+                                                                  .substring(
+                                                                      1,
+                                                                      cartProvider
+                                                                          .model
+                                                                          .data
+                                                                          .coupon_discount
+                                                                          .length),
+                                                            );
+                                                          } else {
+                                                            // if (res)
+                                                            //   Utils.showFlushBarWithMessage(
+                                                            //       "",
+                                                            //       "Delivery not available on this pincode.",
+                                                            //       context);
+                                                          }
+                                                        } else {
+                                                          Utils.showFlushBarWithMessage(
+                                                              "",
+                                                              "Please add address first.",
+                                                              context);
+                                                        }
+                                                      },
+                                                    )),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  void handleOptionChange(String value) {
+    setState(() {
+      cartProvider.selectedOption = value;
+      var groupId =
+          SharedPref.shared.pref!.getString(PrefKeys.groupIDForBUY) ?? "";
+      if (value == "Alpha Delivery") {
+        print(value);
+
+        cartProvider.getCartListItem(
+            context, cartProvider.couponController.text, "1", "0", "", groupId);
+      } else {
+        cartProvider.getCartListItem(
+            context, cartProvider.couponController.text, "0", "0", "", groupId);
+      }
+    });
+  }
+}

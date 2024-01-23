@@ -51,6 +51,7 @@ class PrefKeys {
   static const otp = 'otp';
   static const selectedLanguageID = 'selectedLanguageID';
   static const currencyID = 'currencyID';
+  static const groupIDForBUY = 'groupIDForBUY';
   static const billingAddressID = 'billingAddressID';
   static const billingAddress = 'billingAddress';
 }

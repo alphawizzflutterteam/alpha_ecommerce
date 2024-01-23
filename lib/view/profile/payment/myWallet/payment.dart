@@ -188,6 +188,7 @@ class _PaymentState extends State<Payment> {
                               onTap: () async {
                                 if (paymentMethods[i].paymentMethodName ==
                                     "Cash On Delivery") {
+                                  print(widget.data);
                                   await cartProvider.placeOrder(
                                       widget.data, context);
                                 }
@@ -336,8 +337,13 @@ class _PaymentState extends State<Payment> {
                                                 var amout = cartProvider
                                                     .model.data.total
                                                     .replaceFirst("₹ ", "");
+                                                var groupId = SharedPref
+                                                    .shared.pref
+                                                    ?.getString(
+                                                        PrefKeys.groupIDForBUY);
+
                                                 String data =
-                                                    "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=1&wallet_amount=$amout&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount";
+                                                    "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=1&wallet_amount=$amout&order_note=This is a order note.&coupan_code=${widget.couponCode}&coupan_amount=&coin_used=0&group_id=$groupId";
 
                                                 print(amout);
                                                 await cartProvider.placeOrder(
@@ -368,16 +374,20 @@ class _PaymentState extends State<Payment> {
   }
 
   Future<void> setTransactionId(String transactionId) async {
+    var groupId = SharedPref.shared.pref?.getString(PrefKeys.groupIDForBUY);
     String data =
-        "billing_address_id=${widget.billingId}&payment_method=razorpay&transaction_id=$transactionId&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=${widget.couponCode}&coupan_amount";
+        "billing_address_id=${widget.billingId}&payment_method=razorpay&transaction_id=$transactionId&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=${widget.couponCode}&coupan_amount=&coin_used=0&group_id=$groupId";
 
     await cartProvider.placeOrder(data, context); // registration();
   }
 
   Future<void> setTransactionIdWallet(String transactionId) async {
     var amout = cartProvider.model.data.total.replaceFirst("₹ ", "");
+    var groupId =
+        SharedPref.shared.pref?.getString(PrefKeys.groupIDForBUY) ?? "";
+
     String data =
-        "billing_address_id=${widget.billingId}&payment_method=pay_by_wallet&transaction_id=$transactionId&is_wallet_used=1&wallet_amount=$amout&order_note=This is a order note.&coupan_code=${widget.couponCode}&coupan_amount";
+        "billing_address_id=${widget.billingId}&payment_method=pay_by_wallet&transaction_id=$transactionId&is_wallet_used=1&wallet_amount=$amout&order_note=This is a order note.&coupan_code=${widget.couponCode}&coupan_amount=&coin_used=0&group_id=$groupId";
 
     await cartProvider.placeOrder(data, context); // registration();
   }
