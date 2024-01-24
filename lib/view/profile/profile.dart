@@ -433,7 +433,7 @@ class _ProfileState extends State<Profile> {
                                 )
                               ],
                             ),
-                            iisSubscribed
+                            !iisSubscribed
                                 ? Container()
                                 : Positioned(
                                     bottom: 0,
@@ -616,8 +616,8 @@ class _ProfileState extends State<Profile> {
                                                               right: 60.0,
                                                               top: 15),
                                                       child: Container(
-                                                        width: size_24,
-                                                        height: size_24,
+                                                        width: size_20,
+                                                        height: size_20,
                                                         decoration:
                                                             BoxDecoration(
                                                           color: Colors.red,
@@ -769,8 +769,8 @@ class _ProfileState extends State<Profile> {
                                                               right: 60.0,
                                                               top: 15),
                                                       child: Container(
-                                                        width: size_24,
-                                                        height: size_24,
+                                                        width: size_20,
+                                                        height: size_20,
                                                         decoration:
                                                             BoxDecoration(
                                                           color: Colors.red,

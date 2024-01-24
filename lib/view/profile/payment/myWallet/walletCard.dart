@@ -125,6 +125,7 @@ Widget buildCustom(
   Color textColor = isSuccess ? Colors.green : Colors.red;
 
   return Column(
+    crossAxisAlignment: CrossAxisAlignment.end,
     children: [
       Container(
         padding: const EdgeInsets.all(10),

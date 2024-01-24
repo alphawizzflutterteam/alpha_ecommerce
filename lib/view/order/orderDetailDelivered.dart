@@ -754,28 +754,132 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text(
-                                                          user.data[0].fName,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .titleSmall!
-                                                                  .copyWith(
-                                                                    color: Theme.of(context).brightness ==
-                                                                            Brightness
-                                                                                .dark
-                                                                        ? Colors
-                                                                            .white
-                                                                        : Colors
-                                                                            .black,
+                                                        SizedBox(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width -
+                                                              100,
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                user.data[0]
+                                                                    .fName,
+                                                                style: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .titleSmall!
+                                                                    .copyWith(
+                                                                      color: Theme.of(context).brightness ==
+                                                                              Brightness
+                                                                                  .dark
+                                                                          ? Colors
+                                                                              .white
+                                                                          : Colors
+                                                                              .black,
+                                                                    ),
+                                                              ),
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .star,
+                                                                        size:
+                                                                            size_18,
+                                                                        color: Colors
+                                                                            .orange,
+                                                                      ),
+                                                                      Text(
+                                                                        detailProvider
+                                                                            .detail
+                                                                            .orderReviews[0]
+                                                                            .rating
+                                                                            .toString(),
+                                                                        style: Theme.of(context)
+                                                                            .textTheme
+                                                                            .titleSmall!
+                                                                            .copyWith(
+                                                                              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+                                                                            ),
+                                                                      ),
+                                                                    ],
                                                                   ),
+                                                                  SizedBox(
+                                                                    width:
+                                                                        size_20,
+                                                                  ),
+                                                                  Row(
+                                                                    children: [
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          rating = detailProvider
+                                                                              .detail
+                                                                              .orderReviews[0]
+                                                                              .rating!
+                                                                              .toDouble();
+                                                                          comment = detailProvider
+                                                                              .detail
+                                                                              .orderReviews[0]
+                                                                              .comment!;
+                                                                          writeReview(
+                                                                              context,
+                                                                              detailProvider.detail.products[0].productId.toString());
+                                                                        },
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .edit,
+                                                                          color: Theme.of(context).brightness == Brightness.dark
+                                                                              ? Colors.white
+                                                                              : Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            5,
+                                                                      ),
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          detailProvider.deleteReviewRequest(
+                                                                              order_id: widget.order_id,
+                                                                              context: context,
+                                                                              id: widget.order_id);
+                                                                        },
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .delete,
+                                                                          color: Theme.of(context).brightness == Brightness.dark
+                                                                              ? Colors.white
+                                                                              : Colors.black,
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                         SizedBox(
                                                           width: MediaQuery.of(
                                                                       context)
                                                                   .size
                                                                   .width -
-                                                              150,
+                                                              100,
                                                           child: Text(
                                                             detailProvider
                                                                 .detail
@@ -831,9 +935,9 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                                   fit: BoxFit
                                                                       .cover,
                                                                   height:
-                                                                      size_80,
+                                                                      size_60,
                                                                   width:
-                                                                      size_80,
+                                                                      size_60,
                                                                 ),
                                                               )
                                                             : Container()
@@ -842,105 +946,6 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                   ),
                                                 ],
                                               ),
-                                              Column(
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.star,
-                                                        size: size_18,
-                                                        color: Colors.orange,
-                                                      ),
-                                                      Text(
-                                                        detailProvider
-                                                            .detail
-                                                            .orderReviews[0]
-                                                            .rating
-                                                            .toString(),
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleSmall!
-                                                            .copyWith(
-                                                              color: Theme.of(context)
-                                                                          .brightness ==
-                                                                      Brightness
-                                                                          .dark
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                            ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: 8,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          rating =
-                                                              detailProvider
-                                                                  .detail
-                                                                  .orderReviews[
-                                                                      0]
-                                                                  .rating!
-                                                                  .toDouble();
-                                                          comment =
-                                                              detailProvider
-                                                                  .detail
-                                                                  .orderReviews[
-                                                                      0]
-                                                                  .comment!;
-                                                          writeReview(
-                                                              context,
-                                                              detailProvider
-                                                                  .detail
-                                                                  .products[0]
-                                                                  .productId
-                                                                  .toString());
-                                                        },
-                                                        child: Icon(
-                                                          Icons.edit,
-                                                          color: Theme.of(context)
-                                                                      .brightness ==
-                                                                  Brightness
-                                                                      .dark
-                                                              ? Colors.white
-                                                              : Colors.black,
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          detailProvider
-                                                              .deleteReviewRequest(
-                                                                  order_id: widget
-                                                                      .order_id,
-                                                                  context:
-                                                                      context,
-                                                                  id: widget
-                                                                      .order_id);
-                                                        },
-                                                        child: Icon(
-                                                          Icons.delete,
-                                                          color: Theme.of(context)
-                                                                      .brightness ==
-                                                                  Brightness
-                                                                      .dark
-                                                              ? Colors.white
-                                                              : Colors.black,
-                                                        ),
-                                                      )
-                                                    ],
-                                                  )
-                                                ],
-                                              )
                                             ],
                                           ),
                                         ),

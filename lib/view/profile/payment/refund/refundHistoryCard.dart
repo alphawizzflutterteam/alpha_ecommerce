@@ -4,8 +4,19 @@ import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/refund/model/refundHistoryModel.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../../../model/refund.dart';
 import '../../../../utils/color.dart';
+
+String convertTimestampToFormattedDate(String timestamp) {
+  // Parse the timestamp string into a DateTime object
+  DateTime dateTime = DateTime.parse(timestamp);
+
+  // Format the DateTime object as "dd Month name yyyy"
+  String formattedDate = DateFormat('dd MMM yyyy, h:mm a').format(dateTime);
+
+  return formattedDate;
+}
 
 refundHistoryCard({required context, required DatumRefund data}) {
   return Column(
@@ -31,7 +42,7 @@ refundHistoryCard({required context, required DatumRefund data}) {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          data.createdAt,
+                          convertTimestampToFormattedDate(data.createdAt),
                           style:
                               Theme.of(context).textTheme.titleSmall!.copyWith(
                                     color: colors.textColor,
@@ -99,16 +110,33 @@ refundHistoryCard({required context, required DatumRefund data}) {
   );
 }
 
+// Widget buildCustomButton(bool isSuccess, String status) {
+//   Color buttonColor = isSuccess ? Colors.green : Colors.red;
+//   Color textColor = isSuccess ? Colors.green : Colors.red;
+
+//   return ElevatedButton(
+//     style: ElevatedButton.styleFrom(
+//       primary: buttonColor.withOpacity(0.2),
+//       onPrimary: textColor,
+//     ),
+//     onPressed: () {},
+//     child: Text(status),
+//   );
+// }
+
 Widget buildCustomButton(bool isSuccess, String status) {
   Color buttonColor = isSuccess ? Colors.green : Colors.red;
   Color textColor = isSuccess ? Colors.green : Colors.red;
 
-  return ElevatedButton(
-    style: ElevatedButton.styleFrom(
-      primary: buttonColor.withOpacity(0.2),
-      onPrimary: textColor,
+  return Container(
+    padding: const EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      borderRadius: const BorderRadius.all(Radius.circular(5)),
+      color: buttonColor.withOpacity(0.2),
     ),
-    onPressed: () {},
-    child: Text(status),
+    child: Text(
+      status,
+      style: TextStyle(color: Colors.white),
+    ),
   );
 }

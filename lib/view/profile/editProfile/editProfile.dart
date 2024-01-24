@@ -173,9 +173,9 @@ class _EditProfileState extends State<EditProfile> {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  child: InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
+                  child: GestureDetector(
+                    // highlightColor: Colors.transparent,
+                    // splashColor: Colors.transparent,
                     onTap: () {
                       FocusManager.instance.primaryFocus?.unfocus();
                     },
@@ -368,30 +368,31 @@ class _EditProfileState extends State<EditProfile> {
                                 ? true
                                 : false,
                             decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? colors.textFieldBG
-                                  : Colors.white,
-                              labelText: "Phone",
-                              labelStyle: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .copyWith(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? colors.labelColor
-                                        : colors.textFieldBG,
-                                    fontSize:
-                                        Platform.isAndroid ? size_12 : size_14,
-                                  ),
-                              hintStyle: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .copyWith(
-                                    color: colors.labelColor,
-                                  ),
-                            ),
+                                filled: true,
+                                fillColor: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
+                                labelText: "Phone",
+                                labelStyle: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? colors.labelColor
+                                          : colors.textFieldBG,
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
+                                    ),
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      color: colors.labelColor,
+                                    ),
+                                counterText: ''),
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!

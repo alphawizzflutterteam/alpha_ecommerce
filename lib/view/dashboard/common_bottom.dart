@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -69,7 +70,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
   @override
   Widget build(BuildContext context) {
     homeProvider = Provider.of<HomeViewModel>(context);
-    print(homeProvider.cartCount + "cart COUNT");
+    var cartCount = SharedPref.shared.pref!.getString(PrefKeys.cartCount) ?? "";
+    print(cartCount.toString() + "cart COUNT");
+
     return WillPopScope(
       onWillPop: () async {
         if (_currentIndex == 2) {
@@ -144,11 +147,11 @@ class _BottomNavPageState extends State<BottomNavPage> {
                         width: homeProvider.isScrolled ? 25 : 0,
                       ),
                       Visibility(
-                        visible: homeProvider.cartCount != "",
+                        visible: cartCount != "",
                         child: Visibility(
-                          visible: homeProvider.cartCount != "",
+                          visible: cartCount != "",
                           child: Visibility(
-                            visible: homeProvider.cartCount != "0",
+                            visible: cartCount != "0",
                             child: Positioned(
                                 right: 0,
                                 // bottom: 10,
@@ -163,7 +166,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                                     minHeight: 8,
                                   ),
                                   child: Text(
-                                    homeProvider.cartCount,
+                                    cartCount!,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: size_12,

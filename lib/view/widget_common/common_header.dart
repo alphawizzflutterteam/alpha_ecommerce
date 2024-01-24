@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -173,6 +174,7 @@ class InternalDetailPageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cartCount = SharedPref.shared.pref!.getString(PrefKeys.cartCount);
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
@@ -236,19 +238,63 @@ class InternalDetailPageHeader extends StatelessWidget {
                       // Container(
                       //   width: 30,
                       // ),
-                      InkWell(
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
+                      GestureDetector(
                         onTap: () {
-                          Routes.navigateToBottomNavScreen(
-                              context, 0); // const BottomNavPage(index: 0);
+                          Routes.navigateToBottomNavScreen(context, 0);
                         },
-                        child: Image.asset(
-                          Images.headerCart,
-                          height: 30,
-                          width: 30,
-                        ),
+                        child: Stack(children: [
+                          Image.asset(
+                            Images.headerCart,
+                            height: 25,
+                            width: 25,
+                          ),
+                          Visibility(
+                            visible: cartCount != "",
+                            child: Visibility(
+                              visible: cartCount != "",
+                              child: Visibility(
+                                visible: cartCount != "0",
+                                child: Positioned(
+                                    right: 0,
+                                    // bottom: 10,
+                                    child: Container(
+                                      padding:
+                                          EdgeInsets.only(left: 3, right: 3),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      constraints: BoxConstraints(
+                                        minWidth: 8,
+                                        minHeight: 8,
+                                      ),
+                                      child: Text(
+                                        cartCount!,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: size_12,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )),
+                              ),
+                            ),
+                          )
+                        ]),
                       ),
+                      // InkWell(
+                      //   highlightColor: Colors.transparent,
+                      //   splashColor: Colors.transparent,
+                      //   onTap: () {
+                      //     Routes.navigateToBottomNavScreen(
+                      //         context, 0); // const BottomNavPage(index: 0);
+                      //   },
+                      //   child: Image.asset(
+                      //     Images.headerCart,
+                      //     height: 30,
+                      //     width: 30,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

@@ -51,7 +51,7 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
             ? colors.overlayBG
             : Colors.white,
       ),
-      height: MediaQuery.of(context).size.height * 0.6,
+      height: MediaQuery.of(context).size.height * 0.55,
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
       child: Form(
@@ -106,7 +106,7 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
                   ),
             ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             RatingBar.builder(
               initialRating: rating,
@@ -125,7 +125,7 @@ class _WriteReviewPopupState extends State<WriteReviewPopup> {
               },
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Text(
               'Description',

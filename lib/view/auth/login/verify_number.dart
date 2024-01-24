@@ -52,11 +52,9 @@ class _VerifyNumberState extends State<VerifyNumber> {
           Theme.of(context).brightness == Brightness.dark
               ? CommonBackgroundAuthWidget()
               : Container(),
-          InkWell(
-            highlightColor: Colors.transparent,
-            splashColor: Colors.transparent,
+          GestureDetector(
             onTap: () {
-              // FocusManager.instance.primaryFocus?.unfocus();
+              FocusManager.instance.primaryFocus?.unfocus();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -332,6 +330,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                             width: double.infinity,
                             child: CommonButton(
                               text: translation(context).send,
+                              colorsText: Colors.white,
                               fontSize: Platform.isAndroid ? size_17 : size_18,
                               onClick: () {
                                 Map data = {

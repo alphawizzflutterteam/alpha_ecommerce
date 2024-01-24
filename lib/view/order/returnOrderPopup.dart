@@ -73,7 +73,7 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
             height: 10,
           ),
           Text(
-            'Are you sure, that you want to return Order',
+            'Are you sure, that you want to return Order?',
             textAlign: TextAlign.center,
             style: Theme.of(context)
                 .textTheme
@@ -87,7 +87,7 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.30,
+                width: MediaQuery.of(context).size.width * 0.28,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:
@@ -121,7 +121,7 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.35,
+                width: MediaQuery.of(context).size.width * 0.37,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:
@@ -151,7 +151,7 @@ class _ReturnOrderPopupState extends State<ReturnOrderPopup> {
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontSize: Platform.isAndroid ? size_10 : size_12,
                           color: Theme.of(context).brightness == Brightness.dark
-                              ? colors.overlayBG
+                              ? Colors.white
                               : Colors.white,
                         ),
                   ),

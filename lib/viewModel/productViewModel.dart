@@ -6,6 +6,7 @@ import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/productDetail/model/productDetailModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/networkViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -217,7 +218,9 @@ class ProductDetailViewModel with ChangeNotifier {
         getDetails(context, "", slug);
 
         print(value.message);
-
+        HomeViewModel provider =
+            Provider.of<HomeViewModel>(context, listen: false);
+        provider.getProfileAPI("", context);
         return true;
       }).onError((error, stackTrace) {
         setLoading(false);
@@ -278,7 +281,9 @@ class ProductDetailViewModel with ChangeNotifier {
         } else {
           Utils.showFlushBarWithMessage("Alert", value.message, context);
         }
-
+        HomeViewModel provider =
+            Provider.of<HomeViewModel>(context, listen: false);
+        provider.getProfileAPI("", context);
         return true;
       }).onError((error, stackTrace) {
         setLoading(false);
@@ -315,7 +320,9 @@ class ProductDetailViewModel with ChangeNotifier {
         getDetails(context, data, slugProdduct);
 
         print(value.message);
-
+        HomeViewModel provider =
+            Provider.of<HomeViewModel>(context, listen: false);
+        provider.getProfileAPI("", context);
         return true;
       }).onError((error, stackTrace) {
         setLoading(false);
@@ -351,7 +358,9 @@ class ProductDetailViewModel with ChangeNotifier {
 
         Utils.showFlushBarWithMessage("Alert", value.message, context);
         getDetails(context, data, slugProdduct);
-
+        HomeViewModel provider =
+            Provider.of<HomeViewModel>(context, listen: false);
+        provider.getProfileAPI("", context);
         print(value.message);
 
         return true;

@@ -171,7 +171,7 @@ class _ChatState extends State<Chat> {
                                       ? colors.buttonColor
                                       : Colors.grey.shade600),
                                 ),
-                                padding: const EdgeInsets.all(16),
+                                padding: const EdgeInsets.all(8),
                                 child: Column(
                                   children: [
                                     Text(

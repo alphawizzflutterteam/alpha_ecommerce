@@ -57,7 +57,7 @@ specialOfferCard(SpecialOffersList model, BuildContext context,
           ),
           SizedBox(
               height: 30,
-              width: MediaQuery.of(context).size.width * 0.27,
+              width: MediaQuery.of(context).size.width * 0.28,
               child: CommonButton(
                   text: "Shop now",
                   fontSize: Platform.isAndroid ? size_10 : size_12,

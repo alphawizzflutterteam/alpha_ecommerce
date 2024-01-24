@@ -274,49 +274,88 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                   : size_14,
                                               fontWeight: FontWeight.bold),
                                     ),
-                                    LikeButton(
-                                      onTap: (isLiked) {
-                                        var isLoggedIn = SharedPref.shared.pref
-                                            ?.getString(PrefKeys.isLoggedIn);
+                                    Row(
+                                      children: [
+                                        LikeButton(
+                                          onTap: (isLiked) {
+                                            var isLoggedIn = SharedPref
+                                                .shared.pref
+                                                ?.getString(
+                                                    PrefKeys.isLoggedIn);
 
-                                        if (isLoggedIn == "1") {
-                                          Map data = {
-                                            'product_id': productModel
-                                                .model.first.id
-                                                .toString()
-                                          };
-                                          productModel.isFav =
-                                              !productModel.isFav;
-                                          if (isLiked) {
-                                            return productModel
-                                                .removeFromWishlist(
-                                                    data, context);
-                                          } else {
-                                            return productModel.addToWishlist(
-                                                data, context);
-                                          }
-                                        } else {
-                                          return AppUtils.appUtilsInstance
-                                              .nothing();
-                                        }
-                                      },
-                                      size: size_20,
-                                      isLiked: productModel.isFav,
-                                      circleColor: const CircleColor(
-                                          start: Colors.red, end: Colors.red),
-                                      bubblesColor: const BubblesColor(
-                                        dotPrimaryColor: Colors.red,
-                                        dotSecondaryColor: Colors.red,
-                                      ),
-                                      likeBuilder: (bool isLiked) {
-                                        return Icon(
-                                          Icons.favorite,
-                                          color: productModel.isFav
-                                              ? Colors.pink
-                                              : Colors.grey,
-                                          size: 20,
-                                        );
-                                      },
+                                            if (isLoggedIn == "1") {
+                                              Map data = {
+                                                'product_id': productModel
+                                                    .model.first.id
+                                                    .toString()
+                                              };
+                                              productModel.isFav =
+                                                  !productModel.isFav;
+                                              if (isLiked) {
+                                                return productModel
+                                                    .removeFromWishlist(
+                                                        data, context);
+                                              } else {
+                                                return productModel
+                                                    .addToWishlist(
+                                                        data, context);
+                                              }
+                                            } else {
+                                              return AppUtils.appUtilsInstance
+                                                  .nothing();
+                                            }
+                                          },
+                                          size: size_20,
+                                          isLiked: productModel.isFav,
+                                          circleColor: const CircleColor(
+                                              start: Colors.red,
+                                              end: Colors.red),
+                                          bubblesColor: const BubblesColor(
+                                            dotPrimaryColor: Colors.red,
+                                            dotSecondaryColor: Colors.red,
+                                          ),
+                                          likeBuilder: (bool isLiked) {
+                                            return Icon(
+                                              Icons.favorite,
+                                              color: productModel.isFav
+                                                  ? Colors.pink
+                                                  : Colors.grey,
+                                              size: 20,
+                                            );
+                                          },
+                                        ),
+                                        SizedBox(
+                                          width: size_8,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.star,
+                                              size: size_16,
+                                              color: Colors.orange,
+                                            ),
+                                            Text(
+                                              double.parse(productModel.model
+                                                      .first.average_review
+                                                      .toString())
+                                                  .toInt()
+                                                  .toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     )
                                   ],
                                 ),

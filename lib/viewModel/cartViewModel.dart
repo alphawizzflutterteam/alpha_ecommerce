@@ -74,6 +74,8 @@ class CartViewModel with ChangeNotifier {
 
       cartModel = value.data.products;
       getSavedListItem(context);
+      SharedPref.shared.pref!
+          .setString(PrefKeys.cartCount, cartModel.length.toString());
     }).onError((error, stackTrace) {
       setLoading(false);
       print(stackTrace.toString());

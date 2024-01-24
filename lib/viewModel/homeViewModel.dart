@@ -185,6 +185,8 @@ class HomeViewModel with ChangeNotifier {
       cartModel = value.data.products;
       cartCount = cartModel.length.toString();
 
+      SharedPref.shared.pref!.setString(PrefKeys.cartCount, cartCount);
+
       notifyListeners();
 
       setLoading(false);

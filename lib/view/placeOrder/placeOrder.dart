@@ -1114,138 +1114,147 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                 Theme.of(context).brightness == Brightness.dark
                                     ? colors.textFieldBG
                                     : Colors.white,
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  cartProvider.cartModel.isEmpty
-                                      ? Container()
-                                      : Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 5),
-                                          height: 50,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                cartProvider.model.data.total,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleSmall!
-                                                    .copyWith(
-                                                      fontSize:
-                                                          Platform.isAndroid
-                                                              ? size_18
-                                                              : size_20,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                                  .brightness ==
-                                                              Brightness.dark
-                                                          ? colors.textColor
-                                                          : Colors.black,
-                                                    ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    bottom: 0.0),
-                                                child: SizedBox(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            .2,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            .37,
-                                                    child: CommonButton(
-                                                      text: "PLACE ORDER",
-                                                      fontSize:
-                                                          Platform.isAndroid
-                                                              ? size_11
-                                                              : size_13,
-                                                      colorsText: Colors.white,
-                                                      onClick: () async {
-                                                        if (!addressProvider
-                                                            .addressList
-                                                            .isEmpty) {
-                                                          var billingId = SharedPref
-                                                                  .shared.pref!
-                                                                  .getString(
-                                                                      PrefKeys
-                                                                          .billingAddressID) ??
-                                                              addressProvider
-                                                                  .addressList[
-                                                                      0]
-                                                                  .id
-                                                                  .toString();
-                                                          var paymentMethod =
-                                                              "cash_on_delivery";
-                                                          String couponCode =
-                                                              cartProvider
-                                                                  .couponController
-                                                                  .text;
-                                                          var groupOd = SharedPref
-                                                                  .shared.pref!
-                                                                  .getString(
-                                                                      PrefKeys
-                                                                          .groupIDForBUY) ??
-                                                              "";
-                                                          String data =
-                                                              "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount=&coin_used=0&group_id=$groupOd";
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 16.0),
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    cartProvider.cartModel.isEmpty
+                                        ? Container()
+                                        : Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 5),
+                                            height: 50,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  cartProvider.model.data.total,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_18
+                                                                : size_20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? colors.textColor
+                                                            : Colors.black,
+                                                      ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 0.0),
+                                                  child: SizedBox(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              .2,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              .37,
+                                                      child: CommonButton(
+                                                        text: "PLACE ORDER",
+                                                        fontSize:
+                                                            Platform.isAndroid
+                                                                ? size_11
+                                                                : size_13,
+                                                        colorsText:
+                                                            Colors.white,
+                                                        onClick: () async {
+                                                          if (!addressProvider
+                                                              .addressList
+                                                              .isEmpty) {
+                                                            var billingId = SharedPref
+                                                                    .shared
+                                                                    .pref!
+                                                                    .getString(
+                                                                        PrefKeys
+                                                                            .billingAddressID) ??
+                                                                addressProvider
+                                                                    .addressList[
+                                                                        0]
+                                                                    .id
+                                                                    .toString();
+                                                            var paymentMethod =
+                                                                "cash_on_delivery";
+                                                            String couponCode =
+                                                                cartProvider
+                                                                    .couponController
+                                                                    .text;
+                                                            var groupOd = SharedPref
+                                                                    .shared
+                                                                    .pref!
+                                                                    .getString(
+                                                                        PrefKeys
+                                                                            .groupIDForBUY) ??
+                                                                "";
+                                                            String data =
+                                                                "billing_address_id=$billingId&payment_method=$paymentMethod&transaction_id=${cartProvider.generateRandomTransactionID()}&is_wallet_used=0&wallet_amount=0&order_note=This is a order note.&coupan_code=$couponCode&coupan_amount=&coin_used=0&group_id=$groupOd";
 
-                                                          var res = await cartProvider
-                                                              .checkDeliveryStatus(
-                                                                  context,
-                                                                  billingId
-                                                                      .toString());
+                                                            var res = await cartProvider
+                                                                .checkDeliveryStatus(
+                                                                    context,
+                                                                    billingId
+                                                                        .toString());
 
-                                                          print(res.toString() +
-                                                              "CHECK AVAILABILITY");
+                                                            print(res
+                                                                    .toString() +
+                                                                "CHECK AVAILABILITY");
 
-                                                          if (res) {
-                                                            Routes
-                                                                .navigateToPaymentScreen(
-                                                              context,
-                                                              data,
-                                                              billingId,
-                                                              couponCode,
-                                                              true,
-                                                              "order",
-                                                              cartProvider
-                                                                  .model
-                                                                  .data
-                                                                  .coupon_discount
-                                                                  .substring(
-                                                                      1,
-                                                                      cartProvider
-                                                                          .model
-                                                                          .data
-                                                                          .coupon_discount
-                                                                          .length),
-                                                            );
+                                                            if (res) {
+                                                              Routes
+                                                                  .navigateToPaymentScreen(
+                                                                context,
+                                                                data,
+                                                                billingId,
+                                                                couponCode,
+                                                                true,
+                                                                "order",
+                                                                cartProvider
+                                                                    .model
+                                                                    .data
+                                                                    .coupon_discount
+                                                                    .substring(
+                                                                        1,
+                                                                        cartProvider
+                                                                            .model
+                                                                            .data
+                                                                            .coupon_discount
+                                                                            .length),
+                                                              );
+                                                            } else {
+                                                              // if (res)
+                                                              //   Utils.showFlushBarWithMessage(
+                                                              //       "",
+                                                              //       "Delivery not available on this pincode.",
+                                                              //       context);
+                                                            }
                                                           } else {
-                                                            // if (res)
-                                                            //   Utils.showFlushBarWithMessage(
-                                                            //       "",
-                                                            //       "Delivery not available on this pincode.",
-                                                            //       context);
+                                                            Utils.showFlushBarWithMessage(
+                                                                "",
+                                                                "Please add address first.",
+                                                                context);
                                                           }
-                                                        } else {
-                                                          Utils.showFlushBarWithMessage(
-                                                              "",
-                                                              "Please add address first.",
-                                                              context);
-                                                        }
-                                                      },
-                                                    )),
-                                              ),
-                                            ],
+                                                        },
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),

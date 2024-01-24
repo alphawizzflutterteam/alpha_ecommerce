@@ -47,6 +47,7 @@ class PrefKeys {
   static const isLoggedIn = "isLoggedIn";
   static const userId = "userId";
   static const appTheme = 'appTheme';
+  static const cartCount = 'cartCount';
   static const jwtToken = 'jwtToken';
   static const otp = 'otp';
   static const selectedLanguageID = 'selectedLanguageID';

@@ -117,7 +117,7 @@ wishlistCard(WishlistItemProduct model, BuildContext context) {
                                     .copyWith(
                                         fontSize: Platform.isAndroid
                                             ? size_10
-                                            : size_12,
+                                            : size_11,
                                         color: Colors.cyan,
                                         fontWeight: FontWeight.w600)),
                             const SizedBox(
@@ -130,7 +130,7 @@ wishlistCard(WishlistItemProduct model, BuildContext context) {
                                     .copyWith(
                                         fontSize: Platform.isAndroid
                                             ? size_9
-                                            : size_11,
+                                            : size_10,
                                         decoration: TextDecoration.lineThrough,
                                         decorationColor: Colors.black,
                                         decorationThickness: 3,
