@@ -204,7 +204,9 @@ class _CancelApplyyBButttonState extends State<CancelApplyyBButtton> {
               child: Text(
                 "Clear filter",
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      color: Colors.white,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
                       fontSize: Platform.isAndroid ? size_10 : size_12,
                     ),
               ),

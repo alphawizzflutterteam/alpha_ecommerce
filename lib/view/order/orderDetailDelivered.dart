@@ -174,26 +174,12 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      "Payment Method - ${detailProvider.detail.payment_method ?? ""}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall!
-                                          .copyWith(
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                            fontSize: Platform.isAndroid
-                                                ? size_12
-                                                : size_14,
-                                          ),
-                                    ),
-                                    Row(
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Payment Status : ",
+                                          "Payment Method",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall!
@@ -209,21 +195,66 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                               ),
                                         ),
                                         Text(
-                                          "${detailProvider.detail.paymentStatus}",
+                                          "${detailProvider.detail.payment_method ?? ""}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall!
                                               .copyWith(
-                                                  color: detailProvider.detail
-                                                              .paymentStatus!
-                                                              .toLowerCase() ==
-                                                          "paid"
-                                                      ? Colors.green
-                                                      : Colors.red,
-                                                  fontSize: Platform.isAndroid
-                                                      ? size_13
-                                                      : size_15,
-                                                  fontWeight: FontWeight.w600),
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              "Payment Status",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_10
+                                                        : size_12,
+                                                  ),
+                                            ),
+                                            Text(
+                                              "${detailProvider.detail.paymentStatus}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                      color: detailProvider
+                                                                  .detail
+                                                                  .paymentStatus!
+                                                                  .toLowerCase() ==
+                                                              "paid"
+                                                          ? Colors.green
+                                                          : Colors.red,
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_12
+                                                              : size_14,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -264,7 +295,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "MRP (1 item)",
+                                          "MRP ",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall!
@@ -276,7 +307,8 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                               ),
                                         ),
                                         Text(
-                                          detailProvider.detail.orderAmount
+                                          detailProvider
+                                              .detail.products.first.price
                                               .toString(),
                                           style: Theme.of(context)
                                               .textTheme
@@ -296,7 +328,47 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Quantity",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                        Text(
+                                          detailProvider
+                                              .detail.products.first.qty
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 10),
                                     child: Row(
                                       mainAxisAlignment:
@@ -354,7 +426,49 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                               ),
                                         ),
                                         Text(
-                                          detailProvider.detail.discountAmount
+                                          "- " +
+                                              detailProvider
+                                                  .detail.discountAmount
+                                                  .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Tax",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                        Text(
+                                          detailProvider
+                                              .detail.products.first.tax
                                               .toString(),
                                           style: Theme.of(context)
                                               .textTheme
@@ -402,7 +516,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                       : size_14),
                                         ),
                                         Text(
-                                          detailProvider.detail.subtotal
+                                          detailProvider.detail.orderAmount
                                               .toString(),
                                           style: Theme.of(context)
                                               .textTheme
@@ -713,7 +827,7 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                             : colors.darkBG,
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(12.0),
+                                        padding: const EdgeInsets.all(8.0),
                                         child: Container(
                                           child: Row(
                                             mainAxisAlignment:
@@ -723,28 +837,6 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  Container(
-                                                    width:
-                                                        size_40, // Set your desired width
-                                                    height:
-                                                        size_40, // Set your desired height
-                                                    child: ClipOval(
-                                                      child: CachedNetworkImage(
-                                                        imageUrl:
-                                                            user.data[0].image,
-                                                        fit: BoxFit.contain,
-                                                        errorWidget: (context,
-                                                                url, error) =>
-                                                            ClipOval(
-                                                          child: Image.asset(
-                                                            Images
-                                                                .defaultProfile,
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.only(
@@ -759,28 +851,31 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                                       context)
                                                                   .size
                                                                   .width -
-                                                              100,
+                                                              65,
                                                           child: Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .spaceBetween,
                                                             children: [
-                                                              Text(
-                                                                user.data[0]
-                                                                    .fName,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .titleSmall!
-                                                                    .copyWith(
-                                                                      color: Theme.of(context).brightness ==
-                                                                              Brightness
-                                                                                  .dark
-                                                                          ? Colors
-                                                                              .white
-                                                                          : Colors
-                                                                              .black,
-                                                                    ),
+                                                              SizedBox(
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width -
+                                                                    220,
+                                                                child: Text(
+                                                                  "My Review",
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .titleSmall!
+                                                                      .copyWith(
+                                                                        color: Theme.of(context).brightness ==
+                                                                                Brightness.dark
+                                                                            ? Colors.white
+                                                                            : Colors.black,
+                                                                      ),
+                                                                ),
                                                               ),
                                                               Row(
                                                                 mainAxisAlignment:
@@ -875,11 +970,14 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                           ),
                                                         ),
                                                         SizedBox(
+                                                          height: 8,
+                                                        ),
+                                                        SizedBox(
                                                           width: MediaQuery.of(
                                                                       context)
                                                                   .size
                                                                   .width -
-                                                              100,
+                                                              70,
                                                           child: Text(
                                                             detailProvider
                                                                 .detail
@@ -906,41 +1004,81 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                                 .orderReviews[0]
                                                                 .attachment
                                                                 .isNotEmpty
-                                                            ? GestureDetector(
-                                                                onTap: () {
-                                                                  showDialog(
-                                                                    context:
-                                                                        context,
-                                                                    builder:
-                                                                        (BuildContext
-                                                                            context) {
-                                                                      return FullImageDialog(
-                                                                        image: detailProvider
-                                                                            .detail
-                                                                            .orderReviews[0]
-                                                                            .attachment
-                                                                            .first,
+                                                            ? Align(
+                                                                alignment: Alignment
+                                                                    .bottomRight,
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .only(
+                                                                          top:
+                                                                              5.0),
+                                                                  child:
+                                                                      GestureDetector(
+                                                                    onTap: () {
+                                                                      showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (BuildContext
+                                                                                context) {
+                                                                          return FullImageDialog(
+                                                                            image:
+                                                                                detailProvider.detail.orderReviews[0].attachment.first,
+                                                                          );
+                                                                        },
                                                                       );
                                                                     },
-                                                                  );
-                                                                },
-                                                                child: Image
-                                                                    .network(
-                                                                  detailProvider
-                                                                      .detail
-                                                                      .orderReviews[
-                                                                          0]
-                                                                      .attachment
-                                                                      .first,
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                  height:
-                                                                      size_60,
-                                                                  width:
-                                                                      size_60,
+                                                                    child: Text(
+                                                                      "View Attachment",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              Colors.red),
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                               )
-                                                            : Container()
+                                                            : Container(),
+                                                        // detailProvider
+                                                        //         .detail
+                                                        //         .orderReviews[0]
+                                                        //         .attachment
+                                                        //         .isNotEmpty
+                                                        //     ? GestureDetector(
+                                                        //         onTap: () {
+                                                        //           showDialog(
+                                                        //             context:
+                                                        //                 context,
+                                                        //             builder:
+                                                        //                 (BuildContext
+                                                        //                     context) {
+                                                        //               return FullImageDialog(
+                                                        //                 image: detailProvider
+                                                        //                     .detail
+                                                        //                     .orderReviews[0]
+                                                        //                     .attachment
+                                                        //                     .first,
+                                                        //               );
+                                                        //             },
+                                                        //           );
+                                                        //         },
+                                                        //         child: Image
+                                                        //             .network(
+                                                        //           detailProvider
+                                                        //               .detail
+                                                        //               .orderReviews[
+                                                        //                   0]
+                                                        //               .attachment
+                                                        //               .first,
+                                                        //           fit: BoxFit
+                                                        //               .cover,
+                                                        //           height:
+                                                        //               size_60,
+                                                        //           width:
+                                                        //               size_60,
+                                                        //         ),
+                                                        //       )
+                                                        //     : Container()
                                                       ],
                                                     ),
                                                   ),
@@ -953,16 +1091,16 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                     ),
                                   ),
                             const SizedBox(
-                              height: 20,
+                              height: 0,
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 20),
+                                  horizontal: 20, vertical: 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Arrived " +
+                                    "Delivered " +
                                         detailProvider
                                             .detail.expectedDeliveryDate!,
                                     style: Theme.of(context)
@@ -972,11 +1110,11 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                             color: colors.buttonColor,
                                             fontSize: 25),
                                   ),
-                                  const SizedBox(height: 20),
+                                  const SizedBox(height: 0),
                                   detailProvider.detail.expectedDeliveryDate ==
                                           ""
                                       ? Container()
-                                      : const SizedBox(height: 20),
+                                      : const SizedBox(height: 15),
                                   for (int i = 0;
                                       i <
                                           detailProvider
@@ -992,6 +1130,8 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
                                               Icon(Icons.check_circle,
                                                   color: detailProvider
@@ -1008,14 +1148,47 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                               .status!
                                                               .toLowerCase()
                                                               .contains("pend")
-                                                          ? Colors.orange
-                                                          : colors.buttonColor),
+                                                          ? Colors.orangeAccent
+                                                          : detailProvider
+                                                                  .detail
+                                                                  .orderStatusHistory[
+                                                                      i]
+                                                                  .status!
+                                                                  .toLowerCase()
+                                                                  .contains(
+                                                                      "confir")
+                                                              ? Colors.orange
+                                                              : detailProvider
+                                                                      .detail
+                                                                      .orderStatusHistory[
+                                                                          i]
+                                                                      .status!
+                                                                      .toLowerCase()
+                                                                      .contains(
+                                                                          "pack")
+                                                                  ? Colors
+                                                                      .lightBlue
+                                                                  : detailProvider
+                                                                          .detail
+                                                                          .orderStatusHistory[
+                                                                              i]
+                                                                          .status!
+                                                                          .toLowerCase()
+                                                                          .contains(
+                                                                              "ship")
+                                                                      ? Colors
+                                                                          .lightGreen
+                                                                      : detailProvider.detail.orderStatusHistory[i].status!.toLowerCase().contains("out for")
+                                                                          ? Colors.greenAccent
+                                                                          : colors.buttonColor),
                                               SizedBox(
                                                 width: 10,
                                               ),
-                                              Column(
+                                              Row(
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Text(
                                                     detailProvider
@@ -1027,33 +1200,36 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                                         .textTheme
                                                         .titleSmall!
                                                         .copyWith(
-                                                          color: Theme.of(context)
-                                                                      .brightness ==
-                                                                  Brightness
-                                                                      .dark
-                                                              ? Colors.white
-                                                              : Colors.black,
-                                                        ),
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? Colors.white
+                                                                : Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
                                                   ),
                                                   Text(
-                                                    convertTimestampToFormattedDate(
-                                                        detailProvider
-                                                            .detail
-                                                            .orderStatusHistory[
-                                                                i]
-                                                            .updatedAt
-                                                            .toString()),
+                                                    " " +
+                                                        convertTimestampToFormattedDate(
+                                                            detailProvider
+                                                                .detail
+                                                                .orderStatusHistory[
+                                                                    i]
+                                                                .updatedAt
+                                                                .toString()),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .titleSmall!
                                                         .copyWith(
-                                                          color: Theme.of(context)
-                                                                      .brightness ==
-                                                                  Brightness
-                                                                      .dark
-                                                              ? Colors.white
-                                                              : Colors.black,
-                                                        ),
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? Colors.white
+                                                                : Colors.black,
+                                                            fontSize: 10),
                                                   ),
                                                 ],
                                               )
@@ -1069,12 +1245,12 @@ class _OrderDetailDeliveredState extends State<OrderDetailDelivered> {
                                               : Container(
                                                   padding: const EdgeInsets
                                                       .symmetric(horizontal: 4),
-                                                  height: 50,
+                                                  height: 40,
                                                   child: const VerticalDivider(
                                                     color: Colors.grey,
-                                                    thickness: 1.2,
-                                                    indent: 2,
-                                                    endIndent: 2,
+                                                    thickness: 1.6,
+                                                    indent: 1,
+                                                    endIndent: 1,
                                                   ),
                                                 ),
                                         ],

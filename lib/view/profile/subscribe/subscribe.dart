@@ -5,6 +5,7 @@ import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/routes.dart';
@@ -49,6 +50,15 @@ class _SubscribeState extends State<Subscribe> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isYearlyTabSelected = true;
+  String convertTimestampToFormattedDate(String timestamp) {
+    // Parse the timestamp string into a DateTime object
+    DateTime dateTime = DateTime.parse(timestamp);
+
+    // Format the DateTime object as "dd Month name yyyy"
+    String formattedDate = DateFormat('dd MMM yyyy').format(dateTime);
+
+    return formattedDate;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -367,34 +377,37 @@ class _SubscribeState extends State<Subscribe> {
                                                             ),
                                                           ],
                                                         ),
-                                                        Text(
-                                                          isYearlyTabSelected
-                                                              ? subscriptionProvider
-                                                                  .subscriptionList[
-                                                                      0]
-                                                                  .yearly[index]
-                                                                  .createdAt
-                                                                  .toString()
-                                                              : subscriptionProvider
-                                                                  .subscriptionList[
-                                                                      0]
-                                                                  .monthly[
-                                                                      index]
-                                                                  .createdAt
-                                                                  .toString(),
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .titleSmall!
-                                                                  .copyWith(
-                                                                    fontSize: Platform
-                                                                            .isAndroid
-                                                                        ? size_10
-                                                                        : size_12,
-                                                                    color: Colors
-                                                                        .white,
-                                                                  ),
-                                                        )
+                                                        // Text(
+                                                        //   isYearlyTabSelected
+                                                        //       ? "2" +
+                                                        //           convertTimestampToFormattedDate(subscriptionProvider
+                                                        //               .subscriptionList[
+                                                        //                   0]
+                                                        //               .yearly[
+                                                        //                   index]
+                                                        //               .createdAt
+                                                        //               .toString())
+                                                        //       : "2" +
+                                                        //           convertTimestampToFormattedDate(subscriptionProvider
+                                                        //               .subscriptionList[
+                                                        //                   0]
+                                                        //               .monthly[
+                                                        //                   index]
+                                                        //               .createdAt
+                                                        //               .toString()),
+                                                        //   style:
+                                                        //       Theme.of(context)
+                                                        //           .textTheme
+                                                        //           .titleSmall!
+                                                        //           .copyWith(
+                                                        //             fontSize: Platform
+                                                        //                     .isAndroid
+                                                        //                 ? size_10
+                                                        //                 : size_12,
+                                                        //             color: Colors
+                                                        //                 .white,
+                                                        //           ),
+                                                        // )
                                                       ],
                                                     )
                                                   : UpgradePlanWidget(

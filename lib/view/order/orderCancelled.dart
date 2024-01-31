@@ -274,7 +274,48 @@ class _OrderCancelledState extends State<OrderCancelled> {
                                               ),
                                         ),
                                         Text(
-                                          detailProvider.detail.subtotal
+                                          detailProvider
+                                              .detail.products.first.price
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Quantity",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                        Text(
+                                          detailProvider
+                                              .detail.products.first.qty
                                               .toString(),
                                           style: Theme.of(context)
                                               .textTheme
@@ -356,6 +397,46 @@ class _OrderCancelledState extends State<OrderCancelled> {
                                               detailProvider
                                                   .detail.discountAmount
                                                   .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Tax",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                        Text(
+                                          detailProvider
+                                              .detail.products.first.tax
+                                              .toString(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall!

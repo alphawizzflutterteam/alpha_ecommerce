@@ -35,6 +35,7 @@ class Cart extends StatefulWidget {
 class _CartState extends State<Cart> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late CartViewModel cartProvider;
+  late HomeViewModel chomeProvider;
   late AddressViewModel addressProvider;
   bool apiHitted = false;
   final ScrollController scrollController = ScrollController();
@@ -43,6 +44,9 @@ class _CartState extends State<Cart> {
     super.initState();
     cartProvider = Provider.of<CartViewModel>(context, listen: false);
     addressProvider = Provider.of<AddressViewModel>(context, listen: false);
+    chomeProvider = Provider.of<HomeViewModel>(context, listen: false);
+    chomeProvider.isScrolled = true;
+
     callAddress();
 
     SharedPref.shared.pref!.setString(PrefKeys.groupIDForBUY, "");
@@ -76,7 +80,10 @@ class _CartState extends State<Cart> {
     bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
 
     cartProvider = Provider.of<CartViewModel>(context);
+    chomeProvider = Provider.of<HomeViewModel>(context);
     addressProvider = Provider.of<AddressViewModel>(context);
+    chomeProvider.isScrolled = true;
+    print(chomeProvider.isScrolled.toString());
     if (cartProvider.couponController.text == "") {}
     if (addressProvider.addressList.isEmpty && !apiHitted) {
       if (cartProvider.isLoading) {

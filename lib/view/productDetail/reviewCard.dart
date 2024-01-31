@@ -45,16 +45,20 @@ reviewCard(Review rating, BuildContext context) {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      rating.customer.name == ""
-                          ? "Anonyms"
-                          : rating.customer.name,
-                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                          ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width - 220,
+                      child: Text(
+                        rating.customer.name == ""
+                            ? "Anonyms"
+                            : rating.customer.name,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                      ),
                     ),
                     RatingBar.builder(
                       initialRating: rating.rating.toDouble(),

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/address/model/addressModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
 import 'package:flutter/material.dart';
@@ -583,6 +584,8 @@ class _EditAddressState extends State<EditAddress> {
                                     addressProvider.getCity(
                                         context,
                                         addressProvider.stateList[i].id
+                                            .toString(),
+                                        addressProvider.stateList[i].name
                                             .toString());
                                   }
                                 }
@@ -747,34 +750,88 @@ class _EditAddressState extends State<EditAddress> {
                                 fontSize:
                                     Platform.isAndroid ? size_12 : size_14,
                                 onClick: () async {
-                                  Map data = {
-                                    'id': addressProvider.id,
-                                    "contact_person_name":
-                                        addressProvider.nameController.text,
-                                    "phone":
-                                        addressProvider.mobileController.text,
-                                    "alt_phone": addressProvider
-                                        .alternateMobileController.text,
-                                    "address":
-                                        addressProvider.houseController.text,
-                                    "address1":
-                                        addressProvider.roadController.text,
-                                    "country":
-                                        addressProvider.countryController.text,
-                                    "state":
-                                        addressProvider.stateController.text,
-                                    "city": addressProvider.cityController.text,
-                                    "zip":
-                                        addressProvider.pinCodeController.text,
-                                    "latitude":
-                                        addressProvider.latitude.toString(),
-                                    "longitude":
-                                        addressProvider.longitude.toString(),
-                                    "address_type": selectedOption,
-                                    "is_billing": "1"
-                                  };
-                                  await addressProvider.updateAddress(
-                                      context, data);
+                                  if (addressProvider
+                                      .nameController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid name!!!", context);
+                                  } else if (addressProvider
+                                      .mobileController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid mobile!!!", context);
+                                  } else if (addressProvider
+                                      .houseController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid house number!!!", context);
+                                  } else if (addressProvider
+                                      .roadController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid road name!!!", context);
+                                  } else if (addressProvider
+                                      .roadController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid road name!!!", context);
+                                  } else if (addressProvider
+                                      .countryController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid country name!!!", context);
+                                  } else if (addressProvider
+                                      .stateController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid state name!!!", context);
+                                  } else if (addressProvider
+                                      .cityController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid city name!!!", context);
+                                  } else if (addressProvider
+                                          .pinCodeController.text.isEmpty ||
+                                      addressProvider
+                                              .pinCodeController.text.length <
+                                          6) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid pin code!!!", context);
+                                  } else if (addressProvider
+                                      .alternateMobileController.text
+                                      .trim()
+                                      .isNotEmpty) {
+                                    if (addressProvider
+                                            .alternateMobileController
+                                            .text
+                                            .length <
+                                        10)
+                                      addressProvider.showAlert(
+                                          context, "Alternate mobile number");
+                                    return;
+                                  } else {
+                                    Map data = {
+                                      'id': addressProvider.id,
+                                      "contact_person_name":
+                                          addressProvider.nameController.text,
+                                      "phone":
+                                          addressProvider.mobileController.text,
+                                      "alt_phone": addressProvider
+                                          .alternateMobileController.text,
+                                      "address":
+                                          addressProvider.houseController.text,
+                                      "address1":
+                                          addressProvider.roadController.text,
+                                      "country": addressProvider
+                                          .countryController.text,
+                                      "state":
+                                          addressProvider.stateController.text,
+                                      "city":
+                                          addressProvider.cityController.text,
+                                      "zip": addressProvider
+                                          .pinCodeController.text,
+                                      "latitude":
+                                          addressProvider.latitude.toString(),
+                                      "longitude":
+                                          addressProvider.longitude.toString(),
+                                      "address_type": selectedOption,
+                                      "is_billing": "1"
+                                    };
+                                    await addressProvider.updateAddress(
+                                        context, data);
+                                  }
                                 })),
                       ),
                     ),

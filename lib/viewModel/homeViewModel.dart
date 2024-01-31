@@ -131,7 +131,7 @@ class HomeViewModel with ChangeNotifier {
     await _myRepo.categoryListRequest(AppUrl.categories).then((value) {
       categoriesModel = value.data!;
       notifyListeners();
-      print(categoriesModel.length.toString());
+      print(categoriesModel.length.toString() + "Categoryy lengtgh");
       setLoading(false);
     }).onError((error, stackTrace) {
       categoriesModel.clear();
@@ -148,6 +148,7 @@ class HomeViewModel with ChangeNotifier {
         .then((value) {
       categoriesModel = value.data!;
       notifyListeners();
+      print(categoriesModel.length.toString() + "Categoryy lengtgh");
 
       setLoading(false);
     }).onError((error, stackTrace) {
@@ -311,6 +312,7 @@ class HomeViewModel with ChangeNotifier {
 
       if (value.message == "Successfully added!") {
         Utils.showFlushBarWithMessage("Alert", value.message, context);
+        getCartListItem(context);
       } else {
         Utils.showFlushBarWithMessage("Alert", value.message, context);
       }

@@ -74,7 +74,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ),
               ),
               provider.isLoading
-                  ? appLoader()
+                  ? Column(
+                      children: [
+                        Center(
+                          child: appLoader(),
+                        ),
+                      ],
+                    )
                   : provider.notificationList.isEmpty
                       ? Center(
                           child: Column(

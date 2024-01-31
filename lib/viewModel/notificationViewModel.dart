@@ -6,6 +6,7 @@ import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/categoryModel.dart';
 import 'package:alpha_ecommerce_18oct/view/notification/model/notificationModel.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/model/vendorModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/networkViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -70,6 +71,9 @@ class NotificationViewModel with ChangeNotifier {
               AppUrl.notificationsRead + id + "&all=" + forall, token)
           .then((value) {
         getNotificationlist(context);
+        HomeViewModel homeProvider =
+            Provider.of<HomeViewModel>(context, listen: false);
+        homeProvider.getProfileAPI("", context);
         // setLoading(false);
 
         notifyListeners();

@@ -35,8 +35,6 @@ class CouponViewModel with ChangeNotifier {
         couponModel = value.data;
         notifyListeners();
 
-        // print(couponModel.length.toString() + "Coupon List");
-
         setLoading(false);
       }).onError((error, stackTrace) {
         setLoading(false);

@@ -362,7 +362,7 @@ class _VendorDetailsState extends State<VendorDetails> {
                               children: [
                                 SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height * 0.7,
+                                      MediaQuery.of(context).size.height * 0.52,
                                   width:
                                       MediaQuery.of(context).size.width * 0.32,
                                   child: ListView.builder(

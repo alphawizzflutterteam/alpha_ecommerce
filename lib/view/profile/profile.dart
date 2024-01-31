@@ -254,24 +254,33 @@ class _ProfileState extends State<Profile> {
                                                               MainAxisAlignment
                                                                   .spaceBetween,
                                                           children: [
-                                                            Text(
-                                                              name,
-                                                              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                                                  color: Theme.of(context)
-                                                                              .brightness ==
-                                                                          Brightness
-                                                                              .dark
-                                                                      ? Colors
-                                                                          .white
-                                                                      : Colors
-                                                                          .black,
-                                                                  fontSize: Platform
-                                                                          .isAndroid
-                                                                      ? size_16
-                                                                      : size_18,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
+                                                            SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  0.45,
+                                                              child: Text(
+                                                                name,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                                                    color: Theme.of(context).brightness ==
+                                                                            Brightness
+                                                                                .dark
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Colors
+                                                                            .black,
+                                                                    fontSize: Platform
+                                                                            .isAndroid
+                                                                        ? size_16
+                                                                        : size_18,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
                                                             ),
                                                             Container(
                                                               width: 30,

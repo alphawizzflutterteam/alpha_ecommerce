@@ -357,7 +357,48 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                               ),
                                         ),
                                         Text(
-                                          detailProvider.detail.subtotal
+                                          detailProvider
+                                              .detail.products.first.price
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Quantity",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                        Text(
+                                          detailProvider
+                                              .detail.products.first.qty
                                               .toString(),
                                           style: Theme.of(context)
                                               .textTheme
@@ -439,6 +480,46 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                               detailProvider
                                                   .detail.discountAmount
                                                   .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Tax",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: colors.greyText,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
+                                        ),
+                                        Text(
+                                          detailProvider
+                                              .detail.products.first.tax
+                                              .toString(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall!
@@ -690,6 +771,8 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
                                               Icon(Icons.check_circle,
                                                   color: detailProvider
@@ -706,7 +789,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                               .status!
                                                               .toLowerCase()
                                                               .contains("pend")
-                                                          ? Colors.orange
+                                                          ? Colors.orangeAccent
                                                           : detailProvider
                                                                   .detail
                                                                   .orderStatusHistory[
@@ -714,27 +797,39 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                                   .status!
                                                                   .toLowerCase()
                                                                   .contains(
-                                                                      "pack")
-                                                              ? Color.fromARGB(
-                                                                  255,
-                                                                  226,
-                                                                  152,
-                                                                  42)
+                                                                      "confir")
+                                                              ? Colors.orange
                                                               : detailProvider
                                                                       .detail
                                                                       .orderStatusHistory[
                                                                           i]
                                                                       .status!
                                                                       .toLowerCase()
-                                                                      .contains("confir")
-                                                                  ? Color.fromARGB(255, 243, 154, 21)
-                                                                  : colors.buttonColor),
+                                                                      .contains(
+                                                                          "pack")
+                                                                  ? Colors
+                                                                      .lightBlue
+                                                                  : detailProvider
+                                                                          .detail
+                                                                          .orderStatusHistory[
+                                                                              i]
+                                                                          .status!
+                                                                          .toLowerCase()
+                                                                          .contains(
+                                                                              "ship")
+                                                                      ? Colors
+                                                                          .lightGreen
+                                                                      : detailProvider.detail.orderStatusHistory[i].status!.toLowerCase().contains("out for")
+                                                                          ? Colors.greenAccent
+                                                                          : colors.buttonColor),
                                               SizedBox(
                                                 width: 10,
                                               ),
-                                              Column(
+                                              Row(
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Text(
                                                     detailProvider
@@ -746,22 +841,25 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                         .textTheme
                                                         .titleSmall!
                                                         .copyWith(
-                                                          color: Theme.of(context)
-                                                                      .brightness ==
-                                                                  Brightness
-                                                                      .dark
-                                                              ? Colors.white
-                                                              : Colors.black,
-                                                        ),
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? Colors.white
+                                                                : Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
                                                   ),
                                                   Text(
-                                                    convertTimestampToFormattedDate(
-                                                        detailProvider
-                                                            .detail
-                                                            .orderStatusHistory[
-                                                                i]
-                                                            .updatedAt
-                                                            .toString()),
+                                                    " " +
+                                                        convertTimestampToFormattedDate(
+                                                            detailProvider
+                                                                .detail
+                                                                .orderStatusHistory[
+                                                                    i]
+                                                                .updatedAt
+                                                                .toString()),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .titleSmall!
@@ -792,8 +890,8 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                                                   child: const VerticalDivider(
                                                     color: Colors.grey,
                                                     thickness: 1.2,
-                                                    indent: 0,
-                                                    endIndent: 0,
+                                                    indent: 1,
+                                                    endIndent: 1,
                                                   ),
                                                 ),
                                         ],

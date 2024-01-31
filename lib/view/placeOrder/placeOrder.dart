@@ -22,7 +22,8 @@ import '../widget_common/toast_message.dart';
 import '../profile/common_header.dart';
 
 class PlaceOrder extends StatefulWidget {
-  PlaceOrder({Key? key}) : super(key: key);
+  final String quantityy;
+  PlaceOrder({Key? key, required this.quantityy}) : super(key: key);
 
   @override
   State<PlaceOrder> createState() => _PlaceOrderState();
@@ -540,7 +541,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                                           .totalItems) <
                                                       2
                                                   ? Text(
-                                                      "MRP (${cartProvider.model.data.totalItems} item)",
+                                                      "MRP (${widget.quantityy} items)",
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .titleSmall!

@@ -267,10 +267,7 @@ class AddressViewModel with ChangeNotifier {
 
               selectedCountry = countryList[i].name;
               countryController.text = selectedCountry;
-              getStates(
-                context,
-                countryList[i].id.toString(),
-              );
+              getStates(context, countryList[i].id.toString(), selectedCountry);
             }
           }
 
@@ -316,7 +313,7 @@ class AddressViewModel with ChangeNotifier {
         if (stateList.isNotEmpty) {
           selectedState = stateList[0].name!;
           stateController.text = selectedState;
-          getCity(context, stateList[0].id.toString());
+          getCity(context, stateList[0].id.toString(), selectedState);
         } else {
           selectedCity = "Select a city";
           selectedState = "Select a state";
@@ -339,9 +336,11 @@ class AddressViewModel with ChangeNotifier {
   Future<void> getStates(
     BuildContext context,
     String data,
+    String countryName,
   ) async {
     setLoading(true);
 
+    countryController.text = countryName;
     NetworkViewModel networkProvider =
         Provider.of<NetworkViewModel>(context, listen: false);
 
@@ -360,7 +359,7 @@ class AddressViewModel with ChangeNotifier {
             if (stateList[i].name.toString() == stateController.text) {
               selectedState = stateList[i].name!;
               stateController.text = selectedState;
-              getCity(context, stateList[i].id.toString());
+              getCity(context, stateList[i].id.toString(), stateList[i].name!);
             }
           }
         } else {
@@ -382,10 +381,12 @@ class AddressViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> getCity(BuildContext context, String data) async {
+  Future<void> getCity(
+      BuildContext context, String data, String statename) async {
     setLoading(true);
     NetworkViewModel networkProvider =
         Provider.of<NetworkViewModel>(context, listen: false);
+    stateController.text = statename;
 
     var isInternetAvailable = await networkProvider.checkInternetAvailability();
     if (!isInternetAvailable) {
@@ -397,6 +398,8 @@ class AddressViewModel with ChangeNotifier {
         cityList = value.data;
         if (cityList.isNotEmpty) {
           selectedCity = cityList[0].name!;
+          cityController.text = selectedCity;
+
           //  cityController.text = selectedCity;
           for (int i = 0; i < cityList.length; i++) {
             if (cityList[i].name.toString() == cityController.text) {

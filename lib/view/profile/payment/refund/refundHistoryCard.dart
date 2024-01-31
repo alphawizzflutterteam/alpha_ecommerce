@@ -45,7 +45,10 @@ refundHistoryCard({required context, required DatumRefund data}) {
                           convertTimestampToFormattedDate(data.createdAt),
                           style:
                               Theme.of(context).textTheme.titleSmall!.copyWith(
-                                    color: colors.textColor,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.textColor
+                                        : Colors.black,
                                     fontSize:
                                         Platform.isAndroid ? size_10 : size_12,
                                   ),
@@ -59,14 +62,17 @@ refundHistoryCard({required context, required DatumRefund data}) {
                               .textTheme
                               .titleSmall!
                               .copyWith(
-                                  color: Colors.white,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
                                   fontSize:
                                       Platform.isAndroid ? size_18 : size_20),
                         )
                       ],
                     ),
-                    buildCustomButton(
-                        data.status.toLowerCase() == "success", data.status),
+                    buildCustomButton(data.status.toLowerCase() == "success",
+                        data.status, context),
                   ],
                 ),
                 const SizedBox(
@@ -75,7 +81,9 @@ refundHistoryCard({required context, required DatumRefund data}) {
                 Text(
                   "Transaction ID",
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                        color: colors.textColor,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? colors.textColor
+                            : Colors.black,
                         fontSize: Platform.isAndroid ? size_10 : size_12,
                       ),
                 ),
@@ -85,7 +93,9 @@ refundHistoryCard({required context, required DatumRefund data}) {
                 Text(
                   data.orderId.toString(),
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      color: Colors.white,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
                       fontSize: Platform.isAndroid ? size_14 : size_14),
                 )
               ],
@@ -96,10 +106,12 @@ refundHistoryCard({required context, required DatumRefund data}) {
       const SizedBox(
         height: 20,
       ),
-      const Padding(
+      Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Divider(
-          color: Colors.white,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.white
+              : Colors.black,
           height: 1,
         ),
       ),
@@ -124,7 +136,7 @@ refundHistoryCard({required context, required DatumRefund data}) {
 //   );
 // }
 
-Widget buildCustomButton(bool isSuccess, String status) {
+Widget buildCustomButton(bool isSuccess, String status, BuildContext context) {
   Color buttonColor = isSuccess ? Colors.green : Colors.red;
   Color textColor = isSuccess ? Colors.green : Colors.red;
 
@@ -136,7 +148,11 @@ Widget buildCustomButton(bool isSuccess, String status) {
     ),
     child: Text(
       status,
-      style: TextStyle(color: Colors.white),
+      style: TextStyle(
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Colors.white
+            : Colors.black,
+      ),
     ),
   );
 }

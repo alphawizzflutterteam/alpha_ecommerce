@@ -55,7 +55,7 @@ class _AboutUsState extends State<AboutUs> {
                   Align(
                     alignment: Alignment.topCenter,
                     child: Container(
-                      padding: const EdgeInsets.only(top: 35),
+                      padding: const EdgeInsets.only(top: 50),
                       height: 100,
                       child: Center(
                         child: Row(

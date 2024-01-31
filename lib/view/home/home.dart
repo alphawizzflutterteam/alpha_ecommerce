@@ -85,8 +85,9 @@ class _HomeState extends State<Home> {
   }
 
   callApis() async {
-    await homeProvider.getHomeBanners(context);
     await homeProvider.getCategoriesList(context, 1);
+
+    await homeProvider.getHomeBanners(context);
     await homeProvider.getBannersList(context);
 
     searchProvider.selectedIndexFromHome = 0;
@@ -519,6 +520,8 @@ class _HomeState extends State<Home> {
                                                   Colors.transparent,
                                               splashColor: Colors.transparent,
                                               onTap: () {
+                                                homeProvider.isScrolled = true;
+                                                setState(() {});
                                                 Routes
                                                     .navigateToBottomNavScreen(
                                                         context, 0);

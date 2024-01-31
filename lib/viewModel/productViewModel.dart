@@ -20,6 +20,8 @@ class ProductDetailViewModel with ChangeNotifier {
   bool isCart = false;
   bool isFav = false;
   bool isFollowing = false;
+  int selectedQuantity = 0;
+  int availableQuantity = 0;
 
   List<String> imageList = [];
   List<Variation> variationList = [];
@@ -43,6 +45,24 @@ class ProductDetailViewModel with ChangeNotifier {
   setFolllowing(bool value) {
     isFollowing = value;
     notifyListeners();
+  }
+
+  updateQuantityy(bool forAdd, BuildContext context) {
+    if (forAdd) {
+      if (selectedQuantity < availableQuantity) {
+        selectedQuantity++;
+        notifyListeners();
+      } else {
+        Utils.showFlushBarWithMessage(
+            "", "You can't add more than available quantity", context);
+      }
+    } else {
+      if (selectedQuantity == 1) {
+      } else {
+        selectedQuantity--;
+        notifyListeners();
+      }
+    }
   }
 
   Future<void> getDetails(
@@ -69,7 +89,10 @@ class ProductDetailViewModel with ChangeNotifier {
         slugProdduct = productName;
         model = value.products!;
         selectedPrice = model.first.specialPrice;
-
+        availableQuantity = model.first.currentStock;
+        if (availableQuantity != 0) {
+          selectedQuantity = 1;
+        }
         try {
           for (int i = 0; i < model.first.choiceOptions.length; i++) {
             Map<String, String> map = {
@@ -220,7 +243,10 @@ class ProductDetailViewModel with ChangeNotifier {
         print(value.message);
         HomeViewModel provider =
             Provider.of<HomeViewModel>(context, listen: false);
+
         provider.getProfileAPI("", context);
+        provider.getCartListItem(context);
+
         return true;
       }).onError((error, stackTrace) {
         setLoading(false);
@@ -273,7 +299,8 @@ class ProductDetailViewModel with ChangeNotifier {
           SharedPref.shared.pref!
               .setString(PrefKeys.groupIDForBUY, value.group_id);
           if (isComingForBuy) {
-            Routes.navigateToPlaceOrderScreen(context);
+            Routes.navigateToPlaceOrderScreen(
+                context, selectedQuantity.toString());
           } else {
             getDetails(context, "", slug);
             Utils.showFlushBarWithMessage("Alert", value.message, context);
@@ -284,6 +311,7 @@ class ProductDetailViewModel with ChangeNotifier {
         HomeViewModel provider =
             Provider.of<HomeViewModel>(context, listen: false);
         provider.getProfileAPI("", context);
+        provider.getCartListItem(context);
         return true;
       }).onError((error, stackTrace) {
         setLoading(false);

@@ -653,6 +653,8 @@ class _ManageAddressState extends State<ManageAddress> {
                                     addressProvider.getCity(
                                         context,
                                         addressProvider.stateList[i].id
+                                            .toString(),
+                                        addressProvider.stateList[i].name
                                             .toString());
                                   }
                                 }
@@ -845,49 +847,70 @@ class _ManageAddressState extends State<ManageAddress> {
                                     "address_type": selectedOption,
                                     "is_billing": "1"
                                   };
-                                  if (addressProvider.nameController.text ==
+                                  if (addressProvider.nameController.text
+                                          .trim() ==
                                       "") {
                                     addressProvider.showAlert(context, "Name");
                                     return;
                                   } else if (addressProvider
-                                          .mobileController.text ==
+                                          .mobileController.text
+                                          .trim() ==
                                       "") {
                                     addressProvider.showAlert(
                                         context, "Mobile Number");
                                     return;
                                   } else if (addressProvider
-                                          .houseController.text ==
+                                          .houseController.text
+                                          .trim() ==
                                       "") {
                                     addressProvider.showAlert(
                                         context, "House number");
                                     return;
-                                  } else if (addressProvider
-                                          .roadController.text ==
+                                  } else if (addressProvider.roadController.text
+                                          .trim() ==
                                       "") {
                                     addressProvider.showAlert(
                                         context, "Road name");
                                     return;
                                   } else if (addressProvider
-                                          .countryController.text ==
+                                          .countryController.text
+                                          .trim() ==
                                       "") {
                                     addressProvider.showAlert(
                                         context, "Country name");
                                     return;
                                   } else if (addressProvider
-                                          .stateController.text ==
+                                          .stateController.text
+                                          .trim() ==
                                       "") {
                                     addressProvider.showAlert(
                                         context, "State name");
                                     return;
                                   } else if (addressProvider
-                                          .cityController.text ==
+                                      .alternateMobileController.text
+                                      .trim()
+                                      .isNotEmpty) {
+                                    if (addressProvider
+                                            .alternateMobileController
+                                            .text
+                                            .length <
+                                        10)
+                                      addressProvider.showAlert(
+                                          context, "Alternate mobile number");
+                                    return;
+                                  } else if (addressProvider.cityController.text
+                                          .trim() ==
                                       "") {
                                     addressProvider.showAlert(
                                         context, "City name");
                                     return;
                                   } else if (addressProvider
-                                          .pinCodeController.text ==
-                                      "") {
+                                              .pinCodeController.text
+                                              .trim() ==
+                                          "" ||
+                                      addressProvider
+                                              .pinCodeController.text.length <
+                                          6) {
                                     addressProvider.showAlert(
                                         context, "Pincode");
                                     return;

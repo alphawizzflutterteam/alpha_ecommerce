@@ -72,37 +72,7 @@ class SearchViewModel with ChangeNotifier {
     orderBy = "";
     //isHome = true;
     reviewFilter = "";
-  }
-
-  Future<void> getProductsList(
-      BuildContext context, String limit, String offset, String name) async {
-    setLoading(true);
-    var userID = SharedPref.shared.pref!.getString(PrefKeys.userId) ?? "";
-    NetworkViewModel networkProvider =
-        Provider.of<NetworkViewModel>(context, listen: false);
-
-    var isInternetAvailable = await networkProvider.checkInternetAvailability();
-    if (!isInternetAvailable) {
-      setLoading(false);
-
-      Utils.showFlushBarWithMessage("", "No Internet Connection", context);
-    } else {
-      await _myRepo
-          .productsListApi(
-              "${AppUrl.searchList}name=$name&limit=$limit&offset=$offset")
-          .then((value) {
-        print(
-            "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID");
-        searchResults = value.products;
-        notifyListeners();
-
-        setLoading(false);
-      }).onError((error, stackTrace) {
-        setLoading(false);
-        searchResults.clear();
-        print(error.toString() + "Product error");
-      });
-    }
+    searchController.text = "";
   }
 
   Future<void> getProductsListNew(
@@ -126,7 +96,7 @@ class SearchViewModel with ChangeNotifier {
               "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID&category_id=$categoryId&sub_category_id=$subCategoryId&vendor_id=$vendorId&brand_id=$brandId&offer_id=$offerId&offer_percentage=$offerPercentage&color=$color&sort_by=$sortBy&order_by=$orderBy&is_home=$isHome&search_text=${searchController.text}&min_price=$minPrice&max_price=$maxPrice&review_filter=$reviewFilter")
           .then((value) {
         print(
-            "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID&category_id=$categoryId&sub_category_id=$subCategoryId&vendor_id=$vendorId&brand_id=$brandId&offer_id=$offerId&offer_percentage=$offerPercentage&color=$color&sort_by=$sortBy&order_by=$orderBy&is_home=$isHome&search_text=${searchController.text}");
+            "${AppUrl.productsList}?limit=$limit&offset=$offset&user_id=$userID&category_id=$categoryId&sub_category_id=$subCategoryId&vendor_id=$vendorId&brand_id=$brandId&offer_id=$offerId&offer_percentage=$offerPercentage&color=$color&sort_by=$sortBy&order_by=$orderBy&is_home=$isHome&search_text=${searchController.text}&min_price=$minPrice&max_price=$maxPrice&review_filter=$reviewFilter");
         searchResults = value.products;
         print(searchResults.length.toString() + "Products length");
         notifyListeners();

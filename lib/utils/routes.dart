@@ -704,11 +704,14 @@ class Routes {
     );
   }
 
-  static navigateToPlaceOrderScreen(BuildContext context) {
+  static navigateToPlaceOrderScreen(
+      BuildContext context, String selectedQuantity) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => PlaceOrder(),
+        pageBuilder: (context, animation1, animation2) => PlaceOrder(
+          quantityy: selectedQuantity,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

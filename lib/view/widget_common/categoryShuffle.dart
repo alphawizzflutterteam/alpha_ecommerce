@@ -145,7 +145,7 @@ class _CategoryFilterState extends State<CategoryFilter> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.4,
                       width: MediaQuery.of(context).size.width * 0.32,
                       child: ListView.builder(
                         padding: EdgeInsets.zero,

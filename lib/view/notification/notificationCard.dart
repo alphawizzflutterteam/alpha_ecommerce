@@ -17,7 +17,7 @@ notificationCard(
     DateTime dateTime = DateTime.parse(timestamp);
 
     // Format the DateTime object as "dd Month name yyyy"
-    String formattedDate = DateFormat('dd MMM yyyy, h:mm a').format(dateTime);
+    String formattedDate = DateFormat('dd MMM yyyy').format(dateTime);
 
     return formattedDate;
   }
@@ -75,79 +75,105 @@ notificationCard(
               Routes.navigateToCouponScreen(context);
             }
           },
-          child: Container(
-            // height: 80,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  width: 5,
-                ),
-                CachedNetworkImage(
-                  imageUrl: model.image,
-                  height: 70,
-                  width: 90,
-                  fit: BoxFit.fill,
-                  errorWidget: (context, url, error) => ErrorImageWidget(),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width - 200,
-                        child: Text(
-                          model.message,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style:
-                              Theme.of(context).textTheme.titleSmall!.copyWith(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontSize:
-                                        Platform.isAndroid ? size_14 : size_14,
-                                  ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width - 200,
-                        child: Text(
-                          model.title,
-                          style:
-                              Theme.of(context).textTheme.titleSmall!.copyWith(
-                                    color: colors.greyText,
-                                    fontSize:
-                                        Platform.isAndroid ? size_10 : size_12,
-                                  ),
-                        ),
-                      ),
-                    ],
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Container(
+              // height: 80,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    width: 5,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        convertTimestampToFormattedDate(model.updatedAt),
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                              color: colors.greyText,
-                              fontSize: Platform.isAndroid ? size_8 : size_10,
-                            ),
-                      ),
-                    ],
+                  model.type == "order"
+                      ? Image.asset(
+                          "assets/images/Group 493.png",
+                          height: 60,
+                          width: 50,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                        )
+                      : Image.asset(
+                          "assets/images/Group 3067.png",
+                          height: 60,
+                          width: 50,
+                        ),
+                  // CachedNetworkImage(
+                  //   imageUrl: model.image,
+                  //   height: 80,
+                  //   width: 70,
+                  //   fit: BoxFit.fill,
+                  //   errorWidget: (context, url, error) => ErrorImageWidget(),
+                  // ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width - 150,
+                          child: Text(
+                            model.title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_14 : size_14,
+                                ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 2,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width - 150,
+                          child: Text(
+                            model.message,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.greyText,
+                                  fontSize:
+                                      Platform.isAndroid ? size_10 : size_12,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          convertTimestampToFormattedDate(model.updatedAt),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                color: colors.greyText,
+                                fontSize: Platform.isAndroid ? size_8 : size_10,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

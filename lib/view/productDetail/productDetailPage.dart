@@ -960,6 +960,78 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                         ),
                                       ),
                                     ),
+                                    Container(
+                                      padding: EdgeInsets.all(3),
+                                      decoration: BoxDecoration(
+                                          color: Colors.transparent,
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          border: Border.all(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              width: 1)),
+                                      child: Row(
+                                        children: [
+                                          InkWell(
+                                              onTap: () {
+                                                productModel.updateQuantityy(
+                                                    false, context);
+                                              },
+                                              child: Icon(
+                                                Icons.remove,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                size: 20,
+                                              )),
+                                          Container(
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 10),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 6, vertical: 1),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(3),
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                            child: Text(
+                                              productModel.selectedQuantity
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                              .brightness !=
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: 17),
+                                            ),
+                                          ),
+                                          InkWell(
+                                              onTap: () {
+                                                productModel.updateQuantityy(
+                                                    true, context);
+                                              },
+                                              child: Icon(
+                                                Icons.add,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                size: 20,
+                                              )),
+                                        ],
+                                      ),
+                                    ),
                                     // InkWell(
                                     //   highlightColor: Colors.transparent,
                                     //   splashColor: Colors.transparent,
@@ -1350,7 +1422,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                 'id': productModel
                                                     .model.first.id
                                                     .toString(),
-                                                'quantity': "1",
+                                                'quantity': productModel
+                                                    .selectedQuantity
+                                                    .toString(),
                                                 'color': productModel
                                                         .model
                                                         .first
@@ -1434,7 +1508,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                             data = {
                                               'id': productModel.model.first.id
                                                   .toString(),
-                                              'quantity': "1",
+                                              'quantity': productModel
+                                                  .selectedQuantity
+                                                  .toString(),
                                               'color': productModel
                                                       .model
                                                       .first
