@@ -65,16 +65,23 @@ class _OrderReturnedState extends State<OrderReturned> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  InternalPageHeader(
-                    text: 'Order Detail',
-                  )
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: const Stack(
+                  children: [
+                    ProfileHeader(),
+                    InternalPageHeader(
+                      text: 'Order Detail',
+                    )
+                  ],
+                ),
               ),
               detailProvider.isLoading
                   ? appLoader()
@@ -103,7 +110,11 @@ class _OrderReturnedState extends State<OrderReturned> {
                                           .textTheme
                                           .titleSmall!
                                           .copyWith(
-                                            color: Colors.white,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
                                             fontSize: Platform.isAndroid
                                                 ? size_12
                                                 : size_14,
@@ -337,7 +348,12 @@ class _OrderReturnedState extends State<OrderReturned> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall!
-                                        .copyWith(color: colors.textColor),
+                                        .copyWith(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
                                   )
                                 ],
                               ),
@@ -373,7 +389,12 @@ class _OrderReturnedState extends State<OrderReturned> {
                                               .textTheme
                                               .titleSmall!
                                               .copyWith(
-                                                  color: colors.textColor)),
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              )),
                                       Text(
                                           convertTimestampToFormattedDate(
                                               detailProvider.returnDetail.data
@@ -382,7 +403,11 @@ class _OrderReturnedState extends State<OrderReturned> {
                                               .textTheme
                                               .titleSmall!
                                               .copyWith(
-                                                color: colors.lightTextColor,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
                                                 fontSize: Platform.isAndroid
                                                     ? size_10
                                                     : size_12,
@@ -400,8 +425,11 @@ class _OrderReturnedState extends State<OrderReturned> {
                                   const EdgeInsets.symmetric(horizontal: 20),
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 20),
-                              decoration: const BoxDecoration(
-                                  color: colors.boxBorder,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.black
+                                      : colors.lightGrey,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
                               child: Column(
@@ -417,7 +445,13 @@ class _OrderReturnedState extends State<OrderReturned> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleSmall!
-                                            .copyWith(color: colors.textColor),
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
                                       ),
                                       Row(
                                         children: [
@@ -484,7 +518,10 @@ class _OrderReturnedState extends State<OrderReturned> {
                                         .textTheme
                                         .titleSmall!
                                         .copyWith(
-                                          color: colors.lightTextColor,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: Platform.isAndroid
                                               ? size_10
                                               : size_12,

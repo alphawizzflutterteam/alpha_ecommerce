@@ -178,8 +178,7 @@ class _SubscribeState extends State<Subscribe> {
                             ConstrainedBox(
                               constraints: BoxConstraints(
                                   maxHeight:
-                                      MediaQuery.of(context).size.height *
-                                          .735),
+                                      MediaQuery.of(context).size.height * .7),
                               child: ListView.separated(
                                 shrinkWrap: true,
                                 itemCount: isYearlyTabSelected
@@ -208,8 +207,8 @@ class _SubscribeState extends State<Subscribe> {
                                                       .monthly[index]
                                                       .title
                                                       .toString()),
-                                          begin: Alignment.centerRight,
-                                          end: Alignment.centerLeft)),
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.topRight)),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
