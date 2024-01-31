@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/faqsViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -106,80 +107,86 @@ class _FAQsState extends State<FAQs> {
               ),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: 183 * faqProvider.faqList.length.toDouble(),
-                      child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: faqProvider.faqList.length,
-                        itemBuilder: (context, i) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                side: const BorderSide(
-                                    color: Colors.white38, width: 0.2),
-                              ),
-                              elevation: 2,
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.transparent
-                                  : colors.buttonColor,
-                              child: ExpansionTile(
-                                iconColor: Colors.white,
-                                collapsedIconColor: Colors.white,
-                                title: Text(
-                                  faqProvider.faqList[i].question,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall!
-                                      .copyWith(color: Colors.white),
-                                ),
-                                children: [
-                                  SizedBox(
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.vertical,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 20.0, bottom: 10),
-                                            child: Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                "${faqProvider.faqList[i].answer}",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleSmall!
-                                                    .copyWith(
-                                                        color: Colors.white),
-                                              ),
+              child: faqProvider.isLoading
+                  ? appLoader()
+                  : SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            height: 183 * faqProvider.faqList.length.toDouble(),
+                            child: ListView.builder(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: faqProvider.faqList.length,
+                              itemBuilder: (context, i) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      side: const BorderSide(
+                                          color: Colors.white38, width: 0.2),
+                                    ),
+                                    elevation: 2,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.transparent
+                                        : colors.buttonColor,
+                                    child: ExpansionTile(
+                                      iconColor: Colors.white,
+                                      collapsedIconColor: Colors.white,
+                                      title: Text(
+                                        faqProvider.faqList[i].question,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(color: Colors.white),
+                                      ),
+                                      children: [
+                                        SizedBox(
+                                          child: SingleChildScrollView(
+                                            scrollDirection: Axis.vertical,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.stretch,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 20.0,
+                                                          bottom: 10),
+                                                  child: Align(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    child: Text(
+                                                      "${faqProvider.faqList[i].answer}",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall!
+                                                          .copyWith(
+                                                              color:
+                                                                  Colors.white),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        )
+                                      ],
                                     ),
-                                  )
-                                ],
-                              ),
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
             ),
           ],
         ),

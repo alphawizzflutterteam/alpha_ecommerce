@@ -24,7 +24,7 @@ couponCard({required context, required CouponList coupon}) {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: MediaQuery.of(context).size.width * 0.1,
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3.5),
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(15),
@@ -40,7 +40,7 @@ couponCard({required context, required CouponList coupon}) {
                     child: SizedBox(
                       width: size_110,
                       child: Text(
-                        coupon.title + coupon.title + coupon.title,
+                        coupon.title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
@@ -51,7 +51,7 @@ couponCard({required context, required CouponList coupon}) {
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 3,
                   ),
                   Image.asset(
                     Images.offer,

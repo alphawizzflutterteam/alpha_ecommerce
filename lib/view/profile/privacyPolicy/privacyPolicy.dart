@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -101,10 +102,10 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                 ],
               ),
             ),
-            profileModelProvider.isLoading
-                ? Container()
-                : Expanded(
-                    child: SingleChildScrollView(
+            Expanded(
+              child: profileModelProvider.isLoading
+                  ? appLoader()
+                  : SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Html(
@@ -129,7 +130,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                         ),
                       ),
                     ),
-                  ),
+            ),
           ],
         ),
       )

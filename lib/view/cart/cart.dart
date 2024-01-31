@@ -1,15 +1,11 @@
 import 'dart:io';
 
-import 'package:alpha_ecommerce_18oct/model/cartList.dart';
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/cart/cards/cartCard.dart';
 import 'package:alpha_ecommerce_18oct/view/cart/cards/savedItemCard.dart';
-import 'package:alpha_ecommerce_18oct/view/cart/savedItems.dart';
-import 'package:alpha_ecommerce_18oct/view/home/cards/cartCard.dart.dart';
-import 'package:alpha_ecommerce_18oct/view/home/cards/wishlistCard.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
@@ -22,8 +18,6 @@ import '../widget_common/commonBackground.dart';
 import '../widget_common/common_button.dart';
 import '../widget_common/common_header.dart';
 import '../profile/common_header.dart';
-import '../widget_common/common_radioButton.dart';
-import 'cartListCard.dart';
 
 class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
@@ -135,10 +129,10 @@ class _CartState extends State<Cart> {
                     ],
                   ),
                 ),
-                cartProvider.isLoading
-                    ? appLoader()
-                    : Expanded(
-                        child: SingleChildScrollView(
+                Expanded(
+                  child: cartProvider.isLoading
+                      ? appLoader()
+                      : SingleChildScrollView(
                           controller: scrollController,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1245,7 +1239,7 @@ class _CartState extends State<Cart> {
                             ],
                           ),
                         ),
-                      ),
+                ),
                 cartProvider.isLoading
                     ? Container()
                     : cartProvider.cartModel.isEmpty

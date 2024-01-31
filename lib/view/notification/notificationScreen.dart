@@ -73,77 +73,73 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   ],
                 ),
               ),
-              provider.isLoading
-                  ? Column(
-                      children: [
-                        Center(
-                          child: appLoader(),
-                        ),
-                      ],
-                    )
-                  : provider.notificationList.isEmpty
-                      ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 50,
-                              ),
-                              Image.asset(
-                                'assets/images/notifications.png',
-                                height: size_150,
-                              ),
-                              Text(
-                                "No notifications yet.",
-                                style: TextStyle(
-                                  color: colors.greyText,
+              Expanded(
+                child: provider.isLoading
+                    ? appLoader()
+                    : provider.notificationList.isEmpty
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 50,
                                 ),
-                              )
-                            ],
-                          ),
-                        )
-                      : SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  provider.markRead(context, "", "1");
-                                  homeProvider.getProfileAPI(
-                                    "",
-                                    context,
-                                  );
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: Text("Mark all as read",
-                                          style: TextStyle(
-                                            color: colors.greyText,
-                                          ))),
+                                Image.asset(
+                                  'assets/images/notifications.png',
+                                  height: size_150,
                                 ),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height - 150,
-                                child: ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  physics:
-                                      const AlwaysScrollableScrollPhysics(),
-                                  itemCount: provider.notificationList.length,
-                                  itemBuilder: (context, i) {
-                                    return notificationCard(
-                                        provider.notificationList[i],
-                                        context,
-                                        provider);
+                                Text(
+                                  "No notifications yet.",
+                                  style: TextStyle(
+                                    color: colors.greyText,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        : SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    provider.markRead(context, "", "1");
+                                    homeProvider.getProfileAPI(
+                                      "",
+                                      context,
+                                    );
                                   },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: Text("Mark all as read",
+                                            style: TextStyle(
+                                              color: colors.greyText,
+                                            ))),
+                                  ),
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height - 150,
+                                  child: ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
+                                    itemCount: provider.notificationList.length,
+                                    itemBuilder: (context, i) {
+                                      return notificationCard(
+                                          provider.notificationList[i],
+                                          context,
+                                          provider);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
+              ),
             ],
           ),
         ),

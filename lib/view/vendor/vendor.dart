@@ -98,11 +98,11 @@ class _VendorState extends State<Vendor> {
                         ),
                       ),
                       Divider(color: Colors.transparent, height: 5),
-                      vendorProvider.isLoading
-                          ? appLoader()
-                          : SizedBox(
-                              height: MediaQuery.of(context).size.height * .65,
-                              child: ListView.builder(
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .65,
+                        child: vendorProvider.isLoading
+                            ? appLoader()
+                            : ListView.builder(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,
                                 itemCount: vendorProvider.vendorModel.length,
@@ -111,7 +111,7 @@ class _VendorState extends State<Vendor> {
                                   return vendorCard(context, model);
                                 },
                               ),
-                            ),
+                      ),
                     ],
                   ),
                 )

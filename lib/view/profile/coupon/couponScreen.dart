@@ -57,29 +57,15 @@ class _CouponScreenState extends State<CouponScreen> {
                 ),
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        height:
-                            183 * couponProvider.couponModel.length.toDouble(),
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: couponProvider.couponModel.length,
-                          itemBuilder: (context, i) {
-                            return couponCard(
-                                context: context,
-                                coupon: couponProvider.couponModel[i]);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: couponProvider.couponModel.length,
+                  itemBuilder: (context, i) {
+                    return couponCard(
+                        context: context,
+                        coupon: couponProvider.couponModel[i]);
+                  },
                 ),
               ),
             ],

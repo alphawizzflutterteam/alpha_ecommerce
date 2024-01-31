@@ -60,35 +60,35 @@ class _WishlistState extends State<Wishlist> {
                   ],
                 ),
               ),
-              homeProvider.isLoading
-                  ? appLoader()
-                  : homeProvider.wishlistModel.isEmpty
-                      ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: size_50,
-                              ),
-                              Image.asset(
-                                'assets/images/Wishlish.png',
-                                height: size_150,
-                              ),
-                              SizedBox(
-                                height: size_10,
-                              ),
-                              Text(
-                                "No wishlist items yet.",
-                                style: TextStyle(
-                                  color: colors.greyText,
+              Expanded(
+                child: homeProvider.isLoading
+                    ? appLoader()
+                    : homeProvider.wishlistModel.isEmpty
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: size_50,
                                 ),
-                              )
-                            ],
-                          ),
-                        )
-                      : Expanded(
-                          child: SingleChildScrollView(
+                                Image.asset(
+                                  'assets/images/Wishlish.png',
+                                  height: size_150,
+                                ),
+                                SizedBox(
+                                  height: size_10,
+                                ),
+                                Text(
+                                  "No wishlist items yet.",
+                                  style: TextStyle(
+                                    color: colors.greyText,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        : SingleChildScrollView(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -114,7 +114,7 @@ class _WishlistState extends State<Wishlist> {
                               ],
                             ),
                           ),
-                        ),
+              ),
             ],
           ),
         ),

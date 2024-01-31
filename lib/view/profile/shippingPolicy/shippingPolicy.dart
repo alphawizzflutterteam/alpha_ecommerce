@@ -102,10 +102,10 @@ class _ShippingPolicyState extends State<ShippingPolicy> {
                 ],
               ),
             ),
-            profileModelProvider.isLoading
-                ? appLoader()
-                : Expanded(
-                    child: SingleChildScrollView(
+            Expanded(
+              child: profileModelProvider.isLoading
+                  ? appLoader()
+                  : SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Html(
@@ -130,7 +130,7 @@ class _ShippingPolicyState extends State<ShippingPolicy> {
                         ),
                       ),
                     ),
-                  ),
+            ),
           ],
         ),
       )

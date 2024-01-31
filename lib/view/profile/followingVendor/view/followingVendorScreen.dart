@@ -58,32 +58,32 @@ class _FollowingVendorListState extends State<FollowingVendorList> {
                   ],
                 ),
               ),
-              vendorProvider.isLoading
-                  ? appLoader()
-                  : vendorProvider.followedvendorModel.isEmpty
-                      ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 50,
-                              ),
-                              Image.asset(
-                                'assets/images/Followed vendor.png',
-                                height: size_150,
-                              ),
-                              Text(
-                                "There is no vendor you have followed",
-                                style: TextStyle(
-                                  color: colors.greyText,
+              Expanded(
+                child: vendorProvider.isLoading
+                    ? appLoader()
+                    : vendorProvider.followedvendorModel.isEmpty
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 50,
                                 ),
-                              )
-                            ],
-                          ),
-                        )
-                      : Expanded(
-                          child: SingleChildScrollView(
+                                Image.asset(
+                                  'assets/images/Followed vendor.png',
+                                  height: size_150,
+                                ),
+                                Text(
+                                  "There is no vendor you have followed",
+                                  style: TextStyle(
+                                    color: colors.greyText,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        : SingleChildScrollView(
                             child: SizedBox(
                               height: 130 *
                                   vendorProvider.followedvendorModel.length
@@ -102,7 +102,7 @@ class _FollowingVendorListState extends State<FollowingVendorList> {
                               ),
                             ),
                           ),
-                        ),
+              ),
             ],
           ),
         ),

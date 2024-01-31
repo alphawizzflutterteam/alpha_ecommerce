@@ -216,17 +216,18 @@ class _ProfileState extends State<Profile> {
                                                       size_85, // Set your desired width
                                                   height:
                                                       size_85, // Set your desired height
-                                                  child: ClipOval(
-                                                    child: CachedNetworkImage(
-                                                      imageUrl: image,
-                                                      fit: BoxFit.fill,
-                                                      errorWidget: (context,
-                                                              url, error) =>
-                                                          ClipOval(
-                                                        child: Image.asset(
-                                                          Images.defaultProfile,
-                                                          fit: BoxFit.fill,
-                                                        ),
+                                                  child: CircleAvatar(
+                                                    backgroundImage:
+                                                        CachedNetworkImageProvider(
+                                                      image,
+                                                    ),
+                                                    onBackgroundImageError:
+                                                        (exception,
+                                                                stackTrace) =>
+                                                            ClipOval(
+                                                      child: Image.asset(
+                                                        Images.defaultProfile,
+                                                        fit: BoxFit.fill,
                                                       ),
                                                     ),
                                                   ),

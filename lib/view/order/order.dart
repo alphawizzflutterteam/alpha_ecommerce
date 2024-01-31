@@ -26,38 +26,6 @@ class Order extends StatefulWidget {
 
 class _OrderState extends State<Order> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  List<Map<String, dynamic>> orderItems = [
-    {
-      'image': Images.dettol,
-      'text': 'Dettol refresh long lasting',
-      'subText': 'Lorem Ipsum is simply dummy',
-      'status': 'On the way',
-    },
-    {
-      'image': Images.oreo,
-      'text': 'Oreo family pack',
-      'subText': 'Lorem Ipsum is simply dummy',
-      'status': 'Order Cancelled',
-    },
-    {
-      'image': Images.biscuit,
-      'text': 'all rounder(chatpata...)',
-      'subText': 'Lorem Ipsum is simply dummy',
-      'status': 'Delivered',
-    },
-    {
-      'image': Images.powder,
-      'text': 'Oreo family pack',
-      'subText': 'Lorem Ipsum is simply dummy',
-      'status': 'Delivered',
-    },
-    {
-      'image': Images.dettol,
-      'text': 'Dettol refresh long lasting',
-      'subText': 'Lorem Ipsum is simply dummy',
-      'status': 'Returned',
-    },
-  ];
 
   Color getTextColor(String status) {
     switch (status.toLowerCase()) {
@@ -279,36 +247,37 @@ class _OrderState extends State<Order> {
                         ],
                       ),
                     ),
-                    orderProvider.isLoading
-                        ? Center(child: appLoader())
-                        : orderProvider.orderList.isEmpty
-                            ? Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: size_50,
-                                    ),
-                                    Image.asset(
-                                      'assets/images/no order.png',
-                                      height: size_150,
-                                    ),
-                                    SizedBox(
-                                      height: size_10,
-                                    ),
-                                    Text(
-                                      "No orders yet.",
-                                      style: TextStyle(
-                                        color: colors.greyText,
+                    SizedBox(
+                      height: height * .75,
+                      child: orderProvider.isLoading
+                          ? appLoader()
+                          : orderProvider.orderList.isEmpty
+                              ? Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: size_50,
                                       ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            : SizedBox(
-                                height: height * .75,
-                                child: ListView.builder(
+                                      Image.asset(
+                                        'assets/images/no order.png',
+                                        height: size_150,
+                                      ),
+                                      SizedBox(
+                                        height: size_10,
+                                      ),
+                                      Text(
+                                        "No orders yet.",
+                                        style: TextStyle(
+                                          color: colors.greyText,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              : ListView.builder(
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
                                   physics:
@@ -688,7 +657,7 @@ class _OrderState extends State<Order> {
                                     );
                                   },
                                 ),
-                              ),
+                    ),
                   ],
                 ),
               ],
