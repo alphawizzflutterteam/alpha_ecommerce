@@ -26,7 +26,7 @@ class _OffersState extends State<Offers> {
           backgroundColor: Colors.transparent,
           body: Column(
             children: [
-              const Stack(
+               Stack(
                 children: [
                   ProfileHeader(),
                   InternalDetailPageHeader(

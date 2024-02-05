@@ -46,10 +46,10 @@ List<ProfileList> profile = [
       profileIcon: Images.setting,
       profileText: 'Settings',
       navigationScreen: const Setting()),
-  ProfileList(
-      profileIcon: Images.subscribe,
-      profileText: 'Subscribe',
-      navigationScreen: const Subscribe()),
+  // ProfileList(
+  //     profileIcon: Images.subscribe,
+  //     profileText: 'Subscribe',
+  //     navigationScreen: const Subscribe()),
   // ProfileList(
   //     profileIcon: Images.referAndEarn,
   //     profileText: 'Refer and Earn',

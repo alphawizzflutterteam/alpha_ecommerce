@@ -11,6 +11,7 @@ import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthViewModel with ChangeNotifier {
   final _myRepo = AuthRepository();
@@ -102,6 +103,32 @@ class AuthViewModel with ChangeNotifier {
         ),
       );
 
+  Future<void> loginApple(BuildContext context) async {
+    final credential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+    );
+
+    print(credential.toString() + "APPLEIDCredential");
+
+    print(credential.identityToken.toString());
+    print(credential.givenName.toString());
+    print(credential.familyName.toString());
+    print(credential.email.toString());
+    print(credential.authorizationCode.toString());
+    print(credential.userIdentifier.toString());
+
+    Map data = {
+      'token': credential.authorizationCode.toString(),
+      'unique_id': credential.userIdentifier.toString(),
+      'email': credential.email.toString() ?? '',
+      'medium': "apple"
+    };
+    loginGooglePostMethod(context, data);
+  }
+
   void loginGoogle(BuildContext context) async {
     NetworkViewModel networkProvider =
         Provider.of<NetworkViewModel>(context, listen: false);
@@ -175,6 +202,12 @@ class AuthViewModel with ChangeNotifier {
         if (value.message == "User login success") {
           SharedPref.shared.pref?.setString(PrefKeys.jwtToken, value.token);
 
+          await getProfileAPI(data, context);
+          SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "1");
+
+          Routes.navigateToDashboardScreen(context, 2);
+        } else if (value.message == "User Registered success") {
+          SharedPref.shared.pref?.setString(PrefKeys.jwtToken, value.token);
           await getProfileAPI(data, context);
           SharedPref.shared.pref?.setString(PrefKeys.isLoggedIn, "1");
 

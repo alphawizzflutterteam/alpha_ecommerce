@@ -82,7 +82,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.transparent
                     : colors.buttonColor,
-                child: const Stack(
+                child:  Stack(
                   children: [
                     ProfileHeader(),
                     InternalDetailPageHeader(

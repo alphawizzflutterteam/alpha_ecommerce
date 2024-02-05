@@ -47,7 +47,7 @@ class _CouponScreenState extends State<CouponScreen> {
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.transparent
                     : colors.buttonColor,
-                child: const Stack(
+                child:  Stack(
                   children: [
                     ProfileHeader(),
                     InternalPageHeader(

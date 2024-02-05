@@ -203,14 +203,11 @@ class _SignInState extends State<SignIn> {
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Text(
                     signIn2,
-                    textScaler: Platform.isAndroid
-                        ? TextScaler.linear(0.8)
-                        : TextScaler.linear(1),
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: Theme.of(context).brightness == Brightness.dark
                             ? colors.textColor
                             : Colors.black,
-                        fontSize: Platform.isAndroid ? size_15 : size_15,
+                        fontSize: Platform.isAndroid ? size_14 : size_15,
                         fontWeight: FontWeight.w400),
                   ),
                 ),
@@ -574,31 +571,46 @@ class _SignInState extends State<SignIn> {
                                 ),
                               ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  InkWell(
-                                    highlightColor: Colors.transparent,
-                                    splashColor: Colors.transparent,
-                                    onTap: () {
-                                      authViewModel.loginGoogle(context);
-                                    },
-                                    child: Image.asset(
-                                      Images.google,
-                                      height: size_40,
-                                      width: size_40,
-                                    ),
-                                  ),
-                                  // Image.asset(
-                                  //   Images.facebook,
-                                  //   height: 50,
-                                  //   width: 60,
-                                  // ),
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.symmetric(vertical: 10),
+                            //   child: Row(
+                            //     mainAxisAlignment: MainAxisAlignment.center,
+                            //     children: [
+                            //       InkWell(
+                            //         highlightColor: Colors.transparent,
+                            //         splashColor: Colors.transparent,
+                            //         onTap: () {
+                            //           authViewModel.loginGoogle(context);
+                            //         },
+                            //         child: Image.asset(
+                            //           Images.google,
+                            //           height: size_40,
+                            //           width: size_40,
+                            //         ),
+                            //       ),
+                            //       // Image.asset(
+                            //       //   Images.facebook,
+                            //       //   height: 50,
+                            //       //   width: 60,
+                            //       // ),
+                            //       SizedBox(width: size_20),
+                            //       InkWell(
+                            //           highlightColor: Colors.transparent,
+                            //           splashColor: Colors.transparent,
+                            //           onTap: () {
+                            //             authViewModel.loginApple(context);
+                            //           },
+                            //           child: Icon(
+                            //             Icons.apple,
+                            //             size: size_40,
+                            //             color: Theme.of(context).brightness ==
+                            //                     Brightness.dark
+                            //                 ? Colors.white
+                            //                 : Colors.black,
+                            //           )),
+                            //     ],
+                            //   ),
+                            // ),
                             // Padding(
                             //   padding: const EdgeInsets.symmetric(vertical: 0),
                             //   child: Row(

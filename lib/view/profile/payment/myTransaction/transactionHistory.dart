@@ -48,7 +48,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.transparent
                     : colors.buttonColor,
-                child: const Stack(
+                child:  Stack(
                   children: [
                     ProfileHeader(),
                     InternalPageHeader(

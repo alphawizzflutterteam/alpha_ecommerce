@@ -68,7 +68,7 @@ class _VendorState extends State<Vendor> {
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.transparent
                       : colors.buttonColor,
-                  child: const Stack(
+                  child:  Stack(
                     children: [
                       ProfileHeader(),
                       DashboardHeader(),

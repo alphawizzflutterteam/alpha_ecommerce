@@ -137,7 +137,7 @@ class _SearchState extends State<Search> {
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.transparent
                     : colors.buttonColor,
-                child: const Stack(
+                child:  Stack(
                   children: [
                     ProfileHeader(),
                     InternalDetailPageHeader(

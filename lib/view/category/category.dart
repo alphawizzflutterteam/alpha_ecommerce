@@ -135,7 +135,7 @@ class _AllCategoryState extends State<AllCategory> {
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.transparent
                       : colors.buttonColor,
-                  child: const Stack(
+                  child:  Stack(
                     children: [
                       ProfileHeader(),
                       DashboardHeader(),

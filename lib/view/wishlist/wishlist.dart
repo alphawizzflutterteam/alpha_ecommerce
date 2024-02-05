@@ -51,7 +51,7 @@ class _WishlistState extends State<Wishlist> {
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.transparent
                     : colors.buttonColor,
-                child: const Stack(
+                child:  Stack(
                   children: [
                     ProfileHeader(),
                     InternalDetailPageHeader(

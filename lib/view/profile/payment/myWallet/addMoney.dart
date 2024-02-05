@@ -48,7 +48,7 @@ class _AddMoneyState extends State<AddMoney> {
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.transparent
                       : colors.buttonColor,
-                  child: const Stack(
+                  child:  Stack(
                     children: [
                       ProfileHeader(),
                       InternalPageHeader(text: "Add Money")

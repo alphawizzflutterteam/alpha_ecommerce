@@ -164,7 +164,7 @@ class _ProfileState extends State<Profile> {
                         color: Theme.of(context).brightness == Brightness.dark
                             ? Colors.transparent
                             : colors.buttonColor,
-                        child: const Stack(
+                        child:  Stack(
                           children: [
                             ProfileHeader(),
                             DashboardHeader(),

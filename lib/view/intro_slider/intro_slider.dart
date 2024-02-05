@@ -139,9 +139,7 @@ class _IntroSliderState extends State<IntroSlider> {
                         child: Text(
                           item,
                           textAlign: TextAlign.center,
-                          textScaler: Platform.isAndroid
-                              ? TextScaler.linear(0.8)
-                              : TextScaler.linear(1),
+                         
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall!

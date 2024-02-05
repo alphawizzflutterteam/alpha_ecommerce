@@ -97,7 +97,7 @@ class _SubscribeState extends State<Subscribe> {
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.transparent
                                     : colors.buttonColor,
-                            child: const Stack(
+                            child:  Stack(
                               children: [
                                 ProfileHeader(),
                                 InternalPageHeader(
