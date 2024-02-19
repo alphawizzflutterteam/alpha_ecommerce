@@ -301,6 +301,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                         data, context);
                                               }
                                             } else {
+                                              Utils.showFlushBarWithMessage(
+                                                  "",
+                                                  "Please login to wishlist product.",
+                                                  context);
                                               return AppUtils.appUtilsInstance
                                                   .nothing();
                                             }
@@ -914,13 +918,20 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       highlightColor: Colors.transparent,
                                       splashColor: Colors.transparent,
                                       onTap: () {
-                                        Map data = {
-                                          'product_id': productModel
-                                              .model.first.id
-                                              .toString()
-                                        };
-                                        productModel.addToSaveLater(
-                                            data, context);
+                                        var isLoggedIn = SharedPref.shared.pref
+                                            ?.getString(PrefKeys.isLoggedIn);
+                                        if (isLoggedIn == "1") {
+                                          Map data = {
+                                            'product_id': productModel
+                                                .model.first.id
+                                                .toString()
+                                          };
+                                          productModel.addToSaveLater(
+                                              data, context);
+                                        } else {
+                                          AppUtils.appUtilsInstance
+                                              .showLoginAlertDialog(context);
+                                        }
                                       },
                                       child: Container(
                                         alignment: Alignment.center,

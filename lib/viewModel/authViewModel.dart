@@ -171,6 +171,8 @@ class AuthViewModel with ChangeNotifier {
           'email': email.toString(),
           'medium': "google"
         };
+
+        print(data.toString());
         loginGooglePostMethod(context, data);
         //Get.snackbar("Success", "Welcome $displayName}");
 

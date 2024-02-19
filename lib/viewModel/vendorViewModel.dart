@@ -120,7 +120,7 @@ class VendorViewModel with ChangeNotifier {
     } else {
       if (token == null || token == "") {
         Utils.showFlushBarWithMessage("Alert", "Please login first.", context);
-
+        setLoading(false);
         return false;
       }
       _myRepo.followvendor(AppUrl.followVendor, token, data).then((value) {
@@ -138,7 +138,7 @@ class VendorViewModel with ChangeNotifier {
         Utils.showFlushBarWithMessage("Alert", error.toString(), context);
         return false;
       });
-
+      setLoading(false);
       return false;
     }
     return false;

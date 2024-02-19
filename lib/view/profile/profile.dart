@@ -86,17 +86,19 @@ class _ProfileState extends State<Profile> {
             backgroundColor: Theme.of(context).brightness == Brightness.dark
                 ? Colors.transparent
                 : Colors.white,
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                Routes.navigateToChatScreen(context);
-              },
-              backgroundColor: colors.buttonColor,
-              child: Image.asset(
-                Images.chat,
-                height: 40,
-                width: 40,
-              ),
-            ),
+            floatingActionButton: token == "" || token == null
+                ? Container()
+                : FloatingActionButton(
+                    onPressed: () {
+                      Routes.navigateToChatScreen(context);
+                    },
+                    backgroundColor: colors.buttonColor,
+                    child: Image.asset(
+                      Images.chat,
+                      height: 40,
+                      width: 40,
+                    ),
+                  ),
             body: token == "" || token == null
                 ? Center(
                     child: Column(
@@ -109,7 +111,11 @@ class _ProfileState extends State<Profile> {
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall!
-                              .copyWith(color: Colors.white),
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black),
                         ),
                         SizedBox(
                           height: size_20,
@@ -149,6 +155,7 @@ class _ProfileState extends State<Profile> {
                                   .textTheme
                                   .titleSmall!
                                   .copyWith(
+                                    color: Colors.white,
                                     fontSize:
                                         Platform.isAndroid ? size_10 : size_12,
                                   ),
@@ -164,7 +171,7 @@ class _ProfileState extends State<Profile> {
                         color: Theme.of(context).brightness == Brightness.dark
                             ? Colors.transparent
                             : colors.buttonColor,
-                        child:  Stack(
+                        child: Stack(
                           children: [
                             ProfileHeader(),
                             DashboardHeader(),

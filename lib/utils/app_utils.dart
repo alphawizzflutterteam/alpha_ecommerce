@@ -66,7 +66,7 @@ class AppUtils {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SizedBox(
-                        width: 90,
+                        width: 100,
                         child: ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor:
@@ -94,8 +94,9 @@ class AppUtils {
                                 .textTheme
                                 .titleSmall!
                                 .copyWith(
+                                  color: Colors.white,
                                   fontSize:
-                                      Platform.isAndroid ? size_13 : size_12,
+                                      Platform.isAndroid ? size_11 : size_12,
                                 ),
                           ),
                         ),
@@ -127,6 +128,7 @@ class AppUtils {
                                 .textTheme
                                 .titleSmall!
                                 .copyWith(
+                                  color: Colors.white,
                                   fontSize:
                                       Platform.isAndroid ? size_11 : size_12,
                                 ),

@@ -571,82 +571,87 @@ class _SignInState extends State<SignIn> {
                                 ),
                               ],
                             ),
-                            // Padding(
-                            //   padding: const EdgeInsets.symmetric(vertical: 10),
-                            //   child: Row(
-                            //     mainAxisAlignment: MainAxisAlignment.center,
-                            //     children: [
-                            //       InkWell(
-                            //         highlightColor: Colors.transparent,
-                            //         splashColor: Colors.transparent,
-                            //         onTap: () {
-                            //           authViewModel.loginGoogle(context);
-                            //         },
-                            //         child: Image.asset(
-                            //           Images.google,
-                            //           height: size_40,
-                            //           width: size_40,
-                            //         ),
-                            //       ),
-                            //       // Image.asset(
-                            //       //   Images.facebook,
-                            //       //   height: 50,
-                            //       //   width: 60,
-                            //       // ),
-                            //       SizedBox(width: size_20),
-                            //       InkWell(
-                            //           highlightColor: Colors.transparent,
-                            //           splashColor: Colors.transparent,
-                            //           onTap: () {
-                            //             authViewModel.loginApple(context);
-                            //           },
-                            //           child: Icon(
-                            //             Icons.apple,
-                            //             size: size_40,
-                            //             color: Theme.of(context).brightness ==
-                            //                     Brightness.dark
-                            //                 ? Colors.white
-                            //                 : Colors.black,
-                            //           )),
-                            //     ],
-                            //   ),
-                            // ),
-                            // Padding(
-                            //   padding: const EdgeInsets.symmetric(vertical: 0),
-                            //   child: Row(
-                            //     mainAxisAlignment: MainAxisAlignment.center,
-                            //     children: [
-                            //       Image.asset(
-                            //         Images.guestUser,
-                            //         height: size_22,
-                            //         width: size_22,
-                            //         color: Theme.of(context).brightness ==
-                            //                 Brightness.dark
-                            //             ? Colors.white
-                            //             : colors.bodyBackgroundDark,
-                            //       ),
-                            //       const SizedBox(width: 5),
-                            //       InkWell(
-                            //         highlightColor: Colors.transparent,
-                            //         splashColor: Colors.transparent,
-                            //         onTap: () {
-                            //           Routes.navigateToDashboardScreen(
-                            //               context, 2);
-                            //         },
-                            //         child: Text(translation(context).guestUser,
-                            //             style: TextStyle(
-                            //               fontSize: Platform.isAndroid
-                            //                   ? size_12
-                            //                   : size_14,
-                            //               color: Theme.of(context).brightness ==
-                            //                       Brightness.dark
-                            //                   ? Colors.white
-                            //                   : colors.bodyBackgroundDark,
-                            //             )),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
+                                    onTap: () {
+                                      authViewModel.loginGoogle(context);
+                                    },
+                                    child: Image.asset(
+                                      Images.google,
+                                      height: size_40,
+                                      width: size_40,
+                                    ),
+                                  ),
+                                  // Image.asset(
+                                  //   Images.facebook,
+                                  //   height: 50,
+                                  //   width: 60,
+                                  // ),
+                                  Platform.isAndroid
+                                      ? Container()
+                                      : SizedBox(width: size_20),
+                                  Platform.isAndroid
+                                      ? Container()
+                                      : InkWell(
+                                          highlightColor: Colors.transparent,
+                                          splashColor: Colors.transparent,
+                                          onTap: () {
+                                            authViewModel.loginApple(context);
+                                          },
+                                          child: Icon(
+                                            Icons.apple,
+                                            size: size_40,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                          )),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    Images.guestUser,
+                                    height: size_22,
+                                    width: size_22,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : colors.bodyBackgroundDark,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  InkWell(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
+                                    onTap: () {
+                                      Routes.navigateToDashboardScreen(
+                                          context, 2);
+                                    },
+                                    child: Text(translation(context).guestUser,
+                                        style: TextStyle(
+                                          fontSize: Platform.isAndroid
+                                              ? size_12
+                                              : size_14,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : colors.bodyBackgroundDark,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       )

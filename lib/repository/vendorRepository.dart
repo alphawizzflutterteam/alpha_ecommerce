@@ -36,6 +36,7 @@ class VendorRepository {
       String api, String bearerToken) async {
     final url = Uri.parse(api);
 
+    print(api);
     final http.Response res;
     res = await http.get(url, headers: {
       'Authorization': 'Bearer $bearerToken',

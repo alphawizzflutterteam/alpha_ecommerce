@@ -4,6 +4,7 @@ import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/app_utils.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -119,6 +120,10 @@ productForYouCard(
                                       data, context);
                                 }
                               } else {
+                                Utils.showFlushBarWithMessage(
+                                    "",
+                                    "Please login to wishlist product.",
+                                    context);
                                 return AppUtils.appUtilsInstance.nothing();
                               }
                             },
