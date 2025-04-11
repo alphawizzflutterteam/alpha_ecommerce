@@ -17,9 +17,6 @@ categoryCard(
     onTap: () {
       searchProvider.categoryId = categoryId;
       searchProvider.subCategoryId = model.id!.toString();
-      print("Category Id ${searchProvider.categoryId}");
-      print("Sub Category Id ${searchProvider.subCategoryId}");
-
       searchProvider.isHome = false;
       Routes.navigateToSearchScreen(context);
       searchProvider.getProductsListNew(context, "25", "1");

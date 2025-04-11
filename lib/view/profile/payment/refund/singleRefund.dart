@@ -102,9 +102,9 @@ class _SingleRefundState extends State<SingleRefund> {
                             width: MediaQuery.of(context).size.width * 0.54,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  primary:
+                                  backgroundColor:
                                       const Color(0xff2568EE).withOpacity(0.2),
-                                  onPrimary: colors.textColor,
+                                  foregroundColor: colors.textColor,
                                 ),
                                 onPressed: () {},
                                 child: const Row(
@@ -272,8 +272,8 @@ class _SingleRefundState extends State<SingleRefund> {
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: buttonColor.withOpacity(0.2),
-        onPrimary: textColor,
+        backgroundColor: buttonColor.withOpacity(0.2),
+        foregroundColor: textColor,
       ),
       onPressed: () {},
       child: Text(isSuccess ? "SUCCESS" : "unsuccessful"),

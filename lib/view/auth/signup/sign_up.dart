@@ -75,8 +75,7 @@ class _SignUPState extends State<SignUP> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
                       child: Text(
-                        translation(context)
-                            .createanaccounttoviewandmanageyourprojects,
+                        translation(context).createanaccounttoviewandmanageyourprojects,
                         style: const TextStyle(
                             color: colors.lightTextColor, fontSize: 15),
                       ),

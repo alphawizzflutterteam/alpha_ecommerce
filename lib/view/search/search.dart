@@ -344,8 +344,7 @@ class _SearchState extends State<Search> {
                         child: Column(
                           children: [
                             Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 20),
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                               // height: MediaQuery.of(context).size.height *
                               //     0.5 *
                               //     searchProvider.searchResults.length /
@@ -354,17 +353,13 @@ class _SearchState extends State<Search> {
                                 shrinkWrap: true,
                                 padding: EdgeInsets.zero,
                                 physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   childAspectRatio: 0.68,
                                 ),
                                 itemCount: searchProvider.searchResults.length,
                                 itemBuilder: (context, j) {
-                                  return productForYouCardSearch(
-                                      searchProvider.searchResults[j],
-                                      context,
-                                      homeProvider);
+                                  return productForYouCardSearch(searchProvider.searchResults[j], context, homeProvider);
                                 },
                               ),
                             ),

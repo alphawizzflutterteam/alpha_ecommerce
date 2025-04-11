@@ -4,8 +4,7 @@
 
 import 'dart:convert';
 
-ProductsModel productsModelFromJson(String str) =>
-    ProductsModel.fromJson(json.decode(str));
+ProductsModel productsModelFromJson(String str) => ProductsModel.fromJson(json.decode(str));
 
 String productsModelToJson(ProductsModel data) => json.encode(data.toJson());
 
@@ -149,7 +148,12 @@ class ProductList {
     required this.cart_id,
   });
 
-  factory ProductList.fromJson(Map<String, dynamic> json) => ProductList(
+  factory ProductList.fromJson(Map<String, dynamic> json) {
+
+    try {
+      return ProductList(
+
+
         id: json["id"],
         categoryIds: List<CategoryId>.from(
             json["category_ids"].map((x) => CategoryId.fromJson(x))),
@@ -165,7 +169,7 @@ class ProductList {
         unit: json["unit"]!,
         minQty: json["min_qty"],
         featured: json["featured"],
-        refundable: json["refundable"],
+        refundable: int.tryParse(json["refundable"]) ?? 0,
         variantProduct: json["variant_product"],
         attributes: List<int>.from(json["attributes"].map((x) => x)),
         choiceOptions: List<ChoiceOption>.from(
@@ -198,19 +202,26 @@ class ProductList {
         multiplyQty: json["multiply_qty"],
         code: json["code"],
         reviewsCount: json["reviews_count"],
-        rating:
-            List<Rating>.from(json["rating"].map((x) => Rating.fromJson(x))),
+        rating: List<Rating>.from(
+            json["rating"].map((x) => Rating.fromJson(x))),
         tags: List<Tag>.from(json["tags"].map((x) => Tag.fromJson(x))),
         translations: List<dynamic>.from(json["translations"].map((x) => x)),
         shareLink: json["share_link"],
-        reviews:
-            List<Review>.from(json["reviews"].map((x) => Review.fromJson(x))),
+        reviews: List<Review>.from(
+            json["reviews"].map((x) => Review.fromJson(x))),
         colorsFormatted: List<ColorsFormatted>.from(
             json["colors_formatted"].map((x) => ColorsFormatted.fromJson(x))),
         isFavorite: json["is_favorite"],
         isCart: json["is_cart"],
         cart_id: json["cart_id"],
       );
+    }catch(e, stacktrace) {
+      print('❌ Error parsing YourModel: $e');
+      print('Stacktrace: $stacktrace');
+      rethrow;
+    }
+  }
+
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -229,8 +240,7 @@ class ProductList {
         "refundable": refundable,
         "variant_product": variantProduct,
         "attributes": List<dynamic>.from(attributes.map((x) => x)),
-        "choice_options":
-            List<dynamic>.from(choiceOptions.map((x) => x.toJson())),
+        "choice_options": List<dynamic>.from(choiceOptions.map((x) => x.toJson())),
         "variation": List<dynamic>.from(variation.map((x) => x.toJson())),
         "weight": weight,
         "published": published,
@@ -263,8 +273,7 @@ class ProductList {
         "translations": List<dynamic>.from(translations.map((x) => x)),
         "share_link": shareLink,
         "reviews": List<dynamic>.from(reviews.map((x) => x.toJson())),
-        "colors_formatted":
-            List<dynamic>.from(colorsFormatted.map((x) => x.toJson())),
+        "colors_formatted": List<dynamic>.from(colorsFormatted.map((x) => x.toJson())),
         "is_favorite": isFavorite,
         "is_cart": isCart,
         "cart_id": cart_id,
@@ -529,8 +538,8 @@ class Shop {
   });
 
   factory Shop.fromJson(Map<String, dynamic> json) => Shop(
-        id: json["id"],
-        sellerId: json["seller_id"],
+        id: int.tryParse(json['id'].toString()) ?? 0,
+        sellerId: int.tryParse(json['seller_id'].toString()) ?? 0,
         name: json["name"]!,
         address: json["address"]!,
         contact: json["contact"],

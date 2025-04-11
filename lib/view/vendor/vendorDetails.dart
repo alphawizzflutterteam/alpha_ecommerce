@@ -392,7 +392,7 @@ class _VendorDetailsState extends State<VendorDetails> {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          primary: isSelected ? colors.buttonColor : Colors.transparent,
+          backgroundColor: isSelected ? colors.buttonColor : Colors.transparent,
         ),
         child: Text(
           label,

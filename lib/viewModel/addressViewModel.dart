@@ -82,10 +82,14 @@ class AddressViewModel with ChangeNotifier {
       addressList = value.data;
       notifyListeners();
 
-      setselected(0, addressList[0]);
+      if(addressList.isNotEmpty){
+        setselected(0, addressList[0]);
+        SharedPref.shared.pref
+            ?.setString(PrefKeys.billingAddressID, addressList[0].id.toString());
+      }
 
-      SharedPref.shared.pref
-          ?.setString(PrefKeys.billingAddressID, addressList[0].id.toString());
+
+
       setLoading(false);
     }).onError((error, stackTrace) {
       setLoading(false);

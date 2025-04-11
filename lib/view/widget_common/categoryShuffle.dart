@@ -289,7 +289,7 @@ class _CategoryFilterState extends State<CategoryFilter> {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          primary: isSelected ? colors.buttonColor : Colors.transparent,
+          backgroundColor: isSelected ? colors.buttonColor : Colors.transparent,
         ),
         child: Text(
           label,

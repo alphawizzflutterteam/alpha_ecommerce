@@ -223,7 +223,7 @@ class CartProduct {
         unit: json["unit"],
         minQty: json["min_qty"],
         featured: json["featured"],
-        refundable: json["refundable"],
+        refundable: int.tryParse(json["refundable"]) ?? 0,
         variantCartProduct: json["variant_product"],
         attributes: List<int>.from(json["attributes"].map((x) => x)),
         choiceOptions: List<ChoiceOption>.from(
@@ -594,8 +594,8 @@ class Shop {
   });
 
   factory Shop.fromJson(Map<String, dynamic> json) => Shop(
-        id: json["id"],
-        sellerId: json["seller_id"],
+        id: int.parse(json["id"].toString()),
+        sellerId: int.parse(json["seller_id"].toString()),
         name: json["name"],
         address: json["address"],
         contact: json["contact"],

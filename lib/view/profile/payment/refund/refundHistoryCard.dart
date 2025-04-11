@@ -90,8 +90,8 @@ Widget buildCustomButton(bool isSuccess) {
 
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
-      primary: buttonColor.withOpacity(0.2),
-      onPrimary: textColor,
+      backgroundColor: buttonColor.withOpacity(0.2),
+      foregroundColor: textColor,
     ),
     onPressed: () {},
     child: Text(isSuccess ? "SUCCESS" : "unsuccessful"),

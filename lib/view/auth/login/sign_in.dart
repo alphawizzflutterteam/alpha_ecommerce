@@ -247,8 +247,8 @@ class _SignInState extends State<SignIn> {
                                           mobileOrEmailController.text, data);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      primary: colors.buttonColor,
-                                      onPrimary: colors.textColor,
+                                      backgroundColor: colors.buttonColor,
+                                     // onPrimary: colors.textColor,
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10.0),

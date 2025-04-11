@@ -536,8 +536,8 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                   width: 200,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: colors.buttonColor,
-                      onPrimary: Colors.white,
+                      backgroundColor: colors.buttonColor,
+                      foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),

@@ -198,8 +198,8 @@ class _SubscribeState extends State<Subscribe> {
                                           0.3,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          primary: Colors.white,
-                                          onPrimary: Colors.black,
+                                          backgroundColor: Colors.white,
+                                          foregroundColor: Colors.black,
                                           padding: EdgeInsets.zero,
                                         ),
                                         onPressed: () {
@@ -530,8 +530,8 @@ class _SubscribeState extends State<Subscribe> {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-            primary: isSelected ? Colors.white : Colors.transparent,
-            onPrimary: textColor,
+            backgroundColor: isSelected ? Colors.white : Colors.transparent,
+            foregroundColor: textColor,
           ),
           child: Text(
             label,

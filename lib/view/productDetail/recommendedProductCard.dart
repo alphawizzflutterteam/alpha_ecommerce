@@ -1,5 +1,6 @@
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/app_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
@@ -38,10 +39,10 @@ recommendedProductCard({required context, required List<ProductList> model}) {
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  child: CachedNetworkImage(
+                  child: AppImage(image: card.images.first,) /*CachedNetworkImage(
                     imageUrl: card.images.first,
                     fit: BoxFit.fitWidth,
-                  )),
+                  )*/),
               SizedBox(height: MediaQuery.of(context).size.height * 0.0005),
               Padding(
                 padding: const EdgeInsets.symmetric(

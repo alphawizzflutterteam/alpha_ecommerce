@@ -2,6 +2,7 @@ import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/cart/model/cartModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/app_image.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/toast_message.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -18,6 +19,8 @@ cartCard(
   for (int i = 1; i < model.currentStock + 1; i++) {
     quantity.add("$i");
   }
+
+  print('${model.images[0]}___________Dfdfsd');
 
   return Padding(
       padding: const EdgeInsets.only(left: 10.0, top: 8, right: 10, bottom: 8),
@@ -45,11 +48,12 @@ cartCard(
                       Routes.navigateToProductDetailPageScreen(
                           context, model as ProductList);
                     },
-                    child: Image.network(
+                    child: AppImage(image: model.thumbnail,width: 110,
+                      height: 140,)/*Image.network(
                       model.images[0],
                       width: 110,
                       height: 140,
-                    ),
+                    ),*/
                   ),
                   const SizedBox(width: 30),
                   Column(

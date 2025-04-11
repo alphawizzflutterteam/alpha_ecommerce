@@ -110,7 +110,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Text(
-                    "${translation(context).entertheotpsentto} $mobile",
+                    "${translation(context).entertheotpsentto} $mobile",//translation(context).entertheotpsentto
                     style: const TextStyle(
                       color: colors.lightTextColor,
                       fontSize: 16,
