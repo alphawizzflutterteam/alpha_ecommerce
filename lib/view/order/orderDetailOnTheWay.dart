@@ -82,7 +82,7 @@ class _OrderDetailOnTheWayState extends State<OrderDetailOnTheWay> {
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.transparent
                     : colors.buttonColor,
-                child:  Stack(
+                child: Stack(
                   children: [
                     ProfileHeader(),
                     InternalDetailPageHeader(
@@ -1551,8 +1551,8 @@ class _CancelOrderDialogWidgetState extends State<CancelOrderDialogWidget> {
             width: 200,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: colors.buttonColor,
-                onPrimary: Colors.white,
+                foregroundColor: Colors.white,
+                backgroundColor: colors.buttonColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),

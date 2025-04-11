@@ -97,7 +97,7 @@ class _SubscribeState extends State<Subscribe> {
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.transparent
                                     : colors.buttonColor,
-                            child:  Stack(
+                            child: Stack(
                               children: [
                                 ProfileHeader(),
                                 InternalPageHeader(
@@ -584,8 +584,9 @@ class _SubscribeState extends State<Subscribe> {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-            primary: isSelected ? colors.buttonColor : Colors.transparent,
-            onPrimary: textColor,
+            foregroundColor: textColor,
+            backgroundColor:
+                isSelected ? colors.buttonColor : Colors.transparent,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
         child: Text(
@@ -619,8 +620,8 @@ class UpgradePlanWidget extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.3,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary: Colors.white,
-            onPrimary: Colors.black,
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.white,
             padding: EdgeInsets.zero,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
@@ -694,10 +695,10 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                         Text(
 //                                     //                           "ALPHA GOLD",
 //                                     //                           style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
+// .textTheme
+// .titleSmall!
+// .copyWith(
+
 //                                     //                             fontSize:
 //                                     //                                 20, // Adjust the size as needed
 //                                     //                             fontWeight:
@@ -714,10 +715,10 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                             text:
 //                                     //                                 '\$', // The dollar sign
 //                                     //                             style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
+// .textTheme
+// .titleSmall!
+// .copyWith(
+
 //                                     //                               fontSize:
 //                                     //                                   18, // Adjust the size as needed
 //                                     //                               fontWeight:
@@ -729,10 +730,10 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                               TextSpan(
 //                                     //                                 text: '9.99',
 //                                     //                                 style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
+// .textTheme
+// .titleSmall!
+// .copyWith(
+
 //                                     //                                   fontSize:
 //                                     //                                       24, // Adjust the size as needed
 //                                     //                                   fontWeight:
@@ -745,10 +746,10 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                               TextSpan(
 //                                     //                                 text: ' / month',
 //                                     //                                 style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
+// .textTheme
+// .titleSmall!
+// .copyWith(
+
 //                                     //                                   fontSize:
 //                                     //                                       18, // Adjust the size as needed
 //                                     //                                   fontWeight:
@@ -773,12 +774,12 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                             ? const Text(
 //                                     //                                 'SUBSCRIBE NOW',
 //                                     //                                 style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
+// .textTheme
+// .titleSmall!
+// .copyWith(
+
 //                                     //                                     fontSize:
-                                //    Platform.isAndroid ? size_10 : size_12,,
+//    Platform.isAndroid ? size_10 : size_12,,
 //                                     //                                     color: Colors
 //                                     //                                         .white),
 //                                     //                               )
@@ -798,8 +799,8 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                                         width: 3,
 //                                     //                                       ),
 //                                     //                                       InkWell(
-                      // highlightColor: Colors.transparent,
-                      // splashColor: Colors.transparent,
+// highlightColor: Colors.transparent,
+// splashColor: Colors.transparent,
 //                                     //                                         onTap: () {
 //                                     //                                           Routes.navigateToCurrentPlanScreen(
 //                                     //                                               context);
@@ -808,10 +809,10 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                                             const Text(
 //                                     //                                           'CURRENT PLAN',
 //                                     //                                           style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
+// .textTheme
+// .titleSmall!
+// .copyWith(
+
 //                                     //                                               fontSize:
 //                                     //                                                   12,
 //                                     //                                               color:
@@ -826,10 +827,10 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                                   const Text(
 //                                     //                                     'Expiring by 02 Feb, 2023',
 //                                     //                                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
+// .textTheme
+// .titleSmall!
+// .copyWith(
+
 //                                     //                                         fontSize:
 //                                     //                                             12,
 //                                     //                                         color: Colors
@@ -863,13 +864,13 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                       Text(
 //                                     //                         "Lorem Ipsum is simply dummy text",
 //                                     //                         style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
+// .textTheme
+// .titleSmall!
+// .copyWith(
+
 //                                     //                             color: Colors.white,
 //                                     //                             fontSize:
-                               //     Platform.isAndroid ? size_10 : size_12,),
+//     Platform.isAndroid ? size_10 : size_12,),
 //                                     //                       ),
 //                                     //                     ],
 //                                     //                   ),
@@ -915,10 +916,10 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //             Text(
 //                                     //               "ALPHA BASIC",
 //                                     //               style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
+// .textTheme
+// .titleSmall!
+// .copyWith(
+
 //                                     //                 fontSize:
 //                                     //                     20, // Adjust the size as needed
 //                                     //                 fontWeight: FontWeight.bold,
@@ -933,10 +934,10 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //               TextSpan(
 //                                     //                 text: '\$', // The dollar sign
 //                                     //                 style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
+// .textTheme
+// .titleSmall!
+// .copyWith(
+
 //                                     //                   fontSize:
 //                                     //                       18, // Adjust the size as needed
 //                                     //                   fontWeight: FontWeight.bold,
@@ -947,10 +948,10 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                   TextSpan(
 //                                     //                     text: '0.00',
 //                                     //                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
+// .textTheme
+// .titleSmall!
+// .copyWith(
+
 //                                     //                       fontSize:
 //                                     //                           24, // Adjust the size as needed
 //                                     //                       fontWeight: FontWeight.bold,
@@ -961,10 +962,10 @@ class UpgradePlanWidget extends StatelessWidget {
 //                                     //                   TextSpan(
 //                                     //                     text: ' / month',
 //                                     //                     style: Theme.of(context)
-                                                    // .textTheme
-                                                    // .titleSmall!
-                                                    // .copyWith(
-                                                      
+// .textTheme
+// .titleSmall!
+// .copyWith(
+
 //                                     //                       fontSize:
 //                                     //                           18, // Adjust the size as needed
 //                                     //                       fontWeight: FontWeight.normal,

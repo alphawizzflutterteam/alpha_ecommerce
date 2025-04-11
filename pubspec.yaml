@@ -57,7 +57,7 @@ dependencies:
   permission_handler: ^9.1.0
   #speech_to_text: ^5.1.0
   loading_animation_widget: ^1.2.0+4
-  intl: ^0.18.1
+  intl:
   flutter_localization: ^0.1.14
   cached_network_image: ^3.2.3
   geolocator: ^10.1.0

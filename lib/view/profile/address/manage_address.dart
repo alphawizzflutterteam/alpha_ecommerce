@@ -90,8 +90,8 @@ class _ManageAddressState extends State<ManageAddress> {
                               addressProvider.getCurrentLoc(context);
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: colors.buttonColor,
-                              onPrimary: Colors.white,
+                              foregroundColor: Colors.white,
+                              backgroundColor: colors.buttonColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),

@@ -269,7 +269,7 @@ class InternalDetailPageHeader extends StatelessWidget {
                                         minHeight: 8,
                                       ),
                                       child: Text(
-                                        cartCount!,
+                                        cartCount ?? '0',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: size_12,

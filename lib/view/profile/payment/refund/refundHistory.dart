@@ -51,7 +51,7 @@ class _RefundHistoryState extends State<RefundHistory> {
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.transparent
                     : colors.buttonColor,
-                child:  Stack(
+                child: Stack(
                   children: [
                     ProfileHeader(),
                     InternalPageHeader(
@@ -117,8 +117,8 @@ class _RefundHistoryState extends State<RefundHistory> {
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: buttonColor.withOpacity(0.2),
-        onPrimary: textColor,
+        foregroundColor: textColor,
+        backgroundColor: buttonColor.withOpacity(0.2),
       ),
       onPressed: () {},
       child: Text(isSuccess ? "SUCCESS" : "unsuccessful"),

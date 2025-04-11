@@ -72,8 +72,8 @@ class _AddressListScreenState extends State<AddressListScreen> {
                         Routes.navigateToManageAddressScreen(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: colors.buttonColor,
-                        onPrimary: Colors.white,
+                        foregroundColor: Colors.white,
+                        backgroundColor: colors.buttonColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),

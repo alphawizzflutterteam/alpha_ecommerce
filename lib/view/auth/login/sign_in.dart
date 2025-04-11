@@ -472,8 +472,8 @@ class _SignInState extends State<SignIn> {
                                             data);
                                       },
                                       style: ElevatedButton.styleFrom(
-                                        primary: colors.buttonColor,
-                                        onPrimary: colors.textColor,
+                                        foregroundColor: colors.textColor,
+                                        backgroundColor: colors.buttonColor,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(10.0),
@@ -666,7 +666,6 @@ class _SignInState extends State<SignIn> {
     );
   }
 }
-
 
 //  //background with pattern
 //       const CommonBackgroundPatternAuthWidget(),
