@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
@@ -10,7 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddressListScreen extends StatefulWidget {
-  const AddressListScreen({super.key});
+  final bool isComingForSelection;
+  const AddressListScreen({super.key, required this.isComingForSelection});
 
   @override
   State<AddressListScreen> createState() => _AddressListScreenState();
@@ -27,6 +30,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
     addressProvider.setText();
   }
 
+//
   @override
   Widget build(BuildContext context) {
     addressProvider = Provider.of<AddressViewModel>(context);
@@ -36,17 +40,24 @@ class _AddressListScreenState extends State<AddressListScreen> {
       Scaffold(
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: SingleChildScrollView(
             child: Column(
               children: [
-                Stack(
-                  children: [
-                    const ProfileHeader(),
-                    const InternalPageHeader(
-                      text: "Address",
-                    ),
-                  ],
+                Container(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.transparent
+                      : colors.buttonColor,
+                  child: Stack(
+                    children: [
+                      const ProfileHeader(),
+                      const InternalPageHeader(
+                        text: "Address",
+                      ),
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -61,35 +72,68 @@ class _AddressListScreenState extends State<AddressListScreen> {
                         Routes.navigateToManageAddressScreen(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: colors.buttonColor,
-                        onPrimary: Colors.white,
+                        foregroundColor: Colors.white,
+                        backgroundColor: colors.buttonColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(width: 5),
                           Text('Add new Address',
-                              style: TextStyle(fontSize: 14)),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
+                                      color: Colors.white)),
                         ],
                       ),
                     ),
                   ),
                 ),
-                Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Container(
-                          child: Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
-                              child: addressCardsRow(
-                                  context,
-                                  addressProvider.addressList,
-                                  addressProvider)),
-                        ))),
+                addressProvider.addressList.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: size_50,
+                            ),
+                            Image.asset(
+                              'assets/images/empty address.png',
+                              height: size_150,
+                            ),
+                            SizedBox(
+                              height: size_10,
+                            ),
+                            Text(
+                              "No address yet.",
+                              style: TextStyle(
+                                color: colors.greyText,
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    : Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: Container(
+                              child: Padding(
+                                  padding: const EdgeInsets.only(top: 2.0),
+                                  child: addressCardsRow(
+                                      context,
+                                      addressProvider.addressList,
+                                      addressProvider,
+                                      widget.isComingForSelection)),
+                            ))),
               ],
             ),
           ))

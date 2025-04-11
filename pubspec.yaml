@@ -50,20 +50,34 @@ dependencies:
   google_fonts: ^4.0.4
   dropdown_button2: ^2.1.4
   another_flushbar: ^1.12.30
+  flutter_local_notifications: ^13.0.0
   http: ^1.1.0
+  google_sign_in: ^5.2.1
+  file_picker: ^6.1.1
   permission_handler: ^9.1.0
   #speech_to_text: ^5.1.0
   loading_animation_widget: ^1.2.0+4
-  intl: ^0.18.1
+  intl:
   flutter_localization: ^0.1.14
   cached_network_image: ^3.2.3
   geolocator: ^10.1.0
   geocoding: ^2.1.1
   visibility_detector: ^0.4.0+2
   speech_to_text: ^5.0.0
+  share: ^2.0.4
+  firebase_core: ^2.24.2
+  firebase_messaging: ^14.6.4
+  razorpay_flutter: ^1.1.1
+  image_picker: ^1.0.6
+  flutter_network_connectivity: ^0.0.6
+  path_provider: ^2.0.3
+  open_file: ^3.2.1
+  chat_bubbles: ^1.5.0
+  sign_in_with_apple: ^5.0.0
 
   flutter_localizations:
     sdk: flutter
+  flutter_html: ^3.0.0-beta.2
 
 dev_dependencies:
   flutter_test:

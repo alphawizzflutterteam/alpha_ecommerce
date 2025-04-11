@@ -57,6 +57,7 @@ extension colors on ColorScheme {
   static const Color deliveredDark = Color(0xff2B6F1B);
   static const Color returnedLight = Color(0xffB8C7FF);
   static const Color returnedDark = Color(0xff4A16DD);
+  static const Color theme = Color(0xff0A9494);
 
   // previous
 
@@ -71,6 +72,8 @@ extension colors on ColorScheme {
       brightness == Brightness.dark ? whiteTemp : const Color(0xff222222);
 
   static Color darkIcon = const Color(0xff9B9B9B);
+  static Color lightBorder = const Color(0xFFC3C5DD);
+  static Color lightGrey = const Color(0xFFC3C5DD);
 
   static const Color grad1Color = Color(0xffEEF2F3);
   static const Color grad2Color = Color(0xC7183D3D);

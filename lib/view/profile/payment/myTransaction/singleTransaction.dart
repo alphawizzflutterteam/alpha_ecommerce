@@ -1,11 +1,17 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/model/transactionHistoryModel.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../../../utils/color.dart';
 import '../../../../utils/routes.dart';
 import '../../../widget_common/commonBackground.dart';
 import '../../common_header.dart';
 
 class SingleTransaction extends StatefulWidget {
-  const SingleTransaction({Key? key}) : super(key: key);
+  final DatumTrasaction data;
+  const SingleTransaction({Key? key, required this.data}) : super(key: key);
 
   @override
   State<SingleTransaction> createState() => _SingleTransactionState();
@@ -13,6 +19,15 @@ class SingleTransaction extends StatefulWidget {
 
 class _SingleTransactionState extends State<SingleTransaction> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  String convertTimestampToFormattedDate(String timestamp) {
+    // Parse the timestamp string into a DateTime object
+    DateTime dateTime = DateTime.parse(timestamp);
+
+    // Format the DateTime object as "dd Month name yyyy"
+    String formattedDate = DateFormat('dd MMM yyyy, h:mm a').format(dateTime);
+
+    return formattedDate;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,48 +37,69 @@ class _SingleTransactionState extends State<SingleTransaction> {
         resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
         extendBody: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.transparent
+            : Colors.white,
         body: Column(
           children: [
-            Stack(
-              children: [
-                const ProfileHeader(),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 35),
-                    height: 100,
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: InkWell(
-                                onTap: () {
-                                  Routes.navigateToPreviousScreen(context);
-                                },
-                                child: const Icon(Icons.arrow_back_ios)),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.1),
-                              child: const Text(
-                                "Transaction Detail",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+            Container(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.transparent
+                  : colors.buttonColor,
+              child: Stack(
+                children: [
+                  const ProfileHeader(),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 50),
+                      height: 100,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  onTap: () {
+                                    Routes.navigateToPreviousScreen(context);
+                                  },
+                                  child: const Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white,
+                                  )),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    right: MediaQuery.of(context).size.width *
+                                        0.1),
+                                child: Text(
+                                  "Transaction Detail",
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.white,
+                                          fontSize: Platform.isAndroid
+                                              ? size_18
+                                              : size_20),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -78,20 +114,30 @@ class _SingleTransactionState extends State<SingleTransaction> {
                           const SizedBox(
                             height: 20,
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Text(
-                              "\$ 2562",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold),
+                              widget.data.orderAmount,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold),
                             ),
                           ),
-                          const Text(
-                            "2 Oct 2023 04:45 PM",
-                            style: TextStyle(
-                                color: colors.lightTextColor, height: 1.5),
+                          Text(
+                            convertTimestampToFormattedDate(
+                                widget.data.createdAt),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: colors.lightTextColor, height: 1.5),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(
@@ -107,7 +153,7 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                   color:
                                       const Color(0xff2568EE).withOpacity(0.2),
                                 ),
-                                child: const Row(
+                                child: Row(
                                   children: [
                                     Icon(
                                       Icons.check_circle,
@@ -118,9 +164,19 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                     ),
                                     Text(
                                       "Transaction Successful",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: colors.textColor),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            fontSize: Platform.isAndroid
+                                                ? size_11
+                                                : size_13,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -131,17 +187,21 @@ class _SingleTransactionState extends State<SingleTransaction> {
                         ],
                       ),
                     ),
-                    const Divider(
-                      color: Colors.white,
+                    Divider(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
                       height: 1,
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     Container(
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
-                        color: colors.boxBorder,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? colors.boxBorder
+                            : const Color.fromARGB(255, 231, 229, 229),
                       ),
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 20),
@@ -154,30 +214,50 @@ class _SingleTransactionState extends State<SingleTransaction> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     "Order ID",
-                                    style: TextStyle(
-                                        color: colors.lightTextColor,
-                                        fontSize: 12),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? colors.lightTextColor
+                                              : colors.boxBorder,
+                                          fontSize: Platform.isAndroid
+                                              ? size_10
+                                              : size_12,
+                                        ),
                                   ),
                                   SizedBox(
                                     height: 3,
                                   ),
-                                  Text("OID2345678912",
-                                      style: TextStyle(
-                                          color: colors.textColor,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold))
+                                  Text(widget.data.orderId.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.lightTextColor
+                                                  : colors.boxBorder,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                              fontWeight: FontWeight.bold))
                                 ],
                               ),
-                              buildCustom(true)
+                              buildCustom(
+                                  widget.data.status.toLowerCase() == "success",
+                                  widget.data.status)
                             ],
                           ),
                           const SizedBox(height: 20),
-                          const Row(
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -186,24 +266,42 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                 children: [
                                   Text(
                                     "Transaction ID",
-                                    style: TextStyle(
-                                        color: colors.lightTextColor,
-                                        fontSize: 12),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? colors.lightTextColor
+                                              : colors.boxBorder,
+                                          fontSize: Platform.isAndroid
+                                              ? size_10
+                                              : size_12,
+                                        ),
                                   ),
                                   SizedBox(
                                     height: 3,
                                   ),
-                                  Text("OID2345678912",
-                                      style: TextStyle(
-                                          color: colors.textColor,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold))
+                                  Text(widget.data.transactionId.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.lightTextColor
+                                                  : colors.boxBorder,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                              fontWeight: FontWeight.bold))
                                 ],
                               )
                             ],
                           ),
                           const SizedBox(height: 20),
-                          const Row(
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -212,24 +310,42 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                 children: [
                                   Text(
                                     "Transaction Type",
-                                    style: TextStyle(
-                                        color: colors.lightTextColor,
-                                        fontSize: 12),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? colors.lightTextColor
+                                              : colors.boxBorder,
+                                          fontSize: Platform.isAndroid
+                                              ? size_10
+                                              : size_12,
+                                        ),
                                   ),
                                   SizedBox(
                                     height: 3,
                                   ),
-                                  Text("Bank Transfer",
-                                      style: TextStyle(
-                                          color: colors.textColor,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold))
+                                  Text(widget.data.paymentMethod,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.lightTextColor
+                                                  : colors.boxBorder,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                              fontWeight: FontWeight.bold))
                                 ],
                               )
                             ],
                           ),
                           const SizedBox(height: 20),
-                          const Row(
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -238,18 +354,36 @@ class _SingleTransactionState extends State<SingleTransaction> {
                                 children: [
                                   Text(
                                     "Type",
-                                    style: TextStyle(
-                                        color: colors.lightTextColor,
-                                        fontSize: 12),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? colors.lightTextColor
+                                              : colors.boxBorder,
+                                          fontSize: Platform.isAndroid
+                                              ? size_10
+                                              : size_12,
+                                        ),
                                   ),
                                   SizedBox(
                                     height: 3,
                                   ),
                                   Text("Product Purchase",
-                                      style: TextStyle(
-                                          color: colors.textColor,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold))
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.lightTextColor
+                                                  : colors.boxBorder,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                              fontWeight: FontWeight.bold))
                                 ],
                               )
                             ],
@@ -268,7 +402,7 @@ class _SingleTransactionState extends State<SingleTransaction> {
     ]);
   }
 
-  Widget buildCustom(bool isSuccess) {
+  Widget buildCustom(bool isSuccess, String status) {
     Color buttonColor = isSuccess ? Colors.green : Colors.red;
     Color textColor = isSuccess ? Colors.green : Colors.red;
 
@@ -279,8 +413,9 @@ class _SingleTransactionState extends State<SingleTransaction> {
         color: buttonColor.withOpacity(0.2),
       ),
       child: Text(
-        isSuccess ? "SUCCESS" : "unsuccessful",
-        style: TextStyle(color: textColor),
+        status,
+        style:
+            Theme.of(context).textTheme.titleSmall!.copyWith(color: textColor),
       ),
     );
   }

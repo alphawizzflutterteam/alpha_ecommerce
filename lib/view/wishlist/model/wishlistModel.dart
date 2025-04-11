@@ -85,7 +85,7 @@ class WishlistItemProduct {
   String unit;
   int minQty;
   int featured;
-  int refundable;
+  String refundable;
   int variantProduct;
   List<dynamic> attributes;
   List<ChoiceOption> choiceOptions;
@@ -365,8 +365,8 @@ class ChoiceOption {
 }
 
 class Shop {
-  int id;
-  int sellerId;
+  String id;
+  String sellerId;
   String name;
   String address;
   String contact;

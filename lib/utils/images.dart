@@ -13,7 +13,9 @@ class Images {
   static const linkedlin = "assets/images/linkedin.png";
   static const youtube = "assets/images/youTube.png";
   static const visa = 'assets/images/visa.png';
-  static const phonePay = 'assets/images/phonePay.png';
+  static const razorpay = 'assets/images/razorpay.png';
+
+  static const phonePay = 'assets/images/phonepay.png';
   static const upi = "assets/images/upi.png";
   static const delete = 'assets/images/delete.png';
   static const logout = 'assets/images/logout.png';
@@ -29,6 +31,7 @@ class Images {
   static const mic = 'assets/images/micAllow.png';
   static const commonHeader = "assets/images/header-bg.png";
   static const refer = "assets/images/refer.png";
+  static const coin = "assets/images/coin.png";
   static const discount = 'assets/images/discount.png';
   static const cart = 'assets/images/cart.png';
   static const bgColor = "assets/images/bg-color.png";
@@ -47,7 +50,7 @@ class Images {
   static const bestOffer = "assets/images/bestOffer.png";
   static const homeBG = 'assets/images/home_bg.png';
   static const cancelOrder = 'assets/images/cancelOrder.png';
-
+  static const semicircles = "assets/images/semicircle.png";
   static const headerBGLine = 'assets/images/header_bg_line.png';
 
   //dashboard
@@ -75,13 +78,13 @@ class Images {
   static const notification = 'assets/icons/notification.png';
   static const headerCart = "assets/icons/cart.png";
 
-  static const heart = 'assets/icons/heart.png';
-  static const order = "assets/icons/order.png";
+  static const heart = 'assets/images/wishlist.png';
+  static const order = "assets/images/order.png";
 
   static const rupees = "assets/icons/rupees.png";
 
   //profile
-  static const coin = "assets/icons/coin.png";
+
   static const subscribe = 'assets/icons/subscribe.png';
   static const setting = "assets/icons/setting.png";
   static const discountProfile = 'assets/icons/discount.png';
@@ -141,4 +144,9 @@ class Images {
   static const headphone = "assets/images/temporaryImages/headphone.png";
   static const cameraTemporary = "assets/images/temporaryImages/camera.png";
   static const jeans = "assets/images/temporaryImages/jeans.png";
+  static const defaultProductImg = "assets/images/default-img.png";
+  static const defaultProfile = "assets/images/profile.png";
+  static const wallet = "assets/images/wallet.png";
+  static const lightIntroImage = "assets/images/intro_bg.png";
+  static const light_bg = "assets/images/light-bg.png";
 }

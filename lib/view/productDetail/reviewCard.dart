@@ -1,114 +1,128 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/order/orderDetailDelivered.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../utils/images.dart';
 
-reviewCard({required rating}) {
+reviewCard(Review rating, BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          "Review",
-          style: TextStyle(color: Colors.white),
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+    child: Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: const Color.fromARGB(255, 212, 212, 212),
+          width: 2.0,
         ),
-        const SizedBox(
-          height: 20,
-        ),
-        Row(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(Images.profile),
-            const SizedBox(
-              width: 15,
-            ),
-            Column(
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Customer Name",
-                  style: TextStyle(color: Colors.white),
-                ),
-                RatingBar.builder(
-                  initialRating: rating,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: false,
-                  itemCount: 5,
-                  itemSize: 15,
-                  itemPadding: const EdgeInsets.only(right: 5),
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star,
-                    color: Colors.orange,
+                CachedNetworkImage(
+                  imageUrl: rating.customer.image,
+                  height: size_45,
+                  fit: BoxFit.contain,
+                  errorWidget: (context, url, error) => Image.asset(
+                    Images.defaultProductImg,
+                    height: size_45,
                   ),
-                  onRatingUpdate: (newRating) {
-                    rating = newRating;
-                  },
+                ),
+
+                //Image.asset(Images.profile),
+                const SizedBox(
+                  width: 15,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width - 220,
+                      child: Text(
+                        rating.customer.name == ""
+                            ? "Anonyms"
+                            : rating.customer.name,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                      ),
+                    ),
+                    RatingBar.builder(
+                      initialRating: rating.rating.toDouble(),
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: false,
+                      itemCount: 5,
+                      itemSize: 15,
+                      itemPadding: const EdgeInsets.only(right: 5),
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.orange,
+                      ),
+                      onRatingUpdate: (newRating) {
+                        //rating = newRating;
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        const Text(
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. LOrem Ipsum has been the industry's standard dummy text since the 1500s",
-          style: TextStyle(color: Colors.white, fontSize: 12),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        const Divider(
-          color: Colors.white,
-          height: 1,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(Images.profile),
             const SizedBox(
-              width: 15,
+              height: 10,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Customer Name",
-                  style: TextStyle(color: Colors.white),
-                ),
-                RatingBar.builder(
-                  initialRating: rating,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: false,
-                  itemCount: 5,
-                  itemSize: 15,
-                  itemPadding: const EdgeInsets.only(right: 5),
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star,
-                    color: Colors.orange,
+            Text(
+              rating.comment,
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
                   ),
-                  onRatingUpdate: (newRating) {
-                    rating = newRating;
-                  },
-                ),
-              ],
             ),
+            const SizedBox(
+              height: 5,
+            ),
+            rating.attachment.isNotEmpty
+                ? GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return FullImageDialog(
+                            image: rating.attachment.first,
+                          );
+                        },
+                      );
+                    },
+                    child: CachedNetworkImage(
+                      imageUrl: rating.attachment.first,
+                      height: size_100,
+                      width: size_100,
+                      fit: BoxFit.contain,
+                      errorWidget: (context, url, error) => Image.asset(
+                        Images.defaultProductImg,
+                        height: size_100,
+                        width: size_100,
+                      ),
+                    ),
+                  )
+                : Container()
           ],
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        const Text(
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. LOrem Ipsum has been the industry's standard dummy text since the 1500s",
-          style: TextStyle(color: Colors.white, fontSize: 12),
-        ),
-      ],
+      ),
     ),
   );
 }

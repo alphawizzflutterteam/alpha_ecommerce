@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/category/categoryCard.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/categoryModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/categoryViewModel.dart';
@@ -6,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 
-Future<void> homeCategory(context, CategoryViewModel model) async {
+Future<void> homeCategory(context, CategoryViewModel model,
+    SearchViewModel searchProvider, bool isComingFromhome) async {
   return showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -15,17 +19,22 @@ Future<void> homeCategory(context, CategoryViewModel model) async {
         return DraggableScrollableSheet(
           expand: false,
           builder: (context, scrollController) {
+            print(isComingFromhome.toString() + "CATEGORY BOTTOMSHEET");
             return ClipRRect(
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(15)),
                 child: Container(
-                    color: colors.overlayBG,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? colors.overlayBG
+                        : Colors.white,
                     child: SingleChildScrollView(
                         controller: scrollController,
                         child:
                             Column(mainAxisSize: MainAxisSize.min, children: [
                           CategoryFilter(
                             categoryProvider: model,
+                            searchProvider: searchProvider,
+                            isComingFromHome: isComingFromhome,
                           )
                         ]))));
           },
@@ -35,7 +44,13 @@ Future<void> homeCategory(context, CategoryViewModel model) async {
 
 class CategoryFilter extends StatefulWidget {
   final CategoryViewModel categoryProvider;
-  const CategoryFilter({Key? key, required this.categoryProvider})
+  final SearchViewModel searchProvider;
+  final bool isComingFromHome;
+  const CategoryFilter(
+      {Key? key,
+      required this.categoryProvider,
+      required this.searchProvider,
+      required this.isComingFromHome})
       : super(key: key);
 
   @override
@@ -99,6 +114,7 @@ class _CategoryFilterState extends State<CategoryFilter> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.isComingFromHome.toString() + "Category Shuffle");
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: Column(
@@ -106,13 +122,15 @@ class _CategoryFilterState extends State<CategoryFilter> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const SizedBox(height: 20),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               "Explore Categories",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Theme.of(context).brightness != Brightness.dark
+                      ? Colors.black
+                      : Colors.white,
+                  fontSize: Platform.isAndroid ? size_18 : size_20,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -127,7 +145,7 @@ class _CategoryFilterState extends State<CategoryFilter> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.4,
                       width: MediaQuery.of(context).size.width * 0.32,
                       child: ListView.builder(
                         padding: EdgeInsets.zero,
@@ -171,18 +189,33 @@ class _CategoryFilterState extends State<CategoryFilter> {
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 10),
-                              fillColor: colors.textFieldBG,
+                              fillColor: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textFieldBG
+                                  : Colors.white,
                               filled: true,
                               hintText: 'Search',
-                              hintStyle: const TextStyle(color: Colors.white),
-                              prefixIcon: const Icon(
+                              hintStyle: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                              prefixIcon: Icon(
                                 Icons.search,
-                                color: Colors.white,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                               focusedErrorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
-                                  borderSide: const BorderSide(
-                                      color: Colors.grey, width: 1)),
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                      width: 2)),
                               enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: const BorderSide(
@@ -196,7 +229,12 @@ class _CategoryFilterState extends State<CategoryFilter> {
                                   borderSide: const BorderSide(
                                       color: Colors.grey, width: 1)),
                             ),
-                            style: const TextStyle(color: Colors.white),
+                            style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -222,10 +260,15 @@ class _CategoryFilterState extends State<CategoryFilter> {
                                           .categoryProvider
                                           .data[searchProvider.selectedIndex]
                                           .name!,
-                                      style: const TextStyle(
-                                          color: Colors.white,
+                                      style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 18),
+                                          fontSize: Platform.isAndroid
+                                              ? size_16
+                                              : size_18),
                                     ),
                                     const SizedBox(height: 10),
                                     SizedBox(
@@ -246,6 +289,9 @@ class _CategoryFilterState extends State<CategoryFilter> {
                                         ),
                                         itemCount: listItem.length,
                                         itemBuilder: (context, j) {
+                                          print(widget.isComingFromHome
+                                                  .toString() +
+                                              "Searchh CATEGORY SHUFFLE");
                                           print(listItem.length);
                                           return categoryCard(
                                               context: context,
@@ -259,7 +305,9 @@ class _CategoryFilterState extends State<CategoryFilter> {
                                                   .data[searchProvider
                                                       .selectedIndex]
                                                   .id
-                                                  .toString());
+                                                  .toString(),
+                                              isComingFromHome:
+                                                  widget.isComingFromHome);
                                         },
                                       ),
                                     )
@@ -283,23 +331,36 @@ class _CategoryFilterState extends State<CategoryFilter> {
 
   Widget buildTabButton(String label, bool isSelected, VoidCallback onPressed) {
     return Container(
-      color: colors.textFieldBG,
-      width: MediaQuery.of(context).size.width * 0.35,
-      height: 60,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          primary: isSelected ? colors.buttonColor : Colors.transparent,
-        ),
-        child: Text(
-          label,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white),
-        ),
-      ),
-    );
+        color: Theme.of(context).brightness == Brightness.dark
+            ? colors.textFieldBG
+            : Color(0xFFE3E1EC),
+        width: MediaQuery.of(context).size.width * 0.35,
+        height: 60,
+        child: GestureDetector(
+          onTap: onPressed,
+          child: Container(
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(left: 8),
+            decoration: BoxDecoration(
+              color: isSelected
+                  ? colors.buttonColor
+                  : Theme.of(context).brightness == Brightness.dark
+                      ? Colors.transparent
+                      : Color.fromARGB(255, 164, 163, 170),
+            ),
+            child: Center(
+              child: Text(
+                label,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                    color: Colors.white),
+              ),
+            ),
+          ),
+        ));
   }
 }

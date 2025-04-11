@@ -1,21 +1,28 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/topDealsModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/color.dart';
-import '../../utils/routes.dart';
 import 'homeTexts&Spaces.dart';
 
-topDealCard(context) {
+topDealCard(context, ProductList2 products) {
   return Column(
     children: [
       InkWell(
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
         onTap: () {
-          // Routes
-          //     .navigateToProductDetailPageScreen(
-          //     context);
+          Routes.navigateToProductDetailPageScreen(context, products.slug);
         },
         child: SizedBox(
-          height: 160,
+          height: 150,
           width: 100,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -30,10 +37,14 @@ topDealCard(context) {
                       topLeft: Radius.circular(10)),
                 ),
                 width: double.infinity,
-                child: Image.asset(
-                  Images.onBoarding2,
-                  width: 70,
-                  height: 70,
+                child: Center(
+                  child: CachedNetworkImage(
+                    imageUrl: products.thumbnail,
+                    fit: BoxFit.fill,
+                    errorWidget: (context, url, error) => ErrorImageWidget(),
+                    height: size_70,
+                    width: size_70,
+                  ),
                 ),
               ),
               Align(
@@ -47,7 +58,7 @@ topDealCard(context) {
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10)),
                   ),
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
@@ -56,21 +67,37 @@ topDealCard(context) {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
-                          'Electric Stove',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
+                          products.name,
+                          maxLines: 1,
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Colors.white,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
-                          '\$699',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
+                          products.specialPrice.toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Colors.white,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
+                                  ),
+                          // style: Theme.of(context)
+                          // .textTheme
+                          // .titleSmall!
+                          // .copyWith(
+
+                          //   color: Colors.white,
+                          //   fontSize: Platform.isAndroid ? size_14 : size_14,
+                          // ),
                         ),
                       ),
                     ],

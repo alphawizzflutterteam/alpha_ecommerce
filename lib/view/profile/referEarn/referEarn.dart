@@ -1,17 +1,23 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/models/referralModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
 import '../../../utils/routes.dart';
 import '../../widget_common/commonBackground.dart';
 import '../../widget_common/shareApp.dart';
 import '../common_header.dart';
+import 'package:intl/intl.dart';
 
 class ReferAndEarn extends StatefulWidget {
   const ReferAndEarn({Key? key}) : super(key: key);
@@ -23,6 +29,8 @@ class ReferAndEarn extends StatefulWidget {
 class _ReferAndEarnState extends State<ReferAndEarn> {
   late ProfileModel user;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late ProfileViewModel profileProvider;
+  var dateFormat = DateFormat('yMEd');
 
   @override
   void initState() {
@@ -31,58 +39,79 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
         jsonDecode(SharedPref.shared.pref!.getString(PrefKeys.userDetails)!);
 
     user = ProfileModel.fromJson(model);
+    profileProvider = Provider.of<ProfileViewModel>(context, listen: false);
+    profileProvider.getReferralData(context);
   }
 
   @override
   Widget build(BuildContext context) {
+    profileProvider = Provider.of<ProfileViewModel>(context);
     return Stack(children: [
       const LightBackGround(),
       Scaffold(
         resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
         extendBody: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.transparent
+            : Colors.white,
         body: Column(
           children: [
-            Stack(
-              children: [
-                const ProfileHeader(),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 35),
-                    height: 100,
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: InkWell(
-                                onTap: () {
-                                  Routes.navigateToPreviousScreen(context);
-                                },
-                                child: const Icon(Icons.arrow_back_ios)),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.1),
-                              child: const Text(
-                                "Refer and Earn",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+            Container(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.transparent
+                  : colors.buttonColor,
+              child: Stack(
+                children: [
+                  const ProfileHeader(),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 50),
+                      height: 100,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  onTap: () {
+                                    Routes.navigateToPreviousScreen(context);
+                                  },
+                                  child: Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white,
+                                  )),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    right: MediaQuery.of(context).size.width *
+                                        0.1),
+                                child: Text(
+                                  "Refer and Earn",
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontSize: Platform.isAndroid
+                                              ? size_18
+                                              : size_20),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -90,7 +119,9 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                   children: [
                     Container(
                       width: double.infinity,
-                      color: colors.boxBorder,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? colors.boxBorder
+                          : const Color(0xFFCEEAEA).withOpacity(0.8),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -105,25 +136,40 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(Icons.monetization_on,
-                                    color: Colors.yellow),
+                                Image.asset(
+                                  Images.coin,
+                                  height: 28,
+                                ),
                                 const SizedBox(
                                   width: 10,
                                 ),
                                 Text(
                                   user.data[0].loyaltyPoint,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold),
                                 )
                               ],
                             ),
                           ),
-                          const Text(
-                            "lorem Ipsum is simply dummy text\n of the printing andtypesetting industry ",
-                            style: TextStyle(
-                                color: colors.lightTextColor, height: 1.5),
+                          Text(
+                            "Referral Points",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                    height: 1.5),
                             textAlign: TextAlign.center,
                           ),
                           Container(
@@ -132,13 +178,19 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: DottedBorder(
-                                color: Colors.white,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : const Color(0xFF0A9494),
                                 strokeWidth: 1,
                                 child: Container(
                                   padding: const EdgeInsets.only(
                                       top: 15, bottom: 15),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xA6064848),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? const Color(0xA6064848)
+                                        : Colors.white,
                                     borderRadius: BorderRadius.circular(
                                         10), // Adjust the radius as needed
                                     // border: Border.all(
@@ -157,21 +209,42 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                       children: <Widget>[
                                         Column(
                                           children: [
-                                            const Text(
+                                            Text(
                                               "You referral code",
-                                              style: TextStyle(
-                                                  fontSize: 10,
-                                                  color: Colors.white),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_8
+                                                        : size_10,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : colors.greyText,
+                                                  ),
                                             ),
                                             const SizedBox(
                                               height: 5,
                                             ),
                                             Text(
                                               user.data[0].referralCode,
-                                              style: const TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_18
+                                                              : size_20,
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                             ),
                                           ],
                                         ),
@@ -183,6 +256,8 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                           endIndent: 10,
                                         ),
                                         InkWell(
+                                          highlightColor: Colors.transparent,
+                                          splashColor: Colors.transparent,
                                           onTap: () async {
                                             await Clipboard.setData(
                                                 ClipboardData(
@@ -195,10 +270,20 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                           },
                                           child: Text(
                                             "Copy\nCode",
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                height: 1.5,
-                                                color: Colors.white),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_10
+                                                      : size_12,
+                                                  height: 1.5,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                ),
                                           ),
                                         )
                                       ],
@@ -209,10 +294,12 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             ),
                           ),
                           InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
-                              share(context);
+                              share(context, user.data[0].referralCode);
                             },
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -226,8 +313,14 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                 ),
                                 Text(
                                   "Share Code",
-                                  style: TextStyle(
-                                      color: Colors.orange, fontSize: 16),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Colors.orange,
+                                          fontSize: Platform.isAndroid
+                                              ? size_14
+                                              : size_16),
                                 )
                               ],
                             ),
@@ -244,18 +337,39 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             "Referall Member & Amount",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
+                            style:
+                                Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: Platform.isAndroid
+                                            ? size_16
+                                            : size_18),
                           ),
                           InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
-                              Routes.navigateToViewAllReferallScreen(context);
+                              Routes.navigateToViewAllReferallScreen(
+                                  context, profileProvider.referralList);
                             },
-                            child: const Text(
+                            child: Text(
                               "View all",
-                              style: TextStyle(
-                                  color: colors.buttonColor, fontSize: 12),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: colors.buttonColor,
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
+                                      fontWeight: FontWeight.bold),
                             ),
                           )
                         ],
@@ -263,11 +377,17 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                     ),
                     SizedBox(
                       height: 85 * 3,
-                      child: ListView.builder(
+                      child: ListView.separated(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 3,
+                        itemCount: profileProvider.referralList.length,
+                        separatorBuilder: (context, index) => Container(
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 6, horizontal: 20),
+                          color: Colors.grey.withOpacity(0.7),
+                          height: .5,
+                        ),
                         itemBuilder: (context, i) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(
@@ -290,58 +410,92 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                             color: Color(
                                                 0x6B969696), // Set the background color
                                           ),
-                                          child: const Center(
+                                          child: Center(
                                             child: Text(
                                               "AS",
-                                              style: TextStyle(
-                                                color: Colors
-                                                    .white, // Set the text color
-                                                fontSize:
-                                                    14, // Set the text size
-                                                fontWeight: FontWeight
-                                                    .bold, // Set the text weight
-                                              ),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors
+                                                            .black, // Set the text color
+                                                    fontSize:
+                                                        14, // Set the text size
+                                                    fontWeight: FontWeight
+                                                        .bold, // Set the text weight
+                                                  ),
                                             ),
                                           ),
                                         ),
                                         const SizedBox(width: 15),
-                                        const Column(
+                                        Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "Anshul Sharma",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 14),
+                                              profileProvider
+                                                  .referralList[i].description
+                                                  .toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_12
+                                                              : size_14),
                                             ),
                                             SizedBox(
                                               height: 5,
                                             ),
-                                            Text("02 oct 2022",
-                                                style: TextStyle(
-                                                    color:
-                                                        colors.lightTextColor,
-                                                    fontSize: 12))
+                                            Text(
+                                                profileProvider
+                                                    .referralList[i].createdAt
+                                                    .toString(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                      color:
+                                                          colors.lightTextColor,
+                                                      fontSize:
+                                                          Platform.isAndroid
+                                                              ? size_10
+                                                              : size_12,
+                                                    ))
                                           ],
                                         ),
                                       ],
                                     ),
-                                    const Text(
-                                      "200",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
+                                    Text(
+                                      profileProvider.referralList[i].balance
+                                          .toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                              fontWeight: FontWeight.bold),
                                     )
                                   ],
-                                ),
-                                const SizedBox(height: 20),
-                                const Divider(
-                                  color: Colors.white,
-                                  height: 1,
                                 ),
                               ],
                             ),

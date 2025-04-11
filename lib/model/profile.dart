@@ -1,9 +1,7 @@
 import 'package:alpha_ecommerce_18oct/view/profile/address/addressList.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/followingVendor/view/followingVendorScreen.dart';
 import '../utils/images.dart';
 import '../view/profile/aboutUs/aboutUs.dart';
-import '../view/profile/address/manage_address.dart';
 import '../view/profile/contactUs/contactUs.dart';
 import '../view/profile/coupon/couponScreen.dart';
 import '../view/profile/customerSupport/customerSupport.dart';
@@ -29,7 +27,9 @@ List<ProfileList> profile = [
   ProfileList(
       profileIcon: Images.locationProfile,
       profileText: 'Manage Address',
-      navigationScreen: const AddressListScreen()),
+      navigationScreen: const AddressListScreen(
+        isComingForSelection: false,
+      )),
   ProfileList(
       profileIcon: Images.walletProfile,
       profileText: 'Payment',
@@ -39,17 +39,21 @@ List<ProfileList> profile = [
       profileText: 'Coupons',
       navigationScreen: const CouponScreen()),
   ProfileList(
+      profileIcon: "assets/images/Group 448.png",
+      profileText: 'Following Vendors',
+      navigationScreen: const FollowingVendorList()),
+  ProfileList(
       profileIcon: Images.setting,
-      profileText: 'Setting',
+      profileText: 'Settings',
       navigationScreen: const Setting()),
-  ProfileList(
-      profileIcon: Images.subscribe,
-      profileText: 'Subscribe',
-      navigationScreen: const Subscribe()),
-  ProfileList(
-      profileIcon: Images.referAndEarn,
-      profileText: 'Refer and Earn',
-      navigationScreen: const ReferAndEarn()),
+  // ProfileList(
+  //     profileIcon: Images.subscribe,
+  //     profileText: 'Subscribe',
+  //     navigationScreen: const Subscribe()),
+  // ProfileList(
+  //     profileIcon: Images.referAndEarn,
+  //     profileText: 'Refer and Earn',
+  //     navigationScreen: const ReferAndEarn()),
   ProfileList(
       profileIcon: Images.support,
       profileText: 'Customer Support',
@@ -78,4 +82,8 @@ List<ProfileList> profile = [
       profileIcon: Images.logOut,
       profileText: 'Logout',
       navigationScreen: "functionOpen"),
+  ProfileList(
+      profileIcon: Images.logOut,
+      profileText: 'Delete Account',
+      navigationScreen: "functionOpen2"),
 ];

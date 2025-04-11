@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../utils/color.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/routes.dart';
@@ -24,42 +28,54 @@ class _ContactUsState extends State<ContactUs> {
         resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
         extendBody: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.transparent
+            : Colors.white,
         body: Column(
           children: [
-            Stack(
-              children: [
-                const ProfileHeader(),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 35),
-                    height: 100,
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: InkWell(
-                                onTap: () {
-                                  Routes.navigateToPreviousScreen(context);
-                                },
-                                child: const Icon(Icons.arrow_back_ios)),
-                          ),
-                          Expanded(
-                            child: Padding(
-                                padding: EdgeInsets.only(
-                                    right: MediaQuery.of(context).size.width *
-                                        0.1),
-                                child: const HeaderText(text: "Contact Us")),
-                          ),
-                        ],
+            Container(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.transparent
+                  : colors.buttonColor,
+              child: Stack(
+                children: [
+                  const ProfileHeader(),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 50),
+                      height: 100,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  onTap: () {
+                                    Routes.navigateToPreviousScreen(context);
+                                  },
+                                  child: const Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white,
+                                  )),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                  padding: EdgeInsets.only(
+                                      right: MediaQuery.of(context).size.width *
+                                          0.1),
+                                  child: const HeaderText(text: "Contact Us")),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -72,10 +88,20 @@ class _ContactUsState extends State<ContactUs> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             term1,
-                            style: TextStyle(
-                                color: colors.lightTextColor, fontSize: 14),
+                            style:
+                                Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 15, bottom: 30),
@@ -84,10 +110,13 @@ class _ContactUsState extends State<ContactUs> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 15, vertical: 10),
                               decoration: BoxDecoration(
-                                color: colors.boxBorder,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.boxBorder
+                                    : const Color.fromARGB(255, 236, 236, 236),
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Column(
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
@@ -95,52 +124,122 @@ class _ContactUsState extends State<ContactUs> {
                                     children: [
                                       Icon(
                                         Icons.phone,
-                                        color: Colors.white,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
                                         size: 20,
                                       ),
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      Text(
-                                        "9330011773",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 14),
+                                      GestureDetector(
+                                        onTap: () {
+                                          const url = "tel:9876543210";
+                                          launchUrl(Uri.parse(url));
+                                        },
+                                        child: Text(
+                                          "9876543210",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14),
+                                        ),
                                       )
                                     ],
                                   ),
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.mail,
-                                        color: Colors.white,
-                                        size: 20,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text("Support@alphawizz.com",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14))
-                                    ],
+                                  GestureDetector(
+                                    onTap: () async {
+                                      final Uri params = Uri(
+                                        scheme: 'mailto',
+                                        path: 'support@alpha.com',
+                                        query:
+                                            'subject=Contact&body=', //add subject and body here
+                                      );
+
+                                      var url = params.toString();
+                                      if (await canLaunch(url)) {
+                                        await launch(url);
+                                      } else {
+                                        throw 'Could not launch $url';
+                                      }
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.mail,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          size: 20,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text("support@alpha.com",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_12
+                                                        : size_14))
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
                             ),
                           ),
-                          const Text(
+                          Text(
                             "Areas we deliver",
-                            style: TextStyle(color: Colors.white, fontSize: 14),
+                            style:
+                                Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: Platform.isAndroid
+                                            ? size_12
+                                            : size_14),
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text(
+                          Text(
                             "Pan India",
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                            style:
+                                Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: Platform.isAndroid
+                                            ? size_14
+                                            : size_16),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 15, bottom: 30),
@@ -149,10 +248,13 @@ class _ContactUsState extends State<ContactUs> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 15, vertical: 10),
                               decoration: BoxDecoration(
-                                color: colors.boxBorder,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.boxBorder
+                                    : const Color.fromARGB(255, 236, 236, 236),
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Row(
+                              child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Column(
@@ -163,25 +265,63 @@ class _ContactUsState extends State<ContactUs> {
                                     children: [
                                       Text(
                                         "Delivery Timings",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 14),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_12
+                                                    : size_14),
                                       ),
                                       SizedBox(
                                         height: 10,
                                       ),
                                       Text("7:00 AM To 11:00 AM",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14)),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14)),
                                       Text(
                                         "12:00 PM To 04:00 PM",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 14),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_12
+                                                    : size_14),
                                       ),
                                       Text("05:00 PM To 09:00 PM",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14))
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_12
+                                                      : size_14))
                                     ],
                                   ),
                                 ],
@@ -195,7 +335,7 @@ class _ContactUsState extends State<ContactUs> {
                 ),
               ),
             ),
-            const Align(
+            Align(
               alignment: Alignment.bottomCenter,
               child: SizedBox(
                 height: 80,
@@ -208,8 +348,16 @@ class _ContactUsState extends State<ContactUs> {
                         width: double.infinity,
                         child: Text(
                           "Note: You can order for maximum 7 days in advance. We deliver in minutes.",
-                          style: TextStyle(
-                              color: colors.lightTextColor, fontSize: 14),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14),
                         ),
                       ),
                     ],

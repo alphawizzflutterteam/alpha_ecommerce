@@ -9,9 +9,12 @@ import 'package:alpha_ecommerce_18oct/view/country_selection/country_selection.d
 import 'package:alpha_ecommerce_18oct/view/greet/pay_success.dart';
 import 'package:alpha_ecommerce_18oct/view/greet/wallet_money_added.dart';
 import 'package:alpha_ecommerce_18oct/view/greet/welcome.dart';
+import 'package:alpha_ecommerce_18oct/view/home/brandsList.dart';
 import 'package:alpha_ecommerce_18oct/view/home/home.dart';
+import 'package:alpha_ecommerce_18oct/view/home/models/brandsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:alpha_ecommerce_18oct/view/language_selection/language_selection.dart';
+import 'package:alpha_ecommerce_18oct/view/noInternet/noInternetScreen.dart';
 import 'package:alpha_ecommerce_18oct/view/offer/offer.dart';
 import 'package:alpha_ecommerce_18oct/view/order/orderCancelled.dart';
 import 'package:alpha_ecommerce_18oct/view/order/orderDetailOnTheWay.dart';
@@ -27,6 +30,8 @@ import 'package:alpha_ecommerce_18oct/view/profile/contactUs/contactUs.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/coupon/couponScreen.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/editProfile/editProfile.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/faqs/faqs.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/models/referralModel.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/model/transactionHistoryModel.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myTransaction/transactionHistory.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myWallet/addMoney.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/payment/myWallet/payment.dart';
@@ -43,6 +48,7 @@ import 'package:alpha_ecommerce_18oct/view/profile/subscribe/subscribe.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/model/vendorModel.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/vendor.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/vendorDetails.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:flutter/cupertino.dart';
 import '../view/category/category.dart';
 import '../view/categoryDetail/categoryDetail.dart';
@@ -261,11 +267,38 @@ class Routes {
     );
   }
 
+  static navigateTonoInterntScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) =>
+            const NoInternetScreen(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
   static navigateToWalletSuccessScreen(BuildContext context) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) => const WalletSuccess(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
+
+  static navigateToBrandsScreen(BuildContext context, List<BrandsList> brand,
+      SearchViewModel searchProvidder) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => BrandsListScreen(
+          brandsModel: brand,
+          searchViewModel: searchProvidder,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -367,12 +400,14 @@ class Routes {
     );
   }
 
-  static navigateToAddressListScreen(BuildContext context) {
+  static navigateToAddressListScreen(
+      BuildContext context, bool isComingForSelection) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) =>
-            const AddressListScreen(),
+        pageBuilder: (context, animation1, animation2) => AddressListScreen(
+          isComingForSelection: isComingForSelection,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -435,11 +470,25 @@ class Routes {
     );
   }
 
-  static navigateToPaymentScreen(BuildContext context) {
+  static navigateToPaymentScreen(
+      BuildContext context,
+      String data,
+      String billingId,
+      String couponCode,
+      bool showCod,
+      String isComingFor,
+      String couponAmout) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const Payment(),
+        pageBuilder: (context, animation1, animation2) => Payment(
+          data: data,
+          billingId: billingId,
+          couponCode: couponCode,
+          showCod: showCod,
+          isComingFor: isComingFor,
+          couponAmount: couponAmout,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -468,12 +517,13 @@ class Routes {
     );
   }
 
-  static navigateToOrderOnTheWayDetailScreen(BuildContext context) {
+  static navigateToOrderOnTheWayDetailScreen(
+      BuildContext context, String Order_id) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) =>
-            const OrderDetailOnTheWay(),
+            OrderDetailOnTheWay(order_id: Order_id),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -606,11 +656,13 @@ class Routes {
     );
   }
 
-  static navigateToSearchScreen(BuildContext context) {
+  static navigateToSearchScreen(BuildContext context, bool isComingForSearch) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const Search(),
+        pageBuilder: (context, animation1, animation2) => Search(
+          isComingForSearch: isComingForSearch,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -639,13 +691,12 @@ class Routes {
     );
   }
 
-  static navigateToProductDetailPageScreen(
-      BuildContext context, ProductList model) {
+  static navigateToProductDetailPageScreen(BuildContext context, String model) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) => ProductDetailPage(
-          model: model,
+          slug: model,
         ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
@@ -653,11 +704,14 @@ class Routes {
     );
   }
 
-  static navigateToPlaceOrderScreen(BuildContext context) {
+  static navigateToPlaceOrderScreen(
+      BuildContext context, String selectedQuantity) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const PlaceOrder(),
+        pageBuilder: (context, animation1, animation2) => PlaceOrder(
+          quantityy: selectedQuantity,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -690,70 +744,82 @@ class Routes {
   }
 
   static navigateToCategoryDetailScreen(BuildContext context) {
+    // Navigator.push(
+    //   context,
+    //   PageRouteBuilder(
+    //     pageBuilder: (context, animation1, animation2) =>
+    //         const CategoryDetail(),
+    //     transitionDuration: Duration.zero,
+    //     reverseTransitionDuration: Duration.zero,
+    //   ),
+    // );
+  }
+
+  static navigateToOrderCancelledScreen(BuildContext context, String order_id) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) =>
-            const CategoryDetail(),
+            OrderCancelled(order_id: order_id),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
     );
   }
 
-  static navigateToOrderCancelledScreen(BuildContext context) {
+  static navigateToOrderDetailDeliveredDetailScreen(
+    BuildContext context,
+    String order_id,
+  ) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) =>
-            const OrderCancelled(),
+        pageBuilder: (context, animation1, animation2) => OrderDetailDelivered(
+          order_id: order_id,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
     );
   }
 
-  static navigateToOrderDetailDeliveredDetailScreen(BuildContext context) {
+  static navigateToOrderReturnedDetailScreen(
+      BuildContext context, String order_id, String image, String name) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) =>
-            const OrderDetailDelivered(),
+        pageBuilder: (context, animation1, animation2) => OrderReturned(
+          order_id: order_id,
+          image: image,
+          name: name,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
     );
   }
 
-  static navigateToOrderReturnedDetailScreen(BuildContext context) {
+  static navigateToViewAllReferallScreen(
+      BuildContext context, List<ReferralData> referralList) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const OrderReturned(),
+        pageBuilder: (context, animation1, animation2) =>
+            ViewAllReferall(referralList: referralList),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
     );
   }
 
-  static navigateToViewAllReferallScreen(BuildContext context) {
+  static navigateToSingleTransactionScreen(
+      BuildContext context, DatumTrasaction data) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) =>
-            const ViewAllReferall(),
-        transitionDuration: Duration.zero,
-        reverseTransitionDuration: Duration.zero,
-      ),
-    );
-  }
-
-  static navigateToSingleTransactionScreen(BuildContext context) {
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) =>
-            const SingleTransaction(),
+        pageBuilder: (context, animation1, animation2) => SingleTransaction(
+          data: data,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),

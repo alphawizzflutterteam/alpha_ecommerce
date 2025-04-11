@@ -34,7 +34,7 @@ class CartModel {
 }
 
 class Data {
-  String deliveryType;
+  dynamic deliveryType;
   String discountText;
   String totalItems;
   String subtotal;
@@ -44,33 +44,34 @@ class Data {
   String tax;
   String total;
   List<CartProduct> products;
+  String coupon_discount;
 
-  Data({
-    required this.deliveryType,
-    required this.discountText,
-    required this.totalItems,
-    required this.subtotal,
-    required this.discount,
-    required this.mrp,
-    required this.deliveryCharge,
-    required this.tax,
-    required this.total,
-    required this.products,
-  });
+  Data(
+      {required this.deliveryType,
+      required this.discountText,
+      required this.totalItems,
+      required this.subtotal,
+      required this.discount,
+      required this.mrp,
+      required this.deliveryCharge,
+      required this.tax,
+      required this.total,
+      required this.products,
+      required this.coupon_discount});
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        deliveryType: json["delivery_type"],
-        discountText: json["discount_text"],
-        totalItems: json["total_items"],
-        subtotal: json["subtotal"],
-        discount: json["discount"],
-        mrp: json["mrp"],
-        deliveryCharge: json["delivery_charge"],
-        tax: json["tax"],
-        total: json["total"],
-        products: List<CartProduct>.from(
-            json["products"].map((x) => CartProduct.fromJson(x))),
-      );
+      deliveryType: json["delivery_type"],
+      discountText: json["discount_text"],
+      totalItems: json["total_items"],
+      subtotal: json["subtotal"],
+      discount: json["discount"],
+      mrp: json["mrp"],
+      deliveryCharge: json["delivery_charge"],
+      tax: json["tax"],
+      total: json["total"],
+      products: List<CartProduct>.from(
+          json["products"].map((x) => CartProduct.fromJson(x))),
+      coupon_discount: json['coupon_discount'] ?? "");
 
   Map<String, dynamic> toJson() => {
         "delivery_type": deliveryType,
@@ -83,6 +84,7 @@ class Data {
         "tax": tax,
         "total": total,
         "products": List<dynamic>.from(products.map((x) => x.toJson())),
+        "coupon_discount": coupon_discount
       };
 }
 
@@ -100,7 +102,7 @@ class CartProduct {
   String unit;
   int minQty;
   int featured;
-  int refundable;
+  String refundable;
   int variantCartProduct;
   List<int> attributes;
   List<ChoiceOption> choiceOptions;
@@ -551,8 +553,8 @@ class Customer {
 }
 
 class Shop {
-  int id;
-  int sellerId;
+  String id;
+  String sellerId;
   String name;
   String address;
   String contact;

@@ -1,7 +1,8 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
-import '../../utils/routes.dart';
 import '../../model/cartList.dart';
 
 class SavedItemsWidget extends StatefulWidget {
@@ -27,6 +28,8 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               InkWell(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {
                   // Routes.navigateToProductDetailPageScreen(context);
                 },
@@ -41,13 +44,16 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       //     Routes.navigateToProductDetailPageScreen(context);
                     },
                     child: Text(
                       cartList[widget.i].productName,
-                      style: const TextStyle(
-                          color: colors.textColor, fontSize: 14),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: colors.textColor,
+                          fontSize: Platform.isAndroid ? size_14 : size_14),
                     ),
                   ),
                   const SizedBox(
@@ -57,17 +63,24 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                     children: [
                       Text(
                         cartList[widget.i].productPrice,
-                        style: const TextStyle(
-                            color: colors.buttonColor, fontSize: 16),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color: colors.buttonColor,
+                            fontSize: Platform.isAndroid ? size_14 : size_16),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: Text(
                           cartList[widget.i].productDiscount,
-                          style: const TextStyle(
-                              decoration: TextDecoration.lineThrough,
-                              color: colors.greyText,
-                              fontSize: 14),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  decoration: TextDecoration.lineThrough,
+                                  color: colors.greyText,
+                                  decorationColor: Colors.black,
+                                  decorationThickness: 3,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14),
                         ),
                       ),
                     ],
@@ -77,8 +90,10 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                   ),
                   Text(
                     cartList[widget.i].productWeight,
-                    style:
-                        const TextStyle(color: colors.greyText, fontSize: 12),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: colors.greyText,
+                          fontSize: Platform.isAndroid ? size_10 : size_12,
+                        ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -97,9 +112,12 @@ class _SavedItemsWidgetState extends State<SavedItemsWidget> {
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(5)),
                     border: Border.all(color: colors.boxBorder)),
-                child: const Text(
+                child: Text(
                   "Remove from Saved Items",
-                  style: TextStyle(color: colors.textColor, fontSize: 12),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: colors.textColor,
+                        fontSize: Platform.isAndroid ? size_10 : size_12,
+                      ),
                   textAlign: TextAlign.center,
                 ),
               ),

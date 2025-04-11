@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
 import '../../../../utils/color.dart';
 import '../../../../utils/routes.dart';
@@ -31,16 +34,23 @@ class _PaymentFormState extends State<PaymentForm> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              Stack(
-                children: const [
-                  ProfileHeader(),
-                  InternalPageHeader(
-                    text: "Add Money",
-                  )
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: Stack(
+                  children: const [
+                    ProfileHeader(),
+                    InternalPageHeader(
+                      text: "Add Money",
+                    )
+                  ],
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -63,7 +73,10 @@ class _PaymentFormState extends State<PaymentForm> {
                           decoration: commonInputDecoration(
                             labelText: 'Name on Card',
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: colors.textColor),
                         ),
                       ),
                       Container(
@@ -82,13 +95,20 @@ class _PaymentFormState extends State<PaymentForm> {
                               Icons.credit_card_outlined,
                               color: colors.labelColor,
                             ),
-                            labelStyle: const TextStyle(
-                              color: colors.labelColor,
-                              fontSize: 14,
-                            ),
-                            hintStyle: const TextStyle(
-                              color: colors.labelColor,
-                            ),
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: const BorderSide(
@@ -118,7 +138,10 @@ class _PaymentFormState extends State<PaymentForm> {
                               ),
                             ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: colors.textColor),
                         ),
                       ),
                       Container(
@@ -134,7 +157,10 @@ class _PaymentFormState extends State<PaymentForm> {
                           decoration: commonInputDecoration(
                             labelText: 'Expiry Date',
                           ),
-                          style: const TextStyle(color: colors.greyText),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: colors.greyText),
                         ),
                       ),
                       Container(
@@ -150,7 +176,10 @@ class _PaymentFormState extends State<PaymentForm> {
                           decoration: commonInputDecoration(
                             labelText: 'CVV',
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: colors.textColor),
                         ),
                       )
                     ],
@@ -175,7 +204,9 @@ class _PaymentFormState extends State<PaymentForm> {
                               width: double.infinity,
                               child: CommonButton(
                                 text: "PAY NOW",
-                                fontSize: 15,
+                                colorsText: Colors.white,
+                                fontSize:
+                                    Platform.isAndroid ? size_13 : size_15,
                                 onClick: () {
                                   Routes.navigateToWalletSuccessScreen(context);
                                 },

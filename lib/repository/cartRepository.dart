@@ -12,7 +12,7 @@ class CartRepository {
     res = await http.get(url, headers: {
       'Authorization': 'Bearer $bearerToken',
     });
-
+    print(res.body);
     return cartModelFromJson(res.body);
   }
 
@@ -23,7 +23,7 @@ class CartRepository {
     res = await http.get(url, headers: {
       'Authorization': 'Bearer $bearerToken',
     });
-
+    print(res.body);
     return wishlistModelFromJson(res.body);
   }
 
@@ -34,6 +34,23 @@ class CartRepository {
     print(api);
     final http.Response res;
     res = await http.post(url, body: data, headers: {
+      'Authorization': 'Bearer $bearerToken',
+    });
+
+    print(res.body);
+
+    return successModelFromJson(res.body);
+  }
+
+  Future<SuccessModel> checkDeliveryStatus(
+    String api,
+    String bearerToken,
+  ) async {
+    final url = Uri.parse(api);
+
+    print(api);
+    final http.Response res;
+    res = await http.get(url, headers: {
       'Authorization': 'Bearer $bearerToken',
     });
 
@@ -117,7 +134,7 @@ class CartRepository {
     return successModelFromJson(res.body);
   }
 
-  Future<SuccessModel> placeOrder(String api, String bearerToken) async {
+  Future<SuccessModel2> placeOrder(String api, String bearerToken) async {
     final url = Uri.parse(api);
 
     print(api);
@@ -128,6 +145,6 @@ class CartRepository {
 
     print(res.body);
 
-    return successModelFromJson(res.body);
+    return successModel2FromJson(res.body);
   }
 }

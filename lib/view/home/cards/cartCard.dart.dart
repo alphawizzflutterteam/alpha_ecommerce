@@ -1,8 +1,9 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
-import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/cartHomeNew.dart';
-import 'package:alpha_ecommerce_18oct/view/home/models/productsModel.dart';
 import 'package:flutter/material.dart';
 
 cartCard(HomeProduct model, BuildContext context) {
@@ -11,83 +12,133 @@ cartCard(HomeProduct model, BuildContext context) {
     child: Column(
       children: [
         InkWell(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
           onTap: () {
-            Routes.navigateToProductDetailPageScreen(
-                context, model as ProductList);
+            Routes.navigateToProductDetailPageScreen(context, model.slug);
           },
           child: Container(
-            height: 200,
-            width: 160,
+            height: MediaQuery.of(context).size.height * 0.25,
+            width: size_150 * 1.01,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
-                gradient: LinearGradient(
-                  colors: [
-                    colors.boxGradient1.withOpacity(1),
-                    Colors.transparent,
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-                border: Border.all(color: colors.boxBorder)),
+                gradient: Theme.of(context).brightness == Brightness.dark
+                    ? LinearGradient(
+                        colors: [
+                          colors.boxGradient1.withOpacity(1),
+                          Colors.transparent,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      )
+                    : LinearGradient(
+                        colors: [
+                          Color(0xFFE4E2ED),
+                          Colors.white,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                border: Border.all(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? colors.boxBorder
+                        : colors.lightBorder)),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              // mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  Images.onBoarding2,
-                  width: 80,
-                  height: 80,
-                ),
-                const SizedBox(height: 8),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
-                  ),
-                  child: Text(
-                    "${model.discount}% Off",
-                    style: const TextStyle(
-                      color: Colors.orange,
-                      fontSize: 12,
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.10,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                      image: DecorationImage(
+                          image: NetworkImage(model.thumbnail),
+                          fit: BoxFit.fill),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
-                  ),
-                  child: Text(
-                    model.name,
-                    style: const TextStyle(
-                      color: colors.textColor,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
-                  ),
-                  child: Row(
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        model.purchasePrice,
-                        style: const TextStyle(
-                          color: Colors.cyan,
-                          fontSize: 12,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 1,
+                        ),
+                        child: Text(
+                          "${model.discount}% Off",
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: Colors.orange,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        child: Text(
+                          model.name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
+                        ),
                       ),
-                      Text(
-                        model.unitPrice,
-                        style: const TextStyle(
-                          color: colors.lightTextColor,
-                          fontSize: 12,
-                          decoration: TextDecoration.lineThrough,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: model.specialPrice.length > 10 ? 6 : 8,
+                          vertical: 5,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              model.specialPrice,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: Colors.cyan,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              model.unitPrice,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: colors.lightTextColor,
+                                    fontSize:
+                                        Platform.isAndroid ? size_8 : size_10,
+                                    decoration: TextDecoration.lineThrough,
+                                    decorationColor: Colors.black,
+                                    decorationThickness: 3,
+                                  ),
+                            ),
+                          ],
                         ),
                       ),
                     ],

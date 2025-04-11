@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
@@ -39,21 +41,23 @@ class AppUtils {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     'Alert',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Colors.white,
+                          fontSize: Platform.isAndroid ? size_19 : size_20,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   const SizedBox(
                     height: 15,
                   ),
-                  const Text(
+                  Text(
                     'Please login first to continue',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: colors.greyText, fontSize: 14),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: colors.greyText,
+                        fontSize: Platform.isAndroid ? size_13 : size_14),
                   ),
                   const SizedBox(
                     height: 20,
@@ -62,7 +66,7 @@ class AppUtils {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SizedBox(
-                        width: 90,
+                        width: 100,
                         child: ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor:
@@ -84,9 +88,16 @@ class AppUtils {
                           onPressed: () {
                             Routes.navigateToPreviousScreen(context);
                           },
-                          child: const Text(
+                          child: Text(
                             'CANCEL',
-                            style: TextStyle(fontSize: 12),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: Colors.white,
+                                  fontSize:
+                                      Platform.isAndroid ? size_11 : size_12,
+                                ),
                           ),
                         ),
                       ),
@@ -111,9 +122,16 @@ class AppUtils {
                           onPressed: () async {
                             Routes.navigateToSignInScreen(context);
                           },
-                          child: const Text(
+                          child: Text(
                             'LOGIN',
-                            style: TextStyle(fontSize: 12),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: Colors.white,
+                                  fontSize:
+                                      Platform.isAndroid ? size_11 : size_12,
+                                ),
                           ),
                         ),
                       ),

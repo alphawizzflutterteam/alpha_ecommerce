@@ -101,7 +101,7 @@ class HomeProduct {
   String unit;
   int minQty;
   int featured;
-  int refundable;
+  String refundable;
   int variantHomeProduct;
   List<int> attributes;
   List<ChoiceOption> choiceOptions;
@@ -552,8 +552,8 @@ class Customer {
 }
 
 class Shop {
-  int id;
-  int sellerId;
+  String id;
+  String sellerId;
   String name;
   String address;
   String contact;

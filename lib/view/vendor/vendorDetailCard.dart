@@ -1,9 +1,17 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
 import '../../model/category.dart';
 import '../../utils/routes.dart';
 
-vendorDetailCard({required BuildContext context,required categoryIndex, required categoryListIndex}) {
+vendorDetailCard(
+    {required BuildContext context,
+    required categoryIndex,
+    required categoryListIndex}) {
   return InkWell(
+    highlightColor: Colors.transparent,
+    splashColor: Colors.transparent,
     onTap: () {
       Routes.navigateToCategoryDetailScreen(context);
     },
@@ -27,7 +35,10 @@ vendorDetailCard({required BuildContext context,required categoryIndex, required
                 .categoryList[categoryListIndex]
                 .categoryName,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white, fontSize: 12),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Colors.white,
+                  fontSize: Platform.isAndroid ? size_10 : size_12,
+                ),
           ),
         ],
       ),

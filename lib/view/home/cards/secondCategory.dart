@@ -1,33 +1,49 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/categoryModel.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/imageErrorWidget.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-secondCategoryCard(
-    CategoryList model, BuildContext context, SearchViewModel searchProvider) {
+secondCategoryCard(CategoryList model, BuildContext context,
+    SearchViewModel searchProvider, int index, List<CategoryList> model2) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 6),
     child: InkWell(
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {
         searchProvider.categoryId = model.id.toString();
         searchProvider.isHome = false;
-        Routes.navigateToSearchScreen(context);
-        searchProvider.getProductsListNew(context, "25", "1");
+        for (int i = 0; i < model2.length; i++) {
+          if (model.id == model2[i].id) {
+            searchProvider.selectedIndexFromHome = i;
+          }
+        }
+        Routes.navigateToDashboardScreen(context, 1);
+        // searchProvider.getProductsListNew(context, "25", "1");
+        // Routes.navigateToSearchScreen(context);
       },
       child: Column(
         children: [
           Stack(
             children: [
-              CircleAvatar(
-                backgroundColor: Colors.white,
-                child: CachedNetworkImage(
-                  imageUrl: model.icon!,
-                  height: size_65,
-                  width: size_65,
+              Container(
+                width: size_50, // Set your desired width
+                height: size_50, // Set your desired height
+                child: ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: model.icon!,
+                    fit: BoxFit.fill,
+                    errorWidget: (context, url, error) =>
+                        ClipOval(child: ErrorImageWidget()),
+                  ),
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(
@@ -35,13 +51,14 @@ secondCategoryCard(
           ),
           SizedBox(
             width: size_70,
-            child: Text(
-              model.name!,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.black, fontSize: size_10),
-            ),
+            child: Text(model.name!,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontSize: Platform.isAndroid ? size_10 : size_12,
+                    color: colors.darkColor2,
+                    fontWeight: FontWeight.w500)),
           ),
         ],
       ),
@@ -50,16 +67,16 @@ secondCategoryCard(
 }
 
 Row secondCategoryListCard(BuildContext context, List<CategoryList> model,
-        SearchViewModel searchProvider) =>
+        SearchViewModel searchProvider, List<CategoryList> model2) =>
     Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
           child: Row(
             children: List.generate(
-              model.length > 5 ? 5 : model.length,
-              (index) =>
-                  secondCategoryCard(model[index], context, searchProvider),
+              model.length > 10 ? 10 : model.length,
+              (index) => secondCategoryCard(
+                  model[index], context, searchProvider, index, model2),
             ),
           ),
         )

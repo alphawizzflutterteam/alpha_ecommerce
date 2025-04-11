@@ -14,6 +14,7 @@ class CategoryRepository {
       'Authorization': 'Bearer $bearerToken',
     });
 
+    print(res.body);
     var asn = await json.decode(res.body);
 
     return CategoriesModel.fromJson(asn);

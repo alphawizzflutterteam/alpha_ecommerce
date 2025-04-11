@@ -4,11 +4,6 @@
 
 import 'dart:convert';
 
-ProductsModel productsModelFromJson(String str) =>
-    ProductsModel.fromJson(json.decode(str));
-
-String productsModelToJson(ProductsModel data) => json.encode(data.toJson());
-
 class ProductsModel {
   int totalSize;
   int limit;
@@ -52,11 +47,11 @@ class ProductList {
   String unit;
   int minQty;
   dynamic featured;
-  int refundable;
+  String refundable;
   int variantProduct;
   List<int> attributes;
   List<ChoiceOption> choiceOptions;
-  List<Variation> variation;
+  //List<Variation> variation;
   String weight;
   int published;
   String unitPrice;
@@ -68,7 +63,7 @@ class ProductList {
   String taxAmount;
   double discount;
   String discountType;
-  int currentStock;
+  dynamic currentStock;
   int minimumOrderQty;
   int freeShipping;
   String createdAt;
@@ -92,62 +87,63 @@ class ProductList {
   bool isFavorite;
   bool isCart;
   int cart_id;
+  String discount_string;
 
-  ProductList({
-    required this.id,
-    required this.categoryIds,
-    required this.userId,
-    required this.shop,
-    required this.name,
-    required this.slug,
-    required this.images,
-    required this.colorImage,
-    required this.thumbnail,
-    required this.brandId,
-    required this.unit,
-    required this.minQty,
-    required this.featured,
-    required this.refundable,
-    required this.variantProduct,
-    required this.attributes,
-    required this.choiceOptions,
-    required this.variation,
-    required this.weight,
-    required this.published,
-    required this.unitPrice,
-    required this.specialPrice,
-    required this.purchasePrice,
-    required this.tax,
-    required this.taxType,
-    required this.taxModel,
-    required this.taxAmount,
-    required this.discount,
-    required this.discountType,
-    required this.currentStock,
-    required this.minimumOrderQty,
-    required this.freeShipping,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.status,
-    required this.featuredStatus,
-    required this.metaTitle,
-    required this.metaDescription,
-    required this.metaImage,
-    required this.requestStatus,
-    required this.shippingCost,
-    required this.multiplyQty,
-    required this.code,
-    required this.reviewsCount,
-    required this.rating,
-    required this.tags,
-    required this.translations,
-    required this.shareLink,
-    required this.reviews,
-    required this.colorsFormatted,
-    required this.isFavorite,
-    required this.isCart,
-    required this.cart_id,
-  });
+  ProductList(
+      {required this.id,
+      required this.categoryIds,
+      required this.userId,
+      required this.shop,
+      required this.name,
+      required this.slug,
+      required this.images,
+      required this.colorImage,
+      required this.thumbnail,
+      required this.brandId,
+      required this.unit,
+      required this.minQty,
+      required this.featured,
+      required this.refundable,
+      required this.variantProduct,
+      required this.attributes,
+      required this.choiceOptions,
+      // required this.variation,
+      required this.weight,
+      required this.published,
+      required this.unitPrice,
+      required this.specialPrice,
+      required this.purchasePrice,
+      required this.tax,
+      required this.taxType,
+      required this.taxModel,
+      required this.taxAmount,
+      required this.discount,
+      required this.discountType,
+      required this.currentStock,
+      required this.minimumOrderQty,
+      required this.freeShipping,
+      required this.createdAt,
+      required this.updatedAt,
+      required this.status,
+      required this.featuredStatus,
+      required this.metaTitle,
+      required this.metaDescription,
+      required this.metaImage,
+      required this.requestStatus,
+      required this.shippingCost,
+      required this.multiplyQty,
+      required this.code,
+      required this.reviewsCount,
+      required this.rating,
+      required this.tags,
+      required this.translations,
+      required this.shareLink,
+      required this.reviews,
+      required this.colorsFormatted,
+      required this.isFavorite,
+      required this.isCart,
+      required this.cart_id,
+      required this.discount_string});
 
   factory ProductList.fromJson(Map<String, dynamic> json) => ProductList(
         id: json["id"],
@@ -170,8 +166,8 @@ class ProductList {
         attributes: List<int>.from(json["attributes"].map((x) => x)),
         choiceOptions: List<ChoiceOption>.from(
             json["choice_options"].map((x) => ChoiceOption.fromJson(x))),
-        variation: List<Variation>.from(
-            json["variation"].map((x) => Variation.fromJson(x))),
+        // variation: List<Variation>.from(
+        //     json["variation"].map((x) => Variation.fromJson(x))),
         weight: json["weight"]!,
         published: json["published"],
         unitPrice: json["unit_price"],
@@ -210,6 +206,7 @@ class ProductList {
         isFavorite: json["is_favorite"],
         isCart: json["is_cart"],
         cart_id: json["cart_id"],
+        discount_string: json["discount_string"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -231,7 +228,7 @@ class ProductList {
         "attributes": List<dynamic>.from(attributes.map((x) => x)),
         "choice_options":
             List<dynamic>.from(choiceOptions.map((x) => x.toJson())),
-        "variation": List<dynamic>.from(variation.map((x) => x.toJson())),
+        //"variation": List<dynamic>.from(variation.map((x) => x.toJson())),
         "weight": weight,
         "published": published,
         "unit_price": unitPrice,
@@ -268,6 +265,7 @@ class ProductList {
         "is_favorite": isFavorite,
         "is_cart": isCart,
         "cart_id": cart_id,
+        "discount_string": discount_string
       };
 }
 
@@ -486,8 +484,8 @@ class Customer {
 }
 
 class Shop {
-  int id;
-  int sellerId;
+  String id;
+  String sellerId;
   String name;
   String address;
   String contact;

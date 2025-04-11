@@ -1,3 +1,8 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/fcm_helper.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/categoryViewModel.dart';
@@ -12,18 +17,24 @@ import 'package:alpha_ecommerce_18oct/view/dashboard/dashboard.dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/splash/splashScreen.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/authViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/faqsViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/languageViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/networkViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/notificationViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/orderReturnViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/productViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/profileViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/splashViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/vendorViewModel.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'utils/color.dart';
 import 'utils/constant.dart';
@@ -32,9 +43,26 @@ import 'utils/shared_pref..dart';
 import 'utils/string.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  FCMHelper.shared.listenNotificationInBackground(message);
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FCMHelper.shared.intializeFirebase();
+
   await SharedPref.shared.getPref();
+
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    print(details.exception.toString());
+    print(details.library.toString());
+    print(details.exceptionAsString().toString());
+    print(details.stack.toString());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(body: appLoader()),
+    );
+  };
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -68,8 +96,14 @@ void main() async {
         ),
         ChangeNotifierProvider<UserProvider>(
             create: (context) => UserProvider()),
+        ChangeNotifierProvider<OrderReturnViewModel>(
+            create: (context) => OrderReturnViewModel()),
+        ChangeNotifierProvider<NetworkViewModel>(
+            create: (context) => NetworkViewModel()),
         ChangeNotifierProvider<AuthViewModel>(
             create: (context) => AuthViewModel()),
+        ChangeNotifierProvider<NotificationViewModel>(
+            create: (context) => NotificationViewModel()),
         ChangeNotifierProvider<HomeViewModel>(
             create: (context) => HomeViewModel()),
         ChangeNotifierProvider<VendorViewModel>(
@@ -84,6 +118,8 @@ void main() async {
             create: (context) => CartViewModel()),
         ChangeNotifierProvider<CouponViewModel>(
             create: (context) => CouponViewModel()),
+        ChangeNotifierProvider<FaqViewModel>(
+            create: (context) => FaqViewModel()),
         ChangeNotifierProvider<LanguageViewModel>(
             create: (context) => LanguageViewModel()),
         ChangeNotifierProvider<SplashViewModel>(
@@ -135,6 +171,32 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void _handleMessage(RemoteMessage message) {
+    print("_handleMessage : ${message.data}");
+  }
+
+  firebaseSetup() async {
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+
+    if (initialMessage != null) {
+      _handleMessage(initialMessage);
+    }
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.data}');
+        await FirebaseMessaging.instance
+            .setForegroundNotificationPresentationOptions(
+          alert: true, // Required to display a heads up notification
+          badge: true,
+          sound: true,
+        );
+      }
+    });
+  }
+
   @override
   void didChangeDependencies() {
     getLocale().then((locale) => {setLocale(locale)});
@@ -145,6 +207,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     dashboardPageState = GlobalKey<DashboardState>();
+    firebaseSetup();
   }
 
   @override
@@ -171,35 +234,104 @@ class _MyAppState extends State<MyApp> {
       ],
       title: appName,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: colors.primary_app,
+          ).copyWith(
+            secondary: colors.darkIcon,
+            brightness: Brightness.light,
+          ),
+          canvasColor: Theme.of(context).colorScheme.lightWhite,
+          cardColor: Theme.of(context).colorScheme.white,
+          dialogBackgroundColor: Theme.of(context).colorScheme.white,
+          iconTheme: Theme.of(context).iconTheme.copyWith(
+                color: colors.primary,
+              ),
           primarySwatch: colors.primary_app,
-        ).copyWith(
-          secondary: colors.darkIcon,
+          primaryColor: Theme.of(context).colorScheme.lightWhite,
+          fontFamily: 'ubuntu',
           brightness: Brightness.light,
-        ),
-        canvasColor: Theme.of(context).colorScheme.lightWhite,
-        cardColor: Theme.of(context).colorScheme.white,
-        dialogBackgroundColor: Theme.of(context).colorScheme.white,
-        iconTheme: Theme.of(context).iconTheme.copyWith(
-              color: colors.primary,
+          textTheme: TextTheme(
+            titleLarge: GoogleFonts.nunito(
+              textStyle: TextStyle(
+                color: Theme.of(context).colorScheme.fontColor,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-        primarySwatch: colors.primary_app,
-        primaryColor: Theme.of(context).colorScheme.lightWhite,
-        fontFamily: 'ubuntu',
-        brightness: Brightness.light,
-        textTheme: TextTheme(
-          titleLarge: TextStyle(
-            color: Theme.of(context).colorScheme.fontColor,
-            fontWeight: FontWeight.w600,
+            titleMedium: GoogleFonts.nunito(
+              textStyle: TextStyle(
+                color: Theme.of(context).colorScheme.fontColor,
+                //fontWeight: FontWeight.bold,
+              ),
+            ),
+            titleSmall: GoogleFonts.nunito(
+              textStyle: TextStyle(
+                color: Theme.of(context).colorScheme.fontColor,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+            bodyMedium: GoogleFonts.nunito(
+              textStyle: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: Platform.isAndroid ? size_12 : size_14,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+              ),
+            ),
+            bodySmall: GoogleFonts.nunito(
+              textStyle: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? colors.textColor
+                    : Colors.black,
+              ),
+            ),
+          ).apply(
+            bodyColor: Theme.of(context).colorScheme.fontColor,
           ),
-          titleMedium: TextStyle(
-            color: Theme.of(context).colorScheme.fontColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ).apply(
-          bodyColor: Theme.of(context).colorScheme.fontColor,
-        ),
-      ),
+          inputDecorationTheme: InputDecorationTheme(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            filled: true,
+            fillColor: Colors.white,
+            labelStyle: TextStyle(
+              color: colors.labelColor,
+              fontSize: Platform.isAndroid ? size_12 : size_14,
+            ),
+            hintStyle: const TextStyle(
+              color: colors.labelColor,
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                color: colors.textFieldColor,
+                width: 1,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                color: colors.textFieldColor,
+                width: 1,
+              ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                color: colors.textFieldColor,
+                width: 1,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                color: colors.textFieldColor,
+                width: 1,
+              ),
+            ),
+          )),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
@@ -224,14 +356,90 @@ class _MyAppState extends State<MyApp> {
         iconTheme: Theme.of(context).iconTheme.copyWith(
               color: colors.secondary,
             ),
-        textTheme: TextTheme(
-          titleLarge: TextStyle(
-            color: Theme.of(context).colorScheme.fontColor,
-            fontWeight: FontWeight.w600,
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          titleMedium: TextStyle(
-            color: Theme.of(context).colorScheme.fontColor,
-            fontWeight: FontWeight.bold,
+          filled: true,
+          fillColor: colors.textFieldBG,
+          labelStyle: TextStyle(
+            color: colors.labelColor,
+            fontSize: Platform.isAndroid ? size_12 : size_14,
+          ),
+          hintStyle: const TextStyle(
+            color: colors.labelColor,
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: colors.textFieldColor,
+              width: 1,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: colors.textFieldColor,
+              width: 1,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: colors.textFieldColor,
+              width: 1,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: colors.textFieldColor,
+              width: 1,
+            ),
+          ),
+        ),
+        textTheme: TextTheme(
+          titleLarge: GoogleFonts.nunito(
+            textStyle: TextStyle(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          titleMedium: GoogleFonts.nunito(
+            textStyle: TextStyle(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+              //fontWeight: FontWeight.bold,
+            ),
+          ),
+          titleSmall: GoogleFonts.nunito(
+            textStyle: TextStyle(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+          bodyMedium: GoogleFonts.nunito(
+            textStyle: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: Platform.isAndroid ? size_12 : size_14,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+            ),
+          ),
+          bodySmall: GoogleFonts.nunito(
+            textStyle: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: Platform.isAndroid ? size_10 : size_12,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? colors.textColor
+                  : Colors.black,
+            ),
           ),
         ).apply(
           bodyColor: Theme.of(context).colorScheme.fontColor,

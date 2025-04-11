@@ -1,13 +1,17 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/address/model/addressModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/color.dart';
-import '../../../utils/routes.dart';
 import '../../widget_common/commonBackground.dart';
 import '../../widget_common/common_button.dart';
 import '../../widget_common/common_header.dart';
-import '../../widget_common/common_textfield.dart';
+
 import '../common_header.dart';
 
 class EditAddress extends StatefulWidget {
@@ -22,10 +26,12 @@ class _EditAddressState extends State<EditAddress> {
   String selectedOption = 'Home';
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late AddressViewModel addressProvider;
+
   @override
   void initState() {
     super.initState();
     addressProvider = Provider.of<AddressViewModel>(context, listen: false);
+
     addressProvider.nameController.text = widget.addressList.contactPersonName;
     addressProvider.id = widget.addressList.id.toString();
     addressProvider.mobileController.text = widget.addressList.phone;
@@ -40,6 +46,7 @@ class _EditAddressState extends State<EditAddress> {
     selectedOption = widget.addressList.addressType.toLowerCase();
     addressProvider.latitude = widget.addressList.latitude.toString();
     addressProvider.longitude = widget.addressList.longitude.toString();
+    addressProvider.getCountries(context, widget.addressList.state, true);
   }
 
   @override
@@ -52,16 +59,23 @@ class _EditAddressState extends State<EditAddress> {
         Scaffold(
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  InternalPageHeader(
-                    text: "Edit Address",
-                  )
-                ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child:  Stack(
+                  children: [
+                    ProfileHeader(),
+                    InternalPageHeader(
+                      text: "Edit Address",
+                    )
+                  ],
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -71,14 +85,19 @@ class _EditAddressState extends State<EditAddress> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.only(left: 20, top: 20),
                             child: Text(
                               "Select Delivery type",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Colors.white,
+                                      fontSize: Platform.isAndroid
+                                          ? size_12
+                                          : size_14,
+                                      fontWeight: FontWeight.bold),
                             ),
                           ),
                           Padding(
@@ -95,12 +114,21 @@ class _EditAddressState extends State<EditAddress> {
                                   Expanded(
                                     child: RadioListTile(
                                       activeColor: colors.buttonColor,
-                                      title: const Text(
+                                      title: Text(
                                         'Home',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness !=
+                                                      Brightness.dark
+                                                  ? colors.textFieldBG
+                                                  : Colors.white,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                            ),
                                         softWrap: false, // Add this line
                                       ),
                                       value: 'home',
@@ -117,12 +145,21 @@ class _EditAddressState extends State<EditAddress> {
                                   ),
                                   Expanded(
                                     child: RadioListTile(
-                                      title: const Text(
+                                      title: Text(
                                         'Office',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness !=
+                                                      Brightness.dark
+                                                  ? colors.textFieldBG
+                                                  : Colors.white,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                            ),
                                         softWrap: false, // Add this line
                                       ),
                                       activeColor: colors.buttonColor,
@@ -140,12 +177,21 @@ class _EditAddressState extends State<EditAddress> {
                                   ),
                                   Expanded(
                                     child: RadioListTile(
-                                      title: const Text(
+                                      title: Text(
                                         'Other',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness !=
+                                                      Brightness.dark
+                                                  ? colors.textFieldBG
+                                                  : Colors.white,
+                                              fontSize: Platform.isAndroid
+                                                  ? size_12
+                                                  : size_14,
+                                            ),
                                         softWrap: false, // Add this line
                                       ),
                                       value: 'other',
@@ -170,148 +216,508 @@ class _EditAddressState extends State<EditAddress> {
                       Container(
                         margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                         decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
+                          // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
                           controller: addressProvider.nameController,
-                          decoration: commonInputDecoration(
+                          keyboardType: TextInputType.text,
+
+                          // inputFormatters: [
+                          //   LengthLimitingTextInputFormatter(50),
+                          // ],
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(r'\d+')),
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'[a-zA-Z]')),
+                            LengthLimitingTextInputFormatter(50),
+// Allow only alphanumeric characters
+                          ],
+                          decoration: InputDecoration(
+                            filled: true,
+                            counterText: '',
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'Name',
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
+                          // color: colors
+                          //     .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
-                          keyboardType: TextInputType.phone,
+                          keyboardType:
+                              TextInputType.numberWithOptions(signed: true),
                           maxLength: 10,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'\d+')),
+                          ],
                           controller: addressProvider.mobileController,
-                          decoration: commonInputDecoration(
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'Mobile Number',
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
+                          // color: colors
+                          //     .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
+                          keyboardType:
+                              TextInputType.numberWithOptions(signed: true),
                           maxLength: 10,
-                          keyboardType: TextInputType.phone,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'\d+')),
+                          ],
                           controller: addressProvider.alternateMobileController,
-                          decoration: commonInputDecoration(
+
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'Alternate Mobile Number',
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
-                          style: const TextStyle(color: colors.greyText),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textFieldBG
+                              : Colors
+                                  .white, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
                           controller: addressProvider.houseController,
-                          decoration: commonInputDecoration(
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(50),
+                          ],
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'House no, Building Name',
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textFieldBG
+                              : Colors
+                                  .white, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
                           controller: addressProvider.roadController,
-                          decoration: commonInputDecoration(
+                          //  maxLength: 100,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(100),
+                          ],
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'Road name, Area Colony',
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textFieldBG
+                              : Colors.white,
+                          border: Border.all(
+                            // Set the border color and width
+                            color: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? colors.white10
+                                : colors
+                                    .greyText, // Replace with your desired border color
+                            width:
+                                2.0, // Replace with your desired border width
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 12.0, right: 12),
+                          child: DropdownButton<String>(
+                            underline: Container(),
+                            isExpanded: true,
+                            dropdownColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.darkBG
+                                    : Colors.white,
+                            value: addressProvider.selectedCountry,
+                            onChanged: (value) {
+                              setState(() {
+                                addressProvider.selectedCountry = value!;
+                                addressProvider.countryController.text = value;
+                                for (int i = 0;
+                                    i < addressProvider.countryList.length;
+                                    i++) {
+                                  if (addressProvider.countryList[i].name ==
+                                      addressProvider.selectedCountry) {
+                                    addressProvider.getStatesList(
+                                        context,
+                                        addressProvider.countryList[i].id
+                                            .toString());
+                                  }
+                                }
+                              });
+                            },
+                            items: addressProvider.countryList
+                                .map((country) => DropdownMenuItem<String>(
+                                      value: country.name,
+                                      child: Text(
+                                        country.name,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textColor
+                                                    : Colors.black),
+                                      ),
+                                    ))
+                                .toList(),
+                            hint: Text('Select a country'),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textFieldBG
+                              : Colors.white,
+                          border: Border.all(
+                            // Set the border color and width
+                            color: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? colors.white10
+                                : colors
+                                    .greyText, // Replace with your desired border color
+                            width:
+                                2.0, // Replace with your desired border width
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 12.0, right: 12),
+                          child: DropdownButton<String>(
+                            underline: Container(),
+                            isExpanded: true,
+                            dropdownColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.darkBG
+                                    : Colors.white,
+                            value: addressProvider.selectedState,
+                            onChanged: (value) {
+                              setState(() {
+                                addressProvider.selectedState = value!;
+                                addressProvider.stateController.text = value;
+                                for (int i = 0;
+                                    i < addressProvider.stateList.length;
+                                    i++) {
+                                  if (addressProvider.stateList[i].name ==
+                                      addressProvider.selectedState) {
+                                    addressProvider.getCity(
+                                        context,
+                                        addressProvider.stateList[i].id
+                                            .toString(),
+                                        addressProvider.stateList[i].name
+                                            .toString());
+                                  }
+                                }
+                              });
+                            },
+                            items: addressProvider.stateList
+                                .map((state) => DropdownMenuItem<String>(
+                                      value: state.name,
+                                      child: Text(
+                                        state.name!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? colors.textColor
+                                                    : Colors.black),
+                                      ),
+                                    ))
+                                .toList(),
+                            hint: Text('Select a state'),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.textFieldBG
+                              : Colors.white,
+                          border: Border.all(
+                            // Set the border color and width
+                            color: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? colors.white10
+                                : colors
+                                    .greyText, // Replace with your desired border color
+                            width:
+                                2.0, // Replace with your desired border width
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 12.0, right: 12),
+                          child: DropdownButton<String>(
+                            underline: Container(),
+                            isExpanded: true,
+                            dropdownColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.darkBG
+                                    : Colors.white,
+                            value: addressProvider.selectedCity,
+                            onChanged: (value) {
+                              setState(() {
+                                addressProvider.selectedCity = value!;
+                                addressProvider.cityController.text = value;
+                              });
+                            },
+                            items: addressProvider.cityList
+                                .map((city) => DropdownMenuItem<String>(
+                                      value: city.name,
+                                      child: Text(
+                                        city.name!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black),
+                                      ),
+                                    ))
+                                .toList(),
+                            hint: Text('Select a city'),
+                          ),
                         ),
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: TextFormField(
-                          controller: addressProvider.countryController,
-                          decoration: commonInputDecoration(
-                            labelText: 'Country',
-                          ),
-                          style: const TextStyle(color: colors.textColor),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          controller: addressProvider.stateController,
-                          decoration: commonInputDecoration(
-                            labelText: 'State',
-                          ),
-                          style: const TextStyle(color: colors.textColor),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: colors
-                              .textFieldBG, // Change this color to your desired background color
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          controller: addressProvider.cityController,
-                          decoration: commonInputDecoration(
-                            labelText: 'City',
-                          ),
-                          style: const TextStyle(color: colors.textColor),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: colors.textFieldBG,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
+                          maxLength: 6,
+                          keyboardType:
+                              TextInputType.numberWithOptions(signed: true),
                           controller: addressProvider.pinCodeController,
-                          decoration: commonInputDecoration(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'\d+')),
+                          ],
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? colors.textFieldBG
+                                    : Colors.white,
                             labelText: 'Pincode',
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                  fontSize:
+                                      Platform.isAndroid ? size_12 : size_14,
+                                ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: colors.labelColor,
+                                ),
                           ),
-                          style: const TextStyle(color: colors.textColor),
+                          // decoration: commonInputDecoration(
+                          //   labelText: translation(context).fullname,
+                          // ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.textColor
+                                      : Colors.black),
                         ),
                       ),
                     ],
@@ -319,12 +725,16 @@ class _EditAddressState extends State<EditAddress> {
                 ),
               ),
               InkWell(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {},
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     height: 80,
-                    color: colors.textFieldBG,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? colors.textFieldBG
+                        : Colors.white,
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -336,36 +746,92 @@ class _EditAddressState extends State<EditAddress> {
                             width: double.infinity,
                             child: CommonButton(
                                 text: "SAVE ADDRESS",
-                                fontSize: 14,
+                                colorsText: Colors.white,
+                                fontSize:
+                                    Platform.isAndroid ? size_12 : size_14,
                                 onClick: () async {
-                                  Map data = {
-                                    'id': addressProvider.id,
-                                    "contact_person_name":
-                                        addressProvider.nameController.text,
-                                    "phone":
-                                        addressProvider.mobileController.text,
-                                    "alt_phone": addressProvider
-                                        .alternateMobileController.text,
-                                    "address":
-                                        addressProvider.houseController.text,
-                                    "address1":
-                                        addressProvider.roadController.text,
-                                    "country":
-                                        addressProvider.countryController.text,
-                                    "state":
-                                        addressProvider.stateController.text,
-                                    "city": addressProvider.cityController.text,
-                                    "zip":
-                                        addressProvider.pinCodeController.text,
-                                    "latitude":
-                                        addressProvider.latitude.toString(),
-                                    "longitude":
-                                        addressProvider.longitude.toString(),
-                                    "address_type": selectedOption,
-                                    "is_billing": "1"
-                                  };
-                                  await addressProvider.updateAddress(
-                                      context, data);
+                                  if (addressProvider
+                                      .nameController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid name!!!", context);
+                                  } else if (addressProvider
+                                      .mobileController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid mobile!!!", context);
+                                  } else if (addressProvider
+                                      .houseController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid house number!!!", context);
+                                  } else if (addressProvider
+                                      .roadController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid road name!!!", context);
+                                  } else if (addressProvider
+                                      .roadController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid road name!!!", context);
+                                  } else if (addressProvider
+                                      .countryController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid country name!!!", context);
+                                  } else if (addressProvider
+                                      .stateController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid state name!!!", context);
+                                  } else if (addressProvider
+                                      .cityController.text.isEmpty) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid city name!!!", context);
+                                  } else if (addressProvider
+                                          .pinCodeController.text.isEmpty ||
+                                      addressProvider
+                                              .pinCodeController.text.length <
+                                          6) {
+                                    return Utils.showFlushBarWithMessage(
+                                        "", "Invalid pin code!!!", context);
+                                  } else if (addressProvider
+                                      .alternateMobileController.text
+                                      .trim()
+                                      .isNotEmpty) {
+                                    if (addressProvider
+                                            .alternateMobileController
+                                            .text
+                                            .length <
+                                        10)
+                                      addressProvider.showAlert(
+                                          context, "Alternate mobile number");
+                                    return;
+                                  } else {
+                                    Map data = {
+                                      'id': addressProvider.id,
+                                      "contact_person_name":
+                                          addressProvider.nameController.text,
+                                      "phone":
+                                          addressProvider.mobileController.text,
+                                      "alt_phone": addressProvider
+                                          .alternateMobileController.text,
+                                      "address":
+                                          addressProvider.houseController.text,
+                                      "address1":
+                                          addressProvider.roadController.text,
+                                      "country": addressProvider
+                                          .countryController.text,
+                                      "state":
+                                          addressProvider.stateController.text,
+                                      "city":
+                                          addressProvider.cityController.text,
+                                      "zip": addressProvider
+                                          .pinCodeController.text,
+                                      "latitude":
+                                          addressProvider.latitude.toString(),
+                                      "longitude":
+                                          addressProvider.longitude.toString(),
+                                      "address_type": selectedOption,
+                                      "is_billing": "1"
+                                    };
+                                    await addressProvider.updateAddress(
+                                        context, data);
+                                  }
                                 })),
                       ),
                     ),

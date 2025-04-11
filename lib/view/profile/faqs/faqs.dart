@@ -1,4 +1,10 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/faqsViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../utils/color.dart';
 import '../../../utils/constant.dart';
@@ -14,9 +20,19 @@ class FAQs extends StatefulWidget {
 
 class _FAQsState extends State<FAQs> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late FaqViewModel faqProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    faqProvider = Provider.of<FaqViewModel>(context, listen: false);
+    faqProvider.getFaqListItem(context);
+  }
 
   @override
   Widget build(BuildContext context) {
+    faqProvider = Provider.of<FaqViewModel>(context);
+
     return Stack(children: [
       Align(
         alignment: Alignment.topRight,
@@ -29,103 +45,148 @@ class _FAQsState extends State<FAQs> {
         resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
         extendBody: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.transparent
+            : Colors.white,
         body: Column(
           children: [
-            Stack(
-              children: [
-                const ProfileHeader(),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 35),
-                    height: 100,
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: InkWell(
-                                onTap: () {
-                                  Routes.navigateToPreviousScreen(context);
-                                },
-                                child: const Icon(Icons.arrow_back_ios)),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  right: MediaQuery.of(context).size.width * 0.1),
-                              child: const Text(
-                                "Faqs",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.white, fontSize: 20),
+            Container(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.transparent
+                  : colors.buttonColor,
+              child: Stack(
+                children: [
+                  const ProfileHeader(),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 50),
+                      height: 100,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  onTap: () {
+                                    Routes.navigateToPreviousScreen(context);
+                                  },
+                                  child: const Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white,
+                                  )),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    right: MediaQuery.of(context).size.width *
+                                        0.1),
+                                child: Text(
+                                  "FAQs",
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontSize: Platform.isAndroid
+                                              ? size_18
+                                              : size_20),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 30),
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              child: faqProvider.isLoading
+                  ? appLoader()
+                  : SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            term1,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 30),
-                            child: Text(
-                              term2,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  color: colors.lightTextColor, fontSize: 14),
-                            ),
-                          ),
-                          Text(
-                            term3,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 30),
-                            child: Text(
-                              term4,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  color: colors.lightTextColor, fontSize: 14),
-                            ),
-                          ),
-                          Text(
-                            term3,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 30),
-                            child: Text(
-                              term4,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  color: colors.lightTextColor, fontSize: 14),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            height: 183 * faqProvider.faqList.length.toDouble(),
+                            child: ListView.builder(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: faqProvider.faqList.length,
+                              itemBuilder: (context, i) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      side: const BorderSide(
+                                          color: Colors.white38, width: 0.2),
+                                    ),
+                                    elevation: 2,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.transparent
+                                        : colors.buttonColor,
+                                    child: ExpansionTile(
+                                      iconColor: Colors.white,
+                                      collapsedIconColor: Colors.white,
+                                      title: Text(
+                                        faqProvider.faqList[i].question,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(color: Colors.white),
+                                      ),
+                                      children: [
+                                        SizedBox(
+                                          child: SingleChildScrollView(
+                                            scrollDirection: Axis.vertical,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.stretch,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 20.0,
+                                                          bottom: 10),
+                                                  child: Align(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    child: Text(
+                                                      "${faqProvider.faqList[i].answer}",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall!
+                                                          .copyWith(
+                                                              color:
+                                                                  Colors.white),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
-              ),
             ),
           ],
         ),

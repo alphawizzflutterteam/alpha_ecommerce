@@ -40,13 +40,13 @@ class CouponList {
   String addedBy;
   String couponType;
   String couponBearer;
-  int sellerId;
+  String sellerId;
   int customerId;
   String title;
   String code;
   String startDate;
   String expireDate;
-  int minPurchase;
+  dynamic minPurchase;
   int maxDiscount;
   int discount;
   String discountType;

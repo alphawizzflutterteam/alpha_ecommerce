@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "694900479424",
+    "project_id": "alpha-e-commerce-1741e",
+    "storage_bucket": "alpha-e-commerce-1741e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694900479424:android:371e7c07b8a376cf132425",
+        "android_client_info": {
+          "package_name": "com.alphacommerce.alpha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "694900479424-kih1t938g0hgkl0r1devq8prpae6r8ee.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alphacommerce.alpha",
+            "certificate_hash": "79da98a355d14e0a21ff6f31ac0c31b3a2f70339"
+          }
+        },
+        {
+          "client_id": "694900479424-8f80r9sm8lbemlkrldmci8ndfffkebd8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoopSULQ0kY3SvSxbl6ONsNtSj5QtiMPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "694900479424-8f80r9sm8lbemlkrldmci8ndfffkebd8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "694900479424-ff6tkcfrfstf98fgq6afblknn5a4kgbd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.alphacommerce.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

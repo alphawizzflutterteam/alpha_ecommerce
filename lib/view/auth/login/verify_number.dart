@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/language/languageConstants.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/toast_message.dart';
@@ -24,7 +28,6 @@ class _VerifyNumberState extends State<VerifyNumber> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isCheckboxChecked = false;
-  final TextEditingController mobileController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,68 +36,109 @@ class _VerifyNumberState extends State<VerifyNumber> {
     return Scaffold(
       key: _scaffoldKey,
       extendBody: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.transparent
+          : Colors.white,
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-          const CommonBackgroundPatternAuthWidget(),
-          const CommonBackgroundAuthWidget(),
-          SingleChildScrollView(
+          Theme.of(context).brightness == Brightness.dark
+              ? CommonBackgroundPatternAuthWidget()
+              : Image.asset(
+                  Images.light_bg,
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.cover,
+                ),
+          Theme.of(context).brightness == Brightness.dark
+              ? CommonBackgroundAuthWidget()
+              : Container(),
+          GestureDetector(
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 35),
-                    height: 80,
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: InkWell(
-                                onTap: () {
-                                  Routes.navigateToPreviousScreen(context);
-                                },
-                                child: const Icon(Icons.arrow_back_ios)),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.1),
-                              child: Text(
-                                widget.forSignUp
-                                    ? translation(context).verifyNumber
-                                    : translation(context).forgotPassword,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
+                Container(
+                  padding: const EdgeInsets.only(top: 35),
+                  height: 80,
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: InkWell(
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              onTap: () {
+                                Routes.navigateToPreviousScreen(context);
+                              },
+                              child: Icon(
+                                Icons.arrow_back_ios,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                              )),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                right: MediaQuery.of(context).size.width * 0.1),
+                            child: Text(
+                              widget.forSignUp
+                                  ? translation(context).verifyNumber
+                                  : translation(context).forgotPassword,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: Platform.isAndroid
+                                          ? size_18
+                                          : size_20,
+                                      fontWeight: FontWeight.w600),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 30,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .15,
                 ),
-                Image.asset(
-                  Images.greenTopLogo,
-                  height: 90,
-                  width: 120,
-                ),
+                Theme.of(context).brightness == Brightness.dark
+                    ? Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: Image.asset(
+                          Images.logoWithoutText,
+                          height: MediaQuery.of(context).size.height * 0.1,
+                          // width: 120,
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: Image.asset(
+                          "assets/images/loogo_black.png",
+                          height: MediaQuery.of(context).size.height * 0.1,
+                        ),
+                      ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   child: Text(
                     translation(context).enteryourmobilenumber,
-                    style: const TextStyle(
-                        color: colors.textColor,
+                    style: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
                         fontSize: 25,
                         fontWeight: FontWeight.bold),
                   ),
@@ -113,18 +157,29 @@ class _VerifyNumberState extends State<VerifyNumber> {
                           children: [
                             Expanded(
                               child: IntlPhoneField(
-                                controller: mobileController,
+                                showDropdownIcon: false,
+                                readOnly: false,
+                                enabled: true,
+                                invalidNumberMessage: '',
+                                controller: authViewModel.mobileController,
                                 decoration: InputDecoration(
                                   labelText: translation(context).mobileNumber,
                                   border: const OutlineInputBorder(
                                     borderSide: BorderSide(),
                                   ),
-                                  labelStyle: const TextStyle(
-                                    color: colors.textColor,
-                                    fontSize: 14,
+                                  counterText: '',
+                                  labelStyle: TextStyle(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.textColor
+                                        : Colors.black,
+                                    fontSize:
+                                        Platform.isAndroid ? size_12 : size_14,
                                   ),
-                                  hintStyle: const TextStyle(
-                                      color: colors.textFieldColor),
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(color: colors.textFieldColor),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: const BorderSide(
@@ -154,7 +209,12 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                     ),
                                   ),
                                 ),
-                                style: const TextStyle(color: colors.textColor),
+                                style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
                                 initialCountryCode: 'IN',
                                 inputFormatters: [
                                   FilteringTextInputFormatter.allow(
@@ -193,8 +253,12 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                       Text(
                                         translation(context)
                                             .bycontinuingyouagreetoour,
-                                        style: const TextStyle(
-                                            color: colors.lightTextColor),
+                                        style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : colors.greyText,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -203,6 +267,8 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                     child: Row(
                                       children: [
                                         InkWell(
+                                          highlightColor: Colors.transparent,
+                                          splashColor: Colors.transparent,
                                           onTap: () {
                                             Routes
                                                 .navigateToTermsConditionScreen(
@@ -210,19 +276,27 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                           },
                                           child: Text(
                                             translation(context).termsofservice,
-                                            style: const TextStyle(
-                                              color: colors.buttonColor,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  color: colors.buttonColor,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
                                           ),
                                         ),
                                         Text(
                                           translation(context).and,
-                                          style: const TextStyle(
-                                              color: colors.lightTextColor),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: colors.lightTextColor),
                                         ),
                                         InkWell(
+                                          highlightColor: Colors.transparent,
+                                          splashColor: Colors.transparent,
                                           onTap: () {
                                             Routes
                                                 .navigateToPrivacyPolicyScreen(
@@ -230,12 +304,15 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                           },
                                           child: Text(
                                             translation(context).privacypolicy,
-                                            style: const TextStyle(
-                                              color: colors
-                                                  .buttonColor, // Change the color to your preferred color
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  color: colors
+                                                      .buttonColor, // Change the color to your preferred color
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
                                           ),
                                         ),
                                       ],
@@ -253,58 +330,70 @@ class _VerifyNumberState extends State<VerifyNumber> {
                             width: double.infinity,
                             child: CommonButton(
                               text: translation(context).send,
-                              fontSize: 18,
+                              colorsText: Colors.white,
+                              fontSize: Platform.isAndroid ? size_17 : size_18,
                               onClick: () {
-                                Map data = {'phone': mobileController.text};
+                                Map data = {
+                                  'phone': authViewModel.mobileController.text
+                                };
                                 widget.forSignUp
                                     ? isCheckboxChecked
                                         ? authViewModel.sendRegisterOtp(
                                             data, context)
-                                        : showToastMessage(
-                                            "Please agree on terms and privacy")
+                                        : Utils.showFlushBarWithMessage(
+                                            '',
+                                            "Please agree on terms and privacy",
+                                            context)
                                     : authViewModel.sendOtpforForgotScreen(
                                         data, context);
                               },
                             )),
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                widget.forSignUp
-                                    ? translation(context).alreadyhaveanaccount
-                                    : translation(context).dontHaveanaccount,
-                                style: const TextStyle(
-                                    fontSize: 14, color: colors.textColor),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  widget.forSignUp
-                                      ? Routes.navigateToSignInScreen(context)
-                                      : Routes.navigateToVerifyNumberScreen(
-                                          context, true);
-                                },
-                                child: Text(
-                                  widget.forSignUp
-                                      ? translation(context).signIn
-                                      : translation(context).signUp,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: colors.buttonColor,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                              ),
-                            ],
+                    ],
+                  ),
+                ),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.forSignUp
+                            ? translation(context).alreadyhaveanaccount
+                            : translation(context).dontHaveanaccount,
+                        style: TextStyle(
+                          fontSize: Platform.isAndroid ? size_14 : size_14,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : colors.greyText,
+                        ),
+                      ),
+                      InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        onTap: () {
+                          widget.forSignUp
+                              ? Routes.navigateToSignInScreen(context)
+                              : Routes.navigateToVerifyNumberScreen(
+                                  context, true);
+                        },
+                        child: Text(
+                          widget.forSignUp
+                              ? translation(context).signIn
+                              : translation(context).signUp,
+                          style: TextStyle(
+                            fontSize: Platform.isAndroid ? size_14 : size_14,
+                            color: colors.buttonColor,
+                            decoration: TextDecoration.underline,
                           ),
                         ),
                       ),
                     ],
                   ),
+                ),
+                Divider(
+                  color: Colors.transparent,
                 ),
               ],
             ),

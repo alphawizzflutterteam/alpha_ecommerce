@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Alpha Ecommerce 18oct</string>
+	<string>Alpha Ecommerce</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -27,10 +27,27 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.694900479424-ff6tkcfrfstf98fgq6afblknn5a4kgbd</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MinimumOSVersion</key>
+	<string>12.0</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires access to the camera for updating your profile picture.</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>We need access to the documents folder to save and open files.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Always and when in use!</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -41,6 +58,8 @@
 	<string>Need location when in use</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Used to record audio</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires access to Photo Library for updating your profile picture.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Used to recognise speech</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

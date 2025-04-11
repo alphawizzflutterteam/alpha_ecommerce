@@ -1,12 +1,18 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/model/profile.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
+import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/logOut/logOut.dart';
 import 'package:alpha_ecommerce_18oct/view/profile/models/profileModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../widget_common/commonBackground.dart';
 import '../widget_common/common_header.dart';
@@ -20,393 +26,900 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  late HomeViewModel homeProvider;
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  var token = SharedPref.shared.pref!.getString(PrefKeys.jwtToken) ?? "";
+  var name = "";
+  var phone = "";
+  var image = "";
+  var loyaltyPoint = "";
+  var walletBalance = "";
+  bool iisSubscribed = false;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    homeProvider = Provider.of<HomeViewModel>(context, listen: false);
+  }
+
+  setProfile() {
     var model =
         jsonDecode(SharedPref.shared.pref!.getString(PrefKeys.userDetails)!);
 
     ProfileModel user = ProfileModel.fromJson(model);
+    name = user.data[0].fName;
+    phone = user.data[0].phone;
+    image = user.data[0].image;
+    loyaltyPoint = user.data[0].loyaltyPoint;
+    walletBalance = user.data[0].walletBalance.toString();
+    iisSubscribed = user.data[0].isSubscribed == 0 ? false : true;
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    homeProvider = Provider.of<HomeViewModel>(context);
+    if (token.isEmpty) {
+    } else {
+      setProfile();
+    }
     return Stack(
       children: [
         const LightBackGround(),
-        Scaffold(
-          resizeToAvoidBottomInset: false,
-          key: _scaffoldKey,
-          extendBody: true,
-          backgroundColor: Colors.transparent,
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Routes.navigateToChatScreen(context);
-            },
-            backgroundColor: colors.buttonColor,
-            child: Image.asset(
-              Images.chat,
-              height: 40,
-              width: 40,
-            ),
-          ),
-          body: Column(
-            children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  DashboardHeader(),
-                ],
-              ),
-              Stack(
-                children: [
-                  Column(
+        RefreshIndicator(
+          color: colors.buttonColor,
+          backgroundColor: Colors.white,
+          displacement: 40.0,
+          strokeWidth: 2.0,
+          semanticsLabel: 'Pull to refresh',
+          semanticsValue: 'Refresh',
+          onRefresh: () async {
+            await Future.delayed(Duration(seconds: 2));
+            homeProvider.getProfileAPI("", context);
+            setProfile();
+            setState(() {});
+          },
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            key: _scaffoldKey,
+            extendBody: true,
+            backgroundColor: Theme.of(context).brightness == Brightness.dark
+                ? Colors.transparent
+                : Colors.white,
+            floatingActionButton: token == "" || token == null
+                ? Container()
+                : FloatingActionButton(
+                    onPressed: () {
+                      Routes.navigateToChatScreen(context);
+                    },
+                    backgroundColor: colors.buttonColor,
+                    child: Image.asset(
+                      Images.chat,
+                      height: 40,
+                      width: 40,
+                    ),
+                  ),
+            body: token == "" || token == null
+                ? Center(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: size_200,
+                        ),
+                        Text(
+                          "Please login First to continue",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black),
+                        ),
+                        SizedBox(
+                          height: size_20,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          height: 40,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.resolveWith((states) {
+                                if (states.contains(MaterialState.hovered) ||
+                                    states.contains(MaterialState.pressed)) {
+                                  return colors.buttonColor;
+                                }
+                                return colors.buttonColor;
+                              }),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            ),
+                            onPressed: () {
+                              SharedPref.shared.pref
+                                  ?.setString(PrefKeys.mobile, "");
+                              SharedPref.shared.pref
+                                  ?.setString(PrefKeys.isLoggedIn, "0");
+                              SharedPref.shared.pref
+                                  ?.setString(PrefKeys.jwtToken, "");
+
+                              Routes.navigateToSignInScreen(context);
+                            },
+                            child: Text(
+                              'Login',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: Colors.white,
+                                    fontSize:
+                                        Platform.isAndroid ? size_10 : size_12,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Column(
                     children: [
                       Container(
-                        color: colors.buttonColor,
-                        padding: const EdgeInsets.only(left: 5),
-                        height: 100,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.transparent
+                            : colors.buttonColor,
+                        child: Stack(
                           children: [
-                            SizedBox(
-                              width: 100,
-                              height: 100,
-                              child: ClipOval(
-                                child: Image.asset(
-                                  Images.human,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.65,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          user.data[0].fName,
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Container(
-                                          width: 25,
-                                          height: 25,
-                                          decoration: const BoxDecoration(
-                                            color: Colors.white,
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Center(
-                                            child: InkWell(
-                                              onTap: () {
-                                                Routes
-                                                    .navigateToEditProfileScreen(
-                                                        context);
-                                              },
-                                              child: const Icon(
-                                                Icons.edit,
-                                                color: colors.buttonColor,
-                                                size: 20,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.email_outlined,
-                                          color: colors.lightTextColor,
-                                          size: 18,
-                                        ),
-                                        const SizedBox(width: 5),
-                                        Text(
-                                          user.data[0].email,
-                                          style: const TextStyle(
-                                              color: colors.lightTextColor,
-                                              fontSize: 12),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.phone_outlined,
-                                          color: colors.lightTextColor,
-                                          size: 18,
-                                        ),
-                                        const SizedBox(width: 5),
-                                        Text(
-                                          user.data[0].phone,
-                                          style: const TextStyle(
-                                              color: colors.lightTextColor,
-                                              fontSize: 12),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            ProfileHeader(),
+                            DashboardHeader(),
                           ],
                         ),
                       ),
                       Container(
-                        height: 15,
+                        color: Colors.transparent,
+                        child: Stack(
+                          children: [
+                            Column(
+                              children: [
+                                Container(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? colors.buttonColor
+                                      : const Color(0xFFE1F4F4),
+                                  child: Column(
+                                    children: [
+                                      Stack(
+                                        // fit: StackFit.passthrough,
+                                        children: [
+                                          Positioned(
+                                            bottom: 0,
+                                            right: 0,
+                                            child:
+                                                Image.asset(Images.semicircles),
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .075,
+                                            // width: MediaQuery.of(context).size.width * .1,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 8,
+                                                bottom: 10,
+                                                left: 15,
+                                                right: 5),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  width:
+                                                      size_85, // Set your desired width
+                                                  height:
+                                                      size_85, // Set your desired height
+                                                  child: CircleAvatar(
+                                                    backgroundImage:
+                                                        CachedNetworkImageProvider(
+                                                      image,
+                                                    ),
+                                                    onBackgroundImageError:
+                                                        (exception,
+                                                                stackTrace) =>
+                                                            ClipOval(
+                                                      child: Image.asset(
+                                                        Images.defaultProfile,
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 10),
+                                                  child: SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.65,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  0.45,
+                                                              child: Text(
+                                                                name,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                                                    color: Theme.of(context).brightness ==
+                                                                            Brightness
+                                                                                .dark
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Colors
+                                                                            .black,
+                                                                    fontSize: Platform
+                                                                            .isAndroid
+                                                                        ? size_16
+                                                                        : size_18,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              width: 30,
+                                                              height: 30,
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(2),
+                                                              decoration:
+                                                                  const BoxDecoration(
+                                                                color: Colors
+                                                                    .white,
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                              ),
+                                                              child: Center(
+                                                                child: InkWell(
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap: () {
+                                                                    Routes.navigateToEditProfileScreen(
+                                                                        context);
+                                                                  },
+                                                                  child:
+                                                                      const Icon(
+                                                                    Icons.edit,
+                                                                    color: colors
+                                                                        .buttonColor,
+                                                                    size: 16,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        Text(
+                                                          phone,
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .titleSmall!
+                                                              .copyWith(
+                                                                  color: Theme.of(context)
+                                                                              .brightness ==
+                                                                          Brightness
+                                                                              .dark
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black,
+                                                                  fontSize: Platform
+                                                                          .isAndroid
+                                                                      ? size_12
+                                                                      : size_14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 2,
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            // SizedBox(
+                                                            //   height: MediaQuery.of(context)
+                                                            //           .size
+                                                            //           .height *
+                                                            //       .025,
+                                                            //   child: Image.asset(
+                                                            //     Images.coin,
+                                                            //   ),
+                                                            // ),
+                                                            // VerticalDivider(
+                                                            //   color: Colors.transparent,
+                                                            //   width: 4,
+                                                            // ),
+                                                            // Text(
+                                                            //   loyaltyPoint,
+                                                            //   style: Theme.of(context)
+                                                            // .textTheme
+                                                            // .titleSmall!
+                                                            // .copyWith(
+
+                                                            //     color: Theme.of(context)
+                                                            //                 .brightness ==
+                                                            //             Brightness.dark
+                                                            //         ? Colors.white
+                                                            //         : Colors.black,
+                                                            //     Platform.isAndroid ? size_14 : size_16,
+                                                            //     fontWeight: FontWeight.bold,
+                                                            //   ),
+                                                            // ),
+                                                            // VerticalDivider(
+                                                            //   color: Colors.transparent,
+                                                            //   width: 10,
+                                                            // ),
+                                                            SizedBox(
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  .02,
+                                                              child:
+                                                                  Image.asset(
+                                                                Images.wallet,
+                                                              ),
+                                                            ),
+                                                            VerticalDivider(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              width: 4,
+                                                            ),
+                                                            Text(
+                                                              walletBalance,
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .titleSmall!
+                                                                  .copyWith(
+                                                                    color: Theme.of(context).brightness ==
+                                                                            Brightness
+                                                                                .dark
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Colors
+                                                                            .black,
+                                                                    fontSize: Platform
+                                                                            .isAndroid
+                                                                        ? size_12
+                                                                        : size_14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.transparent
+                                      : const Color(0xFFE1F4F4),
+                                  height: 10,
+                                )
+                              ],
+                            ),
+                            !iisSubscribed
+                                ? Container()
+                                : Positioned(
+                                    bottom: 0,
+                                    left:
+                                        MediaQuery.of(context).size.width * 0.3,
+                                    child: Container(
+                                      width: 150,
+                                      height: 25,
+                                      decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(5))),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            Images.alphaProfile,
+                                            height: 20,
+                                            width: 20,
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            "ALPHA Membership",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_10
+                                                      : size_12,
+                                                ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                            Container(
+                              height: 10,
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Divider(
+                                  color: Colors.transparent, height: size_20),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: size_10),
+                                child: Stack(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        InkWell(
+                                          highlightColor: Colors.transparent,
+                                          splashColor: Colors.transparent,
+                                          onTap: () {
+                                            Routes.navigateToOrderScreen(
+                                                context);
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.45,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .12,
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.overlayBG
+                                                  : Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? null
+                                                  : Border.all(
+                                                      color:
+                                                          colors.lightBorder),
+                                            ),
+                                            child: Stack(
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Image.asset(
+                                                                Images.order,
+                                                                height: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height *
+                                                                    .05,
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height *
+                                                                    .05,
+                                                                color: Theme.of(context)
+                                                                            .brightness ==
+                                                                        Brightness
+                                                                            .dark
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
+                                                              Text(
+                                                                "My Orders",
+                                                                style: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .titleSmall!
+                                                                    .copyWith(
+                                                                      color: Theme.of(context).brightness ==
+                                                                              Brightness
+                                                                                  .dark
+                                                                          ? Colors
+                                                                              .white
+                                                                          : Colors
+                                                                              .black,
+                                                                      fontSize: Platform
+                                                                              .isAndroid
+                                                                          ? size_12
+                                                                          : size_14,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: Visibility(
+                                                    visible: homeProvider
+                                                            .orderCount !=
+                                                        "0",
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 60.0,
+                                                              top: 15),
+                                                      child: Container(
+                                                        width: size_20,
+                                                        height: size_20,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.red,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                            homeProvider
+                                                                .orderCount,
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .titleSmall!
+                                                                .copyWith(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: Platform
+                                                                          .isAndroid
+                                                                      ? size_10
+                                                                      : size_12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          highlightColor: Colors.transparent,
+                                          splashColor: Colors.transparent,
+                                          onTap: () {
+                                            Routes.navigateToWishlistScreen(
+                                                context);
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.45,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .12,
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? colors.overlayBG
+                                                  : Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? null
+                                                  : Border.all(
+                                                      color:
+                                                          colors.lightBorder),
+                                            ),
+                                            child: Stack(
+                                              children: [
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Image.asset(
+                                                              Images.heart,
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  .05,
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  .05,
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                            Text(
+                                                              "My Wishlist",
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .titleSmall!
+                                                                  .copyWith(
+                                                                    color: Theme.of(context).brightness ==
+                                                                            Brightness
+                                                                                .dark
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Colors
+                                                                            .black,
+                                                                    fontSize: Platform
+                                                                            .isAndroid
+                                                                        ? size_12
+                                                                        : size_14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: Visibility(
+                                                    visible: homeProvider
+                                                            .wishlistCount !=
+                                                        "0",
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 60.0,
+                                                              top: 15),
+                                                      child: Container(
+                                                        width: size_20,
+                                                        height: size_20,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.red,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                            homeProvider
+                                                                .wishlistCount,
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .titleSmall!
+                                                                .copyWith(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: Platform
+                                                                          .isAndroid
+                                                                      ? size_10
+                                                                      : size_12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Divider(color: Colors.transparent, height: 5),
+                              SizedBox(
+                                height: 57 * profile.length.toDouble(),
+                                child: ListView.separated(
+                                  separatorBuilder: (context, index) => Divider(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Color(0xFF4A5054)
+                                        : Colors.grey,
+                                    height: 1,
+                                  ),
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: profile.length,
+                                  itemBuilder: (context, i) {
+                                    return InkWell(
+                                      highlightColor: Colors.transparent,
+                                      splashColor: Colors.transparent,
+                                      onTap: () {
+                                        if (profile[i]
+                                                .navigationScreen
+                                                .runtimeType ==
+                                            String) {
+                                          if (profile[i].profileText ==
+                                              "Logout") {
+                                            logOut(context);
+                                          } else {
+                                            deleteAccount(
+                                                context, homeProvider);
+                                          }
+                                        } else {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => profile[i]
+                                                    .navigationScreen),
+                                          );
+                                        }
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5),
+                                        child: ListTile(
+                                          leading: Image.asset(
+                                            profile[i].profileIcon,
+                                            height: 30,
+                                            width: 30,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                          ),
+                                          title: Text(
+                                            profile[i].profileText,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                    fontSize: Platform.isAndroid
+                                                        ? size_12
+                                                        : size_14),
+                                          ),
+                                          trailing: Icon(
+                                            Icons.arrow_forward_ios_rounded,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            size: 20,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       )
                     ],
                   ),
-                  Positioned(
-                    bottom: 0,
-                    left: MediaQuery.of(context).size.width * 0.3,
-                    child: Container(
-                      width: 150,
-                      height: 25,
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            Images.alphaProfile,
-                            height: 20,
-                            width: 20,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          const Text(
-                            "ALPHA Membership",
-                            style: TextStyle(color: Colors.black, fontSize: 12),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Routes.navigateToOrderScreen(context);
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              height: 100,
-                              color: colors.overlayBG,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(
-                                      width: 3,
-                                    ),
-                                    Container(
-                                      width: 20,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                        color: Colors.red,
-                                        borderRadius:
-                                            BorderRadius.circular(2.0),
-                                      ),
-                                      child: const Center(
-                                        child: Text(
-                                          "8",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            Images.order,
-                                            height: 50,
-                                            width: 50,
-                                          ),
-                                          const SizedBox(height: 8),
-                                          const Text(
-                                            "My Order",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Routes.navigateToWishlistScreen(context);
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              height: 100,
-                              color: colors.overlayBG,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(
-                                      width: 3,
-                                    ),
-                                    Container(
-                                      width: 20,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                        color: Colors.red,
-                                        borderRadius:
-                                            BorderRadius.circular(2.0),
-                                      ),
-                                      child: const Center(
-                                        child: Text(
-                                          "8",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            Images.heart,
-                                            height: 50,
-                                            width: 50,
-                                          ),
-                                          const SizedBox(height: 8),
-                                          const Text(
-                                            "My Wishlist",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      SizedBox(
-                        height: 57 * profile.length.toDouble(),
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: profile.length,
-                          itemBuilder: (context, i) {
-                            return InkWell(
-                              onTap: () {
-                                if (profile[i].navigationScreen.runtimeType ==
-                                    String) {
-                                  logOut(context);
-                                } else {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            profile[i].navigationScreen),
-                                  );
-                                }
-                              },
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: ListTile(
-                                      leading: Image.asset(
-                                        profile[i].profileIcon,
-                                        height: 30,
-                                        width: 30,
-                                      ),
-                                      title: Text(
-                                        profile[i].profileText,
-                                        style: const TextStyle(
-                                            color: Colors.white, fontSize: 14),
-                                      ),
-                                      trailing: const Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        color: Colors.white,
-                                        size: 20,
-                                      ),
-                                    ),
-                                  ),
-                                  const Divider(
-                                    color: Colors.white,
-                                    height: 1,
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
           ),
         )
       ],

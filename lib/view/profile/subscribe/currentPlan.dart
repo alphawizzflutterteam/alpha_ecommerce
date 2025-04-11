@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/color.dart';
 import '../../../utils/routes.dart';
@@ -40,21 +43,32 @@ class _CurrentPlanState extends State<CurrentPlan> {
                           Padding(
                             padding: const EdgeInsets.only(left: 20),
                             child: InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
                                 onTap: () {
                                   Routes.navigateToPreviousScreen(context);
                                 },
-                                child: const Icon(Icons.arrow_back_ios)),
+                                child: const Icon(
+                                  Icons.arrow_back_ios,
+                                  color: Colors.white,
+                                )),
                           ),
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.only(
                                   right:
                                       MediaQuery.of(context).size.width * 0.1),
-                              child: const Text(
+                              child: Text(
                                 "Subscription Plan",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Colors.white,
+                                        fontSize: Platform.isAndroid
+                                            ? size_18
+                                            : size_20),
                               ),
                             ),
                           ),
@@ -98,7 +112,7 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Column(
+                                      Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         crossAxisAlignment:
@@ -106,11 +120,16 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                         children: [
                                           Text(
                                             "PREMIUM",
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  fontSize: Platform.isAndroid
+                                                      ? size_18
+                                                      : size_20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
                                           ),
                                           SizedBox(
                                             height: 10,
@@ -118,34 +137,44 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                           Text.rich(
                                             TextSpan(
                                               text: '\$', // The dollar sign
-                                              style: TextStyle(
-                                                fontSize:
-                                                    18, // Adjust the size as needed
-                                                fontWeight: FontWeight.bold,
-                                                color: colors
-                                                    .lightTextColor, // Customize the color
-                                              ),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                    fontSize:
+                                                        18, // Adjust the size as needed
+                                                    fontWeight: FontWeight.bold,
+                                                    color: colors
+                                                        .lightTextColor, // Customize the color
+                                                  ),
                                               children: <TextSpan>[
                                                 TextSpan(
                                                   text: '9.99',
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        24, // Adjust the size as needed
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors
-                                                        .white, // Customize the color
-                                                  ),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                        fontSize:
+                                                            24, // Adjust the size as needed
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors
+                                                            .white, // Customize the color
+                                                      ),
                                                 ),
                                                 TextSpan(
                                                   text: ' / month',
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        18, // Adjust the size as needed
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    color: Colors
-                                                        .white, // Customize the color
-                                                  ),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                        fontSize:
+                                                            18, // Adjust the size as needed
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        color: Colors
+                                                            .white, // Customize the color
+                                                      ),
                                                 ),
                                               ],
                                             ),
@@ -165,16 +194,25 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                                 width: 3,
                                               ),
                                               InkWell(
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                splashColor: Colors.transparent,
                                                 onTap: () {
                                                   Routes
                                                       .navigateToCurrentPlanScreen(
                                                           context);
                                                 },
-                                                child: const Text(
+                                                child: Text(
                                                   'CURRENT PLAN',
-                                                  style: TextStyle(
-                                                      fontSize: 12,
-                                                      color: Colors.white),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                          fontSize:
+                                                              Platform.isAndroid
+                                                                  ? size_10
+                                                                  : size_12,
+                                                          color: Colors.white),
                                                 ),
                                               ),
                                             ],
@@ -191,7 +229,7 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                 ),
                                 const SizedBox(height: 15),
                                 for (int i = 0; i < 21; i++)
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.only(bottom: 5, top: 5),
                                     child: Row(
                                       children: [
@@ -203,9 +241,15 @@ class _CurrentPlanState extends State<CurrentPlan> {
                                         SizedBox(width: 10),
                                         Text(
                                           "Lorem Ipsum is simply dummy text",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Colors.white,
+                                                fontSize: Platform.isAndroid
+                                                    ? size_10
+                                                    : size_12,
+                                              ),
                                         ),
                                       ],
                                     ),

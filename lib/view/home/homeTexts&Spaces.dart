@@ -1,13 +1,20 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
 
-productForUText() {
+productForUText(BuildContext ctx) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 20),
     alignment: Alignment.centerLeft,
-    child: const Text(
+    child: Text(
       "Product for you",
-      style: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
+      style: Theme.of(ctx).textTheme.titleSmall!.copyWith(
+          fontWeight: FontWeight.bold,
+          fontSize: Platform.isAndroid ? size_14 : size_16,
+          color: Theme.of(ctx).brightness == Brightness.dark
+              ? Colors.white
+              : Colors.black),
     ),
   );
 }

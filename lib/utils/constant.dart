@@ -39,7 +39,8 @@ const int tokenExpireTime = 5;
 const String errorMessage = 'Something went wrong, Error : ';
 
 const String signIn1 = "Sign in to your account";
-const String signIn2 = "Lorem Ipsum is simply dummy text of the printing and typeselling industry";
+const String signIn2 =
+    "Unlock Your World: Seamless Access to Orders, Wishlist, and Tailored Recommendations";
 const String signIn3 = "Guest User";
 const String signIn4 = "Don't Have an account? ";
 const String signIn5 = "Already have an account? ";
@@ -55,13 +56,15 @@ const String otp3 = "Did't Received OTP? ";
 const String signUP1 = "Create your account";
 const String signUP2 = "Create an account to view and manage\nyour projects";
 
-const String term1 = "Lorem Ipsum is simply dummy text of the printing and typeselling industry";
-const String term2 = "Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry.Lorem Ipsum is simply dummy text of the printing and typeselling industry";
-const String term3 = "Lorem Ipsum is simply dummy text of the printing and typeselling industry";
-const String term4 = "Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. . Lorem Ipsum is simply dummy text of the printing and typeselling industry.";
+const String term1 =
+    "Lorem Ipsum is simply dummy text of the printing and typeselling industry";
+const String term2 =
+    "Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry.Lorem Ipsum is simply dummy text of the printing and typeselling industry";
+const String term3 =
+    "Lorem Ipsum is simply dummy text of the printing and typeselling industry";
+const String term4 =
+    "Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. Lorem Ipsum is simply dummy text of the printing and typeselling industry. . Lorem Ipsum is simply dummy text of the printing and typeselling industry.";
 
 const String changePassword1 = "Enter new password";
-const String changePassword2 = "Set your password your new password so you can access alpha e-commerce";
-
-
-
+const String changePassword2 =
+    "Set your password your new password so you can access alpha e-commerce";

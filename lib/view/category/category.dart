@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/utils.dart';
 import 'package:alpha_ecommerce_18oct/view/home/models/categoryModel.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
@@ -28,20 +31,30 @@ class _AllCategoryState extends State<AllCategory> {
   late SearchViewModel searchProvider;
 
   List<Childes> listItem = [];
+  bool isFirstTym = true;
 
   @override
   void initState() {
     super.initState();
     categoryProvider = Provider.of<CategoryViewModel>(context, listen: false);
     searchProvider = Provider.of<SearchViewModel>(context, listen: false);
+    searchProvider.clearFilters();
+    if (searchProvider.selectedIndexFromHome != 0) {
+      searchProvider.selectedIndex = searchProvider.selectedIndexFromHome;
+      searchProvider.selectedIndexFromHome = 0;
+    }
 
-    getCategory();
+    if (categoryProvider.data.isEmpty) {
+      getCategory();
+    }
   }
 
   Future<void> getCategory() async {
     await categoryProvider.getCategories(context);
     //listItem = categoryProvider.data[0].childes!;
-    searchText("");
+    setState(() {
+      searchText("");
+    });
   }
 
   void searchText(String text) {
@@ -83,335 +96,408 @@ class _AllCategoryState extends State<AllCategory> {
     categoryProvider = Provider.of<CategoryViewModel>(context);
     searchProvider = Provider.of<SearchViewModel>(context);
 
+    if (searchProvider.selectedIndexFromHome != null && isFirstTym) {
+      isFirstTym = false;
+      searchText("");
+    }
+
     return Stack(
       children: [
         const LightBackGround(),
-        categoryProvider.isLoading
-            ? appLoader()
-            : Scaffold(
-                resizeToAvoidBottomInset: false,
-                key: _scaffoldKey,
-                extendBody: true,
-                backgroundColor: Colors.transparent,
-                body: Column(
-                  children: [
-                    const Stack(
-                      children: [
-                        ProfileHeader(),
-                        DashboardHeader(),
-                      ],
-                    ),
-                    categoryProvider.isLoading
-                        ? appLoader()
-                        : Expanded(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 20),
-                                  const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 20),
-                                    child: Text(
-                                      "Explore Categories",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 30),
-                                  categoryProvider.isLoading
-                                      ? appLoader()
-                                      : Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Column(
+        RefreshIndicator(
+          color: colors.buttonColor,
+          backgroundColor: Colors.white,
+          displacement: 40.0,
+          strokeWidth: 2.0,
+          semanticsLabel: 'Pull to refresh',
+          semanticsValue: 'Refresh',
+          onRefresh: () async {
+            await Future.delayed(Duration(seconds: 2));
+            searchProvider.clearFilters();
+            if (searchProvider.selectedIndexFromHome != 0) {
+              searchProvider.selectedIndex =
+                  searchProvider.selectedIndexFromHome;
+              searchProvider.selectedIndexFromHome = 0;
+            }
+
+            getCategory();
+          },
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            key: _scaffoldKey,
+            extendBody: true,
+            backgroundColor: Theme.of(context).brightness == Brightness.dark
+                ? Colors.transparent
+                : Colors.white,
+            body: Column(
+              children: [
+                Container(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.transparent
+                      : colors.buttonColor,
+                  child:  Stack(
+                    children: [
+                      ProfileHeader(),
+                      DashboardHeader(),
+                    ],
+                  ),
+                ),
+                categoryProvider.isLoading
+                    ? appLoader()
+                    : Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Divider(height: 5, color: Colors.transparent),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: Text(
+                                "Explore Categories",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: Platform.isAndroid
+                                            ? size_18
+                                            : size_20,
+                                        fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Divider(
+                              color: Colors.transparent,
+                              height: 5,
+                            ),
+                            categoryProvider.isLoading
+                                ? appLoader()
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.68,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.32,
+                                        child: ListView.builder(
+                                          padding: EdgeInsets.zero,
+                                          physics:
+                                              const AlwaysScrollableScrollPhysics(),
+                                          itemCount:
+                                              categoryProvider.data.length,
+                                          itemBuilder: (context, i) {
+                                            return buildTabButton(
+                                                categoryProvider.data[i].name!,
+                                                searchProvider.selectedIndex ==
+                                                    i, () {
+                                              searchProvider.selectedIndex = i;
+                                              searchTextController.text = "";
+                                              searchProvider.categoryId =
+                                                  categoryProvider.data[i].id!
+                                                      .toString();
+
+                                              setState(() {
+                                                searchText("");
+                                              });
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      categoryProvider.data.isEmpty
+                                          ? Container()
+                                          : Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: [
                                                 SizedBox(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.7,
+                                                  height: 40,
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
-                                                      0.32,
+                                                      0.6,
+                                                  child: TextFormField(
+                                                    onChanged: (value) {
+                                                      searchText(value);
+                                                    },
+                                                    controller:
+                                                        searchTextController,
+                                                    decoration: InputDecoration(
+                                                      contentPadding:
+                                                          const EdgeInsets
+                                                              .symmetric(
+                                                              vertical: 5,
+                                                              horizontal: 10),
+                                                      fillColor: Theme.of(
+                                                                      context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? colors.textFieldBG
+                                                          : Colors.white,
+                                                      filled: true,
+                                                      hintText: 'Search',
+                                                      hintStyle: Theme.of(
+                                                              context)
+                                                          .textTheme
+                                                          .titleSmall!
+                                                          .copyWith(
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .dark
+                                                                ? Colors.white
+                                                                : Colors.black,
+                                                          ),
+                                                      prefixIcon: Icon(
+                                                        Icons.search,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                      ),
+                                                      focusedErrorBorder: OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          borderSide: BorderSide(
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                              width: 2)),
+                                                      enabledBorder:
+                                                          OutlineInputBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              borderSide:
+                                                                  const BorderSide(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      width:
+                                                                          1)),
+                                                      errorBorder: OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          borderSide:
+                                                              const BorderSide(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  width: 1)),
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              borderSide:
+                                                                  const BorderSide(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      width:
+                                                                          1)),
+                                                    ),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall!
+                                                        .copyWith(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                        ),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 20,
+                                                ),
+                                                SizedBox(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.6,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.6,
                                                   child: ListView.builder(
                                                     padding: EdgeInsets.zero,
+                                                    shrinkWrap: true,
                                                     physics:
-                                                        const AlwaysScrollableScrollPhysics(),
-                                                    itemCount: categoryProvider
-                                                        .data.length,
+                                                        const NeverScrollableScrollPhysics(),
+                                                    itemCount: 1,
                                                     itemBuilder: (context, i) {
-                                                      return buildTabButton(
-                                                          categoryProvider
-                                                              .data[i].name!,
-                                                          searchProvider
-                                                                  .selectedIndex ==
-                                                              i, () {
-                                                        searchProvider
-                                                            .selectedIndex = i;
-                                                        searchTextController
-                                                            .text = "";
-                                                        searchProvider
-                                                                .categoryId =
-                                                            categoryProvider
-                                                                .data[i].id!
-                                                                .toString();
+                                                      return SizedBox(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.65,
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              categoryProvider
+                                                                  .data[searchProvider
+                                                                      .selectedIndex]
+                                                                  .name!,
+                                                              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                                                  color: Theme.of(context)
+                                                                              .brightness ==
+                                                                          Brightness
+                                                                              .dark
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: Platform
+                                                                          .isAndroid
+                                                                      ? size_16
+                                                                      : size_18),
+                                                            ),
+                                                            const SizedBox(
+                                                                height: 10),
+                                                            SizedBox(
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  0.55,
+                                                              child: GridView
+                                                                  .builder(
+                                                                shrinkWrap:
+                                                                    true,
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .symmetric(
+                                                                        vertical:
+                                                                            20),
+                                                                physics:
+                                                                    const AlwaysScrollableScrollPhysics(),
+                                                                gridDelegate:
+                                                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                                                  crossAxisCount:
+                                                                      2,
+                                                                  mainAxisSpacing:
+                                                                      2,
+                                                                  childAspectRatio:
+                                                                      0.85,
+                                                                ),
+                                                                itemCount:
+                                                                    listItem
+                                                                        .length,
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        j) {
+                                                                  print(listItem
+                                                                      .length);
 
-                                                        setState(() {
-                                                          searchText("");
-                                                        });
-                                                      });
+                                                                  return categoryCard(
+                                                                      context:
+                                                                          context,
+                                                                      categoryIndex:
+                                                                          searchProvider
+                                                                              .selectedIndex,
+                                                                      categoryListIndex:
+                                                                          j,
+                                                                      model:
+                                                                          listItem[
+                                                                              j],
+                                                                      searchProvider:
+                                                                          searchProvider,
+                                                                      categoryId: categoryProvider
+                                                                          .data[searchProvider
+                                                                              .selectedIndex]
+                                                                          .id
+                                                                          .toString(),
+                                                                      isComingFromHome:
+                                                                          false);
+                                                                },
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      );
                                                     },
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                            const SizedBox(
-                                              width: 20,
-                                            ),
-                                            categoryProvider.data.isEmpty
-                                                ? Container()
-                                                : Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 40,
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.6,
-                                                        child: TextFormField(
-                                                          onChanged: (value) {
-                                                            searchText(value);
-                                                          },
-                                                          controller:
-                                                              searchTextController,
-                                                          decoration:
-                                                              InputDecoration(
-                                                            contentPadding:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                                    vertical: 5,
-                                                                    horizontal:
-                                                                        10),
-                                                            fillColor: colors
-                                                                .textFieldBG,
-                                                            filled: true,
-                                                            hintText: 'Search',
-                                                            hintStyle:
-                                                                const TextStyle(
-                                                                    color: Colors
-                                                                        .white),
-                                                            prefixIcon:
-                                                                const Icon(
-                                                              Icons.search,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                            focusedErrorBorder: OutlineInputBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                                borderSide:
-                                                                    const BorderSide(
-                                                                        color:
-                                                                            Colors
-                                                                                .grey,
-                                                                        width:
-                                                                            1)),
-                                                            enabledBorder: OutlineInputBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                                borderSide:
-                                                                    const BorderSide(
-                                                                        color:
-                                                                            Colors
-                                                                                .grey,
-                                                                        width:
-                                                                            1)),
-                                                            errorBorder: OutlineInputBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                                borderSide:
-                                                                    const BorderSide(
-                                                                        color:
-                                                                            Colors
-                                                                                .grey,
-                                                                        width:
-                                                                            1)),
-                                                            focusedBorder: OutlineInputBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                                borderSide:
-                                                                    const BorderSide(
-                                                                        color:
-                                                                            Colors
-                                                                                .grey,
-                                                                        width:
-                                                                            1)),
-                                                          ),
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      SizedBox(
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height *
-                                                            0.9,
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.6,
-                                                        child: ListView.builder(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          shrinkWrap: true,
-                                                          physics:
-                                                              const NeverScrollableScrollPhysics(),
-                                                          itemCount: 1,
-                                                          itemBuilder:
-                                                              (context, i) {
-                                                            return SizedBox(
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width *
-                                                                  0.6,
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    categoryProvider
-                                                                        .data[searchProvider
-                                                                            .selectedIndex]
-                                                                        .name!,
-                                                                    style: const TextStyle(
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
-                                                                        fontSize:
-                                                                            18),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                      height:
-                                                                          10),
-                                                                  SizedBox(
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .height *
-                                                                        0.55,
-                                                                    child: GridView
-                                                                        .builder(
-                                                                      shrinkWrap:
-                                                                          true,
-                                                                      padding: const EdgeInsets
-                                                                          .symmetric(
-                                                                          vertical:
-                                                                              20),
-                                                                      physics:
-                                                                          const AlwaysScrollableScrollPhysics(),
-                                                                      gridDelegate:
-                                                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                                                        crossAxisCount:
-                                                                            2,
-                                                                        mainAxisSpacing:
-                                                                            2,
-                                                                        childAspectRatio:
-                                                                            0.7,
-                                                                      ),
-                                                                      itemCount:
-                                                                          listItem
-                                                                              .length,
-                                                                      itemBuilder:
-                                                                          (context,
-                                                                              j) {
-                                                                        print(listItem
-                                                                            .length);
-                                                                        return categoryCard(
-                                                                            context:
-                                                                                context,
-                                                                            categoryIndex: searchProvider
-                                                                                .selectedIndex,
-                                                                            categoryListIndex:
-                                                                                j,
-                                                                            model: listItem[
-                                                                                j],
-                                                                            searchProvider:
-                                                                                searchProvider,
-                                                                            categoryId:
-                                                                                categoryProvider.data[searchProvider.selectedIndex].id.toString());
-                                                                      },
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                          ],
-                                        )
-                                ],
-                              ),
-                            ),
-                          ),
-                  ],
-                ),
-              ),
+                                    ],
+                                  )
+                          ],
+                        ),
+                      ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
 
   Widget buildTabButton(String label, bool isSelected, VoidCallback onPressed) {
     return Container(
-      color: colors.textFieldBG,
+      color: Theme.of(context).brightness == Brightness.dark
+          ? colors.textFieldBG
+          : Color(0xFFE3E1EC),
       width: MediaQuery.of(context).size.width * 0.35,
-      height: 55,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          primary: isSelected ? colors.buttonColor : Colors.transparent,
-        ),
-        child: Text(
-          label,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white),
+      height: 48,
+      child: GestureDetector(
+        onTap: onPressed,
+        child: Container(
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.only(left: 8),
+          decoration: BoxDecoration(
+            color: isSelected
+                ? colors.buttonColor
+                : Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : Color(0xFFE3E1EC),
+          ),
+          // style: ElevatedButton.styleFrom(
+          //   primary: isSelected ? colors.buttonColor : Color(0xFFE3E1EC),
+          //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          // ),
+          child: Text(
+            label,
+            textAlign: TextAlign.left,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: Platform.isAndroid ? size_10 : size_12,
+                color: isSelected
+                    ? Colors.white
+                    : Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black),
+          ),
         ),
       ),
     );

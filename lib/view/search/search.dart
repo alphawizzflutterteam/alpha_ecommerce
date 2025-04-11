@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/utils/theme.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/common_header.dart';
 import 'package:alpha_ecommerce_18oct/view/search/productsForYouCardSearch.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/categoryShuffle.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/common_header.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/filterShuffle.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/sortShuffle.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/categoryViewModel.dart';
@@ -18,7 +23,8 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 // import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class Search extends StatefulWidget {
-  const Search({Key? key}) : super(key: key);
+  final bool isComingForSearch;
+  const Search({Key? key, required this.isComingForSearch}) : super(key: key);
 
   @override
   State<Search> createState() => _SearchState();
@@ -30,7 +36,7 @@ class _SearchState extends State<Search> {
   late HomeViewModel homeProvider;
   late CategoryViewModel categoryProvider;
   late stt.SpeechToText _speech;
-  bool _isListening = false;
+  bool isListening = false;
   String _text = 'Press the button and start speaking';
 
   @override
@@ -40,16 +46,28 @@ class _SearchState extends State<Search> {
     homeProvider = Provider.of<HomeViewModel>(context, listen: false);
     categoryProvider = Provider.of<CategoryViewModel>(context, listen: false);
     _speech = stt.SpeechToText();
+    searchProvider.isHome = false;
+    if (widget.isComingForSearch) {
+      print("Search initiated");
+      searchProvider.clearFilters();
+    }
   }
 
   void _listen() async {
-    if (!_isListening) {
+    if (!isListening) {
       bool available = await _speech.initialize(
         onStatus: (status) {
           print('Status: $status');
+          _speech.stop();
+          isListening = !isListening;
+          setState(() {});
         },
         onError: (error) {
           print('Error: $error');
+          _speech.stop();
+          isListening = !isListening;
+
+          setState(() {});
         },
       );
 
@@ -64,20 +82,21 @@ class _SearchState extends State<Search> {
             setState(() {
               _text = result.recognizedWords;
               searchProvider.searchController.text = _text;
-              searchProvider.getProductsList(
-                  context, "25", "1", searchProvider.searchController.text);
+              searchProvider.getProductsListNew(context, "25", "1");
               print(_text);
+              setState(() {});
             });
           },
         );
       }
     } else {
       _speech.stop();
-      _isListening = !_isListening;
+      isListening = !isListening;
+      setState(() {});
     }
 
     setState(() {
-      _isListening = !_isListening;
+      isListening = !isListening;
     });
   }
 
@@ -87,273 +106,235 @@ class _SearchState extends State<Search> {
     homeProvider = Provider.of<HomeViewModel>(context);
     categoryProvider = Provider.of<CategoryViewModel>(context);
 
-    return Stack(
-      children: [
-        Align(
-          alignment: Alignment.topRight,
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            color: colors.darkBG,
-            child: Image.asset(
-              Images.bgGreenBottom,
-              fit: BoxFit.fitHeight,
-            ),
-          ),
-        ),
-        Scaffold(
-          resizeToAvoidBottomInset: false,
-          key: _scaffoldKey,
-          extendBody: true,
-          // bottomNavigationBar: searchProvider.searchResults.isEmpty
-          //     ? Container()
-          //     : Padding(
-          //         padding: const EdgeInsets.only(bottom: 8.0),
-          //         child: Row(
-          //           children: [
-          //   Container(
-          //     height: 50,
-          //     width: MediaQuery.of(context).size.width * 0.33,
-          //     color: colors.midBorder,
-          //     child: InkWell(
-          //       onTap: () {
-          //         homeFilter(context, homeProvider.filterModel);
-          //       },
-          //       child: Row(
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //         crossAxisAlignment: CrossAxisAlignment.center,
-          //         children: [
-          //           Image.asset(
-          //             Images.filter,
-          //             height: 20,
-          //             width: 20,
-          //           ),
-          //           const SizedBox(
-          //             width: 5,
-          //           ),
-          //           const Text(
-          //             'Filter',
-          //             style: TextStyle(
-          //                 color: Colors.white, fontSize: 16),
-          //           )
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          //   Container(
-          //     height: 50,
-          //     width: MediaQuery.of(context).size.width * 0.34,
-          //     decoration: const BoxDecoration(
-          //       color: colors.midBorder,
-          //       border: Border(
-          //         left: BorderSide(
-          //           color: colors.midBorder,
-          //         ),
-          //       ),
-          //     ),
-          //     child: InkWell(
-          //       onTap: () {
-          //         homeCategory(context);
-          //       },
-          //       child: Row(
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //         crossAxisAlignment: CrossAxisAlignment.center,
-          //         children: [
-          //           Image.asset(
-          //             Images.categoryWhite,
-          //             height: 20,
-          //             width: 20,
-          //           ),
-          //           const SizedBox(
-          //             width: 5,
-          //           ),
-          //           const Text(
-          //             'Category',
-          //             style: TextStyle(
-          //                 color: Colors.white, fontSize: 16),
-          //           )
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          //   Container(
-          //     height: 50,
-          //     width: MediaQuery.of(context).size.width * 0.33,
-          //     decoration: const BoxDecoration(
-          //       color: colors.midBorder,
-          //       border: Border(
-          //         left: BorderSide(
-          //           color: colors.midBorder,
-          //         ),
-          //       ),
-          //     ),
-          //     child: InkWell(
-          //       onTap: () {
-          //         homeSort(context);
-          //       },
-          //       child: Row(
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //         crossAxisAlignment: CrossAxisAlignment.center,
-          //         children: [
-          //           Image.asset(
-          //             Images.sort,
-          //             height: 20,
-          //             width: 20,
-          //           ),
-          //           const SizedBox(
-          //             width: 5,
-          //           ),
-          //           const Text(
-          //             'Sort',
-          //             style: TextStyle(
-          //                 color: Colors.white, fontSize: 16),
-          //           )
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ],
-          //         ),
-          //       ),
-          backgroundColor: Colors.transparent,
-          body: Column(
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  margin: const EdgeInsets.fromLTRB(20, 70, 20, 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        child: TextFormField(
-                          onChanged: (value) {
-                            searchProvider.getProductsList(context, "25", "1",
-                                searchProvider.searchController.text);
-                          },
-                          controller: searchProvider.searchController,
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 10),
-                            fillColor: colors.textFieldBG,
-                            filled: true,
-                            hintText: 'Search',
-                            hintStyle: const TextStyle(color: Colors.white),
-                            prefixIcon: const Icon(
-                              Icons.search,
-                              color: Colors.white,
-                            ),
-                            suffixIcon: InkWell(
-                              onTap: () {
-                                if (searchProvider.searchController.text ==
-                                    "") {
-                                  Routes.navigateToPreviousScreen(context);
-                                } else {
-                                  searchProvider.searchController.text = "";
-                                }
-                              },
-                              child: const Icon(
-                                Icons.clear,
-                                color: Colors.white,
-                              ),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                    color: colors.textFieldColor, width: 1)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                    color: colors.textFieldColor, width: 1)),
-                            errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                    color: colors.textFieldColor, width: 1)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                    color: colors.textFieldColor, width: 1)),
-                          ),
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      InkWell(
-                          onTap: () {
-                            //accessCamera(context);
-                          },
-                          child: Image.asset(
-                            Images.camera,
-                            height: 25,
-                            width: 25,
-                          )),
-                      InkWell(
-                        onTap: () {
-                          _listen();
-                        },
-                        child: _isListening
-                            ? Image.asset(
-                                "assets/images/microphone_gif.gif",
-                                height: 25,
-                                width: 25,
-                              )
-                            : Image.asset(
-                                Images.smallMic,
-                                height: 25,
-                                width: 25,
-                              ),
-                      )
-                    ],
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      key: _scaffoldKey,
+      extendBody: true,
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.transparent
+          : Colors.white,
+      body: Stack(
+        children: [
+          Theme.of(context).brightness == Brightness.dark
+              ? Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    color: colors.darkBG,
+                    child: Image.asset(
+                      Images.bgGreenBottom,
+                      fit: BoxFit.fitHeight,
+                    ),
                   ),
+                )
+              : Container(
+                  height: 0,
+                ),
+          Column(
+            children: [
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child:  Stack(
+                  children: [
+                    ProfileHeader(),
+                    InternalDetailPageHeader(
+                      text: "Search Product",
+                    ),
+                  ],
                 ),
               ),
-              searchProvider.searchResults.isEmpty
-                  ? Align(
-                      alignment: Alignment.center,
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              "assets/images/no-results.png",
-                              height: size_100,
+              Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          height: 40,
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          child: TextFormField(
+                            onChanged: (value) {
+                              searchProvider.getProductsListNew(
+                                context,
+                                "25",
+                                "1",
+                              );
+                            },
+                            controller: searchProvider.searchController,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 10),
+                              fillColor: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? colors.textFieldBG
+                                  : Colors.white,
+                              filled: true,
+                              hintText: 'Search',
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black),
+                              prefixIcon: Icon(Icons.search,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black),
+                              suffixIcon: InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                onTap: () {
+                                  searchProvider.searchController.text = "";
+                                  searchProvider.getProductsListNew(
+                                    context,
+                                    "25",
+                                    "1",
+                                  );
+                                },
+                                child: Icon(Icons.clear,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: const BorderSide(
+                                      color: colors.textFieldColor, width: 1)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: const BorderSide(
+                                      color: colors.textFieldColor, width: 1)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: const BorderSide(
+                                      color: colors.textFieldColor, width: 1)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: const BorderSide(
+                                      color: colors.textFieldColor, width: 1)),
                             ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                          ),
+                        ),
+                        // InkWell(
+                        // highlightColor: Colors.transparent,
+                        // splashColor: Colors.transparent,
+                        //     onTap: () {
+                        //       //accessCamera(context);
+                        //     },
+                        //     child: Image.asset(Images.camera,
+                        //         height: 25,
+                        //         width: 25,
+                        //         color: Theme.of(context).brightness ==
+                        //                 Brightness.dark
+                        //             ? Colors.white
+                        //             : Colors.black)),
+                        // isListening
+                        //     ? InkWell(
+                        //         highlightColor: Colors.transparent,
+                        //         splashColor: Colors.transparent,
+                        //         onTap: () {
+                        //           _speech.stop();
+                        //           isListening = false;
+                        //           setState(() {});
+                        //         },
+                        //         child: Image.asset(
+                        //           "assets/images/microphone_gif.gif",
+                        //           height: 25,
+                        //           width: 25,
+                        //         ),
+                        //       )
+                        //     : InkWell(
+                        //         highlightColor: Colors.transparent,
+                        //         splashColor: Colors.transparent,
+                        //         onTap: () {
+                        //           _listen();
+                        //         },
+                        //         child: Image.asset(Images.smallMic,
+                        //             height: 25,
+                        //             width: 25,
+                        //             color: Theme.of(context).brightness ==
+                        //                     Brightness.dark
+                        //                 ? Colors.white
+                        //                 : Colors.black),
+                        //       )
+                      ],
+                    ),
+                  ),
+                  searchProvider.searchResults.isEmpty
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              height: size_50,
+                            ),
+                            Image.asset("assets/images/no-results.png",
+                                height: size_80,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black),
                             const SizedBox(
                               height: size_10,
                             ),
-                            const Text(
+                            Text(
                               "No Result Found.",
-                              style: TextStyle(color: Colors.white),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black),
                             ),
                             const SizedBox(
                               height: size_5,
                             ),
-                            const Text(
+                            Text(
                               "Try searching with some other keyword",
-                              style: TextStyle(color: Colors.white),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black),
                             )
                           ],
-                        ),
-                      ),
-                    )
-                  : Container(),
-              searchProvider.isLoading
-                  ? appLoader()
-                  : Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Container(
+                        )
+                      : Container(height: 0),
+                  searchProvider.searchResults.isEmpty
+                      ? Container()
+                      : searchProvider.isLoading
+                          ? appLoader()
+                          : Container(
+                              height: MediaQuery.of(context).size.height * .73,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 20),
-                              // height: MediaQuery.of(context).size.height *
-                              //     0.5 *
-                              //     searchProvider.searchResults.length /
-                              //     2,
+                              // height: MediaQuery.of(context).size.height * 0.73,
                               child: GridView.builder(
                                 shrinkWrap: true,
                                 padding: EdgeInsets.zero,
-                                physics: const NeverScrollableScrollPhysics(),
+                                // physics: const NeverScrollableScrollPhysics(),
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
@@ -364,148 +345,187 @@ class _SearchState extends State<Search> {
                                   return productForYouCardSearch(
                                       searchProvider.searchResults[j],
                                       context,
-                                      homeProvider);
+                                      homeProvider,
+                                      searchProvider);
                                 },
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-              SizedBox(
-                height: 50,
-              )
+                ],
+              ),
             ],
           ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            height: 60,
-            decoration: const BoxDecoration(
-              color: colors.textFieldBG,
-              image: DecorationImage(
-                image: AssetImage(Images.bgTab),
-                fit: BoxFit.cover,
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 60,
+              decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? colors.textFieldBG
+                    : Colors.white,
+                // image: DecorationImage(
+                //   image: AssetImage(Images.bgTab),
+                //   fit: BoxFit.cover,
+                // ),
               ),
-            ),
-            child: Center(
-              child: Material(
-                child: InkWell(
-                  onTap: () {
-                    homeFilter(
-                        context, homeProvider.filterModel, searchProvider);
-                  },
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 60,
-                        width: MediaQuery.of(context).size.width * 0.33,
-                        color: colors.midBorder,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              Images.filter,
-                              height: 20,
-                              width: 20,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            const DefaultTextStyle(
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
-                              child: Text('Filter'),
-                            ),
-                          ],
+              child: Center(
+                child: Material(
+                  child: InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      homeFilter(context, homeProvider.filterModel,
+                          searchProvider, false);
+                    },
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 60,
+                          width: MediaQuery.of(context).size.width * 0.33,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colors.midBorder
+                              : colors.theme,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                Images.filter,
+                                height: 20,
+                                width: 20,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              DefaultTextStyle(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Colors.white,
+                                        fontSize: Platform.isAndroid
+                                            ? size_14
+                                            : size_16),
+                                child: Text('Filter'),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Material(
-                        child: InkWell(
-                          onTap: () {
-                            homeCategory(context, categoryProvider);
-                          },
-                          child: Container(
-                            height: 60,
-                            width: MediaQuery.of(context).size.width * 0.34,
-                            decoration: const BoxDecoration(
-                              color: colors.midBorder,
-                              border: Border(
-                                left: BorderSide(
-                                  color: colors.midBorder,
+                        Material(
+                          child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
+                            onTap: () {
+                              print(searchProvider.isHome.toString() +
+                                  "SEARCH INITIALISE CATEGORYY");
+                              homeCategory(context, categoryProvider,
+                                  searchProvider, searchProvider.isHome);
+                            },
+                            child: Container(
+                              height: 60,
+                              width: MediaQuery.of(context).size.width * 0.34,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.midBorder
+                                    : colors.theme,
+                                border: Border(
+                                  left: BorderSide(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.midBorder
+                                        : colors.theme,
+                                  ),
                                 ),
                               ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  Images.categoryWhite,
-                                  height: 20,
-                                  width: 20,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const DefaultTextStyle(
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                  child: Text('Category'),
-                                ),
-                              ],
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    Images.categoryWhite,
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  DefaultTextStyle(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color: Colors.white,
+                                            fontSize: Platform.isAndroid
+                                                ? size_14
+                                                : size_16),
+                                    child: Text('Category'),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Material(
-                        child: InkWell(
-                          onTap: () {
-                            homeSort(context);
-                          },
-                          child: Container(
-                            height: 60,
-                            width: MediaQuery.of(context).size.width * 0.33,
-                            decoration: const BoxDecoration(
-                              color: colors.midBorder,
-                              border: Border(
-                                left: BorderSide(
-                                  color: colors.midBorder,
+                        Material(
+                          child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
+                            onTap: () {
+                              homeSort(context, searchProvider);
+                            },
+                            child: Container(
+                              height: 60,
+                              width: MediaQuery.of(context).size.width * 0.33,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? colors.midBorder
+                                    : colors.theme,
+                                border: Border(
+                                  left: BorderSide(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? colors.midBorder
+                                        : colors.theme,
+                                  ),
                                 ),
                               ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  Images.sort,
-                                  height: 20,
-                                  width: 20,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const DefaultTextStyle(
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                  child: Text('Sort'),
-                                ),
-                              ],
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    Images.sort,
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  DefaultTextStyle(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color: Colors.white,
+                                            fontSize: Platform.isAndroid
+                                                ? size_14
+                                                : size_16),
+                                    child: Text('Sort'),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 
@@ -537,21 +557,23 @@ class _SearchState extends State<Search> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
+                  Text(
                     'Allow microphone',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Colors.white,
+                          fontSize: Platform.isAndroid ? size_18 : size_20,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
+                  Text(
                     'Lorem Ipsum is simply dummy text',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: colors.greyText, fontSize: 14),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: colors.greyText,
+                        fontSize: Platform.isAndroid ? size_14 : size_14),
                   ),
                   const SizedBox(
                     height: 20,
@@ -582,9 +604,15 @@ class _SearchState extends State<Search> {
                           onPressed: () {
                             Routes.navigateToPreviousScreen(context);
                           },
-                          child: const Text(
+                          child: Text(
                             'CANCEL',
-                            style: TextStyle(fontSize: 12),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  fontSize:
+                                      Platform.isAndroid ? size_10 : size_12,
+                                ),
                           ),
                         ),
                       ),
@@ -610,9 +638,15 @@ class _SearchState extends State<Search> {
                             await Permission.microphone.request();
                             Routes.navigateToPreviousScreen(context);
                           },
-                          child: const Text(
+                          child: Text(
                             'ALLOW',
-                            style: TextStyle(fontSize: 12),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  fontSize:
+                                      Platform.isAndroid ? size_10 : size_12,
+                                ),
                           ),
                         ),
                       ),

@@ -11,17 +11,18 @@ class Utils {
   static showFlushBarWithMessage(
       String title, String msg, BuildContext context) {
     Flushbar(
-      title: title,
+      // title: title,
       forwardAnimationCurve: Curves.decelerate,
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      padding: const EdgeInsets.all(10),
-      backgroundColor: colors.buttonColor,
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+      padding: const EdgeInsets.all(12),
+      backgroundColor: const Color.fromARGB(255, 23, 128, 128),
+      messageColor: Colors.white,
       flushbarPosition: FlushbarPosition.TOP,
       reverseAnimationCurve: Curves.easeOutSine,
       borderRadius: const BorderRadius.all(Radius.circular(8)),
       positionOffset: 20,
       message: msg,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 2),
     ).show(context);
   }
 }

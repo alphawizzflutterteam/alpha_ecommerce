@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
+import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/view/vendor/vendorCard.dart';
 import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/searchViewModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/vendorViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,71 +22,101 @@ class Vendor extends StatefulWidget {
 class _VendorState extends State<Vendor> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late VendorViewModel vendorProvider;
+  late SearchViewModel searchProvider;
 
   @override
   void initState() {
     super.initState();
     vendorProvider = Provider.of<VendorViewModel>(context, listen: false);
+    searchProvider = Provider.of<SearchViewModel>(context, listen: false);
+
     vendorProvider.getVendorListItem(context);
   }
 
   @override
   Widget build(BuildContext context) {
     vendorProvider = Provider.of<VendorViewModel>(context);
+    searchProvider = Provider.of<SearchViewModel>(context);
+    searchProvider.clearFilters();
 
     return Stack(
       children: [
         const LightBackGround(),
-        Scaffold(
-          resizeToAvoidBottomInset: false,
-          key: _scaffoldKey,
-          extendBody: true,
-          backgroundColor: Colors.transparent,
-          body: Column(
-            children: [
-              const Stack(
-                children: [
-                  ProfileHeader(),
-                  DashboardHeader(),
-                ],
-              ),
-              Expanded(
-                child: SingleChildScrollView(
+        RefreshIndicator(
+          color: colors.buttonColor,
+          backgroundColor: Colors.white,
+          displacement: 40.0,
+          strokeWidth: 2.0,
+          semanticsLabel: 'Pull to refresh',
+          semanticsValue: 'Refresh',
+          onRefresh: () async {
+            await Future.delayed(Duration(seconds: 2));
+            vendorProvider.getVendorListItem(
+              context,
+            );
+          },
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            key: _scaffoldKey,
+            extendBody: true,
+            backgroundColor: Theme.of(context).brightness == Brightness.dark
+                ? Colors.transparent
+                : Colors.white,
+            body: Column(
+              children: [
+                Container(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.transparent
+                      : colors.buttonColor,
+                  child:  Stack(
+                    children: [
+                      ProfileHeader(),
+                      DashboardHeader(),
+                    ],
+                  ),
+                ),
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 30),
-                      const Padding(
+                      Divider(color: Colors.transparent),
+                      Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
                           "Vendor List",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_16 : size_18,
+                                  fontWeight: FontWeight.bold),
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      vendorProvider.isLoading
-                          ? appLoader()
-                          : SizedBox(
-                              height: 120 * 10,
-                              child: ListView.builder(
+                      Divider(color: Colors.transparent, height: 5),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .65,
+                        child: vendorProvider.isLoading
+                            ? appLoader()
+                            : ListView.builder(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
                                 itemCount: vendorProvider.vendorModel.length,
                                 itemBuilder: (context, i) {
                                   var model = vendorProvider.vendorModel[i];
                                   return vendorCard(context, model);
                                 },
                               ),
-                            ),
+                      ),
                     ],
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         )
       ],

@@ -8,11 +8,12 @@ String? validateMobile(String? value) {
 }
 
 String? validateEmail(String? value) {
-  if (value == null || value.isEmpty) {
-    return 'Please enter valid email.';
-  }
+  final bool emailValid =
+      RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+              .hasMatch(value!) &&
+          !value.startsWith('.');
 
-  if (!value.contains('@') || !value.contains('.com')) {
+  if (!emailValid) {
     return 'Invalid email format.';
   }
   return null; // Validation passed
@@ -42,7 +43,7 @@ String? validatePassword(String? value) {
 
 String? validateName(String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter Something';
+    return 'Please enter valid name';
   }
   return null;
 }

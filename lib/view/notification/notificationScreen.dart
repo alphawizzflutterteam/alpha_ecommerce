@@ -1,5 +1,12 @@
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/view/notification/notificationCard.dart';
+import 'package:alpha_ecommerce_18oct/view/profile/common_header.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/appLoader.dart';
+import 'package:alpha_ecommerce_18oct/view/widget_common/common_header.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/homeViewModel.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/notificationViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/routes.dart';
 import '../../utils/images.dart';
@@ -13,77 +20,23 @@ class NotificationScreen extends StatefulWidget {
 
 class _NotificationScreenState extends State<NotificationScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late NotificationViewModel provider;
+  late HomeViewModel homeProvider;
 
-  List<Map<String, dynamic>> notifications = [
-    {
-      'image': Images.cart,
-      'text': 'Your order has been shipped',
-      'subText': "Lorem IPsum is simply dummy text",
-      'date': "09 May 2023"
-    },
-    {
-      'image': Images.discount,
-      'text': 'Big Sale T-shirts under \$399',
-      'subText':
-          "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-      'date': ""
-    },
-    {
-      'image': Images.cart,
-      'text': 'Your order has been shipped',
-      'subText': "Lorem IPsum is simply dummy text",
-      'date': "09 May 2023"
-    },
-    {
-      'image': Images.discount,
-      'text': 'Big Sale T-shirts under \$399',
-      'subText':
-          "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-      'date': ""
-    },
-    {
-      'image': Images.cart,
-      'text': 'Your order has been shipped',
-      'subText': "Lorem IPsum is simply dummy text",
-      'date': "09 May 2023"
-    },
-    {
-      'image': Images.discount,
-      'text': 'Big Sale T-shirts under \$399',
-      'subText':
-          "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-      'date': ""
-    },
-    {
-      'image': Images.cart,
-      'text': 'Your order has been shipped',
-      'subText': "Lorem IPsum is simply dummy text",
-      'date': "09 May 2023"
-    },
-    {
-      'image': Images.discount,
-      'text': 'Big Sale T-shirts under \$399',
-      'subText':
-          "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-      'date': ""
-    },
-    {
-      'image': Images.cart,
-      'text': 'Your order has been shipped',
-      'subText': "Lorem IPsum is simply dummy text",
-      'date': "09 May 2023"
-    },
-    {
-      'image': Images.discount,
-      'text': 'Big Sale T-shirts under \$399',
-      'subText':
-          "Lorem IPsum is simply dummy text. Lorem IPsum is simply dummy text",
-      'date': ""
-    },
-  ];
+  @override
+  void initState() {
+    super.initState();
+    provider = Provider.of<NotificationViewModel>(context, listen: false);
+    homeProvider = Provider.of<HomeViewModel>(context, listen: false);
+
+    provider.getNotificationlist(context);
+  }
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<NotificationViewModel>(context);
+    homeProvider = Provider.of<HomeViewModel>(context);
+
     return Stack(
       children: [
         Align(
@@ -102,63 +55,90 @@ class _NotificationScreenState extends State<NotificationScreen> {
           resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.transparent
+              : Colors.white,
           body: Column(
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  padding: const EdgeInsets.only(top: 35),
-                  height: 100,
-                  color: const Color(0x99183D3D),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: InkWell(
-                              onTap: () {
-                                Routes.navigateToPreviousScreen(context);
-                              },
-                              child: const Icon(Icons.arrow_back_ios)),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                right: MediaQuery.of(context).size.width * 0.1),
-                            child: const Text(
-                              "Notification",
-                              textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                          ),
-                        ),
-                      ],
+              Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.transparent
+                    : colors.buttonColor,
+                child: Stack(
+                  children: [
+                    const ProfileHeader(),
+                    const InternalPageHeader(
+                      text: "Notifications",
                     ),
-                  ),
+                  ],
                 ),
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 87 * notifications.length.toDouble(),
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: notifications.length,
-                          itemBuilder: (context, i) {
-                            return notificationCard(notifications[i]);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                child: provider.isLoading
+                    ? appLoader()
+                    : provider.notificationList.isEmpty
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 50,
+                                ),
+                                Image.asset(
+                                  'assets/images/notifications.png',
+                                  height: size_150,
+                                ),
+                                Text(
+                                  "No notifications yet.",
+                                  style: TextStyle(
+                                    color: colors.greyText,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        : SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    provider.markRead(context, "", "1");
+                                    homeProvider.getProfileAPI(
+                                      "",
+                                      context,
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: Text("Mark all as read",
+                                            style: TextStyle(
+                                              color: colors.greyText,
+                                            ))),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height - 150,
+                                  child: ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
+                                    itemCount: provider.notificationList.length,
+                                    itemBuilder: (context, i) {
+                                      return notificationCard(
+                                          provider.notificationList[i],
+                                          context,
+                                          provider);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
               ),
             ],
           ),

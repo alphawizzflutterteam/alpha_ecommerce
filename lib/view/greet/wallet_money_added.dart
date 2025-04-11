@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 import '../profile/setting/showRateUs.dart';
@@ -12,6 +16,14 @@ class WalletSuccess extends StatefulWidget {
 
 class _WalletSuccessState extends State<WalletSuccess> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 2), () {
+      Routes.navigateToDashboardScreen(context, 4);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +42,12 @@ class _WalletSuccessState extends State<WalletSuccess> {
           extendBody: true,
           backgroundColor: Colors.transparent,
           body: InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onTap: () {
               showAlertDialog(context);
             },
-            child: const Center(
+            child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,7 +63,7 @@ class _WalletSuccessState extends State<WalletSuccess> {
                     padding: EdgeInsets.all(5),
                     child: Text(
                       "Money added to wallet",
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold),
@@ -59,7 +73,7 @@ class _WalletSuccessState extends State<WalletSuccess> {
                     padding: EdgeInsets.all(5),
                     child: Text(
                       "successfully",
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold),
@@ -68,15 +82,19 @@ class _WalletSuccessState extends State<WalletSuccess> {
                   Padding(
                     padding: EdgeInsets.only(top: 10, bottom: 5),
                     child: Text(
-                      "Lorem Ipsum is simply dummy text of the",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      "",
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Colors.white,
+                          fontSize: Platform.isAndroid ? size_14 : size_16),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(5),
                     child: Text(
-                      "printing and typesetting industry",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      "",
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Colors.white,
+                          fontSize: Platform.isAndroid ? size_14 : size_16),
                     ),
                   )
                 ],

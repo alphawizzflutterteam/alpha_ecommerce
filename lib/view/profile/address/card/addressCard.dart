@@ -1,17 +1,16 @@
+import 'dart:io';
+
 import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/color.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:alpha_ecommerce_18oct/utils/shared_pref..dart';
 import 'package:alpha_ecommerce_18oct/view/profile/address/model/addressModel.dart';
-import 'package:alpha_ecommerce_18oct/view/wishlist/model/wishlistModel.dart';
 import 'package:alpha_ecommerce_18oct/viewModel/addressViewModel.dart';
-import 'package:alpha_ecommerce_18oct/viewModel/cartViewModel.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 addressItemCard(AddressList model, BuildContext context,
-    AddressViewModel provider, int index) {
+    AddressViewModel provider, int index, bool isComingForSelection) {
   void actionPopUpItemSelected(String value, int index) {
     // _scaffoldkey.currentState.hideCurrentSnackBar();
     if (value == 'edit') {
@@ -20,6 +19,15 @@ addressItemCard(AddressList model, BuildContext context,
       provider.deleteAddress(context, model.id.toString());
     } else {}
   }
+
+  try {
+    print(SharedPref.shared.pref?.getString(PrefKeys.billingAddressID));
+
+    provider.selectedId = int.parse(
+        SharedPref.shared.pref?.getString(PrefKeys.billingAddressID) ?? "0");
+
+    print(provider.selectedId.toString() + "skenf");
+  } catch (stacktrace) {}
 
   return Padding(
     padding: const EdgeInsets.all(12.0),
@@ -35,11 +43,14 @@ addressItemCard(AddressList model, BuildContext context,
             child: Row(
               children: [
                 Radio(
-                  activeColor: Colors.white,
+                  activeColor: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
                   value: model.id,
                   groupValue: provider.selectedId,
                   onChanged: (value) {
-                    provider.setselected(value!, model);
+                    provider.setselected(
+                        value!, model, isComingForSelection, context);
                   },
                 ),
                 SizedBox(
@@ -49,8 +60,12 @@ addressItemCard(AddressList model, BuildContext context,
                     children: [
                       Text(
                         model.contactPersonName,
-                        style: const TextStyle(
-                            color: Colors.white, fontSize: size_12),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                            fontSize: Platform.isAndroid ? size_10 : size_12),
                       ),
                       const SizedBox(
                         height: size_10,
@@ -61,8 +76,16 @@ addressItemCard(AddressList model, BuildContext context,
                           "${model.address}, ${model.address1}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: size_10),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize:
+                                      Platform.isAndroid ? size_8 : size_10),
                         ),
                       ),
                       const SizedBox(
@@ -70,8 +93,12 @@ addressItemCard(AddressList model, BuildContext context,
                       ),
                       Text(
                         model.phone,
-                        style: const TextStyle(
-                            color: Colors.white, fontSize: size_10),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                            fontSize: Platform.isAndroid ? size_8 : size_10),
                       )
                     ],
                   ),
@@ -85,25 +112,39 @@ addressItemCard(AddressList model, BuildContext context,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              color: colors.darkBG,
-              icon: const Icon(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? colors.darkBG
+                  : Colors.white,
+              icon: Icon(
                 Icons.more_vert,
-                color: Colors.white,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
               ),
               itemBuilder: (context) {
                 return [
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 'edit',
                     child: Text(
                       'Edit',
-                      style: TextStyle(color: Colors.white),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color:
+                                Theme.of(context).brightness != Brightness.dark
+                                    ? colors.darkBG
+                                    : Colors.white,
+                          ),
                     ),
                   ),
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 'delete',
                     child: Text(
                       'Delete',
-                      style: TextStyle(color: Colors.white),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color:
+                                Theme.of(context).brightness != Brightness.dark
+                                    ? colors.darkBG
+                                    : Colors.white,
+                          ),
                     ),
                   )
                 ];
@@ -117,7 +158,7 @@ addressItemCard(AddressList model, BuildContext context,
 }
 
 Column addressCardsRow(BuildContext context, List<AddressList> model,
-        AddressViewModel provider) =>
+        AddressViewModel provider, bool isComingForSelection) =>
     Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -125,8 +166,8 @@ Column addressCardsRow(BuildContext context, List<AddressList> model,
           child: Column(
             children: List.generate(
               model.length,
-              (index) =>
-                  addressItemCard(model[index], context, provider, index),
+              (index) => addressItemCard(
+                  model[index], context, provider, index, isComingForSelection),
             ),
           ),
         )

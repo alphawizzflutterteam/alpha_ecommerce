@@ -76,9 +76,9 @@
 //                                                 0.5,
 //                                             child: Text(
 //                                               model.,
-//                                               style: const TextStyle(
+//                                               style: Theme.of(context).textTheme.titleSmall!.copyWith(
 //                                                   color: Colors.white,
-//                                                   fontSize: 14),
+//                                                   fontSize: Platform.isAndroid ? size_14 : size_14),
 //                                             ),
 //                                           ),
 //                                           const SizedBox(
@@ -91,9 +91,10 @@
 //                                                 0.5,
 //                                             child: Text(
 //                                               orderItems[i]['subText'],
-//                                               style: const TextStyle(
+//                                               style: Theme.of(context).textTheme.titleSmall!.copyWith(
 //                                                   color: colors.greyText,
-//                                                   fontSize: 12),
+//                                                   fontSize:
+                             //       Platform.isAndroid ? size_10 : size_12,),
 //                                             ),
 //                                           ),
 //                                           const SizedBox(
@@ -117,10 +118,15 @@
 //                                             ),
 //                                             child: Text(
 //                                               orderItems[i]['status'],
-//                                               style: TextStyle(
+//                                               style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                      
 //                                                   color: getTextColor(
 //                                                       orderItems[i]['status']),
-//                                                   fontSize: 10),
+//                                                   fontSize:
+                                //    Platform.isAndroid ? size_8 : size_10,),
 //                                             ),
 //                                           ),
 //                                         ],

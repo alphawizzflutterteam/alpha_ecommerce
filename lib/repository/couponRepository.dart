@@ -10,6 +10,8 @@ class CouponRepository {
       'Authorization': 'Bearer $bearerToken',
     });
 
+    print(res.body);
+
     return couponModelFromJson(res.body);
   }
 }

@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
+import 'package:alpha_ecommerce_18oct/utils/routes.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
 
@@ -11,6 +15,14 @@ class PaySuccess extends StatefulWidget {
 
 class _PaySuccessState extends State<PaySuccess> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 3), () {
+      Routes.navigateToDashboardScreen(context, 2);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +40,7 @@ class _PaySuccessState extends State<PaySuccess> {
           key: _scaffoldKey,
           extendBody: true,
           backgroundColor: Colors.transparent,
-          body: const Center(
+          body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,7 +56,7 @@ class _PaySuccessState extends State<PaySuccess> {
                   padding: EdgeInsets.all(5),
                   child: Text(
                     "Order Placed Successfully",
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: Colors.white,
                         fontSize: 24,
                         fontWeight: FontWeight.bold),
@@ -53,15 +65,19 @@ class _PaySuccessState extends State<PaySuccess> {
                 Padding(
                   padding: EdgeInsets.all(5),
                   child: Text(
-                    "Lorem Ipsum is simply dummy text of the",
-                    style: TextStyle(color: colors.lightTextColor, fontSize: 16),
+                    "",
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: colors.lightTextColor,
+                        fontSize: Platform.isAndroid ? size_14 : size_16),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(5),
                   child: Text(
-                    "printing and typesetting industry",
-                    style: TextStyle(color: colors.lightTextColor, fontSize: 16),
+                    "",
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: colors.lightTextColor,
+                        fontSize: Platform.isAndroid ? size_14 : size_16),
                   ),
                 )
               ],

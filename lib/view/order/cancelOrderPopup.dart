@@ -1,10 +1,19 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:alpha_ecommerce_18oct/utils/images.dart';
 import 'package:alpha_ecommerce_18oct/utils/routes.dart';
+import 'package:alpha_ecommerce_18oct/viewModel/orderViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 
 class CancelOrderPopup extends StatefulWidget {
-  const CancelOrderPopup({super.key});
+  final String order_id;
+  final String reason;
+
+  const CancelOrderPopup(
+      {super.key, required this.order_id, required this.reason});
 
   @override
   _CancelOrderPopupState createState() => _CancelOrderPopupState();
@@ -14,10 +23,13 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
   double rating = 1;
   @override
   Widget build(BuildContext context) {
+    var pInstance = Provider.of<OrderViewModel>(context, listen: false);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
-        color: colors.overlayBG,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? colors.overlayBG
+            : Colors.white,
       ),
       height: 270,
       width: MediaQuery.of(context).size.width,
@@ -45,21 +57,24 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
           const SizedBox(
             height: 10,
           ),
-          const Text(
+          Text(
             'Are you sure?',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Colors.white,
+                  fontSize: Platform.isAndroid ? size_18 : size_20,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           const SizedBox(
             height: 10,
           ),
-          const Text(
-            'Are you sure, that you want to Cancel Order',
+          Text(
+            'Are you sure, that you want to Cancel Order?',
             textAlign: TextAlign.center,
-            style: TextStyle(color: colors.greyText),
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall!
+                .copyWith(color: colors.greyText),
           ),
           const SizedBox(
             height: 20,
@@ -68,7 +83,7 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.22,
+                width: MediaQuery.of(context).size.width * 0.25,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:
@@ -90,14 +105,16 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
                   onPressed: () {
                     Routes.navigateToPreviousScreen(context);
                   },
-                  child: const Text(
+                  child: Text(
                     'CANCEL',
-                    style: TextStyle(fontSize: 12),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        fontSize: Platform.isAndroid ? size_10 : size_12,
+                        color: Colors.white),
                   ),
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.34,
+                width: MediaQuery.of(context).size.width * 0.35,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:
@@ -110,17 +127,21 @@ class _CancelOrderPopupState extends State<CancelOrderPopup> {
                     }),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                   ),
-                  onPressed: () {
-                    Routes.navigateToPreviousScreen(context);
-                    Routes.navigateToOrderCancelledScreen(context);
+                  onPressed: () async {
+                    await pInstance.cancelOrder(
+                        order_id: widget.order_id,
+                        reason: widget.reason,
+                        context: context);
                   },
-                  child: const Text(
+                  child: Text(
                     'CANCEL ORDER',
-                    style: TextStyle(fontSize: 12),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        fontSize: Platform.isAndroid ? size_10 : size_11,
+                        color: Colors.white),
                   ),
                 ),
               ),

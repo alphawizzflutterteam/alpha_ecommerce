@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alpha_ecommerce_18oct/utils/app_dimens/app_dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../utils/color.dart';
@@ -10,7 +13,5 @@ Future<Future<bool?>> showToastMessage(text) async {
       timeInSecForIosWeb: 2,
       backgroundColor: colors.buttonColor,
       textColor: Colors.white,
-      fontSize: 16.0);
+      fontSize: Platform.isAndroid ? size_14 : size_16);
 }
-
-

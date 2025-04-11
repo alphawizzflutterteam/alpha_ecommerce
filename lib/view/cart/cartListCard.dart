@@ -19,6 +19,8 @@
 //           mainAxisAlignment: MainAxisAlignment.start,
 //           children: [
 //             InkWell(
+                      // highlightColor: Colors.transparent,
+                      // splashColor: Colors.transparent,
 //               onTap: () {
 //                 Routes.navigateToProductDetailPageScreen(context);
 //               },
@@ -33,13 +35,15 @@
 //               crossAxisAlignment: CrossAxisAlignment.start,
 //               children: [
 //                 InkWell(
+                      // highlightColor: Colors.transparent,
+                      // splashColor: Colors.transparent,
 //                   onTap: () {
 //                     Routes.navigateToProductDetailPageScreen(context);
 //                   },
 //                   child: Text(
 //                     cartList[widget.i].productName,
 //                     style:
-//                         const TextStyle(color: colors.textColor, fontSize: 14),
+//                         Theme.of(context).textTheme.titleSmall!.copyWith(color: colors.textColor, fontSize: Platform.isAndroid ? size_14 : size_14),
 //                   ),
 //                 ),
 //                 const SizedBox(
@@ -49,17 +53,17 @@
 //                   children: [
 //                     Text(
 //                       cartList[widget.i].productPrice,
-//                       style: const TextStyle(
-//                           color: colors.buttonColor, fontSize: 16),
+//                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
+//                           color: colors.buttonColor, Platform.isAndroid ? size_14 : size_16),
 //                     ),
 //                     Padding(
 //                       padding: const EdgeInsets.only(left: 10),
 //                       child: Text(
 //                         cartList[widget.i].productDiscount,
-//                         style: const TextStyle(
+//                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
 //                             decoration: TextDecoration.lineThrough,
 //                             color: colors.greyText,
-//                             fontSize: 14),
+//                             fontSize: Platform.isAndroid ? size_14 : size_14),
 //                       ),
 //                     ),
 //                   ],
@@ -69,7 +73,8 @@
 //                 ),
 //                 Text(
 //                   cartList[widget.i].productWeight,
-//                   style: const TextStyle(color: colors.greyText, fontSize: 12),
+//                   style: Theme.of(context).textTheme.titleSmall!.copyWith(color: colors.greyText, fontSize:
+             //                       Platform.isAndroid ? size_10 : size_12,),
 //                 ),
 //                 const SizedBox(
 //                   height: 10,
@@ -90,15 +95,20 @@
 //                     ),
 //                     hint: const Text(
 //                       'Qty 1',
-//                       style: TextStyle(fontSize: 14, color: colors.textColor),
+//                       style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                    //   fontSize: Platform.isAndroid ? size_14 : size_14, color: colors.textColor),
 //                     ),
 //                     items: quantity
 //                         .map((item) => DropdownMenuItem<String>(
 //                               value: item,
 //                               child: Text(
 //                                 item,
-//                                 style: const TextStyle(
-//                                     fontSize: 12, color: colors.textColor),
+//                                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
+//                                     fontSize:
+                         //           Platform.isAndroid ? size_10 : size_12,, color: colors.textColor),
 //                               ),
 //                             ))
 //                         .toList(),
@@ -150,7 +160,12 @@
 //                   border: Border.all(color: colors.boxBorder)),
 //               child: const Text(
 //                 "Save for later",
-//                 style: TextStyle(color: colors.textColor, fontSize: 12),
+//                 style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                    //   color: colors.textColor, fontSize:
+                     //               Platform.isAndroid ? size_10 : size_12,),
 //                 textAlign: TextAlign.center,
 //               ),
 //             ),
@@ -163,12 +178,19 @@
 //                   borderRadius: const BorderRadius.all(Radius.circular(5)),
 //                   border: Border.all(color: colors.boxBorder)),
 //               child: InkWell(
+                      // highlightColor: Colors.transparent,
+                      // splashColor: Colors.transparent,
 //                 onTap: () {
 //                   showToastMessage("Item remove from cart");
 //                 },
 //                 child: const Text(
 //                   "Remove from cart",
-//                   style: TextStyle(color: colors.textColor, fontSize: 12),
+//                   style: Theme.of(context)
+                                                    // .textTheme
+                                                    // .titleSmall!
+                                                    // .copyWith(
+                                                    //   color: colors.textColor, fontSize:
+                          //          Platform.isAndroid ? size_10 : size_12,),
 //                   textAlign: TextAlign.center,
 //                 ),
 //               ),
